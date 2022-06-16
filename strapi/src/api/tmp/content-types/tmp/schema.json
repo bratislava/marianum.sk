@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tmps",
+  "info": {
+    "singularName": "tmp",
+    "pluralName": "tmps",
+    "displayName": "tmp"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}

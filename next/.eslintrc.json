@@ -1,0 +1,14 @@
+{
+  "extends": ["auto"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@next/next/no-img-element": "off"
+      }
+    }
+  ],
+  "env": {
+    "jest": true
+  }
+}

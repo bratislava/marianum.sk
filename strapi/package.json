@@ -1,0 +1,33 @@
+{
+  "name": "marianum-strapi",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application",
+  "scripts": {
+    "develop": "strapi develop",
+    "dev": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "@strapi/plugin-graphql": "^4.2.0",
+    "@strapi/plugin-i18n": "4.3.0-beta.1",
+    "@strapi/plugin-users-permissions": "4.3.0-beta.1",
+    "@strapi/strapi": "4.3.0-beta.1",
+    "pg": "8.6.0",
+    "strapi-provider-upload-ts-minio": "^3.1.0"
+  },
+  "author": {
+    "name": "The City of Bratislava"
+  },
+  "strapi": {
+    "uuid": "02276e74-d45b-4f22-8469-68326d1ddda3"
+  },
+  "engines": {
+    "node": ">=12.x.x <=16.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}
