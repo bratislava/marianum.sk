@@ -1,5 +1,6 @@
 import { GraphQLClient } from 'graphql-request'
 import getConfig from 'next/config'
+
 import { getSdk } from '../graphql'
 
 export function isServer() {

@@ -1,7 +1,6 @@
-import type { NextPage } from 'next'
 import SectionExample from '../components/sections/SectionExample'
 
-const Home: NextPage = () => {
+function Home() {
   return (
     <>
       <div>Hello from new Marianum website!</div>
