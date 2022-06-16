@@ -1,6 +1,6 @@
 import MoleculeExample from '../molecules/MoleculeExample'
 
-const SectionExample = () => {
+function SectionExample() {
   return (
     <section>
       <MoleculeExample />
