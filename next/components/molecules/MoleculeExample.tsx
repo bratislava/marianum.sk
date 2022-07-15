@@ -1,6 +1,6 @@
 import AtomExample from '../atoms/AtomExample'
 
-function MoleculeExample() {
+const MoleculeExample = () => {
   return (
     <div className="flex flex-col">
       <AtomExample />

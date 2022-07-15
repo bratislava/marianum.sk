@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { GraphQLClient } from 'graphql-request'
 import getConfig from 'next/config'
 
@@ -12,7 +16,8 @@ const { serverRuntimeConfig } = getConfig()
 // URL becomes full url to strapi on server, but just /graphql (for proxy) on client
 const protocol =
   serverRuntimeConfig?.strapiUrl &&
-  (serverRuntimeConfig?.strapiUrl.startsWith('http://') || serverRuntimeConfig?.strapiUrl.startsWith('https://'))
+  (serverRuntimeConfig?.strapiUrl.startsWith('http://') ||
+    serverRuntimeConfig?.strapiUrl.startsWith('https://'))
     ? ''
     : 'http://'
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function AtomExample() {
+const AtomExample = () => {
   return <div>This is atom.</div>
 }
 
