@@ -1,16 +1,105 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
-    Helvetica Neue, sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* noto-sans-regular - latin-ext_latin */
+  @font-face {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''), url('/fonts/noto-sans-v27-latin-ext_latin-regular.woff2') format('woff2'),
+      url('/fonts/noto-sans-v27-latin-ext_latin-regular.woff') format('woff');
+  }
+  /* noto-sans-600 - latin-ext_latin */
+  @font-face {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 600;
+    src: local(''), url('/fonts/noto-sans-v27-latin-ext_latin-600.woff2') format('woff2'),
+      url('/fonts/noto-sans-v27-latin-ext_latin-600.woff') format('woff');
+  }
+  /* noto-sans-700 - latin-ext_latin */
+  @font-face {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: local(''), url('/fonts/noto-sans-v27-latin-ext_latin-700.woff2') format('woff2'),
+      url('/fonts/noto-sans-v27-latin-ext_latin-700.woff') format('woff');
+  }
+
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Noto Sans', sans-serif;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+:root {
+  --color-white: #ffffff;
+  --color-gray: #c4c4c4;
+  --color-black: #000000;
+  --color-brand-default: #446650;
+  --color-brand-hover: #365240;
+  --color-error: #ef4823;
+  --color-background-beige: #f5f4f2;
+  --color-background-dark: #2b2e2c;
+  --color-background-disabled: #e8e8e8;
+  --color-divider: #dddddd;
+  --color-divider-dark: #c1c0c0;
+  --color-alternative-default: #e0ddd5;
+  --color-alternative-hover: #cecbc4;
+  --color-text-default: #494e4a;
+  --color-text-placeholder: #999c9a;
+  --color-text-disabled: #b5b6b5;
+  --color-text-headline: #2b2e2c;
+
+  --font-size-small: 14px;
+  --font-size-default: 16px;
+  --font-size-large: 20px;
+  --line-height-small: 24px;
+  --line-height-default: 24px;
+  --line-height-large: 32px;
+
+  --font-size-h6: 16px;
+  --font-size-h5: 18px;
+  --font-size-h4: 20px;
+  --font-size-h3: 24px;
+  --font-size-h2: 28px;
+  --font-size-h1: 32px;
+  --line-height-h6: 24px;
+  --line-height-h5: 26px;
+  --line-height-h4: 28px;
+  --line-height-h3: 32px;
+  --line-height-h2: 36px;
+  --line-height-h1: 48px;
+
+  --font-size-button: 14px;
+  --line-height-button: 24px;
 }
 
-* {
-  box-sizing: border-box;
+@media (min-width: 1280px) {
+  :root {
+    --font-size-h6: 18px;
+    --font-size-h5: 20px;
+    --font-size-h4: 24px;
+    --font-size-h3: 28px;
+    --font-size-h2: 36px;
+    --font-size-h1: 48px;
+    --line-height-h6: 24px;
+    --line-height-h5: 28px;
+    --line-height-h4: 32px;
+    --line-height-h3: 36px;
+    --line-height-h2: 40px;
+    --line-height-h1: 56px;
+
+    --font-size-button: 16px;
+    --line-height-button: 24px;
+  }
 }
