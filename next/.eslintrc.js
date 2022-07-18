@@ -23,6 +23,11 @@ module.exports = {
     'eslint-comments/disable-enable-pair': 'off',
     /** Use official sorting */
     'tailwindcss/classnames-order': ['warn', { officialSorting: true }],
+    /** We specify default props in props decomposition */
+    'react/require-default-props': 'off',
+    /** Do not work in our case */
+    '@typescript-eslint/no-unsafe-assignment': 'off',
+    '@typescript-eslint/no-unsafe-call': 'off',
   },
   ignorePatterns: ['*.config.*', 'graphql', '.eslintrc.js'],
 }

@@ -7,12 +7,12 @@ const nextConfig = {
         // Graphql Proxy
         {
           source: '/graphql',
-          destination: `http://${process.env.STRAPI_URL}/graphql`,
+          destination: `${process.env.STRAPI_URL}/graphql`,
         },
         // Media proxy for getting media from Strapi
         {
           source: '/uploads/:file',
-          destination: `http://${process.env.STRAPI_URL}/uploads/:file`,
+          destination: `${process.env.STRAPI_URL}/uploads/:file`,
         },
       ],
     }
@@ -22,4 +22,18 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+module.exports = (phase, { defaultConfig }) => {
+  return {
+    ...defaultConfig,
+    ...nextConfig,
+    webpack(config) {
+      config.module.rules.push({
+        test: /\.svg$/,
+        issuer: /\.[jt]sx?$/,
+        use: ['@svgr/webpack'],
+      })
+
+      return config
+    },
+  }
+}
