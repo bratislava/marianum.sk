@@ -6,7 +6,7 @@ import ArrowRightIcon from '../../assets/arrow_forward.svg'
 import DownloadIcon from '../../assets/download.svg'
 import Button from '../../components/atoms/Button'
 import MLink from '../../components/atoms/MLink'
-import Row from '../../components/atoms/Row'
+import Row from '../../components/molecules/Row'
 
 interface IWrapperProps {
   title?: string

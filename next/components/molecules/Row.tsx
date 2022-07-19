@@ -4,9 +4,9 @@ import React from 'react'
 import ChevronRightIcon from '../../assets/chevron_right.svg'
 import OpenInNewIcon from '../../assets/open_in_new.svg'
 import PlaceIcon from '../../assets/place.svg'
-import Button from './Button'
-import IconButton from './IconButton'
-import MLink from './MLink'
+import Button from '../atoms/Button'
+import IconButton from '../atoms/IconButton'
+import MLink from '../atoms/MLink'
 
 interface IRowProps {
   title: string
