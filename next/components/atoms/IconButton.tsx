@@ -3,7 +3,7 @@ import cx from 'classnames'
 
 import MLink from './MLink'
 
-type ButtonProps = React.DetailedHTMLProps<
+type IconButtonProps = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
 > & {
@@ -17,40 +17,27 @@ type ButtonProps = React.DetailedHTMLProps<
     | 'plain-primary'
     | 'plain-secondary'
     | 'plain-white'
-    | 'circle'
   href?: string
 }
 
 const Button = ({
-  startIcon = null,
-  endIcon = null,
   children,
-  variant = 'primary',
+  variant = 'plain-primary',
   href,
   className,
   ...props
-}: ButtonProps) => {
+}: IconButtonProps) => {
   const style = cx(
-    'text-btn font-bold inline-flex items-center justify-center text-center align-middle space-x-2 fill-current focus:outline outline-offset-2 outline-1',
+    'p-2 rounded-full text-btn items-center justify-center text-center align-middle fill-current focus:outline outline-offset-2 outline-1',
     className,
     {
-      'px-6 py-2':
-        variant === 'primary' ||
-        variant === 'secondary' ||
-        variant === 'tertiary' ||
-        variant === 'white',
-      'px-2':
-        variant === 'plain-primary' || variant === 'plain-secondary' || variant === 'plain-white',
-      'p-2 rounded-full': variant === 'circle',
-
       // text color
       'text-white': variant === 'primary' || variant === 'plain-white',
       'text-primary hover:text-primaryDark':
         variant === 'secondary' ||
         variant === 'tertiary' ||
         variant === 'white' ||
-        variant === 'plain-primary' ||
-        variant === 'circle',
+        variant === 'plain-primary',
       'text-default hover:text-[#323532]': variant === 'plain-secondary',
       'hover:opacity-64': variant === 'plain-white',
 
@@ -59,26 +46,20 @@ const Button = ({
         variant === 'primary',
       'border border-primary hover:border-primaryDark': variant === 'secondary',
       'border border-alternative hover:border-alternativeDark': variant === 'tertiary',
-      'bg-white border border-white': variant === 'white',
-      'bg-white border border-borderDefault hover:border-borderDark': variant === 'circle',
+      'bg-white border border-borderDefault hover:border-borderDark': variant === 'white',
     },
   )
 
   if (href) {
     return (
-      <MLink href={href} noArrow noStyles className={style}>
-        {startIcon}
+      <MLink href={href} noStyles noArrow className={style}>
         <span>{children}</span>
-        {endIcon}
       </MLink>
     )
   }
-
   return (
     <button type="button" className={style} {...props}>
-      {startIcon}
       <span>{children}</span>
-      {endIcon}
     </button>
   )
 }

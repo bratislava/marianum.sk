@@ -12,6 +12,7 @@
     "lint:fix": "yarn lint --fix"
   },
   "dependencies": {
+    "@headlessui/react": "^1.6.6",
     "classnames": "^2.3.1",
     "graphql": "^16.5.0",
     "graphql-request": "^4.3.0",
