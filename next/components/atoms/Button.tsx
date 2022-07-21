@@ -45,22 +45,22 @@ const Button = ({
 
       // text color
       'text-white': variant === 'primary' || variant === 'plain-white',
-      'text-primary hover:text-primaryDark':
+      'text-primary hover:text-primary-dark':
         variant === 'secondary' ||
         variant === 'tertiary' ||
         variant === 'white' ||
         variant === 'plain-primary' ||
         variant === 'circle',
-      'text-default hover:text-[#323532]': variant === 'plain-secondary',
+      'text-foreground hover:text-[#323532]': variant === 'plain-secondary',
       'hover:opacity-64': variant === 'plain-white',
 
       // bg and border color
-      'bg-primary border border-primary hover:bg-primaryDark hover:border-primaryDark':
+      'bg-primary border border-primary hover:bg-primary-dark hover:border-primary-dark':
         variant === 'primary',
-      'border border-primary hover:border-primaryDark': variant === 'secondary',
-      'border border-alternative hover:border-alternativeDark': variant === 'tertiary',
+      'border border-primary hover:border-primary-dark': variant === 'secondary',
+      'border border-border-alt hover:border-border-alt-dark': variant === 'tertiary',
       'bg-white border border-white': variant === 'white',
-      'bg-white border border-borderDefault hover:border-borderDark': variant === 'circle',
+      'bg-white border border-border hover:border-border-dark': variant === 'circle',
     },
   )
 
