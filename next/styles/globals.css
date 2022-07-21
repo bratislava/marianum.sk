@@ -33,7 +33,7 @@
     padding: 0;
     margin: 0;
     font-family: 'Noto Sans', sans-serif;
-    color: var(--color-text-default);
+    color: var(--color-text-foreground);
   }
 
   h1,
@@ -53,24 +53,6 @@
 }
 
 :root {
-  --color-white: #ffffff;
-  --color-gray: #c4c4c4;
-  --color-black: #000000;
-  --color-brand-default: #446650;
-  --color-brand-hover: #365240;
-  --color-error: #ef4823;
-  --color-background-beige: #f5f4f2;
-  --color-background-dark: #2b2e2c;
-  --color-background-disabled: #e8e8e8;
-  --color-divider: #dddddd;
-  --color-divider-dark: #c1c0c0;
-  --color-alternative-default: #e0ddd5;
-  --color-alternative-hover: #cecbc4;
-  --color-text-default: #494e4a;
-  --color-text-placeholder: #999c9a;
-  --color-text-disabled: #b5b6b5;
-  --color-text-headline: #2b2e2c;
-
   --font-size-small: 14px;
   --font-size-default: 16px;
   --font-size-large: 20px;

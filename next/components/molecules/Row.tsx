@@ -34,19 +34,19 @@ const Row = ({
   arrowInCorner = false,
 }: IRowProps) => {
   return (
-    <div className="relative flex w-full items-center border border-borderDefault bg-white py-3 px-4 md:py-4 md:px-5">
+    <div className="relative flex w-full items-center border border-border bg-white py-3 px-4 md:py-4 md:px-5">
       <div className="grow space-y-1.5">
         {category && (
           <MLink
             href="#"
             noStyles
-            className="text-sm text-primary underline hover:text-primaryDark"
+            className="text-sm text-primary underline hover:text-primary-dark"
           >
             {category}
           </MLink>
         )}
 
-        <h5 className="text-h5 text-heading">{title}</h5>
+        <h5 className="text-h5 text-foreground-heading">{title}</h5>
 
         <div className="space-x-3 text-sm empty:hidden">
           {showUrl && link && (

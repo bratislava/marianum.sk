@@ -50,7 +50,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
             className={cx(
               'inline-flex items-center justify-center space-x-2 fill-current text-center align-middle text-md font-bold',
               {
-                'text-primary hover:text-primaryDark': variant === 'primary',
+                'text-primary hover:text-primary-dark': variant === 'primary',
                 'text-white hover:opacity-64': variant === 'white',
               },
             )}

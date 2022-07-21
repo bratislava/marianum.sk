@@ -33,7 +33,7 @@ export const Stack = ({ bg, width = null, direction = 'row', children }: IStackP
   return (
     <div
       className={cx('flex p-1 w-fit', {
-        'bg-primaryDark': bg === 'dark',
+        'bg-primary-dark': bg === 'dark',
         'w-[1128px]': width === 'desktop',
         'w-[288px]': width === 'mobile',
         'w-full': width === 'full',
