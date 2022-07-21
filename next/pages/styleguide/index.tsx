@@ -1,9 +1,10 @@
 import cx from 'classnames'
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import AddIcon from '../../assets/add.svg'
 import ArrowRightIcon from '../../assets/arrow_forward.svg'
 import DownloadIcon from '../../assets/download.svg'
+import Breadcrumbs from '../../components/atoms/Breadcrumbs'
 import Button from '../../components/atoms/Button'
 import MLink from '../../components/atoms/MLink'
 import Row from '../../components/molecules/Row'
@@ -47,8 +48,72 @@ export const Stack = ({ bg, width = null, direction = 'row', children }: IStackP
 }
 
 const Showcase = () => {
+  const dummyBreadcrumbLinks = useMemo(
+    () => [
+      {
+        label: <DownloadIcon />,
+        link: '#home',
+      },
+      {
+        label: 'very',
+        link: '#very',
+      },
+      {
+        label: 'looong',
+        link: '#looong',
+      },
+      {
+        label: 'path',
+        link: '#path',
+      },
+      {
+        label: 'to',
+        link: '#to',
+      },
+      {
+        label: 'some',
+        link: '#some',
+      },
+      {
+        label: 'page',
+        link: '#page',
+      },
+    ],
+    [],
+  )
+
   return (
-    <>
+    <div className="w-full overflow-hidden">
+      <Wrapper title="Breadcrumbs">
+        <Stack width="full" bg="white">
+          <Breadcrumbs>
+            <div>One item</div>
+          </Breadcrumbs>
+        </Stack>
+        <Stack width="full" bg="dark">
+          <Breadcrumbs className="text-white opacity-72">
+            <div>First item</div>
+            <div>Second item</div>
+          </Breadcrumbs>
+        </Stack>
+        <Stack width="full" bg="white">
+          <Breadcrumbs>
+            <div>First item</div>
+            <div>Second item</div>
+            <div>Third item</div>
+          </Breadcrumbs>
+        </Stack>
+        <Stack width="full" bg="dark">
+          <Breadcrumbs className="text-white opacity-72">
+            {dummyBreadcrumbLinks.map(({ label, link }) => (
+              <MLink key={link} href={link} noStyles className="underline">
+                {label}
+              </MLink>
+            ))}
+          </Breadcrumbs>
+        </Stack>
+      </Wrapper>
+
       <Wrapper title="Button">
         {/* primary */}
         <Stack>
@@ -183,7 +248,7 @@ const Showcase = () => {
           />
         </Stack>
       </Wrapper>
-    </>
+    </div>
   )
 }
 
