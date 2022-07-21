@@ -43,6 +43,10 @@ const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
   }, [height, fullHeight])
 
   useEffect(() => {
+    recalculateExpansion()
+  }, [recalculateExpansion])
+
+  useEffect(() => {
     if (fullHeight && previousFullHeight && previousFullHeight !== fullHeight) {
       recalculateExpansion()
     }
