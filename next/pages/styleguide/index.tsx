@@ -8,6 +8,7 @@ import SearchIcon from '../../assets/search.svg'
 import XIcon from '../../assets/x-alt.svg'
 import Button from '../../components/atoms/Button'
 import MLink from '../../components/atoms/MLink'
+import Select from '../../components/atoms/Select'
 import TextField from '../../components/atoms/TextField'
 import Row from '../../components/molecules/Row'
 import Search from '../../components/molecules/Search'
@@ -479,10 +480,61 @@ const Showcase = () => {
       </Wrapper>
 
       <Wrapper title="Search">
-        <Stack>
+        <Stack width="full">
+          {/* eslint-disable-next-line no-alert */}
           <Search placeholder="Search..." onSearch={(value) => alert(`Searching for: ${value}`)} />
         </Stack>
       </Wrapper>
+
+      <Wrapper title="Select">
+        <Stack width="full">
+          <Select
+            label="Project"
+            required
+            id="select"
+            placeholder="Select one project"
+            options={[
+              {
+                key: 'marianum',
+                label: '💀 Marianum',
+              },
+              {
+                key: 'city-library',
+                label: '📖 City library',
+              },
+              {
+                key: 'hompage',
+                label: '🟥 Hompage',
+              },
+            ]}
+          />
+        </Stack>
+        <Stack width="full">
+          <Select
+            label="Projects"
+            required
+            id="select"
+            multiple
+            placeholder="Select multiple projects"
+            options={[
+              {
+                key: 'marianum',
+                label: '💀 Marianum',
+              },
+              {
+                key: 'city-library',
+                label: '📖 City library',
+              },
+              {
+                key: 'hompage',
+                label: '🟥 Hompage',
+              },
+            ]}
+          />
+        </Stack>
+      </Wrapper>
+
+      <div className="h-64" />
     </>
   )
 }
