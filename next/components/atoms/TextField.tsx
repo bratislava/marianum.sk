@@ -1,57 +1,7 @@
 import cx from 'classnames'
 import { DetailedHTMLProps, InputHTMLAttributes, ReactNode } from 'react'
 
-type TextFieldWrapperProps = {
-  className?: string
-  leftSlot?: boolean
-  rightSlot?: boolean
-  disabled?: boolean
-  error?: boolean
-  children?: ReactNode
-  id: string
-  label?: string
-  required?: boolean
-}
-
-const TextFieldWrapper = ({
-  className,
-  leftSlot = false,
-  rightSlot = false,
-  children,
-  disabled = false,
-  error = false,
-  label,
-  id,
-  required = false,
-}: TextFieldWrapperProps) => {
-  return (
-    <div className="w-full">
-      <div className="flex gap-1 text-sm font-semibold">
-        {label && (
-          <label className="mb-1 block" htmlFor={id}>
-            {label}
-          </label>
-        )}
-        {required && <div className="text-error">*</div>}
-      </div>
-
-      <div
-        className={cx('flex border items-center w-full', className, {
-          'cursor-not-allowed select-none pointer-events-none': disabled,
-          'border-border hover:border-border-dark focus-within:border-border-dark bg-border bg-opacity-25 text-foreground-disabled':
-            disabled,
-          'border-error': error,
-          'border-border hover:border-border-dark focus-within:border-border-dark':
-            !error && !disabled,
-          'pl-1': leftSlot,
-          'pr-1': rightSlot,
-        })}
-      >
-        {children}
-      </div>
-    </div>
-  )
-}
+import FieldWrapper from './FieldWrapper'
 
 type AreaOrInputConditionalProps =
   // textarea props
@@ -90,7 +40,7 @@ const TextField = (props: TextFieldProps) => {
       ...rest
     } = props
     return (
-      <TextFieldWrapper
+      <FieldWrapper
         id={id}
         label={label}
         className={className}
@@ -110,7 +60,7 @@ const TextField = (props: TextFieldProps) => {
             },
           )}
         />
-      </TextFieldWrapper>
+      </FieldWrapper>
     )
   }
 
@@ -128,7 +78,7 @@ const TextField = (props: TextFieldProps) => {
   } = props
 
   return (
-    <TextFieldWrapper
+    <FieldWrapper
       id={id}
       label={label}
       className={className}
@@ -150,7 +100,7 @@ const TextField = (props: TextFieldProps) => {
         })}
       />
       {rightSlot && <div className="shrink-0 grow-0">{rightSlot}</div>}
-    </TextFieldWrapper>
+    </FieldWrapper>
   )
 }
 
