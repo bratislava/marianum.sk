@@ -10,6 +10,7 @@ import Button from '../../components/atoms/Button'
 import MLink from '../../components/atoms/MLink'
 import TextField from '../../components/atoms/TextField'
 import Row from '../../components/molecules/Row'
+import Search from '../../components/molecules/Search'
 
 interface IWrapperProps {
   title?: string
@@ -394,6 +395,33 @@ const Showcase = () => {
           <TextField id="area-error" area defaultValue="Input" error />
           <TextField id="area-disabled" area disabled defaultValue="Input" />
         </Stack>
+
+        <Stack width="full">
+          <TextField required label="Label" id="area-label-required" area placeholder="Input" />
+          <TextField
+            required
+            label="Label"
+            id="area-label-required-with-text"
+            area
+            defaultValue="Input"
+          />
+          <TextField
+            required
+            label="Label"
+            id="area-label-required-error"
+            area
+            defaultValue="Input"
+            error
+          />
+          <TextField
+            required
+            label="Label"
+            id="area-label-required-disabled"
+            area
+            disabled
+            defaultValue="Input"
+          />
+        </Stack>
       </Wrapper>
 
       <Wrapper title="Link">
@@ -447,6 +475,12 @@ const Showcase = () => {
               </div>
             }
           />
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Search">
+        <Stack>
+          <Search placeholder="Search..." onSearch={(value) => alert(`Searching for: ${value}`)} />
         </Stack>
       </Wrapper>
     </>
