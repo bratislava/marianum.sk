@@ -38,10 +38,10 @@ const FieldWrapper = ({
       <div
         className={cx('flex border items-center w-full', className, {
           'cursor-not-allowed select-none pointer-events-none': disabled,
-          'border-border hover:border-border-dark focus-within:border-border-dark bg-border bg-opacity-25 text-foreground-disabled':
+          'border-border hover:border-border-dark group-focus:border-border-dark focus-within:border-border-dark bg-border bg-opacity-25 text-foreground-disabled':
             disabled,
           'border-error': error,
-          'border-border hover:border-border-dark focus-within:border-border-dark':
+          'border-border hover:border-border-dark group-focus:border-border-dark focus-within:border-border-dark':
             !error && !disabled,
           'pl-1': leftSlot,
           'pr-1': rightSlot,

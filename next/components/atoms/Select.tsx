@@ -67,7 +67,7 @@ const Select = ({
       onChange={changeHandler}
       multiple={multiple}
     >
-      <Listbox.Button as="div" className="w-full flex">
+      <Listbox.Button as="button" className="group flex w-full outline-none">
         {({ open }) => (
           <FieldWrapper
             error={error}
@@ -105,7 +105,7 @@ const Select = ({
         style={styles.popper}
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         {...attributes.popper}
-        className={cx('outline-none w-full flex-col border border-border bg-white')}
+        className={cx('outline-none z-20 w-full flex-col border border-border bg-white')}
       >
         {options.map((option) => (
           <Listbox.Option as="div" key={option.key} value={option}>
