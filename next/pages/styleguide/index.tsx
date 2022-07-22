@@ -4,8 +4,11 @@ import React from 'react'
 import AddIcon from '../../assets/add.svg'
 import ArrowRightIcon from '../../assets/arrow_forward.svg'
 import DownloadIcon from '../../assets/download.svg'
+import SearchIcon from '../../assets/search.svg'
+import XIcon from '../../assets/x-alt.svg'
 import Button from '../../components/atoms/Button'
 import MLink from '../../components/atoms/MLink'
+import TextField from '../../components/atoms/TextField'
 import Row from '../../components/molecules/Row'
 
 interface IWrapperProps {
@@ -127,6 +130,269 @@ const Showcase = () => {
           <Button variant="circle">
             <ArrowRightIcon />
           </Button>
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="TextField">
+        <Stack width="full">
+          <TextField id="deafault" placeholder="Input" />
+          <TextField
+            id="deafault-left-icon"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            id="deafault-right-icon"
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            id="deafault-both-icons"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+        </Stack>
+
+        <Stack width="full">
+          <TextField id="with-text" defaultValue="Input" placeholder="Input" />
+          <TextField
+            id="with-text-left-icon"
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            id="with-text-right-icon"
+            defaultValue="Input"
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            id="with-text-both-icons"
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+        </Stack>
+
+        <Stack width="full">
+          <TextField id="error" error defaultValue="Input" placeholder="Input" />
+          <TextField
+            id="error-left-icon"
+            error
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            id="error-right-icon"
+            error
+            defaultValue="Input"
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            id="error-both-icons"
+            error
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+        </Stack>
+
+        <Stack width="full">
+          <TextField id="disabled" disabled defaultValue="Input" placeholder="Input" />
+          <TextField
+            id="disabled-left-icon"
+            disabled
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            id="disabled-right-icon"
+            disabled
+            defaultValue="Input"
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            id="disabled-both-icons"
+            disabled
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+        </Stack>
+
+        <Stack width="full">
+          <TextField label="Label" id="with-label" defaultValue="Input" placeholder="Input" />
+          <TextField
+            label="Label"
+            id="with-label-left-icon"
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            label="Label"
+            id="with-label-right-icon"
+            defaultValue="Input"
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            label="Label"
+            id="with-label-both-icons"
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+        </Stack>
+
+        <Stack width="full">
+          <TextField
+            required
+            label="Label"
+            id="with-label-required"
+            defaultValue="Input"
+            placeholder="Input"
+          />
+          <TextField
+            required
+            label="Label"
+            id="with-label-required-left-icon"
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            required
+            label="Label"
+            id="with-label-required-right-icon"
+            defaultValue="Input"
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            required
+            label="Label"
+            id="with-label-required-both-icons"
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="TextField (area)">
+        <Stack width="full">
+          <TextField id="area" area placeholder="Input" />
+          <TextField id="area-with-text" area defaultValue="Input" />
+          <TextField id="area-error" area defaultValue="Input" error />
+          <TextField id="area-disabled" area disabled defaultValue="Input" />
         </Stack>
       </Wrapper>
 
