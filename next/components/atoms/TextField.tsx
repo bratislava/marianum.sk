@@ -25,8 +25,8 @@ const TextFieldWrapper = ({
   required = false,
 }: TextFieldWrapperProps) => {
   return (
-    <div>
-      <div className="flex text-sm gap-1 font-semibold">
+    <div className="w-full">
+      <div className="flex gap-1 text-sm font-semibold">
         {label && (
           <label className="mb-1 block" htmlFor={id}>
             {label}
@@ -76,10 +76,19 @@ type CommonProps = {
 type TextFieldProps = CommonProps & AreaOrInputConditionalProps
 
 const TextField = (props: TextFieldProps) => {
-  const { id, area, label, disabled = false, error = false, required = false } = props
-
-  if (area) {
-    const { className, rows = 6, ...rest } = props
+  // eslint-disable-next-line react/destructuring-assignment
+  if (props.area) {
+    const {
+      id,
+      area,
+      rows = 6,
+      label,
+      className,
+      disabled = false,
+      error = false,
+      required = false,
+      ...rest
+    } = props
     return (
       <TextFieldWrapper
         id={id}
@@ -93,6 +102,7 @@ const TextField = (props: TextFieldProps) => {
           {...rest}
           rows={rows}
           disabled={disabled}
+          required={required}
           className={cx(
             'px-4 resize-y min-h-10 py-[6px] w-full outline-none placeholder:text-foreground-placeholder',
             {
@@ -104,7 +114,19 @@ const TextField = (props: TextFieldProps) => {
     )
   }
 
-  const { className, leftSlot = null, rightSlot = null, ...rest } = props
+  const {
+    id,
+    area,
+    leftSlot = null,
+    rightSlot = null,
+    label,
+    className,
+    disabled = false,
+    error = false,
+    required = false,
+    ...rest
+  } = props
+
   return (
     <TextFieldWrapper
       id={id}
@@ -120,6 +142,7 @@ const TextField = (props: TextFieldProps) => {
       <input
         {...rest}
         disabled={disabled}
+        required={required}
         className={cx('h-10 w-full outline-none placeholder:text-foreground-placeholder', {
           'text-foreground-disabled': disabled,
           'pl-4': !leftSlot,
