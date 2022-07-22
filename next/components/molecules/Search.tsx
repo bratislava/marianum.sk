@@ -62,9 +62,11 @@ const Search = ({
         </button>
       }
       rightSlot={
-        <button onClick={clearHandler} type="button" className="p-2">
-          <XIcon />
-        </button>
+        realValue ? (
+          <button onClick={clearHandler} type="button" className="p-2">
+            <XIcon />
+          </button>
+        ) : null
       }
     />
   )
