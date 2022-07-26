@@ -82,8 +82,8 @@ const TextField = (props: TextFieldProps) => {
       id={id}
       label={label}
       className={className}
-      leftSlot={!!leftSlot}
-      rightSlot={!!rightSlot}
+      hasLeftSlot={!!leftSlot}
+      hasRightSlot={!!rightSlot}
       disabled={disabled}
       error={error}
       required={required}
