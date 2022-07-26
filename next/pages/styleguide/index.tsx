@@ -4,10 +4,10 @@ import React from 'react'
 import AddIcon from '../../assets/add.svg'
 import ArrowRightIcon from '../../assets/arrow_forward.svg'
 import DownloadIcon from '../../assets/download.svg'
-import Accordion from '../../components/atoms/Accordion/Accordion'
-import AccordionItem from '../../components/atoms/Accordion/AccordionItem'
 import Button from '../../components/atoms/Button'
 import MLink from '../../components/atoms/MLink'
+import Accordion from '../../components/molecules/Accordion/Accordion'
+import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
 import Row from '../../components/molecules/Row'
 
 interface IWrapperProps {

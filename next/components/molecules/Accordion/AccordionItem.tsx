@@ -15,9 +15,9 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
       {({ open }) => {
         return (
           <div className="flex w-full flex-col border border-border bg-white">
-            <Disclosure.Button className="flex w-full items-center justify-between gap-4 p-4 text-left text-h5 font-bold sm:p-5 md:p-6">
+            <Disclosure.Button className="flex w-full justify-between gap-4 p-4 text-left text-h5 font-bold sm:p-5 md:p-6">
               <div
-                className={cx('overflow-hidden text-ellipsis', {
+                className={cx('overflow-hidden text-ellipsis py-[3px]', {
                   truncate: !open,
                 })}
               >
@@ -25,7 +25,9 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
               </div>
               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border bg-white">
                 <ChevronDown
-                  className={cx('transform transition-transform', { 'rotate-180': open })}
+                  className={cx('transform transition-transform text-primary', {
+                    'rotate-180': open,
+                  })}
                 />
               </div>
             </Disclosure.Button>
