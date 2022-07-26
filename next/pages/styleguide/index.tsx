@@ -6,6 +6,8 @@ import ArrowRightIcon from '../../assets/arrow_forward.svg'
 import DownloadIcon from '../../assets/download.svg'
 import Button from '../../components/atoms/Button'
 import MLink from '../../components/atoms/MLink'
+import Tab from '../../components/atoms/Tabs/Tab'
+import Tabs from '../../components/atoms/Tabs/Tabs'
 import Row from '../../components/molecules/Row'
 
 interface IWrapperProps {
@@ -181,6 +183,16 @@ const Showcase = () => {
               </div>
             }
           />
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Tabs">
+        <Stack width="full">
+          <Tabs>
+            <Tab label="Tab 1">Tab 1 content</Tab>
+            <Tab label="Tab 2">Tab 2 content</Tab>
+            <Tab label="Tab 3">Tab 3 content</Tab>
+          </Tabs>
         </Stack>
       </Wrapper>
     </>
