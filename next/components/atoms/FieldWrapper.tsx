@@ -3,8 +3,8 @@ import { ReactNode } from 'react'
 
 type FieldWrapperProps = {
   className?: string
-  leftSlot?: boolean
-  rightSlot?: boolean
+  hasLeftSlot?: boolean
+  hasRightSlot?: boolean
   disabled?: boolean
   error?: boolean
   children?: ReactNode
@@ -15,8 +15,8 @@ type FieldWrapperProps = {
 
 const FieldWrapper = ({
   className,
-  leftSlot = false,
-  rightSlot = false,
+  hasLeftSlot = false,
+  hasRightSlot = false,
   children,
   disabled = false,
   error = false,
@@ -32,7 +32,7 @@ const FieldWrapper = ({
             {label}
           </label>
         )}
-        {required && <div className="text-error">*</div>}
+        {required && <span className="text-error">*</span>}
       </div>
 
       <div
@@ -43,8 +43,8 @@ const FieldWrapper = ({
           'border-error': error,
           'border-border hover:border-border-dark group-focus:border-border-dark focus-within:border-border-dark':
             !error && !disabled,
-          'pl-1': leftSlot,
-          'pr-1': rightSlot,
+          'pl-1': hasLeftSlot,
+          'pr-1': hasRightSlot,
         })}
       >
         {children}
