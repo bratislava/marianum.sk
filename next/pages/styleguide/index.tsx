@@ -6,6 +6,8 @@ import ArrowRightIcon from '../../assets/arrow_forward.svg'
 import DownloadIcon from '../../assets/download.svg'
 import Button from '../../components/atoms/Button'
 import MLink from '../../components/atoms/MLink'
+import Accordion from '../../components/molecules/Accordion/Accordion'
+import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
 import Row from '../../components/molecules/Row'
 
 interface IWrapperProps {
@@ -49,6 +51,28 @@ export const Stack = ({ bg, width = null, direction = 'row', children }: IStackP
 const Showcase = () => {
   return (
     <>
+      <Wrapper title="Accordion">
+        <Stack width="full">
+          <Accordion>
+            <AccordionItem title="Accordion">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quis nobis quia
+              corporis officiis dolorem quisquam quam sint! Et in libero, nihil magni amet quasi
+              doloribus commodi repellat optio quibusdam!
+            </AccordionItem>
+            <AccordionItem title="Second accordion">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quis nobis quia
+              corporis officiis dolorem quisquam quam sint! Et in libero, nihil magni amet quasi
+              doloribus commodi repellat optio quibusdam!
+            </AccordionItem>
+            <AccordionItem title="Third accordion with very long title to test behaviour when there is a very long title :)">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quis nobis quia
+              corporis officiis dolorem quisquam quam sint! Et in libero, nihil magni amet quasi
+              doloribus commodi repellat optio quibusdam!
+            </AccordionItem>
+          </Accordion>
+        </Stack>
+      </Wrapper>
+
       <Wrapper title="Button">
         {/* primary */}
         <Stack>
