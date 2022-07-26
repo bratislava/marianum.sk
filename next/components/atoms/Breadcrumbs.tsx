@@ -3,7 +3,6 @@ import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 
 import ChevronDown from '../../assets/chevron_down.svg'
-import ChevronRight from '../../assets/chevron_right.svg'
 import { usePrevious } from '../../utils/hooks'
 
 export type BreadcrumbsProps = {
@@ -21,8 +20,8 @@ const Breadcrumb = ({
   return (
     <div className="flex gap-1">
       {!noChevron && (
-        <div>
-          <ChevronRight />
+        <div className="-rotate-90 pt-[2px]">
+          <ChevronDown />
         </div>
       )}
       <div className="whitespace-nowrap">{children}</div>
@@ -75,7 +74,7 @@ const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
 
   const hiddenItems = useMemo(
     () => (
-      <div className="flex px-3 pb-4 flex-col gap-2">
+      <div className="flex flex-col gap-2 px-3 pb-4">
         {Array.isArray(children) &&
           children.slice(1, -1).map((child, index) => (
             // eslint-disable-next-line react/no-array-index-key
@@ -96,19 +95,20 @@ const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
         ) : (
           <div className="flex w-full flex-col">
             <div className="flex w-full items-center justify-between">
-              <div className="flex items-center gap-1 p-4">
+              <div className="rotate flex items-center gap-1 p-4">
                 {/* first child */}
                 {breadcrumbedChildren[0]}
                 {/* ... */}
-                <div className="flex gap-1">
-                  <ChevronRight />
-                  <span>...</span>
-                </div>
+                <Breadcrumb>...</Breadcrumb>
                 {/* last child */}
                 {breadcrumbedChildren[breadcrumbedChildren.length - 1]}
               </div>
               <button className="p-4" type="button" onClick={() => setOpen((o) => !o)}>
-                <div className={cx('transform transition-transform', { 'rotate-180': isOpen })}>
+                <div
+                  className={cx('transform transition-transform', {
+                    'rotate-180': isOpen,
+                  })}
+                >
                   <ChevronDown />
                 </div>
               </button>
