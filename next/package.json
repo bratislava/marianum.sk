@@ -21,7 +21,8 @@
     "next": "12.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-popper": "^2.3.0"
+    "react-popper": "^2.3.0",
+    "react-resize-detector": "^7.1.2"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.6.2",

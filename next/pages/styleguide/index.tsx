@@ -1,15 +1,18 @@
 import cx from 'classnames'
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import AddIcon from '../../assets/add.svg'
 import ArrowRightIcon from '../../assets/arrow_forward.svg'
 import DownloadIcon from '../../assets/download.svg'
 import SearchIcon from '../../assets/search.svg'
 import XIcon from '../../assets/x-alt.svg'
+import Breadcrumbs from '../../components/atoms/Breadcrumbs'
 import Button from '../../components/atoms/Button'
 import MLink from '../../components/atoms/MLink'
 import Select from '../../components/atoms/Select'
 import TextField from '../../components/atoms/TextField'
+import Accordion from '../../components/molecules/Accordion/Accordion'
+import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
 import Row from '../../components/molecules/Row'
 import Search from '../../components/molecules/Search'
 
@@ -52,8 +55,94 @@ export const Stack = ({ bg, width = null, direction = 'row', children }: IStackP
 }
 
 const Showcase = () => {
+  const dummyBreadcrumbLinks = useMemo(
+    () => [
+      {
+        label: <DownloadIcon />,
+        link: '#home',
+      },
+      {
+        label: 'very',
+        link: '#very',
+      },
+      {
+        label: 'looong',
+        link: '#looong',
+      },
+      {
+        label: 'path',
+        link: '#path',
+      },
+      {
+        label: 'to',
+        link: '#to',
+      },
+      {
+        label: 'some',
+        link: '#some',
+      },
+      {
+        label: 'page',
+        link: '#page',
+      },
+    ],
+    [],
+  )
+
   return (
-    <>
+    <div className="w-full overflow-hidden">
+      <Wrapper title="Breadcrumbs">
+        <Stack width="full" bg="white">
+          <Breadcrumbs>
+            <div>One item</div>
+          </Breadcrumbs>
+        </Stack>
+        <Stack width="full" bg="dark">
+          <Breadcrumbs className="text-white opacity-72">
+            <div>First item</div>
+            <div>Second item</div>
+          </Breadcrumbs>
+        </Stack>
+        <Stack width="full" bg="white">
+          <Breadcrumbs>
+            <div>First item</div>
+            <div>Second item</div>
+            <div>Third item</div>
+          </Breadcrumbs>
+        </Stack>
+        <Stack width="full" bg="dark">
+          <Breadcrumbs className="text-white opacity-72">
+            {dummyBreadcrumbLinks.map(({ label, link }) => (
+              <MLink key={link} href={link} noStyles className="underline">
+                {label}
+              </MLink>
+            ))}
+          </Breadcrumbs>
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Accordion">
+        <Stack width="full">
+          <Accordion>
+            <AccordionItem title="Accordion">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quis nobis quia
+              corporis officiis dolorem quisquam quam sint! Et in libero, nihil magni amet quasi
+              doloribus commodi repellat optio quibusdam!
+            </AccordionItem>
+            <AccordionItem title="Second accordion">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quis nobis quia
+              corporis officiis dolorem quisquam quam sint! Et in libero, nihil magni amet quasi
+              doloribus commodi repellat optio quibusdam!
+            </AccordionItem>
+            <AccordionItem title="Third accordion with very long title to test behaviour when there is a very long title :)">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quis nobis quia
+              corporis officiis dolorem quisquam quam sint! Et in libero, nihil magni amet quasi
+              doloribus commodi repellat optio quibusdam!
+            </AccordionItem>
+          </Accordion>
+        </Stack>
+      </Wrapper>
+
       <Wrapper title="Button">
         {/* primary */}
         <Stack>
@@ -535,7 +624,7 @@ const Showcase = () => {
       </Wrapper>
 
       <div className="h-64" />
-    </>
+    </div>
   )
 }
 
