@@ -7,6 +7,8 @@ import TextField from '../atoms/TextField'
 type SearchProps = {
   value?: string
   placeholder?: string
+  className?: string
+  inputClassName?: string
   onChange?: (value: string) => void
   onSearch?: (value: string) => void
 }
@@ -16,6 +18,8 @@ const Search = ({
   placeholder,
   onChange = () => {},
   onSearch = () => {},
+  className,
+  inputClassName,
 }: SearchProps) => {
   const [realValue, setRealValue] = useState(value)
 
@@ -56,9 +60,11 @@ const Search = ({
       onChange={(e) => setRealValue(e.target.value)}
       placeholder={placeholder}
       onKeyUp={onKeyUpHandler}
+      className={className}
+      inputClassName={inputClassName}
       leftSlot={
         <button onClick={onSearchHandler} type="button" className="p-2">
-          <SearchIcon />
+          <SearchIcon width={24} />
         </button>
       }
       rightSlot={
