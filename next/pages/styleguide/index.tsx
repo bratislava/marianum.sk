@@ -11,6 +11,7 @@ import Button from '../../components/atoms/Button'
 import IconButton from '../../components/atoms/IconButton'
 import MLink from '../../components/atoms/MLink'
 import Select from '../../components/atoms/Select'
+import Tag from '../../components/atoms/Tag'
 import TextField from '../../components/atoms/TextField'
 import Accordion from '../../components/molecules/Accordion/Accordion'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
@@ -263,6 +264,32 @@ const Showcase = () => {
           <MLink href="/#" noStyles>
             Zobraz viac
           </MLink>
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Tags">
+        <Stack width="full">
+          <Tag>I prefer</Tag>
+          <Tag>to call</Tag>
+          <Tag>them</Tag>
+          <Tag isActive>tags</Tag>
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Chips">
+        <Stack width="full">
+          <Tag ignoreEvents>Chips</Tag>
+          <Tag ignoreEvents>are just</Tag>
+          <Tag ignoreEvents>tags</Tag>
+          <Tag ignoreEvents isActive>
+            that
+          </Tag>
+          <Tag ignoreEvents isActive>
+            ignore
+          </Tag>
+          <Tag ignoreEvents isActive>
+            mouse and focus events
+          </Tag>
         </Stack>
       </Wrapper>
 
