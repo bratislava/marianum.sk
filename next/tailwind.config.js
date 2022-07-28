@@ -18,6 +18,9 @@ const scrollBarHide = plugin(function ({ addUtilities }) {
 module.exports = {
   content: ['./pages/**/*.{js,jsx,ts,tsx}', './components/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    boxShadow: {
+      DEFAULT: '0px 4px 12px 0px #00000014',
+    },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
@@ -78,7 +81,7 @@ module.exports = {
     },
   },
   corePlugins: {
-    container: false,
+    // container: false,
     aspectRatio: false, // See: https://tailwindcss.com/docs/aspect-ratio#browser-support
   },
   plugins: [scrollBarHide],
