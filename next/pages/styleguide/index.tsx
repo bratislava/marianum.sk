@@ -8,10 +8,12 @@ import SearchIcon from '../../assets/search.svg'
 import XIcon from '../../assets/x-alt.svg'
 import Breadcrumbs from '../../components/atoms/Breadcrumbs'
 import Button from '../../components/atoms/Button'
+import IconButton from '../../components/atoms/IconButton'
 import MLink from '../../components/atoms/MLink'
 import Select from '../../components/atoms/Select'
 import Tab from '../../components/atoms/Tabs/Tab'
 import Tabs from '../../components/atoms/Tabs/Tabs'
+import Tag from '../../components/atoms/Tag'
 import TextField from '../../components/atoms/TextField'
 import Accordion from '../../components/molecules/Accordion/Accordion'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
@@ -92,7 +94,17 @@ const Showcase = () => {
   )
 
   return (
-    <div className="w-full overflow-hidden">
+    <div className="w-full overflow-hidden bg-[#E5E5E5]">
+      <Wrapper title="Headings">
+        <h1>Headline 1</h1>
+        <h2>Headline 2</h2>
+        <h3>Headline 3</h3>
+        <h4>Headline 4</h4>
+        <h5>Headline 5</h5>
+        <h6>Headline 6</h6>
+        <h6 className="text-h4">Headline 6 with custom size h4</h6>
+      </Wrapper>
+
       <Wrapper title="Breadcrumbs">
         <Stack width="full" bg="white">
           <Breadcrumbs>
@@ -123,37 +135,13 @@ const Showcase = () => {
         </Stack>
       </Wrapper>
 
-      <Wrapper title="Accordion">
-        <Stack width="full">
-          <Accordion>
-            <AccordionItem title="Accordion">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quis nobis quia
-              corporis officiis dolorem quisquam quam sint! Et in libero, nihil magni amet quasi
-              doloribus commodi repellat optio quibusdam!
-            </AccordionItem>
-            <AccordionItem title="Second accordion">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quis nobis quia
-              corporis officiis dolorem quisquam quam sint! Et in libero, nihil magni amet quasi
-              doloribus commodi repellat optio quibusdam!
-            </AccordionItem>
-            <AccordionItem title="Third accordion with very long title to test behaviour when there is a very long title :)">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quis nobis quia
-              corporis officiis dolorem quisquam quam sint! Et in libero, nihil magni amet quasi
-              doloribus commodi repellat optio quibusdam!
-            </AccordionItem>
-          </Accordion>
-        </Stack>
-      </Wrapper>
-
       <Wrapper title="Button">
-        {/* primary */}
         <Stack>
           <Button>Button</Button>
           <Button startIcon={<AddIcon />}>Button</Button>
           <Button endIcon={<ArrowRightIcon />}>Button</Button>
         </Stack>
 
-        {/* secondary */}
         <Stack>
           <Button variant="secondary">Button</Button>
           <Button variant="secondary" startIcon={<AddIcon />}>
@@ -164,7 +152,6 @@ const Showcase = () => {
           </Button>
         </Stack>
 
-        {/* terniary */}
         <Stack>
           <Button variant="tertiary">Button</Button>
           <Button variant="tertiary" startIcon={<AddIcon />}>
@@ -175,7 +162,6 @@ const Showcase = () => {
           </Button>
         </Stack>
 
-        {/* plain-primary */}
         <Stack>
           <Button variant="plain-primary">Button</Button>
           <Button variant="plain-primary" startIcon={<AddIcon />}>
@@ -186,7 +172,6 @@ const Showcase = () => {
           </Button>
         </Stack>
 
-        {/* plain-secondary */}
         <Stack>
           <Button variant="plain-secondary">Button</Button>
           <Button variant="plain-secondary" startIcon={<AddIcon />}>
@@ -197,8 +182,7 @@ const Showcase = () => {
           </Button>
         </Stack>
 
-        {/* white */}
-        <Stack bg="dark">
+        <Stack>
           <Button variant="white">Button</Button>
           <Button variant="white" startIcon={<AddIcon />}>
             Button
@@ -208,8 +192,7 @@ const Showcase = () => {
           </Button>
         </Stack>
 
-        {/* plain-white */}
-        <Stack bg="dark">
+        <Stack>
           <Button variant="plain-white">Button</Button>
           <Button variant="plain-white" startIcon={<AddIcon />}>
             Button
@@ -218,11 +201,97 @@ const Showcase = () => {
             Button
           </Button>
         </Stack>
+      </Wrapper>
 
-        <Stack bg="dark">
-          <Button variant="circle">
+      <Wrapper title="IconButton">
+        <Stack>
+          <IconButton variant="primary">
             <ArrowRightIcon />
-          </Button>
+          </IconButton>
+          <IconButton variant="secondary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton variant="tertiary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton variant="white">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton variant="plain-primary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton variant="plain-secondary">
+            <ArrowRightIcon />
+          </IconButton>
+        </Stack>
+
+        <Stack>
+          <IconButton size="small" variant="primary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton size="small" variant="secondary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton size="small" variant="tertiary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton size="small" variant="white">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton size="small" variant="plain-primary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton size="small" variant="plain-secondary">
+            <ArrowRightIcon />
+          </IconButton>
+        </Stack>
+
+        <Stack>
+          <IconButton variant="white">1</IconButton>
+          <IconButton variant="white">11</IconButton>
+          <IconButton variant="white">111</IconButton>
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Link">
+        <Stack>
+          <MLink href="/#">Zobraz viac</MLink>
+        </Stack>
+        <Stack bg="dark">
+          <MLink href="/#" variant="white">
+            Zobraz viac
+          </MLink>
+        </Stack>
+        <Stack>
+          <MLink href="/#" noStyles>
+            Zobraz viac
+          </MLink>
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Tags">
+        <Stack width="full">
+          <Tag>I prefer</Tag>
+          <Tag>to call</Tag>
+          <Tag>them</Tag>
+          <Tag isActive>tags</Tag>
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Chips">
+        <Stack width="full">
+          <Tag ignoreEvents>Chips</Tag>
+          <Tag ignoreEvents>are just</Tag>
+          <Tag ignoreEvents>tags</Tag>
+          <Tag ignoreEvents isActive>
+            that
+          </Tag>
+          <Tag ignoreEvents isActive>
+            ignore
+          </Tag>
+          <Tag ignoreEvents isActive>
+            mouse and focus events
+          </Tag>
         </Stack>
       </Wrapper>
 
@@ -671,6 +740,66 @@ const Showcase = () => {
                 label: '🟥 Hompage',
               },
             ]}
+          />
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Accordion">
+        <Stack width="full">
+          <Accordion>
+            <AccordionItem title="Accordion">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quis nobis quia
+              corporis officiis dolorem quisquam quam sint! Et in libero, nihil magni amet quasi
+              doloribus commodi repellat optio quibusdam!
+            </AccordionItem>
+            <AccordionItem title="Second accordion">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quis nobis quia
+              corporis officiis dolorem quisquam quam sint! Et in libero, nihil magni amet quasi
+              doloribus commodi repellat optio quibusdam!
+            </AccordionItem>
+            <AccordionItem title="Third accordion with very long title to test behaviour when there is a very long title :)">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quis nobis quia
+              corporis officiis dolorem quisquam quam sint! Et in libero, nihil magni amet quasi
+              doloribus commodi repellat optio quibusdam!
+            </AccordionItem>
+          </Accordion>
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Row">
+        <Stack width="full" direction="column">
+          <Row title="Nazov pozicie" metadata={['Metadata', 'Metadata', 'Metadata']} link="#" />
+          <Row title="Nazov partnera" />
+          <Row
+            title="Nazov suboru"
+            category="Kategoria"
+            metadata={['Metadata', 'Metadata', 'Metadata']}
+            link="#"
+            button={
+              <Button variant="tertiary" startIcon={<DownloadIcon />}>
+                Stiahnut
+              </Button>
+            }
+          />
+          <Row
+            title="Hladany termin"
+            link="#"
+            showUrl
+            metadata={['Metadata', 'Metadata', 'Metadata']}
+          />
+          <Row title="Hladany termin" link="#" showUrl />
+          <Row title="Nazov partnera" link="#" isExternal />
+          <Row
+            title="Nazov pobocky"
+            link="#"
+            address="Adresa"
+            arrowInCorner
+            moreContent={
+              <div>
+                <p>Otvaracie hodiny</p>
+                <p>09:00 - 18:00</p>
+              </div>
+            }
           />
         </Stack>
       </Wrapper>

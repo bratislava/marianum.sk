@@ -17,7 +17,6 @@ type ButtonProps = React.DetailedHTMLProps<
     | 'plain-primary'
     | 'plain-secondary'
     | 'plain-white'
-    | 'circle'
   href?: string
 }
 
@@ -31,7 +30,7 @@ const Button = ({
   ...props
 }: ButtonProps) => {
   const style = cx(
-    'text-btn font-bold inline-flex items-center justify-center text-center align-middle space-x-2 fill-current focus:outline outline-offset-2 outline-1',
+    'text-btn font-bold inline-flex items-center justify-center text-center align-middle space-x-2',
     className,
     {
       'px-6 py-2':
@@ -41,7 +40,6 @@ const Button = ({
         variant === 'white',
       'px-2':
         variant === 'plain-primary' || variant === 'plain-secondary' || variant === 'plain-white',
-      'p-2 rounded-full': variant === 'circle',
 
       // text color
       'text-white': variant === 'primary' || variant === 'plain-white',
@@ -49,8 +47,7 @@ const Button = ({
         variant === 'secondary' ||
         variant === 'tertiary' ||
         variant === 'white' ||
-        variant === 'plain-primary' ||
-        variant === 'circle',
+        variant === 'plain-primary',
       'text-foreground hover:text-[#323532]': variant === 'plain-secondary',
       'hover:opacity-64': variant === 'plain-white',
 
@@ -60,7 +57,6 @@ const Button = ({
       'border border-primary hover:border-primary-dark': variant === 'secondary',
       'border border-border-alt hover:border-border-alt-dark': variant === 'tertiary',
       'bg-white border border-white': variant === 'white',
-      'bg-white border border-border hover:border-border-dark': variant === 'circle',
     },
   )
 

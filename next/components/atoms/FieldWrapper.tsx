@@ -36,7 +36,7 @@ const FieldWrapper = ({
       </div>
 
       <div
-        className={cx('flex border items-center w-full', className, {
+        className={cx('flex border items-center w-ful bg-white', className, {
           'cursor-not-allowed select-none pointer-events-none': disabled,
           'border-border hover:border-border-dark group-focus:border-border-dark focus-within:border-border-dark bg-border bg-opacity-25 text-foreground-disabled':
             disabled,
