@@ -668,6 +668,27 @@ const Showcase = () => {
         </Stack>
       </Wrapper>
 
+      <Wrapper title="Tabs (big)">
+        <Stack width="full">
+          <Tabs areBig>
+            <Tab label="Mimo zdravotníckeho zariadenia (domov, DSS)">
+              <div className="p-4">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat velit, incidunt
+                iste excepturi, minus blanditiis saepe repellendus, adipisci eveniet explicabo
+                temporibus repellat minima nemo ipsam maxime tenetur reprehenderit et quae.
+              </div>
+            </Tab>
+            <Tab label="V zdravotníckom zariadení">
+              <div className="p-4">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure voluptatum inventore
+                at optio reiciendis quasi laborum sed nemo quos! Vel distinctio incidunt blanditiis
+                repellat reiciendis ut impedit optio cupiditate ex.
+              </div>
+            </Tab>
+          </Tabs>
+        </Stack>
+      </Wrapper>
+
       <Wrapper title="Search">
         <Stack width="full">
           {/* eslint-disable-next-line no-alert */}
