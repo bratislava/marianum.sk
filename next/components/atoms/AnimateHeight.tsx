@@ -1,4 +1,4 @@
-import { motion, Variant } from 'framer-motion'
+import { motion, useReducedMotion, Variant } from 'framer-motion'
 import React, { ReactNode, useMemo } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 
@@ -26,6 +26,8 @@ export const AnimateHeight = ({
     return Math.round((4 + 15 * constant ** 0.25 + constant / 5) * 10)
   }, [height])
 
+  const shouldReduceMotion = useReducedMotion()
+
   return (
     <motion.div
       className="overflow-hidden"
@@ -34,7 +36,7 @@ export const AnimateHeight = ({
       inherit={false}
       transition={{
         ease,
-        duration: duration ?? calculatedDuration / 1000,
+        duration: shouldReduceMotion ? 0 : duration ?? calculatedDuration / 1000,
       }}
     >
       <div ref={ref}>{children}</div>
