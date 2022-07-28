@@ -573,9 +573,28 @@ const Showcase = () => {
       <Wrapper title="Tabs">
         <Stack width="full">
           <Tabs>
-            <Tab label="Tab 1">Tab 1 content</Tab>
-            <Tab label="Tab 2">Tab 2 content</Tab>
-            <Tab label="Tab 3">Tab 3 content</Tab>
+            <Tab label="Recent">
+              <div className="p-4">Recent</div>
+            </Tab>
+            <Tab label="Popular">
+              <div className="p-4">Popular</div>
+            </Tab>
+            <Tab label="Trending">
+              <div className="p-4">Trending</div>
+            </Tab>
+          </Tabs>
+        </Stack>
+        <Stack width="full" bg="dark">
+          <Tabs areWhite>
+            <Tab label="Recent">
+              <div className="p-4">Recent</div>
+            </Tab>
+            <Tab label="Popular">
+              <div className="p-4">Popular</div>
+            </Tab>
+            <Tab label="Trending">
+              <div className="p-4">Trending</div>
+            </Tab>
           </Tabs>
         </Stack>
       </Wrapper>
