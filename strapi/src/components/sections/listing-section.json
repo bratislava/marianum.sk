@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_listing_sections",
+  "info": {
+    "displayName": "listing section",
+    "icon": "copy",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "news",
+        "services"
+      ]
+    }
+  }
+}

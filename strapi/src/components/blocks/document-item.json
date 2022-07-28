@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_blocks_document_items",
+  "info": {
+    "displayName": "document item",
+    "icon": "file"
+  },
+  "options": {},
+  "attributes": {
+    "document": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::document.document"
+    }
+  }
+}

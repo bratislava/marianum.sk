@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_blocks_contact_items",
+  "info": {
+    "displayName": "contact item",
+    "icon": "address-card"
+  },
+  "options": {},
+  "attributes": {
+    "contact": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::contact.contact"
+    }
+  }
+}

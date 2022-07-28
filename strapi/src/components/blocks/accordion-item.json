@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_blocks_accordion_items",
+  "info": {
+    "displayName": "accordion item",
+    "icon": "chevron-down"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    }
+  }
+}
