@@ -8,6 +8,7 @@ import SearchIcon from '../../assets/search.svg'
 import XIcon from '../../assets/x-alt.svg'
 import Breadcrumbs from '../../components/atoms/Breadcrumbs'
 import Button from '../../components/atoms/Button'
+import Chip from '../../components/atoms/Chip'
 import MLink from '../../components/atoms/MLink'
 import Select from '../../components/atoms/Select'
 import TextField from '../../components/atoms/TextField'
@@ -221,6 +222,15 @@ const Showcase = () => {
           <Button variant="circle">
             <ArrowRightIcon />
           </Button>
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Chips">
+        <Stack width="full">
+          <Chip>I prefer</Chip>
+          <Chip>to call</Chip>
+          <Chip>them</Chip>
+          <Chip isActive>tags</Chip>
         </Stack>
       </Wrapper>
 
