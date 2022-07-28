@@ -4,6 +4,12 @@ import { createContext, ReactNode, useCallback, useMemo, useState } from 'react'
 
 import { useTailwindBreakpoint } from '../../../hooks/useTailwindBreakpoint'
 
+// Why context for this?
+// If you look at HeadlessUI docs for Tabs component (https://headlessui.com/react/tabs)
+// at basic example, you can see that each tab is separated into List and Panel.
+// I just don't like it that way so the whole context and mount/unmount concept
+// is here to make us able to write it prettier :)
+
 export type TabsContext = {
   mountTab: (tabLabel: string) => void
   unmountTab: (tabLabel: string) => void
