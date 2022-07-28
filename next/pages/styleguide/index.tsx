@@ -1,14 +1,22 @@
 import cx from 'classnames'
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import AddIcon from '../../assets/add.svg'
 import ArrowRightIcon from '../../assets/arrow_forward.svg'
 import DownloadIcon from '../../assets/download.svg'
+import SearchIcon from '../../assets/search.svg'
+import XIcon from '../../assets/x-alt.svg'
+import Breadcrumbs from '../../components/atoms/Breadcrumbs'
 import Button from '../../components/atoms/Button'
 import MLink from '../../components/atoms/MLink'
+import Select from '../../components/atoms/Select'
 import Tab from '../../components/atoms/Tabs/Tab'
 import Tabs from '../../components/atoms/Tabs/Tabs'
+import TextField from '../../components/atoms/TextField'
+import Accordion from '../../components/molecules/Accordion/Accordion'
+import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
 import Row from '../../components/molecules/Row'
+import Search from '../../components/molecules/Search'
 
 interface IWrapperProps {
   title?: string
@@ -49,8 +57,94 @@ export const Stack = ({ bg, width = null, direction = 'row', children }: IStackP
 }
 
 const Showcase = () => {
+  const dummyBreadcrumbLinks = useMemo(
+    () => [
+      {
+        label: <DownloadIcon />,
+        link: '#home',
+      },
+      {
+        label: 'very',
+        link: '#very',
+      },
+      {
+        label: 'looong',
+        link: '#looong',
+      },
+      {
+        label: 'path',
+        link: '#path',
+      },
+      {
+        label: 'to',
+        link: '#to',
+      },
+      {
+        label: 'some',
+        link: '#some',
+      },
+      {
+        label: 'page',
+        link: '#page',
+      },
+    ],
+    [],
+  )
+
   return (
-    <>
+    <div className="w-full overflow-hidden">
+      <Wrapper title="Breadcrumbs">
+        <Stack width="full" bg="white">
+          <Breadcrumbs>
+            <div>One item</div>
+          </Breadcrumbs>
+        </Stack>
+        <Stack width="full" bg="dark">
+          <Breadcrumbs className="text-white opacity-72">
+            <div>First item</div>
+            <div>Second item</div>
+          </Breadcrumbs>
+        </Stack>
+        <Stack width="full" bg="white">
+          <Breadcrumbs>
+            <div>First item</div>
+            <div>Second item</div>
+            <div>Third item</div>
+          </Breadcrumbs>
+        </Stack>
+        <Stack width="full" bg="dark">
+          <Breadcrumbs className="text-white opacity-72">
+            {dummyBreadcrumbLinks.map(({ label, link }) => (
+              <MLink key={link} href={link} noStyles className="underline">
+                {label}
+              </MLink>
+            ))}
+          </Breadcrumbs>
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Accordion">
+        <Stack width="full">
+          <Accordion>
+            <AccordionItem title="Accordion">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quis nobis quia
+              corporis officiis dolorem quisquam quam sint! Et in libero, nihil magni amet quasi
+              doloribus commodi repellat optio quibusdam!
+            </AccordionItem>
+            <AccordionItem title="Second accordion">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quis nobis quia
+              corporis officiis dolorem quisquam quam sint! Et in libero, nihil magni amet quasi
+              doloribus commodi repellat optio quibusdam!
+            </AccordionItem>
+            <AccordionItem title="Third accordion with very long title to test behaviour when there is a very long title :)">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quis nobis quia
+              corporis officiis dolorem quisquam quam sint! Et in libero, nihil magni amet quasi
+              doloribus commodi repellat optio quibusdam!
+            </AccordionItem>
+          </Accordion>
+        </Stack>
+      </Wrapper>
+
       <Wrapper title="Button">
         {/* primary */}
         <Stack>
@@ -132,6 +226,296 @@ const Showcase = () => {
         </Stack>
       </Wrapper>
 
+      <Wrapper title="TextField">
+        <Stack width="full">
+          <TextField id="deafault" placeholder="Input" />
+          <TextField
+            id="deafault-left-icon"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            id="deafault-right-icon"
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            id="deafault-both-icons"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+        </Stack>
+
+        <Stack width="full">
+          <TextField id="with-text" defaultValue="Input" placeholder="Input" />
+          <TextField
+            id="with-text-left-icon"
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            id="with-text-right-icon"
+            defaultValue="Input"
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            id="with-text-both-icons"
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+        </Stack>
+
+        <Stack width="full">
+          <TextField id="error" error defaultValue="Input" placeholder="Input" />
+          <TextField
+            id="error-left-icon"
+            error
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            id="error-right-icon"
+            error
+            defaultValue="Input"
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            id="error-both-icons"
+            error
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+        </Stack>
+
+        <Stack width="full">
+          <TextField id="disabled" disabled defaultValue="Input" placeholder="Input" />
+          <TextField
+            id="disabled-left-icon"
+            disabled
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            id="disabled-right-icon"
+            disabled
+            defaultValue="Input"
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            id="disabled-both-icons"
+            disabled
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+        </Stack>
+
+        <Stack width="full">
+          <TextField label="Label" id="with-label" defaultValue="Input" placeholder="Input" />
+          <TextField
+            label="Label"
+            id="with-label-left-icon"
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            label="Label"
+            id="with-label-right-icon"
+            defaultValue="Input"
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            label="Label"
+            id="with-label-both-icons"
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+        </Stack>
+
+        <Stack width="full">
+          <TextField
+            required
+            label="Label"
+            id="with-label-required"
+            defaultValue="Input"
+            placeholder="Input"
+          />
+          <TextField
+            required
+            label="Label"
+            id="with-label-required-left-icon"
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            required
+            label="Label"
+            id="with-label-required-right-icon"
+            defaultValue="Input"
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+          <TextField
+            required
+            label="Label"
+            id="with-label-required-both-icons"
+            defaultValue="Input"
+            leftSlot={
+              <button type="button" className="p-2">
+                <SearchIcon />
+              </button>
+            }
+            rightSlot={
+              <button type="button" className="p-2">
+                <XIcon />
+              </button>
+            }
+            placeholder="Input"
+          />
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="TextField (area)">
+        <Stack width="full">
+          <TextField id="area" area placeholder="Input" />
+          <TextField id="area-with-text" area defaultValue="Input" />
+          <TextField id="area-error" area defaultValue="Input" error />
+          <TextField id="area-disabled" area disabled defaultValue="Input" />
+        </Stack>
+
+        <Stack width="full">
+          <TextField required label="Label" id="area-label-required" area placeholder="Input" />
+          <TextField
+            required
+            label="Label"
+            id="area-label-required-with-text"
+            area
+            defaultValue="Input"
+          />
+          <TextField
+            required
+            label="Label"
+            id="area-label-required-error"
+            area
+            defaultValue="Input"
+            error
+          />
+          <TextField
+            required
+            label="Label"
+            id="area-label-required-disabled"
+            area
+            disabled
+            defaultValue="Input"
+          />
+        </Stack>
+      </Wrapper>
+
       <Wrapper title="Link">
         <Stack>
           <MLink href="/#">Zobraz viac</MLink>
@@ -195,7 +579,64 @@ const Showcase = () => {
           </Tabs>
         </Stack>
       </Wrapper>
-    </>
+
+      <Wrapper title="Search">
+        <Stack width="full">
+          {/* eslint-disable-next-line no-alert */}
+          <Search placeholder="Search..." onSearch={(value) => alert(`Searching for: ${value}`)} />
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Select">
+        <Stack width="full">
+          <Select
+            label="Project"
+            required
+            id="select"
+            placeholder="Select one project"
+            options={[
+              {
+                key: 'marianum',
+                label: '💀 Marianum',
+              },
+              {
+                key: 'city-library',
+                label: '📖 City library',
+              },
+              {
+                key: 'hompage',
+                label: '🟥 Hompage',
+              },
+            ]}
+          />
+        </Stack>
+        <Stack width="full">
+          <Select
+            label="Projects"
+            required
+            id="select"
+            multiple
+            placeholder="Select multiple projects"
+            options={[
+              {
+                key: 'marianum',
+                label: '💀 Marianum',
+              },
+              {
+                key: 'city-library',
+                label: '📖 City library',
+              },
+              {
+                key: 'hompage',
+                label: '🟥 Hompage',
+              },
+            ]}
+          />
+        </Stack>
+      </Wrapper>
+
+      <div className="h-64" />
+    </div>
   )
 }
 
