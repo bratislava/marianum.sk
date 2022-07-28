@@ -136,7 +136,7 @@ const Checklist = ({ items }: ChecklistProps) => {
               {/* item title */}
               <div className="flex items-center">
                 <div
-                  className={cx('transition-all', {
+                  className={cx('transition-all sm:hidden', {
                     'w-10 opacity-1 pr-4': isCompleted,
                     'w-0 opacity-0': !isCompleted,
                   })}
