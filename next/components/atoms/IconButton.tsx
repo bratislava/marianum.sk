@@ -17,20 +17,24 @@ type IconButtonProps = React.DetailedHTMLProps<
     | 'plain-primary'
     | 'plain-secondary'
     | 'plain-white'
+  size?: 'small' | 'default'
   href?: string
 }
 
 const Button = ({
   children,
   variant = 'plain-primary',
+  size = 'default',
   href,
   className,
   ...props
 }: IconButtonProps) => {
   const style = cx(
-    'p-2 rounded-full text-btn items-center justify-center text-center align-middle fill-current focus:outline outline-offset-2 outline-1',
+    'flex p-2 rounded-full text-btn items-center justify-center text-center align-middle',
     className,
     {
+      'h-[40px] w-[40px]': size === 'default',
+      'h-[32px] w-[32px]': size === 'small',
       // text color
       'text-white': variant === 'primary' || variant === 'plain-white',
       'text-primary hover:text-primary-dark':

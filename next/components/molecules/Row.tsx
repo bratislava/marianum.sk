@@ -66,7 +66,7 @@ const Row = ({
 
         {address && (
           <div className="flex items-center gap-x-2">
-            <span className="fill-current text-primary">
+            <span className="text-primary">
               <PlaceIcon />
             </span>
             {address}
