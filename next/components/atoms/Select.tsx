@@ -42,7 +42,7 @@ const Select = ({
     modifiers: [
       {
         name: 'offset',
-        options: { offset: [20, 8] },
+        options: { offset: [18, 8] },
       },
     ],
   })
