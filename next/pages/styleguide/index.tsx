@@ -17,6 +17,7 @@ import Tag from '../../components/atoms/Tag'
 import TextField from '../../components/atoms/TextField'
 import Accordion from '../../components/molecules/Accordion/Accordion'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
+import Checklist from '../../components/molecules/Checklist/Checklist'
 import Row from '../../components/molecules/Row'
 import Search from '../../components/molecules/Search'
 
@@ -804,7 +805,71 @@ const Showcase = () => {
         </Stack>
       </Wrapper>
 
-      <div className="h-64" />
+      <Wrapper title="Checklist">
+        <Stack width="full">
+          <Checklist
+            items={[
+              {
+                isOpen: true,
+                key: 'volat-zachrannu-zdravotnu-sluzbu-112',
+                title: 'Volať záchrannú zdravotnú službu 112',
+                description:
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed dolorum tempora quidem quam, dolores iste quos. Distinctio nostrum unde aut quaerat dolorum. Adipisci fugit odio sed! Totam excepturi quo est.',
+              },
+              {
+                key: 'obhliadka-lekarom',
+                title: 'Obhliadka lekárom',
+                description:
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad ea dignissimos unde nulla quas, et suscipit iusto placeat, qui harum, nobis quibusdam officiis dolorum commodi vitae voluptatum eveniet eos pariatur.',
+              },
+              {
+                key: 'kontaktujte-vyvoz-zosnulych',
+                title: 'Kontaktujte vývoz zosnulých',
+                description:
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil eligendi velit ipsum expedita ab sunt minus? Dolorum nemo, nihil ad commodi architecto molestias facilis nobis laudantium nulla vitae. Ratione, dolorum.',
+              },
+              {
+                key: 'kontaktujte-pohrebnu-sluzbu',
+                title: 'Kontaktujte pohrebnú službu',
+                description:
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga maxime harum corrupti culpa numquam doloremque error, amet corporis aut fugit, accusantium, laborum voluptatem sequi excepturi saepe libero reiciendis delectus? Temporibus!',
+              },
+              {
+                key: 'pripravte-si-doklady-a-dokumenty',
+                title: 'Pripravte si doklady a dokumenty',
+                description:
+                  'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos, tempore repudiandae nulla vero molestiae nemo nesciunt odit nostrum est itaque eveniet, accusantium magni asperiores iusto necessitatibus quod id error perferendis.',
+              },
+              {
+                key: 'pripravte-si-oblecenie-pre-zosnuleho',
+                title: 'Pripravte si oblečenie pre zosnulého',
+                description:
+                  'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nam dolorum necessitatibus modi ex quia voluptatibus eius quidem, deleniti beatae dicta temporibus eveniet doloribus optio ad qui dolores hic dolor ipsa.',
+              },
+              {
+                key: 'zvolte-si-sposob-poslednej-rozlucky-a-pochovania',
+                title: 'Zvoľte si spôsob poslednej rozlúčky a pochovania',
+                description:
+                  'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus dolores sunt libero rem voluptates, corporis nostrum quos fugit soluta esse aperiam exercitationem neque quibusdam quis incidunt repudiandae quae nesciunt amet.',
+              },
+              {
+                key: 'riadte-sa-pokynmi-pohrebnej-sluzby',
+                title: 'Riaďte sa pokynmi pohrebnej služby',
+                description:
+                  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id corporis illo rem non amet blanditiis molestias odit, exercitationem quod autem sequi pariatur, ipsa expedita quidem quisquam facere dolore distinctio at!',
+                footer: (
+                  <div className="flex flex-col gap-4 sm:flex-row">
+                    <Button startIcon={<DownloadIcon />}>Stiahnuť postup</Button>
+                    <Button startIcon={<DownloadIcon />} variant="secondary">
+                      Vytlačiť postup
+                    </Button>
+                  </div>
+                ),
+              },
+            ]}
+          />
+        </Stack>
+      </Wrapper>
     </div>
   )
 }
