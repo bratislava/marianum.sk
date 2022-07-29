@@ -3,23 +3,21 @@ import cx from 'classnames'
 
 import MLink from './MLink'
 
-type IconButtonProps = React.DetailedHTMLProps<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
-> & {
-  startIcon?: React.ReactNode
-  endIcon?: React.ReactNode
-  variant?:
-    | 'primary'
-    | 'secondary'
-    | 'tertiary'
-    | 'white'
-    | 'plain-primary'
-    | 'plain-secondary'
-    | 'plain-white'
-  size?: 'small' | 'default'
-  href?: string
-}
+type IconButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+  React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+    startIcon?: React.ReactNode
+    endIcon?: React.ReactNode
+    variant?:
+      | 'primary'
+      | 'secondary'
+      | 'tertiary'
+      | 'white'
+      | 'plain-primary'
+      | 'plain-secondary'
+      | 'plain-white'
+    size?: 'small' | 'default'
+    href?: string
+  }
 
 const Button = ({
   children,
@@ -27,7 +25,7 @@ const Button = ({
   size = 'default',
   href,
   className,
-  ...props
+  ...rest
 }: IconButtonProps) => {
   const style = cx(
     'flex p-2 rounded-full text-btn items-center justify-center text-center align-middle',
@@ -56,13 +54,13 @@ const Button = ({
 
   if (href) {
     return (
-      <MLink href={href} noStyles noArrow className={style}>
+      <MLink href={href} noStyles noArrow className={style} {...rest}>
         <span>{children}</span>
       </MLink>
     )
   }
   return (
-    <button type="button" className={style} {...props}>
+    <button type="button" className={style} {...rest}>
       <span>{children}</span>
     </button>
   )
