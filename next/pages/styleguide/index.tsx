@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 
 import AddIcon from '../../assets/add.svg'
 import ArrowRightIcon from '../../assets/arrow_forward.svg'
@@ -19,6 +19,7 @@ import Accordion from '../../components/molecules/Accordion/Accordion'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
 import Row from '../../components/molecules/Row'
 import Search from '../../components/molecules/Search'
+import Pagination from '../../components/atoms/Pagination/Pagination'
 
 interface IWrapperProps {
   title?: string
@@ -59,6 +60,8 @@ export const Stack = ({ bg, width = null, direction = 'row', children }: IStackP
 }
 
 const Showcase = () => {
+  const [paginationSelectedPage, setPaginationSelectedPage] = useState(1)
+
   const dummyBreadcrumbLinks = useMemo(
     () => [
       {
@@ -800,6 +803,16 @@ const Showcase = () => {
                 <p>09:00 - 18:00</p>
               </div>
             }
+          />
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Pagination">
+        <Stack>
+          <Pagination
+            count={10}
+            selectedPage={paginationSelectedPage}
+            onChange={(page) => setPaginationSelectedPage(page)}
           />
         </Stack>
       </Wrapper>
