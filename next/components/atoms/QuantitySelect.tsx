@@ -1,6 +1,6 @@
 import { useEffect, useId, useState } from 'react'
-import Add from '../../assets/add.svg'
-import Remove from '../../assets/remove.svg'
+import AddIcon from '../../assets/add.svg'
+import RemoveIcon from '../../assets/remove.svg'
 import AutosizeInput from 'react-input-autosize'
 
 type QuantitySelectProps = {
@@ -69,11 +69,13 @@ const QuantitySelect = ({
         aria-label="Znížiť množstvo" /* TODO: Translation */
         disabled={isLowerThanMin(value - 1)}
       >
-        <Remove />
+        <RemoveIcon />
       </button>
+      {/* The values are set in a way that paddings are as in design for one-digit numbers. For two-digit numbers
+       it doesn't resize. It starts to resize for three-digit numbers. */}
       <AutosizeInput
         type="number"
-        inputClassName="px-4 py-2 arrows-hide"
+        inputClassName="px-2 py-2 arrows-hide min-w-[27px] text-center"
         id={generatedOrProvidedId}
         value={inputValue}
         onChange={(event) => setInputValue(Number(event.target.value))}
@@ -89,7 +91,7 @@ const QuantitySelect = ({
         aria-label="Zvýšiť množstvo" /* TODO: Translation */
         disabled={isHigherThanMax(value + 1)}
       >
-        <Add />
+        <AddIcon />
       </button>
     </div>
   )
