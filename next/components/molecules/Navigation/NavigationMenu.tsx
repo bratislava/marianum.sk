@@ -1,4 +1,5 @@
 import cx from 'classnames'
+import { motion } from 'framer-motion'
 
 import ChevronIcon from '../../../assets/chevron_down.svg'
 import Menu, { MenuItem } from '../Menu/Menu'
@@ -30,9 +31,13 @@ const NavigationMenu = ({ items }: NavigationMenuProps) => {
               >
                 <span>{label}</span>
                 {(subItems?.length ?? 0) > 0 && (
-                  <div className={cx('transition-transform', { 'rotate-180': isOpen })}>
+                  <motion.div
+                    transition={{ type: 'linear' }}
+                    initial={{ rotate: 0 }}
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                  >
                     <ChevronIcon />
-                  </div>
+                  </motion.div>
                 )}
               </div>
             </div>
