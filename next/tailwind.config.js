@@ -84,5 +84,5 @@ module.exports = {
     // container: false,
     aspectRatio: false, // See: https://tailwindcss.com/docs/aspect-ratio#browser-support
   },
-  plugins: [scrollBarHide],
+  plugins: [scrollBarHide, require('tailwindcss-radix')()],
 }
