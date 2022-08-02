@@ -3,7 +3,7 @@ import SectionExample from '../components/sections/SectionExample'
 
 const Home = () => {
   return (
-    <div>
+    <div className="bg-primary-dark">
       <Navigation
         phoneNumber="+421 987 654 321"
         faqLink="/faq"
