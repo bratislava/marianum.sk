@@ -35,6 +35,7 @@ const Menu = ({ children: Children, items = [] }: MenuProps) => {
         {items.length > 0 && (
           <DropdownMenu.Portal>
             <DropdownMenu.Content
+              loop
               sideOffset={8}
               className="w-full bg-white py-3 font-semibold shadow outline-none"
               style={{ width: `${width ?? 0}px` }}
