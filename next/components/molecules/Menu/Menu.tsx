@@ -1,6 +1,6 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import cx from 'classnames'
-import { FC, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 
 // import { useResizeDetector } from 'react-resize-detector'
@@ -15,11 +15,11 @@ export type MenuItem = {
 }
 
 export type MenuProps = {
-  children: ReactNode | FC<{ open: boolean }>
+  children: ReactNode
   items?: MenuItem[]
 }
 
-const Menu = ({ children: Children, items = [] }: MenuProps) => {
+const Menu = ({ children, items = [] }: MenuProps) => {
   const { ref: triggerRef, width } = useResizeDetector()
 
   return (
@@ -29,7 +29,7 @@ const Menu = ({ children: Children, items = [] }: MenuProps) => {
           className="group h-full w-full outline-none transition-all focus:bg-primary/20 radix-state-open:bg-primary/20"
           ref={triggerRef}
         >
-          {typeof Children === 'function' ? <Children open /> : Children}
+          {children}
         </DropdownMenu.Trigger>
 
         {items.length > 0 && (
