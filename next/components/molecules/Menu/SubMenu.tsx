@@ -50,7 +50,7 @@ const SubMenu = ({ children, items = [] }: MenuProps) => {
                     {items.map(({ key, label, link }) => (
                       <DropdownMenu.Item key={key} asChild>
                         <a
-                          className="flex w-full justify-between px-6 py-3 outline-none focus:bg-primary/20"
+                          className="flex w-full justify-between px-6 py-3 outline-none focus:bg-primary/10"
                           href={link}
                         >
                           {label}
