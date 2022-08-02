@@ -2,7 +2,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { FC, ReactNode, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 
-import ChevronIcon from '../../../assets/chevron_right.svg'
+import ChevronIcon from '../../../assets/chevron_down.svg'
 import { AnimateHeight } from '../../atoms/AnimateHeight'
 import SubMenu, { SubMenuItem } from './SubMenu'
 
@@ -46,7 +46,9 @@ const Menu = ({ children, items = [] }: MenuProps) => {
                         <SubMenu key={key} items={subItems}>
                           <a href={link} className="flex w-full justify-between px-6 py-3">
                             <span>{label}</span>
-                            <ChevronIcon />
+                            <div className="-rotate-90">
+                              <ChevronIcon />
+                            </div>
                           </a>
                         </SubMenu>
                       ) : (
