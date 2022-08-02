@@ -25,10 +25,7 @@ const Menu = ({ children, items = [] }: MenuProps) => {
   return (
     <DropdownMenu.Root>
       <div className="relative w-full">
-        <DropdownMenu.Trigger
-          className="group h-full w-full outline-none transition-all focus:bg-primary/20 radix-state-open:bg-primary/20"
-          ref={triggerRef}
-        >
+        <DropdownMenu.Trigger className="group h-full w-full outline-none" ref={triggerRef}>
           {children}
         </DropdownMenu.Trigger>
 
