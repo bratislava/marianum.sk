@@ -1,9 +1,10 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import cx from 'classnames'
-import { FC, ReactNode, useState } from 'react'
+import { FC, MouseEvent, ReactNode, useCallback, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 
 import { AnimateHeight } from '../../atoms/AnimateHeight'
+import MLink from '../../atoms/MLink'
 
 export type SubMenuItem = {
   key: string
@@ -14,19 +15,28 @@ export type SubMenuItem = {
 export type MenuProps = {
   children: ReactNode | FC<{ isOpen: boolean }>
   items?: SubMenuItem[]
+  onTriggerClick?: () => void
 }
 
-const SubMenu = ({ children, items = [] }: MenuProps) => {
+const SubMenu = ({ children, items = [], onTriggerClick }: MenuProps) => {
   const { ref: triggerRef, width } = useResizeDetector()
 
   const [isOpen, setOpen] = useState(false)
+
+  const triggerClickHandler = useCallback(
+    (event: MouseEvent) => {
+      event.preventDefault()
+      if (onTriggerClick) onTriggerClick()
+    },
+    [onTriggerClick],
+  )
 
   return (
     <DropdownMenu.Sub onOpenChange={setOpen}>
       <div className="relative w-full">
         <div className="h-full w-full">
           <DropdownMenu.SubTrigger
-            onMouseDown={(e) => e.preventDefault()}
+            onMouseDown={triggerClickHandler}
             ref={triggerRef}
             className={cx('group h-full w-full outline-none transition-all focus:bg-primary/10', {
               'bg-primary/10': isOpen,
@@ -49,12 +59,13 @@ const SubMenu = ({ children, items = [] }: MenuProps) => {
                   <div className="bg-white py-3">
                     {items.map(({ key, label, link }) => (
                       <DropdownMenu.Item key={key} asChild>
-                        <a
+                        <MLink
+                          noStyles
                           className="flex w-full justify-between px-6 py-3 outline-none focus:bg-primary/10"
                           href={link}
                         >
                           {label}
-                        </a>
+                        </MLink>
                       </DropdownMenu.Item>
                     ))}
                   </div>
