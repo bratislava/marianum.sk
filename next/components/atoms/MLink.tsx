@@ -41,7 +41,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       >
         {noStyles ? (
           <a ref={ref} {...rest} className={className}>
-            <span>{children}</span>
+            {children}
           </a>
         ) : (
           <a
