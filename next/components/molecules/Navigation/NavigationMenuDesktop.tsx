@@ -4,18 +4,18 @@ import { motion } from 'framer-motion'
 import ChevronIcon from '../../../assets/chevron_down.svg'
 import Menu, { MenuItem } from '../Menu/Menu'
 
-export type NavigationMenuItem = {
+export type NavigationMenuDesktopItem = {
   key: string
   label: string
   link: string
   items?: MenuItem[]
 }
 
-export type NavigationMenuProps = {
-  items: NavigationMenuItem[]
+export type NavigationMenuDesktopProps = {
+  items: NavigationMenuDesktopItem[]
 }
 
-const NavigationMenu = ({ items }: NavigationMenuProps) => {
+const NavigationMenuDesktop = ({ items }: NavigationMenuDesktopProps) => {
   return (
     <div className="grid h-16 grid-cols-4 bg-white text-foreground shadow">
       {items.map(({ key, label, items: subItems }, index) => (
@@ -48,4 +48,4 @@ const NavigationMenu = ({ items }: NavigationMenuProps) => {
   )
 }
 
-export default NavigationMenu
+export default NavigationMenuDesktop
