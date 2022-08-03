@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 
 import AddIcon from '../../assets/add.svg'
 import ArrowRightIcon from '../../assets/arrow_forward.svg'
@@ -10,6 +10,8 @@ import Breadcrumbs from '../../components/atoms/Breadcrumbs'
 import Button from '../../components/atoms/Button'
 import IconButton from '../../components/atoms/IconButton'
 import MLink from '../../components/atoms/MLink'
+import Pagination from '../../components/atoms/Pagination/Pagination'
+import QuantitySelect from '../../components/atoms/QuantitySelect'
 import Select from '../../components/atoms/Select'
 import Tab from '../../components/atoms/Tabs/Tab'
 import Tabs from '../../components/atoms/Tabs/Tabs'
@@ -60,6 +62,9 @@ export const Stack = ({ bg, width = null, direction = 'row', children }: IStackP
 }
 
 const Showcase = () => {
+  const [paginationSelectedPage, setPaginationSelectedPage] = useState(1)
+  const [quantitySelectValue, setQuantitySelectValue] = useState(1)
+
   const dummyBreadcrumbLinks = useMemo(
     () => [
       {
@@ -870,6 +875,29 @@ const Showcase = () => {
           />
         </Stack>
       </Wrapper>
+
+      <Wrapper title="Pagination">
+        <Stack>
+          <Pagination
+            count={10}
+            selectedPage={paginationSelectedPage}
+            onChange={(page) => setPaginationSelectedPage(page)}
+          />
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Quantity select">
+        <Stack>
+          <QuantitySelect
+            minValue={0}
+            maxValue={10}
+            value={quantitySelectValue}
+            onChange={(value) => setQuantitySelectValue(value)}
+          />
+        </Stack>
+      </Wrapper>
+
+      <div className="h-64" />
     </div>
   )
 }
