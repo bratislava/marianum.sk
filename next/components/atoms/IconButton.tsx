@@ -15,6 +15,8 @@ type IconButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
       | 'plain-primary'
       | 'plain-secondary'
       | 'plain-white'
+      | 'pagination'
+      | 'pagination-selected'
     size?: 'small' | 'default'
     href?: string
   }
@@ -42,13 +44,17 @@ const Button = ({
         variant === 'plain-primary',
       'text-foreground hover:text-[#323532]': variant === 'plain-secondary',
       'hover:opacity-64': variant === 'plain-white',
+      'text-foreground hover:text-primary': variant === 'pagination',
+      'text-primary': variant === 'pagination-selected',
 
       // bg and border color
       'bg-primary border border-primary hover:bg-primary-dark hover:border-primary-dark':
         variant === 'primary',
       'border border-primary hover:border-primary-dark': variant === 'secondary',
       'border border-border-alt hover:border-border-alt-dark': variant === 'tertiary',
-      'bg-white border border-border hover:border-border-dark': variant === 'white',
+      'bg-white border border-border hover:border-border-dark':
+        variant === 'white' || variant === 'pagination',
+      'bg-white border border-primary': variant === 'pagination-selected',
     },
   )
 
