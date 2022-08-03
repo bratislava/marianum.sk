@@ -10,6 +10,7 @@ import Breadcrumbs from '../../components/atoms/Breadcrumbs'
 import Button from '../../components/atoms/Button'
 import IconButton from '../../components/atoms/IconButton'
 import MLink from '../../components/atoms/MLink'
+import Pagination from '../../components/atoms/Pagination/Pagination'
 import Select from '../../components/atoms/Select'
 import Tab from '../../components/atoms/Tabs/Tab'
 import Tabs from '../../components/atoms/Tabs/Tabs'
@@ -19,7 +20,6 @@ import Accordion from '../../components/molecules/Accordion/Accordion'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
 import Row from '../../components/molecules/Row'
 import Search from '../../components/molecules/Search'
-import Pagination from '../../components/atoms/Pagination/Pagination'
 
 interface IWrapperProps {
   title?: string

@@ -2,11 +2,19 @@ import { MouseEvent } from 'react'
 
 type ItemType = 'first' | 'previous' | 'start-ellipsis' | 'end-ellipsis' | 'next' | 'last' | number
 
+// https://dev.to/namirsab/comment/2050
+const range = (start: number, end: number) => {
+  const length = end - start + 1
+  return Array.from({ length }, (_, i) => start + i)
+}
+
+// eslint-disable-next-line no-secrets/no-secrets
 /**
  * @mui/material contains a really useful hook for pagination, so this is a copied version with added types.
  *
  * https://github.com/mui/material-ui/blob/512896973499adbbda057e7f3685d1b23cc02de9/packages/mui-material/src/usePagination/usePagination.js
  */
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export default function usePagination(props: {
   boundaryCount?: number
   count?: number
@@ -36,12 +44,6 @@ export default function usePagination(props: {
     if (handleChange) {
       handleChange(event, value)
     }
-  }
-
-  // https://dev.to/namirsab/comment/2050
-  const range = (start: number, end: number) => {
-    const length = end - start + 1
-    return Array.from({ length }, (_, i) => start + i)
   }
 
   const startPages = range(1, Math.min(boundaryCount, count))
@@ -105,14 +107,18 @@ export default function usePagination(props: {
     switch (type) {
       case 'first':
         return 1
+
       case 'previous':
         return page - 1
+
       case 'next':
         return page + 1
+
       case 'last':
         return count
+
       default:
-        return null
+        return page
     }
   }
 
@@ -131,14 +137,14 @@ export default function usePagination(props: {
         }
       : {
           onClick: (event: MouseEvent) => {
-            handleClick(event, buttonPage(item)!)
+            handleClick(event, buttonPage(item))
           },
           type: item,
-          page: buttonPage(item)!,
+          page: buttonPage(item),
           selected: false,
           disabled:
             disabled ||
-            (item.indexOf('ellipsis') === -1 &&
+            (!item.includes('ellipsis') &&
               (item === 'next' || item === 'last' ? page >= count : page <= 1)),
         }
   })

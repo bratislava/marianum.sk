@@ -1,9 +1,10 @@
-import usePagination from './usePagination'
-import IconButton from '../IconButton'
+import cx from 'classnames'
+import React, { ReactNode } from 'react'
+
 import ArrowLeftIcon from '../../../assets/arrow_back.svg'
 import ArrowRightIcon from '../../../assets/arrow_forward.svg'
-import React, { ReactNode } from 'react'
-import cx from 'classnames'
+import IconButton from '../IconButton'
+import usePagination from './usePagination'
 
 type PaginationProps = {
   selectedPage: number
@@ -28,6 +29,7 @@ const Pagination = ({ count, selectedPage, onChange = () => {} }: PaginationProp
           ({ page, type, selected, disabled, onClick, 'aria-current': ariaCurrent }, index) => {
             let children: ReactNode = null
 
+            // eslint-disable-next-line unicorn/prefer-switch
             if (type === 'start-ellipsis' || type === 'end-ellipsis') {
               children = '…'
             } else if (type === 'page') {
@@ -44,7 +46,7 @@ const Pagination = ({ count, selectedPage, onChange = () => {} }: PaginationProp
               )
             } else if (type === 'previous' || type === 'next') {
               let icon: ReactNode
-              let ariaLabel: string
+              let ariaLabel = ''
               if (type === 'previous') {
                 icon = <ArrowLeftIcon />
                 ariaLabel = 'Ísť na predchádzajúcu stranu' // TODO: Translations.
@@ -60,7 +62,7 @@ const Pagination = ({ count, selectedPage, onChange = () => {} }: PaginationProp
                   variant="primary"
                   disabled={disabled}
                   onClick={onClick}
-                  aria-label={ariaLabel!}
+                  aria-label={ariaLabel}
                 >
                   {icon}
                 </IconButton>
@@ -69,6 +71,7 @@ const Pagination = ({ count, selectedPage, onChange = () => {} }: PaginationProp
 
             return (
               <li
+                // eslint-disable-next-line react/no-array-index-key
                 key={index}
                 className={cx({
                   'mx-[14px] text-sm font-semibold':
