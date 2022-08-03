@@ -14,8 +14,8 @@ type AnimateHeightProps = {
 export const AnimateHeight = ({
   duration,
   ease = 'easeInOut',
-  openedVariant = { opacity: 1 },
-  closedVariant = { opacity: 0 },
+  openedVariant = { opacity: 1, visibility: 'visible' },
+  closedVariant = { opacity: 0, visibility: 'hidden' },
   isVisible,
   children,
 }: AnimateHeightProps) => {
@@ -31,6 +31,7 @@ export const AnimateHeight = ({
   return (
     <motion.div
       className="overflow-hidden"
+      aria-hidden={!isVisible}
       initial="open"
       animate={isVisible ? { ...openedVariant, height } : { ...closedVariant, height: 0 }}
       inherit={false}
