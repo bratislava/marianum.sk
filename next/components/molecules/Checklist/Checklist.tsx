@@ -123,19 +123,20 @@ const Checklist = ({ items }: ChecklistProps) => {
               isCompleted={isCompleted}
             />
             <div
-              tabIndex={0}
-              role="button"
-              onKeyUp={(e) => (e.code === 'Enter' || e.code === 'Space') && openItemHandler(key)}
-              onClick={() => openItemHandler(key)}
               className={cx(
-                'flex w-full flex-col bg-white p-6 focus:outline-2 outline-primary outline-offset-2',
+                'flex w-full flex-col bg-white focus:outline-2 outline-primary outline-offset-2',
                 {
                   'cursor-auto': isOpen,
                 },
               )}
             >
               {/* item title */}
-              <div className="flex items-center">
+              <button
+                type="button"
+                onKeyUp={(e) => (e.code === 'Enter' || e.code === 'Space') && openItemHandler(key)}
+                onClick={() => openItemHandler(key)}
+                className="flex items-center p-6"
+              >
                 <div
                   className={cx('transition-all sm:hidden', {
                     'w-10 opacity-1 pr-4': isCompleted,
@@ -145,9 +146,9 @@ const Checklist = ({ items }: ChecklistProps) => {
                   <ChecklistRadio className="sm:hidden" isOpen={false} isCompleted={isCompleted} />
                 </div>
                 <h4>{title}</h4>
-              </div>
+              </button>
               <AnimateHeight isVisible={isOpen}>
-                <div className="flex w-full flex-col gap-6">
+                <div className="flex w-full flex-col gap-6 px-6 pb-6">
                   {/* item description */}
                   <div className="pt-4">{description}</div>
                   {
