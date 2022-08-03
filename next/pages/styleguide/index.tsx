@@ -9,6 +9,7 @@ import SearchIcon from '../../assets/search.svg'
 import XIcon from '../../assets/x-alt.svg'
 import Breadcrumbs from '../../components/atoms/Breadcrumbs'
 import Button from '../../components/atoms/Button'
+import Checkbox from '../../components/atoms/Checkbox'
 import IconButton from '../../components/atoms/IconButton'
 import MLink from '../../components/atoms/MLink'
 import Pagination from '../../components/atoms/Pagination/Pagination'
@@ -68,6 +69,7 @@ const Showcase = () => {
   const [paginationSelectedPage, setPaginationSelectedPage] = useState(1)
   const [quantitySelectValue, setQuantitySelectValue] = useState(1)
   const [radioValue, setRadioValue] = useState('value-1')
+  const [checkboxValue, setCheckboxValue] = useState(true)
 
   const dummyBreadcrumbLinks = useMemo(
     () => [
@@ -855,6 +857,29 @@ const Showcase = () => {
               Value 3
             </RadioBox>
           </RadioGroup>
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Checkbox">
+        <Stack direction="column">
+          <Checkbox isSelected={checkboxValue} onChange={setCheckboxValue}>
+            Checkbox
+          </Checkbox>
+          <Checkbox isSelected={checkboxValue} isDisabled onChange={setCheckboxValue}>
+            Disabled checkbox
+          </Checkbox>
+          <Checkbox isSelected={checkboxValue} isReadOnly onChange={setCheckboxValue}>
+            Readonly checkbox
+          </Checkbox>
+          <Checkbox isSelected={checkboxValue} hasError onChange={setCheckboxValue}>
+            Error checkbox
+          </Checkbox>
+          <Checkbox isSelected={checkboxValue} isDisabled hasError onChange={setCheckboxValue}>
+            Disabled checkbox
+          </Checkbox>
+          <Checkbox isSelected={checkboxValue} isReadOnly hasError onChange={setCheckboxValue}>
+            Readonly checkbox
+          </Checkbox>
         </Stack>
       </Wrapper>
 
