@@ -2,6 +2,7 @@ import cx from 'classnames'
 import { MouseEvent, useCallback, useReducer } from 'react'
 
 import CheckIcon from '../../../assets/check.svg'
+import CheckCircleIcon from '../../../assets/check_circle.svg'
 import XIcon from '../../../assets/x-alt.svg'
 import { AnimateHeight } from '../../atoms/AnimateHeight'
 import Button from '../../atoms/Button'
@@ -40,7 +41,7 @@ const ChecklistRadio = ({
           'scale-1': isCompleted,
         })}
       >
-        <CheckIcon width={24} height={24} className="scale-75" />
+        <CheckIcon className="scale-75" />
       </div>
     </div>
   )
@@ -168,15 +169,7 @@ const Checklist = ({ items }: ChecklistProps) => {
                         <div className="flex flex-col gap-4 sm:flex-row">
                           <Button
                             onClick={(e) => completeItemHandler(key, e)}
-                            startIcon={
-                              <div className="flex h-4 w-4 items-center justify-center rounded-full bg-white text-primary">
-                                <CheckIcon
-                                  width={24}
-                                  height={24}
-                                  className="translate-x-[-1px] translate-y-[-1px] scale-75"
-                                />
-                              </div>
-                            }
+                            startIcon={<CheckCircleIcon />}
                           >
                             Vybavené
                           </Button>
