@@ -1,9 +1,11 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import Navigation from '../components/molecules/Navigation/Navigation'
+import HomepageSlider from '../components/sections/HomepageSlider'
 import SectionExample from '../components/sections/SectionExample'
 
 const Home = () => {
   return (
-    <div className="bg-primary-dark">
+    <div>
       <Navigation
         phoneNumber="+421 987 654 321"
         faqLink="/faq"
@@ -244,6 +246,36 @@ const Home = () => {
           },
         ]}
       />
+
+      <HomepageSlider
+        slides={[
+          {
+            key: 'slide-1',
+            title: 'Slide 1',
+            description:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
+            imageSrc: '',
+            buttonText: 'Zistiť viac',
+          },
+          {
+            key: 'slide-2',
+            title: 'Slide 2',
+            description:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
+            imageSrc: '',
+            buttonText: 'Zistiť viac',
+          },
+          {
+            key: 'slide-3',
+            title: 'Slide 3',
+            description:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
+            imageSrc: '',
+            buttonText: 'Zistiť viac',
+          },
+        ]}
+      />
+
       <div className="h-96" />
       <div>Hello from new Marianum website!</div>
       <div className="h-96" />
