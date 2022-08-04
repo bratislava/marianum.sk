@@ -47,6 +47,7 @@ const Navigation = ({ phoneNumber, faqLink, navigationItems }: NavigationProps) 
           <NavigationSearch />
           {/* mobile menu button */}
           <IconButton
+            className="lg:hidden"
             aria-label="navigačné menu"
             onClick={() => setMobileNavOpen(true)}
             variant="primary"
