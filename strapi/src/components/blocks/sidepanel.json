@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_blocks_sidepanels",
+  "info": {
+    "displayName": "sidepanel",
+    "icon": "expand"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

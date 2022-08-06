@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_sections_branch_groups",
+  "info": {
+    "displayName": "branch group",
+    "icon": "cross"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "branches": {
+      "displayName": "branch item",
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.branch-item",
+      "required": false
+    }
+  }
+}
