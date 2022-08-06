@@ -95,7 +95,7 @@ const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
         ) : (
           <div className="flex w-full flex-col">
             <div className="flex w-full items-center justify-between">
-              <div className="rotate flex items-center gap-1 p-4">
+              <div className="flex items-center gap-1 p-4">
                 {/* first child */}
                 {breadcrumbedChildren[0]}
                 {/* ... */}
