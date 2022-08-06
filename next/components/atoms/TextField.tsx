@@ -21,6 +21,7 @@ type CommonProps = {
   error?: boolean
   id: string
   label?: string
+  inputClassName?: string
 }
 
 type TextFieldProps = CommonProps & AreaOrInputConditionalProps
@@ -34,6 +35,7 @@ const TextField = (props: TextFieldProps) => {
       rows = 6,
       label,
       className,
+      inputClassName,
       disabled = false,
       error = false,
       required = false,
@@ -54,9 +56,11 @@ const TextField = (props: TextFieldProps) => {
           disabled={disabled}
           required={required}
           className={cx(
-            'px-4 resize-y min-h-10 py-[6px] w-full outline-none placeholder:text-foreground-placeholder',
+            'px-4 bg-transparent resize-y min-h-10 py-[6px] w-full outline-none',
+            inputClassName,
             {
               'text-foreground-disabled': disabled,
+              'placeholder:text-foreground-placeholder': !inputClassName?.includes('placeholder:'),
             },
           )}
         />
@@ -72,6 +76,7 @@ const TextField = (props: TextFieldProps) => {
     label,
     className,
     disabled = false,
+    inputClassName,
     error = false,
     required = false,
     ...rest
@@ -93,10 +98,11 @@ const TextField = (props: TextFieldProps) => {
         {...rest}
         disabled={disabled}
         required={required}
-        className={cx('h-10 w-full outline-none placeholder:text-foreground-placeholder', {
+        className={cx('bg-transparent h-10 w-full outline-none', inputClassName, {
           'text-foreground-disabled': disabled,
           'pl-4': !leftSlot,
           'pr-4': !rightSlot,
+          'placeholder:text-foreground-placeholder': !inputClassName?.includes('placeholder:'),
         })}
       />
       {rightSlot && <div className="shrink-0 grow-0">{rightSlot}</div>}
