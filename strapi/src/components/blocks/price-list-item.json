@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_blocks_price_list_items",
+  "info": {
+    "displayName": "price list item",
+    "icon": "list"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "text"
+    },
+    "price": {
+      "type": "decimal"
+    }
+  }
+}
