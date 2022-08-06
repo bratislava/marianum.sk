@@ -39,7 +39,7 @@ const Navigation = ({ phoneNumber, faqLink, navigationItems }: NavigationProps) 
             {phoneNumber && (
               <MLink href={`tel:${phoneNumber}`} className="flex items-center gap-2" noStyles>
                 <PhoneIcon />
-                <span>+421 987 654 321</span>
+                <span>{phoneNumber}</span>
               </MLink>
             )}
           </div>

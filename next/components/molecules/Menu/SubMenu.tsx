@@ -51,7 +51,7 @@ const SubMenu = ({ children, items = [], onTriggerClick }: MenuProps) => {
             <DropdownMenu.SubContent
               loop
               sideOffset={8}
-              className="-mt-3 w-full font-semibold shadow outline-none"
+              className="-mt-3 w-full font-semibold text-foreground shadow outline-none"
               style={{ width: `${width ?? 0}px` }}
             >
               <AnimateHeight isVisible={isOpen}>

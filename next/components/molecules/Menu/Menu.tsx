@@ -41,7 +41,7 @@ const Menu = ({ children, items = [] }: MenuProps) => {
             >
               <AnimateHeight isVisible={isOpen}>
                 {isOpen && (
-                  <div className="py-3">
+                  <div className="py-3 text-foreground">
                     {items.map(({ key, label, link, items: subItems }) =>
                       subItems && subItems.length > 0 ? (
                         <SubMenu onTriggerClick={() => setOpen(false)} key={key} items={subItems}>

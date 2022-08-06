@@ -17,7 +17,7 @@ export type NavigationMenuDesktopProps = {
 
 const NavigationMenuDesktop = ({ items }: NavigationMenuDesktopProps) => {
   return (
-    <div className="grid h-16 grid-cols-4 bg-white text-foreground shadow">
+    <div className="grid h-16 grid-cols-4 bg-white text-foreground-heading shadow">
       {items.map(({ key, label, items: subItems }, index) => (
         <Menu key={key} items={subItems}>
           {({ isOpen }) => (
