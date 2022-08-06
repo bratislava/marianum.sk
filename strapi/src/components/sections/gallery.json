@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_galleries",
+  "info": {
+    "displayName": "gallery",
+    "icon": "images"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "medias": {
+      "allowedTypes": [
+        "images",
+        "videos"
+      ],
+      "type": "media",
+      "multiple": true
+    }
+  }
+}
