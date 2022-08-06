@@ -12,11 +12,11 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "@strapi/plugin-graphql": "4.3.0",
-    "@strapi/plugin-i18n": "4.3.0",
-    "@strapi/plugin-upload": "4.3.0",
-    "@strapi/plugin-users-permissions": "4.3.0",
-    "@strapi/strapi": "4.3.0",
+    "@strapi/plugin-graphql": "4.3.2",
+    "@strapi/plugin-i18n": "4.3.2",
+    "@strapi/plugin-upload": "4.3.2",
+    "@strapi/plugin-users-permissions": "4.3.2",
+    "@strapi/strapi": "4.3.2",
     "pg": "8.6.0",
     "strapi-plugin-navigation": "^2.1.0",
     "strapi-provider-upload-ts-minio": "^3.1.0"
