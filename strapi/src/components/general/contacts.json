@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_general_contacts",
+  "info": {
+    "displayName": "contacts",
+    "icon": "address-book"
+  },
+  "options": {},
+  "attributes": {
+    "address": {
+      "type": "text"
+    },
+    "featuredOpeningHours": {
+      "type": "string"
+    },
+    "openingHoursLink": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "contactsLink": {
+      "type": "string"
+    }
+  }
+}

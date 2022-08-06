@@ -1,6 +1,9 @@
 # VSCode
 .vscode/
 
+# JetBrains IDE
+.idea/
+
 # Postgres
 data
 

@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_general_headers",
+  "info": {
+    "displayName": "header",
+    "icon": "heading",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "faqsLink": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    }
+  }
+}

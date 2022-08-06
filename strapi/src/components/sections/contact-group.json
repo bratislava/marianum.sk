@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_contact_groups",
+  "info": {
+    "displayName": "contact group",
+    "icon": "address-card"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "contacts": {
+      "displayName": "contact item",
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.contact-item"
+    }
+  }
+}
