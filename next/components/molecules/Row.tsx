@@ -1,9 +1,11 @@
 import cx from 'classnames'
+import { useRouter } from 'next/router'
 import React from 'react'
 
 import ChevronRightIcon from '../../assets/chevron_right.svg'
 import OpenInNewIcon from '../../assets/open_in_new.svg'
 import PlaceIcon from '../../assets/place.svg'
+import { onEnterOrSpaceKeyDown } from '../../utils/onEnterOrSpaceKeyDown'
 import Button from '../atoms/Button'
 import IconButton from '../atoms/IconButton'
 import MLink from '../atoms/MLink'
@@ -33,8 +35,26 @@ const Row = ({
   button = null,
   arrowInCorner = false,
 }: IRowProps) => {
+  const router = useRouter()
+
+  const linkProps = link
+    ? {
+        role: 'link',
+        tabIndex: 0,
+        onClick: () => router.push(link),
+        onKeyDown: onEnterOrSpaceKeyDown(() => router.push(link)),
+      }
+    : null
+
   return (
-    <div className="relative flex w-full items-center border border-border bg-white py-3 px-4 md:py-4 md:px-5">
+    <div
+      {...linkProps}
+      aria-label={title}
+      className={cx(
+        'group relative flex w-full items-center border border-border bg-white py-3 px-4 md:py-4 md:px-5',
+        { 'cursor-pointer': link },
+      )}
+    >
       <div className="grow space-y-1.5">
         {category && (
           <MLink
@@ -46,7 +66,13 @@ const Row = ({
           </MLink>
         )}
 
-        <h5 className="text-h5 text-foreground-heading">{title}</h5>
+        <h5
+          className={cx('w-fit text-h5 text-foreground-heading hover:underline', {
+            'hover:underline group-focus:underline': link,
+          })}
+        >
+          {title}
+        </h5>
 
         <div className="space-x-3 text-sm empty:hidden">
           {showUrl && link && (
@@ -77,23 +103,33 @@ const Row = ({
       </div>
 
       <div className={cx('flex gap-x-5', { 'items-center': !arrowInCorner })}>
-        <span className="hidden md:flex">{button}</span>
+        {button && <div className="hidden md:flex">{button}</div>}
         {link &&
           (isExternal ? (
             <>
+              {/* desktop button */}
               <Button
+                href={link}
+                tabIndex={-1}
                 variant="plain-secondary"
                 startIcon={<OpenInNewIcon />}
                 className="hidden md:flex"
               >
                 Zobraziť web
               </Button>
-              <IconButton href={link} variant="plain-secondary" className="-mr-2 md:hidden">
+              {/* mobile buttom */}
+              <IconButton
+                href={link}
+                tabIndex={-1}
+                variant="plain-secondary"
+                className="-mr-2 md:hidden"
+              >
                 <OpenInNewIcon />
               </IconButton>
             </>
           ) : (
-            <IconButton href={link} className="-mr-2 hidden md:flex">
+            // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+            <IconButton href={link} tabIndex={-1} className="-mr-2 hidden md:flex">
               <ChevronRightIcon />
             </IconButton>
           ))}
