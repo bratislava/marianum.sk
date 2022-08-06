@@ -2161,21 +2161,10 @@
     prettier "2.7.1"
     typescript "4.6.2"
 
-"@strapi/utils@4.3.2":
+"@strapi/utils@4.3.2", "@strapi/utils@^4.3.2":
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/@strapi/utils/-/utils-4.3.2.tgz#df4ae10bff89d3fd13495a3bde10da16f6fd4597"
   integrity sha512-7MsXcGFSbKsKUFiegzy1kL6PHTAWyJ0kxfT4xAywkXMN7GOkA3x9ld0Ds4+a3MBohA2ZOiVj7Nil3IF7tQwdpQ==
-  dependencies:
-    "@sindresorhus/slugify" "1.1.0"
-    date-fns "2.28.0"
-    http-errors "1.8.1"
-    lodash "4.17.21"
-    yup "0.32.9"
-
-"@strapi/utils@^4.2.0":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@strapi/utils/-/utils-4.3.0.tgz#335bbec19c5c82a14542502e4ea275af39b86c1c"
-  integrity sha512-wizuvJX8yGB3T+VU83ZJ0hiWS+rBsLFLMzbSR54b858HSyjWHQWotcxMboxRKu1MZsmX3uXzY1RK8pF22bLTng==
   dependencies:
     "@sindresorhus/slugify" "1.1.0"
     date-fns "2.28.0"
@@ -9896,11 +9885,6 @@ slash@^3.0.0:
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
 
-slugify@^1.4.5:
-  version "1.6.5"
-  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.6.5.tgz#c8f5c072bf2135b80703589b39a3d41451fbe8c8"
-  integrity sha512-8mo9bslnBO3tr5PEVFzMPIWwWnipGS0xVbYf65zxDqfNwmzYn1LpiKNrR6DlClusuvo+hDHd1zKpmfAe83NQSQ==
-
 snake-case@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/snake-case/-/snake-case-2.1.0.tgz#41bdb1b73f30ec66a04d4e2cad1b76387d4d6d9f"
@@ -10089,12 +10073,13 @@ std-env@^3.0.1:
   resolved "https://registry.yarnpkg.com/std-env/-/std-env-3.1.1.tgz#1f19c4d3f6278c52efd08a94574a2a8d32b7d092"
   integrity sha512-/c645XdExBypL01TpFKiG/3RAa/Qmu+zRi0MwAmrdEkwHNuN0ebo8ccAXBBDa5Z0QOJgBskUIbuCK91x0sCVEw==
 
-strapi-plugin-navigation@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/strapi-plugin-navigation/-/strapi-plugin-navigation-2.1.0.tgz#f2f0270415f614c95f36a1173e97a8e1da508636"
-  integrity sha512-aLI4kIRKlGcjhGkvY5thVVqCt3pVuCUTaXX3yiQ1xWvXHPcWf0uQRVXdlQmK5jyPUZEPu7hvkgd9YSk9CpTolg==
+strapi-plugin-navigation@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-navigation/-/strapi-plugin-navigation-2.2.1.tgz#e63da1354e667c22e3a8f8860c3aa874a09869e9"
+  integrity sha512-FDYhpZKPLkcrmCTtj35N4+/ZcA6KVsVcIWiyb1g+mXrEtY1RiAnXUU5mQoK1TWYHqqMtoBxfvp3aN/VdlinaDQ==
   dependencies:
-    "@strapi/utils" "^4.2.0"
+    "@sindresorhus/slugify" "1.1.0"
+    "@strapi/utils" "^4.3.2"
     lodash "^4.17.11"
     pluralize "^8.0.0"
     react "^16.9.0"
@@ -10106,7 +10091,6 @@ strapi-plugin-navigation@^2.1.0:
     reactstrap "8.4.1"
     redux-saga "^0.16.0"
     request "^2.83.0"
-    slugify "^1.4.5"
     uuid "^8.3.0"
 
 strapi-provider-upload-ts-minio@^3.1.0:
