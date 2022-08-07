@@ -1086,7 +1086,6 @@ export type MutationUploadArgs = {
 
 export type NavigationItem = {
   __typename?: 'NavigationItem';
-  audience?: Maybe<Array<Maybe<Scalars['String']>>>;
   createdAt?: Maybe<Scalars['String']>;
   createdBy?: Maybe<Scalars['String']>;
   created_at?: Maybe<Scalars['String']>;
@@ -1487,7 +1486,6 @@ export type StringFilterInput = {
 
 export type Tmp = {
   __typename?: 'Tmp';
-  branch?: Maybe<BranchEntityResponse>;
   createdAt?: Maybe<Scalars['DateTime']>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   title?: Maybe<Scalars['String']>;
@@ -1513,7 +1511,6 @@ export type TmpEntityResponseCollection = {
 
 export type TmpFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<TmpFiltersInput>>>;
-  branch?: InputMaybe<BranchFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<TmpFiltersInput>;
@@ -1524,7 +1521,6 @@ export type TmpFiltersInput = {
 };
 
 export type TmpInput = {
-  branch?: InputMaybe<Scalars['ID']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -1902,43 +1898,78 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type NavigationItemFragment = { __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | { __typename: 'Tmp' } | null } | null, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | { __typename: 'Tmp' } | null } | null, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | { __typename: 'Tmp' } | null } | null } | null> | null } | null> | null };
+
+export type PageEntityFragment = { __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string } | null };
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'UsersPermissionsMe', id: string } | null };
 
-export type NavigationQueryVariables = Exact<{ [key: string]: never; }>;
+export type NavigationQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+}>;
 
 
-export type NavigationQuery = { __typename?: 'Query', renderNavigation: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string } | { __typename: 'Page', title: string } | { __typename: 'Tmp' } | null } | null, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string } | { __typename: 'Page', title: string, slug: string } | { __typename: 'Tmp' } | null } | null } | null> | null } | null> };
+export type NavigationQuery = { __typename?: 'Query', navigation: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | { __typename: 'Tmp' } | null } | null, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | { __typename: 'Tmp' } | null } | null, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | { __typename: 'Tmp' } | null } | null } | null> | null } | null> | null } | null> };
+
+export type PageBySlugQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+  slug: Scalars['String'];
+}>;
 
 
-export const MeDocument = gql`
-    query Me {
-  me {
+export type PageBySlugQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string } | null }> } | null };
+
+export type PagesStaticPathsQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
+
+
+export type PagesStaticPathsQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null }> } | null };
+
+export type PagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PagesQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, publishedAt?: any | null, sections?: Array<{ __typename: 'ComponentSectionsAccordionGroup', id: string, title?: string | null, accordions?: Array<{ __typename?: 'ComponentBlocksAccordionItem', id: string, title?: string | null, description?: string | null } | null> | null } | { __typename?: 'ComponentSectionsBranchGroup' } | { __typename?: 'ComponentSectionsContactGroup' } | { __typename?: 'ComponentSectionsDocumentGroup' } | { __typename?: 'ComponentSectionsGallery' } | { __typename?: 'ComponentSectionsPriceList' } | { __typename?: 'ComponentSectionsRichtext', markdown?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null } | { __typename?: 'Error' } | null> | null } | null }> } | null };
+
+export const NavigationItemFragmentDoc = gql`
+    fragment NavigationItem on NavigationItem {
+  id
+  title
+  path
+  type
+  related {
     id
+    attributes {
+      __typename
+      ... on Page {
+        title
+        slug
+      }
+      ... on Branch {
+        title
+        slug
+      }
+    }
   }
-}
-    `;
-export const NavigationDocument = gql`
-    query Navigation {
-  renderNavigation(
-    navigationIdOrSlug: "main-navigation"
-    type: TREE
-    menuOnly: false
-  ) {
+  items {
     id
     title
     path
+    type
     related {
       id
       attributes {
         __typename
         ... on Page {
           title
+          slug
         }
         ... on Branch {
           title
+          slug
         }
       }
     }
@@ -1946,6 +1977,7 @@ export const NavigationDocument = gql`
       id
       title
       path
+      type
       related {
         id
         attributes {
@@ -1956,6 +1988,91 @@ export const NavigationDocument = gql`
           }
           ... on Branch {
             title
+            slug
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export const PageEntityFragmentDoc = gql`
+    fragment PageEntity on PageEntity {
+  id
+  attributes {
+    title
+    slug
+  }
+}
+    `;
+export const MeDocument = gql`
+    query Me {
+  me {
+    id
+  }
+}
+    `;
+export const NavigationDocument = gql`
+    query Navigation($locale: I18NLocaleCode!) {
+  navigation: renderNavigation(
+    navigationIdOrSlug: "main-navigation"
+    type: TREE
+    menuOnly: false
+    locale: $locale
+  ) {
+    ...NavigationItem
+  }
+}
+    ${NavigationItemFragmentDoc}`;
+export const PageBySlugDocument = gql`
+    query PageBySlug($locale: I18NLocaleCode!, $slug: String!) {
+  pages(locale: $locale, filters: {slug: {eq: $slug}}) {
+    data {
+      ...PageEntity
+    }
+  }
+}
+    ${PageEntityFragmentDoc}`;
+export const PagesStaticPathsDocument = gql`
+    query PagesStaticPaths($locale: I18NLocaleCode) {
+  pages(locale: $locale) {
+    data {
+      id
+      attributes {
+        slug
+        locale
+      }
+    }
+  }
+}
+    `;
+export const PagesDocument = gql`
+    query Pages {
+  pages(locale: "sk") {
+    data {
+      id
+      attributes {
+        title
+        slug
+        publishedAt
+        sections {
+          ... on ComponentSectionsAccordionGroup {
+            __typename
+            id
+            title
+            accordions {
+              id
+              title
+              description
+            }
+          }
+          ... on ComponentSectionsRichtext {
+            markdown
+            button {
+              label
+              url
+              targetBlank
+            }
           }
         }
       }
@@ -1974,8 +2091,17 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     Me(variables?: MeQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<MeQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<MeQuery>(MeDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Me', 'query');
     },
-    Navigation(variables?: NavigationQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<NavigationQuery> {
+    Navigation(variables: NavigationQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<NavigationQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<NavigationQuery>(NavigationDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Navigation', 'query');
+    },
+    PageBySlug(variables: PageBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PageBySlugQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<PageBySlugQuery>(PageBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'PageBySlug', 'query');
+    },
+    PagesStaticPaths(variables?: PagesStaticPathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PagesStaticPathsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<PagesStaticPathsQuery>(PagesStaticPathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'PagesStaticPaths', 'query');
+    },
+    Pages(variables?: PagesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PagesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<PagesQuery>(PagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Pages', 'query');
     }
   };
 }
