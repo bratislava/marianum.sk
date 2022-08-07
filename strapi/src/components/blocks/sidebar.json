@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_blocks_sidebars",
+  "info": {
+    "displayName": "sidebar",
+    "icon": "align-right"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "text"
+    },
+    "text": {
+      "type": "text"
+    },
+    "ctaButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "blocks.button-link"
+    },
+    "contact": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::contact.contact"
+    }
+  }
+}

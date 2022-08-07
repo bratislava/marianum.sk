@@ -64,10 +64,71 @@ fragment NavigationItem on NavigationItem {
   }
 }
 
+fragment CtaButton on ComponentBlocksButtonLink {
+  label
+  url
+  targetBlank
+}
+
+fragment Sidebar on ComponentBlocksSidebar {
+  title
+  text
+  ctaButton {
+    ...CtaButton
+  }
+  contact {
+    data {
+      ...ContactEntity
+    }
+  }
+}
+
+fragment ContactEntity on ContactEntity {
+  id
+  attributes {
+    title
+    name
+    email
+    phone1
+    phone2
+  }
+}
+
 fragment PageEntity on PageEntity {
   id
   attributes {
     title
     slug
+    publishedAt
+    layout
+    description
+    ctaButton {
+      ...CtaButton
+    }
+    sidebar {
+      ...Sidebar
+    }
+    sections {
+      ... on ComponentSectionsAccordionGroup {
+        __typename
+        id
+        title
+        accordions {
+          id
+          title
+          description
+        }
+      }
+      ... on ComponentSectionsRichtext {
+        __typename
+        id
+        markdown
+        button {
+          label
+          url
+          targetBlank
+        }
+      }
+    }
   }
 }

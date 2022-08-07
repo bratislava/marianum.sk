@@ -231,6 +231,33 @@ export type ComponentBlocksPriceListItemFiltersInput = {
   price?: InputMaybe<FloatFilterInput>;
 };
 
+export type ComponentBlocksSidebar = {
+  __typename?: 'ComponentBlocksSidebar';
+  contact?: Maybe<ContactEntityResponse>;
+  ctaButton?: Maybe<ComponentBlocksButtonLink>;
+  id: Scalars['ID'];
+  text?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+export type ComponentBlocksSidebarFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentBlocksSidebarFiltersInput>>>;
+  contact?: InputMaybe<ContactFiltersInput>;
+  ctaButton?: InputMaybe<ComponentBlocksButtonLinkFiltersInput>;
+  not?: InputMaybe<ComponentBlocksSidebarFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentBlocksSidebarFiltersInput>>>;
+  text?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentBlocksSidebarInput = {
+  contact?: InputMaybe<Scalars['ID']>;
+  ctaButton?: InputMaybe<ComponentBlocksButtonLinkInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  text?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
 export type ComponentBlocksSidepanel = {
   __typename?: 'ComponentBlocksSidepanel';
   id: Scalars['ID'];
@@ -250,15 +277,15 @@ export type ComponentGeneralContacts = {
 
 export type ComponentGeneralHeader = {
   __typename?: 'ComponentGeneralHeader';
-  faqsLink?: Maybe<Scalars['String']>;
+  faqLink?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
-  phone?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
 };
 
 export type ComponentGeneralHeaderInput = {
-  faqsLink?: InputMaybe<Scalars['String']>;
+  faqLink?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
-  phone?: InputMaybe<Scalars['String']>;
+  phoneNumber?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentGeneralSocial = {
@@ -385,8 +412,8 @@ export type Contact = {
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<ContactRelationResponseCollection>;
   name?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  phoneSecondary?: Maybe<Scalars['String']>;
+  phone1?: Maybe<Scalars['String']>;
+  phone2?: Maybe<Scalars['String']>;
   title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -425,8 +452,8 @@ export type ContactFiltersInput = {
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<ContactFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ContactFiltersInput>>>;
-  phone?: InputMaybe<StringFilterInput>;
-  phoneSecondary?: InputMaybe<StringFilterInput>;
+  phone1?: InputMaybe<StringFilterInput>;
+  phone2?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -434,8 +461,8 @@ export type ContactFiltersInput = {
 export type ContactInput = {
   email?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
-  phoneSecondary?: InputMaybe<Scalars['String']>;
+  phone1?: InputMaybe<Scalars['String']>;
+  phone2?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
 };
 
@@ -524,6 +551,13 @@ export enum Enum_Componentsectionslistingsection_Type {
   Services = 'services'
 }
 
+export enum Enum_Page_Layout {
+  Centered = 'centered',
+  CenteredWithImage = 'centeredWithImage',
+  Full = 'full',
+  Sidebar = 'sidebar'
+}
+
 export type Error = {
   __typename?: 'Error';
   code: Scalars['String'];
@@ -591,7 +625,7 @@ export type GeneralRelationResponseCollection = {
   data: Array<GeneralEntity>;
 };
 
-export type GenericMorph = Branch | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksPriceListItem | ComponentBlocksSidepanel | ComponentGeneralContacts | ComponentGeneralHeader | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsBranchGroup | ComponentSectionsContactGroup | ComponentSectionsDocumentGroup | ComponentSectionsGallery | ComponentSectionsListingSection | ComponentSectionsPriceList | ComponentSectionsRichtext | Contact | Document | General | HomePage | I18NLocale | Page | Partner | Tmp | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Branch | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSidepanel | ComponentGeneralContacts | ComponentGeneralHeader | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsBranchGroup | ComponentSectionsContactGroup | ComponentSectionsDocumentGroup | ComponentSectionsGallery | ComponentSectionsListingSection | ComponentSectionsPriceList | ComponentSectionsRichtext | Contact | Document | General | HomePage | I18NLocale | Page | Partner | Tmp | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -1125,10 +1159,14 @@ export enum NavigationRenderType {
 export type Page = {
   __typename?: 'Page';
   createdAt?: Maybe<Scalars['DateTime']>;
+  ctaButton?: Maybe<ComponentBlocksButtonLink>;
+  description?: Maybe<Scalars['String']>;
+  layout: Enum_Page_Layout;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<PageRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   sections?: Maybe<Array<Maybe<PageSectionsDynamicZone>>>;
+  sidebar?: Maybe<ComponentBlocksSidebar>;
   slug: Scalars['String'];
   title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -1162,20 +1200,28 @@ export type PageEntityResponseCollection = {
 export type PageFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<PageFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  ctaButton?: InputMaybe<ComponentBlocksButtonLinkFiltersInput>;
+  description?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  layout?: InputMaybe<StringFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<PageFiltersInput>;
   not?: InputMaybe<PageFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<PageFiltersInput>>>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
+  sidebar?: InputMaybe<ComponentBlocksSidebarFiltersInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type PageInput = {
+  ctaButton?: InputMaybe<ComponentBlocksButtonLinkInput>;
+  description?: InputMaybe<Scalars['String']>;
+  layout?: InputMaybe<Enum_Page_Layout>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   sections?: InputMaybe<Array<Scalars['PageSectionsDynamicZoneInput']>>;
+  sidebar?: InputMaybe<ComponentBlocksSidebarInput>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -1900,7 +1946,13 @@ export type UsersPermissionsUserRelationResponseCollection = {
 
 export type NavigationItemFragment = { __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | { __typename: 'Tmp' } | null } | null, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | { __typename: 'Tmp' } | null } | null, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | { __typename: 'Tmp' } | null } | null } | null> | null } | null> | null };
 
-export type PageEntityFragment = { __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string } | null };
+export type CtaButtonFragment = { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null };
+
+export type SidebarFragment = { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null };
+
+export type ContactEntityFragment = { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null };
+
+export type PageEntityFragment = { __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, publishedAt?: any | null, layout: Enum_Page_Layout, description?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, sidebar?: { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, sections?: Array<{ __typename: 'ComponentSectionsAccordionGroup', id: string, title?: string | null, accordions?: Array<{ __typename?: 'ComponentBlocksAccordionItem', id: string, title?: string | null, description?: string | null } | null> | null } | { __typename?: 'ComponentSectionsBranchGroup' } | { __typename?: 'ComponentSectionsContactGroup' } | { __typename?: 'ComponentSectionsDocumentGroup' } | { __typename?: 'ComponentSectionsGallery' } | { __typename?: 'ComponentSectionsPriceList' } | { __typename: 'ComponentSectionsRichtext', id: string, markdown?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null } | { __typename?: 'Error' } | null> | null } | null };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1912,7 +1964,7 @@ export type NavigationQueryVariables = Exact<{
 }>;
 
 
-export type NavigationQuery = { __typename?: 'Query', navigation: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | { __typename: 'Tmp' } | null } | null, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | { __typename: 'Tmp' } | null } | null, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | { __typename: 'Tmp' } | null } | null } | null> | null } | null> | null } | null> };
+export type NavigationQuery = { __typename?: 'Query', navigation: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | { __typename: 'Tmp' } | null } | null, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | { __typename: 'Tmp' } | null } | null, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | { __typename: 'Tmp' } | null } | null } | null> | null } | null> | null } | null>, general?: { __typename?: 'GeneralEntityResponse', data?: { __typename?: 'GeneralEntity', attributes?: { __typename?: 'General', header?: { __typename?: 'ComponentGeneralHeader', faqLink?: string | null, phoneNumber?: string | null } | null } | null } | null } | null };
 
 export type PageBySlugQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode'];
@@ -1920,7 +1972,7 @@ export type PageBySlugQueryVariables = Exact<{
 }>;
 
 
-export type PageBySlugQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string } | null }> } | null };
+export type PageBySlugQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, publishedAt?: any | null, layout: Enum_Page_Layout, description?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, sidebar?: { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, sections?: Array<{ __typename: 'ComponentSectionsAccordionGroup', id: string, title?: string | null, accordions?: Array<{ __typename?: 'ComponentBlocksAccordionItem', id: string, title?: string | null, description?: string | null } | null> | null } | { __typename?: 'ComponentSectionsBranchGroup' } | { __typename?: 'ComponentSectionsContactGroup' } | { __typename?: 'ComponentSectionsDocumentGroup' } | { __typename?: 'ComponentSectionsGallery' } | { __typename?: 'ComponentSectionsPriceList' } | { __typename: 'ComponentSectionsRichtext', id: string, markdown?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null } | { __typename?: 'Error' } | null> | null } | null }> } | null };
 
 export type PagesStaticPathsQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -1932,7 +1984,7 @@ export type PagesStaticPathsQuery = { __typename?: 'Query', pages?: { __typename
 export type PagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PagesQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, publishedAt?: any | null, sections?: Array<{ __typename: 'ComponentSectionsAccordionGroup', id: string, title?: string | null, accordions?: Array<{ __typename?: 'ComponentBlocksAccordionItem', id: string, title?: string | null, description?: string | null } | null> | null } | { __typename?: 'ComponentSectionsBranchGroup' } | { __typename?: 'ComponentSectionsContactGroup' } | { __typename?: 'ComponentSectionsDocumentGroup' } | { __typename?: 'ComponentSectionsGallery' } | { __typename?: 'ComponentSectionsPriceList' } | { __typename?: 'ComponentSectionsRichtext', markdown?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null } | { __typename?: 'Error' } | null> | null } | null }> } | null };
+export type PagesQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, publishedAt?: any | null, layout: Enum_Page_Layout, description?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, sidebar?: { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, sections?: Array<{ __typename: 'ComponentSectionsAccordionGroup', id: string, title?: string | null, accordions?: Array<{ __typename?: 'ComponentBlocksAccordionItem', id: string, title?: string | null, description?: string | null } | null> | null } | { __typename?: 'ComponentSectionsBranchGroup' } | { __typename?: 'ComponentSectionsContactGroup' } | { __typename?: 'ComponentSectionsDocumentGroup' } | { __typename?: 'ComponentSectionsGallery' } | { __typename?: 'ComponentSectionsPriceList' } | { __typename: 'ComponentSectionsRichtext', id: string, markdown?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null } | { __typename?: 'Error' } | null> | null } | null }> } | null };
 
 export const NavigationItemFragmentDoc = gql`
     fragment NavigationItem on NavigationItem {
@@ -1996,15 +2048,81 @@ export const NavigationItemFragmentDoc = gql`
   }
 }
     `;
+export const CtaButtonFragmentDoc = gql`
+    fragment CtaButton on ComponentBlocksButtonLink {
+  label
+  url
+  targetBlank
+}
+    `;
+export const ContactEntityFragmentDoc = gql`
+    fragment ContactEntity on ContactEntity {
+  id
+  attributes {
+    title
+    name
+    email
+    phone1
+    phone2
+  }
+}
+    `;
+export const SidebarFragmentDoc = gql`
+    fragment Sidebar on ComponentBlocksSidebar {
+  title
+  text
+  ctaButton {
+    ...CtaButton
+  }
+  contact {
+    data {
+      ...ContactEntity
+    }
+  }
+}
+    ${CtaButtonFragmentDoc}
+${ContactEntityFragmentDoc}`;
 export const PageEntityFragmentDoc = gql`
     fragment PageEntity on PageEntity {
   id
   attributes {
     title
     slug
+    publishedAt
+    layout
+    description
+    ctaButton {
+      ...CtaButton
+    }
+    sidebar {
+      ...Sidebar
+    }
+    sections {
+      ... on ComponentSectionsAccordionGroup {
+        __typename
+        id
+        title
+        accordions {
+          id
+          title
+          description
+        }
+      }
+      ... on ComponentSectionsRichtext {
+        __typename
+        id
+        markdown
+        button {
+          label
+          url
+          targetBlank
+        }
+      }
+    }
   }
 }
-    `;
+    ${CtaButtonFragmentDoc}
+${SidebarFragmentDoc}`;
 export const MeDocument = gql`
     query Me {
   me {
@@ -2021,6 +2139,16 @@ export const NavigationDocument = gql`
     locale: $locale
   ) {
     ...NavigationItem
+  }
+  general(locale: $locale) {
+    data {
+      attributes {
+        header {
+          faqLink
+          phoneNumber
+        }
+      }
+    }
   }
 }
     ${NavigationItemFragmentDoc}`;
@@ -2050,36 +2178,11 @@ export const PagesDocument = gql`
     query Pages {
   pages(locale: "sk") {
     data {
-      id
-      attributes {
-        title
-        slug
-        publishedAt
-        sections {
-          ... on ComponentSectionsAccordionGroup {
-            __typename
-            id
-            title
-            accordions {
-              id
-              title
-              description
-            }
-          }
-          ... on ComponentSectionsRichtext {
-            markdown
-            button {
-              label
-              url
-              targetBlank
-            }
-          }
-        }
-      }
+      ...PageEntity
     }
   }
 }
-    `;
+    ${PageEntityFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
