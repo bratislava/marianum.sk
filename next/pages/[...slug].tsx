@@ -1,25 +1,51 @@
 import last from 'lodash/last'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
 
-import { NavigationItemFragment, Page } from '../graphql'
+import Layout from '../components/layouts/Layout'
+import Section from '../components/molecules/Section'
+import { Enum_Page_Layout, NavigationItemFragment, PageEntityFragment } from '../graphql'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
 
 type PageProps = {
   navigation: NavigationItemFragment[]
-  page: Page
+  faqLink: string
+  phoneNumber: string
+  page: PageEntityFragment
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Slug = ({ navigation, page }: PageProps) => {
-  const router = useRouter()
+const Slug = ({ navigation, faqLink, phoneNumber, page }: PageProps) => {
+  const isFullWidth = page.attributes?.layout === Enum_Page_Layout.Full
 
-  console.log(router, page)
-
-  return <div>{router.asPath}</div>
+  return (
+    <Layout page={page} navigation={navigation} faqLink={faqLink} phoneNumber={phoneNumber}>
+      <div className="space-y-6 sm:space-y-8">
+        {page.attributes?.sections?.map((section, index) => {
+          if (section?.__typename === 'ComponentSectionsRichtext') {
+            return (
+              <Section
+                key={section.id}
+                fullWidth={isFullWidth}
+                color={index % 2 === 0 ? 'white' : 'default'}
+              >
+                {section.markdown}
+              </Section>
+            )
+          }
+          if (section?.__typename === 'ComponentSectionsAccordionGroup') {
+            return (
+              <Section key={section.id} fullWidth={isFullWidth}>
+                accordions
+              </Section>
+            )
+          }
+          return null
+        })}
+      </div>
+    </Layout>
+  )
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] }) => {
@@ -38,6 +64,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] })
           locale: page?.attributes?.locale || '',
         },
       }))
+    // eslint-disable-next-line no-console
     console.log(`GENERATED STATIC PATHS FOR ${paths.length} SLUGS`)
     return { paths, fallback: 'blocking' }
   }
@@ -47,7 +74,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] })
 export const getStaticProps: GetStaticProps<PageProps> = async ({ locale = 'sk', params }) => {
   const slug = last(params?.slug) ?? ''
 
-  const [{ navigation }, { pages }, translations] = await Promise.all([
+  const [{ navigation, general }, { pages }, translations] = await Promise.all([
     client.Navigation({ locale }),
     client.PageBySlug({ locale, slug }),
     serverSideTranslations(locale, ['common']) as any,
@@ -62,6 +89,8 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ locale = 'sk',
   return {
     props: {
       navigation,
+      faqLink: general?.data?.attributes?.header?.faqLink ?? '',
+      phoneNumber: general?.data?.attributes?.header?.phoneNumber ?? '',
       page: pages.data[0],
       ...translations,
     },
