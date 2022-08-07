@@ -3,20 +3,15 @@ import { FC, ReactNode, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 
 import ChevronIcon from '../../../assets/chevron_down.svg'
+import { NavigationItemFragment } from '../../../graphql'
+import { isDefined } from '../../../utils/isDefined'
 import { AnimateHeight } from '../../atoms/AnimateHeight'
 import MLink from '../../atoms/MLink'
-import SubMenu, { SubMenuItem } from './SubMenu'
-
-export type MenuItem = {
-  key: string
-  label: string
-  link: string
-  items?: SubMenuItem[]
-}
+import SubMenu from './SubMenu'
 
 export type MenuProps = {
   children: ReactNode | FC<{ isOpen: boolean }>
-  items?: MenuItem[]
+  items?: NavigationItemFragment[]
 }
 
 const Menu = ({ children, items = [] }: MenuProps) => {
@@ -42,28 +37,32 @@ const Menu = ({ children, items = [] }: MenuProps) => {
               <AnimateHeight isVisible={isOpen}>
                 {isOpen && (
                   <div className="py-3 text-foreground">
-                    {items.map(({ key, label, link, items: subItems }) =>
+                    {items.map(({ id, title, path, items: subItems }) =>
                       subItems && subItems.length > 0 ? (
-                        <SubMenu onTriggerClick={() => setOpen(false)} key={key} items={subItems}>
+                        <SubMenu
+                          onTriggerClick={() => setOpen(false)}
+                          key={id}
+                          items={subItems?.filter(isDefined)}
+                        >
                           <MLink
                             noStyles
-                            href={link}
+                            href={path ?? ''}
                             className="flex w-full justify-between px-6 py-3"
                           >
-                            <span>{label}</span>
+                            <span>{title}</span>
                             <div className="-rotate-90">
                               <ChevronIcon />
                             </div>
                           </MLink>
                         </SubMenu>
                       ) : (
-                        <DropdownMenu.Item key={key} asChild>
+                        <DropdownMenu.Item key={id} asChild>
                           <MLink
                             noStyles
                             className="flex w-full justify-between px-6 py-3 outline-none transition-all focus:bg-primary/10"
-                            href={link}
+                            href={path ?? ''}
                           >
-                            {label}
+                            {title}
                           </MLink>
                         </DropdownMenu.Item>
                       ),
