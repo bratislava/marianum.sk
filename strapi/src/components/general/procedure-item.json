@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_general_procedure_items",
+  "info": {
+    "displayName": "procedure item",
+    "icon": "check-circle",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "kind": "singleType",
+  "collectionName": "procedures",
+  "info": {
+    "singularName": "procedure",
+    "pluralName": "procedures",
+    "displayName": "Procedures",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "outsideMedicalFacility": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "general.procedure"
+    },
+    "atMedicalFacility": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "general.procedure"
+    }
+  }
+}
