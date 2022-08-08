@@ -22,6 +22,8 @@ import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
 import Checklist from '../../components/molecules/Checklist/Checklist'
 import Row from '../../components/molecules/Row'
 import Search from '../../components/molecules/Search'
+import ArticleCard from '../../components/molecules/Cards/ArticleCard'
+import ProductCard from '../../components/molecules/Cards/ProductCard'
 
 interface IWrapperProps {
   title?: string
@@ -894,6 +896,26 @@ const Showcase = () => {
             value={quantitySelectValue}
             onChange={(value) => setQuantitySelectValue(value)}
           />
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Radio box">
+        <Stack>
+          <div className="container grid grid-cols-4 gap-4">
+            <ArticleCard
+              imageUrl="/example.jpg"
+              border={true}
+              category={{ title: 'adasd', linkHref: '#' }}
+              date={Date.now()}
+              href="#"
+            ></ArticleCard>
+            <ProductCard
+              imageUrl="/example.jpg"
+              showButton={true}
+              price={50}
+              border={true}
+            ></ProductCard>
+          </div>
         </Stack>
       </Wrapper>
 
