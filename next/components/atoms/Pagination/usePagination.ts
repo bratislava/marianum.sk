@@ -1,5 +1,3 @@
-import { MouseEvent } from 'react'
-
 type ItemType = 'first' | 'previous' | 'start-ellipsis' | 'end-ellipsis' | 'next' | 'last' | number
 
 // https://dev.to/namirsab/comment/2050
@@ -21,7 +19,7 @@ export default function usePagination(props: {
   disabled?: boolean
   hideNextButton?: boolean
   hidePrevButton?: boolean
-  onChange: (event: MouseEvent, page: number) => void
+  onChange: (event: any, page: number) => void
   page: number
   showFirstButton?: boolean
   showLastButton?: boolean
@@ -40,7 +38,7 @@ export default function usePagination(props: {
     siblingCount = 1,
   } = props
 
-  const handleClick = (event: MouseEvent, value: number) => {
+  const handleClick = (event: any, value: number) => {
     if (handleChange) {
       handleChange(event, value)
     }
@@ -126,7 +124,7 @@ export default function usePagination(props: {
   const items = itemList.map((item) => {
     return typeof item === 'number'
       ? {
-          onClick: (event: MouseEvent) => {
+          onClick: (event: any) => {
             handleClick(event, item)
           },
           type: 'page',
@@ -136,7 +134,7 @@ export default function usePagination(props: {
           'aria-current': item === page ? ('true' as const) : undefined,
         }
       : {
-          onClick: (event: MouseEvent) => {
+          onClick: (event: any) => {
             handleClick(event, buttonPage(item))
           },
           type: item,

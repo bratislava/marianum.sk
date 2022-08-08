@@ -120,12 +120,12 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
           {currentItem.id === rootItem.id ? (
             <div>{/* todo: add lang selector */}</div>
           ) : (
-            <IconButton aria-label="spať" variant="tertiary" onClick={goBack}>
+            <IconButton aria-label="spať" variant="tertiary" onPress={goBack}>
               <ArrowBackIcon />
             </IconButton>
           )}
           <div className="font-bold">{currentItem.title}</div>
-          <IconButton aria-label="zavrieť menu" variant="tertiary" onClick={closeHandler}>
+          <IconButton aria-label="zavrieť menu" variant="tertiary" onPress={closeHandler}>
             <CloseIcon width={24} height={24} />
           </IconButton>
         </div>

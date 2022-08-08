@@ -1,33 +1,48 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import cx from 'classnames'
+import classnames from 'classnames'
+import { ReactNode, useRef } from 'react'
+import { AriaButtonProps, useButton } from 'react-aria'
 
 import MLink from './MLink'
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-  React.AnchorHTMLAttributes<HTMLAnchorElement> & {
-    startIcon?: React.ReactNode
-    endIcon?: React.ReactNode
-    variant?:
-      | 'primary'
-      | 'secondary'
-      | 'tertiary'
-      | 'white'
-      | 'plain-primary'
-      | 'plain-secondary'
-      | 'plain-white'
-  }
+type ButtonProps = (AriaButtonProps<'button'> | AriaButtonProps<'a'>) & {
+  startIcon?: ReactNode
+  endIcon?: ReactNode
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'tertiary'
+    | 'white'
+    | 'plain-primary'
+    | 'plain-secondary'
+    | 'plain-white'
+  className?: string
+  disabled?: boolean
+  tabIndex?: number
+}
 
 const Button = ({
   startIcon = null,
   endIcon = null,
-  children,
   variant = 'primary',
-  href,
   className,
+  children,
+  disabled = false,
+  tabIndex = 0,
   ...rest
 }: ButtonProps) => {
-  const style = cx(
-    'text-btn font-bold inline-flex items-center justify-center text-center align-middle space-x-2',
+  const ref = useRef<HTMLButtonElement>(null)
+  const { buttonProps } = useButton(
+    {
+      ...rest,
+      elementType: rest.href ? 'a' : 'button',
+      isDisabled: disabled,
+    },
+    ref,
+  )
+
+  const style = classnames(
+    'inline-flex items-center justify-center space-x-2 text-center align-middle text-btn font-bold focus:outline-none',
     className,
     {
       'px-6 py-2':
@@ -35,31 +50,56 @@ const Button = ({
         variant === 'secondary' ||
         variant === 'tertiary' ||
         variant === 'white',
-      'px-2':
+      'rounded px-2':
         variant === 'plain-primary' || variant === 'plain-secondary' || variant === 'plain-white',
 
       // text color
       'text-white': variant === 'primary' || variant === 'plain-white',
-      'text-primary hover:text-primary-dark':
+      'text-primary':
         variant === 'secondary' ||
         variant === 'tertiary' ||
         variant === 'white' ||
         variant === 'plain-primary',
-      'text-foreground hover:text-[#323532]': variant === 'plain-secondary',
-      'hover:opacity-64': variant === 'plain-white',
+      'text-foreground': variant === 'plain-secondary',
 
       // bg and border color
-      'bg-primary border border-primary hover:bg-primary-dark hover:border-primary-dark':
+      'border border-primary bg-primary focus:border-primary-dark focus:bg-primary-light':
         variant === 'primary',
-      'border border-primary hover:border-primary-dark': variant === 'secondary',
-      'border border-border-alt hover:border-border-alt-dark': variant === 'tertiary',
-      'bg-white border border-white': variant === 'white',
+      'border border-primary focus:border-primary-light focus:text-primary-light':
+        variant === 'secondary',
+      'border border-border-alt focus:text-primary-light': variant === 'tertiary',
+      'border border-white bg-white focus:border-primary-dark focus:text-primary-light':
+        variant === 'white',
+      'focus:bg-primary/8 focus:text-primary-light': variant === 'plain-primary',
+      'focus:bg-foreground/8 focus:text-foreground': variant === 'plain-secondary',
+      'hover:bg-white/12 focus:bg-white/8': variant === 'plain-white',
+
+      // hover
+      'hover:border-primary-dark hover:bg-primary-dark': variant === 'primary' && !disabled,
+      'border border-primary hover:border-primary-dark hover:text-primary-dark':
+        variant === 'secondary' && !disabled,
+      'hover:border-primary-dark hover:text-primary-dark': variant === 'tertiary' && !disabled,
+      'hover:border-border-alt-dark hover:text-primary-dark': variant === 'white' && !disabled,
+      'hover:bg-primary/12 hover:text-primary-dark': variant === 'plain-primary' && !disabled,
+      'hover:bg-foreground/12 hover:text-foreground-dark':
+        variant === 'plain-secondary' && !disabled,
+      'hover:opacity-64': variant === 'plain-white' && !disabled,
+
+      // disabled
+      'opacity-50': disabled,
     },
   )
 
-  if (href) {
+  if (rest.href) {
     return (
-      <MLink href={href} noArrow noStyles className={style} {...rest}>
+      <MLink
+        href={rest.href}
+        tabIndex={tabIndex}
+        noArrow
+        noStyles
+        className={style}
+        {...buttonProps}
+      >
         {startIcon}
         <span>{children}</span>
         {endIcon}
@@ -68,7 +108,7 @@ const Button = ({
   }
 
   return (
-    <button type="button" className={style} {...rest}>
+    <button type="button" ref={ref} tabIndex={tabIndex} className={style} {...buttonProps}>
       {startIcon}
       <span>{children}</span>
       {endIcon}

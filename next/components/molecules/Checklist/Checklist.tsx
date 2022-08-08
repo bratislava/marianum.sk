@@ -158,7 +158,7 @@ const Checklist = ({ items }: ChecklistProps) => {
                         // completed item buttons
                         <div className="flex flex-col gap-4 sm:flex-row">
                           <Button
-                            onClick={(e) => uncompleteItemHandler(key, e)}
+                            onPress={() => uncompleteItemHandler(key)}
                             variant="secondary"
                             startIcon={<XIcon />}
                           >
@@ -169,12 +169,12 @@ const Checklist = ({ items }: ChecklistProps) => {
                         // uncompleted item buttons
                         <div className="flex flex-col gap-4 sm:flex-row">
                           <Button
-                            onClick={(e) => completeItemHandler(key, e)}
+                            onPress={() => completeItemHandler(key)}
                             startIcon={<CheckCircleIcon />}
                           >
                             Vybavené
                           </Button>
-                          <Button onClick={(e) => openNextItemHandler(key, e)} variant="secondary">
+                          <Button onPress={() => openNextItemHandler(key)} variant="secondary">
                             Preskočiť
                           </Button>
                         </div>
