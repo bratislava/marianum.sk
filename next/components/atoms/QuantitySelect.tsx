@@ -1,7 +1,8 @@
 import { useEffect, useId, useState } from 'react'
+import AutosizeInput from 'react-input-autosize'
+
 import AddIcon from '../../assets/add.svg'
 import RemoveIcon from '../../assets/remove.svg'
-import AutosizeInput from 'react-input-autosize'
 
 type QuantitySelectProps = {
   id?: string
@@ -18,7 +19,8 @@ const QuantitySelect = ({
   maxValue,
   onChange = () => {},
 }: QuantitySelectProps) => {
-  const generatedOrProvidedId = id ?? useId()
+  const generatedId = useId()
+  const generatedOrProvidedId = id ?? generatedId
 
   const [inputValue, setInputValue] = useState(value)
 
@@ -47,12 +49,16 @@ const QuantitySelect = ({
 
   const handleInputBlur = () => {
     if (isLowerThanMin(inputValue)) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       setInputValue(minValue!)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       onChange(minValue!)
       return
     }
     if (isHigherThanMax(inputValue)) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       setInputValue(maxValue!)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       onChange(maxValue!)
       return
     }
@@ -61,10 +67,11 @@ const QuantitySelect = ({
   }
 
   return (
-    <div className="inline-flex flex-row border border-border w-min">
+    <div className="inline-flex w-min flex-row border border-border">
       <button
+        type="button"
         onClick={handleMinusClick}
-        className="grid place-content-center text-primary w-10 h-10 bg-white hover:text-primary-dark border-border border-r"
+        className="grid h-10 w-10 place-content-center border-r border-border bg-white text-primary hover:text-primary-dark"
         aria-controls={generatedOrProvidedId}
         aria-label="Znížiť množstvo" /* TODO: Translation */
         disabled={isLowerThanMin(value - 1)}
@@ -85,8 +92,9 @@ const QuantitySelect = ({
         max={maxValue}
       />
       <button
+        type="button"
         onClick={handlePlusClick}
-        className="grid place-content-center text-primary w-10 h-10 bg-white border-border border-l"
+        className="grid h-10 w-10 place-content-center border-l border-border bg-white text-primary"
         aria-controls={generatedOrProvidedId}
         aria-label="Zvýšiť množstvo" /* TODO: Translation */
         disabled={isHigherThanMax(value + 1)}

@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_sections_richtexts",
+  "info": {
+    "displayName": "richtext",
+    "icon": "align-left",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "markdown": {
+      "type": "richtext"
+    },
+    "button": {
+      "displayName": "button link",
+      "type": "component",
+      "repeatable": false,
+      "component": "blocks.button-link"
+    }
+  }
+}
