@@ -39,6 +39,7 @@ const Menu = ({ children, items = [] }: MenuProps) => {
                   <div className="py-3 text-foreground">
                     {items.map(({ id, title, path, items: subItems }) =>
                       subItems && subItems.length > 0 ? (
+                        // type === 'WRAPPER' ? (
                         <SubMenu
                           onTriggerClick={() => setOpen(false)}
                           key={id}
