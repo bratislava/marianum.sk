@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_sections_procedures_short_sections",
+  "info": {
+    "displayName": "procedures short section",
+    "icon": "project-diagram",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "linkMore": {
+      "type": "string"
+    }
+  }
+}
