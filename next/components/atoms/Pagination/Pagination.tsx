@@ -26,7 +26,7 @@ const Pagination = ({ count, selectedPage, onChange = () => {} }: PaginationProp
     <nav>
       <ul className="flex items-center gap-x-1">
         {items.map(
-          ({ page, type, selected, disabled, onClick, 'aria-current': ariaCurrent }, index) => {
+          ({ page, type, selected, disabled, onPress, 'aria-current': ariaCurrent }, index) => {
             let children: ReactNode = null
 
             // eslint-disable-next-line unicorn/prefer-switch
@@ -37,7 +37,7 @@ const Pagination = ({ count, selectedPage, onChange = () => {} }: PaginationProp
                 <IconButton
                   variant={selected ? 'pagination-selected' : 'pagination'}
                   disabled={disabled}
-                  onPress={onClick}
+                  onPress={onPress}
                   aria-current={ariaCurrent}
                   aria-label={`Ísť na stranu ${page}`} // TODO: Translations.
                 >
@@ -61,7 +61,7 @@ const Pagination = ({ count, selectedPage, onChange = () => {} }: PaginationProp
                   size="small"
                   variant="primary"
                   disabled={disabled}
-                  onPress={onClick}
+                  onPress={onPress}
                   aria-label={ariaLabel}
                 >
                   {icon}
