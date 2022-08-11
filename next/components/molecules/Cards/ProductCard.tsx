@@ -52,8 +52,7 @@ const ProductCard = ({
           <Button
             className="mt-2"
             startIcon={<ShoppingCartIcon />}
-            // @ts-ignore
-            onClick={handleButtonClick}
+            // onClick={handleButtonClick}
             ref={buttonHoverRef}
           >
             Pridať do košíka

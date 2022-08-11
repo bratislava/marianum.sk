@@ -44,7 +44,8 @@ const PackageCard = ({
           )}
         </div>
         <div>
-          <Button variant="plain-primary" className="inline-block" groupHover noPadding>
+          {/* <Button variant="plain-primary" className="inline-block" groupHover noPadding> */}
+          <Button variant="plain-primary" className="inline-block">
             Zobraziť viac
           </Button>
         </div>
