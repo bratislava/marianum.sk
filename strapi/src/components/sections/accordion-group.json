@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_accordion_groups",
+  "info": {
+    "displayName": "accordion group",
+    "icon": "chevron-down"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "accordions": {
+      "displayName": "accordion item",
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.accordion-item"
+    }
+  }
+}

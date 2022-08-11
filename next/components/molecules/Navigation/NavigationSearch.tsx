@@ -5,7 +5,7 @@ import Search from '../Search'
 const NavigationSearch = () => {
   return (
     <>
-      <IconButton className="md:hidden" aria-label="hľadať" variant="primary">
+      <IconButton aria-label="hľadať" variant="primary">
         <SearchIcon width={24} height={24} />
       </IconButton>
       <div className="hidden w-72 transition-all duration-500 focus-within:w-[540px] md:flex">

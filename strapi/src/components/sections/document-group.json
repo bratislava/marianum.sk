@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_document_groups",
+  "info": {
+    "displayName": "document group",
+    "icon": "file-invoice"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "documents": {
+      "displayName": "document item",
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.document-item"
+    }
+  }
+}

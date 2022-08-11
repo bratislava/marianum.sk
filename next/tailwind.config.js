@@ -1,5 +1,4 @@
 const plugin = require('tailwindcss/plugin')
-const { join } = require('path')
 
 const scrollBarHide = plugin(function ({ addUtilities }) {
   addUtilities({
@@ -10,6 +9,20 @@ const scrollBarHide = plugin(function ({ addUtilities }) {
       '&::-webkit-scrollbar': {
         display: 'none',
       },
+    },
+  })
+})
+
+const inputNumberArrowsHide = plugin(function ({ addUtilities }) {
+  // https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp
+  addUtilities({
+    /* Chrome, Safari, Edge, Opera */
+    '.arrows-hide': {
+      '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
+        '-webkit-appearance': 'none',
+      },
+      /* Firefox */
+      '-moz-appearance': 'textfield',
     },
   })
 })
@@ -84,5 +97,5 @@ module.exports = {
     // container: false,
     aspectRatio: false, // See: https://tailwindcss.com/docs/aspect-ratio#browser-support
   },
-  plugins: [scrollBarHide, require('tailwindcss-radix')()],
+  plugins: [scrollBarHide, inputNumberArrowsHide, require('tailwindcss-radix')()],
 }

@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_general_socials",
+  "info": {
+    "displayName": "social",
+    "icon": "globe"
+  },
+  "options": {},
+  "attributes": {
+    "facebook": {
+      "type": "string"
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "linkedin": {
+      "type": "string"
+    },
+    "youtube": {
+      "type": "string"
+    },
+    "twitter": {
+      "type": "string"
+    }
+  }
+}

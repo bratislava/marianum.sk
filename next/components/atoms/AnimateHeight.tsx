@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { motion, useReducedMotion, Variant } from 'framer-motion'
 import React, { ReactNode, useMemo } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
@@ -10,17 +9,15 @@ type AnimateHeightProps = {
   children?: ReactNode
   openedVariant?: Variant
   closedVariant?: Variant
-  className?: string
 }
 
 export const AnimateHeight = ({
   duration,
   ease = 'easeInOut',
-  openedVariant = { opacity: 1 },
-  closedVariant = { opacity: 0 },
+  openedVariant = { opacity: 1, visibility: 'visible' },
+  closedVariant = { opacity: 0, visibility: 'hidden' },
   isVisible,
   children,
-  className,
 }: AnimateHeightProps) => {
   const { height, ref } = useResizeDetector()
 
@@ -33,7 +30,8 @@ export const AnimateHeight = ({
 
   return (
     <motion.div
-      className={cx('overflow-hidden', className)}
+      className="overflow-hidden"
+      aria-hidden={!isVisible}
       initial="open"
       animate={isVisible ? { ...openedVariant, height } : { ...closedVariant, height: 0 }}
       inherit={false}
