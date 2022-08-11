@@ -1,10 +1,17 @@
 import { AnimatePresence, motion, PanInfo, Variant } from 'framer-motion'
 import { wrap } from 'popmotion'
-import { ReactNode, useCallback, useEffect, useState } from 'react'
+import { FC, ReactNode, useCallback, useEffect, useState } from 'react'
 
 type SliderProps = {
-  children: ReactNode[]
+  pages: ReactNode[]
   autoSwipeDuration?: number
+  pagination?: FC<{
+    count: number
+    activeIndex: number
+    goToPage: (index: number) => void
+    goToPrevious: () => void
+    goToNext: () => void
+  }>
 }
 
 const variants: { [name: string]: Variant } = {
@@ -34,28 +41,37 @@ const swipePower = (offset: number, velocity: number) => {
   return Math.abs(offset) * velocity
 }
 
-const Slider = ({ children, autoSwipeDuration = 0 }: SliderProps) => {
+const Slider = ({ pages, autoSwipeDuration = 0, pagination: Pagination }: SliderProps) => {
   const [[page, direction], setPage] = useState([0, 0])
   const [isDragging, setDragging] = useState(false)
-  const index = wrap(0, children.length, page)
+  const index = wrap(0, pages.length, page)
 
   const paginate = useCallback((newDirection: number) => {
     setPage(([currentPage]) => [currentPage + newDirection, newDirection])
   }, [])
+
+  const goToNext = useCallback(() => {
+    paginate(1)
+  }, [paginate])
+
+  const goToPrevious = useCallback(() => {
+    paginate(-1)
+  }, [paginate])
 
   const dragEndHandler = useCallback(
     (event: MouseEvent | TouchEvent | PointerEvent, { offset, velocity }: PanInfo) => {
       const swipe = swipePower(offset.x, velocity.x)
 
       if (swipe < -swipeConfidenceThreshold) {
-        paginate(1)
+        goToNext()
       } else if (swipe > swipeConfidenceThreshold) {
-        paginate(-1)
+        goToPrevious()
       }
       setDragging(false)
     },
-    [paginate],
+    [goToNext, goToPrevious],
   )
+
   const dragStartHandler = useCallback(() => {
     setDragging(true)
   }, [])
@@ -69,6 +85,14 @@ const Slider = ({ children, autoSwipeDuration = 0 }: SliderProps) => {
 
     return () => clearInterval(timer)
   }, [autoSwipeDuration, paginate, isDragging])
+
+  const goToPage = useCallback(
+    (goToIndex: number) => {
+      const newDirection = index < goToIndex ? 1 : -1
+      setPage([goToIndex, newDirection])
+    },
+    [index],
+  )
 
   return (
     <div className="relative z-0 flex h-full w-full items-center justify-center overflow-hidden">
@@ -91,9 +115,18 @@ const Slider = ({ children, autoSwipeDuration = 0 }: SliderProps) => {
           onDragStart={dragStartHandler}
           onDragEnd={dragEndHandler}
         >
-          {children[index]}
+          {pages[index]}
         </motion.div>
       </AnimatePresence>
+      {Pagination && (
+        <Pagination
+          count={pages.length}
+          activeIndex={index}
+          goToPage={goToPage}
+          goToNext={goToNext}
+          goToPrevious={goToPrevious}
+        />
+      )}
     </div>
   )
 }
