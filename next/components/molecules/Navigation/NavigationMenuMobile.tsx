@@ -5,29 +5,23 @@ import { useCallback, useMemo, useState } from 'react'
 import ArrowBackIcon from '../../../assets/arrow_back.svg'
 import ChevronIcon from '../../../assets/chevron_down.svg'
 import CloseIcon from '../../../assets/close.svg'
+import { NavigationItemFragment } from '../../../graphql'
 import { usePrevious } from '../../../utils/hooks'
+import { isDefined } from '../../../utils/isDefined'
 import IconButton from '../../atoms/IconButton'
 import MLink from '../../atoms/MLink'
-import { MenuItem } from '../Menu/Menu'
-
-export type NavigationMenuMobileItem = {
-  key: string
-  label: string
-  link: string
-  items?: MenuItem[]
-}
-
-export type CurrentItem = {
-  key: string
-  label: string
-  link: string
-  items: NavigationMenuMobileItem[]
-}
 
 export type NavigationMenuMobileProps = {
-  items: NavigationMenuMobileItem[]
+  items: NavigationItemFragment[]
   isOpen: boolean
   onClose: () => void
+}
+
+type RenderItemsProps = {
+  items: NavigationItemFragment[]
+  onOpenItem?: (key: number) => void
+  onClose?: () => void
+  disableFocusAndScreenReader?: boolean
 }
 
 const RenderItems = ({
@@ -35,26 +29,22 @@ const RenderItems = ({
   onOpenItem,
   onClose,
   disableFocusAndScreenReader = false,
-}: {
-  items: NavigationMenuMobileItem[]
-  onOpenItem?: (key: string) => void
-  onClose?: () => void
-  disableFocusAndScreenReader?: boolean
-}) => {
+}: RenderItemsProps) => {
   const ButtonComponent = disableFocusAndScreenReader ? 'div' : 'button'
   const LinkComponent = disableFocusAndScreenReader ? 'div' : MLink
   return (
     <div aria-hidden={disableFocusAndScreenReader} className="flex flex-col py-3">
-      {items.map(({ key, label, link, items: subItems }) =>
+      {items.map(({ id, title, path, items: subItems }) =>
         subItems && subItems.length > 0 ? (
           <ButtonComponent
             tabIndex={disableFocusAndScreenReader ? -1 : 0}
-            key={key}
-            onClick={() => onOpenItem && onOpenItem(key)}
+            key={id}
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+            onClick={() => onOpenItem && onOpenItem(id)}
             type="button"
             className="flex w-full justify-between px-4 py-3 focus:bg-primary/10"
           >
-            <span className="font-semibold">{label}</span>
+            <span className="font-semibold">{title}</span>
             <div className="-rotate-90">
               <ChevronIcon />
             </div>
@@ -63,12 +53,12 @@ const RenderItems = ({
           <LinkComponent
             tabIndex={disableFocusAndScreenReader ? -1 : 0}
             onClick={onClose}
-            key={key}
+            key={id}
             noStyles
-            href={link}
+            href={path ?? ''}
             className="flex w-full justify-between px-4 py-3 focus:bg-primary/10"
           >
-            <span className="font-semibold">{label}</span>
+            <span className="font-semibold">{title}</span>
           </LinkComponent>
         ),
       )}
@@ -77,26 +67,29 @@ const RenderItems = ({
 }
 
 const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobileProps) => {
-  const rootItem = useMemo(() => ({ key: 'root', label: '', link: '', items }), [items])
+  const rootItem = useMemo<NavigationItemFragment>(
+    () => ({ id: 0, title: '', path: '', items } as NavigationItemFragment),
+    [items],
+  )
 
-  const [currentItem, setCurrentItem] = useState<CurrentItem>(rootItem)
-  const [treePreviousItem, setTreePreviousItem] = useState<CurrentItem>(rootItem)
-  const [previousItem, setPreviousItem] = useState<CurrentItem>(rootItem)
+  const [currentItem, setCurrentItem] = useState<NavigationItemFragment>(rootItem)
+  const [treePreviousItem, setTreePreviousItem] = useState<NavigationItemFragment>(rootItem)
+  const [previousItem, setPreviousItem] = useState<NavigationItemFragment>(rootItem)
 
   const [isAnimating, setAnimating] = useState<'forward' | 'back' | 'none'>('none')
   const previousAnimation = usePrevious(isAnimating)
 
-  const openItemHandler = useCallback((itemKey: string) => {
+  const openItemHandler = useCallback((itemId: number) => {
     setCurrentItem((current) => {
       setAnimating('forward')
       setTimeout(() => {
         setAnimating('none')
       }, 100)
-      const foundItem = current.items?.find((item) => item.key === itemKey)
+      const foundItem = current.items?.find((item) => item?.id === itemId)
       if (foundItem && foundItem.items) {
         setTreePreviousItem(current)
         setPreviousItem(current)
-        return foundItem as CurrentItem
+        return foundItem
       }
       return current
     })
@@ -124,15 +117,15 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
       <Dialog.Panel className="fixed top-0 h-full w-full bg-white">
         {/* header */}
         <div className="flex h-16 items-center justify-between border-b border-border px-4">
-          {currentItem.key === rootItem.key ? (
+          {currentItem.id === rootItem.id ? (
             <div>{/* todo: add lang selector */}</div>
           ) : (
-            <IconButton aria-label="spať" variant="tertiary" onClick={goBack}>
+            <IconButton aria-label="spať" variant="tertiary" onPress={goBack}>
               <ArrowBackIcon />
             </IconButton>
           )}
-          <div className="font-bold">{currentItem.label}</div>
-          <IconButton aria-label="zavrieť menu" variant="tertiary" onClick={closeHandler}>
+          <div className="font-bold">{currentItem.title}</div>
+          <IconButton aria-label="zavrieť menu" variant="tertiary" onPress={closeHandler}>
             <CloseIcon width={24} height={24} />
           </IconButton>
         </div>
@@ -154,7 +147,10 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
                   : 0,
             }}
           >
-            <RenderItems disableFocusAndScreenReader items={previousItem.items} />
+            <RenderItems
+              disableFocusAndScreenReader
+              items={previousItem.items?.filter(isDefined) ?? []}
+            />
           </motion.div>
 
           {/* current menu list */}
@@ -168,7 +164,7 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
             }}
           >
             <RenderItems
-              items={currentItem.items}
+              items={currentItem.items?.filter(isDefined) ?? []}
               onClose={closeHandler}
               onOpenItem={openItemHandler}
             />

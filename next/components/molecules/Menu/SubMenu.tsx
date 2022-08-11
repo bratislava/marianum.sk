@@ -3,18 +3,13 @@ import cx from 'classnames'
 import { FC, MouseEvent, ReactNode, useCallback, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 
+import { NavigationItemFragment } from '../../../graphql'
 import { AnimateHeight } from '../../atoms/AnimateHeight'
 import MLink from '../../atoms/MLink'
 
-export type SubMenuItem = {
-  key: string
-  label: string
-  link: string
-}
-
 export type MenuProps = {
   children: ReactNode | FC<{ isOpen: boolean }>
-  items?: SubMenuItem[]
+  items?: NavigationItemFragment[]
   onTriggerClick?: () => void
 }
 
@@ -57,14 +52,14 @@ const SubMenu = ({ children, items = [], onTriggerClick }: MenuProps) => {
               <AnimateHeight isVisible={isOpen}>
                 {isOpen && (
                   <div className="bg-white py-3">
-                    {items.map(({ key, label, link }) => (
-                      <DropdownMenu.Item key={key} asChild>
+                    {items.map(({ id, title, path }) => (
+                      <DropdownMenu.Item key={id} asChild>
                         <MLink
                           noStyles
                           className="flex w-full justify-between px-6 py-3 outline-none focus:bg-primary/10"
-                          href={link}
+                          href={path ?? ''}
                         >
-                          {label}
+                          {title}
                         </MLink>
                       </DropdownMenu.Item>
                     ))}

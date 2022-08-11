@@ -2,6 +2,7 @@ import '../styles/globals.css'
 
 import { MotionConfig } from 'framer-motion'
 import type { AppProps } from 'next/app'
+import { appWithTranslation } from 'next-i18next'
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <MotionConfig reducedMotion="user">
@@ -9,4 +10,4 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
   </MotionConfig>
 )
 
-export default MyApp
+export default appWithTranslation(MyApp)

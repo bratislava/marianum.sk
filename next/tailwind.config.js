@@ -43,6 +43,7 @@ module.exports = {
       error: '#ef4823',
       primary: {
         DEFAULT: '#446650',
+        light: '#567D64',
         dark: '#365240',
       },
       background: {
@@ -58,6 +59,7 @@ module.exports = {
       },
       foreground: {
         DEFAULT: '#494e4a',
+        dark: '#323532',
         placeholder: '#999c9a',
         disabled: '#b5b6b5',
         heading: '#2b2e2c',
@@ -85,6 +87,8 @@ module.exports = {
     },
     extend: {
       opacity: {
+        8: '.08',
+        12: '.12',
         64: '.64',
         72: '.72',
       },
