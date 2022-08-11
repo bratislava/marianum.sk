@@ -55,7 +55,7 @@ const Navigation = ({ phoneNumber, faqLink, navigationItems }: NavigationProps) 
           </IconButton>
         </div>
         {/* desktop navigation menu */}
-        <div className="absolute inset-x-0 -bottom-8 hidden px-4 lg:block ">
+        <div className="absolute inset-x-0 -bottom-8 z-20 hidden px-4 lg:block ">
           <NavigationMenuDesktop items={navigationItems} />
         </div>
         {/* mobile navigation menu */}
