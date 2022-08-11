@@ -91,7 +91,7 @@ const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
     <div className={cx('w-full relative', className)}>
       <div>
         {isExpanded || !isCollapsing ? (
-          <div className="flex items-center gap-1 p-4">{breadcrumbedChildren}</div>
+          <div className="flex items-center gap-1 py-6">{breadcrumbedChildren}</div>
         ) : (
           <div className="flex w-full flex-col">
             <div className="flex w-full items-center justify-between">

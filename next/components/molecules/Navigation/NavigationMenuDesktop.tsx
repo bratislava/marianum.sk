@@ -12,7 +12,7 @@ export type NavigationMenuDesktopProps = {
 
 const NavigationMenuDesktop = ({ navigationItems }: NavigationMenuDesktopProps) => {
   return (
-    <div className="grid h-16 grid-cols-4 bg-white text-foreground-heading shadow">
+    <nav className="absolute inset-x-0 -bottom-8 z-10 mx-4 hidden h-16 grid-cols-4 bg-white text-foreground-heading shadow sm:grid">
       {navigationItems.map(({ id, title, items: menuItems, type }, index) => (
         <Menu key={id} items={menuItems?.filter(isDefined)}>
           {({ isOpen }) => (
@@ -20,7 +20,7 @@ const NavigationMenuDesktop = ({ navigationItems }: NavigationMenuDesktopProps) 
               {index !== 0 && <div className="h-8 w-[1px] bg-border" />}
               <div
                 className={cx(
-                  'flex h-full flex-1 items-center justify-center gap-1 font-semibold transition-all group-focus:bg-primary/10',
+                  'flex h-full flex-1 items-center justify-center gap-1 px-4 font-semibold transition-all group-focus:bg-primary/10',
                   { 'bg-primary/10': isOpen },
                 )}
               >
@@ -39,7 +39,7 @@ const NavigationMenuDesktop = ({ navigationItems }: NavigationMenuDesktopProps) 
           )}
         </Menu>
       ))}
-    </div>
+    </nav>
   )
 }
 

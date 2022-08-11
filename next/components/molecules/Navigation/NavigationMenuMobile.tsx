@@ -131,7 +131,7 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
         </div>
 
         {/* body */}
-        <div className="relative">
+        <nav className="relative">
           {/* previous menu list */}
           <motion.div
             className="absolute top-0 h-full w-full"
@@ -169,7 +169,7 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
               onOpenItem={openItemHandler}
             />
           </motion.div>
-        </div>
+        </nav>
       </Dialog.Panel>
     </Dialog>
   )
