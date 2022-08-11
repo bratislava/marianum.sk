@@ -12,29 +12,29 @@ import NavigationMenuMobile from './NavigationMenuMobile'
 import NavigationSearch from './NavigationSearch'
 
 type NavigationProps = {
-  phoneNumber?: string
   faqLink?: string
+  phoneNumber?: string
   navigationItems: NavigationItemFragment[]
 }
 
-const Navigation = ({ phoneNumber, faqLink, navigationItems }: NavigationProps) => {
+const Navigation = ({ faqLink, phoneNumber, navigationItems }: NavigationProps) => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
 
   return (
     <div className="bg-primary text-white">
-      <div className="container relative mx-auto flex h-16 items-center justify-between px-4 lg:h-[120px] lg:pb-8">
+      <div className="container relative mx-auto flex h-16 items-center justify-between px-4 sm:h-[120px] sm:pb-8">
         {/* left side of navigation */}
-        <div className="w-[108px] lg:w-[142px]">
+        <MLink className="w-[108px] lg:w-[142px]" href="/" noStyles noArrow>
           <MarianumLogo className="h-full w-full" />
-        </div>
+        </MLink>
         {/* right side of navigation */}
         <div className="flex items-center gap-4 lg:gap-8">
           {/* desktop faq and phone links */}
-          <div className="hidden items-center gap-8 xl:flex">
+          <div className="flex items-center gap-8">
             {faqLink && (
-              <MLink href={faqLink} className="flex items-center gap-2" noStyles>
+              <MLink href={faqLink} className="hidden items-center gap-2 lg:flex" noStyles>
                 <HelpIcon />
-                <span>Často kladené otázky</span>
+                <span className="">Často kladené otázky</span>
               </MLink>
             )}
             {phoneNumber && (
@@ -51,14 +51,13 @@ const Navigation = ({ phoneNumber, faqLink, navigationItems }: NavigationProps) 
             aria-label="navigačné menu"
             onPress={() => setMobileNavOpen(true)}
             variant="primary"
+            className="sm:hidden"
           >
             <MenuIcon width={24} height={24} />
           </IconButton>
         </div>
         {/* desktop navigation menu */}
-        <div className="absolute inset-x-0 -bottom-8 hidden px-4 lg:block ">
-          <NavigationMenuDesktop navigationItems={navigationItems} />
-        </div>
+        <NavigationMenuDesktop navigationItems={navigationItems} />
         {/* mobile navigation menu */}
         <NavigationMenuMobile
           isOpen={isMobileNavOpen}

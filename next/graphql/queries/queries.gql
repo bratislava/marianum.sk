@@ -14,6 +14,16 @@ query Navigation($locale: I18NLocaleCode!) {
   ) {
     ...NavigationItem
   }
+  general(locale: $locale) {
+    data {
+      attributes {
+        header {
+          faqLink
+          phoneNumber
+        }
+      }
+    }
+  }
 }
 
 query PageBySlug($locale: I18NLocaleCode!, $slug: String!) {
@@ -41,32 +51,7 @@ query PagesStaticPaths($locale: I18NLocaleCode) {
 query Pages {
   pages(locale: "sk") {
     data {
-      id
-      attributes {
-        title
-        slug
-        publishedAt
-        sections {
-          ... on ComponentSectionsAccordionGroup {
-            __typename
-            id
-            title
-            accordions {
-              id
-              title
-              description
-            }
-          }
-          ... on ComponentSectionsRichtext {
-            markdown
-            button {
-              label
-              url
-              targetBlank
-            }
-          }
-        }
-      }
+      ...PageEntity
     }
   }
 }

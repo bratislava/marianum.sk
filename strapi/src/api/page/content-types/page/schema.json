@@ -35,6 +35,39 @@
       "targetField": "title",
       "required": true
     },
+    "layout": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "enumeration",
+      "enum": [
+        "full",
+        "sidebar",
+        "centered"
+      ],
+      "default": "full",
+      "required": true
+    },
+    "description": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text"
+    },
+    "ctaButton": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "blocks.button-link"
+    },
     "sections": {
       "pluginOptions": {
         "i18n": {
@@ -51,6 +84,16 @@
         "sections.document-group",
         "sections.price-list"
       ]
+    },
+    "sidebar": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "blocks.sidebar"
     }
   }
 }
