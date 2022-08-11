@@ -1,4 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
+import { LinkButtonProps } from '@react-types/button'
 import classnames from 'classnames'
 import { forwardRef, ReactNode, Ref, RefObject } from 'react'
 import * as React from 'react'
@@ -26,7 +27,7 @@ type ButtonBase = {
  *  This part makes the component return `HTMLAnchorElement` ref when `href` if provided and `HTMLButtonElement` when it's not.
  *  https://github.com/typescript-cheatsheets/react/issues/167#issuecomment-751347673
  */
-type ButtonProps = AriaButtonProps<'button'> &
+type ButtonProps = Omit<AriaButtonProps<'button'>, keyof LinkButtonProps> &
   ButtonBase & { ref?: Ref<HTMLButtonElement>; href?: undefined }
 type AnchorProps = AriaButtonProps<'a'> &
   ButtonBase & {
