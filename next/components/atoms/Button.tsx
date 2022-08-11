@@ -1,117 +1,119 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import cx from 'classnames'
-import { ButtonHTMLAttributes, DetailedHTMLProps, ForwardedRef, forwardRef } from 'react'
+import classnames from 'classnames'
+import { ReactNode, useRef } from 'react'
+import { AriaButtonProps, useButton } from 'react-aria'
 
 import MLink from './MLink'
 
-const removeGroupHover = (className: string) =>
-  className
-    .split(' ')
-    .filter((c) => !c.startsWith('group-hover:'))
-    .join(' ')
+type ButtonProps = (AriaButtonProps<'button'> | AriaButtonProps<'a'>) & {
+  startIcon?: ReactNode
+  endIcon?: ReactNode
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'tertiary'
+    | 'white'
+    | 'plain-primary'
+    | 'plain-secondary'
+    | 'plain-white'
+  className?: string
+  disabled?: boolean
+  tabIndex?: number
+}
 
-type ButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> &
-  React.AnchorHTMLAttributes<HTMLAnchorElement> & {
-    startIcon?: React.ReactNode
-    endIcon?: React.ReactNode
-    variant?:
-      | 'primary'
-      | 'secondary'
-      | 'tertiary'
-      | 'white'
-      | 'plain-primary'
-      | 'plain-secondary'
-      | 'plain-white'
-    groupHover?: boolean
-    noPadding?: boolean
-  }
-
-const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
-  (
+const Button = ({
+  startIcon = null,
+  endIcon = null,
+  variant = 'primary',
+  className,
+  children,
+  disabled = false,
+  tabIndex = 0,
+  ...rest
+}: ButtonProps) => {
+  const ref = useRef<HTMLButtonElement>(null)
+  const { buttonProps } = useButton(
     {
-      startIcon = null,
-      endIcon = null,
-      children,
-      variant = 'primary',
-      href,
-      className,
-      groupHover = false,
-      noPadding = false,
-      ...rest
+      ...rest,
+      elementType: rest.href ? 'a' : 'button',
+      isDisabled: disabled,
     },
     ref,
-  ) => {
-    const styleWithGroupHover = cx(
-      'text-btn font-bold inline-flex items-center justify-center text-center align-middle space-x-2',
-      className,
-      {
-        'px-6 py-2':
-          !noPadding &&
-          (variant === 'primary' ||
-            variant === 'secondary' ||
-            variant === 'tertiary' ||
-            variant === 'white'),
-        'px-2':
-          !noPadding &&
-          (variant === 'plain-primary' ||
-            variant === 'plain-secondary' ||
-            variant === 'plain-white'),
+  )
 
-        // text color
-        'text-white': variant === 'primary' || variant === 'plain-white',
-        'text-primary hover:text-primary-dark group-hover:text-primary-dark':
-          variant === 'secondary' ||
-          variant === 'tertiary' ||
-          variant === 'white' ||
-          variant === 'plain-primary',
-        'text-foreground hover:text-[#323532] group-hover:text-[#323532]':
-          variant === 'plain-secondary',
-        'hover:opacity-64 group-hover:opacity-64': variant === 'plain-white',
+  const style = classnames(
+    'inline-flex items-center justify-center space-x-2 text-center align-middle text-btn font-bold focus:outline-none',
+    className,
+    {
+      'px-6 py-2':
+        variant === 'primary' ||
+        variant === 'secondary' ||
+        variant === 'tertiary' ||
+        variant === 'white',
+      'rounded px-2':
+        variant === 'plain-primary' || variant === 'plain-secondary' || variant === 'plain-white',
 
-        // bg and border color
-        'bg-primary border border-primary hover:bg-primary-dark group-hover:bg-primary-dark hover:border-primary-dark group-hover:border-primary-dark':
-          variant === 'primary',
-        'border border-primary hover:border-primary-dark group-hover:border-primary-dark':
-          variant === 'secondary',
-        'border border-border-alt hover:border-border-alt-dark group-hover:border-border-alt-dark':
-          variant === 'tertiary',
-        'bg-white border border-white': variant === 'white',
-      },
-    )
+      // text color
+      'text-white': variant === 'primary' || variant === 'plain-white',
+      'text-primary':
+        variant === 'secondary' ||
+        variant === 'tertiary' ||
+        variant === 'white' ||
+        variant === 'plain-primary',
+      'text-foreground': variant === 'plain-secondary',
 
-    const style = groupHover ? styleWithGroupHover : removeGroupHover(styleWithGroupHover)
+      // bg and border color
+      'border border-primary bg-primary focus:border-primary-dark focus:bg-primary-light':
+        variant === 'primary',
+      'border border-primary focus:border-primary-light focus:text-primary-light':
+        variant === 'secondary',
+      'border border-border-alt focus:text-primary-light': variant === 'tertiary',
+      'border border-white bg-white focus:border-primary-dark focus:text-primary-light':
+        variant === 'white',
+      'focus:bg-primary/8 focus:text-primary-light': variant === 'plain-primary',
+      'focus:bg-foreground/8 focus:text-foreground': variant === 'plain-secondary',
+      'hover:bg-white/12 focus:bg-white/8': variant === 'plain-white',
 
-    if (href) {
-      return (
-        <MLink
-          href={href}
-          noArrow
-          noStyles
-          className={style}
-          // @ts-ignore
-          ref={ref as ForwardedRef<HTMLAnchorElement>}
-          {...rest}
-        >
-          {startIcon}
-          <span>{children}</span>
-          {endIcon}
-        </MLink>
-      )
-    }
+      // hover
+      'hover:border-primary-dark hover:bg-primary-dark': variant === 'primary' && !disabled,
+      'border border-primary hover:border-primary-dark hover:text-primary-dark':
+        variant === 'secondary' && !disabled,
+      'hover:border-primary-dark hover:text-primary-dark': variant === 'tertiary' && !disabled,
+      'hover:border-border-alt-dark hover:text-primary-dark': variant === 'white' && !disabled,
+      'hover:bg-primary/12 hover:text-primary-dark': variant === 'plain-primary' && !disabled,
+      'hover:bg-foreground/12 hover:text-foreground-dark':
+        variant === 'plain-secondary' && !disabled,
+      'hover:opacity-64': variant === 'plain-white' && !disabled,
 
+      // disabled
+      'opacity-50': disabled,
+    },
+  )
+
+  if (rest.href) {
     return (
-      <button
-        type="button"
+      <MLink
+        href={rest.href}
+        tabIndex={tabIndex}
+        noArrow
+        noStyles
         className={style}
-        ref={ref as ForwardedRef<HTMLButtonElement>}
-        {...rest}
+        {...buttonProps}
       >
         {startIcon}
         <span>{children}</span>
         {endIcon}
-      </button>
+      </MLink>
     )
-  },
-)
+  }
+
+  return (
+    <button type="button" ref={ref} tabIndex={tabIndex} className={style} {...buttonProps}>
+      {startIcon}
+      <span>{children}</span>
+      {endIcon}
+    </button>
+  )
+}
 
 export default Button

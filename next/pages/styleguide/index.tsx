@@ -1,3 +1,4 @@
+import { RadioGroup } from '@headlessui/react'
 import cx from 'classnames'
 import React, { useMemo, useState } from 'react'
 
@@ -8,10 +9,14 @@ import SearchIcon from '../../assets/search.svg'
 import XIcon from '../../assets/x-alt.svg'
 import Breadcrumbs from '../../components/atoms/Breadcrumbs'
 import Button from '../../components/atoms/Button'
+import Checkbox from '../../components/atoms/Checkbox'
 import IconButton from '../../components/atoms/IconButton'
 import MLink from '../../components/atoms/MLink'
 import Pagination from '../../components/atoms/Pagination/Pagination'
 import QuantitySelect from '../../components/atoms/QuantitySelect'
+import RadioBox from '../../components/atoms/Radio/RadioBox'
+import SimpleRadio from '../../components/atoms/Radio/SimpleRadio'
+import SimpleRadioGroup from '../../components/atoms/Radio/SimpleRadioGroup'
 import Select from '../../components/atoms/Select'
 import Tab from '../../components/atoms/Tabs/Tab'
 import Tabs from '../../components/atoms/Tabs/Tabs'
@@ -71,6 +76,8 @@ export const Stack = ({ bg, width = null, direction = 'row', children }: IStackP
 const Showcase = () => {
   const [paginationSelectedPage, setPaginationSelectedPage] = useState(1)
   const [quantitySelectValue, setQuantitySelectValue] = useState(1)
+  const [radioValue, setRadioValue] = useState('value-1')
+  const [checkboxValue, setCheckboxValue] = useState(true)
   const [cardsBorder, setCardsBorder] = useState(true)
 
   const dummyBreadcrumbLinks = useMemo(
@@ -154,6 +161,7 @@ const Showcase = () => {
           <Button>Button</Button>
           <Button startIcon={<AddIcon />}>Button</Button>
           <Button endIcon={<ArrowRightIcon />}>Button</Button>
+          <Button disabled>Button disabled</Button>
         </Stack>
 
         <Stack>
@@ -163,6 +171,9 @@ const Showcase = () => {
           </Button>
           <Button variant="secondary" endIcon={<ArrowRightIcon />}>
             Button
+          </Button>
+          <Button variant="secondary" disabled>
+            Button disabled
           </Button>
         </Stack>
 
@@ -174,6 +185,9 @@ const Showcase = () => {
           <Button variant="tertiary" endIcon={<ArrowRightIcon />}>
             Button
           </Button>
+          <Button variant="tertiary" disabled>
+            Button disabled
+          </Button>
         </Stack>
 
         <Stack>
@@ -183,6 +197,9 @@ const Showcase = () => {
           </Button>
           <Button variant="plain-primary" endIcon={<ArrowRightIcon />}>
             Button
+          </Button>
+          <Button variant="plain-primary" disabled>
+            Button disabled
           </Button>
         </Stack>
 
@@ -194,6 +211,9 @@ const Showcase = () => {
           <Button variant="plain-secondary" endIcon={<ArrowRightIcon />}>
             Button
           </Button>
+          <Button variant="plain-secondary" disabled>
+            Button disabled
+          </Button>
         </Stack>
 
         <Stack>
@@ -204,6 +224,9 @@ const Showcase = () => {
           <Button variant="white" endIcon={<ArrowRightIcon />}>
             Button
           </Button>
+          <Button variant="white" disabled>
+            Button disabled
+          </Button>
         </Stack>
 
         <Stack>
@@ -213,6 +236,21 @@ const Showcase = () => {
           </Button>
           <Button variant="plain-white" endIcon={<ArrowRightIcon />}>
             Button
+          </Button>
+          <Button variant="plain-white" disabled>
+            Button disabled
+          </Button>
+        </Stack>
+
+        <Stack>
+          <Button variant="primary" href="#">
+            Button link
+          </Button>
+          <Button variant="tertiary" href="#" startIcon={<AddIcon />}>
+            Button link
+          </Button>
+          <Button variant="plain-secondary" href="#" endIcon={<ArrowRightIcon />}>
+            Button link
           </Button>
         </Stack>
       </Wrapper>
@@ -240,6 +278,27 @@ const Showcase = () => {
         </Stack>
 
         <Stack>
+          <IconButton disabled variant="primary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled variant="secondary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled variant="tertiary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled variant="white">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled variant="plain-primary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled variant="plain-secondary">
+            <ArrowRightIcon />
+          </IconButton>
+        </Stack>
+
+        <Stack>
           <IconButton size="small" variant="primary">
             <ArrowRightIcon />
           </IconButton>
@@ -261,9 +320,31 @@ const Showcase = () => {
         </Stack>
 
         <Stack>
-          <IconButton variant="white">1</IconButton>
-          <IconButton variant="white">11</IconButton>
-          <IconButton variant="white">111</IconButton>
+          <IconButton disabled size="small" variant="primary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled size="small" variant="secondary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled size="small" variant="tertiary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled size="small" variant="white">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled size="small" variant="plain-primary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled size="small" variant="plain-secondary">
+            <ArrowRightIcon />
+          </IconButton>
+        </Stack>
+
+        <Stack>
+          <IconButton variant="pagination">1</IconButton>
+          <IconButton variant="pagination-selected">2</IconButton>
+          <IconButton variant="pagination">11</IconButton>
+          <IconButton variant="pagination">111</IconButton>
         </Stack>
       </Wrapper>
 
@@ -902,6 +983,52 @@ const Showcase = () => {
             value={quantitySelectValue}
             onChange={(value) => setQuantitySelectValue(value)}
           />
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Radio">
+        <Stack>
+          <SimpleRadioGroup value={radioValue} onChange={setRadioValue}>
+            <SimpleRadio value="value-1">Value 1</SimpleRadio>
+            <SimpleRadio value="value-2">Value 2</SimpleRadio>
+            <SimpleRadio value="value-3">Value 3</SimpleRadio>
+          </SimpleRadioGroup>
+        </Stack>
+        <Stack>
+          <RadioGroup value={radioValue} onChange={setRadioValue} className="flex flex-wrap gap-2">
+            <RadioBox value="value-1" className="w-[362px]">
+              Value 1
+            </RadioBox>
+            <RadioBox value="value-2" className="w-[362px]">
+              Value 2
+            </RadioBox>
+            <RadioBox value="value-3" className="w-[362px]">
+              Value 3
+            </RadioBox>
+          </RadioGroup>
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Checkbox">
+        <Stack direction="column">
+          <Checkbox isSelected={checkboxValue} onChange={setCheckboxValue}>
+            Checkbox
+          </Checkbox>
+          <Checkbox isSelected={checkboxValue} isDisabled onChange={setCheckboxValue}>
+            Disabled checkbox
+          </Checkbox>
+          <Checkbox isSelected={checkboxValue} isReadOnly onChange={setCheckboxValue}>
+            Readonly checkbox
+          </Checkbox>
+          <Checkbox isSelected={checkboxValue} hasError onChange={setCheckboxValue}>
+            Error checkbox
+          </Checkbox>
+          <Checkbox isSelected={checkboxValue} isDisabled hasError onChange={setCheckboxValue}>
+            Disabled checkbox
+          </Checkbox>
+          <Checkbox isSelected={checkboxValue} isReadOnly hasError onChange={setCheckboxValue}>
+            Readonly checkbox
+          </Checkbox>
         </Stack>
       </Wrapper>
 

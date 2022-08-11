@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import { MouseEvent, useCallback, useReducer } from 'react'
+import { useCallback, useReducer } from 'react'
 
 import CheckIcon from '../../../assets/check.svg'
 import CheckCircleIcon from '../../../assets/check_circle.svg'
@@ -76,32 +76,28 @@ export type ChecklistProps = {
 const Checklist = ({ items }: ChecklistProps) => {
   const [checklistState, dispatchChecklistState] = useReducer(checklistReducer, { items })
 
-  const openItemHandler = useCallback((itemKey: string, e?: MouseEvent) => {
-    if (e) e.stopPropagation()
+  const openItemHandler = useCallback((itemKey: string) => {
     dispatchChecklistState({
       type: ChecklistActionKind.OpenItem,
       itemKey,
     })
   }, [])
 
-  const openNextItemHandler = useCallback((itemKey: string, e?: MouseEvent) => {
-    if (e) e.stopPropagation()
+  const openNextItemHandler = useCallback((itemKey: string) => {
     dispatchChecklistState({
       type: ChecklistActionKind.OpenNextItem,
       itemKey,
     })
   }, [])
 
-  const completeItemHandler = useCallback((itemKey: string, e?: MouseEvent) => {
-    if (e) e.stopPropagation()
+  const completeItemHandler = useCallback((itemKey: string) => {
     dispatchChecklistState({
       type: ChecklistActionKind.CompleteItem,
       itemKey,
     })
   }, [])
 
-  const uncompleteItemHandler = useCallback((itemKey: string, e?: MouseEvent) => {
-    if (e) e.stopPropagation()
+  const uncompleteItemHandler = useCallback((itemKey: string) => {
     dispatchChecklistState({
       type: ChecklistActionKind.UncompleteItem,
       itemKey,
@@ -158,7 +154,7 @@ const Checklist = ({ items }: ChecklistProps) => {
                         // completed item buttons
                         <div className="flex flex-col gap-4 sm:flex-row">
                           <Button
-                            onClick={(e) => uncompleteItemHandler(key, e)}
+                            onPress={() => uncompleteItemHandler(key)}
                             variant="secondary"
                             startIcon={<XIcon />}
                           >
@@ -169,12 +165,12 @@ const Checklist = ({ items }: ChecklistProps) => {
                         // uncompleted item buttons
                         <div className="flex flex-col gap-4 sm:flex-row">
                           <Button
-                            onClick={(e) => completeItemHandler(key, e)}
+                            onPress={() => completeItemHandler(key)}
                             startIcon={<CheckCircleIcon />}
                           >
                             Vybavené
                           </Button>
-                          <Button onClick={(e) => openNextItemHandler(key, e)} variant="secondary">
+                          <Button onPress={() => openNextItemHandler(key)} variant="secondary">
                             Preskočiť
                           </Button>
                         </div>
