@@ -983,7 +983,9 @@ const Showcase = () => {
           <SimpleRadioGroup value={radioValue} onChange={setRadioValue}>
             <SimpleRadio value="value-1">Value 1</SimpleRadio>
             <SimpleRadio value="value-2">Value 2</SimpleRadio>
-            <SimpleRadio value="value-3">Value 3</SimpleRadio>
+            <SimpleRadio value="value-3" disabled>
+              Value 3
+            </SimpleRadio>
           </SimpleRadioGroup>
         </Stack>
         <Stack>
@@ -994,7 +996,7 @@ const Showcase = () => {
             <RadioBox value="value-2" className="w-[362px]">
               Value 2
             </RadioBox>
-            <RadioBox value="value-3" className="w-[362px]">
+            <RadioBox value="value-3" className="w-[362px]" disabled>
               Value 3
             </RadioBox>
           </RadioGroup>

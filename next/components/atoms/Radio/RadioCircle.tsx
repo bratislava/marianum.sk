@@ -19,6 +19,7 @@ const RadioCircle = ({
           'border-primary': !active,
           'border-primary-dark': active,
           'bg-white': !checked,
+          'cursor-pointer': !disabled,
         },
       )}
     >
