@@ -1,3 +1,4 @@
+import { RadioGroup } from '@headlessui/react'
 import cx from 'classnames'
 import React, { useMemo, useState } from 'react'
 
@@ -12,6 +13,9 @@ import IconButton from '../../components/atoms/IconButton'
 import MLink from '../../components/atoms/MLink'
 import Pagination from '../../components/atoms/Pagination/Pagination'
 import QuantitySelect from '../../components/atoms/QuantitySelect'
+import RadioBox from '../../components/atoms/Radio/RadioBox'
+import SimpleRadio from '../../components/atoms/Radio/SimpleRadio'
+import SimpleRadioGroup from '../../components/atoms/Radio/SimpleRadioGroup'
 import Select from '../../components/atoms/Select'
 import Tab from '../../components/atoms/Tabs/Tab'
 import Tabs from '../../components/atoms/Tabs/Tabs'
@@ -64,6 +68,7 @@ export const Stack = ({ bg, width = null, direction = 'row', children }: IStackP
 const Showcase = () => {
   const [paginationSelectedPage, setPaginationSelectedPage] = useState(1)
   const [quantitySelectValue, setQuantitySelectValue] = useState(1)
+  const [radioValue, setRadioValue] = useState('value-1')
 
   const dummyBreadcrumbLinks = useMemo(
     () => [
@@ -894,6 +899,29 @@ const Showcase = () => {
             value={quantitySelectValue}
             onChange={(value) => setQuantitySelectValue(value)}
           />
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Radio">
+        <Stack>
+          <SimpleRadioGroup value={radioValue} onChange={setRadioValue}>
+            <SimpleRadio value="value-1">Value 1</SimpleRadio>
+            <SimpleRadio value="value-2">Value 2</SimpleRadio>
+            <SimpleRadio value="value-3">Value 3</SimpleRadio>
+          </SimpleRadioGroup>
+        </Stack>
+        <Stack>
+          <RadioGroup value={radioValue} onChange={setRadioValue} className="flex flex-wrap gap-2">
+            <RadioBox value="value-1" className="w-[362px]">
+              Value 1
+            </RadioBox>
+            <RadioBox value="value-2" className="w-[362px]">
+              Value 2
+            </RadioBox>
+            <RadioBox value="value-3" className="w-[362px]">
+              Value 3
+            </RadioBox>
+          </RadioGroup>
         </Stack>
       </Wrapper>
 
