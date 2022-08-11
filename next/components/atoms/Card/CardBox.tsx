@@ -10,17 +10,19 @@ const CardBox = ({
   children,
 }: PropsWithChildren<CardBoxProps>) => {
   return (
-    <div
-      className={classNames(
-        'flex flex-col bg-white cursor-pointer',
-        {
-          'border border-border': border,
-          'group cursor-pointer hover:shadow-card': hover,
-        },
-        className,
-      )}
-    >
-      {children}
+    <div>
+      <div
+        className={classNames(
+          'flex flex-col bg-white',
+          {
+            'border border-border': border,
+            'group cursor-pointer hover:shadow-card cursor-pointer': hover,
+          },
+          className,
+        )}
+      >
+        {children}
+      </div>
     </div>
   )
 }

@@ -14,14 +14,14 @@ type ArticleCardProps = {
   href: string
 } & CardBoxProps
 
-const ArticleCard = ({ imageUrl, date, category, href, ...props }: ArticleCardProps) => {
+const ArticleCard = ({ imageUrl, date, category, href, ...rest }: ArticleCardProps) => {
   const [categoryHoverRef, isCategoryHovered] = useHover<HTMLAnchorElement>()
 
   // TODO format date component
   const formattedDate = useMemo(() => new Date(date).toLocaleDateString('de-DE'), [date])
   return (
-    <CardBox {...props}>
-      {imageUrl && <Image src={imageUrl} layout="fill" />}
+    <CardBox {...rest} hover={!isCategoryHovered}>
+      {imageUrl && <img src={imageUrl} />}
       <CardContent className="gap-y-3">
         <span className="text-sm">
           <span>{formattedDate}</span> •{' '}

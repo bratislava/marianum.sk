@@ -20,6 +20,11 @@ const nextConfig = {
   serverRuntimeConfig: {
     strapiUrl: process.env.STRAPI_URL,
   },
+  experimental: {
+    images: {
+      allowFutureImage: true,
+    },
+  },
 }
 
 module.exports = (phase, { defaultConfig }) => {

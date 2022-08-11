@@ -23,6 +23,7 @@ type ButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HT
       | 'plain-secondary'
       | 'plain-white'
     groupHover?: boolean
+    noPadding?: boolean
   }
 
 const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
@@ -35,6 +36,7 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
       href,
       className,
       groupHover = false,
+      noPadding = false,
       ...rest
     },
     ref,
@@ -44,12 +46,16 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
       className,
       {
         'px-6 py-2':
-          variant === 'primary' ||
-          variant === 'secondary' ||
-          variant === 'tertiary' ||
-          variant === 'white',
+          !noPadding &&
+          (variant === 'primary' ||
+            variant === 'secondary' ||
+            variant === 'tertiary' ||
+            variant === 'white'),
         'px-2':
-          variant === 'plain-primary' || variant === 'plain-secondary' || variant === 'plain-white',
+          !noPadding &&
+          (variant === 'plain-primary' ||
+            variant === 'plain-secondary' ||
+            variant === 'plain-white'),
 
         // text color
         'text-white': variant === 'primary' || variant === 'plain-white',

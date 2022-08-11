@@ -9,7 +9,7 @@ const CardContent = ({
   children,
 }: PropsWithChildren<CardContentProps>) => {
   return (
-    <div className={cx('flex flex-col', largePadding ? 'p-4' : 'p-6', className)}>{children}</div>
+    <div className={cx('flex flex-col', largePadding ? 'p-6' : 'p-4', className)}>{children}</div>
   )
 }
 

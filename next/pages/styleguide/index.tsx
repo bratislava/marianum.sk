@@ -19,11 +19,16 @@ import Tag from '../../components/atoms/Tag'
 import TextField from '../../components/atoms/TextField'
 import Accordion from '../../components/molecules/Accordion/Accordion'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
+import ArticleCard from '../../components/molecules/Cards/ArticleCard'
+import BranchCard from '../../components/molecules/Cards/BranchCard'
+import { CategoryCard, FaqThemeCard } from '../../components/molecules/Cards/CategoryFaqThemeCard'
+import PackageCard from '../../components/molecules/Cards/PackageCard'
+import PartnerCard from '../../components/molecules/Cards/PartnerCard'
+import ProductCard from '../../components/molecules/Cards/ProductCard'
+import ServiceCard from '../../components/molecules/Cards/ServiceCard'
 import Checklist from '../../components/molecules/Checklist/Checklist'
 import Row from '../../components/molecules/Row'
 import Search from '../../components/molecules/Search'
-import ArticleCard from '../../components/molecules/Cards/ArticleCard'
-import ProductCard from '../../components/molecules/Cards/ProductCard'
 
 interface IWrapperProps {
   title?: string
@@ -66,6 +71,7 @@ export const Stack = ({ bg, width = null, direction = 'row', children }: IStackP
 const Showcase = () => {
   const [paginationSelectedPage, setPaginationSelectedPage] = useState(1)
   const [quantitySelectValue, setQuantitySelectValue] = useState(1)
+  const [cardsBorder, setCardsBorder] = useState(true)
 
   const dummyBreadcrumbLinks = useMemo(
     () => [
@@ -899,22 +905,64 @@ const Showcase = () => {
         </Stack>
       </Wrapper>
 
-      <Wrapper title="Radio box">
+      <Wrapper title="Cards">
+        <input
+          type="checkbox"
+          defaultChecked={cardsBorder}
+          onChange={(event) => setCardsBorder(event.target.checked)}
+        />
         <Stack>
-          <div className="container grid grid-cols-4 gap-4">
+          <div className="container grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
             <ArticleCard
               imageUrl="/example.jpg"
-              border={true}
+              border={cardsBorder}
               category={{ title: 'adasd', linkHref: '#' }}
               date={Date.now()}
               href="#"
-            ></ArticleCard>
+            />
             <ProductCard
               imageUrl="/example.jpg"
-              showButton={true}
+              imageAlt=""
+              showButton
               price={50}
-              border={true}
-            ></ProductCard>
+              border={cardsBorder}
+            />
+            <CategoryCard border={cardsBorder} title="asdasd" linkHref="" />
+            <ServiceCard
+              title="adasd"
+              subtitle="asdasd"
+              linkHref="#"
+              imageUrl="/example.jpg"
+              imageAlt=""
+              border={cardsBorder}
+            />
+            <FaqThemeCard border={cardsBorder} title="asdasd" subtitle="adsasd" linkHref="" />
+            <BranchCard
+              branchName="Názov pobočky"
+              address="Adresa"
+              openingHoursText="09:00 – 18:00"
+            />
+            <PartnerCard
+              title="Marianum"
+              linkHref="#"
+              imageUrl="/example.jpg"
+              imageAlt=""
+              border={cardsBorder}
+            />
+            <PackageCard
+              imageUrl="/example.jpg"
+              imageAlt=""
+              name="Package name"
+              priceFrom={1999}
+              claims={[
+                // eslint-disable-next-line sonarjs/no-duplicate-string
+                'Lorem ipsum dolor sit amet',
+                'Lorem ipsum dolor sit amet',
+                'Lorem ipsum dolor sit amet',
+              ]}
+              linkHref=""
+              border={cardsBorder}
+            />
           </div>
         </Stack>
       </Wrapper>

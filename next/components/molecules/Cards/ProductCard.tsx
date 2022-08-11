@@ -1,36 +1,42 @@
-import Image from 'next/image'
+import cx from 'classnames'
+import Image from 'next/future/image'
+import { MouseEventHandler } from 'react'
+import { useHover } from 'use-hooks'
 
+import ShoppingCartIcon from '../../../assets/shopping_cart.svg'
+import Button from '../../atoms/Button'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
 import MLink from '../../atoms/MLink'
-import Button from '../../atoms/Button'
-import ShoppingCartIcon from '../../../assets/shopping_cart.svg'
-import { MouseEventHandler } from 'react'
-import { useHover } from 'use-hooks'
-import cx from 'classnames'
 
 type ProductCardProps = {
   imageUrl: string
+  imageAlt: string
   showButton: boolean
-  price: number
-  onButtonClick?: () => void
+  price: number // TODO: or string?
+  onAddToCartPress?: () => void
 } & CardBoxProps
 
 const ProductCard = ({
   imageUrl,
+  imageAlt,
   showButton,
   price,
-  onButtonClick = () => {},
-  ...props
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars,lodash/prefer-noop
+  onAddToCartPress = () => {},
+  ...rest
 }: ProductCardProps) => {
   const [buttonHoverRef, isButtonHovered] = useHover<HTMLButtonElement>()
 
   const handleButtonClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     console.log(event)
   }
+
   return (
-    <CardBox {...props}>
-      {imageUrl && <Image src={imageUrl} layout="fill" />}
+    <CardBox {...rest} hover={!isButtonHovered}>
+      <div className="min-h-[100px] max-h-[200px] w-full relative">
+        {imageUrl && <Image src={imageUrl} fill />}
+      </div>
       <CardContent className="gap-y-2">
         <MLink
           href=""
@@ -46,6 +52,7 @@ const ProductCard = ({
           <Button
             className="mt-2"
             startIcon={<ShoppingCartIcon />}
+            // @ts-ignore
             onClick={handleButtonClick}
             ref={buttonHoverRef}
           >
