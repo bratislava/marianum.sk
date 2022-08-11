@@ -3,3 +3,70 @@ query Me {
     id
   }
 }
+
+# Write your query or mutation here
+query Navigation($locale: I18NLocaleCode!) {
+  navigation: renderNavigation(
+    navigationIdOrSlug: "main-navigation"
+    type: TREE
+    menuOnly: false
+    locale: $locale
+  ) {
+    ...NavigationItem
+  }
+}
+
+query PageBySlug($locale: I18NLocaleCode!, $slug: String!) {
+  pages(locale: $locale, filters: { slug: { eq: $slug } }) {
+    data {
+      ...PageEntity
+    }
+  }
+}
+
+# strapi returns just the default locale if no locale is provided
+# easiest way to get all static paths is to ask for all locales sequentially
+query PagesStaticPaths($locale: I18NLocaleCode) {
+  pages(locale: $locale) {
+    data {
+      id
+      attributes {
+        slug
+        locale
+      }
+    }
+  }
+}
+
+query Pages {
+  pages(locale: "sk") {
+    data {
+      id
+      attributes {
+        title
+        slug
+        publishedAt
+        sections {
+          ... on ComponentSectionsAccordionGroup {
+            __typename
+            id
+            title
+            accordions {
+              id
+              title
+              description
+            }
+          }
+          ... on ComponentSectionsRichtext {
+            markdown
+            button {
+              label
+              url
+              targetBlank
+            }
+          }
+        }
+      }
+    }
+  }
+}

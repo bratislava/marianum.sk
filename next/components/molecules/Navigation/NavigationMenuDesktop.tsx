@@ -2,24 +2,19 @@ import cx from 'classnames'
 import { motion } from 'framer-motion'
 
 import ChevronIcon from '../../../assets/chevron_down.svg'
-import Menu, { MenuItem } from '../Menu/Menu'
-
-export type NavigationMenuDesktopItem = {
-  key: string
-  label: string
-  link: string
-  items?: MenuItem[]
-}
+import { NavigationItemFragment } from '../../../graphql'
+import { isDefined } from '../../../utils/isDefined'
+import Menu from '../Menu/Menu'
 
 export type NavigationMenuDesktopProps = {
-  items: NavigationMenuDesktopItem[]
+  navigationItems: NavigationItemFragment[]
 }
 
-const NavigationMenuDesktop = ({ items }: NavigationMenuDesktopProps) => {
+const NavigationMenuDesktop = ({ navigationItems }: NavigationMenuDesktopProps) => {
   return (
     <div className="grid h-16 grid-cols-4 bg-white text-foreground-heading shadow">
-      {items.map(({ key, label, items: subItems }, index) => (
-        <Menu key={key} items={subItems}>
+      {navigationItems.map(({ id, title, items: menuItems, type }, index) => (
+        <Menu key={id} items={menuItems?.filter(isDefined)}>
           {({ isOpen }) => (
             <div className="flex h-full items-center">
               {index !== 0 && <div className="h-8 w-[1px] bg-border" />}
@@ -29,8 +24,8 @@ const NavigationMenuDesktop = ({ items }: NavigationMenuDesktopProps) => {
                   { 'bg-primary/10': isOpen },
                 )}
               >
-                <span>{label}</span>
-                {(subItems?.length ?? 0) > 0 && (
+                <span>{title}</span>
+                {type === 'WRAPPER' && (
                   <motion.div
                     transition={{ type: 'linear' }}
                     initial={{ rotate: 0 }}

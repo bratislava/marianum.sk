@@ -4,16 +4,17 @@ import HelpIcon from '../../../assets/help.svg'
 import MarianumLogo from '../../../assets/marianum_logo.svg'
 import MenuIcon from '../../../assets/menu.svg'
 import PhoneIcon from '../../../assets/phone.svg'
+import { NavigationItemFragment } from '../../../graphql'
 import IconButton from '../../atoms/IconButton'
 import MLink from '../../atoms/MLink'
-import NavigationMenuDesktop, { NavigationMenuDesktopProps } from './NavigationMenuDesktop'
+import NavigationMenuDesktop from './NavigationMenuDesktop'
 import NavigationMenuMobile from './NavigationMenuMobile'
 import NavigationSearch from './NavigationSearch'
 
 type NavigationProps = {
   phoneNumber?: string
   faqLink?: string
-  navigationItems: NavigationMenuDesktopProps['items']
+  navigationItems: NavigationItemFragment[]
 }
 
 const Navigation = ({ phoneNumber, faqLink, navigationItems }: NavigationProps) => {
@@ -56,7 +57,7 @@ const Navigation = ({ phoneNumber, faqLink, navigationItems }: NavigationProps) 
         </div>
         {/* desktop navigation menu */}
         <div className="absolute inset-x-0 -bottom-8 hidden px-4 lg:block ">
-          <NavigationMenuDesktop items={navigationItems} />
+          <NavigationMenuDesktop navigationItems={navigationItems} />
         </div>
         {/* mobile navigation menu */}
         <NavigationMenuMobile
