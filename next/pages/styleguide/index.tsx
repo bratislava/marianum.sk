@@ -153,6 +153,7 @@ const Showcase = () => {
           <Button>Button</Button>
           <Button startIcon={<AddIcon />}>Button</Button>
           <Button endIcon={<ArrowRightIcon />}>Button</Button>
+          <Button disabled>Button disabled</Button>
         </Stack>
 
         <Stack>
@@ -162,6 +163,9 @@ const Showcase = () => {
           </Button>
           <Button variant="secondary" endIcon={<ArrowRightIcon />}>
             Button
+          </Button>
+          <Button variant="secondary" disabled>
+            Button disabled
           </Button>
         </Stack>
 
@@ -173,6 +177,9 @@ const Showcase = () => {
           <Button variant="tertiary" endIcon={<ArrowRightIcon />}>
             Button
           </Button>
+          <Button variant="tertiary" disabled>
+            Button disabled
+          </Button>
         </Stack>
 
         <Stack>
@@ -182,6 +189,9 @@ const Showcase = () => {
           </Button>
           <Button variant="plain-primary" endIcon={<ArrowRightIcon />}>
             Button
+          </Button>
+          <Button variant="plain-primary" disabled>
+            Button disabled
           </Button>
         </Stack>
 
@@ -193,6 +203,9 @@ const Showcase = () => {
           <Button variant="plain-secondary" endIcon={<ArrowRightIcon />}>
             Button
           </Button>
+          <Button variant="plain-secondary" disabled>
+            Button disabled
+          </Button>
         </Stack>
 
         <Stack>
@@ -203,6 +216,9 @@ const Showcase = () => {
           <Button variant="white" endIcon={<ArrowRightIcon />}>
             Button
           </Button>
+          <Button variant="white" disabled>
+            Button disabled
+          </Button>
         </Stack>
 
         <Stack>
@@ -212,6 +228,21 @@ const Showcase = () => {
           </Button>
           <Button variant="plain-white" endIcon={<ArrowRightIcon />}>
             Button
+          </Button>
+          <Button variant="plain-white" disabled>
+            Button disabled
+          </Button>
+        </Stack>
+
+        <Stack>
+          <Button variant="primary" href="#">
+            Button link
+          </Button>
+          <Button variant="tertiary" href="#" startIcon={<AddIcon />}>
+            Button link
+          </Button>
+          <Button variant="plain-secondary" href="#" endIcon={<ArrowRightIcon />}>
+            Button link
           </Button>
         </Stack>
       </Wrapper>
@@ -239,6 +270,27 @@ const Showcase = () => {
         </Stack>
 
         <Stack>
+          <IconButton disabled variant="primary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled variant="secondary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled variant="tertiary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled variant="white">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled variant="plain-primary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled variant="plain-secondary">
+            <ArrowRightIcon />
+          </IconButton>
+        </Stack>
+
+        <Stack>
           <IconButton size="small" variant="primary">
             <ArrowRightIcon />
           </IconButton>
@@ -260,9 +312,31 @@ const Showcase = () => {
         </Stack>
 
         <Stack>
-          <IconButton variant="white">1</IconButton>
-          <IconButton variant="white">11</IconButton>
-          <IconButton variant="white">111</IconButton>
+          <IconButton disabled size="small" variant="primary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled size="small" variant="secondary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled size="small" variant="tertiary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled size="small" variant="white">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled size="small" variant="plain-primary">
+            <ArrowRightIcon />
+          </IconButton>
+          <IconButton disabled size="small" variant="plain-secondary">
+            <ArrowRightIcon />
+          </IconButton>
+        </Stack>
+
+        <Stack>
+          <IconButton variant="pagination">1</IconButton>
+          <IconButton variant="pagination-selected">2</IconButton>
+          <IconButton variant="pagination">11</IconButton>
+          <IconButton variant="pagination">111</IconButton>
         </Stack>
       </Wrapper>
 

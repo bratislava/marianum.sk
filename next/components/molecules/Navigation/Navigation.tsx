@@ -49,7 +49,7 @@ const Navigation = ({ phoneNumber, faqLink, navigationItems }: NavigationProps) 
           {/* mobile menu button */}
           <IconButton
             aria-label="navigačné menu"
-            onClick={() => setMobileNavOpen(true)}
+            onPress={() => setMobileNavOpen(true)}
             variant="primary"
           >
             <MenuIcon width={24} height={24} />
