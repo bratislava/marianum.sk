@@ -7,10 +7,10 @@
   },
   "options": {},
   "attributes": {
-    "faqsLink": {
+    "faqLink": {
       "type": "string"
     },
-    "phone": {
+    "phoneNumber": {
       "type": "string"
     }
   }
