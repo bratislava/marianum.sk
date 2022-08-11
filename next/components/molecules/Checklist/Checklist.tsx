@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import { MouseEvent, useCallback, useReducer } from 'react'
+import { useCallback, useReducer } from 'react'
 
 import CheckIcon from '../../../assets/check.svg'
 import CheckCircleIcon from '../../../assets/check_circle.svg'
@@ -76,32 +76,28 @@ export type ChecklistProps = {
 const Checklist = ({ items }: ChecklistProps) => {
   const [checklistState, dispatchChecklistState] = useReducer(checklistReducer, { items })
 
-  const openItemHandler = useCallback((itemKey: string, e?: MouseEvent) => {
-    if (e) e.stopPropagation()
+  const openItemHandler = useCallback((itemKey: string) => {
     dispatchChecklistState({
       type: ChecklistActionKind.OpenItem,
       itemKey,
     })
   }, [])
 
-  const openNextItemHandler = useCallback((itemKey: string, e?: MouseEvent) => {
-    if (e) e.stopPropagation()
+  const openNextItemHandler = useCallback((itemKey: string) => {
     dispatchChecklistState({
       type: ChecklistActionKind.OpenNextItem,
       itemKey,
     })
   }, [])
 
-  const completeItemHandler = useCallback((itemKey: string, e?: MouseEvent) => {
-    if (e) e.stopPropagation()
+  const completeItemHandler = useCallback((itemKey: string) => {
     dispatchChecklistState({
       type: ChecklistActionKind.CompleteItem,
       itemKey,
     })
   }, [])
 
-  const uncompleteItemHandler = useCallback((itemKey: string, e?: MouseEvent) => {
-    if (e) e.stopPropagation()
+  const uncompleteItemHandler = useCallback((itemKey: string) => {
     dispatchChecklistState({
       type: ChecklistActionKind.UncompleteItem,
       itemKey,
