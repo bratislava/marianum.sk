@@ -4,7 +4,7 @@
   "info": {
     "singularName": "contact",
     "pluralName": "contacts",
-    "displayName": "contact",
+    "displayName": "Contact",
     "description": ""
   },
   "options": {
@@ -44,7 +44,7 @@
     "phone1": {
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
       },
       "type": "string"
@@ -52,7 +52,7 @@
     "phone2": {
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
       },
       "type": "string"

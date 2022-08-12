@@ -64,6 +64,19 @@ fragment NavigationItem on NavigationItem {
   }
 }
 
+fragment UploadImageEntity on UploadFileEntity {
+  id
+  attributes {
+    url
+    name
+    alternativeText
+    caption
+    size
+    width
+    height
+  }
+}
+
 fragment CtaButton on ComponentBlocksButtonLink {
   label
   url
@@ -101,12 +114,17 @@ fragment PageEntity on PageEntity {
     slug
     publishedAt
     layout
-    description
+    perex
     ctaButton {
       ...CtaButton
     }
     sidebar {
       ...Sidebar
+    }
+    coverMedia {
+      data {
+        ...UploadImageEntity
+      }
     }
     sections {
       ... on ComponentSectionsAccordionGroup {
@@ -128,6 +146,22 @@ fragment PageEntity on PageEntity {
           url
           targetBlank
         }
+      }
+    }
+  }
+}
+
+fragment BranchEntity on BranchEntity {
+  id
+  attributes {
+    title
+    slug
+    type
+    cemeteryType
+    description
+    contact {
+      data {
+        ...ContactEntity
       }
     }
   }
