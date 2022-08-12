@@ -1,16 +1,11 @@
 import classnames from 'classnames'
+import { HomepageSliderSlide } from '../../utils/types'
 
 import Button from '../atoms/Button'
 import Slider from '../molecules/Slider'
 
 type HomepageSliderProps = {
-  slides: {
-    key: string
-    title: string
-    description: string
-    buttonText: string
-    imageSrc: string
-  }[]
+  slides: HomepageSliderSlide[]
 }
 
 const HomepageSlider = ({ slides }: HomepageSliderProps) => {
