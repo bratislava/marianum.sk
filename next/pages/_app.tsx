@@ -4,10 +4,16 @@ import { MotionConfig } from 'framer-motion'
 import type { AppProps } from 'next/app'
 import { appWithTranslation } from 'next-i18next'
 
-const MyApp = ({ Component, pageProps }: AppProps) => (
-  <MotionConfig reducedMotion="user">
-    <Component {...pageProps} />
-  </MotionConfig>
-)
+import MI18nProvider from '../components/MI18nProvider'
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  return (
+    <MI18nProvider>
+      <MotionConfig reducedMotion="user">
+        <Component {...pageProps} />
+      </MotionConfig>
+    </MI18nProvider>
+  )
+}
 
 export default appWithTranslation(MyApp)

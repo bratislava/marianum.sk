@@ -84,7 +84,7 @@ const Select = ({
               {selectedOptions.length > 0 ? (
                 selectedOptions.map((option, index) => (
                   <div key={option.key} className="flex whitespace-nowrap">
-                    {index !== 0 && <div>, </div>}
+                    {index !== 0 && <div className="whitespace-pre-wrap">, </div>}
                     <div>{option.label}</div>
                   </div>
                 ))
