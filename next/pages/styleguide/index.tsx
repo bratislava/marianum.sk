@@ -52,7 +52,8 @@ interface IStackProps {
 export const Stack = ({ bg, width = null, direction = 'row', children }: IStackProps) => {
   return (
     <div
-      className={cx('flex p-1 w-fit', {
+      className={cx('flex p-1', {
+        'w-fit': width == null,
         'bg-primary-dark': bg === 'dark',
         'w-[1128px]': width === 'desktop',
         'w-[288px]': width === 'mobile',
