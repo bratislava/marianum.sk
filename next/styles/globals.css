@@ -33,7 +33,7 @@
     padding: 0;
     margin: 0;
     font-family: 'Noto Sans', sans-serif;
-    color: var(--color-text-foreground);
+    color: #494e4a;
   }
 
   h1,
@@ -43,7 +43,7 @@
   h5,
   h6 {
     font-weight: 700;
-    color: var(--color-text-headline);
+    color: #2b2e2c;
   }
 
   h1 {

@@ -4,7 +4,7 @@
   "info": {
     "singularName": "page",
     "pluralName": "pages",
-    "displayName": "page",
+    "displayName": "Page",
     "description": ""
   },
   "options": {
@@ -17,7 +17,7 @@
   },
   "attributes": {
     "title": {
-      "type": "text",
+      "type": "string",
       "required": true,
       "pluginOptions": {
         "i18n": {
@@ -35,6 +35,35 @@
       "targetField": "title",
       "required": true
     },
+    "layout": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "enumeration",
+      "enum": ["fullwidth", "sidebar", "centered", "article"],
+      "required": true,
+      "default": "fullwidth"
+    },
+    "perex": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text"
+    },
+    "ctaButton": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "blocks.button-link"
+    },
     "sections": {
       "pluginOptions": {
         "i18n": {
@@ -51,6 +80,27 @@
         "sections.document-group",
         "sections.price-list"
       ]
+    },
+    "sidebar": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "blocks.sidebar"
+    },
+    "coverMedia": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }

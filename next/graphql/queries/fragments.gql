@@ -64,10 +64,105 @@ fragment NavigationItem on NavigationItem {
   }
 }
 
+fragment UploadImageEntity on UploadFileEntity {
+  id
+  attributes {
+    url
+    name
+    alternativeText
+    caption
+    size
+    width
+    height
+  }
+}
+
+fragment CtaButton on ComponentBlocksButtonLink {
+  label
+  url
+  targetBlank
+}
+
+fragment Sidebar on ComponentBlocksSidebar {
+  title
+  text
+  ctaButton {
+    ...CtaButton
+  }
+  contact {
+    data {
+      ...ContactEntity
+    }
+  }
+}
+
+fragment ContactEntity on ContactEntity {
+  id
+  attributes {
+    title
+    name
+    email
+    phone1
+    phone2
+  }
+}
+
 fragment PageEntity on PageEntity {
   id
   attributes {
     title
     slug
+    publishedAt
+    layout
+    perex
+    ctaButton {
+      ...CtaButton
+    }
+    sidebar {
+      ...Sidebar
+    }
+    coverMedia {
+      data {
+        ...UploadImageEntity
+      }
+    }
+    sections {
+      ... on ComponentSectionsAccordionGroup {
+        __typename
+        id
+        title
+        accordions {
+          id
+          title
+          description
+        }
+      }
+      ... on ComponentSectionsRichtext {
+        __typename
+        id
+        markdown
+        button {
+          label
+          url
+          targetBlank
+        }
+      }
+    }
+  }
+}
+
+fragment BranchEntity on BranchEntity {
+  id
+  attributes {
+    title
+    slug
+    type
+    cemeteryType
+    description
+    contact {
+      data {
+        ...ContactEntity
+      }
+    }
   }
 }

@@ -25,11 +25,13 @@ const Checkbox = (
     {
       'border-primary': !props.hasError,
       'group-hover:border-primary-dark hover:border-primary-dark':
-        !props.hasError && isDisabledOrReadonly,
+        !props.hasError && !isDisabledOrReadonly,
       'bg-primary': !props.hasError && props.isSelected,
+      'bg-white': !props.isSelected,
       'border-error': props.hasError,
       'bg-error': props.hasError && props.isSelected,
-      'bg-opacity-50': isDisabledOrReadonly,
+      'bg-opacity-50 border-opacity-0': isDisabledOrReadonly && props.isSelected,
+      'border-opacity-50': isDisabledOrReadonly && !props.isSelected,
       'outline outline-2 outline-black': isFocusVisible,
     },
   )
