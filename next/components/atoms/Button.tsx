@@ -56,6 +56,29 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
       ...rest
     },
     ref,
+  ) => {
+    const { buttonProps } = useButton(
+      {
+        ...rest,
+        elementType: rest.href ? 'a' : 'button',
+        isDisabled: disabled,
+      },
+      ref as RefObject<HTMLAnchorElement | HTMLButtonElement>,
+    )
+const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProps>(
+  (
+    {
+      startIcon = null,
+      endIcon = null,
+      variant = 'primary',
+      className,
+      children,
+      disabled = false,
+      tabIndex = 0,
+      noPadding = false,
+      ...rest
+    },
+    ref,
     // eslint-disable-next-line sonarjs/cognitive-complexity
   ) => {
     const { buttonProps } = useButton(

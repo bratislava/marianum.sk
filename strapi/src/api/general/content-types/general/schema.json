@@ -4,7 +4,8 @@
   "info": {
     "singularName": "general",
     "pluralName": "generals",
-    "displayName": "general"
+    "displayName": "General",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -36,6 +37,26 @@
         }
       },
       "component": "general.social"
+    },
+    "contact": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "general.contacts"
+    },
+    "footer": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "general.footer"
     }
   }
 }

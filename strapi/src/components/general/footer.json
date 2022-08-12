@@ -1,0 +1,43 @@
+{
+  "collectionName": "components_general_footers",
+  "info": {
+    "displayName": "footer",
+    "icon": "columns",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title1": {
+      "type": "string"
+    },
+    "links1": {
+      "type": "component",
+      "repeatable": true,
+      "component": "general.link-item"
+    },
+    "title2": {
+      "type": "string"
+    },
+    "links2": {
+      "type": "component",
+      "repeatable": true,
+      "component": "general.link-item"
+    },
+    "title3": {
+      "type": "string"
+    },
+    "links3": {
+      "type": "component",
+      "repeatable": true,
+      "component": "general.link-item"
+    },
+    "title4": {
+      "type": "string"
+    },
+    "links4": {
+      "type": "component",
+      "repeatable": true,
+      "component": "general.link-item"
+    }
+  }
+}

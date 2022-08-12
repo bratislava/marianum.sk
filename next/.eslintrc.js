@@ -31,6 +31,8 @@ module.exports = {
     '@typescript-eslint/no-unsafe-return': 'off',
     '@typescript-eslint/no-unsafe-member-access': 'off',
     'lodash/prefer-noop': 'off',
+    'jsx-a11y/img-redundant-alt': 'warn',
+    '@next/next/no-img-element': 'off',
   },
   ignorePatterns: ['*.config.*', 'graphql', '.eslintrc.js'],
 }

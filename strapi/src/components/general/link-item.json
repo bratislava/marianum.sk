@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_general_link_items",
+  "info": {
+    "displayName": "link item",
+    "icon": "link"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "targetBlank": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}
