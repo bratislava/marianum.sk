@@ -24,6 +24,13 @@ import Tag from '../../components/atoms/Tag'
 import TextField from '../../components/atoms/TextField'
 import Accordion from '../../components/molecules/Accordion/Accordion'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
+import ArticleCard from '../../components/molecules/Cards/ArticleCard'
+import BranchCard from '../../components/molecules/Cards/BranchCard'
+import { CategoryCard, FaqThemeCard } from '../../components/molecules/Cards/CategoryFaqThemeCard'
+import PackageCard from '../../components/molecules/Cards/PackageCard'
+import PartnerCard from '../../components/molecules/Cards/PartnerCard'
+import ProductCard from '../../components/molecules/Cards/ProductCard'
+import ServiceCard from '../../components/molecules/Cards/ServiceCard'
 import Checklist from '../../components/molecules/Checklist/Checklist'
 import Row from '../../components/molecules/Row'
 import Search from '../../components/molecules/Search'
@@ -72,6 +79,7 @@ const Showcase = () => {
   const [quantitySelectValue, setQuantitySelectValue] = useState(1)
   const [radioValue, setRadioValue] = useState('value-1')
   const [checkboxValue, setCheckboxValue] = useState(true)
+  const [cardsBorder, setCardsBorder] = useState(true)
 
   const dummyBreadcrumbLinks = useMemo(
     () => [
@@ -1024,6 +1032,81 @@ const Showcase = () => {
           <Checkbox isSelected={checkboxValue} isReadOnly hasError onChange={setCheckboxValue}>
             Readonly checkbox
           </Checkbox>
+        </Stack>
+      </Wrapper>
+
+      <Wrapper title="Cards">
+        <Checkbox isSelected={cardsBorder} onChange={setCardsBorder}>
+          Show cards with border
+        </Checkbox>
+
+        <Stack width="full">
+          <div className="container mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <ArticleCard
+              imageUrl="/card-example.jpg"
+              imageAlt="Example image for card"
+              border={cardsBorder}
+              title="Headline"
+              category={{ title: 'Category', linkHref: '#' }}
+              date={Date.now()}
+              linkHref="#"
+            />
+            <ProductCard
+              linkHref="#"
+              imageUrl="/card-example.jpg"
+              imageAlt="Example image for card"
+              title="Headline"
+              price={500_011_656_161}
+              border={cardsBorder}
+            />
+            <ProductCard
+              linkHref="#"
+              imageUrl="/card-example.jpg"
+              imageAlt="Example image for card"
+              title="Headline"
+              showAddToCartButton
+              onAddToCartPress={() => {}}
+              price={50}
+              border={cardsBorder}
+            />
+            <CategoryCard border={cardsBorder} title="Headline" linkHref="" />
+            <ServiceCard
+              title="Headline"
+              subtitle="Subtitle"
+              linkHref="#"
+              imageUrl="/card-example.jpg"
+              imageAlt="Example image for card"
+              border={cardsBorder}
+            />
+            <FaqThemeCard border={cardsBorder} title="Headline" subtitle="Subtitle" linkHref="" />
+            <BranchCard
+              branchName="Branch name"
+              address="Address"
+              openingHoursText="09:00 – 18:00"
+              linkHref="#"
+            />
+            <PartnerCard
+              title="Marianum"
+              linkHref="#"
+              imageUrl="/card-example.jpg"
+              imageAlt="Example image for card"
+              border={cardsBorder}
+            />
+            <PackageCard
+              imageUrl="/card-example.jpg"
+              imageAlt="Example image for card"
+              name="Package name"
+              priceFrom={1999}
+              claims={[
+                // eslint-disable-next-line sonarjs/no-duplicate-string
+                'Lorem ipsum dolor sit amet',
+                'Lorem ipsum dolor sit amet',
+                'Lorem ipsum dolor sit amet',
+              ]}
+              linkHref=""
+              border={cardsBorder}
+            />
+          </div>
         </Stack>
       </Wrapper>
 
