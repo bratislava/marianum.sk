@@ -102,5 +102,11 @@ module.exports = {
     // container: false,
     aspectRatio: false, // See: https://tailwindcss.com/docs/aspect-ratio#browser-support
   },
-  plugins: [scrollBarHide, inputNumberArrowsHide, require('tailwindcss-radix')()],
+  plugins: [
+    scrollBarHide,
+    inputNumberArrowsHide,
+    require('tailwindcss-radix')(),
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/line-clamp'),
+  ],
 }

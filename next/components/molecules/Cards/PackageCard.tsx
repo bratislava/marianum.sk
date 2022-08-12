@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import React from 'react'
 
 import CheckIcon from '../../../assets/check.svg'
@@ -25,15 +26,18 @@ const PackageCard = ({
 }: PackageCardProps) => {
   return (
     <CardBox {...props}>
-      <img src={imageUrl} alt={imageAlt} />
+      <div className="aspect-w-[360] aspect-h-[200] w-full bg-gray">
+        <Image src={imageUrl} alt={imageAlt} layout="fill" objectFit="contain" />
+      </div>
       <CardContent className="justify-between">
         <div>
-          <h5 className="text-heading text-h5 font-bold group-hover:underline">{name}</h5>
+          <h5 className="line-clamp-3 group-hover:underline">{name}</h5>
           <div className="mb-4">od {priceFrom}€</div>
           {claims.length > 0 && (
             <ul className="mb-6">
-              {claims.map((claim) => (
-                <li className="flex">
+              {claims.map((claim, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <li key={index} className="flex items-center">
                   <span className="mr-2 text-primary">
                     <CheckIcon />
                   </span>
@@ -44,8 +48,7 @@ const PackageCard = ({
           )}
         </div>
         <div>
-          {/* <Button variant="plain-primary" className="inline-block" groupHover noPadding> */}
-          <Button variant="plain-primary" className="inline-block">
+          <Button variant="plain-primary" className="inline-block" noPadding>
             Zobraziť viac
           </Button>
         </div>

@@ -16,7 +16,7 @@ const BranchCard = ({ branchName, address, openingHoursText }: BranchCardProps) 
     <CardBox hover={false} border={false}>
       <CardContent className="gap-y-5 md:gap-y-10" largePadding>
         <div>
-          <h5 className="mb-3 text-h5 font-bold">{branchName}</h5>
+          <h5 className="mb-3 line-clamp-3">{branchName}</h5>
           <div className="flex items-center">
             <span className="mr-2 text-primary">
               <PlaceIcon />

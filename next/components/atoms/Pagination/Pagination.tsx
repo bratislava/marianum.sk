@@ -53,7 +53,7 @@ const Pagination = ({ count, selectedPage, onChange = () => {} }: PaginationProp
               }
               if (type === 'next') {
                 icon = <ArrowRightIcon />
-                ariaLabel = 'Ísť na ďaľšiu stranu' // TODO: Translations.
+                ariaLabel = 'Ísť na ďalšiu stranu' // TODO: Translations.
               }
 
               children = (

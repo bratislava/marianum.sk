@@ -1,12 +1,10 @@
-import cx from 'classnames'
-import React, { useMemo } from 'react'
-import { useHover } from 'use-hooks'
+import Image from 'next/image'
+import React from 'react'
 
 import OpenInNewIcon from '../../../assets/open_in_new.svg'
 import Button from '../../atoms/Button'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
-import MLink from '../../atoms/MLink'
 
 type PartnerCardProps = {
   title: string
@@ -15,17 +13,18 @@ type PartnerCardProps = {
   imageAlt: string
 } & CardBoxProps
 
-const PartnerCard = ({ title, linkHref, imageUrl, imageAlt, ...props }: PartnerCardProps) => {
+const PartnerCard = ({ title, linkHref, imageUrl, imageAlt, ...rest }: PartnerCardProps) => {
   return (
-    <CardBox {...props}>
+    <CardBox {...rest}>
       <CardContent className="justify-between gap-y-4">
-        <img src={imageUrl} alt={imageAlt} />
-        <div className="flex flex-col gap-y-2 items-center">
-          <h5 className="text-heading text-h5 font-bold group-hover:underline">{title}</h5>
+        <div className="aspect-w-[216] aspect-h-[83] w-full bg-gray">
+          <Image src={imageUrl} alt={imageAlt} layout="fill" objectFit="contain" />
+        </div>
+        <div className="flex flex-col items-center gap-y-2">
+          <h5 className="line-clamp-3 group-hover:underline">{title}</h5>
           <Button
             variant="plain-primary"
             className="inline-block"
-            groupHover
             noPadding
             startIcon={<OpenInNewIcon />}
           >

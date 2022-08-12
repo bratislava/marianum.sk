@@ -1,4 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
+import { LinkButtonProps } from '@react-types/button'
 import classnames from 'classnames'
 import { forwardRef, ReactNode, Ref, RefObject } from 'react'
 import * as React from 'react'
@@ -20,13 +21,14 @@ type ButtonBase = {
   className?: string
   disabled?: boolean
   tabIndex?: number
+  noPadding?: boolean
 }
 
 /*
- *  This part makes the component return `HTMLAnchorElement` when `href` if provided and `HTMLButtonElement` when it's not.
+ *  This part makes the component return `HTMLAnchorElement` ref when `href` if provided and `HTMLButtonElement` when it's not.
  *  https://github.com/typescript-cheatsheets/react/issues/167#issuecomment-751347673
  */
-type ButtonProps = AriaButtonProps<'button'> &
+type ButtonProps = Omit<AriaButtonProps<'button'>, keyof LinkButtonProps> &
   ButtonBase & { ref?: Ref<HTMLButtonElement>; href?: undefined }
 type AnchorProps = AriaButtonProps<'a'> &
   ButtonBase & {
@@ -50,9 +52,11 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
       children,
       disabled = false,
       tabIndex = 0,
+      noPadding = false,
       ...rest
     },
     ref,
+    // eslint-disable-next-line sonarjs/cognitive-complexity
   ) => {
     const { buttonProps } = useButton(
       {
@@ -68,12 +72,18 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
       className,
       {
         'px-6 py-2':
-          variant === 'primary' ||
-          variant === 'secondary' ||
-          variant === 'tertiary' ||
-          variant === 'white',
-        'rounded px-2':
+          !noPadding &&
+          (variant === 'primary' ||
+            variant === 'secondary' ||
+            variant === 'tertiary' ||
+            variant === 'white'),
+        rounded:
           variant === 'plain-primary' || variant === 'plain-secondary' || variant === 'plain-white',
+        'px-2':
+          !noPadding &&
+          (variant === 'plain-primary' ||
+            variant === 'plain-secondary' ||
+            variant === 'plain-white'),
 
         // text color
         'text-white': variant === 'primary' || variant === 'plain-white',

@@ -59,7 +59,8 @@ interface IStackProps {
 export const Stack = ({ bg, width = null, direction = 'row', children }: IStackProps) => {
   return (
     <div
-      className={cx('flex p-1 w-fit', {
+      className={cx('flex p-1', {
+        'w-fit': width == null,
         'bg-primary-dark': bg === 'dark',
         'w-[1128px]': width === 'desktop',
         'w-[288px]': width === 'mobile',
@@ -1035,24 +1036,33 @@ const Showcase = () => {
       </Wrapper>
 
       <Wrapper title="Cards">
-        <input
-          type="checkbox"
-          defaultChecked={cardsBorder}
-          onChange={(event) => setCardsBorder(event.target.checked)}
-        />
-        <Stack>
-          <div className="container grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+        <Checkbox isSelected={cardsBorder} onChange={setCardsBorder}>
+          Show cards with border
+        </Checkbox>
+
+        <Stack width="full">
+          <div className="container mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
             <ArticleCard
               imageUrl="/example.jpg"
+              imageAlt=""
               border={cardsBorder}
               category={{ title: 'adasd', linkHref: '#' }}
               date={Date.now()}
               href="#"
             />
             <ProductCard
+              href="#"
               imageUrl="/example.jpg"
               imageAlt=""
-              showButton
+              price={500_011_656_161}
+              border={cardsBorder}
+            />
+            <ProductCard
+              href="#"
+              imageUrl="/example.jpg"
+              imageAlt=""
+              showAddToCartButton
+              onAddToCartPress={() => {}}
               price={50}
               border={cardsBorder}
             />

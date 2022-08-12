@@ -15,18 +15,17 @@ const CategoryFaqThemeCard = ({
   title,
   subtitle,
   linkHref,
-  ...props
+  ...rest
 }: CategoryFaqThemeCardProps) => {
   return (
-    <CardBox {...props}>
+    <CardBox {...rest}>
       <CardContent className="h-[240px] justify-between">
         <div>
-          <h5 className="text-heading text-h5 font-bold group-hover:underline">Headline</h5>
-          {subtitle && <span>{subtitle}</span>}
+          <h5 className="line-clamp-3 group-hover:underline">{title}</h5>
+          {subtitle && <span className="block line-clamp-3">{subtitle}</span>}
         </div>
         <div>
-          {/*<Button variant="plain-primary" className="inline-block" groupHover noPadding>*/}
-          <Button variant="plain-primary" className="inline-block">
+          <Button variant="plain-primary" className="inline-block" noPadding>
             Zobraziť viac
           </Button>
         </div>

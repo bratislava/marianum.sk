@@ -77,7 +77,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ locale = 'sk',
   const [{ navigation, general }, { pages }, translations] = await Promise.all([
     client.Navigation({ locale }),
     client.PageBySlug({ locale, slug }),
-    serverSideTranslations(locale, ['common']) as any,
+    serverSideTranslations(locale, ['common']) as any, // TODO: fix any
   ])
 
   if (!pages || pages.data.length === 0) {
