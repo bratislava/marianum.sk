@@ -55,7 +55,7 @@ const Home = ({ navigation, faqLink, phoneNumber }: HomeProps) => {
 export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale = 'sk' }) => {
   const [{ navigation, general }, translations] = await Promise.all([
     client.Navigation({ locale }),
-    serverSideTranslations(locale, ['common']) as any,
+    serverSideTranslations(locale, ['common']) as any, // TODO: fix any
   ])
 
   return {
