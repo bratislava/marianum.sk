@@ -33,6 +33,7 @@ module.exports = {
   theme: {
     boxShadow: {
       DEFAULT: '0px 4px 12px 0px #00000014',
+      card: '0px 4px 16px #00000014',
     },
     colors: {
       transparent: 'transparent',
