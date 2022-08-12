@@ -1,6 +1,6 @@
 import classnames from 'classnames'
-import { HomepageSliderSlide } from '../../utils/types'
 
+import { HomepageSliderSlide } from '../../utils/types'
 import Button from '../atoms/Button'
 import Slider from '../molecules/Slider'
 
@@ -18,9 +18,9 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
             key={key}
             className="container mx-auto flex h-full flex-col-reverse content-center lg:flex-row"
           >
-            <div className="flex flex-1 flex-col items-center justify-center gap-4 p-4 pb-12 lg:items-start lg:pb-4 lg:pr-40">
-              <div className="text-h1 font-bold">{title}</div>
-              <div className="hidden lg:block opacity-72">{description}</div>
+            <div className="flex flex-1 flex-col items-center justify-center p-4 pb-12 lg:items-start lg:pb-4 lg:pr-40">
+              <div className="mb-3 text-h1 font-bold">{title}</div>
+              <div className="mb-6 hidden opacity-72 lg:block">{description}</div>
               <Button variant="white">{buttonText}</Button>
             </div>
             <div className="h-[228px] w-full lg:h-full lg:w-[450px] lg:pr-4 xl:w-[612px]">
