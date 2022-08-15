@@ -3,10 +3,10 @@ import { useRouter } from 'next/router'
 import React from 'react'
 
 import CheckIcon from '../../../assets/check.svg'
-import Button from '../../atoms/Button'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
 import FormatCurrency from '../../atoms/FormatCurrency'
+import MLink from '../../atoms/MLink'
 
 type PackageCardProps = {
   imageUrl: string
@@ -60,10 +60,10 @@ const PackageCard = ({
           )}
         </div>
         <div>
-          <Button href={linkHref} variant="plain-primary" className="inline-block" noPadding>
+          <MLink href={linkHref} noArrow className="inline-block">
             {/* TODO: Translation */}
             Zobraziť viac
-          </Button>
+          </MLink>
         </div>
       </CardContent>
     </CardBox>

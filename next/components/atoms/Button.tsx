@@ -1,6 +1,6 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { LinkButtonProps } from '@react-types/button'
-import classnames from 'classnames'
+import cx from 'classnames'
 import { forwardRef, ReactNode, Ref, RefObject } from 'react'
 import * as React from 'react'
 import { AriaButtonProps, useButton } from 'react-aria'
@@ -67,7 +67,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
       ref as RefObject<HTMLAnchorElement | HTMLButtonElement>,
     )
 
-    const style = classnames(
+    const style = cx(
       'inline-flex items-center justify-center space-x-2 text-center align-middle text-btn font-bold focus:outline-none',
       className,
       {

@@ -1,9 +1,9 @@
 import React from 'react'
 
 import PlaceIcon from '../../../assets/place.svg'
-import Button from '../../atoms/Button'
 import CardBox from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
+import MLink from '../../atoms/MLink'
 
 type BranchCardProps = {
   branchName: string
@@ -34,10 +34,10 @@ const BranchCard = ({ branchName, address, openingHoursText, linkHref }: BranchC
           </p>
         </div>
         <div>
-          <Button href={linkHref} variant="plain-primary" className="inline-block" noPadding>
+          <MLink href={linkHref} noArrow className="inline-block">
             {/* TODO: Translation */}
             Zobraziť viac
-          </Button>
+          </MLink>
         </div>
       </CardContent>
     </CardBox>

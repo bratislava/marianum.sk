@@ -34,7 +34,6 @@ const PartnerCard = ({ title, linkHref, imageUrl, imageAlt, ...rest }: PartnerCa
             href={linkHref}
             variant="plain-primary"
             className="inline-block"
-            noPadding
             startIcon={<OpenInNewIcon />}
           >
             {/* TODO: Translation */}

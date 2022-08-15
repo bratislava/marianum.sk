@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import cx from 'classnames'
 import { HTMLAttributes, PropsWithChildren } from 'react'
 
 export type CardBoxProps = { border: boolean; hover?: boolean } & Pick<
@@ -17,11 +17,11 @@ const CardBox = ({
     <div>
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
       <div
-        className={classNames(
+        className={cx(
           'flex flex-col bg-white',
           {
             'border border-border': border,
-            'group cursor-pointer hover:shadow-card cursor-pointer': hover,
+            'group cursor-pointer hover:shadow-card': hover,
           },
           className,
         )}

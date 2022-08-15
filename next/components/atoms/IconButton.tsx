@@ -1,6 +1,6 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable sonarjs/no-duplicate-string */
-import classnames from 'classnames'
+import cx from 'classnames'
 import { ReactNode, useRef } from 'react'
 import { AriaButtonProps, useButton } from 'react-aria'
 
@@ -44,7 +44,7 @@ const Button = ({
     ref,
   )
 
-  const style = classnames(
+  const style = cx(
     'flex items-center justify-center rounded-full p-2 text-center align-middle text-btn focus:outline-none',
     className,
     {
