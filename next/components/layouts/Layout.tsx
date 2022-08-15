@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import cx from 'classnames'
 import React, { ReactNode } from 'react'
 
 import { Enum_Page_Layout, NavigationItemFragment, PageEntityFragment } from '../../graphql'
@@ -38,7 +38,7 @@ const Layout = ({ page, navigation, faqLink, phoneNumber, children }: LayoutProp
       }
     >
       <div
-        className={classnames({
+        className={cx({
           // Change color to white for Article layout
           'bg-white': page.attributes?.layout === Enum_Page_Layout.Article,
           // Compensate image overlap
@@ -48,7 +48,7 @@ const Layout = ({ page, navigation, faqLink, phoneNumber, children }: LayoutProp
         })}
       >
         <div
-          className={classnames('container relative mx-auto', {
+          className={cx('container relative mx-auto', {
             // Set grid for Sidebar layout
             'grid gap-6 p-4 md:auto-cols-auto md:grid-flow-col md:py-20':
               page.attributes?.layout === Enum_Page_Layout.Sidebar,

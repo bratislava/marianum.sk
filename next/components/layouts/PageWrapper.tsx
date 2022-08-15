@@ -1,4 +1,3 @@
-import classnames from 'classnames'
 import Head from 'next/head'
 import React, { ReactNode } from 'react'
 
@@ -24,7 +23,7 @@ const PageWrapper = ({ navigation, faqLink, phoneNumber, header, children }: Pag
         <Navigation faqLink={faqLink} phoneNumber={phoneNumber} navigationItems={navigation} />
         {header}
       </header>
-      <main className={classnames('bg-background-beige')}>{children}</main>
+      <main className="bg-background-beige">{children}</main>
       <footer />
     </>
   )
