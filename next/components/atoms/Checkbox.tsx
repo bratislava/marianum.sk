@@ -24,25 +24,26 @@ const Checkbox = (
     'mr-[14px] grid h-5 w-5 place-content-center rounded border-2 text-white',
     {
       'border-primary': !props.hasError,
-      'group-hover:border-primary-dark hover:border-primary-dark':
+      'hover:border-primary-dark group-hover:border-primary-dark':
         !props.hasError && !isDisabledOrReadonly,
-      'group-hover:bg-primary-dark hover:bg-primary-dark':
+      'hover:bg-primary-dark group-hover:bg-primary-dark':
         !props.hasError && !isDisabledOrReadonly && props.isSelected,
       'bg-primary': !props.hasError && props.isSelected,
       'bg-white': !props.isSelected,
       'border-error': props.hasError,
       'bg-error': props.hasError && props.isSelected,
-      'bg-opacity-50 border-opacity-0': isDisabledOrReadonly && props.isSelected,
+      'border-opacity-0 bg-opacity-50': isDisabledOrReadonly && props.isSelected,
       'border-opacity-50': isDisabledOrReadonly && !props.isSelected,
       'outline outline-2 outline-black': isFocusVisible,
-      'cursor-pointer': !isDisabledOrReadonly,
     },
   )
+
+  const labelClassName = cx('group flex items-center', { 'cursor-pointer': !isDisabledOrReadonly })
 
   return (
     // The eslint rule itself suggests nesting `input` inside the `label`, but is not able to detect it.
     // eslint-disable-next-line jsx-a11y/label-has-associated-control
-    <label className="group flex items-center">
+    <label className={labelClassName}>
       <VisuallyHidden>
         <input {...mergeProps(inputProps, focusProps)} ref={ref} />
       </VisuallyHidden>
