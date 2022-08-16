@@ -5,7 +5,7 @@ import { mergeProps } from 'react-aria'
 
 import RadioCircle from './RadioCircle'
 
-const SimpleRadio = ({
+const RadioSimple = ({
   children,
   ...props
 }: Parameters<typeof RadioGroup.Option>[0] & { children?: ReactNode }) => {
@@ -21,4 +21,4 @@ const SimpleRadio = ({
   )
 }
 
-export default SimpleRadio
+export default RadioSimple
