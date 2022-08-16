@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_blocks_page_items",
+  "info": {
+    "displayName": "page item",
+    "icon": "passport"
+  },
+  "options": {},
+  "attributes": {
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    }
+  }
+}

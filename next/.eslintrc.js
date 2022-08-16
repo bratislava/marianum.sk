@@ -33,6 +33,7 @@ module.exports = {
     '@typescript-eslint/no-unsafe-call': 'off',
     '@typescript-eslint/no-unsafe-return': 'off',
     '@typescript-eslint/no-unsafe-member-access': 'off',
+    '@typescript-eslint/no-unsafe-argument': 'off',
     'lodash/prefer-noop': 'off',
     'jsx-a11y/img-redundant-alt': 'warn',
     '@next/next/no-img-element': 'off',

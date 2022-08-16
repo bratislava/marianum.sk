@@ -1,4 +1,4 @@
-fragment NavigationItem on NavigationItem {
+fragment FlatNavigationItem on NavigationItem {
   id
   title
   path
@@ -18,48 +18,14 @@ fragment NavigationItem on NavigationItem {
       }
     }
   }
+}
+
+fragment NavigationItem on NavigationItem {
+  ...FlatNavigationItem
   items {
-    id
-    title
-    path
-    type
-    related {
-      id
-      attributes {
-        __typename
-
-        ... on Page {
-          title
-          slug
-        }
-
-        ... on Branch {
-          title
-          slug
-        }
-      }
-    }
+    ...FlatNavigationItem
     items {
-      id
-      title
-      path
-      type
-      related {
-        id
-        attributes {
-          __typename
-
-          ... on Page {
-            title
-            slug
-          }
-
-          ... on Branch {
-            title
-            slug
-          }
-        }
-      }
+      ...FlatNavigationItem
     }
   }
 }
@@ -136,6 +102,70 @@ fragment PageEntity on PageEntity {
           title
           description
         }
+      }
+      ... on ComponentSectionsBranchGroup {
+        __typename
+        id
+        title
+        branches {
+          branch {
+            data {
+              # TODO replace by fragment
+              id
+              attributes {
+                title
+              }
+            }
+          }
+        }
+      }
+      ... on ComponentSectionsContactGroup {
+        __typename
+        id
+        title
+        contacts {
+          contact {
+            data {
+              # TODO replace by fragment
+              id
+              attributes {
+                title
+              }
+            }
+          }
+        }
+      }
+      ... on ComponentSectionsDocumentGroup {
+        __typename
+        id
+        title
+        documents {
+          document {
+            data {
+              # TODO replace by fragment
+              id
+              attributes {
+                title
+              }
+            }
+          }
+        }
+      }
+      ... on ComponentSectionsGallery {
+        __typename
+        id
+        title
+        medias {
+          data {
+            ...UploadImageEntity
+          }
+        }
+      }
+      ... on ComponentSectionsMenuListing {
+        __typename
+        id
+        title
+        slug
       }
       ... on ComponentSectionsRichtext {
         __typename

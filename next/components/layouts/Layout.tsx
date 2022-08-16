@@ -1,7 +1,9 @@
 import cx from 'classnames'
+import { useRouter } from 'next/router'
 import React, { ReactNode } from 'react'
 
 import { Enum_Page_Layout, NavigationItemFragment, PageEntityFragment } from '../../graphql'
+import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
 import SideBar from '../molecules/SideBar'
 import HeroSection from '../sections/HeroSection'
 import PageWrapper from './PageWrapper'
@@ -15,8 +17,10 @@ type LayoutProps = {
 }
 
 const Layout = ({ page, navigation, faqLink, phoneNumber, children }: LayoutProps) => {
+  const router = useRouter()
+  const breadcrumbs = getBreadcrumbs(router.asPath, navigation)
+
   return (
-    // TODO add actual breadcrumbs instead of dummy data
     <PageWrapper
       navigation={navigation}
       faqLink={faqLink}
@@ -28,12 +32,13 @@ const Layout = ({ page, navigation, faqLink, phoneNumber, children }: LayoutProp
             title={page.attributes?.title}
             perex={page.attributes?.perex}
             cta={page.attributes?.ctaButton}
+            breadcrumbs={breadcrumbs}
           />
         ) : page.attributes?.layout === Enum_Page_Layout.Article ? (
-          <HeroSection image={page.attributes?.coverMedia?.data} />
+          <HeroSection image={page.attributes?.coverMedia?.data} breadcrumbs={breadcrumbs} />
         ) : (
           // Display just breadcrumbs for Centered and Article layout
-          <HeroSection />
+          <HeroSection breadcrumbs={breadcrumbs} />
         )
       }
     >

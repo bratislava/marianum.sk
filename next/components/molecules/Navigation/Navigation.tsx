@@ -22,7 +22,7 @@ const Navigation = ({ faqLink, phoneNumber, navigationItems }: NavigationProps) 
 
   return (
     <div className="bg-primary text-white">
-      <div className="container relative mx-auto flex h-16 items-center justify-between px-4 sm:h-[120px] sm:pb-8">
+      <div className="container relative mx-auto flex h-16 items-center justify-between px-4 md:h-[120px] md:pb-8">
         {/* left side of navigation */}
         <MLink className="w-[108px] lg:w-[142px]" href="/" noStyles noArrow>
           <MarianumLogo className="h-full w-full" />
@@ -51,7 +51,7 @@ const Navigation = ({ faqLink, phoneNumber, navigationItems }: NavigationProps) 
             aria-label="navigačné menu"
             onPress={() => setMobileNavOpen(true)}
             variant="primary"
-            className="sm:hidden"
+            className="md:hidden"
           >
             <MenuIcon width={24} height={24} />
           </IconButton>

@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_services_listings",
+  "info": {
+    "displayName": "services listing",
+    "icon": "server"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "linkMore": {
+      "type": "string"
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    }
+  }
+}

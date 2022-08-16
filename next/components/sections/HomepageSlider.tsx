@@ -1,11 +1,11 @@
 import cx from 'classnames'
 
-import { HomepageSliderSlide } from '../../utils/types'
+import { THomepageSliderSlide } from '../../utils/types'
 import Button from '../atoms/Button'
 import Slider from '../molecules/Slider'
 
 type HomepageSliderProps = {
-  slides: HomepageSliderSlide[]
+  slides: THomepageSliderSlide[]
 }
 
 const HomepageSlider = ({ slides }: HomepageSliderProps) => {
