@@ -17,8 +17,8 @@ import MLink from '../../components/atoms/MLink'
 import Pagination from '../../components/atoms/Pagination/Pagination'
 import QuantitySelect from '../../components/atoms/QuantitySelect'
 import RadioBox from '../../components/atoms/Radio/RadioBox'
-import SimpleRadio from '../../components/atoms/Radio/SimpleRadio'
-import SimpleRadioGroup from '../../components/atoms/Radio/SimpleRadioGroup'
+import RadioSimple from '../../components/atoms/Radio/RadioSimple'
+import RadioSimpleGroup from '../../components/atoms/Radio/RadioSimpleGroup'
 import Select from '../../components/atoms/Select'
 import Tab from '../../components/atoms/Tabs/Tab'
 import Tabs from '../../components/atoms/Tabs/Tabs'
@@ -770,9 +770,9 @@ const Showcase = () => {
 
         <Wrapper title="Search">
           <Stack width="full">
-            {/* eslint-disable-next-line no-alert */}
             <Search
               placeholder="Search..."
+              // eslint-disable-next-line no-alert
               onSearch={(value) => alert(`Searching for: ${value}`)}
             />
           </Stack>
@@ -937,13 +937,13 @@ const Showcase = () => {
 
         <Wrapper title="Radio">
           <Stack>
-            <SimpleRadioGroup value={radioValue} onChange={setRadioValue}>
-              <SimpleRadio value="value-1">Value 1</SimpleRadio>
-              <SimpleRadio value="value-2">Value 2</SimpleRadio>
-              <SimpleRadio value="value-3" disabled>
+            <RadioSimpleGroup value={radioValue} onChange={setRadioValue}>
+              <RadioSimple value="value-1">Value 1</RadioSimple>
+              <RadioSimple value="value-2">Value 2</RadioSimple>
+              <RadioSimple value="value-3" disabled>
                 Value 3
-              </SimpleRadio>
-            </SimpleRadioGroup>
+              </RadioSimple>
+            </RadioSimpleGroup>
           </Stack>
           <Stack>
             <RadioGroup
