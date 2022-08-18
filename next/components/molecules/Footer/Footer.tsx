@@ -1,5 +1,4 @@
 import MLink from '../../atoms/MLink'
-import FooterLinks from './FooterLinks'
 import FooterMap, { FooterMapProps } from './FooterMap'
 
 export type FooterProps = {
@@ -64,10 +63,7 @@ const Footer = ({
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-4">
-          <FooterLinks />
-        </div>
-        <div className="grid grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
           <div className="flex flex-col gap-4">
             <h4>Headline</h4>
             <div className="flex flex-col gap-3">
@@ -127,10 +123,10 @@ const Footer = ({
         </div>
       </div>
       <div className="border-t border-border">
-        <div className="flex container mx-auto items-center h-18">
+        <div className="container mx-auto flex h-18 items-center">
           <div className="flex items-center gap-2">
             <span>Zriaďovateľ</span>
-            <MLink noStyles href="/" className="underline font-semibold text-sm">
+            <MLink noStyles href="/" className="text-sm font-semibold underline">
               Mesto Bratislava
             </MLink>
           </div>
