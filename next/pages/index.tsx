@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import PageWrapper from '../components/layouts/PageWrapper'
+import { FooterProps } from '../components/molecules/Footer/Footer'
 import Section from '../components/molecules/Section'
 import HomepageSlider from '../components/sections/HomepageSlider'
 import { HomePageQuery, NavigationItemFragment } from '../graphql'
@@ -14,14 +15,20 @@ type HomeProps = {
   faqLink: string
   phoneNumber: string
   page: NonNullable<NonNullable<HomePageQuery['homePage']>['data']>
+  footerProps: FooterProps
 }
 
-const Home = ({ navigation, faqLink, phoneNumber, page }: HomeProps) => {
+const Home = ({ navigation, faqLink, phoneNumber, page, footerProps }: HomeProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { t } = useTranslation()
 
   return (
-    <PageWrapper navigation={navigation} faqLink={faqLink} phoneNumber={phoneNumber}>
+    <PageWrapper
+      navigation={navigation}
+      faqLink={faqLink}
+      phoneNumber={phoneNumber}
+      footerProps={footerProps}
+    >
       <HomepageSlider
         slides={[
           {
@@ -126,9 +133,10 @@ const Home = ({ navigation, faqLink, phoneNumber, page }: HomeProps) => {
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale = 'sk' }) => {
-  const [{ navigation, general }, { homePage }, translations] = await Promise.all([
+  const [{ navigation }, { homePage }, { general }, translations] = await Promise.all([
     client.Navigation({ locale }),
     client.HomePage({ locale }),
+    client.General({ locale }),
     serverSideTranslations(locale, ['common']) as any, // TODO: fix any
   ])
 
@@ -144,6 +152,34 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale = 'sk' 
       faqLink: general?.data?.attributes?.header?.faqLink ?? '',
       phoneNumber: general?.data?.attributes?.header?.phoneNumber ?? '',
       page: homePage?.data,
+      footerProps: {
+        address: general?.data?.attributes?.contact?.address,
+        navigateToLink: general?.data?.attributes?.contact?.navigateToLink,
+        openingHours: general?.data?.attributes?.contact?.featuredOpeningHours,
+        phoneNumber: general?.data?.attributes?.contact?.phone,
+        emailAddress: general?.data?.attributes?.contact?.email,
+        contactPageLink: general?.data?.attributes?.contact?.contactsLink,
+        markerLat: general?.data?.attributes?.contact?.latitude,
+        markerLng: general?.data?.attributes?.contact?.longitude,
+        linkColumns: [
+          {
+            title: general?.data?.attributes?.footer?.title1,
+            links: general?.data?.attributes?.footer?.links1,
+          },
+          {
+            title: general?.data?.attributes?.footer?.title2,
+            links: general?.data?.attributes?.footer?.links2,
+          },
+          {
+            title: general?.data?.attributes?.footer?.title3,
+            links: general?.data?.attributes?.footer?.links3,
+          },
+          {
+            title: general?.data?.attributes?.footer?.title4,
+            links: general?.data?.attributes?.footer?.links4,
+          },
+        ],
+      },
       ...translations,
     },
     revalidate: 10,
