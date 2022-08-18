@@ -13,18 +13,22 @@ const RadioCircle = ({
     /* It's recommended to add `group` classname to parent `RadioGroup.Option` for hover to work properly. */
     <div
       className={cx(
-        'grid place-content-center w-5 h-5 border border-2 rounded-full group-hover:border-primary-dark hover:border-primary-dark',
+        'grid h-5 w-5 place-content-center rounded-full border-2 hover:border-primary-dark group-hover:border-primary-dark',
         {
           'opacity-50': disabled,
           'border-primary': !active,
           'border-primary-dark': active,
           'bg-white': !checked,
+          'cursor-pointer': !disabled,
         },
       )}
     >
-      {checked && (
-        <div className={cx('w-3 h-3 rounded-full bg-primary group-hover:bg-primary-dark')} />
-      )}
+      <div
+        className={cx(
+          'h-3 w-3 rounded-full bg-primary transition-transform group-hover:bg-primary-dark',
+          checked ? 'scale-1' : 'scale-0',
+        )}
+      />
     </div>
   )
 }

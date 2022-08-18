@@ -12,13 +12,13 @@ const RadioBox = ({
   className,
   ...props
 }: Parameters<typeof RadioGroup.Option>[0] & { className?: string; children?: ReactNode }) => {
-  const boxClassName = ({ checked }: { checked: boolean }) =>
+  const boxClassName = ({ checked, disabled }: { checked: boolean; disabled: boolean }) =>
     cx(
       'group flex flex-col space-y-4 p-6',
       {
-        'bg-white border border-border': !checked,
-        /* bg-opacity-12 was in design, but I find it acceptable to use 10, as arbitrary values are not available for bg-opacity */
-        'bg-primary bg-opacity-10 border border-primary': checked,
+        'border border-border bg-white': !checked,
+        'border border-primary bg-primary bg-opacity-12': checked,
+        'cursor-pointer': !disabled,
       },
       className,
     )

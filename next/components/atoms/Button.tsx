@@ -1,8 +1,8 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { LinkButtonProps } from '@react-types/button'
-import classnames from 'classnames'
-import { forwardRef, ReactNode, Ref, RefObject } from 'react'
+import cx from 'classnames'
 import * as React from 'react'
+import { forwardRef, ReactNode, Ref, RefObject } from 'react'
 import { AriaButtonProps, useButton } from 'react-aria'
 
 import MLink from './MLink'
@@ -21,6 +21,7 @@ type ButtonBase = {
   className?: string
   disabled?: boolean
   tabIndex?: number
+  noPadding?: boolean
 }
 
 /*
@@ -51,9 +52,11 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
       children,
       disabled = false,
       tabIndex = 0,
+      noPadding = false,
       ...rest
     },
     ref,
+    // eslint-disable-next-line sonarjs/cognitive-complexity
   ) => {
     const { buttonProps } = useButton(
       {
@@ -64,17 +67,23 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
       ref as RefObject<HTMLAnchorElement | HTMLButtonElement>,
     )
 
-    const style = classnames(
+    const style = cx(
       'inline-flex items-center justify-center space-x-2 text-center align-middle text-btn font-bold focus:outline-none',
       className,
       {
         'px-6 py-2':
-          variant === 'primary' ||
-          variant === 'secondary' ||
-          variant === 'tertiary' ||
-          variant === 'white',
-        'rounded px-2':
+          !noPadding &&
+          (variant === 'primary' ||
+            variant === 'secondary' ||
+            variant === 'tertiary' ||
+            variant === 'white'),
+        rounded:
           variant === 'plain-primary' || variant === 'plain-secondary' || variant === 'plain-white',
+        'px-2':
+          !noPadding &&
+          (variant === 'plain-primary' ||
+            variant === 'plain-secondary' ||
+            variant === 'plain-white'),
 
         // text color
         'text-white': variant === 'primary' || variant === 'plain-white',
@@ -114,6 +123,8 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
     )
 
     if (rest.href) {
+      /* react-aria adds role="button" which we don't want to use for <a>s */
+      const buttonPropsFixed = { ...buttonProps, role: undefined }
       return (
         <MLink
           ref={ref as RefObject<HTMLAnchorElement>}
@@ -122,7 +133,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
           noArrow
           noStyles
           className={style}
-          {...buttonProps}
+          {...buttonPropsFixed}
         >
           {startIcon}
           <span>{children}</span>

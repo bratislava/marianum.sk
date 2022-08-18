@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import cx from 'classnames'
 import React, { ReactNode } from 'react'
 
 type SectionProps = {
@@ -9,11 +9,9 @@ type SectionProps = {
 
 const Section = ({ children, color = 'default', fullWidth = false }: SectionProps) => {
   return (
-    <section
-      className={classnames({ 'py-20': fullWidth, 'bg-white': color === 'white' && fullWidth })}
-    >
+    <section className={cx({ 'py-20': fullWidth, 'bg-white': color === 'white' && fullWidth })}>
       <div
-        className={classnames({
+        className={cx({
           'container relative mx-auto px-4': fullWidth,
         })}
       >

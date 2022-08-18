@@ -280,8 +280,77 @@ export type ComponentGeneralContacts = {
   email?: Maybe<Scalars['String']>;
   featuredOpeningHours?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  latitude?: Maybe<Scalars['String']>;
+  longitude?: Maybe<Scalars['String']>;
+  navigateToLink?: Maybe<Scalars['String']>;
   openingHoursLink?: Maybe<Scalars['String']>;
   phone?: Maybe<Scalars['String']>;
+};
+
+export type ComponentGeneralContactsInput = {
+  address?: InputMaybe<Scalars['String']>;
+  contactsLink?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  featuredOpeningHours?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  latitude?: InputMaybe<Scalars['String']>;
+  longitude?: InputMaybe<Scalars['String']>;
+  navigateToLink?: InputMaybe<Scalars['String']>;
+  openingHoursLink?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+};
+
+export type ComponentGeneralFooter = {
+  __typename?: 'ComponentGeneralFooter';
+  id: Scalars['ID'];
+  links1?: Maybe<Array<Maybe<ComponentGeneralLinkItem>>>;
+  links2?: Maybe<Array<Maybe<ComponentGeneralLinkItem>>>;
+  links3?: Maybe<Array<Maybe<ComponentGeneralLinkItem>>>;
+  links4?: Maybe<Array<Maybe<ComponentGeneralLinkItem>>>;
+  title1?: Maybe<Scalars['String']>;
+  title2?: Maybe<Scalars['String']>;
+  title3?: Maybe<Scalars['String']>;
+  title4?: Maybe<Scalars['String']>;
+};
+
+
+export type ComponentGeneralFooterLinks1Args = {
+  filters?: InputMaybe<ComponentGeneralLinkItemFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type ComponentGeneralFooterLinks2Args = {
+  filters?: InputMaybe<ComponentGeneralLinkItemFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type ComponentGeneralFooterLinks3Args = {
+  filters?: InputMaybe<ComponentGeneralLinkItemFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type ComponentGeneralFooterLinks4Args = {
+  filters?: InputMaybe<ComponentGeneralLinkItemFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ComponentGeneralFooterInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  links1?: InputMaybe<Array<InputMaybe<ComponentGeneralLinkItemInput>>>;
+  links2?: InputMaybe<Array<InputMaybe<ComponentGeneralLinkItemInput>>>;
+  links3?: InputMaybe<Array<InputMaybe<ComponentGeneralLinkItemInput>>>;
+  links4?: InputMaybe<Array<InputMaybe<ComponentGeneralLinkItemInput>>>;
+  title1?: InputMaybe<Scalars['String']>;
+  title2?: InputMaybe<Scalars['String']>;
+  title3?: InputMaybe<Scalars['String']>;
+  title4?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentGeneralHeader = {
@@ -295,6 +364,30 @@ export type ComponentGeneralHeaderInput = {
   faqLink?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   phoneNumber?: InputMaybe<Scalars['String']>;
+};
+
+export type ComponentGeneralLinkItem = {
+  __typename?: 'ComponentGeneralLinkItem';
+  id: Scalars['ID'];
+  label: Scalars['String'];
+  targetBlank: Scalars['Boolean'];
+  url: Scalars['String'];
+};
+
+export type ComponentGeneralLinkItemFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentGeneralLinkItemFiltersInput>>>;
+  label?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentGeneralLinkItemFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentGeneralLinkItemFiltersInput>>>;
+  targetBlank?: InputMaybe<BooleanFilterInput>;
+  url?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentGeneralLinkItemInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  label?: InputMaybe<Scalars['String']>;
+  targetBlank?: InputMaybe<Scalars['Boolean']>;
+  url?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentGeneralSocial = {
@@ -611,7 +704,9 @@ export type FloatFilterInput = {
 
 export type General = {
   __typename?: 'General';
+  contact?: Maybe<ComponentGeneralContacts>;
   createdAt?: Maybe<Scalars['DateTime']>;
+  footer?: Maybe<ComponentGeneralFooter>;
   header?: Maybe<ComponentGeneralHeader>;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<GeneralRelationResponseCollection>;
@@ -631,6 +726,8 @@ export type GeneralEntityResponse = {
 };
 
 export type GeneralInput = {
+  contact?: InputMaybe<ComponentGeneralContactsInput>;
+  footer?: InputMaybe<ComponentGeneralFooterInput>;
   header?: InputMaybe<ComponentGeneralHeaderInput>;
   social?: InputMaybe<ComponentGeneralSocialInput>;
 };
@@ -640,7 +737,7 @@ export type GeneralRelationResponseCollection = {
   data: Array<GeneralEntity>;
 };
 
-export type GenericMorph = Branch | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSidepanel | ComponentGeneralContacts | ComponentGeneralHeader | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsBranchGroup | ComponentSectionsContactGroup | ComponentSectionsDocumentGroup | ComponentSectionsGallery | ComponentSectionsListingSection | ComponentSectionsPriceList | ComponentSectionsRichtext | Contact | Document | General | HomePage | I18NLocale | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Branch | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSidepanel | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsBranchGroup | ComponentSectionsContactGroup | ComponentSectionsDocumentGroup | ComponentSectionsGallery | ComponentSectionsListingSection | ComponentSectionsPriceList | ComponentSectionsRichtext | Contact | Document | General | HomePage | I18NLocale | Page | Partner | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';

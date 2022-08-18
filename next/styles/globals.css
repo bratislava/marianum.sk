@@ -33,7 +33,7 @@
     padding: 0;
     margin: 0;
     font-family: 'Noto Sans', sans-serif;
-    color: #494e4a;
+    @apply text-foreground;
   }
 
   /*
@@ -52,43 +52,31 @@
   h4,
   h5,
   h6 {
-    font-weight: 700;
-    color: #2b2e2c;
+    @apply text-foreground-heading font-bold;
   }
 
   h1 {
-    font-size: var(--font-size-h1);
-    line-height: var(--line-height-h1);
+    @apply text-h1;
   }
 
   h2 {
-    font-size: var(--font-size-h2);
-    line-height: var(--line-height-h2);
+    @apply text-h2;
   }
 
   h3 {
-    font-size: var(--font-size-h3);
-    line-height: var(--line-height-h3);
+    @apply text-h3;
   }
 
   h4 {
-    font-size: var(--font-size-h4);
-    line-height: var(--line-height-h4);
+    @apply text-h4;
   }
 
   h5 {
-    font-size: var(--font-size-h5);
-    line-height: var(--line-height-h5);
+    @apply text-h5;
   }
 
   h6 {
-    font-size: var(--font-size-h6);
-    line-height: var(--line-height-h6);
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
+    @apply text-h6;
   }
 }
 
@@ -117,7 +105,7 @@
   --line-height-button: 24px;
 }
 
-@media (min-width: 1280px) {
+@screen md {
   :root {
     --font-size-h6: 18px;
     --font-size-h5: 20px;

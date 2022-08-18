@@ -1,5 +1,5 @@
 import classnames from 'classnames'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 import { Enum_Page_Layout, NavigationItemFragment, PageEntityFragment } from '../../graphql'
 import SideBar from '../molecules/SideBar'

@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import cx from 'classnames'
 
 import { HomepageSliderSlide } from '../../utils/types'
 import Button from '../atoms/Button'
@@ -33,7 +33,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
             <div className="left-0 flex items-center px-2">
               {Array.from({ length: count }, (element, index) => (
                 <button
-                  className={classnames('pointer-events-auto p-2 hover:opacity-100', {
+                  className={cx('pointer-events-auto p-2 hover:opacity-100', {
                     'opacity-50': activeIndex !== index,
                   })}
                   key={index}
