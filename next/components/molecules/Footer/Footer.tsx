@@ -1,3 +1,6 @@
+import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+
 import MLink from '../../atoms/MLink'
 import FooterMap, { FooterMapProps } from './FooterMap'
 
@@ -8,7 +11,15 @@ export type FooterProps = {
   phoneNumber: string
   emailAddress: string
   contactPageLink: string
-} & FooterMapProps
+  linkColumns: {
+    title: string
+    links: {
+      label: string
+      url: string
+      targetBlank: boolean
+    }[]
+  }[]
+} & Omit<FooterMapProps, 'onMarkerClick'>
 
 const Footer = ({
   navigateToLink,
@@ -17,8 +28,15 @@ const Footer = ({
   phoneNumber,
   emailAddress,
   contactPageLink,
+  linkColumns,
   ...footerMapProps
-}: Omit<FooterProps, 'onMarkerClick'>) => {
+}: FooterProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'components.Footer' })
+
+  const year = useMemo(() => {
+    return new Date().getFullYear()
+  }, [])
+
   return (
     <footer className="sticky top-full flex flex-col gap-18">
       <div className="container mx-auto flex flex-col gap-14 px-4">
@@ -33,20 +51,20 @@ const Footer = ({
 
           <div className="flex w-full flex-col gap-4 px-4 py-6 md:col-span-2 md:px-8 lg:col-span-1 lg:gap-8 lg:px-12 lg:py-8">
             <div className="flex flex-col gap-3">
-              <div className="text-lg font-bold">Adresa</div>
+              <div className="text-lg font-bold">{t('address')}</div>
               <div className="flex flex-col gap-2 text-sm font-regular">
                 <MLink noStyles href={navigateToLink} className="opacity-72">
                   {address}
                 </MLink>
                 <div className="flex gap-4">
-                  <div className="opacity-72">Otvorené</div>
+                  <div className="opacity-72">{t('open')}</div>
                   <div>{openingHours}</div>
                 </div>
               </div>
             </div>
             <div className="h-[1px] bg-white/12" />
             <div className="relative flex flex-col gap-3">
-              <div className="text-lg font-bold">Kontakty</div>
+              <div className="text-lg font-bold">{t('contacts')}</div>
               <div className="flex flex-col gap-2 text-sm font-regular">
                 <MLink noStyles href={`tel:${phoneNumber}`} className="opacity-72">
                   {phoneNumber}
@@ -56,78 +74,47 @@ const Footer = ({
                 </MLink>
               </div>
               <div className="top-1 right-0 flex md:absolute">
-                <MLink variant="white" href="/vsetky-kontakty">
-                  Všetky kontakty
+                <MLink variant="white" href={contactPageLink}>
+                  {t('allContacts')}
                 </MLink>
               </div>
             </div>
           </div>
         </div>
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
-          <div className="flex flex-col gap-4">
-            <h4>Headline</h4>
-            <div className="flex flex-col gap-3">
-              <MLink noStyles href="/">
-                Footer Item
-              </MLink>
-              <MLink noStyles href="/">
-                Footer Item
-              </MLink>
-              <MLink noStyles href="/">
-                Footer Item
-              </MLink>
+          {linkColumns.map(({ title, links }) => (
+            <div className="flex flex-col gap-4">
+              <h4>{title}</h4>
+              <div className="flex flex-col gap-3">
+                {links.map(({ label, url, targetBlank }) => (
+                  <MLink noStyles href={url} target={targetBlank ? '_blank' : '_self'}>
+                    {label}
+                  </MLink>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="flex flex-col gap-4">
-            <h4>Headline</h4>
-            <div className="flex flex-col gap-3">
-              <MLink noStyles href="/">
-                Footer Item
-              </MLink>
-              <MLink noStyles href="/">
-                Footer Item
-              </MLink>
-              <MLink noStyles href="/">
-                Footer Item
-              </MLink>
-            </div>
-          </div>
-          <div className="flex flex-col gap-4">
-            <h4>Headline</h4>
-            <div className="flex flex-col gap-3">
-              <MLink noStyles href="/">
-                Footer Item
-              </MLink>
-              <MLink noStyles href="/">
-                Footer Item
-              </MLink>
-              <MLink noStyles href="/">
-                Footer Item
-              </MLink>
-            </div>
-          </div>
-          <div className="flex flex-col gap-4">
-            <h4>Headline</h4>
-            <div className="flex flex-col gap-3">
-              <MLink noStyles href="/">
-                Footer Item
-              </MLink>
-              <MLink noStyles href="/">
-                Footer Item
-              </MLink>
-              <MLink noStyles href="/">
-                Footer Item
-              </MLink>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
       <div className="border-t border-border">
-        <div className="container mx-auto flex h-18 items-center">
+        <div className="container mx-auto flex flex-col items-center justify-between gap-2 py-5 px-4 text-sm md:h-18 md:flex-row">
           <div className="flex items-center gap-2">
-            <span>Zriaďovateľ</span>
+            <span>{t('founder')}</span>
+            <MLink
+              noStyles
+              href="https://bratislava.sk"
+              className="text-sm font-semibold underline"
+            >
+              {t('cityBratislava')}
+            </MLink>
+          </div>
+          <div className="flex items-center gap-2">
+            <span>
+              {year} © {t('allRightsReserved')}
+            </span>
+            <span>•</span>
             <MLink noStyles href="/" className="text-sm font-semibold underline">
-              Mesto Bratislava
+              Marianum
             </MLink>
           </div>
         </div>
