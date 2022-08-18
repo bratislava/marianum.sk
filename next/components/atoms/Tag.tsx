@@ -1,31 +1,16 @@
-import cx from 'classnames'
+import classnames from 'classnames'
 import { DetailedHTMLProps, InputHTMLAttributes, ReactNode } from 'react'
 
 type TagProps = DetailedHTMLProps<InputHTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
   children: ReactNode
-  isActive?: boolean
-  ignoreEvents?: boolean
 }
 
-const Tag = ({
-  children,
-  isActive = false,
-  className,
-  ignoreEvents = false,
-  ...rest
-}: TagProps) => {
+const Tag = ({ children, className, ...rest }: TagProps) => {
   return (
     <div
       {...rest}
-      tabIndex={ignoreEvents ? -1 : 0}
-      className={cx(
-        'rounded-full w-fit h-8 whitespace-nowrap font-semibold flex items-center border px-3 select-none',
-        {
-          'bg-primary border-primary text-white': isActive,
-          'bg-white border-border hover:text-primary': !isActive,
-          'pointer-events-none': ignoreEvents,
-          'cursor-pointer': !ignoreEvents,
-        },
+      className={classnames(
+        'pointer-events-none flex h-6 w-fit items-center whitespace-nowrap rounded-full bg-white px-2 text-sm font-semibold',
         className,
       )}
     >
