@@ -1,6 +1,14 @@
+/* eslint-disable import/no-named-default */
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
+import FacebookIcon from '../../../assets/facebook.svg'
+import InstagramIcon from '../../../assets/instagram.svg'
+import {
+  default as LinkedInIcon,
+  default as TwitterIcon,
+  default as YoutubeIcon,
+} from '../../../assets/linked_in.svg'
 import MLink from '../../atoms/MLink'
 import FooterMap, { FooterMapProps } from './FooterMap'
 
@@ -11,6 +19,13 @@ export type FooterProps = {
   phoneNumber: string
   emailAddress: string
   contactPageLink: string
+  socialMedia: {
+    instagramLink?: string
+    facebookLink?: string
+    youtubeLink?: string
+    linkedInLink?: string
+    twitterLink?: string
+  }
   linkColumns: {
     title: string
     links: {
@@ -29,6 +44,7 @@ const Footer = ({
   emailAddress,
   contactPageLink,
   linkColumns,
+  socialMedia,
   ...footerMapProps
 }: FooterProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'components.Footer' })
@@ -72,6 +88,39 @@ const Footer = ({
                 <MLink noStyles href={`mailto:${emailAddress}`} className="opacity-72">
                   {emailAddress}
                 </MLink>
+                {(socialMedia.facebookLink ||
+                  socialMedia.instagramLink ||
+                  socialMedia.youtubeLink ||
+                  socialMedia.linkedInLink ||
+                  socialMedia.twitterLink) && (
+                  <div className="hidden items-center gap-4 pt-3 md:flex">
+                    {socialMedia.facebookLink && (
+                      <MLink noStyles href={socialMedia.facebookLink}>
+                        <FacebookIcon />
+                      </MLink>
+                    )}
+                    {socialMedia.instagramLink && (
+                      <MLink noStyles href={socialMedia.instagramLink}>
+                        <InstagramIcon />
+                      </MLink>
+                    )}
+                    {socialMedia.linkedInLink && (
+                      <MLink noStyles href={socialMedia.linkedInLink}>
+                        <LinkedInIcon />
+                      </MLink>
+                    )}
+                    {socialMedia.youtubeLink && (
+                      <MLink noStyles href={socialMedia.youtubeLink}>
+                        <YoutubeIcon />
+                      </MLink>
+                    )}
+                    {socialMedia.twitterLink && (
+                      <MLink noStyles href={socialMedia.twitterLink}>
+                        <TwitterIcon />
+                      </MLink>
+                    )}
+                  </div>
+                )}
               </div>
               <div className="top-1 right-0 flex md:absolute">
                 <MLink variant="white" href={contactPageLink}>

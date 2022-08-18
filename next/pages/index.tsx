@@ -161,6 +161,13 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale = 'sk' 
         contactPageLink: general?.data?.attributes?.contact?.contactsLink,
         markerLat: general?.data?.attributes?.contact?.latitude,
         markerLng: general?.data?.attributes?.contact?.longitude,
+        socialMedia: {
+          instagramLink: general?.data?.attributes?.social?.instagram,
+          facebookLink: general?.data?.attributes?.social?.facebook,
+          linkedInLink: general?.data?.attributes?.social?.linkedin,
+          twitterLink: general?.data?.attributes?.social?.twitter,
+          youtubeLink: general?.data?.attributes?.social?.youtube,
+        },
         linkColumns: [
           {
             title: general?.data?.attributes?.footer?.title1,
