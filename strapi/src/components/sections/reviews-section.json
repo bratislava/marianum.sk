@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_sections_reviews_sections",
+  "info": {
+    "displayName": "reviews section",
+    "icon": "star-half-alt"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "linkMore": {
+      "type": "string"
+    }
+  }
+}

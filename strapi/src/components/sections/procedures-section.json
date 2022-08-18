@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_sections_procedures_sections",
+  "info": {
+    "displayName": "procedures section",
+    "icon": "project-diagram"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}

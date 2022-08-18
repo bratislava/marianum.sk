@@ -1,35 +1,3 @@
-fragment FlatNavigationItem on NavigationItem {
-  id
-  title
-  path
-  type
-  related {
-    id
-    attributes {
-      __typename
-      ... on Page {
-        title
-        slug
-      }
-
-      ... on Branch {
-        title
-        slug
-      }
-    }
-  }
-}
-
-fragment NavigationItem on NavigationItem {
-  ...FlatNavigationItem
-  items {
-    ...FlatNavigationItem
-    items {
-      ...FlatNavigationItem
-    }
-  }
-}
-
 fragment UploadImageEntity on UploadFileEntity {
   id
   attributes {
@@ -43,21 +11,18 @@ fragment UploadImageEntity on UploadFileEntity {
   }
 }
 
-fragment CtaButton on ComponentBlocksButtonLink {
-  label
-  url
-  targetBlank
-}
-
-fragment Sidebar on ComponentBlocksSidebar {
-  title
-  text
-  ctaButton {
-    ...CtaButton
-  }
-  contact {
-    data {
-      ...ContactEntity
+fragment BranchEntity on BranchEntity {
+  id
+  attributes {
+    title
+    slug
+    type
+    cemeteryType
+    description
+    contact {
+      data {
+        ...ContactEntity
+      }
     }
   }
 }
@@ -176,22 +141,6 @@ fragment PageEntity on PageEntity {
           url
           targetBlank
         }
-      }
-    }
-  }
-}
-
-fragment BranchEntity on BranchEntity {
-  id
-  attributes {
-    title
-    slug
-    type
-    cemeteryType
-    description
-    contact {
-      data {
-        ...ContactEntity
       }
     }
   }

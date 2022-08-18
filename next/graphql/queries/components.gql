@@ -1,0 +1,18 @@
+fragment CtaButton on ComponentBlocksButtonLink {
+  label
+  url
+  targetBlank
+}
+
+fragment Sidebar on ComponentBlocksSidebar {
+  title
+  text
+  ctaButton {
+    ...CtaButton
+  }
+  contact {
+    data {
+      ...ContactEntity
+    }
+  }
+}
