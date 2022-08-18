@@ -1,0 +1,56 @@
+query General($locale: I18NLocaleCode!) {
+  general(locale: $locale) {
+    data {
+      attributes {
+        header {
+          faqLink
+          phoneNumber
+        }
+        social {
+          facebook
+          instagram
+          youtube
+          linkedin
+          twitter
+        }
+        contact {
+          address
+          featuredOpeningHours
+          openingHoursLink
+          phone
+          email
+          contactsLink
+          latitude
+          longitude
+          navigateToLink
+        }
+        footer {
+          title1
+          links1 {
+            label
+            url
+            targetBlank
+          }
+          title2
+          links2 {
+            label
+            url
+            targetBlank
+          }
+          title3
+          links3 {
+            label
+            url
+            targetBlank
+          }
+          title4
+          links4 {
+            label
+            url
+            targetBlank
+          }
+        }
+      }
+    }
+  }
+}
