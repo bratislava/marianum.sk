@@ -1,5 +1,16 @@
 {
   "general": {
     "hello": "Hello from new Marianum website!"
+  },
+  "components": {
+    "Footer": {
+      "address": "Address",
+      "contacts": "Contacts",
+      "allContacts": "All contacts",
+      "open": "Open",
+      "founder": "Founder",
+      "cityBratislava": "City of Bratislava",
+      "allRightsReserved": "All rights reserved"
+    }
   }
 }

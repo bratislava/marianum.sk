@@ -1,5 +1,16 @@
 {
   "general": {
     "hello": "Vitaj na novej stránke Marianum!"
+  },
+  "components": {
+    "Footer": {
+      "address": "Adresa",
+      "contacts": "Kontakty",
+      "allContacts": "Všetky kontakty",
+      "open": "Otvorené",
+      "founder": "Zriaďovateľ",
+      "cityBratislava": "Mesto Bratislava",
+      "allRightsReserved": "Všetky práva vyhradené"
+    }
   }
 }
