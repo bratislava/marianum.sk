@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 
 import { Enum_Page_Layout, NavigationItemFragment, PageEntityFragment } from '../../graphql'
 import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
+import { FooterProps } from '../molecules/Footer/Footer'
 import SideBar from '../molecules/SideBar'
 import HeroSection from '../sections/HeroSection'
 import PageWrapper from './PageWrapper'
@@ -14,9 +15,10 @@ type LayoutProps = {
   faqLink: string
   phoneNumber: string
   children?: ReactNode
+  footerProps: FooterProps
 }
 
-const Layout = ({ page, navigation, faqLink, phoneNumber, children }: LayoutProps) => {
+const Layout = ({ page, navigation, faqLink, phoneNumber, children, footerProps }: LayoutProps) => {
   const router = useRouter()
   const breadcrumbs = getBreadcrumbs(router.asPath, navigation)
 
@@ -41,6 +43,7 @@ const Layout = ({ page, navigation, faqLink, phoneNumber, children }: LayoutProp
           <HeroSection breadcrumbs={breadcrumbs} />
         )
       }
+      footerProps={footerProps}
     >
       <div
         className={classnames('h-full', {

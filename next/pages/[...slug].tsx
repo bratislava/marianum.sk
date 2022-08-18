@@ -3,6 +3,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import Layout from '../components/layouts/Layout'
+import { FooterProps } from '../components/molecules/Footer/Footer'
 import Section from '../components/molecules/Section'
 import MenuListingSection from '../components/sections/MenuListingSection'
 import { Enum_Page_Layout, NavigationItemFragment, PageEntityFragment } from '../graphql'
@@ -14,13 +15,20 @@ type PageProps = {
   faqLink: string
   phoneNumber: string
   page: PageEntityFragment
+  footerProps: FooterProps
 }
 
-const Slug = ({ navigation, faqLink, phoneNumber, page }: PageProps) => {
+const Slug = ({ navigation, faqLink, phoneNumber, page, footerProps }: PageProps) => {
   const isFullWidth = page.attributes?.layout === Enum_Page_Layout.Fullwidth
 
   return (
-    <Layout page={page} navigation={navigation} faqLink={faqLink} phoneNumber={phoneNumber}>
+    <Layout
+      page={page}
+      navigation={navigation}
+      faqLink={faqLink}
+      phoneNumber={phoneNumber}
+      footerProps={footerProps}
+    >
       <div className="space-y-6 sm:space-y-8">
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
         {page.attributes?.sections?.map((section, index) => {
@@ -120,9 +128,10 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] })
 export const getStaticProps: GetStaticProps<PageProps> = async ({ locale = 'sk', params }) => {
   const slug = last(params?.slug) ?? ''
 
-  const [{ navigation, general }, { pages }, translations] = await Promise.all([
+  const [{ navigation }, { pages }, { general }, translations] = await Promise.all([
     client.Navigation({ locale }),
     client.PageBySlug({ locale, slug }),
+    client.General({ locale }),
     serverSideTranslations(locale, ['common']) as any, // TODO: fix any
   ])
 
@@ -138,6 +147,34 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ locale = 'sk',
       faqLink: general?.data?.attributes?.header?.faqLink ?? '',
       phoneNumber: general?.data?.attributes?.header?.phoneNumber ?? '',
       page: pages.data[0],
+      footerProps: {
+        address: general?.data?.attributes?.contact?.address,
+        navigateToLink: general?.data?.attributes?.contact?.navigateToLink,
+        openingHours: general?.data?.attributes?.contact?.featuredOpeningHours,
+        phoneNumber: general?.data?.attributes?.contact?.phone,
+        emailAddress: general?.data?.attributes?.contact?.email,
+        contactPageLink: general?.data?.attributes?.contact?.contactsLink,
+        markerLat: general?.data?.attributes?.contact?.latitude,
+        markerLng: general?.data?.attributes?.contact?.longitude,
+        linkColumns: [
+          {
+            title: general?.data?.attributes?.footer?.title1,
+            links: general?.data?.attributes?.footer?.links1,
+          },
+          {
+            title: general?.data?.attributes?.footer?.title2,
+            links: general?.data?.attributes?.footer?.links2,
+          },
+          {
+            title: general?.data?.attributes?.footer?.title3,
+            links: general?.data?.attributes?.footer?.links3,
+          },
+          {
+            title: general?.data?.attributes?.footer?.title4,
+            links: general?.data?.attributes?.footer?.links4,
+          },
+        ],
+      },
       ...translations,
     },
     revalidate: 10,
