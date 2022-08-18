@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_sections_manual_listings",
+  "info": {
+    "displayName": "manual listing",
+    "icon": "plus-square",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "linkMore": {
+      "type": "string"
+    },
+    "pages": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.page-item"
+    }
+  }
+}

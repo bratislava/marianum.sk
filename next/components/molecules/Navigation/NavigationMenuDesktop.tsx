@@ -12,8 +12,8 @@ export type NavigationMenuDesktopProps = {
 
 const NavigationMenuDesktop = ({ navigationItems }: NavigationMenuDesktopProps) => {
   return (
-    <nav className="absolute inset-x-0 -bottom-8 z-10 mx-4 hidden h-16 grid-cols-4 bg-white text-foreground-heading shadow sm:grid">
-      {navigationItems.map(({ id, title, items: menuItems, type }, index) => (
+    <nav className="absolute inset-x-0 -bottom-8 z-10 mx-4 hidden h-16 grid-cols-4 bg-white text-foreground-heading shadow md:grid">
+      {navigationItems.map(({ id, title, items: menuItems }, index) => (
         <Menu key={id} items={menuItems?.filter(isDefined)}>
           {({ isOpen }) => (
             <div className="flex h-full items-center">
@@ -25,7 +25,7 @@ const NavigationMenuDesktop = ({ navigationItems }: NavigationMenuDesktopProps) 
                 )}
               >
                 <span>{title}</span>
-                {type === 'WRAPPER' && (
+                {menuItems && menuItems?.length > 0 && (
                   <motion.div
                     transition={{ type: 'linear' }}
                     initial={{ rotate: 0 }}

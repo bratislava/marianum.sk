@@ -1,10 +1,10 @@
 import last from 'lodash/last'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import React from 'react'
 
 import Layout from '../components/layouts/Layout'
 import Section from '../components/molecules/Section'
+import MenuListingSection from '../components/sections/MenuListingSection'
 import { Enum_Page_Layout, NavigationItemFragment, PageEntityFragment } from '../graphql'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
@@ -17,11 +17,12 @@ type PageProps = {
 }
 
 const Slug = ({ navigation, faqLink, phoneNumber, page }: PageProps) => {
-  const isFullWidth = page.attributes?.layout === Enum_Page_Layout.Full
+  const isFullWidth = page.attributes?.layout === Enum_Page_Layout.Fullwidth
 
   return (
     <Layout page={page} navigation={navigation} faqLink={faqLink} phoneNumber={phoneNumber}>
       <div className="space-y-6 sm:space-y-8">
+        {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
         {page.attributes?.sections?.map((section, index) => {
           if (section?.__typename === 'ComponentSectionsRichtext') {
             return (
@@ -30,6 +31,7 @@ const Slug = ({ navigation, faqLink, phoneNumber, page }: PageProps) => {
                 fullWidth={isFullWidth}
                 color={index % 2 === 0 ? 'white' : 'default'}
               >
+                {/* TODO */}
                 {section.markdown}
               </Section>
             )
@@ -37,8 +39,52 @@ const Slug = ({ navigation, faqLink, phoneNumber, page }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsAccordionGroup') {
             return (
               <Section key={section.id} fullWidth={isFullWidth}>
+                {/* TODO */}
                 accordions
               </Section>
+            )
+          }
+          if (section?.__typename === 'ComponentSectionsBranchGroup') {
+            return (
+              <Section key={section.id} fullWidth={isFullWidth}>
+                {/* TODO */}
+                branches
+              </Section>
+            )
+          }
+          if (section?.__typename === 'ComponentSectionsContactGroup') {
+            return (
+              <Section key={section.id} fullWidth={isFullWidth}>
+                {/* TODO */}
+                contacts
+              </Section>
+            )
+          }
+          if (section?.__typename === 'ComponentSectionsDocumentGroup') {
+            return (
+              <Section key={section.id} fullWidth={isFullWidth}>
+                {/* TODO */}
+                documents
+              </Section>
+            )
+          }
+          if (section?.__typename === 'ComponentSectionsGallery') {
+            return (
+              <Section key={section.id} fullWidth={isFullWidth}>
+                {/* TODO */}
+                gallery
+              </Section>
+            )
+          }
+          if (section?.__typename === 'ComponentSectionsMenuListing') {
+            return (
+              <MenuListingSection
+                key={section.id}
+                slug={section.slug}
+                navigation={navigation}
+                isFullWidth={isFullWidth}
+                title={section.title}
+              />
             )
           }
           return null

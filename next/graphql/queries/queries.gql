@@ -4,7 +4,6 @@ query Me {
   }
 }
 
-# Write your query or mutation here
 query Navigation($locale: I18NLocaleCode!) {
   navigation: renderNavigation(
     navigationIdOrSlug: "main-navigation"

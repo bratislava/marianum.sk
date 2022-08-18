@@ -1,13 +1,13 @@
 import cx from 'classnames'
 import { HTMLAttributes, PropsWithChildren } from 'react'
 
-export type CardBoxProps = { border: boolean; hover?: boolean } & Pick<
+export type CardBoxProps = { border?: boolean; hover?: boolean } & Pick<
   HTMLAttributes<HTMLDivElement>,
   'className' | 'onClick'
 >
 
 const CardBox = ({
-  border,
+  border = false,
   className,
   hover = true,
   children,

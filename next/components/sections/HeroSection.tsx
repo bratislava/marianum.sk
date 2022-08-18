@@ -2,6 +2,7 @@ import Image from 'next/image'
 
 import HomeIcon from '../../assets/home.svg'
 import { CtaButtonFragment, UploadImageEntityFragment } from '../../graphql'
+import { TBreadcrumbListItem } from '../../utils/types'
 import Breadcrumbs from '../atoms/Breadcrumbs'
 import Button from '../atoms/Button'
 import MLink from '../atoms/MLink'
@@ -11,28 +12,28 @@ type HeroSectionProps = {
   perex?: string | null | undefined
   cta?: CtaButtonFragment | null | undefined
   image?: UploadImageEntityFragment | null | undefined
+  breadcrumbs?: TBreadcrumbListItem[]
 }
 
-const HeroSection = ({ title, perex, cta, image }: HeroSectionProps) => {
+const HeroSection = ({ title, perex, cta, image, breadcrumbs }: HeroSectionProps) => {
+  const breadcrumbsWithHome = [{ label: <HomeIcon />, link: '/' }, ...(breadcrumbs ?? [])]
+
   return (
     <div className="bg-primary-dark text-white/72">
       <div className="container relative mx-auto px-4">
         <Breadcrumbs className="sm:pt-8">
-          {[
-            {
-              label: <HomeIcon />,
-              link: '#home',
-            },
-            {
-              label: 'very',
-              link: '#very',
-            },
-          ].map(({ label, link }) => (
-            <MLink key={link} href={link} noStyles className="underline">
-              {label}
-            </MLink>
-          ))}
+          {breadcrumbsWithHome?.map(({ label, link }, index) =>
+            // The home icon should always be clickable and the last item not be clickable
+            breadcrumbsWithHome.length > 1 && index === breadcrumbsWithHome.length - 1 ? (
+              <div key="#">{label}</div>
+            ) : (
+              <MLink key={link} href={link ?? '#'} noStyles className="underline">
+                {label}
+              </MLink>
+            ),
+          )}
         </Breadcrumbs>
+
         <div className="py-5 empty:hidden md:w-[648px] md:pb-14 md:pt-6">
           {title && <h1 className="text-white">{title}</h1>}
           {perex && <p className="mt-3">{perex}</p>}

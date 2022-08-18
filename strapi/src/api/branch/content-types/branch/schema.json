@@ -60,8 +60,7 @@
         "civilny",
         "historicky",
         "vojensky"
-      ],
-      "default": "civilny"
+      ]
     },
     "contact": {
       "type": "relation",

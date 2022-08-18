@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_menu_listings",
+  "info": {
+    "displayName": "menu listing",
+    "icon": "th-list",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
