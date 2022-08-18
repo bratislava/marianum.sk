@@ -1,4 +1,5 @@
 import MLink from '../../atoms/MLink'
+import FooterLinks from './FooterLinks'
 import FooterMap, { FooterMapProps } from './FooterMap'
 
 export type FooterProps = {
@@ -20,8 +21,8 @@ const Footer = ({
   ...footerMapProps
 }: Omit<FooterProps, 'onMarkerClick'>) => {
   return (
-    <footer className="sticky top-full">
-      <div className="container mx-auto px-4">
+    <footer className="sticky top-full flex flex-col gap-18">
+      <div className="container mx-auto flex flex-col gap-14 px-4">
         <div className="grid bg-primary text-white md:grid-cols-3 lg:grid-cols-2">
           <div className="h-52 w-full md:h-full">
             <FooterMap
@@ -61,6 +62,77 @@ const Footer = ({
                 </MLink>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-4">
+          <FooterLinks />
+        </div>
+        <div className="grid grid-cols-4">
+          <div className="flex flex-col gap-4">
+            <h4>Headline</h4>
+            <div className="flex flex-col gap-3">
+              <MLink noStyles href="/">
+                Footer Item
+              </MLink>
+              <MLink noStyles href="/">
+                Footer Item
+              </MLink>
+              <MLink noStyles href="/">
+                Footer Item
+              </MLink>
+            </div>
+          </div>
+          <div className="flex flex-col gap-4">
+            <h4>Headline</h4>
+            <div className="flex flex-col gap-3">
+              <MLink noStyles href="/">
+                Footer Item
+              </MLink>
+              <MLink noStyles href="/">
+                Footer Item
+              </MLink>
+              <MLink noStyles href="/">
+                Footer Item
+              </MLink>
+            </div>
+          </div>
+          <div className="flex flex-col gap-4">
+            <h4>Headline</h4>
+            <div className="flex flex-col gap-3">
+              <MLink noStyles href="/">
+                Footer Item
+              </MLink>
+              <MLink noStyles href="/">
+                Footer Item
+              </MLink>
+              <MLink noStyles href="/">
+                Footer Item
+              </MLink>
+            </div>
+          </div>
+          <div className="flex flex-col gap-4">
+            <h4>Headline</h4>
+            <div className="flex flex-col gap-3">
+              <MLink noStyles href="/">
+                Footer Item
+              </MLink>
+              <MLink noStyles href="/">
+                Footer Item
+              </MLink>
+              <MLink noStyles href="/">
+                Footer Item
+              </MLink>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="border-t border-border">
+        <div className="flex container mx-auto items-center h-18">
+          <div className="flex items-center gap-2">
+            <span>Zriaďovateľ</span>
+            <MLink noStyles href="/" className="underline font-semibold text-sm">
+              Mesto Bratislava
+            </MLink>
           </div>
         </div>
       </div>
