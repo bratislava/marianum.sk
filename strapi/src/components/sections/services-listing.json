@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_sections_services_listings",
+  "info": {
+    "displayName": "services listing",
+    "icon": "server",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "linkMore": {
+      "type": "string"
+    },
+    "services": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.page-item",
+      "max": 2
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_sections_news_listings",
+  "info": {
+    "displayName": "news listing",
+    "icon": "newspaper"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,147 @@
+fragment UploadImageEntity on UploadFileEntity {
+  id
+  attributes {
+    url
+    name
+    alternativeText
+    caption
+    size
+    width
+    height
+  }
+}
+
+fragment BranchEntity on BranchEntity {
+  id
+  attributes {
+    title
+    slug
+    type
+    cemeteryType
+    description
+    contact {
+      data {
+        ...ContactEntity
+      }
+    }
+  }
+}
+
+fragment ContactEntity on ContactEntity {
+  id
+  attributes {
+    title
+    name
+    email
+    phone1
+    phone2
+  }
+}
+
+fragment PageEntity on PageEntity {
+  id
+  attributes {
+    title
+    slug
+    publishedAt
+    layout
+    perex
+    ctaButton {
+      ...CtaButton
+    }
+    sidebar {
+      ...Sidebar
+    }
+    coverMedia {
+      data {
+        ...UploadImageEntity
+      }
+    }
+    sections {
+      ... on ComponentSectionsAccordionGroup {
+        __typename
+        id
+        title
+        accordions {
+          id
+          title
+          description
+        }
+      }
+      ... on ComponentSectionsBranchGroup {
+        __typename
+        id
+        title
+        branches {
+          branch {
+            data {
+              # TODO replace by fragment
+              id
+              attributes {
+                title
+              }
+            }
+          }
+        }
+      }
+      ... on ComponentSectionsContactGroup {
+        __typename
+        id
+        title
+        contacts {
+          contact {
+            data {
+              # TODO replace by fragment
+              id
+              attributes {
+                title
+              }
+            }
+          }
+        }
+      }
+      ... on ComponentSectionsDocumentGroup {
+        __typename
+        id
+        title
+        documents {
+          document {
+            data {
+              # TODO replace by fragment
+              id
+              attributes {
+                title
+              }
+            }
+          }
+        }
+      }
+      ... on ComponentSectionsGallery {
+        __typename
+        id
+        title
+        medias {
+          data {
+            ...UploadImageEntity
+          }
+        }
+      }
+      ... on ComponentSectionsMenuListing {
+        __typename
+        id
+        title
+        slug
+      }
+      ... on ComponentSectionsRichtext {
+        __typename
+        id
+        markdown
+        button {
+          label
+          url
+          targetBlank
+        }
+      }
+    }
+  }
+}

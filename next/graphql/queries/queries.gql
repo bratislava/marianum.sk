@@ -1,10 +1,3 @@
-query Me {
-  me {
-    id
-  }
-}
-
-# Write your query or mutation here
 query Navigation($locale: I18NLocaleCode!) {
   navigation: renderNavigation(
     navigationIdOrSlug: "main-navigation"
@@ -48,10 +41,62 @@ query PagesStaticPaths($locale: I18NLocaleCode) {
   }
 }
 
-query Pages {
-  pages(locale: "sk") {
+query HomePage($locale: I18NLocaleCode) {
+  homePage(locale: $locale) {
     data {
-      ...PageEntity
+      attributes {
+        sections {
+          ... on ComponentSectionsManualListing {
+            __typename
+            id
+            title
+            # TODO
+          }
+          ... on ComponentSectionsServicesListing {
+            __typename
+            id
+            title
+            # TODO
+          }
+          ... on ComponentSectionsMenuListing {
+            __typename
+            id
+            title
+            # TODO
+          }
+          ... on ComponentSectionsNewsListing {
+            __typename
+            id
+            title
+            # TODO
+          }
+          ... on ComponentSectionsCeremoniesSection {
+            __typename
+            id
+            title
+            # TODO
+          }
+
+          ... on ComponentSectionsProceduresShortSection {
+            __typename
+            id
+            title
+            # TODO
+          }
+          ... on ComponentSectionsCtaSection {
+            __typename
+            id
+            title
+            # TODO
+          }
+          ... on ComponentSectionsReviewsSection {
+            __typename
+            id
+            title
+            # TODO
+          }
+        }
+      }
     }
   }
 }

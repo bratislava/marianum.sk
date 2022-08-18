@@ -10,13 +10,12 @@ export type BreadcrumbsProps = {
   className?: string
 }
 
-const Breadcrumb = ({
-  children,
-  noChevron = false,
-}: {
+export type BreadcrumbChildProps = {
   children: ReactNode
   noChevron?: boolean
-}) => {
+}
+
+const BreadcrumbChild = ({ children, noChevron = false }: BreadcrumbChildProps) => {
   return (
     <div className="flex gap-1">
       {!noChevron && (
@@ -56,14 +55,14 @@ const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
       Array.isArray(children)
         ? children.map((child, index) => (
             // eslint-disable-next-line react/no-array-index-key
-            <Breadcrumb key={index} noChevron={index === 0}>
+            <BreadcrumbChild key={index} noChevron={index === 0}>
               {child}
-            </Breadcrumb>
+            </BreadcrumbChild>
           ))
         : [
-            <Breadcrumb key={1} noChevron>
+            <BreadcrumbChild key={0} noChevron>
               {children}
-            </Breadcrumb>,
+            </BreadcrumbChild>,
           ],
     [children],
   )
@@ -79,7 +78,7 @@ const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
           children.slice(1, -1).map((child, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <div key={index}>
-              <Breadcrumb>{child}</Breadcrumb>
+              <BreadcrumbChild>{child}</BreadcrumbChild>
             </div>
           ))}
       </div>
@@ -88,7 +87,7 @@ const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
   )
 
   return (
-    <div className={cx('w-full relative', className)}>
+    <div className={cx('relative w-full', className)}>
       <div>
         {isExpanded || !isCollapsing ? (
           <div className="flex items-center gap-1 py-6">{breadcrumbedChildren}</div>
@@ -99,7 +98,7 @@ const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
                 {/* first child */}
                 {breadcrumbedChildren[0]}
                 {/* ... */}
-                <Breadcrumb>...</Breadcrumb>
+                <BreadcrumbChild>...</BreadcrumbChild>
                 {/* last child */}
                 {breadcrumbedChildren[breadcrumbedChildren.length - 1]}
               </div>
@@ -121,7 +120,7 @@ const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
       {/* expanded breadcrumbs for calculation purposes */}
       <div
         ref={breadcrumbsExpandedRef}
-        className={cx('invisible p-4 select-none absolute w-full flex gap-1 items-center')}
+        className={cx('invisible absolute flex w-full select-none items-center gap-1 p-4')}
       >
         {breadcrumbedChildren}
       </div>
@@ -130,7 +129,7 @@ const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
       <div
         ref={breadcrumbsExpandedWrappingRef}
         className={cx(
-          'invisible p-4 select-none absolute w-full flex gap-1 items-center flex-wrap',
+          'invisible absolute flex w-full select-none flex-wrap items-center gap-1 p-4',
         )}
       >
         {breadcrumbedChildren}

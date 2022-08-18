@@ -34,7 +34,14 @@
       },
       "type": "dynamiczone",
       "components": [
-        "sections.listing-section"
+        "sections.ceremonies-section",
+        "sections.manual-listing",
+        "sections.menu-listing",
+        "sections.news-listing",
+        "sections.procedures-short-section",
+        "sections.reviews-section",
+        "sections.services-listing",
+        "sections.cta-section"
       ]
     }
   }

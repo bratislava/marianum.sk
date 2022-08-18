@@ -42,10 +42,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "cintorin",
-        "pobocka"
-      ],
+      "enum": ["cintorin", "pobocka"],
       "required": true,
       "default": "cintorin"
     },
@@ -56,12 +53,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "civilny",
-        "historicky",
-        "vojensky"
-      ],
-      "default": "civilny"
+      "enum": ["civilny", "historicky", "vojensky"]
     },
     "contact": {
       "type": "relation",

@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_cta_sections",
+  "info": {
+    "displayName": "cta section",
+    "icon": "bullhorn",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "ctas": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.simple-cta-item",
+      "max": 2,
+      "min": 1
+    }
+  }
+}
