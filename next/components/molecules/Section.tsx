@@ -1,7 +1,7 @@
 import cx from 'classnames'
 import React, { ReactNode } from 'react'
 
-type SectionProps = {
+export type SectionProps = {
   children: ReactNode
   fullWidth?: boolean
   color?: 'default' | 'white'

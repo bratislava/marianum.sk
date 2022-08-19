@@ -5,6 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Layout from '../components/layouts/Layout'
 import Section from '../components/molecules/Section'
 import MenuListingSection from '../components/sections/MenuListingSection'
+import RichTextSection from '../components/sections/RichTextSection'
 import { Enum_Page_Layout, NavigationItemFragment, PageEntityFragment } from '../graphql'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
@@ -26,14 +27,12 @@ const Slug = ({ navigation, faqLink, phoneNumber, page }: PageProps) => {
         {page.attributes?.sections?.map((section, index) => {
           if (section?.__typename === 'ComponentSectionsRichtext') {
             return (
-              <Section
+              <RichTextSection
                 key={section.id}
                 fullWidth={isFullWidth}
                 color={index % 2 === 0 ? 'white' : 'default'}
-              >
-                {/* TODO */}
-                {section.markdown}
-              </Section>
+                markdown={section.markdown}
+              />
             )
           }
           if (section?.__typename === 'ComponentSectionsAccordionGroup') {
