@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, PanInfo, Variant } from 'framer-motion'
 import { wrap } from 'popmotion'
-import { FC, ReactNode, useCallback, useEffect, useState } from 'react'
+import { FC, KeyboardEvent, ReactNode, useCallback, useEffect, useState } from 'react'
 
 type SliderProps = {
   pages: ReactNode[]
@@ -12,6 +12,8 @@ type SliderProps = {
     goToPrevious: () => void
     goToNext: () => void
   }>
+  initialPage?: number
+  allowKeboardNavigation?: boolean
 }
 
 const variants: { [name: string]: Variant } = {
@@ -41,8 +43,14 @@ const swipePower = (offset: number, velocity: number) => {
   return Math.abs(offset) * velocity
 }
 
-const Slider = ({ pages, autoSwipeDuration = 0, pagination: Pagination }: SliderProps) => {
-  const [[page, direction], setPage] = useState([0, 0])
+const Slider = ({
+  pages,
+  autoSwipeDuration = 0,
+  pagination: Pagination,
+  initialPage,
+  allowKeboardNavigation = false,
+}: SliderProps) => {
+  const [[page, direction], setPage] = useState([initialPage ?? 0, 0])
   const [isDragging, setDragging] = useState(false)
   const index = wrap(0, pages.length, page)
 
@@ -94,8 +102,28 @@ const Slider = ({ pages, autoSwipeDuration = 0, pagination: Pagination }: Slider
     [index],
   )
 
+  const keyUpHandler = useCallback(
+    ({ code }: KeyboardEvent) => {
+      if (!allowKeboardNavigation) return
+      if (code === 'ArrowLeft') {
+        goToPrevious()
+        return
+      }
+
+      if (code === 'ArrowRight') {
+        goToNext()
+      }
+    },
+    [goToNext, goToPrevious, allowKeboardNavigation],
+  )
+
   return (
-    <div className="relative z-0 flex h-full w-full items-center justify-center overflow-hidden">
+    <div
+      tabIndex={0}
+      role="button"
+      onKeyUp={keyUpHandler}
+      className="relative z-0 flex h-full w-full items-center justify-center overflow-hidden"
+    >
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           className="absolute h-full w-full"
