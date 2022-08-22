@@ -1,80 +1,87 @@
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { FC, ReactNode, useState } from 'react'
+// import '@szhsin/react-menu/dist/core.css'
+
+import {
+  ControlledMenu as ReactControlledMenu,
+  MenuItem as ReactMenuItem,
+  useMenuState,
+} from '@szhsin/react-menu'
+import cx from 'classnames'
+import { useMemo } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 
 import ChevronIcon from '../../../assets/chevron_down.svg'
-import { NavigationItemFragment } from '../../../graphql'
-import { isDefined } from '../../../utils/isDefined'
+import { MenuItem } from '../../../utils/types'
 import { AnimateHeight } from '../../atoms/AnimateHeight'
 import MLink from '../../atoms/MLink'
 import SubMenu from './SubMenu'
 
-export type MenuProps = {
-  children: ReactNode | FC<{ isOpen: boolean }>
-  items?: NavigationItemFragment[]
+export type MenuProps<T> = {
+  title: string
+  path?: string | null
+  items?: (T | null | undefined)[] | null
 }
 
-const Menu = ({ children, items = [] }: MenuProps) => {
-  const { ref: triggerRef, width } = useResizeDetector()
+const Menu = <T extends MenuItem<T>>({ items, title, path }: MenuProps<T>) => {
+  const { ref, width } = useResizeDetector()
+  const [menuProps, toggleMenu] = useMenuState()
 
-  const [isOpen, setOpen] = useState(false)
+  const isOpen = useMemo(
+    () => menuProps.state === 'opening' || menuProps.state === 'open',
+    [menuProps.state],
+  )
 
   return (
-    <DropdownMenu.Root onOpenChange={setOpen}>
-      <div className="relative w-full">
-        <DropdownMenu.Trigger className="group h-full w-full outline-none" ref={triggerRef}>
-          {typeof children === 'function' ? children({ isOpen }) : children}
-        </DropdownMenu.Trigger>
-
-        {items.length > 0 && (
-          <DropdownMenu.Portal>
-            <DropdownMenu.Content
-              loop
-              sideOffset={8}
-              className="w-full bg-white font-semibold shadow outline-none"
-              style={{ width: `${width ?? 0}px` }}
-            >
-              <AnimateHeight isVisible={isOpen}>
-                {isOpen && (
-                  <div className="py-3 text-foreground">
-                    {items.map(({ id, title, path, items: subItems }) =>
-                      subItems && subItems.length > 0 ? (
-                        <SubMenu
-                          onTriggerClick={() => setOpen(false)}
-                          key={id}
-                          items={subItems?.filter(isDefined)}
-                        >
-                          <MLink
-                            noStyles
-                            href={path ?? ''}
-                            className="flex w-full justify-between px-6 py-3"
-                          >
-                            <span>{title}</span>
-                            <div className="-rotate-90">
-                              <ChevronIcon />
-                            </div>
-                          </MLink>
-                        </SubMenu>
-                      ) : (
-                        <DropdownMenu.Item key={id} asChild>
-                          <MLink
-                            noStyles
-                            className="flex w-full justify-between px-6 py-3 outline-none transition-all focus:bg-primary/10"
-                            href={path ?? ''}
-                          >
-                            {title}
-                          </MLink>
-                        </DropdownMenu.Item>
-                      ),
-                    )}
-                  </div>
-                )}
-              </AnimateHeight>
-            </DropdownMenu.Content>
-          </DropdownMenu.Portal>
-        )}
-      </div>
-    </DropdownMenu.Root>
+    <div
+      className="relative h-full w-full"
+      onMouseEnter={() => toggleMenu(true)}
+      onMouseLeave={() => toggleMenu(false)}
+    >
+      <MLink noStyles href={path ?? ''} className="flex h-full items-center" ref={ref}>
+        {/* {0 !== 0 && <div className="h-8 w-[1px] bg-border" />} */}
+        <div
+          className={cx(
+            'flex h-full flex-1 items-center justify-center gap-1 px-4 font-semibold transition-all group-focus:bg-primary/10',
+            { 'bg-primary/10': isOpen },
+          )}
+        >
+          <span>{title}</span>
+          <ChevronIcon />
+        </div>
+      </MLink>
+      <ReactControlledMenu {...menuProps} className="absolute w-full pt-3">
+        <AnimateHeight
+          isVisible
+          initialVisible={false}
+          className="absolute bg-white text-foreground shadow-card"
+        >
+          <div style={{ width: `${width ?? 0}px` }} className="relative py-3">
+            {items?.map(
+              (item) =>
+                item &&
+                (item.items && item.items.length > 0 ? (
+                  <SubMenu
+                    path={item.path}
+                    width={width ?? 0}
+                    key={item.id}
+                    title={item.title}
+                    items={item.items}
+                  />
+                ) : (
+                  <ReactMenuItem className="group outline-none" key={item.id}>
+                    <MLink
+                      noStyles
+                      href={item.path ?? ''}
+                      className="flex w-full justify-between px-6 py-3 hover:bg-primary/10 group-focus-within:bg-primary/10"
+                    >
+                      {item.title}
+                    </MLink>
+                  </ReactMenuItem>
+                )),
+            )}
+          </div>
+        </AnimateHeight>
+      </ReactControlledMenu>
+    </div>
   )
 }
 

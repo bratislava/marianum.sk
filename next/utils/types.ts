@@ -14,3 +14,10 @@ export type TBreadcrumbListItem = {
   label: ReactNode
   link?: string | null | undefined
 }
+
+export type MenuItem<T extends MenuItem<T>> = {
+  id: number
+  title: string
+  path?: string | null
+  items?: (T | null | undefined)[] | null
+} | null

@@ -1,76 +1,57 @@
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { MenuItem as ReactMenuItem, SubMenu as ReactSubMenu } from '@szhsin/react-menu'
 import cx from 'classnames'
-import { FC, MouseEvent, ReactNode, useCallback, useState } from 'react'
-import { useResizeDetector } from 'react-resize-detector'
 
-import { NavigationItemFragment } from '../../../graphql'
+import ChevronIcon from '../../../assets/chevron_down.svg'
+import { MenuItem } from '../../../utils/types'
 import { AnimateHeight } from '../../atoms/AnimateHeight'
 import MLink from '../../atoms/MLink'
 
-export type MenuProps = {
-  children: ReactNode | FC<{ isOpen: boolean }>
-  items?: NavigationItemFragment[]
-  onTriggerClick?: () => void
+export type SubMenuProps<T> = {
+  title: string
+  path?: string | null
+  items?: (T | null | undefined)[] | null
+  width: number
 }
 
-const SubMenu = ({ children, items = [], onTriggerClick }: MenuProps) => {
-  const { ref: triggerRef, width } = useResizeDetector()
-
-  const [isOpen, setOpen] = useState(false)
-
-  const triggerClickHandler = useCallback(
-    (event: MouseEvent) => {
-      event.preventDefault()
-      if (onTriggerClick) onTriggerClick()
-    },
-    [onTriggerClick],
-  )
-
+const SubMenu = <T extends MenuItem<T>>({ title, items, path, width }: SubMenuProps<T>) => {
   return (
-    <DropdownMenu.Sub onOpenChange={setOpen}>
-      <div className="relative w-full">
-        <div className="h-full w-full">
-          <DropdownMenu.SubTrigger
-            onMouseDown={triggerClickHandler}
-            ref={triggerRef}
-            className={cx('group h-full w-full outline-none transition-all focus:bg-primary/10', {
-              'bg-primary/10': isOpen,
-            })}
-          >
-            {typeof children === 'function' ? children({ isOpen }) : children}
-          </DropdownMenu.SubTrigger>
-        </div>
-
-        {items.length > 0 && (
-          <DropdownMenu.Portal>
-            <DropdownMenu.SubContent
-              loop
-              sideOffset={8}
-              className="-mt-3 w-full font-semibold shadow outline-none"
-              style={{ width: `${width ?? 0}px` }}
-            >
-              <AnimateHeight isVisible={isOpen}>
-                {isOpen && (
-                  <div className="bg-white py-3">
-                    {items.map(({ id, title, path }) => (
-                      <DropdownMenu.Item key={id} asChild>
-                        <MLink
-                          noStyles
-                          className="flex w-full justify-between px-6 py-3 outline-none focus:bg-primary/10"
-                          href={path ?? ''}
-                        >
-                          {title}
-                        </MLink>
-                      </DropdownMenu.Item>
-                    ))}
-                  </div>
-                )}
-              </AnimateHeight>
-            </DropdownMenu.SubContent>
-          </DropdownMenu.Portal>
-        )}
+    <ReactSubMenu
+      label={({ open }) => (
+        <MLink
+          noStyles
+          href={path ?? ''}
+          className={cx('flex w-full justify-between px-6 py-3 outline-none hover:bg-primary/10', {
+            'bg-primary/10': open,
+          })}
+        >
+          <span>{title}</span>
+          <div className="-rotate-90">
+            <ChevronIcon />
+          </div>
+        </MLink>
+      )}
+    >
+      <div className="fixed px-3">
+        <AnimateHeight isVisible initialVisible={false} className="-mt-3 bg-white shadow-card">
+          <div className="py-3" style={{ width: `${width}px` }}>
+            {items?.map(
+              (item) =>
+                item && (
+                  <ReactMenuItem className="group" key={item.id}>
+                    <MLink
+                      noStyles
+                      href={item.path ?? ''}
+                      className="flex w-full justify-between px-6 py-3 outline-none hover:bg-primary/10 group-focus-within:bg-primary/10"
+                    >
+                      {item.title}
+                    </MLink>
+                  </ReactMenuItem>
+                ),
+            )}
+          </div>
+        </AnimateHeight>
       </div>
-    </DropdownMenu.Sub>
+    </ReactSubMenu>
   )
 }
 
