@@ -103,7 +103,7 @@ const ImageGallerySection = ({ title, images }: ImageGallerySectionProps) => {
               <button
                 type="button"
                 onClick={overlayState.open}
-                className="relative w-full pt-[100%] outline-offset-2 outline-primary focus:outline-4"
+                className="relative w-full border border-border pt-[100%] outline-offset-2 outline-primary focus:outline-4"
               >
                 <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white">
                   {t('morePhotos', { count: moreImagesCount })}
