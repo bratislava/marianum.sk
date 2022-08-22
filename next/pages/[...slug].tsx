@@ -4,6 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import Layout from '../components/layouts/Layout'
 import Section from '../components/molecules/Section'
+import ImageGallerySection from '../components/sections/ImageGallerySection'
 import MenuListingSection from '../components/sections/MenuListingSection'
 import { Enum_Page_Layout, NavigationItemFragment, PageEntityFragment } from '../graphql'
 import { client } from '../utils/gql'
@@ -70,10 +71,11 @@ const Slug = ({ navigation, faqLink, phoneNumber, page }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsGallery') {
             return (
-              <Section key={section.id} fullWidth={isFullWidth}>
-                {/* TODO */}
-                gallery
-              </Section>
+              <ImageGallerySection
+                key={section.id}
+                title={section.title}
+                images={section.medias?.data}
+              />
             )
           }
           if (section?.__typename === 'ComponentSectionsMenuListing') {

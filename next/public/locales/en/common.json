@@ -1,5 +1,11 @@
 {
   "general": {
     "hello": "Hello from new Marianum website!"
+  },
+  "sections": {
+    "ImageGallerySection": {
+      "morePhotos_one": "+{{count}} photo",
+      "morePhotos_other": "+{{count}} photos"
+    }
   }
 }
