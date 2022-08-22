@@ -44,18 +44,26 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
             pages={images.map(({ id, attributes }) => (
               <div
                 key={id}
-                className="container pointer-events-none mx-auto flex h-full w-full items-center justify-center"
+                className="container pointer-events-none mx-auto flex h-full w-full max-w-6xl items-center justify-center md:px-[88px]"
               >
                 <img
                   draggable="false"
-                  className="pointer-events-auto h-auto max-h-[90vh] w-full max-w-5xl select-none object-contain"
+                  className="pointer-events-auto h-auto max-h-[90vh] w-full select-none object-contain"
                   src={attributes?.url}
                   alt={attributes?.alternativeText ?? ''}
                 />
               </div>
             ))}
             pagination={({ goToPrevious, goToNext }) => (
-              <div className="container pointer-events-none absolute z-20 mx-auto flex w-full max-w-6xl justify-between">
+              <div className="container pointer-events-none absolute bottom-0 z-20 mx-auto flex w-full max-w-6xl justify-between p-6 md:bottom-auto">
+                <IconButton
+                  variant="white"
+                  className="pointer-events-auto fixed top-6 right-6"
+                  aria-label="Go to next photo"
+                  onPress={onClose}
+                >
+                  <Close />
+                </IconButton>
                 {images.length > 1 && (
                   <>
                     <IconButton
@@ -76,14 +84,6 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
                     </IconButton>
                   </>
                 )}
-                <IconButton
-                  variant="white"
-                  className="pointer-events-auto fixed top-6 right-6"
-                  aria-label="Go to next photo"
-                  onPress={onClose}
-                >
-                  <Close />
-                </IconButton>
               </div>
             )}
           />
