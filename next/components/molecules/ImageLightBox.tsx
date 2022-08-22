@@ -1,5 +1,13 @@
+import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
-import { AriaOverlayProps, FocusScope, useModal, useOverlay, usePreventScroll } from 'react-aria'
+import {
+  AriaOverlayProps,
+  FocusScope,
+  OverlayContainer,
+  useModal,
+  useOverlay,
+  usePreventScroll,
+} from 'react-aria'
 
 import ArrowBack from '../../assets/arrow_back.svg'
 import ArrowForward from '../../assets/arrow_forward.svg'
@@ -20,7 +28,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
 
   const { overlayProps, underlayProps } = useOverlay(props, ref)
 
-  usePreventScroll()
+  usePreventScroll({ isDisabled: !isOpen })
   const { modalProps } = useModal()
 
   const [isBrowser, setBrowser] = useState(false)
@@ -29,67 +37,79 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
     setBrowser(true)
   }, [])
 
-  return isBrowser && isOpen ? (
-    <div className="fixed inset-0 z-50 flex bg-black/40" {...underlayProps}>
-      <FocusScope contain restoreFocus autoFocus>
-        <div
-          className="pointer-events-none flex w-full items-center"
-          {...overlayProps}
-          {...modalProps}
-          ref={ref}
-        >
-          <Slider
-            allowKeboardNavigation={images.length > 1}
-            initialPage={initialImageIndex}
-            pages={images.map(({ id, attributes }) => (
-              <div
-                key={id}
-                className="container pointer-events-none mx-auto flex h-full w-full max-w-6xl items-center justify-center md:px-[88px]"
-              >
-                <img
-                  draggable="false"
-                  className="pointer-events-auto h-auto max-h-[90vh] w-full select-none object-contain"
-                  src={attributes?.url}
-                  alt={attributes?.alternativeText ?? ''}
-                />
-              </div>
-            ))}
-            pagination={({ goToPrevious, goToNext }) => (
-              <div className="container pointer-events-none absolute bottom-0 z-20 mx-auto flex w-full max-w-6xl justify-between p-6 md:bottom-auto">
-                <IconButton
-                  variant="white"
-                  className="pointer-events-auto fixed top-6 right-6"
-                  aria-label="Go to next photo"
-                  onPress={onClose}
+  return isBrowser ? (
+    <OverlayContainer>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            transition={{ duration: 0.2 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <FocusScope contain restoreFocus autoFocus>
+              <div {...underlayProps} className="fixed inset-0 z-50 flex bg-black/40">
+                <div
+                  className="pointer-events-none flex w-full items-center"
+                  {...overlayProps}
+                  {...modalProps}
+                  ref={ref}
                 >
-                  <Close />
-                </IconButton>
-                {images.length > 1 && (
-                  <>
-                    <IconButton
-                      variant="white"
-                      className="pointer-events-auto"
-                      aria-label="Go to previous photo"
-                      onPress={goToPrevious}
-                    >
-                      <ArrowBack />
-                    </IconButton>
-                    <IconButton
-                      variant="white"
-                      className="pointer-events-auto"
-                      aria-label="Go to next photo"
-                      onPress={goToNext}
-                    >
-                      <ArrowForward />
-                    </IconButton>
-                  </>
-                )}
+                  <Slider
+                    allowKeboardNavigation={images.length > 1}
+                    initialPage={initialImageIndex}
+                    pages={images.map(({ id, attributes }) => (
+                      <div
+                        key={id}
+                        className="container pointer-events-none mx-auto flex h-full w-full max-w-6xl items-center justify-center md:px-[88px]"
+                      >
+                        <img
+                          draggable="false"
+                          className="pointer-events-auto h-auto max-h-[90vh] w-full select-none object-contain"
+                          src={attributes?.url}
+                          alt={attributes?.alternativeText ?? ''}
+                        />
+                      </div>
+                    ))}
+                    pagination={({ goToPrevious, goToNext }) => (
+                      <div className="container pointer-events-none absolute bottom-0 z-20 mx-auto flex w-full max-w-6xl justify-between p-6 md:bottom-auto">
+                        <IconButton
+                          variant="white"
+                          className="pointer-events-auto fixed top-6 right-6"
+                          aria-label="Go to next photo"
+                          onPress={onClose}
+                        >
+                          <Close />
+                        </IconButton>
+                        {images.length > 1 && (
+                          <>
+                            <IconButton
+                              variant="white"
+                              className="pointer-events-auto"
+                              aria-label="Go to previous photo"
+                              onPress={goToPrevious}
+                            >
+                              <ArrowBack />
+                            </IconButton>
+                            <IconButton
+                              variant="white"
+                              className="pointer-events-auto"
+                              aria-label="Go to next photo"
+                              onPress={goToNext}
+                            >
+                              <ArrowForward />
+                            </IconButton>
+                          </>
+                        )}
+                      </div>
+                    )}
+                  />
+                </div>
               </div>
-            )}
-          />
-        </div>
-      </FocusScope>
-    </div>
+            </FocusScope>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </OverlayContainer>
   ) : null
 }
 

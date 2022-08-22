@@ -1,7 +1,6 @@
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo, useState } from 'react'
-import { OverlayContainer } from 'react-aria'
 import { useResizeDetector } from 'react-resize-detector'
 import { useOverlayTriggerState } from 'react-stately'
 
@@ -114,17 +113,13 @@ const ImageGallerySection = ({ title, images }: ImageGallerySectionProps) => {
           </div>
         )}
       </div>
-      {overlayState.isOpen && (
-        <OverlayContainer>
-          <ImageLightBox
-            onClose={overlayState.close}
-            isOpen
-            images={filteredImages}
-            initialImageIndex={initialImageIndex}
-            isDismissable
-          />
-        </OverlayContainer>
-      )}
+      <ImageLightBox
+        onClose={overlayState.close}
+        isOpen={overlayState.isOpen}
+        images={filteredImages}
+        initialImageIndex={initialImageIndex}
+        isDismissable
+      />
     </Section>
   )
 }
