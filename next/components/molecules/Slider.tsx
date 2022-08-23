@@ -137,7 +137,7 @@ const Slider = ({
             x: { type: 'spring', stiffness: 300, damping: 30 },
             opacity: { duration: 0.2 },
           }}
-          drag="x"
+          drag={pages.length > 1 ? 'x' : undefined}
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={1}
           onDragStart={dragStartHandler}
