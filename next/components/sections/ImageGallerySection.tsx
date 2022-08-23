@@ -98,11 +98,12 @@ const ImageGallerySection = ({ title, images }: ImageGallerySectionProps) => {
                 />
               </button>
             ))}
+
             {/* more images button */}
             {moreImagesCount > 0 && (
               <button
                 type="button"
-                onClick={overlayState.open}
+                onClick={() => openAtImageIndex(0)}
                 className="relative w-full border border-border pt-[100%] outline-offset-2 outline-primary focus:outline-4"
               >
                 <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white">
