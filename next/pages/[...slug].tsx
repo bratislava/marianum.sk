@@ -114,7 +114,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] })
         },
       }))
     // eslint-disable-next-line no-console
-    console.log(`GENERATED STATIC PATHS FOR ${paths.length} SLUGS`)
+    console.log(`PAGES: GENERATED STATIC PATHS FOR ${paths.length} SLUGS`)
     return { paths, fallback: 'blocking' }
   }
   return { paths: [], fallback: 'blocking' }
