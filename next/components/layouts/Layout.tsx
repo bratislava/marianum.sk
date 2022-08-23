@@ -1,6 +1,6 @@
 import cx from 'classnames'
 import { useRouter } from 'next/router'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 import { Enum_Page_Layout, NavigationItemFragment, PageEntityFragment } from '../../graphql'
 import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
@@ -55,7 +55,7 @@ const Layout = ({ page, navigation, faqLink, phoneNumber, children }: LayoutProp
         <div
           className={cx('container relative mx-auto', {
             // Set grid for Sidebar layout
-            'grid gap-6 p-4 md:auto-cols-auto md:grid-flow-col md:py-20':
+            'grid gap-6 p-4 md:grid-flow-col md:grid-cols-[1fr_auto] md:py-20':
               page.attributes?.layout === Enum_Page_Layout.Sidebar,
             // Center content for Centered and Article layout
             'px-4 pb-6 sm:px-20 sm:pb-12 md:px-28 lg:px-40':
