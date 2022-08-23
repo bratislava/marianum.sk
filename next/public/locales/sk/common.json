@@ -1,5 +1,6 @@
 {
   "general": {
-    "hello": "Vitaj na novej stránke Marianum!"
+    "hello": "Vitaj na novej stránke Marianum!",
+    "goToSlide": "Ísť na slide {{number}}"
   }
 }

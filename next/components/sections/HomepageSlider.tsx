@@ -1,30 +1,54 @@
 import cx from 'classnames'
+import Image from 'next/image'
+import { useTranslation } from 'next-i18next'
 
-import { THomepageSliderSlide } from '../../utils/types'
+import { CtaFragment } from '../../graphql'
 import Button from '../atoms/Button'
 import Slider from '../molecules/Slider'
 
 type HomepageSliderProps = {
-  slides: THomepageSliderSlide[]
+  slides: CtaFragment[] | null | undefined
 }
 
 const HomepageSlider = ({ slides }: HomepageSliderProps) => {
+  const { t } = useTranslation()
+
+  if (!slides) {
+    return null
+  }
+
   return (
     <section className="h-[412px] bg-primary-dark text-white xl:h-[436px]">
       <Slider
         autoSwipeDuration={5000}
-        pages={slides.map(({ key, title, description, buttonText }) => (
+        pages={slides.map(({ title, description, button, image }) => (
           <div
-            key={key}
+            key={button?.url}
             className="container mx-auto flex h-full flex-col-reverse content-center lg:flex-row"
           >
             <div className="flex flex-1 flex-col items-center justify-center p-4 pb-12 lg:items-start lg:pb-4 lg:pr-40">
               <div className="mb-3 text-h1 font-bold">{title}</div>
-              <div className="mb-6 hidden opacity-72 lg:block">{description}</div>
-              <Button variant="white">{buttonText}</Button>
+              {description && <div className="mb-6 hidden opacity-72 lg:block">{description}</div>}
+              {button && (
+                <Button
+                  variant="white"
+                  href={button?.url ?? '#'}
+                  target={button?.targetBlank ? '_blank' : '_self'}
+                >
+                  {button?.label}
+                </Button>
+              )}
             </div>
-            <div className="h-[228px] w-full lg:h-full lg:w-[450px] lg:pr-4 xl:w-[612px]">
-              <div className="h-full w-full bg-black/20" />
+            <div className="relative mr-4 h-[228px] w-full lg:h-full lg:w-[450px] lg:pr-4 xl:w-[612px]">
+              <Image
+                src={image?.data?.attributes?.url ?? ''}
+                alt={image?.data?.attributes?.alternativeText ?? ''}
+                width={image?.data?.attributes?.width ?? 0}
+                height={image?.data?.attributes?.height ?? 0}
+                layout="fill"
+                objectFit="cover"
+                unoptimized
+              />
             </div>
           </div>
         ))}
@@ -38,7 +62,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                   })}
                   key={index}
                   type="button"
-                  aria-label={`Go to slide ${index + 1}`}
+                  aria-label={t('general.goToSlide', { number: index + 1 })}
                   onClick={() => goToPage(index)}
                 >
                   <div className="h-2 w-2 rounded-full bg-white" />

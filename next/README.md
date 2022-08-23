@@ -4,8 +4,6 @@ This readme should get you up & running.
 
 ## First-time setup
 
-You need `node` and `yarn` installed locally.
-
 To install dependencies run:
 
 ```

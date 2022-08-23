@@ -85,8 +85,7 @@
         "sections.document-group",
         "sections.menu-listing",
         "sections.manual-listing",
-        "sections.news-listing",
-        "sections.services-listing"
+        "sections.news-listing"
       ]
     },
     "sidebar": {
