@@ -106,7 +106,7 @@ const Button = ({
     )
   }
   return (
-    <button type="button" ref={ref} tabIndex={tabIndex} className={style} {...buttonProps}>
+    <button type="button" ref={ref} className={style} {...buttonProps} tabIndex={tabIndex}>
       <span>{children}</span>
     </button>
   )

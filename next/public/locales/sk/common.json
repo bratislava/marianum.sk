@@ -2,12 +2,29 @@
   "general": {
     "hello": "Vitaj na novej stránke Marianum!"
   },
+  "components": {
+    "molecules": {
+      "Slider": {
+        "aria": {
+          "description": "Posúvač"
+        }
+      },
+      "ImageLightBox": {
+        "aria": {
+          "description": "Galéria obrázkov. Stlačte šípku vľavo pre zobrazenie predchádzajúceho obrázku. Stlačte šípku vpravo pre zobrazenie nasledujúceho obrázku. Zatvorte stlačením klávesu Escape."
+        }
+      }
+    }
+  },
   "sections": {
     "ImageGallerySection": {
       "morePhotos_one": "+{{count}} fotka",
       "morePhotos_few": "+{{count}} fotky",
       "morePhotos_other": "+{{count}} fotiek",
-      "showAllPhotos": "Zobraziť všetky fotky"
+      "showAllPhotos": "Zobraziť všetky fotky",
+      "aria": {
+        "openImageGallery": "Otvoriť galériu obrázkov"
+      }
     }
   }
 }

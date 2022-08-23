@@ -1,4 +1,6 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { AnimatePresence, motion, PanInfo, Variant } from 'framer-motion'
+import { useTranslation } from 'next-i18next'
 import { wrap } from 'popmotion'
 import { FC, KeyboardEvent, ReactNode, useCallback, useEffect, useState } from 'react'
 
@@ -14,6 +16,7 @@ type SliderProps = {
   }>
   initialPage?: number
   allowKeboardNavigation?: boolean
+  description?: string
 }
 
 const variants: { [name: string]: Variant } = {
@@ -49,10 +52,12 @@ const Slider = ({
   pagination: Pagination,
   initialPage,
   allowKeboardNavigation = false,
+  description,
 }: SliderProps) => {
   const [[page, direction], setPage] = useState([initialPage ?? 0, 0])
   const [isDragging, setDragging] = useState(false)
   const index = wrap(0, pages.length, page)
+  const { t } = useTranslation('common', { keyPrefix: 'components.molecules.Slider' })
 
   const paginate = useCallback((newDirection: number) => {
     setPage(([currentPage]) => [currentPage + newDirection, newDirection])
@@ -103,14 +108,18 @@ const Slider = ({
   )
 
   const keyUpHandler = useCallback(
-    ({ code }: KeyboardEvent) => {
+    (e: KeyboardEvent) => {
       if (!allowKeboardNavigation) return
-      if (code === 'ArrowLeft') {
+      if (e.code === 'ArrowLeft') {
+        e.preventDefault()
+        e.stopPropagation()
         goToPrevious()
         return
       }
 
-      if (code === 'ArrowRight') {
+      if (e.code === 'ArrowRight') {
+        e.stopPropagation()
+        e.preventDefault()
         goToNext()
       }
     },
@@ -119,14 +128,16 @@ const Slider = ({
 
   return (
     <div
-      tabIndex={0}
-      role="button"
-      onKeyUp={keyUpHandler}
+      role="application"
+      aria-label={description ?? t('aria.description')}
       className="relative z-0 flex h-full w-full items-center justify-center overflow-hidden"
     >
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
-          className="absolute h-full w-full"
+          tabIndex={0}
+          onLoad={(e) => e.currentTarget.focus()}
+          onKeyUp={keyUpHandler}
+          className="absolute h-full w-full outline-none"
           key={page}
           custom={direction}
           variants={variants}

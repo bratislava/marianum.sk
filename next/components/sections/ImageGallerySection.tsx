@@ -1,6 +1,10 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/interactive-supports-focus */
+
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
-import { useCallback, useMemo, useState } from 'react'
+import { KeyboardEvent, useCallback, useMemo, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 import { useOverlayTriggerState } from 'react-stately'
 
@@ -71,9 +75,24 @@ const ImageGallerySection = ({ title, images, variant = 'bellow' }: ImageGallery
     [overlayState],
   )
 
+  const onContainerKeyUp = useCallback(
+    ({ code }: KeyboardEvent) => {
+      if (code === 'Enter' || code === 'Space') {
+        openAtImageIndex(0)
+      }
+    },
+    [openAtImageIndex],
+  )
+
   return (
     <Section>
-      <div className="flex flex-col gap-4">
+      <div
+        tabIndex={0}
+        role="button"
+        onKeyUp={onContainerKeyUp}
+        aria-label={t('aria.openImageGallery')}
+        className="relative flex w-full flex-col gap-4 outline-offset-2 outline-primary focus:outline-4"
+      >
         {title && <div className="text-h2">{title}</div>}
 
         <div
@@ -84,10 +103,9 @@ const ImageGallerySection = ({ title, images, variant = 'bellow' }: ImageGallery
           })}
         >
           {/* first image */}
-          <button
-            type="button"
+          <div
             onClick={() => openAtImageIndex(0)}
-            className={cx('relative w-full outline-offset-2 outline-primary focus:outline-4', {
+            className={cx('relative w-full ', {
               // large 'bellow' layout
               'h-[500px]': smallImagePlaceholderCount > 6 && variant === 'bellow',
               // small & middle 'bellow' layout
@@ -103,7 +121,7 @@ const ImageGallerySection = ({ title, images, variant = 'bellow' }: ImageGallery
               src={firstImage.attributes?.url}
               alt={firstImage.attributes?.alternativeText ?? ''}
             />
-          </button>
+          </div>
 
           {/* row images */}
           {variant === 'bellow' && smallImages.length > 0 && (
@@ -112,31 +130,29 @@ const ImageGallerySection = ({ title, images, variant = 'bellow' }: ImageGallery
               style={{ gridTemplateColumns: `repeat(${smallImagePlaceholderCount + 1}, 1fr)` }}
             >
               {smallImages.map((image, index) => (
-                <button
-                  type="button"
+                <div
                   onClick={() => openAtImageIndex(index + 1)}
                   key={image.id}
-                  className="relative w-full pt-[100%] outline-offset-2 outline-primary focus:outline-4"
+                  className="relative w-full pt-[100%]"
                 >
                   <img
                     className="absolute top-0 h-full w-full object-cover"
                     src={image.attributes?.url}
                     alt={image.attributes?.alternativeText ?? ''}
                   />
-                </button>
+                </div>
               ))}
 
               {/* more images button */}
               {moreImagesCount > 0 && (
-                <button
-                  type="button"
+                <div
                   onClick={() => openAtImageIndex(0)}
-                  className="relative w-full border border-border pt-[100%] outline-offset-2 outline-primary focus:outline-4"
+                  className="relative w-full border border-border pt-[100%]"
                 >
-                  <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white">
+                  <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white text-center">
                     {t('morePhotos', { count: moreImagesCount })}
                   </div>
-                </button>
+                </div>
               )}
             </div>
           )}
@@ -151,31 +167,26 @@ const ImageGallerySection = ({ title, images, variant = 'bellow' }: ImageGallery
               })}
             >
               {smallImages.map((image, index) => (
-                <button
-                  type="button"
+                <div
                   onClick={() => openAtImageIndex(index + 1)}
                   key={image.id}
-                  className="relative w-[168px] pt-[168px] outline-offset-2 outline-primary focus:outline-4"
+                  className="relative w-[168px] pt-[168px]"
                 >
                   <img
                     className="absolute top-0 h-full w-full object-cover"
                     src={image.attributes?.url}
                     alt={image.attributes?.alternativeText ?? ''}
                   />
-                </button>
+                </div>
               ))}
 
               {/* more images button */}
               {moreImagesCount > 0 && (
-                <button
-                  type="button"
-                  onClick={() => openAtImageIndex(0)}
-                  className="relative w-[168px] pt-[166px] outline-offset-2 outline-primary focus:outline-4"
-                >
-                  <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white p-8 font-semibold text-primary">
+                <div onClick={() => openAtImageIndex(0)} className="relative w-[168px] pt-[166px]">
+                  <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white p-8 text-center font-semibold text-primary">
                     {t('showAllPhotos')}
                   </div>
-                </button>
+                </div>
               )}
             </div>
           )}

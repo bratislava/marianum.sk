@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
+import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'
 import {
   AriaOverlayProps,
@@ -6,7 +7,7 @@ import {
   OverlayContainer,
   useModal,
   useOverlay,
-  usePreventScroll,
+  usePreventScroll
 } from 'react-aria'
 
 import ArrowBack from '../../assets/arrow_back.svg'
@@ -23,6 +24,8 @@ export type ImageLightBoxProps = {
 
 const ImageLightBox = (props: ImageLightBoxProps) => {
   const { images, isOpen, initialImageIndex, onClose } = props
+
+  const { t } = useTranslation('common', { keyPrefix: 'components.molecules.ImageLightBox' })
 
   const ref = useRef<HTMLDivElement | null>(null)
 
@@ -46,15 +49,16 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            <FocusScope contain restoreFocus autoFocus>
-              <div {...underlayProps} className="fixed inset-0 z-50 flex bg-black/40">
-                <div
-                  className="pointer-events-none flex w-full items-center"
-                  {...overlayProps}
-                  {...modalProps}
-                  ref={ref}
-                >
+            <div {...underlayProps} className="fixed inset-0 z-50 flex bg-black/40">
+              <div
+                className="pointer-events-none flex w-full items-center"
+                {...overlayProps}
+                {...modalProps}
+                ref={ref}
+              >
+                <FocusScope contain restoreFocus autoFocus>
                   <Slider
+                    description={t('aria.description')}
                     allowKeboardNavigation={images.length > 1}
                     initialPage={initialImageIndex}
                     pages={images.map(({ id, attributes }) => (
@@ -73,9 +77,10 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
                     pagination={({ goToPrevious, goToNext }) => (
                       <div className="container pointer-events-none absolute bottom-0 z-20 mx-auto flex w-full max-w-6xl justify-between p-6 md:bottom-auto">
                         <IconButton
+                          aria-hidden
+                          tabIndex={-1}
                           variant="white"
                           className="pointer-events-auto fixed top-6 right-6"
-                          aria-label="Go to next photo"
                           onPress={onClose}
                         >
                           <Close />
@@ -83,17 +88,19 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
                         {images.length > 1 && (
                           <>
                             <IconButton
+                              aria-hidden
+                              tabIndex={-1}
                               variant="white"
                               className="pointer-events-auto"
-                              aria-label="Go to previous photo"
                               onPress={goToPrevious}
                             >
                               <ArrowBack />
                             </IconButton>
                             <IconButton
+                              aria-hidden
+                              tabIndex={-1}
                               variant="white"
                               className="pointer-events-auto"
-                              aria-label="Go to next photo"
                               onPress={goToNext}
                             >
                               <ArrowForward />
@@ -103,9 +110,9 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
                       </div>
                     )}
                   />
-                </div>
+                </FocusScope>
               </div>
-            </FocusScope>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
