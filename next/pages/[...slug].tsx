@@ -75,6 +75,7 @@ const Slug = ({ navigation, faqLink, phoneNumber, page }: PageProps) => {
                 key={section.id}
                 title={section.title}
                 images={section.medias?.data}
+                variant="bellow"
               />
             )
           }
