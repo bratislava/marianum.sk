@@ -86,7 +86,7 @@ export const getStaticProps: GetStaticProps = async ({
   const [{ navigation, general }, { branches }, translations] = await Promise.all([
     client.Navigation({ locale }),
     client.BranchBySlug({ locale, slug }),
-    serverSideTranslations(locale, ['common']), // TODO: fix any
+    serverSideTranslations(locale, ['common']),
   ])
 
   const filteredNavigation = navigation.filter(Boolean) as NavigationItemFragment[]

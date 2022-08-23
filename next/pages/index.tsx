@@ -1,5 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { GetStaticProps } from 'next'
+import { GetStaticProps, GetStaticPropsResult } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -125,12 +125,16 @@ const Home = ({ navigation, faqLink, phoneNumber, page }: HomeProps) => {
   )
 }
 
-export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale = 'sk' }) => {
+export const getStaticProps: GetStaticProps = async ({
+  locale = 'sk',
+}): Promise<GetStaticPropsResult<HomeProps>> => {
   const [{ navigation, general }, { homePage }, translations] = await Promise.all([
     client.Navigation({ locale }),
     client.HomePage({ locale }),
-    serverSideTranslations(locale, ['common']) as any, // TODO: fix any
+    serverSideTranslations(locale, ['common']),
   ])
+
+  const filteredNavigation = navigation.filter(Boolean) as NavigationItemFragment[]
 
   if (!homePage?.data) {
     return {
@@ -140,7 +144,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale = 'sk' 
 
   return {
     props: {
-      navigation,
+      navigation: filteredNavigation,
       faqLink: general?.data?.attributes?.header?.faqLink ?? '',
       phoneNumber: general?.data?.attributes?.header?.phoneNumber ?? '',
       page: homePage?.data,

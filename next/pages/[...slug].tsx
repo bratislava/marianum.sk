@@ -1,5 +1,6 @@
 import last from 'lodash/last'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
+import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import Layout from '../components/layouts/Layout'
@@ -15,7 +16,7 @@ type PageProps = {
   faqLink: string
   phoneNumber: string
   page: PageEntityFragment
-}
+} & SSRConfig
 
 const Slug = ({ navigation, faqLink, phoneNumber, page }: PageProps) => {
   const isFullWidth = page.attributes?.layout === Enum_Page_Layout.Fullwidth
@@ -120,14 +121,19 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] })
   return { paths: [], fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps<PageProps> = async ({ locale = 'sk', params }) => {
+export const getStaticProps: GetStaticProps = async ({
+  locale = 'sk',
+  params,
+}): Promise<GetStaticPropsResult<PageProps>> => {
   const slug = last(params?.slug) ?? ''
 
   const [{ navigation, general }, { pages }, translations] = await Promise.all([
     client.Navigation({ locale }),
     client.PageBySlug({ locale, slug }),
-    serverSideTranslations(locale, ['common']) as any, // TODO: fix any
+    serverSideTranslations(locale, ['common']),
   ])
+
+  const filteredNavigation = navigation.filter(Boolean) as NavigationItemFragment[]
 
   if (!pages || pages.data.length === 0) {
     return {
@@ -137,7 +143,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ locale = 'sk',
 
   return {
     props: {
-      navigation,
+      navigation: filteredNavigation,
       faqLink: general?.data?.attributes?.header?.faqLink ?? '',
       phoneNumber: general?.data?.attributes?.header?.phoneNumber ?? '',
       page: pages.data[0],
