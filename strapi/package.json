@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "description": "A Strapi application",
   "scripts": {
-    "develop": "strapi develop",
-    "dev": "strapi develop",
+    "dev": "yarn develop",
+    "develop": "ENV_PATH='./.env.local' strapi develop",
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi",
