@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 import { NavigationItemFragment } from '../../graphql'
 import Navigation from '../molecules/Navigation/Navigation'
@@ -14,7 +14,7 @@ type PageWrapperProps = {
 
 const PageWrapper = ({ navigation, faqLink, phoneNumber, header, children }: PageWrapperProps) => {
   return (
-    <>
+    <div className="h-full bg-background-beige">
       <Head>
         <title>Next.js + TypeScript</title>
       </Head>
@@ -23,9 +23,9 @@ const PageWrapper = ({ navigation, faqLink, phoneNumber, header, children }: Pag
         <Navigation faqLink={faqLink} phoneNumber={phoneNumber} navigationItems={navigation} />
         {header}
       </header>
-      <main className="bg-background-beige">{children}</main>
+      <main>{children}</main>
       <footer />
-    </>
+    </div>
   )
 }
 
