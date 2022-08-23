@@ -8,7 +8,8 @@
     "dev": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "postinstall": "patch-package"
   },
   "devDependencies": {},
   "dependencies": {
@@ -17,8 +18,11 @@
     "@strapi/plugin-upload": "4.3.4",
     "@strapi/plugin-users-permissions": "4.3.4",
     "@strapi/strapi": "4.3.4",
+    "patch-package": "^6.4.7",
     "pg": "8.6.0",
+    "postinstall-postinstall": "^2.1.0",
     "strapi-plugin-navigation": "^2.2.1",
+    "strapi-plugin-react-editorjs": "^2.0.1",
     "strapi-provider-upload-ts-minio": "^3.1.0"
   },
   "author": {
