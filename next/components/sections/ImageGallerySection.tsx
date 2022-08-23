@@ -72,7 +72,7 @@ const ImageGallerySection = ({ title, images, variant = 'bellow' }: ImageGallery
   )
 
   return (
-    <Section fullWidth>
+    <Section>
       <div className="flex flex-col gap-4">
         {title && <div className="text-h2">{title}</div>}
 
@@ -170,10 +170,10 @@ const ImageGallerySection = ({ title, images, variant = 'bellow' }: ImageGallery
                 <button
                   type="button"
                   onClick={() => openAtImageIndex(0)}
-                  className="relative w-[168px] border border-border pt-[166px] outline-offset-2 outline-primary focus:outline-4"
+                  className="relative w-[168px] pt-[166px] outline-offset-2 outline-primary focus:outline-4"
                 >
-                  <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white">
-                    {t('morePhotos', { count: moreImagesCount })}
+                  <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white p-8 font-semibold text-primary">
+                    {t('showAllPhotos')}
                   </div>
                 </button>
               )}

@@ -6,7 +6,8 @@
     "ImageGallerySection": {
       "morePhotos_one": "+{{count}} fotka",
       "morePhotos_few": "+{{count}} fotky",
-      "morePhotos_other": "+{{count}} fotiek"
+      "morePhotos_other": "+{{count}} fotiek",
+      "showAllPhotos": "Zobraziť všetky fotky"
     }
   }
 }

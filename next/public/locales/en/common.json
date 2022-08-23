@@ -5,7 +5,8 @@
   "sections": {
     "ImageGallerySection": {
       "morePhotos_one": "+{{count}} photo",
-      "morePhotos_other": "+{{count}} photos"
+      "morePhotos_other": "+{{count}} photos",
+      "showAllPhotos": "Show all photos"
     }
   }
 }
