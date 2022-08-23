@@ -115,7 +115,7 @@ const ImageGallerySection = ({ title, images }: ImageGallerySectionProps) => {
         )}
       </div>
       <ImageLightBox
-        onClose={overlayState.close}
+        onClose={() => overlayState.close()}
         isOpen={overlayState.isOpen}
         images={filteredImages}
         initialImageIndex={initialImageIndex}
