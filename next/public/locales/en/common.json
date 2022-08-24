@@ -1,6 +1,5 @@
 {
   "general": {
-    "hello": "Hello from new Marianum website!",
     "goToSlide": "Go to slide {{number}}"
   },
   "components": {

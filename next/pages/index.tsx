@@ -5,6 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import PageWrapper from '../components/layouts/PageWrapper'
 import Section from '../components/molecules/Section'
+import CardSection from '../components/sections/CardSection'
 import HomepageSlider from '../components/sections/HomepageSlider'
 import { GeneralEntityFragment, HomePageQuery, NavigationItemFragment } from '../graphql'
 import { client } from '../utils/gql'
@@ -28,12 +29,7 @@ const Home = ({ navigation, page, general }: HomeProps) => {
         {page.attributes?.sections?.map((section, index) => {
           const color = index % 2 === 0 ? 'default' : 'white'
           if (section?.__typename === 'ComponentSectionsManualListing') {
-            return (
-              <Section key={section.id} fullWidth color={color}>
-                {/* TODO */}
-                manual listing
-              </Section>
-            )
+            return <CardSection key={section.id} fullWidth color={color} section={section} />
           }
           if (section?.__typename === 'ComponentSectionsNewsListing') {
             return (

@@ -5,30 +5,30 @@ import { ComponentSectionsRichtext } from '../../graphql'
 import Section, { SectionProps } from '../molecules/Section'
 
 type RichTextSectionProps = Pick<SectionProps, 'fullWidth' | 'color'> & {
-  markdown: ComponentSectionsRichtext['markdown']
+  content: ComponentSectionsRichtext['content']
 }
 
 /*
   TODO: Richtext contains button option, how to implement it?
  */
-const RichTextSection = ({ markdown, ...rest }: RichTextSectionProps) => {
-  const parsedMarkdown = useMemo(() => {
-    if (!markdown) {
+const RichTextSection = ({ content, ...rest }: RichTextSectionProps) => {
+  const parsedContent = useMemo(() => {
+    if (!content) {
       return null
     }
 
     try {
-      return JSON.parse(markdown) as DataProp
+      return JSON.parse(content) as DataProp
     } catch (error) {
       return null
     }
-  }, [markdown])
+  }, [content])
 
   return (
     <Section {...rest}>
-      {parsedMarkdown && (
+      {parsedContent && (
         <Blocks
-          data={parsedMarkdown}
+          data={parsedContent}
           config={{
             delimiter: {
               className: 'border border-border w-full mb-4 md:mb-6 last:mb-0',

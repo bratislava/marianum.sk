@@ -1,5 +1,8 @@
 import cx from 'classnames'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
+
+import { CtaButtonFragment } from '../../graphql'
+import MLink from '../atoms/MLink'
 
 export type SectionProps = {
   children: ReactNode
@@ -7,6 +10,7 @@ export type SectionProps = {
   color?: 'default' | 'white'
   cardGrid?: boolean
   title?: string | null | undefined
+  button?: CtaButtonFragment | null | undefined
 }
 
 const Section = ({
@@ -15,6 +19,7 @@ const Section = ({
   fullWidth = false,
   cardGrid = false,
   title,
+  button,
 }: SectionProps) => {
   return (
     <section
@@ -28,12 +33,30 @@ const Section = ({
           'container mx-auto px-4': fullWidth,
         })}
       >
-        {title && <h2 className="pb-3 sm:pb-6">{title}</h2>}
-        <div
-          className={cx({ 'grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4': cardGrid })}
-        >
+        {(title || (button && button.url)) && (
+          <div className="flex pb-3 md:pb-10">
+            <h2 className="grow">{title}</h2>
+            {button && button.url && (
+              <MLink
+                href={button.url}
+                target={button.targetBlank ? '_blank' : '_self'}
+                className="hidden md:inline-flex"
+              >
+                {button.label}
+              </MLink>
+            )}
+          </div>
+        )}
+        <div className={cx({ 'grid gap-6 md:grid-cols-2 lg:grid-cols-4': cardGrid })}>
           {children}
         </div>
+        {button && button.url && (
+          <div className="mt-4 text-center md:hidden">
+            <MLink href={button.url} target={button.targetBlank ? '_blank' : '_self'}>
+              {button.label}
+            </MLink>
+          </div>
+        )}
       </div>
     </section>
   )
