@@ -1,0 +1,29 @@
+.m-table {
+  @apply table-auto w-full text-sm;
+}
+
+.m-table thead tr {
+  @apply bg-background-dark font-semibold text-white;
+}
+
+.m-table thead th:not(:last-child) {
+  @apply border-r border-white border-opacity-20;
+}
+
+.m-table tbody tr:nth-child(odd) {
+  @apply bg-white;
+}
+
+.m-table:not(.large-padding) td,
+.m-table:not(.large-padding) th {
+  @apply p-3;
+}
+
+.m-table.large-padding td,
+.m-table.large-padding th {
+  @apply p-4;
+}
+
+.m-table tbody td {
+  @apply border border-border;
+}

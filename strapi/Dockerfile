@@ -11,6 +11,7 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /home/node/app
 COPY package*.json ./
 COPY yarn.lock ./
+COPY patches ./patches
 
 RUN yarn install
 COPY . ./
@@ -37,6 +38,7 @@ ENV NODE_ENV=${NODE_ENV}
 
 COPY --chown=node:node package*.json ./
 COPY --chown=node:node yarn.lock ./
+COPY --chown=node:node patches ./patches
 
 RUN yarn config set network-timeout 600000 -g
 RUN yarn install --production

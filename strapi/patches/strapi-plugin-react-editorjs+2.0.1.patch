@@ -1,0 +1,16 @@
+diff --git a/node_modules/strapi-plugin-react-editorjs/admin/src/config/customTools.js b/node_modules/strapi-plugin-react-editorjs/admin/src/config/customTools.js
+index d725af8..d578e33 100644
+--- a/node_modules/strapi-plugin-react-editorjs/admin/src/config/customTools.js
++++ b/node_modules/strapi-plugin-react-editorjs/admin/src/config/customTools.js
+@@ -67,4 +67,10 @@ const customTools = {
+   inlineCode: InlineCode,
+ }
+ 
+-export default customTools
++const customToolsFixed = {
++  table: customTools.table,
++  header: customTools.header,
++  delimiter: customTools.delimiter
++}
++
++export default customToolsFixed

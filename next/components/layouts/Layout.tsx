@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 
@@ -46,7 +46,7 @@ const Layout = ({ page, navigation, faqLink, phoneNumber, children, footerProps 
       footerProps={footerProps}
     >
       <div
-        className={classnames('h-full', {
+        className={cx('h-full', {
           // Change color to white for Article layout
           'bg-white': page.attributes?.layout === Enum_Page_Layout.Article,
           // Compensate image overlap
@@ -56,7 +56,9 @@ const Layout = ({ page, navigation, faqLink, phoneNumber, children, footerProps 
         })}
       >
         <div
-          className={classnames('container relative mx-auto h-full', {
+          className={cx('h-auto', {
+            // Add container for all layouts except 'fullwidth'
+            'container relative mx-auto': page.attributes?.layout !== Enum_Page_Layout.Fullwidth,
             // Set grid for Sidebar layout
             'grid gap-6 p-4 md:auto-cols-auto md:grid-flow-col md:py-20':
               page.attributes?.layout === Enum_Page_Layout.Sidebar,

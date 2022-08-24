@@ -9,6 +9,7 @@ import Section from '../components/molecules/Section'
 import HomepageSlider from '../components/sections/HomepageSlider'
 import { HomePageQuery, NavigationItemFragment } from '../graphql'
 import { client } from '../utils/gql'
+import { isDefined } from '../utils/isDefined'
 
 type HomeProps = {
   navigation: NavigationItemFragment[]
@@ -29,98 +30,56 @@ const Home = ({ navigation, faqLink, phoneNumber, page, footerProps }: HomeProps
       phoneNumber={phoneNumber}
       footerProps={footerProps}
     >
-      <HomepageSlider
-        slides={[
-          {
-            key: 'slide-1',
-            title: 'Slide 1',
-            description:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-            imageSrc: '',
-            buttonText: 'Zistiť viac',
-          },
-          {
-            key: 'slide-2',
-            title: 'Slide 2',
-            description:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-            imageSrc: '',
-            buttonText: 'Zistiť viac',
-          },
-          {
-            key: 'slide-3',
-            title: 'Slide 3',
-            description:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-            imageSrc: '',
-            buttonText: 'Zistiť viac',
-          },
-        ]}
-      />
+      <HomepageSlider slides={page.attributes?.featured?.filter(isDefined)} />
+
       <div>
-        {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
         {page.attributes?.sections?.map((section, index) => {
+          const color = index % 2 === 0 ? 'default' : 'white'
           if (section?.__typename === 'ComponentSectionsManualListing') {
             return (
-              <Section key={section.id} fullWidth color={index % 2 === 0 ? 'white' : 'default'}>
+              <Section key={section.id} fullWidth color={color}>
                 {/* TODO */}
-                {section.title}
-              </Section>
-            )
-          }
-          if (section?.__typename === 'ComponentSectionsServicesListing') {
-            return (
-              <Section key={section.id} fullWidth color={index % 2 === 0 ? 'white' : 'default'}>
-                {/* TODO */}
-                {section.title}
-              </Section>
-            )
-          }
-          if (section?.__typename === 'ComponentSectionsMenuListing') {
-            return (
-              <Section key={section.id} fullWidth color={index % 2 === 0 ? 'white' : 'default'}>
-                {/* TODO */}
-                {section.title}
+                manual listing
               </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsNewsListing') {
             return (
-              <Section key={section.id} fullWidth color={index % 2 === 0 ? 'white' : 'default'}>
+              <Section key={section.id} fullWidth color={color}>
                 {/* TODO */}
-                {section.title}
+                news listing
               </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsCeremoniesSection') {
             return (
-              <Section key={section.id} fullWidth color={index % 2 === 0 ? 'white' : 'default'}>
+              <Section key={section.id} fullWidth color={color}>
                 {/* TODO */}
-                {section.title}
+                ceremonies listing
               </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsProceduresShortSection') {
             return (
-              <Section key={section.id} fullWidth color={index % 2 === 0 ? 'white' : 'default'}>
+              <Section key={section.id} fullWidth color={color}>
                 {/* TODO */}
-                {section.title}
+                procedures with numbers
               </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsCtaSection') {
             return (
-              <Section key={section.id} fullWidth color={index % 2 === 0 ? 'white' : 'default'}>
+              <Section key={section.id} fullWidth color={color}>
                 {/* TODO */}
-                {section.title}
+                cta section
               </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsReviewsSection') {
             return (
-              <Section key={section.id} fullWidth color={index % 2 === 0 ? 'white' : 'default'}>
+              <Section key={section.id} fullWidth color={color}>
                 {/* TODO */}
-                {section.title}
+                reviews section
               </Section>
             )
           }

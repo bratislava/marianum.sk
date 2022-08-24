@@ -23,6 +23,7 @@ import Select from '../../components/atoms/Select'
 import Tab from '../../components/atoms/Tabs/Tab'
 import Tabs from '../../components/atoms/Tabs/Tabs'
 import Tag from '../../components/atoms/Tag'
+import TagButton from '../../components/atoms/TagButton'
 import TextField from '../../components/atoms/TextField'
 import Accordion from '../../components/molecules/Accordion/Accordion'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
@@ -364,29 +365,20 @@ const Showcase = () => {
           </Stack>
         </Wrapper>
 
-        <Wrapper title="Tags">
+        <Wrapper title="TagButton">
           <Stack width="full">
-            <Tag>I prefer</Tag>
-            <Tag>to call</Tag>
-            <Tag>them</Tag>
-            <Tag isActive>tags</Tag>
+            <TagButton>Its</TagButton>
+            <TagButton>tag</TagButton>
+            <TagButton>button</TagButton>
+            <TagButton isActive>now</TagButton>
           </Stack>
         </Wrapper>
 
-        <Wrapper title="Chips">
+        <Wrapper title="Tag">
           <Stack width="full">
-            <Tag ignoreEvents>Chips</Tag>
-            <Tag ignoreEvents>are just</Tag>
-            <Tag ignoreEvents>tags</Tag>
-            <Tag ignoreEvents isActive>
-              that
-            </Tag>
-            <Tag ignoreEvents isActive>
-              ignore
-            </Tag>
-            <Tag ignoreEvents isActive>
-              mouse and focus events
-            </Tag>
+            <Tag>Chips</Tag>
+            <Tag>are just</Tag>
+            <Tag>tags</Tag>
           </Stack>
         </Wrapper>
 

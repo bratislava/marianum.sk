@@ -16,3 +16,16 @@ fragment Sidebar on ComponentBlocksSidebar {
     }
   }
 }
+
+fragment Cta on ComponentBlocksCta {
+  title
+  description
+  button {
+    ...CtaButton
+  }
+  image {
+    data {
+      ...UploadImageEntity
+    }
+  }
+}

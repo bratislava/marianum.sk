@@ -6,6 +6,7 @@ import Layout from '../components/layouts/Layout'
 import { FooterProps } from '../components/molecules/Footer/Footer'
 import Section from '../components/molecules/Section'
 import MenuListingSection from '../components/sections/MenuListingSection'
+import RichTextSection from '../components/sections/RichTextSection'
 import { Enum_Page_Layout, NavigationItemFragment, PageEntityFragment } from '../graphql'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
@@ -19,7 +20,7 @@ type PageProps = {
 }
 
 const Slug = ({ navigation, faqLink, phoneNumber, page, footerProps }: PageProps) => {
-  const isFullWidth = page.attributes?.layout === Enum_Page_Layout.Fullwidth
+  const fullWidth = page.attributes?.layout === Enum_Page_Layout.Fullwidth
 
   return (
     <Layout
@@ -32,21 +33,20 @@ const Slug = ({ navigation, faqLink, phoneNumber, page, footerProps }: PageProps
       <div className="space-y-6 sm:space-y-8">
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
         {page.attributes?.sections?.map((section, index) => {
+          const color = index % 2 === 0 ? 'white' : 'default'
           if (section?.__typename === 'ComponentSectionsRichtext') {
             return (
-              <Section
+              <RichTextSection
                 key={section.id}
-                fullWidth={isFullWidth}
-                color={index % 2 === 0 ? 'white' : 'default'}
-              >
-                {/* TODO */}
-                {section.markdown}
-              </Section>
+                fullWidth={fullWidth}
+                color={color}
+                markdown={section.markdown}
+              />
             )
           }
           if (section?.__typename === 'ComponentSectionsAccordionGroup') {
             return (
-              <Section key={section.id} fullWidth={isFullWidth}>
+              <Section key={section.id} fullWidth={fullWidth} color={color}>
                 {/* TODO */}
                 accordions
               </Section>
@@ -54,7 +54,7 @@ const Slug = ({ navigation, faqLink, phoneNumber, page, footerProps }: PageProps
           }
           if (section?.__typename === 'ComponentSectionsBranchGroup') {
             return (
-              <Section key={section.id} fullWidth={isFullWidth}>
+              <Section key={section.id} fullWidth={fullWidth} color={color}>
                 {/* TODO */}
                 branches
               </Section>
@@ -62,7 +62,7 @@ const Slug = ({ navigation, faqLink, phoneNumber, page, footerProps }: PageProps
           }
           if (section?.__typename === 'ComponentSectionsContactGroup') {
             return (
-              <Section key={section.id} fullWidth={isFullWidth}>
+              <Section key={section.id} fullWidth={fullWidth} color={color}>
                 {/* TODO */}
                 contacts
               </Section>
@@ -70,7 +70,7 @@ const Slug = ({ navigation, faqLink, phoneNumber, page, footerProps }: PageProps
           }
           if (section?.__typename === 'ComponentSectionsDocumentGroup') {
             return (
-              <Section key={section.id} fullWidth={isFullWidth}>
+              <Section key={section.id} fullWidth={fullWidth} color={color}>
                 {/* TODO */}
                 documents
               </Section>
@@ -78,7 +78,7 @@ const Slug = ({ navigation, faqLink, phoneNumber, page, footerProps }: PageProps
           }
           if (section?.__typename === 'ComponentSectionsGallery') {
             return (
-              <Section key={section.id} fullWidth={isFullWidth}>
+              <Section key={section.id} fullWidth={fullWidth} color={color}>
                 {/* TODO */}
                 gallery
               </Section>
@@ -88,11 +88,28 @@ const Slug = ({ navigation, faqLink, phoneNumber, page, footerProps }: PageProps
             return (
               <MenuListingSection
                 key={section.id}
+                fullWidth={fullWidth}
+                color={color}
+                title={section.title}
                 slug={section.slug}
                 navigation={navigation}
-                isFullWidth={isFullWidth}
-                title={section.title}
               />
+            )
+          }
+          if (section?.__typename === 'ComponentSectionsManualListing') {
+            return (
+              <Section key={section.id} fullWidth={fullWidth} color={color}>
+                {/* TODO */}
+                manual listing
+              </Section>
+            )
+          }
+          if (section?.__typename === 'ComponentSectionsNewsListing') {
+            return (
+              <Section key={section.id} fullWidth={fullWidth} color={color}>
+                {/* TODO */}
+                news listing
+              </Section>
             )
           }
           return null
