@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import cx from 'classnames'
 import { DetailedHTMLProps, InputHTMLAttributes, ReactNode } from 'react'
 
 type TagButtonProps = DetailedHTMLProps<
@@ -14,7 +14,7 @@ const TagButton = ({ children, isActive = false, className, ...rest }: TagButton
     <button
       {...rest}
       type="button"
-      className={classnames(
+      className={cx(
         'flex h-8 w-fit cursor-pointer select-none items-center whitespace-nowrap rounded-full border px-3 text-sm font-semibold',
         {
           'border-primary bg-primary text-white': isActive,
