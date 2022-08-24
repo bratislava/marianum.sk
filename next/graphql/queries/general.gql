@@ -30,85 +30,19 @@ fragment NavigationItem on NavigationItem {
   }
 }
 
-fragment Header on GeneralEntity {
+fragment General on GeneralEntity {
   attributes {
     header {
-      id
-      faqLink
-      phoneNumber
+      ...Header
     }
-  }
-}
-
-fragment Social on GeneralEntity {
-  attributes {
     social {
-      id
-      facebook
-      instagram
-      youtube
-      linkedin
-      twitter
+      ...Social
     }
-  }
-}
-
-fragment Contact on GeneralEntity {
-  attributes {
     contact {
-      id
-      address
-      featuredOpeningHours
-      openingHoursLink
-      phone
-      email
-      contactsLink
-      latitude
-      longitude
-      navigateToLink
+      ...Contact
     }
-  }
-}
-
-fragment Footer on GeneralEntity {
-  attributes {
     footer {
-      id
-      title1
-      links1 {
-        id
-        label
-        url
-        targetBlank
-      }
-      title2
-      links2 {
-        id
-        label
-        url
-        targetBlank
-      }
-      title3
-      links3 {
-        id
-        label
-        url
-        targetBlank
-      }
-      title4
-      links4 {
-        id
-        label
-        url
-        targetBlank
-      }
+      ...Footer
     }
   }
-}
-
-fragment General on GeneralEntity {
-  ...Header
-  ...Social
-  ...Contact
-  ...Footer
 }

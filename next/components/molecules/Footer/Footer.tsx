@@ -6,18 +6,14 @@ import InstagramIcon from '../../../assets/instagram.svg'
 import LinkedInIcon from '../../../assets/linked_in.svg'
 import TwitterIcon from '../../../assets/twitter.svg'
 import YoutubeIcon from '../../../assets/youtube.svg'
-import {
-  ComponentGeneralContacts,
-  ComponentGeneralFooter,
-  ComponentGeneralSocial,
-} from '../../../graphql'
+import { ContactFragment, FooterFragment, SocialFragment } from '../../../graphql'
 import MLink from '../../atoms/MLink'
 import FooterMap from './FooterMap'
 
 export type FooterProps = {
-  contact?: ComponentGeneralContacts | null
-  footer?: ComponentGeneralFooter | null
-  social?: ComponentGeneralSocial | null
+  contact?: ContactFragment | null
+  footer?: FooterFragment | null
+  social?: SocialFragment | null
 }
 
 const Footer = ({ contact, footer, social }: FooterProps) => {
