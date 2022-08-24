@@ -8,23 +8,21 @@ import Breadcrumbs from '../../components/atoms/Breadcrumbs'
 import MLink from '../../components/atoms/MLink'
 import PageWrapper from '../../components/layouts/PageWrapper'
 import ImageGallerySection from '../../components/sections/ImageGallerySection'
-import { BranchEntityFragment, NavigationItemFragment } from '../../graphql'
+import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import { client } from '../../utils/gql'
 import { isDefined } from '../../utils/isDefined'
 
 type PageProps = {
   navigation: NavigationItemFragment[]
-  faqLink: string
-  phoneNumber: string
-  branch: BranchEntityFragment
+  general: GeneralEntityFragment | null
+  branch: BranchEntityFragment | null
 } & SSRConfig
 
-const BranchSlug = ({ navigation, faqLink, phoneNumber, branch }: PageProps) => {
+const BranchSlug = ({ navigation, branch, general }: PageProps) => {
   return (
     <PageWrapper
       navigation={navigation}
-      faqLink={faqLink}
-      phoneNumber={phoneNumber}
+      general={general}
       header={
         <div className="mb-18 bg-primary-dark text-white/72">
           <div className="container mx-auto">
@@ -36,11 +34,11 @@ const BranchSlug = ({ navigation, faqLink, phoneNumber, branch }: PageProps) => 
                 <MLink href="/branches" noStyles className="underline">
                   Pobočky a cintoríny
                 </MLink>
-                <div>{branch.attributes?.title}</div>
+                <div>{branch?.attributes?.title}</div>
               </Breadcrumbs>
             </div>
             <div className="-mt-18 translate-y-18 sm:px-4">
-              <ImageGallerySection images={branch.attributes?.medias?.data} variant="aside" />
+              <ImageGallerySection images={branch?.attributes?.medias?.data} variant="aside" />
             </div>
           </div>
         </div>
@@ -84,7 +82,7 @@ export const getStaticProps: GetStaticProps = async ({
   const slug = last(params?.slug) ?? ''
 
   const [{ navigation, general }, { branches }, translations] = await Promise.all([
-    client.Navigation({ locale }),
+    client.General({ locale }),
     client.BranchBySlug({ locale, slug }),
     serverSideTranslations(locale, ['common']),
   ])
@@ -100,8 +98,7 @@ export const getStaticProps: GetStaticProps = async ({
   return {
     props: {
       navigation: filteredNavigation,
-      faqLink: general?.data?.attributes?.header?.faqLink ?? '',
-      phoneNumber: general?.data?.attributes?.header?.phoneNumber ?? '',
+      general: general?.data ?? null,
       branch: branches.data[0],
       ...translations,
     },
