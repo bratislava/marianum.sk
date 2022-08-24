@@ -6,6 +6,7 @@ import { useHover } from 'usehooks-ts'
 
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
+import FormatDate from '../../atoms/FormatDate'
 import MLink from '../../atoms/MLink'
 
 type ArticleCardProps = {
@@ -30,8 +31,7 @@ const ArticleCard = ({
   const categoryHoverRef = useRef<HTMLAnchorElement>(null)
   const isCategoryHovered = useHover(categoryHoverRef)
 
-  // TODO: MD-170 Format date component
-  const formattedDate = useMemo(() => new Date(date).toLocaleDateString(), [date])
+  const formattedDate = useMemo(() => new Date(date), [date])
 
   const handleCardClick = () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -45,7 +45,10 @@ const ArticleCard = ({
       </div>
       <CardContent className="gap-y-3">
         <span className="text-sm line-clamp-1">
-          <span>{formattedDate}</span> •{' '}
+          <span>
+            <FormatDate value={formattedDate} format="articleCard" />
+          </span>{' '}
+          •{' '}
           <MLink noStyles href={category.linkHref} className="underline" ref={categoryHoverRef}>
             {category.title}
           </MLink>
