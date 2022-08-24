@@ -66,25 +66,33 @@ const Footer = ({
             <div className="flex flex-col gap-3">
               <div className="text-lg font-bold">{t('address')}</div>
               <div className="flex flex-col gap-2 text-sm font-regular">
-                <MLink noStyles href={navigateToLink} className="opacity-72">
-                  {address}
-                </MLink>
-                <div className="flex gap-4">
-                  <div className="opacity-72">{t('open')}</div>
-                  <div>{openingHours}</div>
-                </div>
+                {address && (
+                  <MLink noStyles href={navigateToLink} className="opacity-72">
+                    {address}
+                  </MLink>
+                )}
+                {openingHours && (
+                  <div className="flex gap-4">
+                    <div className="opacity-72">{t('open')}</div>
+                    <div>{openingHours}</div>
+                  </div>
+                )}
               </div>
             </div>
             <div className="h-[1px] bg-white/12" />
             <div className="relative flex flex-col gap-3">
               <div className="text-lg font-bold">{t('contacts')}</div>
               <div className="flex flex-col gap-2 text-sm font-regular">
-                <MLink noStyles href={`tel:${phoneNumber}`} className="opacity-72">
-                  {phoneNumber}
-                </MLink>
-                <MLink noStyles href={`mailto:${emailAddress}`} className="opacity-72">
-                  {emailAddress}
-                </MLink>
+                {phoneNumber && (
+                  <MLink noStyles href={`tel:${phoneNumber}`} className="opacity-72">
+                    {phoneNumber}
+                  </MLink>
+                )}
+                {emailAddress && (
+                  <MLink noStyles href={`mailto:${emailAddress}`} className="opacity-72">
+                    {emailAddress}
+                  </MLink>
+                )}
                 {(socialMedia.facebookLink ||
                   socialMedia.instagramLink ||
                   socialMedia.youtubeLink ||
@@ -120,9 +128,11 @@ const Footer = ({
                 )}
               </div>
               <div className="top-1 right-0 flex md:absolute">
-                <MLink variant="white" href={contactPageLink}>
-                  {t('allContacts')}
-                </MLink>
+                {contactPageLink && (
+                  <MLink variant="white" href={contactPageLink}>
+                    {t('allContacts')}
+                  </MLink>
+                )}
               </div>
             </div>
           </div>
