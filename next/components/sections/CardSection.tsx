@@ -18,11 +18,12 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
     <Section title={title} {...rest} cardGrid button={showMoreButton}>
       {pages?.filter(isDefined).map(({ page }) => {
         if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
+          const { id, attributes } = page?.data || {}
           return (
             <CategoryCard
-              key={page?.data?.id}
-              title={page?.data?.attributes?.title ?? ''}
-              linkHref={page?.data?.attributes?.slug ?? '#'}
+              key={id}
+              title={attributes?.title ?? ''}
+              linkHref={attributes?.slug ?? '#'}
               border
             />
           )

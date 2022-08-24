@@ -33,10 +33,10 @@ const Section = ({
           'container mx-auto px-4': fullWidth,
         })}
       >
-        {(title || (button && button.url)) && (
+        {(title || button?.url) && (
           <div className="flex pb-3 md:pb-10">
             <h2 className="grow">{title}</h2>
-            {button && button.url && (
+            {button?.url && (
               <MLink
                 href={button.url}
                 target={button.targetBlank ? '_blank' : '_self'}

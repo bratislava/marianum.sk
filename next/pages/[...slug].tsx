@@ -30,7 +30,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
 
   return (
     <Layout page={page} navigation={navigation} general={general}>
-      <div className={cx({ 'space-y-6 sm:space-y-8': !fullWidth })}>
+      <div className="gap-y-6 sm:gap-y-8">
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
         {page.attributes?.sections?.map((section, index) => {
           const color = index % 2 === 0 ? 'white' : 'default'
