@@ -21,12 +21,7 @@ const Home = ({ navigation, page, general }: HomeProps) => {
   const { t } = useTranslation()
 
   return (
-    <PageWrapper
-      navigation={navigation}
-      faqLink={general.attributes?.header?.faqLink ?? ''}
-      phoneNumber={general.attributes?.header?.phoneNumber ?? ''}
-      general={general}
-    >
+    <PageWrapper navigation={navigation} general={general}>
       <HomepageSlider slides={page.attributes?.featured?.filter(isDefined)} />
 
       <div>

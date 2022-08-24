@@ -8,21 +8,12 @@ import Navigation from '../molecules/Navigation/Navigation'
 
 type PageWrapperProps = {
   navigation: NavigationItemFragment[]
-  faqLink: string
-  phoneNumber: string
   header?: ReactNode
   children?: ReactNode
   general: GeneralEntityFragment
 }
 
-const PageWrapper = ({
-  navigation,
-  faqLink,
-  phoneNumber,
-  header,
-  children,
-  general,
-}: PageWrapperProps) => {
+const PageWrapper = ({ navigation, header, children, general }: PageWrapperProps) => {
   return (
     <>
       <Head>
@@ -30,7 +21,11 @@ const PageWrapper = ({
       </Head>
 
       <header>
-        <Navigation faqLink={faqLink} phoneNumber={phoneNumber} navigationItems={navigation} />
+        <Navigation
+          faqLink={general.attributes?.header?.faqLink ?? ''}
+          phoneNumber={general.attributes?.header?.phoneNumber ?? ''}
+          navigationItems={navigation}
+        />
         {header}
       </header>
       <main className={cx('bg-background-beige')}>{children}</main>

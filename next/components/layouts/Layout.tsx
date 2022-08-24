@@ -2,9 +2,13 @@ import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 
-import { Enum_Page_Layout, NavigationItemFragment, PageEntityFragment } from '../../graphql'
+import {
+  Enum_Page_Layout,
+  GeneralEntityFragment,
+  NavigationItemFragment,
+  PageEntityFragment,
+} from '../../graphql'
 import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
-import { FooterProps } from '../molecules/Footer/Footer'
 import SideBar from '../molecules/SideBar'
 import HeroSection from '../sections/HeroSection'
 import PageWrapper from './PageWrapper'
@@ -12,21 +16,17 @@ import PageWrapper from './PageWrapper'
 type LayoutProps = {
   page: PageEntityFragment
   navigation: NavigationItemFragment[]
-  faqLink: string
-  phoneNumber: string
   children?: ReactNode
-  footerProps: FooterProps
+  general: GeneralEntityFragment
 }
 
-const Layout = ({ page, navigation, faqLink, phoneNumber, children, footerProps }: LayoutProps) => {
+const Layout = ({ page, navigation, children, general }: LayoutProps) => {
   const router = useRouter()
   const breadcrumbs = getBreadcrumbs(router.asPath, navigation)
 
   return (
     <PageWrapper
       navigation={navigation}
-      faqLink={faqLink}
-      phoneNumber={phoneNumber}
       header={
         page.attributes?.layout === Enum_Page_Layout.Fullwidth ||
         page.attributes?.layout === Enum_Page_Layout.Sidebar ? (
@@ -43,7 +43,7 @@ const Layout = ({ page, navigation, faqLink, phoneNumber, children, footerProps 
           <HeroSection breadcrumbs={breadcrumbs} />
         )
       }
-      footerProps={footerProps}
+      general={general}
     >
       <div
         className={cx('h-full', {
