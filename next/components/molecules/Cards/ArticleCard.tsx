@@ -13,7 +13,7 @@ type ArticleCardProps = {
   imageAlt: string
   title: string
   date: number | Date
-  category: { title: string; linkHref: string }
+  category?: { title: string; linkHref: string }
   linkHref: string
 } & CardBoxProps
 
@@ -45,10 +45,16 @@ const ArticleCard = ({
       </div>
       <CardContent className="gap-y-3">
         <span className="text-sm line-clamp-1">
-          <span>{formattedDate}</span> •{' '}
-          <MLink noStyles href={category.linkHref} className="underline" ref={categoryHoverRef}>
-            {category.title}
-          </MLink>
+          <span>{formattedDate}</span>
+          {category && (
+            <>
+              {' '}
+              •{' '}
+              <MLink noStyles href={category.linkHref} className="underline" ref={categoryHoverRef}>
+                {category.title}
+              </MLink>
+            </>
+          )}
         </span>
         <MLink noStyles href={linkHref}>
           <h5

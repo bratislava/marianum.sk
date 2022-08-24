@@ -5,7 +5,7 @@ import { ReactNode } from 'react'
 import ChevronDown from '../../../assets/chevron_down.svg'
 
 export type AccordionItemProps = {
-  title?: ReactNode | string
+  title: string | null | undefined
   children?: ReactNode
 }
 
@@ -25,7 +25,7 @@ const AccordionItem = ({ title, children }: AccordionItemProps) => {
               </div>
               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border bg-white">
                 <ChevronDown
-                  className={cx('transform transition-transform text-primary', {
+                  className={cx('transform text-primary transition-transform', {
                     'rotate-180': open,
                   })}
                 />

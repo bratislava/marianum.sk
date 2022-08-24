@@ -1,9 +1,13 @@
+import cx from 'classnames'
 import last from 'lodash/last'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import Layout from '../components/layouts/Layout'
+import AccordionGroup from '../components/molecules/Accordion/AccordionGroup'
+import AccordionItem from '../components/molecules/Accordion/AccordionItem'
 import Section from '../components/molecules/Section'
+import CardSection from '../components/sections/CardSection'
 import MenuListingSection from '../components/sections/MenuListingSection'
 import RichTextSection from '../components/sections/RichTextSection'
 import {
@@ -26,7 +30,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
 
   return (
     <Layout page={page} navigation={navigation} general={general}>
-      <div className="space-y-6 sm:space-y-8">
+      <div className={cx({ 'space-y-6 sm:space-y-8': !fullWidth })}>
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
         {page.attributes?.sections?.map((section, index) => {
           const color = index % 2 === 0 ? 'white' : 'default'
@@ -36,15 +40,21 @@ const Slug = ({ navigation, page, general }: PageProps) => {
                 key={section.id}
                 fullWidth={fullWidth}
                 color={color}
-                markdown={section.markdown}
+                content={section.content}
               />
             )
           }
           if (section?.__typename === 'ComponentSectionsAccordionGroup') {
             return (
-              <Section key={section.id} fullWidth={fullWidth} color={color}>
-                {/* TODO */}
-                accordions
+              <Section key={section.id} fullWidth={fullWidth} color={color} title={section.title}>
+                <AccordionGroup>
+                  {section.accordions?.map((accordion) => (
+                    <AccordionItem key={accordion?.id} title={accordion?.title}>
+                      {/* TODO parse and display content properly with EditorJS <Blocks></Blocks> */}
+                      {accordion?.content}
+                    </AccordionItem>
+                  ))}
+                </AccordionGroup>
               </Section>
             )
           }
@@ -94,10 +104,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsManualListing') {
             return (
-              <Section key={section.id} fullWidth={fullWidth} color={color}>
-                {/* TODO */}
-                manual listing
-              </Section>
+              <CardSection key={section.id} fullWidth={fullWidth} color={color} section={section} />
             )
           }
           if (section?.__typename === 'ComponentSectionsNewsListing') {
