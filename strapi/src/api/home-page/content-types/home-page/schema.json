@@ -24,7 +24,9 @@
           "localized": true
         }
       },
-      "component": "blocks.cta"
+      "component": "blocks.cta",
+      "required": true,
+      "min": 1
     },
     "sections": {
       "pluginOptions": {
@@ -36,11 +38,9 @@
       "components": [
         "sections.ceremonies-section",
         "sections.manual-listing",
-        "sections.menu-listing",
         "sections.news-listing",
         "sections.procedures-short-section",
         "sections.reviews-section",
-        "sections.services-listing",
         "sections.cta-section"
       ]
     }

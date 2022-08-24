@@ -1,6 +1,21 @@
 {
   "general": {
-    "hello": "Hello from new Marianum website!"
+    "hello": "Hello from new Marianum website!",
+    "goToSlide": "Go to slide {{number}}"
+  },
+  "components": {
+    "molecules": {
+      "Footer": {
+        "address": "Address",
+        "contacts": "Contacts",
+        "allContacts": "All contacts",
+        "openingHours": "Opening hours",
+        "open": "Open",
+        "founder": "Founder",
+        "cityBratislava": "City of Bratislava",
+        "allRightsReserved": "All rights reserved"
+      }
+    }
   },
   "sections": {
     "ImageGallerySection": {

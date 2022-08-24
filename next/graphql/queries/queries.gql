@@ -1,4 +1,4 @@
-query Navigation($locale: I18NLocaleCode!) {
+query General($locale: I18NLocaleCode!) {
   navigation: renderNavigation(
     navigationIdOrSlug: "main-navigation"
     type: TREE
@@ -9,12 +9,7 @@ query Navigation($locale: I18NLocaleCode!) {
   }
   general(locale: $locale) {
     data {
-      attributes {
-        header {
-          faqLink
-          phoneNumber
-        }
-      }
+      ...GeneralEntity
     }
   }
 }
@@ -67,20 +62,11 @@ query HomePage($locale: I18NLocaleCode) {
   homePage(locale: $locale) {
     data {
       attributes {
+        featured {
+          ...Cta
+        }
         sections {
           ... on ComponentSectionsManualListing {
-            __typename
-            id
-            title
-            # TODO
-          }
-          ... on ComponentSectionsServicesListing {
-            __typename
-            id
-            title
-            # TODO
-          }
-          ... on ComponentSectionsMenuListing {
             __typename
             id
             title

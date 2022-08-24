@@ -10,8 +10,10 @@
     "title": {
       "type": "string"
     },
-    "linkMore": {
-      "type": "string"
+    "showMoreButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "blocks.button-link"
     }
   }
 }

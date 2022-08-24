@@ -16,3 +16,72 @@ fragment Sidebar on ComponentBlocksSidebar {
     }
   }
 }
+
+fragment Cta on ComponentBlocksCta {
+  title
+  description
+  button {
+    ...CtaButton
+  }
+  image {
+    data {
+      ...UploadImageEntity
+    }
+  }
+}
+
+fragment Header on ComponentGeneralHeader {
+  faqLink
+  phoneNumber
+}
+
+fragment Social on ComponentGeneralSocial {
+  facebook
+  instagram
+  youtube
+  linkedin
+  twitter
+}
+
+fragment Contact on ComponentGeneralContacts {
+  address
+  featuredOpeningHours
+  openingHoursLink
+  phone
+  email
+  contactsLink
+  latitude
+  longitude
+  navigateToLink
+}
+
+fragment Footer on ComponentGeneralFooter {
+  title1
+  links1 {
+    id
+    label
+    url
+    targetBlank
+  }
+  title2
+  links2 {
+    id
+    label
+    url
+    targetBlank
+  }
+  title3
+  links3 {
+    id
+    label
+    url
+    targetBlank
+  }
+  title4
+  links4 {
+    id
+    label
+    url
+    targetBlank
+  }
+}
