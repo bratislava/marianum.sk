@@ -17,8 +17,8 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
   return (
     <Section title={title} {...rest} cardGrid button={showMoreButton}>
       {pages?.filter(isDefined).map(({ page }) => {
+        const { id, attributes } = page?.data || {}
         if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
-          const { id, attributes } = page?.data || {}
           return (
             <CategoryCard
               key={id}
@@ -32,13 +32,13 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
         if (style === Enum_Componentsectionsmanuallisting_Style.Article) {
           return (
             <ArticleCard
-              key={page?.data?.id}
-              title={page?.data?.attributes?.title ?? ''}
-              linkHref={page?.data?.attributes?.slug ?? '#'}
+              key={id}
+              title={attributes?.title ?? ''}
+              linkHref={attributes?.slug ?? '#'}
               border
-              imageUrl={page?.data?.attributes?.coverMedia?.data?.attributes?.url ?? ''}
-              imageAlt={page?.data?.attributes?.coverMedia?.data?.attributes?.alternativeText ?? ''}
-              date={page?.data?.attributes?.publishedAt}
+              imageUrl={attributes?.coverMedia?.data?.attributes?.url ?? ''}
+              imageAlt={attributes?.coverMedia?.data?.attributes?.alternativeText ?? ''}
+              date={attributes?.publishedAt}
             />
           )
         }
@@ -46,13 +46,13 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
         if (style === Enum_Componentsectionsmanuallisting_Style.Service) {
           return (
             <ServiceCard
-              key={page?.data?.id}
-              title={page?.data?.attributes?.title ?? ''}
-              linkHref={page?.data?.attributes?.slug ?? '#'}
+              key={id}
+              title={attributes?.title ?? ''}
+              linkHref={attributes?.slug ?? '#'}
               border
-              imageUrl={page?.data?.attributes?.coverMedia?.data?.attributes?.url ?? ''}
-              imageAlt={page?.data?.attributes?.coverMedia?.data?.attributes?.alternativeText ?? ''}
-              subtitle={page?.data?.attributes?.perex}
+              imageUrl={attributes?.coverMedia?.data?.attributes?.url ?? ''}
+              imageAlt={attributes?.coverMedia?.data?.attributes?.alternativeText ?? ''}
+              subtitle={attributes?.perex}
             />
           )
         }
