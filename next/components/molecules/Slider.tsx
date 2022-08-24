@@ -90,14 +90,14 @@ const Slider = ({
   }, [])
 
   useEffect(() => {
-    if (!autoSwipeDuration || isDragging) return () => {}
+    if (!autoSwipeDuration || isDragging || pages.length < 2) return () => {}
 
     const timer = setInterval(() => {
       paginate(1)
     }, autoSwipeDuration)
 
     return () => clearInterval(timer)
-  }, [autoSwipeDuration, paginate, isDragging])
+  }, [autoSwipeDuration, paginate, isDragging, pages])
 
   const goToPage = useCallback(
     (goToIndex: number) => {
@@ -128,15 +128,13 @@ const Slider = ({
 
   return (
     <div
+      onKeyUp={keyUpHandler}
       role="application"
       aria-label={description ?? t('aria.description')}
       className="relative z-0 flex h-full w-full items-center justify-center overflow-hidden"
     >
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
-          tabIndex={0}
-          onLoad={(e) => e.currentTarget.focus()}
-          onKeyUp={keyUpHandler}
           className="absolute h-full w-full outline-none"
           key={page}
           custom={direction}
