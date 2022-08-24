@@ -30,7 +30,7 @@ fragment NavigationItem on NavigationItem {
   }
 }
 
-fragment General on GeneralEntity {
+fragment GeneralEntity on GeneralEntity {
   attributes {
     header {
       ...Header

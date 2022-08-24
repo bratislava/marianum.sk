@@ -2,7 +2,7 @@ import cx from 'classnames'
 import Head from 'next/head'
 import { ReactNode } from 'react'
 
-import { GeneralFragment, NavigationItemFragment } from '../../graphql'
+import { GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import Footer from '../molecules/Footer/Footer'
 import Navigation from '../molecules/Navigation/Navigation'
 
@@ -12,7 +12,7 @@ type PageWrapperProps = {
   phoneNumber: string
   header?: ReactNode
   children?: ReactNode
-  general: GeneralFragment
+  general: GeneralEntityFragment
 }
 
 const PageWrapper = ({

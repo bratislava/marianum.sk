@@ -9,7 +9,7 @@ query General($locale: I18NLocaleCode!) {
   }
   general(locale: $locale) {
     data {
-      ...General
+      ...GeneralEntity
     }
   }
 }

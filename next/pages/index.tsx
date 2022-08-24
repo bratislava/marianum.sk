@@ -6,14 +6,14 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import PageWrapper from '../components/layouts/PageWrapper'
 import Section from '../components/molecules/Section'
 import HomepageSlider from '../components/sections/HomepageSlider'
-import { GeneralFragment, HomePageQuery, NavigationItemFragment } from '../graphql'
+import { GeneralEntityFragment, HomePageQuery, NavigationItemFragment } from '../graphql'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
 
 type HomeProps = {
   navigation: NavigationItemFragment[]
   page: NonNullable<NonNullable<HomePageQuery['homePage']>['data']>
-  general: GeneralFragment
+  general: GeneralEntityFragment
 }
 
 const Home = ({ navigation, page, general }: HomeProps) => {
