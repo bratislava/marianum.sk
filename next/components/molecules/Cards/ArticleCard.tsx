@@ -49,13 +49,13 @@ const ArticleCard = ({
             <FormatDate value={formattedDate} format="articleCard" />
           </span>
           {category && (
-              <>
-                {' '}
-                •{' '}
-                <MLink noStyles href={category.linkHref} className="underline" ref={categoryHoverRef}>
-                  {category.title}
-                </MLink>
-              </>
+            <>
+              {' '}
+              •{' '}
+              <MLink noStyles href={category.linkHref} className="underline" ref={categoryHoverRef}>
+                {category.title}
+              </MLink>
+            </>
           )}
         </span>
         <MLink noStyles href={linkHref}>

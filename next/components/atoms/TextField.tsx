@@ -56,7 +56,7 @@ const TextField = (props: TextFieldProps) => {
           disabled={disabled}
           required={required}
           className={cx(
-            'px-4 bg-transparent resize-y min-h-10 py-[6px] w-full outline-none',
+            'min-h-10 w-full resize-y bg-transparent px-4 py-[6px] outline-none',
             inputClassName,
             {
               'text-foreground-disabled': disabled,
@@ -98,7 +98,7 @@ const TextField = (props: TextFieldProps) => {
         {...rest}
         disabled={disabled}
         required={required}
-        className={cx('bg-transparent h-10 w-full outline-none', inputClassName, {
+        className={cx('h-10 w-full bg-transparent outline-none', inputClassName, {
           'text-foreground-disabled': disabled,
           'pl-4': !leftSlot,
           'pr-4': !rightSlot,
