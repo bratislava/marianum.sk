@@ -1,4 +1,4 @@
-import classnames from 'classnames'
+import cx from 'classnames'
 import Head from 'next/head'
 import { ReactNode } from 'react'
 
@@ -33,7 +33,7 @@ const PageWrapper = ({
         <Navigation faqLink={faqLink} phoneNumber={phoneNumber} navigationItems={navigation} />
         {header}
       </header>
-      <main className={classnames('bg-background-beige')}>{children}</main>
+      <main className={cx('bg-background-beige')}>{children}</main>
       <Footer {...footerProps} />
     </>
   )
