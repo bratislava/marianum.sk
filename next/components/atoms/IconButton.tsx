@@ -2,7 +2,7 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import cx from 'classnames'
 import { ReactNode, useRef } from 'react'
-import { AriaButtonProps, useButton } from 'react-aria'
+import { AriaButtonProps, mergeProps, useButton } from 'react-aria'
 
 import MLink from './MLink'
 
@@ -43,6 +43,8 @@ const Button = ({
     },
     ref,
   )
+
+  const mergedButtonProps = mergeProps(buttonProps, { tabIndex })
 
   const style = cx(
     'flex items-center justify-center rounded-full p-2 text-center align-middle text-btn focus:outline-none',
@@ -106,7 +108,7 @@ const Button = ({
     )
   }
   return (
-    <button type="button" ref={ref} className={style} {...buttonProps} tabIndex={tabIndex}>
+    <button type="button" ref={ref} className={style} {...mergedButtonProps}>
       <span>{children}</span>
     </button>
   )
