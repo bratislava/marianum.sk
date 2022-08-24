@@ -1,4 +1,3 @@
-/* eslint-disable import/no-named-default */
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
@@ -129,12 +128,19 @@ const Footer = ({
           </div>
         </div>
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
-          {linkColumns.map(({ title, links }) => (
-            <div className="flex flex-col gap-4">
+          {linkColumns.map(({ title, links }, colIndex) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <div key={colIndex} className="flex flex-col gap-4">
               <h4>{title}</h4>
               <div className="flex flex-col gap-3">
-                {links.map(({ label, url, targetBlank }) => (
-                  <MLink noStyles href={url} target={targetBlank ? '_blank' : '_self'}>
+                {links.map(({ label, url, targetBlank }, linkIndex) => (
+                  <MLink
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={linkIndex}
+                    noStyles
+                    href={url}
+                    target={targetBlank ? '_blank' : '_self'}
+                  >
                     {label}
                   </MLink>
                 ))}
