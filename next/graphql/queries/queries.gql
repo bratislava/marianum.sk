@@ -1,4 +1,4 @@
-query Navigation($locale: I18NLocaleCode!) {
+query General($locale: I18NLocaleCode!) {
   navigation: renderNavigation(
     navigationIdOrSlug: "main-navigation"
     type: TREE
@@ -9,12 +9,7 @@ query Navigation($locale: I18NLocaleCode!) {
   }
   general(locale: $locale) {
     data {
-      attributes {
-        header {
-          faqLink
-          phoneNumber
-        }
-      }
+      ...GeneralEntity
     }
   }
 }

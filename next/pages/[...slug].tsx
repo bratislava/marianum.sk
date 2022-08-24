@@ -6,22 +6,26 @@ import Layout from '../components/layouts/Layout'
 import Section from '../components/molecules/Section'
 import MenuListingSection from '../components/sections/MenuListingSection'
 import RichTextSection from '../components/sections/RichTextSection'
-import { Enum_Page_Layout, NavigationItemFragment, PageEntityFragment } from '../graphql'
+import {
+  Enum_Page_Layout,
+  GeneralEntityFragment,
+  NavigationItemFragment,
+  PageEntityFragment,
+} from '../graphql'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
 
 type PageProps = {
   navigation: NavigationItemFragment[]
-  faqLink: string
-  phoneNumber: string
   page: PageEntityFragment
+  general: GeneralEntityFragment
 }
 
-const Slug = ({ navigation, faqLink, phoneNumber, page }: PageProps) => {
+const Slug = ({ navigation, page, general }: PageProps) => {
   const fullWidth = page.attributes?.layout === Enum_Page_Layout.Fullwidth
 
   return (
-    <Layout page={page} navigation={navigation} faqLink={faqLink} phoneNumber={phoneNumber}>
+    <Layout page={page} navigation={navigation} general={general}>
       <div className="space-y-6 sm:space-y-8">
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
         {page.attributes?.sections?.map((section, index) => {
@@ -138,7 +142,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ locale = 'sk',
   const slug = last(params?.slug) ?? ''
 
   const [{ navigation, general }, { pages }, translations] = await Promise.all([
-    client.Navigation({ locale }),
+    client.General({ locale }),
     client.PageBySlug({ locale, slug }),
     serverSideTranslations(locale, ['common']) as any, // TODO: fix any
   ])
@@ -155,6 +159,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ locale = 'sk',
       faqLink: general?.data?.attributes?.header?.faqLink ?? '',
       phoneNumber: general?.data?.attributes?.header?.phoneNumber ?? '',
       page: pages.data[0],
+      general: general?.data ?? null,
       ...translations,
     },
     revalidate: 10,
