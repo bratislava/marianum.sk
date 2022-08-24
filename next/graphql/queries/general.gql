@@ -1,56 +1,114 @@
-query General($locale: I18NLocaleCode!) {
-  general(locale: $locale) {
-    data {
-      attributes {
-        header {
-          faqLink
-          phoneNumber
-        }
-        social {
-          facebook
-          instagram
-          youtube
-          linkedin
-          twitter
-        }
-        contact {
-          address
-          featuredOpeningHours
-          openingHoursLink
-          phone
-          email
-          contactsLink
-          latitude
-          longitude
-          navigateToLink
-        }
-        footer {
-          title1
-          links1 {
-            label
-            url
-            targetBlank
-          }
-          title2
-          links2 {
-            label
-            url
-            targetBlank
-          }
-          title3
-          links3 {
-            label
-            url
-            targetBlank
-          }
-          title4
-          links4 {
-            label
-            url
-            targetBlank
-          }
-        }
+fragment FlatNavigationItem on NavigationItem {
+  id
+  title
+  path
+  type
+  related {
+    id
+    attributes {
+      __typename
+      ... on Page {
+        title
+        slug
+      }
+
+      ... on Branch {
+        title
+        slug
       }
     }
   }
+}
+
+fragment NavigationItem on NavigationItem {
+  ...FlatNavigationItem
+  items {
+    ...FlatNavigationItem
+    items {
+      ...FlatNavigationItem
+    }
+  }
+}
+
+fragment Header on GeneralEntity {
+  attributes {
+    header {
+      id
+      faqLink
+      phoneNumber
+    }
+  }
+}
+
+fragment Social on GeneralEntity {
+  attributes {
+    social {
+      id
+      facebook
+      instagram
+      youtube
+      linkedin
+      twitter
+    }
+  }
+}
+
+fragment Contact on GeneralEntity {
+  attributes {
+    contact {
+      id
+      address
+      featuredOpeningHours
+      openingHoursLink
+      phone
+      email
+      contactsLink
+      latitude
+      longitude
+      navigateToLink
+    }
+  }
+}
+
+fragment Footer on GeneralEntity {
+  attributes {
+    footer {
+      id
+      title1
+      links1 {
+        id
+        label
+        url
+        targetBlank
+      }
+      title2
+      links2 {
+        id
+        label
+        url
+        targetBlank
+      }
+      title3
+      links3 {
+        id
+        label
+        url
+        targetBlank
+      }
+      title4
+      links4 {
+        id
+        label
+        url
+        targetBlank
+      }
+    }
+  }
+}
+
+fragment General on GeneralEntity {
+  ...Header
+  ...Social
+  ...Contact
+  ...Footer
 }

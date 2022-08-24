@@ -2,8 +2,8 @@ import cx from 'classnames'
 import Head from 'next/head'
 import { ReactNode } from 'react'
 
-import { NavigationItemFragment } from '../../graphql'
-import Footer, { FooterProps } from '../molecules/Footer/Footer'
+import { GeneralFragment, NavigationItemFragment } from '../../graphql'
+import Footer from '../molecules/Footer/Footer'
 import Navigation from '../molecules/Navigation/Navigation'
 
 type PageWrapperProps = {
@@ -12,7 +12,7 @@ type PageWrapperProps = {
   phoneNumber: string
   header?: ReactNode
   children?: ReactNode
-  footerProps: FooterProps
+  general: GeneralFragment
 }
 
 const PageWrapper = ({
@@ -21,7 +21,7 @@ const PageWrapper = ({
   phoneNumber,
   header,
   children,
-  footerProps,
+  general,
 }: PageWrapperProps) => {
   return (
     <>
@@ -34,7 +34,11 @@ const PageWrapper = ({
         {header}
       </header>
       <main className={cx('bg-background-beige')}>{children}</main>
-      <Footer {...footerProps} />
+      <Footer
+        contact={general.attributes?.contact}
+        footer={general.attributes?.footer}
+        social={general.attributes?.social}
+      />
     </>
   )
 }
