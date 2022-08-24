@@ -4,11 +4,9 @@ import { useMemo } from 'react'
 
 import FacebookIcon from '../../../assets/facebook.svg'
 import InstagramIcon from '../../../assets/instagram.svg'
-import {
-  default as LinkedInIcon,
-  default as TwitterIcon,
-  default as YoutubeIcon,
-} from '../../../assets/linked_in.svg'
+import LinkedInIcon from '../../../assets/linked_in.svg'
+import TwitterIcon from '../../../assets/twitter.svg'
+import YoutubeIcon from '../../../assets/youtube.svg'
 import MLink from '../../atoms/MLink'
 import FooterMap, { FooterMapProps } from './FooterMap'
 
