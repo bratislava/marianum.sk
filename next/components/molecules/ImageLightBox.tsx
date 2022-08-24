@@ -7,7 +7,7 @@ import {
   OverlayContainer,
   useModal,
   useOverlay,
-  usePreventScroll
+  usePreventScroll,
 } from 'react-aria'
 
 import ArrowBack from '../../assets/arrow_back.svg'
@@ -77,8 +77,6 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
                     pagination={({ goToPrevious, goToNext }) => (
                       <div className="container pointer-events-none absolute bottom-0 z-20 mx-auto flex w-full max-w-6xl justify-between p-6 md:bottom-auto">
                         <IconButton
-                          aria-hidden
-                          tabIndex={-1}
                           variant="white"
                           className="pointer-events-auto fixed top-6 right-6"
                           onPress={onClose}
@@ -88,8 +86,6 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
                         {images.length > 1 && (
                           <>
                             <IconButton
-                              aria-hidden
-                              tabIndex={-1}
                               variant="white"
                               className="pointer-events-auto"
                               onPress={goToPrevious}
@@ -97,8 +93,6 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
                               <ArrowBack />
                             </IconButton>
                             <IconButton
-                              aria-hidden
-                              tabIndex={-1}
                               variant="white"
                               className="pointer-events-auto"
                               onPress={goToNext}
