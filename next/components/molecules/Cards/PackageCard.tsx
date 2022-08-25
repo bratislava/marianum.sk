@@ -1,31 +1,23 @@
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React from 'react'
 
 import CheckIcon from '../../../assets/check.svg'
+import { UploadFile } from '../../../graphql'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
 import FormatCurrency from '../../atoms/FormatCurrency'
+import MImage from '../../atoms/MImage'
 import MLink from '../../atoms/MLink'
 
 type PackageCardProps = {
-  imageUrl: string
-  imageAlt: string
+  image: UploadFile
   name: string
   priceFrom: number
   claims: string[]
   linkHref: string
 } & CardBoxProps
 
-const PackageCard = ({
-  imageUrl,
-  imageAlt,
-  name,
-  priceFrom,
-  claims,
-  linkHref,
-  ...props
-}: PackageCardProps) => {
+const PackageCard = ({ image, name, priceFrom, claims, linkHref, ...props }: PackageCardProps) => {
   const router = useRouter()
 
   const handleCardClick = () => {
@@ -36,7 +28,7 @@ const PackageCard = ({
   return (
     <CardBox {...props} onClick={handleCardClick}>
       <div className="aspect-w-[360] aspect-h-[200] w-full bg-gray">
-        <Image src={imageUrl} alt={imageAlt} layout="fill" objectFit="cover" />
+        <MImage image={image} layout="fill" objectFit="cover" />
       </div>
       <CardContent className="justify-between">
         <div>

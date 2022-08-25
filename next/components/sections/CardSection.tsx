@@ -1,6 +1,10 @@
 import React from 'react'
 
-import { Enum_Componentsectionsmanuallisting_Style, ManualListingFragment } from '../../graphql'
+import {
+  Enum_Componentsectionsmanuallisting_Style,
+  ManualListingFragment,
+  UploadFile,
+} from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
 import ArticleCard from '../molecules/Cards/ArticleCard'
 import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
@@ -36,8 +40,7 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
               title={attributes?.title ?? ''}
               linkHref={attributes?.slug ?? '#'}
               border
-              imageUrl={attributes?.coverMedia?.data?.attributes?.url ?? ''}
-              imageAlt={attributes?.coverMedia?.data?.attributes?.alternativeText ?? ''}
+              image={attributes?.coverMedia?.data?.attributes as UploadFile}
               date={attributes?.publishedAt}
             />
           )
@@ -50,8 +53,7 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
               title={attributes?.title ?? ''}
               linkHref={attributes?.slug ?? '#'}
               border
-              imageUrl={attributes?.coverMedia?.data?.attributes?.url ?? ''}
-              imageAlt={attributes?.coverMedia?.data?.attributes?.alternativeText ?? ''}
+              image={attributes?.coverMedia?.data?.attributes as UploadFile}
               subtitle={attributes?.perex}
             />
           )

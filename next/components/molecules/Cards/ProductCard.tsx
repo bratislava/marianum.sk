@@ -1,19 +1,19 @@
 import cx from 'classnames'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useRef } from 'react'
 import { useHover } from 'usehooks-ts'
 
 import ShoppingCartIcon from '../../../assets/shopping_cart.svg'
+import { UploadFile } from '../../../graphql'
 import Button from '../../atoms/Button'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
 import FormatCurrency from '../../atoms/FormatCurrency'
+import MImage from '../../atoms/MImage'
 import MLink from '../../atoms/MLink'
 
 type ProductCardProps = {
-  imageUrl: string
-  imageAlt: string
+  image: UploadFile
   title: string
   linkHref: string
   price: number
@@ -22,8 +22,7 @@ type ProductCardProps = {
 } & CardBoxProps
 
 const ProductCard = ({
-  imageUrl,
-  imageAlt,
+  image,
   title,
   linkHref,
   price,
@@ -43,7 +42,7 @@ const ProductCard = ({
   return (
     <CardBox {...rest} hover={!isButtonHovered} onClick={handleCardClick}>
       <div className="aspect-w-1 aspect-h-1 w-full bg-gray">
-        <Image src={imageUrl} alt={imageAlt} layout="fill" objectFit="contain" />
+        <MImage image={image} layout="fill" objectFit="contain" />
       </div>
       <CardContent className="gap-y-2">
         <MLink href={linkHref} noStyles>

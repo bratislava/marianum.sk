@@ -37,6 +37,57 @@ import ServiceCard from '../../components/molecules/Cards/ServiceCard'
 import Checklist from '../../components/molecules/Checklist/Checklist'
 import Row from '../../components/molecules/Row'
 import Search from '../../components/molecules/Search'
+import { UploadFile } from '../../graphql'
+
+// eslint-disable-next-line no-secrets/no-secrets
+const image: UploadFile = {
+  updatedAt: '2022-08-24T20:30:23.750Z',
+  name: 'adams family',
+  alternativeText: "Adam's family alt",
+  caption: "Adam's family caption",
+  width: 663,
+  height: 422,
+  formats: {
+    small: {
+      ext: '.jpg',
+      url: '/uploads/small_adams_family_1681cf52bb.jpg',
+      hash: 'small_adams_family_1681cf52bb',
+      // eslint-disable-next-line sonarjs/no-duplicate-string
+      mime: 'image/jpeg',
+      name: 'small_adams family',
+      path: null,
+      size: 35.67,
+      width: 500,
+      height: 318,
+    },
+    thumbnail: {
+      ext: '.jpg',
+      // eslint-disable-next-line no-secrets/no-secrets
+      url: '/uploads/thumbnail_adams_family_1681cf52bb.jpg',
+      // eslint-disable-next-line no-secrets/no-secrets
+      hash: 'thumbnail_adams_family_1681cf52bb',
+      mime: 'image/jpeg',
+      name: 'thumbnail_adams family',
+      path: null,
+      size: 10.75,
+      width: 245,
+      height: 156,
+    },
+  },
+  hash: 'adams_family_1681cf52bb',
+  ext: '.jpg',
+  mime: 'image/jpeg',
+  size: 59.67,
+  // eslint-disable-next-line no-secrets/no-secrets
+  url: '/uploads/adams_family_1681cf52bb.jpg',
+  previewUrl: null,
+  provider: 'local',
+  provider_metadata: null,
+  createdAt: '2022-08-24T20:30:23.750Z',
+  placeholder:
+    // eslint-disable-next-line no-secrets/no-secrets
+    'data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUG/8QAIRAAAQQABwEBAAAAAAAAAAAAAQIDBAUABxESEyExBqH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AkZQSpl3UW1bDkphOQqlyZvSyklL7ShwuIV6DtJB1B8696yDWYP08NpEWPYOcLKQ2jV1QO1PQ/BhhgP/Z',
+}
 
 type WrapperProps = {
   title?: string
@@ -986,8 +1037,7 @@ const Showcase = () => {
 
           <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             <ArticleCard
-              imageUrl="/card-example.jpg"
-              imageAlt="Example image for card"
+              image={image}
               border={cardsBorder}
               title="Article card"
               category={{ title: 'Category', linkHref: '#' }}
@@ -996,16 +1046,14 @@ const Showcase = () => {
             />
             <ProductCard
               linkHref="#"
-              imageUrl="/card-example.jpg"
-              imageAlt="Example image for card"
+              image={image}
               title="Product card"
               price={500_011_656_161}
               border={cardsBorder}
             />
             <ProductCard
               linkHref="#"
-              imageUrl="/card-example.jpg"
-              imageAlt="Example image for card"
+              image={image}
               title="Product card"
               showAddToCartButton
               onAddToCartPress={() => {}}
@@ -1017,8 +1065,7 @@ const Showcase = () => {
               title="Headline"
               subtitle="Subtitle"
               linkHref="#"
-              imageUrl="/card-example.jpg"
-              imageAlt="Example image for card"
+              image={image}
               border={cardsBorder}
             />
             <FaqThemeCard border={cardsBorder} title="Faq card" subtitle="Subtitle" linkHref="" />
@@ -1028,16 +1075,9 @@ const Showcase = () => {
               openingHoursText="09:00 – 18:00"
               linkHref="#"
             />
-            <PartnerCard
-              title="Partner name"
-              linkHref="#"
-              imageUrl="/card-example.jpg"
-              imageAlt="Example image for card"
-              border={cardsBorder}
-            />
+            <PartnerCard title="Partner name" linkHref="#" image={image} border={cardsBorder} />
             <PackageCard
-              imageUrl="/card-example.jpg"
-              imageAlt="Example image for card"
+              image={image}
               name="Package name"
               priceFrom={1999}
               claims={[
