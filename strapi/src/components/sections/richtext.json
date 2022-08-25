@@ -7,7 +7,7 @@
   },
   "options": {},
   "attributes": {
-    "markdown": {
+    "content": {
       "type": "richtext"
     },
     "button": {

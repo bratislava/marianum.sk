@@ -85,3 +85,29 @@ fragment Footer on ComponentGeneralFooter {
     targetBlank
   }
 }
+
+fragment AccordionGroup on ComponentSectionsAccordionGroup {
+  id
+  title
+  accordions {
+    id
+    title
+    content
+  }
+}
+
+fragment ManualListing on ComponentSectionsManualListing {
+  id
+  title
+  style
+  showMoreButton {
+    ...CtaButton
+  }
+  pages {
+    page {
+      data {
+        ...PageCardEntity
+      }
+    }
+  }
+}

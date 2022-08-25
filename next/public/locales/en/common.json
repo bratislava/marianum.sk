@@ -1,10 +1,20 @@
 {
   "general": {
-    "hello": "Hello from new Marianum website!",
+    "showMore": "Show more",
     "goToSlide": "Go to slide {{number}}"
   },
   "components": {
     "molecules": {
+      "Slider": {
+        "aria": {
+          "description": "Slider"
+        }
+      },
+      "ImageLightBox": {
+        "aria": {
+          "description": "Image gallery. Press left arrow key to go to previous image. Press right arrow key to go to next image. Press Escape key to close image gallery."
+        }
+      },
       "Footer": {
         "address": "Address",
         "contacts": "Contacts",
@@ -21,7 +31,10 @@
     "ImageGallerySection": {
       "morePhotos_one": "+{{count}} photo",
       "morePhotos_other": "+{{count}} photos",
-      "showAllPhotos": "Show all photos"
+      "showAllPhotos": "Show all photos",
+      "aria": {
+        "openImageGallery": "Open image gallery"
+      }
     }
   }
 }

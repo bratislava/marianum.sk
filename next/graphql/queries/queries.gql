@@ -68,9 +68,7 @@ query HomePage($locale: I18NLocaleCode) {
         sections {
           ... on ComponentSectionsManualListing {
             __typename
-            id
-            title
-            # TODO
+            ...ManualListing
           }
           ... on ComponentSectionsNewsListing {
             __typename

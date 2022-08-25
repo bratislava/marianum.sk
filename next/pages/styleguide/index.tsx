@@ -25,7 +25,7 @@ import Tabs from '../../components/atoms/Tabs/Tabs'
 import Tag from '../../components/atoms/Tag'
 import TagButton from '../../components/atoms/TagButton'
 import TextField from '../../components/atoms/TextField'
-import Accordion from '../../components/molecules/Accordion/Accordion'
+import AccordionGroup from '../../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
 import ArticleCard from '../../components/molecules/Cards/ArticleCard'
 import BranchCard from '../../components/molecules/Cards/BranchCard'
@@ -820,7 +820,7 @@ const Showcase = () => {
 
         <Wrapper title="Accordion">
           <Stack width="full">
-            <Accordion>
+            <AccordionGroup>
               <AccordionItem title="Accordion">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quis nobis quia
                 corporis officiis dolorem quisquam quam sint! Et in libero, nihil magni amet quasi
@@ -836,7 +836,7 @@ const Showcase = () => {
                 corporis officiis dolorem quisquam quam sint! Et in libero, nihil magni amet quasi
                 doloribus commodi repellat optio quibusdam!
               </AccordionItem>
-            </Accordion>
+            </AccordionGroup>
           </Stack>
         </Wrapper>
 
