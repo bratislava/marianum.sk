@@ -17,7 +17,7 @@ type LayoutProps = {
   page: PageEntityFragment
   navigation: NavigationItemFragment[]
   children?: ReactNode
-  general: GeneralEntityFragment
+  general: GeneralEntityFragment | null
 }
 
 const Layout = ({ page, navigation, children, general }: LayoutProps) => {

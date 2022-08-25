@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { AnimatePresence, motion, PanInfo, Variant } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { wrap } from 'popmotion'
@@ -127,6 +126,7 @@ const Slider = ({
   )
 
   return (
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
     <div
       onKeyUp={keyUpHandler}
       role="application"

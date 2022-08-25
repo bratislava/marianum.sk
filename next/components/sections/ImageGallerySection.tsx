@@ -4,40 +4,41 @@
 
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
-import { KeyboardEvent, useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 import { useOverlayTriggerState } from 'react-stately'
 
 import { UploadImageEntityFragment } from '../../graphql'
+import { onEnterOrSpaceKeyDown } from '../../utils/onEnterOrSpaceKeyDown'
 import ImageLightBox from '../molecules/ImageLightBox'
 import Section from '../molecules/Section'
 
 export type ImageGallerySectionProps = {
   title?: string | null
-  images?: UploadImageEntityFragment[] | null
+  images: UploadImageEntityFragment[] | undefined
   variant?: 'bellow' | 'aside'
 }
 
-const ImageGallerySection = ({ title, images, variant = 'bellow' }: ImageGallerySectionProps) => {
-  const filteredImages = useMemo(() => {
-    return images?.filter((i) => i) ?? []
-  }, [images])
-
+const ImageGallerySection = ({
+  title,
+  images = [],
+  variant = 'bellow',
+}: ImageGallerySectionProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'sections.ImageGallerySection' })
 
   // all images count
   const imageCount = useMemo(() => {
-    return filteredImages.length
-  }, [filteredImages])
+    return images.length
+  }, [images])
 
   const firstImage = useMemo(() => {
-    return filteredImages[0]
-  }, [filteredImages])
+    return (images[0] ?? undefined) as UploadImageEntityFragment | undefined
+  }, [images])
 
   const { ref: containerRef, width: containerWidth } = useResizeDetector()
 
   // number of columns (when 'below' layout is set) || 3 (when 'aside' layout is set)
-  const smallImagePlaceholderCount = useMemo(() => {
+  const thumbnailCount = useMemo(() => {
     if (variant === 'aside') {
       // variant 'aside' large
       return (containerWidth ?? 0) > 700
@@ -57,12 +58,12 @@ const ImageGallerySection = ({ title, images, variant = 'bellow' }: ImageGallery
 
   // number of not displayed images
   const moreImagesCount = useMemo(() => {
-    return Math.max(imageCount - smallImagePlaceholderCount, 0)
-  }, [imageCount, smallImagePlaceholderCount])
+    return Math.max(imageCount - thumbnailCount, 0)
+  }, [imageCount, thumbnailCount])
 
   const smallImages = useMemo(() => {
-    return filteredImages.slice(1, smallImagePlaceholderCount + 1)
-  }, [filteredImages, smallImagePlaceholderCount])
+    return images.slice(1, thumbnailCount + 1)
+  }, [images, thumbnailCount])
 
   const overlayState = useOverlayTriggerState({ defaultOpen: false })
   const [initialImageIndex, setInitialImageIndex] = useState(0)
@@ -75,65 +76,56 @@ const ImageGallerySection = ({ title, images, variant = 'bellow' }: ImageGallery
     [overlayState],
   )
 
-  const onContainerKeyUp = useCallback(
-    ({ code }: KeyboardEvent) => {
-      if (code === 'Enter' || code === 'Space') {
-        openAtImageIndex(0)
-      }
-    },
-    [openAtImageIndex],
-  )
-
   return (
     <Section>
-      <div
-        tabIndex={0}
-        role="button"
-        onKeyUp={onContainerKeyUp}
-        aria-label={t('aria.openImageGallery')}
-        className="relative flex w-full flex-col gap-4 outline-offset-2 outline-primary focus:outline-4"
-      >
+      <div className="relative flex w-full flex-col gap-4">
         {title && <div className="text-h2">{title}</div>}
 
         <div
           ref={containerRef}
-          className={cx({
+          role="button"
+          tabIndex={0}
+          aria-label={t('aria.openImageGallery')}
+          onKeyUp={onEnterOrSpaceKeyDown(() => openAtImageIndex(0))}
+          className={cx('cursor-default outline-offset-2 outline-primary focus:outline-4', {
             'flex flex-col ': variant === 'bellow',
             'grid grid-cols-[1fr_auto]': variant === 'aside',
           })}
         >
           {/* first image */}
-          <div
-            onClick={() => openAtImageIndex(0)}
-            className={cx('relative w-full ', {
-              // large 'bellow' layout
-              'h-[500px]': smallImagePlaceholderCount > 6 && variant === 'bellow',
-              // small & middle 'bellow' layout
-              'pt-[53%]': smallImagePlaceholderCount <= 6 && variant === 'bellow',
-              // large 'aside' layout
-              'h-[360px]': smallImagePlaceholderCount !== 0 && variant === 'aside',
-              // small 'aside' layout
-              'pt-[54%]': smallImagePlaceholderCount === 0 && variant === 'aside',
-            })}
-          >
-            <img
-              className="absolute top-0 h-full w-full object-cover"
-              src={firstImage.attributes?.url}
-              alt={firstImage.attributes?.alternativeText ?? ''}
-            />
-          </div>
+          {firstImage && (
+            <div
+              onClick={() => openAtImageIndex(0)}
+              className={cx('relative w-full cursor-pointer', {
+                // large 'bellow' layout
+                'h-[500px]': thumbnailCount > 6 && variant === 'bellow',
+                // small & middle 'bellow' layout
+                'pt-[53%]': thumbnailCount <= 6 && variant === 'bellow',
+                // large 'aside' layout
+                'h-[360px]': thumbnailCount !== 0 && variant === 'aside',
+                // small 'aside' layout
+                'pt-[54%]': thumbnailCount === 0 && variant === 'aside',
+              })}
+            >
+              <img
+                className="absolute top-0 h-full w-full object-cover"
+                src={firstImage.attributes?.url}
+                alt={firstImage.attributes?.alternativeText ?? ''}
+              />
+            </div>
+          )}
 
           {/* row images */}
           {variant === 'bellow' && smallImages.length > 0 && (
             <div
               className="mt-4 grid gap-4"
-              style={{ gridTemplateColumns: `repeat(${smallImagePlaceholderCount + 1}, 1fr)` }}
+              style={{ gridTemplateColumns: `repeat(${thumbnailCount + 1}, 1fr)` }}
             >
               {smallImages.map((image, index) => (
                 <div
                   onClick={() => openAtImageIndex(index + 1)}
                   key={image.id}
-                  className="relative w-full pt-[100%]"
+                  className="relative w-full cursor-pointer pt-[100%]"
                 >
                   <img
                     className="absolute top-0 h-full w-full object-cover"
@@ -147,9 +139,9 @@ const ImageGallerySection = ({ title, images, variant = 'bellow' }: ImageGallery
               {moreImagesCount > 0 && (
                 <div
                   onClick={() => openAtImageIndex(0)}
-                  className="relative w-full border border-border pt-[100%]"
+                  className="relative w-full cursor-pointer border border-border pt-[100%]"
                 >
-                  <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white text-center">
+                  <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white p-2 text-center font-semibold text-primary">
                     {t('morePhotos', { count: moreImagesCount })}
                   </div>
                 </div>
@@ -170,7 +162,7 @@ const ImageGallerySection = ({ title, images, variant = 'bellow' }: ImageGallery
                 <div
                   onClick={() => openAtImageIndex(index + 1)}
                   key={image.id}
-                  className="relative w-[168px] pt-[168px]"
+                  className="relative w-[168px] cursor-pointer pt-[168px]"
                 >
                   <img
                     className="absolute top-0 h-full w-full object-cover"
@@ -182,7 +174,10 @@ const ImageGallerySection = ({ title, images, variant = 'bellow' }: ImageGallery
 
               {/* more images button */}
               {moreImagesCount > 0 && (
-                <div onClick={() => openAtImageIndex(0)} className="relative w-[168px] pt-[166px]">
+                <div
+                  onClick={() => openAtImageIndex(0)}
+                  className="relative w-[168px] cursor-pointer pt-[166px]"
+                >
                   <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white p-8 text-center font-semibold text-primary">
                     {t('showAllPhotos')}
                   </div>
@@ -195,7 +190,7 @@ const ImageGallerySection = ({ title, images, variant = 'bellow' }: ImageGallery
       <ImageLightBox
         onClose={() => overlayState.close()}
         isOpen={overlayState.isOpen}
-        images={filteredImages}
+        images={images}
         initialImageIndex={initialImageIndex}
         isDismissable
       />
