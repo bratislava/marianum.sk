@@ -1,5 +1,5 @@
 import { ComponentSectionsRichtext } from '../../graphql'
-import RichText from '../atoms/RichText'
+import RichText from '../atoms/RichText/RichText'
 import Section, { SectionProps } from '../molecules/Section'
 
 type RichTextSectionProps = Pick<SectionProps, 'fullWidth' | 'color'> & {
