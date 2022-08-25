@@ -6,7 +6,7 @@ import type { AppProps } from 'next/app'
 import { appWithTranslation } from 'next-i18next'
 import { OverlayProvider } from 'react-aria'
 
-import MI18nProvider from '../components/MI18nProvider'
+import MI18nProvider from '../components/atoms/MI18nProvider'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
