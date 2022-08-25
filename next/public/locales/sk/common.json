@@ -24,6 +24,16 @@
         "founder": "Zriaďovateľ",
         "cityBratislava": "Mesto Bratislava",
         "allRightsReserved": "Všetky práva vyhradené"
+      },
+      "Checklist": {
+        "aria": {
+          "markAsDone": "Označiť krok ako vybavený",
+          "markAsNotDone": "Označiť krok ako nevybavený",
+          "skip": "Preskočiť krok"
+        },
+        "markAsDone": "Vybavené",
+        "markAsNotDone": "Označiť ako nevybavené",
+        "skip": "Preskočiť"
       }
     }
   },

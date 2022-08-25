@@ -14,6 +14,14 @@ query General($locale: I18NLocaleCode!) {
   }
 }
 
+query Procedures($locale: I18NLocaleCode!) {
+  procedure(locale: $locale) {
+    data {
+      ...ProceduresEntity
+    }
+  }
+}
+
 query PageBySlug($locale: I18NLocaleCode!, $slug: String!) {
   pages(locale: $locale, filters: { slug: { eq: $slug } }) {
     data {
@@ -87,7 +95,9 @@ query HomePage($locale: I18NLocaleCode) {
             __typename
             id
             title
-            # TODO
+            showMoreButton {
+              ...CtaButton
+            }
           }
           ... on ComponentSectionsCtaSection {
             __typename
@@ -103,6 +113,11 @@ query HomePage($locale: I18NLocaleCode) {
           }
         }
       }
+    }
+  }
+  procedure(locale: $locale) {
+    data {
+      ...ProceduresEntity
     }
   }
 }

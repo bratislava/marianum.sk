@@ -21,6 +21,7 @@ interface IRowProps {
   moreContent?: React.ReactNode
   button?: React.ReactNode
   arrowInCorner?: boolean
+  number?: number
 }
 
 const Row = ({
@@ -34,13 +35,14 @@ const Row = ({
   moreContent,
   button = null,
   arrowInCorner = false,
+  number,
 }: IRowProps) => {
   const router = useRouter()
 
   const linkProps = link
     ? {
         role: 'link',
-        tabIndex: 0,
+        tabIndex: -1,
         onClick: () => router.push(link),
         onKeyDown: onEnterOrSpaceKeyDown(() => router.push(link)),
       }
@@ -55,6 +57,7 @@ const Row = ({
         { 'cursor-pointer': link },
       )}
     >
+      {number && <div className="pr-8 pl-1 text-h1 font-bold text-primary">{number}</div>}
       <div className="grow space-y-1.5">
         {category && (
           <MLink
@@ -67,8 +70,8 @@ const Row = ({
         )}
 
         <h5
-          className={cx('w-fit text-h5 text-foreground-heading hover:underline', {
-            'hover:underline group-focus:underline': link,
+          className={cx('w-fit text-h5 text-foreground-heading', {
+            'group-hover:underline group-focus:underline': link,
           })}
         >
           {title}
@@ -85,7 +88,7 @@ const Row = ({
             // eslint-disable-next-line react/no-array-index-key
             <React.Fragment key={i}>
               <span>{metadataItem}</span>
-              {i !== metadata.length - 1 && <span>&bull;</span>}
+              {i !== metadata.length - 1 && <span>•</span>}
             </React.Fragment>
           ))}
         </div>
@@ -99,7 +102,7 @@ const Row = ({
           </div>
         )}
 
-        {moreContent && <div className="pt-6 text-md">{moreContent}</div>}
+        {moreContent && <div className="pt-2">{moreContent}</div>}
       </div>
 
       <div className={cx('flex gap-x-5', { 'items-center': !arrowInCorner })}>
@@ -110,7 +113,6 @@ const Row = ({
               {/* desktop button */}
               <Button
                 href={link}
-                tabIndex={-1}
                 variant="plain-secondary"
                 startIcon={<OpenInNewIcon />}
                 className="hidden md:flex"
@@ -120,7 +122,7 @@ const Row = ({
               {/* mobile buttom */}
               <IconButton
                 href={link}
-                tabIndex={-1}
+                aria-label={title}
                 variant="plain-secondary"
                 className="-mr-2 md:hidden"
               >
@@ -129,7 +131,7 @@ const Row = ({
             </>
           ) : (
             // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-            <IconButton href={link} tabIndex={-1} className="-mr-2 hidden md:flex">
+            <IconButton href={link} aria-label={title} className="-mr-2 hidden md:flex">
               <ChevronRightIcon />
             </IconButton>
           ))}

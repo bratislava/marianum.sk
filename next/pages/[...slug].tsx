@@ -10,6 +10,7 @@ import Section from '../components/molecules/Section'
 import CardSection from '../components/sections/CardSection'
 import ImageGallerySection from '../components/sections/ImageGallerySection'
 import MenuListingSection from '../components/sections/MenuListingSection'
+import ProceduresSection from '../components/sections/ProceduresSection'
 import RichTextSection from '../components/sections/RichTextSection'
 import {
   Enum_Page_Layout,
@@ -35,6 +36,13 @@ const Slug = ({ navigation, page, general }: PageProps) => {
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
         {page.attributes?.sections?.map((section, index) => {
           const color = index % 2 === 0 ? 'white' : 'default'
+          if (section?.__typename === 'ComponentSectionsProceduresSection') {
+            return (
+              <Section key={section.id} fullWidth={fullWidth} color={color} title={section.title}>
+                <ProceduresSection />
+              </Section>
+            )
+          }
           if (section?.__typename === 'ComponentSectionsRichtext') {
             return (
               <RichTextSection

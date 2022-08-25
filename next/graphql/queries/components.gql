@@ -86,6 +86,16 @@ fragment Footer on ComponentGeneralFooter {
   }
 }
 
+fragment Procedure on ComponentGeneralProcedure {
+  title
+  steps {
+    id
+    title
+    description
+  }
+  downloadLink
+}
+
 fragment AccordionGroup on ComponentSectionsAccordionGroup {
   id
   title

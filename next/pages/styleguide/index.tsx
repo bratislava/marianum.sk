@@ -707,6 +707,11 @@ const Showcase = () => {
                 </div>
               }
             />
+            <Row
+              title="Volať záchrannú zdravotnú službu 112"
+              number={1}
+              moreContent="Ak Váš blízky umrie mimo zdravotníckeho zariadenia, neodkladne kontaktujte tiesňovú linku 112, ktorá na miesto vyšle obhliadajúceho lekára."
+            />
           </Stack>
         </Wrapper>
 
@@ -787,8 +792,8 @@ const Showcase = () => {
                   label: '📖 City library',
                 },
                 {
-                  key: 'hompage',
-                  label: '🟥 Hompage',
+                  key: 'homepage',
+                  label: '🟥 Homepage',
                 },
               ]}
             />
@@ -810,8 +815,8 @@ const Showcase = () => {
                   label: '📖 City library',
                 },
                 {
-                  key: 'hompage',
-                  label: '🟥 Hompage',
+                  key: 'homepage',
+                  label: '🟥 Homepage',
                 },
               ]}
             />

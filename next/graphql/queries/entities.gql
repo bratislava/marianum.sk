@@ -166,6 +166,22 @@ fragment PageEntity on PageEntity {
           targetBlank
         }
       }
+      ... on ComponentSectionsProceduresSection {
+        __typename
+        id
+        title
+      }
+    }
+  }
+}
+
+fragment ProceduresEntity on ProcedureEntity {
+  attributes {
+    outsideMedicalFacility {
+      ...Procedure
+    }
+    atMedicalFacility {
+      ...Procedure
     }
   }
 }
