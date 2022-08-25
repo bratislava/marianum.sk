@@ -1,3 +1,5 @@
+import { applyEditorjsFixes } from "./utils/apply-editorjs-fixes";
+
 export default {
   config: {
     locales: ["sk"],
@@ -8,5 +10,6 @@ export default {
   },
   bootstrap(app) {
     console.log(app);
+    applyEditorjsFixes();
   },
 };
