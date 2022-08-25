@@ -24,6 +24,11 @@ fragment BranchEntity on BranchEntity {
         ...ContactEntity
       }
     }
+    medias {
+      data {
+        ...UploadImageEntity
+      }
+    }
   }
 }
 
@@ -35,6 +40,21 @@ fragment ContactEntity on ContactEntity {
     email
     phone1
     phone2
+  }
+}
+
+fragment PageCardEntity on PageEntity {
+  id
+  attributes {
+    title
+    slug
+    publishedAt
+    perex
+    coverMedia {
+      data {
+        ...UploadImageEntity
+      }
+    }
   }
 }
 
@@ -60,13 +80,7 @@ fragment PageEntity on PageEntity {
     sections {
       ... on ComponentSectionsAccordionGroup {
         __typename
-        id
-        title
-        accordions {
-          id
-          title
-          description
-        }
+        ...AccordionGroup
       }
       ... on ComponentSectionsBranchGroup {
         __typename
@@ -134,9 +148,7 @@ fragment PageEntity on PageEntity {
       }
       ... on ComponentSectionsManualListing {
         __typename
-        id
-        title
-        # TODO
+        ...ManualListing
       }
       ... on ComponentSectionsNewsListing {
         __typename
@@ -147,7 +159,7 @@ fragment PageEntity on PageEntity {
       ... on ComponentSectionsRichtext {
         __typename
         id
-        markdown
+        content
         button {
           label
           url

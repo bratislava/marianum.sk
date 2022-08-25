@@ -1,5 +1,40 @@
 {
   "general": {
+    "showMore": "Show more",
     "goToSlide": "Go to slide {{number}}"
+  },
+  "components": {
+    "molecules": {
+      "Slider": {
+        "aria": {
+          "description": "Slider"
+        }
+      },
+      "ImageLightBox": {
+        "aria": {
+          "description": "Image gallery. Press left arrow key to go to previous image. Press right arrow key to go to next image. Press Escape key to close image gallery."
+        }
+      },
+      "Footer": {
+        "address": "Address",
+        "contacts": "Contacts",
+        "allContacts": "All contacts",
+        "openingHours": "Opening hours",
+        "open": "Open",
+        "founder": "Founder",
+        "cityBratislava": "City of Bratislava",
+        "allRightsReserved": "All rights reserved"
+      }
+    }
+  },
+  "sections": {
+    "ImageGallerySection": {
+      "morePhotos_one": "+{{count}} photo",
+      "morePhotos_other": "+{{count}} photos",
+      "showAllPhotos": "Show all photos",
+      "aria": {
+        "openImageGallery": "Open image gallery"
+      }
+    }
   }
 }

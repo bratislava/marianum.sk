@@ -1,10 +1,10 @@
 import cx from 'classnames'
-import NextLink, { LinkProps as NextLinkProps } from 'next/link'
-import { forwardRef } from 'react'
+import NextLink from 'next/link'
+import { ComponentProps, forwardRef } from 'react'
 
 import ArrowRightIcon from '../../assets/arrow_forward.svg'
 
-export type LinkProps = Omit<NextLinkProps, 'as' | 'passHref'> & {
+export type LinkProps = Omit<ComponentProps<typeof NextLink>, 'as' | 'passHref'> & {
   children: React.ReactNode
   variant?: 'primary' | 'white'
   noArrow?: boolean
@@ -48,6 +48,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
             ref={ref}
             {...rest}
             className={cx(
+              className,
               'inline-flex items-center justify-center space-x-2 text-center align-middle text-md font-bold',
               {
                 'text-primary hover:text-primary-dark': variant === 'primary',
