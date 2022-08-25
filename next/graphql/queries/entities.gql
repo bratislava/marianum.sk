@@ -24,6 +24,11 @@ fragment BranchEntity on BranchEntity {
         ...ContactEntity
       }
     }
+    medias {
+      data {
+        ...UploadImageEntity
+      }
+    }
   }
 }
 

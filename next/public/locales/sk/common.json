@@ -4,15 +4,38 @@
     "goToSlide": "Ísť na slide {{number}}"
   },
   "components": {
-    "Footer": {
-      "address": "Adresa",
-      "contacts": "Kontakty",
-      "allContacts": "Všetky kontakty",
-      "openingHours": "Otváracie hodiny",
-      "open": "Otvorené",
-      "founder": "Zriaďovateľ",
-      "cityBratislava": "Mesto Bratislava",
-      "allRightsReserved": "Všetky práva vyhradené"
+    "molecules": {
+      "Slider": {
+        "aria": {
+          "description": "Posúvač"
+        }
+      },
+      "ImageLightBox": {
+        "aria": {
+          "description": "Galéria obrázkov. Stlačte šípku vľavo pre zobrazenie predchádzajúceho obrázku. Stlačte šípku vpravo pre zobrazenie nasledujúceho obrázku. Zatvorte stlačením klávesu Escape."
+        }
+      },
+      "Footer": {
+        "address": "Adresa",
+        "contacts": "Kontakty",
+        "allContacts": "Všetky kontakty",
+        "openingHours": "Otváracie hodiny",
+        "open": "Otvorené",
+        "founder": "Zriaďovateľ",
+        "cityBratislava": "Mesto Bratislava",
+        "allRightsReserved": "Všetky práva vyhradené"
+      }
+    }
+  },
+  "sections": {
+    "ImageGallerySection": {
+      "morePhotos_one": "+{{count}} fotka",
+      "morePhotos_few": "+{{count}} fotky",
+      "morePhotos_other": "+{{count}} fotiek",
+      "showAllPhotos": "Zobraziť všetky fotky",
+      "aria": {
+        "openImageGallery": "Otvoriť galériu obrázkov"
+      }
     }
   }
 }

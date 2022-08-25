@@ -17,7 +17,7 @@ type LayoutProps = {
   page: PageEntityFragment
   navigation: NavigationItemFragment[]
   children?: ReactNode
-  general: GeneralEntityFragment
+  general: GeneralEntityFragment | null
 }
 
 const Layout = ({ page, navigation, children, general }: LayoutProps) => {
@@ -60,7 +60,7 @@ const Layout = ({ page, navigation, children, general }: LayoutProps) => {
             // Add container for all layouts except 'fullwidth'
             'container relative mx-auto': page.attributes?.layout !== Enum_Page_Layout.Fullwidth,
             // Set grid for Sidebar layout
-            'grid gap-6 p-4 md:auto-cols-auto md:grid-flow-col md:py-20':
+            'grid gap-6 p-4 md:grid-flow-col md:grid-cols-[1fr_auto] md:py-20':
               page.attributes?.layout === Enum_Page_Layout.Sidebar,
             // Center content for Centered and Article layout
             'px-4 pb-6 sm:px-20 sm:pb-12 md:px-28 lg:px-40':

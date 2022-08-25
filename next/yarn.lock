@@ -2590,6 +2590,14 @@
     "@react-types/combobox" "^3.5.2"
     "@react-types/shared" "^3.14.0"
 
+"@react-stately/data@^3.6.0":
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@react-stately/data/-/data-3.6.0.tgz#6af1cb81940e7ec3c8ef93b07fb968617a2951bb"
+  integrity sha512-psuc5nziuPWYdxIFhXEt9DBT+cuhOCyGPz8cOP5RuWFfSM4r583M0SYrsi5YXCvUwhZEFFQNbapxJFfMpAHPtw==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-types/shared" "^3.14.0"
+
 "@react-stately/datepicker@^3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@react-stately/datepicker/-/datepicker-3.0.1.tgz#31d19dc523b5f972f8c54309dbebb258be90aba9"
@@ -7065,6 +7073,33 @@ react-resize-detector@^7.1.2:
   integrity sha512-zXnPJ2m8+6oq9Nn8zsep/orts9vQv3elrpA+R8XTcW7DVVUJ9vwDwMXaBtykAYjMnkCIaOoK9vObyR7ZgFNlOw==
   dependencies:
     lodash "^4.17.21"
+
+react-stately@^3.16.0:
+  version "3.16.0"
+  resolved "https://registry.yarnpkg.com/react-stately/-/react-stately-3.16.0.tgz#613d77f7edb3b83a5fff202ee31ca9e480d8ee65"
+  integrity sha512-V+/sIjSt8xui0axxJ0DbiV3KiozCiynF1zCjroJBCaO9qUw/LL4yJoRK80YwQa6Ami9u7y+Ti7Q4Gu7XsMmZ6w==
+  dependencies:
+    "@react-stately/calendar" "^3.0.1"
+    "@react-stately/checkbox" "^3.2.0"
+    "@react-stately/collections" "^3.4.2"
+    "@react-stately/combobox" "^3.2.0"
+    "@react-stately/data" "^3.6.0"
+    "@react-stately/datepicker" "^3.0.1"
+    "@react-stately/list" "^3.5.2"
+    "@react-stately/menu" "^3.4.0"
+    "@react-stately/numberfield" "^3.2.0"
+    "@react-stately/overlays" "^3.4.0"
+    "@react-stately/radio" "^3.5.0"
+    "@react-stately/searchfield" "^3.3.0"
+    "@react-stately/select" "^3.3.0"
+    "@react-stately/selection" "^3.10.2"
+    "@react-stately/slider" "^3.2.0"
+    "@react-stately/table" "^3.3.0"
+    "@react-stately/tabs" "^3.2.0"
+    "@react-stately/toggle" "^3.4.0"
+    "@react-stately/tooltip" "^3.2.0"
+    "@react-stately/tree" "^3.3.2"
+    "@react-types/shared" "^3.14.0"
 
 react-style-singleton@^2.2.1:
   version "2.2.1"

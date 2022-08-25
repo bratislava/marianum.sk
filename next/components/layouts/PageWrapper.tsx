@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import Head from 'next/head'
 import { ReactNode } from 'react'
 
@@ -10,31 +9,31 @@ type PageWrapperProps = {
   navigation: NavigationItemFragment[]
   header?: ReactNode
   children?: ReactNode
-  general: GeneralEntityFragment
+  general: GeneralEntityFragment | null
 }
 
 const PageWrapper = ({ navigation, header, children, general }: PageWrapperProps) => {
   return (
-    <>
+    <div className="h-full bg-background-beige">
       <Head>
         <title>Next.js + TypeScript</title>
       </Head>
 
       <header>
         <Navigation
-          faqLink={general.attributes?.header?.faqLink ?? ''}
-          phoneNumber={general.attributes?.header?.phoneNumber ?? ''}
+          faqLink={general?.attributes?.header?.faqLink ?? ''}
+          phoneNumber={general?.attributes?.header?.phoneNumber ?? ''}
           navigationItems={navigation}
         />
         {header}
       </header>
-      <main className={cx('bg-background-beige')}>{children}</main>
+      <main>{children}</main>
       <Footer
-        contact={general.attributes?.contact}
-        footer={general.attributes?.footer}
-        social={general.attributes?.social}
+        contact={general?.attributes?.contact}
+        footer={general?.attributes?.footer}
+        social={general?.attributes?.social}
       />
-    </>
+    </div>
   )
 }
 

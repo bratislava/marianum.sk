@@ -42,7 +42,10 @@
   */
   html,
   body,
-  #__next {
+  /* next main div */
+  #__next,
+  /* <OverlayProvider /> from react-aria */
+  #__next > [data-overlay-container='true'] {
     @apply h-full;
   }
 

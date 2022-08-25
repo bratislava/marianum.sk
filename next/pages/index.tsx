@@ -1,5 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { GetStaticProps } from 'next'
+import { GetStaticProps, GetStaticPropsResult } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -14,7 +14,7 @@ import { isDefined } from '../utils/isDefined'
 type HomeProps = {
   navigation: NavigationItemFragment[]
   page: NonNullable<NonNullable<HomePageQuery['homePage']>['data']>
-  general: GeneralEntityFragment
+  general: GeneralEntityFragment | null
 }
 
 const Home = ({ navigation, page, general }: HomeProps) => {
@@ -79,12 +79,16 @@ const Home = ({ navigation, page, general }: HomeProps) => {
   )
 }
 
-export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale = 'sk' }) => {
+export const getStaticProps: GetStaticProps = async ({
+  locale = 'sk',
+}): Promise<GetStaticPropsResult<HomeProps>> => {
   const [{ navigation, general }, { homePage }, translations] = await Promise.all([
     client.General({ locale }),
     client.HomePage({ locale }),
-    serverSideTranslations(locale, ['common']) as any, // TODO: fix any
+    serverSideTranslations(locale, ['common']),
   ])
+
+  const filteredNavigation = navigation.filter(Boolean) as NavigationItemFragment[]
 
   if (!homePage?.data) {
     return {
@@ -94,8 +98,8 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale = 'sk' 
 
   return {
     props: {
-      navigation,
-      general: general?.data,
+      navigation: filteredNavigation,
+      general: general?.data ?? null,
       page: homePage?.data,
       ...translations,
     },
