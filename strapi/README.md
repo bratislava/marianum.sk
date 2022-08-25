@@ -54,3 +54,7 @@ To add more content types to choose from in navigation, update config for naviga
 ## Patch of `strapi-plugin-react-editorjs` plugin
 
 The Editor.js plugin contains a huge set of plugins that cannot be deactivated by configuration. The authors of the plugin recommends to [copy the plugin into our respository](https://github.com/melishev/strapi-plugin-react-editorjs/blob/0451ecca84f569539538e40737045ee865a888b2/README.md#%EF%B8%8F-how-to-extenddevelop-this-plugin-optional) which is also below optimal. Therefore, the plugins are deactivated with stable and popular (1M+ weekly downloads) [`patch-package`](https://www.npmjs.com/package/patch-package) tool. The patch is located in `patches` directory.
+
+Another patch adds `strapiImage` to image block to be able to use our `<MImage>` component.
+
+Some features are hidden with CSS in `strapi/src/admin/app.tsx`.
