@@ -17,7 +17,7 @@ export type FooterProps = {
 }
 
 const Footer = ({ contact, footer, social }: FooterProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'components.Footer' })
+  const { t } = useTranslation('common', { keyPrefix: 'components.molecules.Footer' })
 
   const year = useMemo(() => {
     return new Date().getFullYear()

@@ -1,6 +1,6 @@
-import cx from 'classnames'
 import last from 'lodash/last'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
+import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import Layout from '../components/layouts/Layout'
@@ -8,6 +8,7 @@ import AccordionGroup from '../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../components/molecules/Accordion/AccordionItem'
 import Section from '../components/molecules/Section'
 import CardSection from '../components/sections/CardSection'
+import ImageGallerySection from '../components/sections/ImageGallerySection'
 import MenuListingSection from '../components/sections/MenuListingSection'
 import RichTextSection from '../components/sections/RichTextSection'
 import {
@@ -22,8 +23,8 @@ import { isDefined } from '../utils/isDefined'
 type PageProps = {
   navigation: NavigationItemFragment[]
   page: PageEntityFragment
-  general: GeneralEntityFragment
-}
+  general: GeneralEntityFragment | null
+} & SSRConfig
 
 const Slug = ({ navigation, page, general }: PageProps) => {
   const fullWidth = page.attributes?.layout === Enum_Page_Layout.Fullwidth
@@ -84,10 +85,12 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsGallery') {
             return (
-              <Section key={section.id} fullWidth={fullWidth} color={color}>
-                {/* TODO */}
-                gallery
-              </Section>
+              <ImageGallerySection
+                key={section.id}
+                title={section.title}
+                images={section.medias?.data}
+                variant="bellow"
+              />
             )
           }
           if (section?.__typename === 'ComponentSectionsMenuListing') {
@@ -139,20 +142,25 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] })
         },
       }))
     // eslint-disable-next-line no-console
-    console.log(`GENERATED STATIC PATHS FOR ${paths.length} SLUGS`)
+    console.log(`PAGES: GENERATED STATIC PATHS FOR ${paths.length} SLUGS`)
     return { paths, fallback: 'blocking' }
   }
   return { paths: [], fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps<PageProps> = async ({ locale = 'sk', params }) => {
+export const getStaticProps: GetStaticProps = async ({
+  locale = 'sk',
+  params,
+}): Promise<GetStaticPropsResult<PageProps>> => {
   const slug = last(params?.slug) ?? ''
 
   const [{ navigation, general }, { pages }, translations] = await Promise.all([
     client.General({ locale }),
     client.PageBySlug({ locale, slug }),
-    serverSideTranslations(locale, ['common']) as any, // TODO: fix any
+    serverSideTranslations(locale, ['common']),
   ])
+
+  const filteredNavigation = navigation.filter(isDefined)
 
   if (!pages || pages.data.length === 0) {
     return {
@@ -162,9 +170,7 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ locale = 'sk',
 
   return {
     props: {
-      navigation,
-      faqLink: general?.data?.attributes?.header?.faqLink ?? '',
-      phoneNumber: general?.data?.attributes?.header?.phoneNumber ?? '',
+      navigation: filteredNavigation,
       page: pages.data[0],
       general: general?.data ?? null,
       ...translations,
