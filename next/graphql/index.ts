@@ -1799,6 +1799,7 @@ export type UploadFile = {
   height?: Maybe<Scalars['Int']>;
   mime: Scalars['String'];
   name: Scalars['String'];
+  placeholder?: Maybe<Scalars['String']>;
   previewUrl?: Maybe<Scalars['String']>;
   provider: Scalars['String'];
   provider_metadata?: Maybe<Scalars['JSON']>;
@@ -1842,6 +1843,7 @@ export type UploadFileFiltersInput = {
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<UploadFileFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<UploadFileFiltersInput>>>;
+  placeholder?: InputMaybe<StringFilterInput>;
   previewUrl?: InputMaybe<StringFilterInput>;
   provider?: InputMaybe<StringFilterInput>;
   provider_metadata?: InputMaybe<JsonFilterInput>;
@@ -1862,6 +1864,7 @@ export type UploadFileInput = {
   height?: InputMaybe<Scalars['Int']>;
   mime?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+  placeholder?: InputMaybe<Scalars['String']>;
   previewUrl?: InputMaybe<Scalars['String']>;
   provider?: InputMaybe<Scalars['String']>;
   provider_metadata?: InputMaybe<Scalars['JSON']>;
