@@ -22,7 +22,7 @@ const ChecklistRadio = ({
   return (
     <div
       className={cx(
-        'relative flex shrink-0 h-6 w-6 items-center justify-center rounded-full border-primary',
+        'relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-primary',
         {
           'border-2': !isCompleted,
         },
@@ -30,13 +30,13 @@ const ChecklistRadio = ({
       )}
     >
       <div
-        className={cx('absolute w-3 h-3 rounded-full bg-primary transition-transform', {
+        className={cx('absolute h-3 w-3 rounded-full bg-primary transition-transform', {
           'scale-0': !isOpen || isCompleted,
           'scale-1': isOpen,
         })}
       />
       <div
-        className={cx('absolute w-6 h-6 rounded-full bg-primary text-white transition-transform', {
+        className={cx('absolute h-6 w-6 rounded-full bg-primary text-white transition-transform', {
           'scale-0': !isCompleted,
           'scale-1': isCompleted,
         })}
@@ -62,7 +62,7 @@ const ChecklistLineWithRadio = ({
 }: ChecklistLineWithRadioProps) => {
   return (
     <div className="hidden flex-col items-center gap-2 sm:flex">
-      <div className={cx('h-10 w-[2px] bg-primary -mt-6', { invisible: hideTopLine })} />
+      <div className={cx('-mt-6 h-10 w-[2px] bg-primary', { invisible: hideTopLine })} />
       <ChecklistRadio isOpen={isOpen} isCompleted={isCompleted} />
       <div className={cx('h-full w-[2px] flex-1 bg-primary', { invisible: hideBottomLine })} />
     </div>
@@ -120,7 +120,7 @@ const Checklist = ({ items }: ChecklistProps) => {
             />
             <div
               className={cx(
-                'flex w-full flex-col bg-white focus:outline-2 outline-primary outline-offset-2',
+                'flex w-full flex-col bg-white outline-offset-2 outline-primary focus:outline-2',
                 {
                   'cursor-auto': isOpen,
                 },
@@ -135,7 +135,7 @@ const Checklist = ({ items }: ChecklistProps) => {
               >
                 <div
                   className={cx('transition-all sm:hidden', {
-                    'w-10 opacity-1 pr-4': isCompleted,
+                    'opacity-1 w-10 pr-4': isCompleted,
                     'w-0 opacity-0': !isCompleted,
                   })}
                 >
