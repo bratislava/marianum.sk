@@ -22,6 +22,7 @@ interface IRowProps {
   button?: React.ReactNode
   arrowInCorner?: boolean
   number?: number
+  border?: boolean
 }
 
 const Row = ({
@@ -36,6 +37,7 @@ const Row = ({
   button = null,
   arrowInCorner = false,
   number,
+  border = true,
 }: IRowProps) => {
   const router = useRouter()
 
@@ -52,10 +54,10 @@ const Row = ({
     <div
       {...linkProps}
       aria-label={title}
-      className={cx(
-        'group relative flex w-full items-center border border-border bg-white py-3 px-4 md:py-4 md:px-5',
-        { 'cursor-pointer': link },
-      )}
+      className={cx('group relative flex w-full items-center bg-white py-3 px-4 md:py-4 md:px-5', {
+        'cursor-pointer': link,
+        'border border-border': border,
+      })}
     >
       {number && <div className="pr-8 pl-1 text-h1 font-bold text-primary">{number}</div>}
       <div className="grow space-y-1.5">
@@ -70,7 +72,7 @@ const Row = ({
         )}
 
         <h5
-          className={cx('w-fit text-h5 text-foreground-heading', {
+          className={cx('w-fit text-left text-h5 text-foreground-heading', {
             'group-hover:underline group-focus:underline': link,
           })}
         >
@@ -102,7 +104,7 @@ const Row = ({
           </div>
         )}
 
-        {moreContent && <div className="pt-2">{moreContent}</div>}
+        {moreContent && <div className="pt-2 text-left">{moreContent}</div>}
       </div>
 
       <div className={cx('flex gap-x-5', { 'items-center': !arrowInCorner })}>

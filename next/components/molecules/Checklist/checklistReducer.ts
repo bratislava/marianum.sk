@@ -2,7 +2,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable default-case */
 
-import { ReactNode } from 'react'
+import { ComponentGeneralProcedureItem } from '../../../graphql'
 
 export enum ChecklistActionKind {
   OpenItem = 'OpenItem',
@@ -44,13 +44,10 @@ export type ChecklistAction =
   | ChecklistCompleteItemActionProps
   | ChecklistUncompleteItemActionProps
 
-export type ChecklistItem = {
+export type ChecklistItem = ComponentGeneralProcedureItem & {
   isOpen?: boolean
   isCompleted?: boolean
   key: string
-  title: string
-  description: ReactNode
-  footer?: ReactNode
 }
 
 export interface ChecklistState {

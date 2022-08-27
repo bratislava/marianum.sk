@@ -1,33 +1,24 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { GetStaticProps, GetStaticPropsResult } from 'next'
-import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import MLink from '../components/atoms/MLink'
-import Tab from '../components/atoms/Tabs/Tab'
-import Tabs from '../components/atoms/Tabs/Tabs'
 import PageWrapper from '../components/layouts/PageWrapper'
-import Checklist from '../components/molecules/Checklist/Checklist'
-import Row from '../components/molecules/Row'
 import Section from '../components/molecules/Section'
 import CardSection from '../components/sections/CardSection'
+import HomepageProcedures from '../components/sections/HomepageProcedures'
 import HomepageSlider from '../components/sections/HomepageSlider'
 import { GeneralEntityFragment, HomePageQuery, NavigationItemFragment } from '../graphql'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
-import { parseSteps } from '../utils/useProcedures'
 
 type HomeProps = {
   navigation: NavigationItemFragment[]
   page: NonNullable<NonNullable<HomePageQuery['homePage']>['data']>
-  procedures: NonNullable<HomePageQuery['procedure']>['data']
+  procedures: NonNullable<HomePageQuery['procedures']>['data']
   general: GeneralEntityFragment | null
 }
 
 const Home = ({ navigation, page, procedures, general }: HomeProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { t } = useTranslation()
-
   return (
     <PageWrapper navigation={navigation} general={general}>
       <HomepageSlider slides={page.attributes?.featured?.filter(isDefined)} />
@@ -64,40 +55,20 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
             )
           }
           if (section?.__typename === 'ComponentSectionsProceduresShortSection') {
-            const procedure1 = procedures?.attributes?.outsideMedicalFacility
-            const steps1 = parseSteps(procedure1?.steps?.filter(isDefined) ?? [])
-            const procedure2 = procedures?.attributes?.atMedicalFacility
-            const steps2 = parseSteps(procedure2?.steps?.filter(isDefined) ?? [])
+            const { outsideMedicalFacility, atMedicalFacility } = procedures?.attributes ?? {}
+            const proceduresArr = [outsideMedicalFacility, atMedicalFacility].filter(isDefined)
 
             const { showMoreButton, title, __typename, id } = section
 
             return (
-              <Section key={`${__typename}-${id}`} fullWidth color={color} title={title}>
-                <Tabs areBig>
-                  <Tab label={procedure1?.title ?? ''}>
-                    <div className="mt-9 flex flex-col gap-4">
-                      {steps1.slice(0, 3).map((step, i) => (
-                        <Row title={step.title} moreContent={step.description} number={i + 1} />
-                      ))}
-                    </div>
-                  </Tab>
-                  <Tab label={procedure2?.title ?? ''}>
-                    <div className="mt-9">
-                      <Checklist items={steps2} />
-                    </div>
-                  </Tab>
-                </Tabs>
-                {showMoreButton?.url && (
-                  <div className="mt-8 text-center">
-                    <MLink
-                      href={showMoreButton.url}
-                      target={showMoreButton.targetBlank ? '_blank' : '_self'}
-                    >
-                      {showMoreButton.label}
-                    </MLink>
-                  </div>
-                )}
-              </Section>
+              <HomepageProcedures
+                key={`${__typename}-${id}`}
+                title={title}
+                fullWidth
+                color={color}
+                procedures={proceduresArr}
+                showMoreButton={showMoreButton}
+              />
             )
           }
           if (section?.__typename === 'ComponentSectionsCtaSection') {
@@ -127,7 +98,7 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
 export const getStaticProps: GetStaticProps = async ({
   locale = 'sk',
 }): Promise<GetStaticPropsResult<HomeProps>> => {
-  const [{ navigation, general }, { homePage, procedure }, translations] = await Promise.all([
+  const [{ navigation, general }, { homePage, procedures }, translations] = await Promise.all([
     client.General({ locale }),
     client.HomePage({ locale }),
     serverSideTranslations(locale, ['common']),
@@ -146,7 +117,7 @@ export const getStaticProps: GetStaticProps = async ({
       navigation: filteredNavigation,
       general: general?.data ?? null,
       page: homePage?.data ?? null,
-      procedures: procedure?.data ?? null,
+      procedures: procedures?.data ?? null,
       ...translations,
     },
     revalidate: 10,

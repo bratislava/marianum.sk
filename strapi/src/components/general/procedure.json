@@ -17,8 +17,12 @@
       "repeatable": true,
       "component": "general.procedure-item"
     },
-    "downloadLink": {
-      "type": "string"
+    "downloadFile": {
+      "allowedTypes": [
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

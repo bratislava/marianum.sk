@@ -6,11 +6,11 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Layout from '../components/layouts/Layout'
 import AccordionGroup from '../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../components/molecules/Accordion/AccordionItem'
+import ProcedureTabs from '../components/molecules/ProcedureTabs'
 import Section from '../components/molecules/Section'
 import CardSection from '../components/sections/CardSection'
 import ImageGallerySection from '../components/sections/ImageGallerySection'
 import MenuListingSection from '../components/sections/MenuListingSection'
-import ProceduresSection from '../components/sections/ProceduresSection'
 import RichTextSection from '../components/sections/RichTextSection'
 import {
   Enum_Page_Layout,
@@ -39,7 +39,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsProceduresSection') {
             return (
               <Section key={section.id} fullWidth={fullWidth} color={color} title={section.title}>
-                <ProceduresSection />
+                <ProcedureTabs />
               </Section>
             )
           }

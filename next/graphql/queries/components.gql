@@ -93,7 +93,11 @@ fragment Procedure on ComponentGeneralProcedure {
     title
     description
   }
-  downloadLink
+  downloadFile {
+    data {
+      ...UploadFileEntity
+    }
+  }
 }
 
 fragment AccordionGroup on ComponentSectionsAccordionGroup {

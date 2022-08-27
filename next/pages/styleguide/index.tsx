@@ -45,7 +45,7 @@ type WrapperProps = {
 
 export const Wrapper = ({ title, children }: WrapperProps) => {
   return (
-    <div className="mb-10">
+    <div className="mb-10 flex flex-col gap-2">
       {title && <h2 className="pb-2 text-h2 font-semibold">{title}</h2>}
       {children}
     </div>
@@ -62,7 +62,7 @@ type StackProps = {
 export const Stack = ({ bg, width = null, direction = 'row', children }: StackProps) => {
   return (
     <div
-      className={cx('flex p-1', {
+      className={cx('flex', {
         'w-fit': width == null,
         'bg-primary-dark': bg === 'dark',
         'w-[1128px]': width === 'desktop',
@@ -120,7 +120,7 @@ const Showcase = () => {
 
   return (
     <div className="overflow-hidden bg-[#E5E5E5]">
-      <div className="container mx-auto p-4 ">
+      <div className="container mx-auto p-4 pb-64">
         <Wrapper title="Headings">
           <h1>Headline 1</h1>
           <h2>Headline 2</h2>
@@ -673,9 +673,18 @@ const Showcase = () => {
         </Wrapper>
 
         <Wrapper title="Row">
+          <Checkbox isSelected={cardsBorder} onChange={setCardsBorder}>
+            Show border
+          </Checkbox>
+
           <Stack width="full" direction="column">
-            <Row title="Nazov pozicie" metadata={['Metadata', 'Metadata', 'Metadata']} link="#" />
-            <Row title="Nazov partnera" />
+            <Row
+              title="Nazov pozicie"
+              metadata={['Metadata', 'Metadata', 'Metadata']}
+              link="#"
+              border={cardsBorder}
+            />
+            <Row title="Nazov partnera" border={cardsBorder} />
             <Row
               title="Nazov suboru"
               category="Kategoria"
@@ -686,15 +695,17 @@ const Showcase = () => {
                   Stiahnut
                 </Button>
               }
+              border={cardsBorder}
             />
             <Row
               title="Hladany termin"
               link="#"
               showUrl
               metadata={['Metadata', 'Metadata', 'Metadata']}
+              border={cardsBorder}
             />
-            <Row title="Hladany termin" link="#" showUrl />
-            <Row title="Nazov partnera" link="#" isExternal />
+            <Row title="Hladany termin" link="#" showUrl border={cardsBorder} />
+            <Row title="Nazov partnera" link="#" isExternal border={cardsBorder} />
             <Row
               title="Nazov pobocky"
               link="#"
@@ -706,11 +717,13 @@ const Showcase = () => {
                   <p>09:00 - 18:00</p>
                 </div>
               }
+              border={cardsBorder}
             />
             <Row
               title="Volať záchrannú zdravotnú službu 112"
               number={1}
               moreContent="Ak Váš blízky umrie mimo zdravotníckeho zariadenia, neodkladne kontaktujte tiesňovú linku 112, ktorá na miesto vyšle obhliadajúceho lekára."
+              border={cardsBorder}
             />
           </Stack>
         </Wrapper>
@@ -851,62 +864,71 @@ const Showcase = () => {
               items={[
                 {
                   isOpen: true,
+                  id: '1',
                   key: 'volat-zachrannu-zdravotnu-sluzbu-112',
                   title: 'Volať záchrannú zdravotnú službu 112',
                   description:
                     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed dolorum tempora quidem quam, dolores iste quos. Distinctio nostrum unde aut quaerat dolorum. Adipisci fugit odio sed! Totam excepturi quo est.',
                 },
                 {
+                  id: '2',
                   key: 'obhliadka-lekarom',
                   title: 'Obhliadka lekárom',
                   description:
                     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad ea dignissimos unde nulla quas, et suscipit iusto placeat, qui harum, nobis quibusdam officiis dolorum commodi vitae voluptatum eveniet eos pariatur.',
                 },
                 {
+                  id: '3',
                   key: 'kontaktujte-vyvoz-zosnulych',
                   title: 'Kontaktujte vývoz zosnulých',
                   description:
                     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil eligendi velit ipsum expedita ab sunt minus? Dolorum nemo, nihil ad commodi architecto molestias facilis nobis laudantium nulla vitae. Ratione, dolorum.',
                 },
                 {
+                  id: '4',
                   key: 'kontaktujte-pohrebnu-sluzbu',
                   title: 'Kontaktujte pohrebnú službu',
                   description:
                     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga maxime harum corrupti culpa numquam doloremque error, amet corporis aut fugit, accusantium, laborum voluptatem sequi excepturi saepe libero reiciendis delectus? Temporibus!',
                 },
                 {
+                  id: '5',
                   key: 'pripravte-si-doklady-a-dokumenty',
                   title: 'Pripravte si doklady a dokumenty',
                   description:
                     'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos, tempore repudiandae nulla vero molestiae nemo nesciunt odit nostrum est itaque eveniet, accusantium magni asperiores iusto necessitatibus quod id error perferendis.',
                 },
                 {
+                  id: '6',
                   key: 'pripravte-si-oblecenie-pre-zosnuleho',
                   title: 'Pripravte si oblečenie pre zosnulého',
                   description:
                     'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nam dolorum necessitatibus modi ex quia voluptatibus eius quidem, deleniti beatae dicta temporibus eveniet doloribus optio ad qui dolores hic dolor ipsa.',
                 },
                 {
+                  id: '7',
                   key: 'zvolte-si-sposob-poslednej-rozlucky-a-pochovania',
                   title: 'Zvoľte si spôsob poslednej rozlúčky a pochovania',
                   description:
                     'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus dolores sunt libero rem voluptates, corporis nostrum quos fugit soluta esse aperiam exercitationem neque quibusdam quis incidunt repudiandae quae nesciunt amet.',
                 },
                 {
+                  id: '8',
                   key: 'riadte-sa-pokynmi-pohrebnej-sluzby',
                   title: 'Riaďte sa pokynmi pohrebnej služby',
                   description:
                     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Id corporis illo rem non amet blanditiis molestias odit, exercitationem quod autem sequi pariatur, ipsa expedita quidem quisquam facere dolore distinctio at!',
-                  footer: (
-                    <div className="flex flex-col gap-4 sm:flex-row">
-                      <Button startIcon={<DownloadIcon />}>Stiahnuť postup</Button>
-                      <Button startIcon={<DownloadIcon />} variant="secondary">
-                        Vytlačiť postup
-                      </Button>
-                    </div>
-                  ),
                 },
               ]}
+              downloadFile={{
+                id: '1',
+                attributes: {
+                  __typename: 'UploadFile',
+                  url: 'card-example.jpg',
+                  name: 'card-example.jpg',
+                  size: 65,
+                },
+              }}
             />
           </Stack>
         </Wrapper>
@@ -986,10 +1008,10 @@ const Showcase = () => {
 
         <Wrapper title="Cards">
           <Checkbox isSelected={cardsBorder} onChange={setCardsBorder}>
-            Show cards with border
+            Show border
           </Checkbox>
 
-          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             <ArticleCard
               imageUrl="/card-example.jpg"
               imageAlt="Example image for card"
@@ -1056,8 +1078,6 @@ const Showcase = () => {
             />
           </div>
         </Wrapper>
-
-        <div className="h-64" />
       </div>
     </div>
   )

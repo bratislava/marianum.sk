@@ -27,13 +27,15 @@
       },
       "Checklist": {
         "aria": {
-          "markAsDone": "Označiť krok ako vybavený",
-          "markAsNotDone": "Označiť krok ako nevybavený",
+          "markAsComplete": "Označiť krok ako vybavený",
+          "markAsUncomplete": "Označiť krok ako nevybavený",
           "skip": "Preskočiť krok"
         },
-        "markAsDone": "Vybavené",
-        "markAsNotDone": "Označiť ako nevybavené",
-        "skip": "Preskočiť"
+        "markAsComplete": "Vybavené",
+        "markAsUncomplete": "Označiť ako nevybavené",
+        "skip": "Preskočiť",
+        "print": "Vytlačiť postup",
+        "download": "Stiahnuť postup"
       }
     }
   },

@@ -11,6 +11,16 @@ fragment UploadImageEntity on UploadFileEntity {
   }
 }
 
+fragment UploadFileEntity on UploadFileEntity {
+  id
+  attributes {
+    url
+    name
+    size
+    ext
+  }
+}
+
 fragment BranchEntity on BranchEntity {
   id
   attributes {
