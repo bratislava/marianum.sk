@@ -39,6 +39,7 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
               imageUrl={page?.data?.attributes?.coverMedia?.data?.attributes?.url ?? ''}
               imageAlt={page?.data?.attributes?.coverMedia?.data?.attributes?.alternativeText ?? ''}
               date={page?.data?.attributes?.publishedAt}
+              // TODO add category
             />
           )
         }

@@ -47,8 +47,11 @@ fragment Contact on ComponentGeneralContacts {
   address
   featuredOpeningHours
   openingHoursLink
-  phone
-  email
+  contact {
+    data {
+      ...ContactEntity
+    }
+  }
   contactsLink
   latitude
   longitude
