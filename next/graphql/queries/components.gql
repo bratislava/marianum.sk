@@ -86,6 +86,20 @@ fragment Footer on ComponentGeneralFooter {
   }
 }
 
+fragment Procedure on ComponentGeneralProcedure {
+  title
+  steps {
+    id
+    title
+    description
+  }
+  downloadFile {
+    data {
+      ...UploadFileEntity
+    }
+  }
+}
+
 fragment AccordionGroup on ComponentSectionsAccordionGroup {
   id
   title

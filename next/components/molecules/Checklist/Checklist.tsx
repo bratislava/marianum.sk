@@ -1,9 +1,13 @@
 import cx from 'classnames'
+import { useTranslation } from 'next-i18next'
 import { useCallback, useReducer } from 'react'
 
 import CheckIcon from '../../../assets/check.svg'
 import CheckCircleIcon from '../../../assets/check_circle.svg'
+import DownloadIcon from '../../../assets/download.svg'
+import PrintIcon from '../../../assets/print.svg'
 import XIcon from '../../../assets/x-alt.svg'
+import { UploadFileEntityFragment } from '../../../graphql'
 import { AnimateHeight } from '../../atoms/AnimateHeight'
 import Button from '../../atoms/Button'
 import { ChecklistActionKind, ChecklistItem, checklistReducer } from './checklistReducer'
@@ -71,9 +75,12 @@ const ChecklistLineWithRadio = ({
 
 export type ChecklistProps = {
   items: ChecklistItem[]
+  downloadFile: UploadFileEntityFragment | null | undefined
 }
 
-const Checklist = ({ items }: ChecklistProps) => {
+const Checklist = ({ items, downloadFile }: ChecklistProps) => {
+  const { t } = useTranslation()
+
   const [checklistState, dispatchChecklistState] = useReducer(checklistReducer, { items })
 
   const openItemHandler = useCallback((itemKey: string) => {
@@ -107,10 +114,7 @@ const Checklist = ({ items }: ChecklistProps) => {
   return (
     <div className="flex w-full flex-col gap-6">
       {checklistState.items.map(
-        (
-          { key, title, description, isOpen = false, isCompleted = false, footer = null },
-          index,
-        ) => (
+        ({ key, title, description, isOpen = false, isCompleted = false }, index) => (
           <div className="flex gap-10" key={key}>
             <ChecklistLineWithRadio
               hideTopLine={index === 0}
@@ -146,35 +150,65 @@ const Checklist = ({ items }: ChecklistProps) => {
               <AnimateHeight isVisible={isOpen}>
                 <div className="flex w-full flex-col gap-6 px-6 pb-6">
                   {/* item description */}
-                  <div className="pt-4">{description}</div>
+                  {description && <div className="mt-4">{description}</div>}
                   {
-                    // custom item footer
-                    footer ??
-                      (isCompleted ? (
-                        // completed item buttons
+                    // download buttons for last item
+                    index + 1 === items.length ? (
+                      downloadFile?.attributes?.url ? (
                         <div className="flex flex-col gap-4 sm:flex-row">
+                          {/* TODO make the file really downloadable and printable */}
                           <Button
-                            onPress={() => uncompleteItemHandler(key)}
+                            startIcon={<DownloadIcon />}
+                            href={downloadFile.attributes.url}
+                            // TODO format size to MB if needed
+                            /* eslint-disable @typescript-eslint/restrict-template-expressions */
+                            aria-label={`${t('components.molecules.Checklist.download')} ${
+                              downloadFile.attributes.name
+                            } ${downloadFile.attributes.size} KB`}
+                            /* eslint-enable @typescript-eslint/restrict-template-expressions */
+                          >
+                            {t('components.molecules.Checklist.download')}
+                          </Button>
+                          <Button
+                            startIcon={<PrintIcon />}
                             variant="secondary"
-                            startIcon={<XIcon />}
+                            href={downloadFile.attributes.url}
                           >
-                            Označť ako nevybavené
+                            {t('components.molecules.Checklist.print')}
                           </Button>
                         </div>
-                      ) : (
-                        // uncompleted item buttons
-                        <div className="flex flex-col gap-4 sm:flex-row">
-                          <Button
-                            onPress={() => completeItemHandler(key)}
-                            startIcon={<CheckCircleIcon />}
-                          >
-                            Vybavené
-                          </Button>
-                          <Button onPress={() => openNextItemHandler(key)} variant="secondary">
-                            Preskočiť
-                          </Button>
-                        </div>
-                      ))
+                      ) : null
+                    ) : isCompleted ? (
+                      // completed item buttons
+                      <div className="flex flex-col gap-4 sm:flex-row">
+                        <Button
+                          onPress={() => uncompleteItemHandler(key)}
+                          variant="secondary"
+                          startIcon={<XIcon />}
+                          aria-label={t('components.molecules.Checklist.aria.markAsUncomplete')}
+                        >
+                          {t('components.molecules.Checklist.markAsUncomplete')}
+                        </Button>
+                      </div>
+                    ) : (
+                      // uncompleted item buttons
+                      <div className="flex flex-col gap-4 sm:flex-row">
+                        <Button
+                          onPress={() => completeItemHandler(key)}
+                          startIcon={<CheckCircleIcon />}
+                          aria-label={t('components.molecules.Checklist.aria.markAsComplete')}
+                        >
+                          {t('components.molecules.Checklist.markAsComplete')}
+                        </Button>
+                        <Button
+                          onPress={() => openNextItemHandler(key)}
+                          variant="secondary"
+                          aria-label={t('components.molecules.Checklist.aria.skip')}
+                        >
+                          {t('components.molecules.Checklist.skip')}
+                        </Button>
+                      </div>
+                    )
                   }
                 </div>
               </AnimateHeight>
