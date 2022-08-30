@@ -40,15 +40,16 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
               )}
             </div>
             <div className="relative mr-4 h-[228px] w-full lg:h-full lg:w-[450px] lg:pr-4 xl:w-[612px]">
-              <Image
-                src={image?.data?.attributes?.url ?? ''}
-                alt={image?.data?.attributes?.alternativeText ?? ''}
-                width={image?.data?.attributes?.width ?? 0}
-                height={image?.data?.attributes?.height ?? 0}
-                layout="fill"
-                objectFit="cover"
-                unoptimized
-              />
+              {image?.data?.attributes && (
+                <Image
+                  src={image?.data?.attributes.url}
+                  alt={image?.data?.attributes.alternativeText ?? ''}
+                  width={image?.data?.attributes.width ?? 0}
+                  height={image?.data?.attributes.height ?? 0}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              )}
             </div>
           </div>
         ))}

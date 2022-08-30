@@ -11,6 +11,16 @@ fragment UploadImageEntity on UploadFileEntity {
   }
 }
 
+fragment UploadFileEntity on UploadFileEntity {
+  id
+  attributes {
+    url
+    name
+    size
+    ext
+  }
+}
+
 fragment BranchEntity on BranchEntity {
   id
   attributes {
@@ -187,6 +197,22 @@ fragment PageEntity on PageEntity {
           targetBlank
         }
       }
+      ... on ComponentSectionsProceduresSection {
+        __typename
+        id
+        title
+      }
+    }
+  }
+}
+
+fragment ProceduresEntity on ProcedureEntity {
+  attributes {
+    outsideMedicalFacility {
+      ...Procedure
+    }
+    atMedicalFacility {
+      ...Procedure
     }
   }
 }

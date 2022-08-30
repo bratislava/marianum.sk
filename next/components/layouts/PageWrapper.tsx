@@ -14,7 +14,7 @@ type PageWrapperProps = {
 
 const PageWrapper = ({ navigation, header, children, general }: PageWrapperProps) => {
   return (
-    <div className="h-full bg-background-beige">
+    <div className="h-full">
       <Head>
         <title>Next.js + TypeScript</title>
       </Head>
@@ -27,7 +27,7 @@ const PageWrapper = ({ navigation, header, children, general }: PageWrapperProps
         />
         {header}
       </header>
-      <main>{children}</main>
+      <main className="bg-background-beige">{children}</main>
       <Footer
         contact={general?.attributes?.contact}
         footer={general?.attributes?.footer}

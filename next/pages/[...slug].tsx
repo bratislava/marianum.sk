@@ -6,6 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Layout from '../components/layouts/Layout'
 import AccordionGroup from '../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../components/molecules/Accordion/AccordionItem'
+import ProcedureTabs from '../components/molecules/ProcedureTabs'
 import Section from '../components/molecules/Section'
 import CardSection from '../components/sections/CardSection'
 import ImageGallerySection from '../components/sections/ImageGallerySection'
@@ -35,6 +36,13 @@ const Slug = ({ navigation, page, general }: PageProps) => {
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
         {page.attributes?.sections?.map((section, index) => {
           const color = index % 2 === 0 ? 'white' : 'default'
+          if (section?.__typename === 'ComponentSectionsProceduresSection') {
+            return (
+              <Section key={section.id} fullWidth={fullWidth} color={color} title={section.title}>
+                <ProcedureTabs />
+              </Section>
+            )
+          }
           if (section?.__typename === 'ComponentSectionsRichtext') {
             return (
               <RichTextSection
