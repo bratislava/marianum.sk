@@ -32,7 +32,7 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
             return (
               <CardSection
                 key={`${section.__typename}-${section.id}`}
-                fullWidth
+                isContainer
                 color={color}
                 section={section}
               />
@@ -40,7 +40,7 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           }
           if (section?.__typename === 'ComponentSectionsNewsListing') {
             return (
-              <Section key={`${section.__typename}-${section.id}`} fullWidth color={color}>
+              <Section key={`${section.__typename}-${section.id}`} isContainer color={color}>
                 {/* TODO */}
                 news listing
               </Section>
@@ -48,7 +48,7 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           }
           if (section?.__typename === 'ComponentSectionsCeremoniesSection') {
             return (
-              <Section key={`${section.__typename}-${section.id}`} fullWidth color={color}>
+              <Section key={`${section.__typename}-${section.id}`} isContainer color={color}>
                 {/* TODO */}
                 ceremonies listing
               </Section>
@@ -64,7 +64,7 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
               <HomepageProcedures
                 key={`${__typename}-${id}`}
                 title={title}
-                fullWidth
+                isContainer
                 color={color}
                 procedures={proceduresArr}
                 showMoreButton={showMoreButton}
@@ -73,7 +73,7 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           }
           if (section?.__typename === 'ComponentSectionsCtaSection') {
             return (
-              <Section key={`${section.__typename}-${section.id}`} fullWidth color={color}>
+              <Section key={`${section.__typename}-${section.id}`} isContainer color={color}>
                 {/* TODO */}
                 cta section
               </Section>
@@ -81,7 +81,7 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           }
           if (section?.__typename === 'ComponentSectionsReviewsSection') {
             return (
-              <Section key={`${section.__typename}-${section.id}`} fullWidth color={color}>
+              <Section key={`${section.__typename}-${section.id}`} isContainer color={color}>
                 {/* TODO */}
                 reviews section
               </Section>
