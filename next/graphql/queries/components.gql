@@ -113,6 +113,18 @@ fragment AccordionGroup on ComponentSectionsAccordionGroup {
   }
 }
 
+fragment ContactGroup on ComponentSectionsContactGroup {
+  id
+  title
+  contacts {
+    contact {
+      data {
+        ...ContactEntity
+      }
+    }
+  }
+}
+
 fragment ManualListing on ComponentSectionsManualListing {
   id
   title
