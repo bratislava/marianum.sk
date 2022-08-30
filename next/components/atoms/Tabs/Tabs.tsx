@@ -77,7 +77,7 @@ const Tabs = ({ children, areWhite = false, areBig = false }: TabsProps) => {
             <Tab
               // eslint-disable-next-line react/no-array-index-key
               key={index}
-              className={cx('outline-none flex-1', {
+              className={cx('flex-1 outline-none', {
                 'focus:bg-primary focus:bg-opacity-10': !areWhite && !areBig,
                 'focus:bg-white focus:bg-opacity-10': areWhite && !areBig,
                 'focus:outline-2 focus:outline-primary': areBig && !areWhite,
@@ -86,25 +86,25 @@ const Tabs = ({ children, areWhite = false, areBig = false }: TabsProps) => {
               {({ selected }) => (
                 <div
                   className={cx(
-                    'relative flex h-full items-center justify-center pt-4 px-8 pb-[14px]',
+                    'relative flex h-full items-center justify-center px-8 pt-4 pb-[14px]',
                     {
                       // unselected white
-                      'border-b-2 font-semibold text-white text-opacity-72 border-white border-opacity-0 hover:text-opacity-100':
+                      'border-b-2 border-white border-opacity-0 font-semibold text-white text-opacity-72 hover:text-opacity-100':
                         !selected && areWhite,
                       // selected white
-                      'border-b-2 font-semibold text-white text-opacity-100 border-white border-opacity-100':
+                      'border-b-2 border-white border-opacity-100 font-semibold text-white text-opacity-100':
                         selected && areWhite,
                       // unselected big
-                      'px-6 py-5 font-bold text-[18px] border border-border':
+                      'border border-border px-6 py-5 text-[18px] font-bold':
                         !selected && areBig && !areWhite,
                       // selected big
-                      'px-6 py-5 font-bold text-[18px] border bg-primary text-white border-primary':
+                      'border border-primary bg-primary px-6 py-5 text-[18px] font-bold text-white':
                         selected && areBig && !areWhite,
                       // unselected default
-                      'border-b-2 font-semibold border-border hover:text-primary':
+                      'border-b-2 border-border font-semibold hover:text-primary':
                         !selected && !areWhite && !areBig,
                       // selected default
-                      'border-b-2 font-semibold border-primary text-primary':
+                      'border-b-2 border-primary font-semibold text-primary':
                         selected && !areWhite && !areBig,
                     },
                   )}

@@ -36,12 +36,12 @@ const FieldWrapper = ({
       </div>
 
       <div
-        className={cx('flex border items-center w-ful bg-white', className, {
-          'cursor-not-allowed select-none pointer-events-none': disabled,
-          'border-border hover:border-border-dark group-focus:border-border-dark focus-within:border-border-dark bg-border bg-opacity-25 text-foreground-disabled':
+        className={cx('w-ful flex items-center border bg-white', className, {
+          'pointer-events-none cursor-not-allowed select-none': disabled,
+          'border-border bg-border bg-opacity-25 text-foreground-disabled focus-within:border-border-dark hover:border-border-dark group-focus:border-border-dark':
             disabled,
           'border-error': error,
-          'border-border hover:border-border-dark group-focus:border-border-dark focus-within:border-border-dark':
+          'border-border focus-within:border-border-dark hover:border-border-dark group-focus:border-border-dark':
             !error && !disabled,
           'pl-1': hasLeftSlot,
           'pr-1': hasRightSlot,
