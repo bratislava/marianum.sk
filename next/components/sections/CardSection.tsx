@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Enum_Componentsectionsmanuallisting_Style, ManualListingFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
 import ArticleCard from '../molecules/Cards/ArticleCard'
@@ -40,6 +38,7 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
               imageUrl={attributes?.coverMedia?.data?.attributes?.url ?? ''}
               imageAlt={attributes?.coverMedia?.data?.attributes?.alternativeText ?? ''}
               date={attributes?.publishedAt}
+              // TODO add category
             />
           )
         }

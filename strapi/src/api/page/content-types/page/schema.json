@@ -4,7 +4,7 @@
   "info": {
     "singularName": "page",
     "pluralName": "pages",
-    "displayName": "Page",
+    "displayName": "Pages",
     "description": ""
   },
   "options": {
@@ -111,6 +111,12 @@
           "localized": false
         }
       }
+    },
+    "pageCategory": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::page-category.page-category",
+      "inversedBy": "pages"
     }
   }
 }

@@ -39,6 +39,9 @@ fragment BranchEntity on BranchEntity {
         ...UploadImageEntity
       }
     }
+    address
+    navigateToLink
+    openingHoursOverride
   }
 }
 
@@ -53,6 +56,14 @@ fragment ContactEntity on ContactEntity {
   }
 }
 
+fragment PageCategoryEntity on PageCategoryEntity {
+  id
+  attributes {
+    title
+    slug
+  }
+}
+
 fragment PageCardEntity on PageEntity {
   id
   attributes {
@@ -63,6 +74,11 @@ fragment PageCardEntity on PageEntity {
     coverMedia {
       data {
         ...UploadImageEntity
+      }
+    }
+    pageCategory {
+      data {
+        ...PageCategoryEntity
       }
     }
   }
@@ -85,6 +101,11 @@ fragment PageEntity on PageEntity {
     coverMedia {
       data {
         ...UploadImageEntity
+      }
+    }
+    pageCategory {
+      data {
+        ...PageCategoryEntity
       }
     }
     sections {

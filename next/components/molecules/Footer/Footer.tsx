@@ -19,6 +19,8 @@ export type FooterProps = {
 const Footer = ({ contact, footer, social }: FooterProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'components.molecules.Footer' })
 
+  const { phone1, email } = contact?.contact?.data?.attributes ?? {}
+
   const year = useMemo(() => {
     return new Date().getFullYear()
   }, [])
@@ -87,16 +89,16 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
             <div className="relative flex flex-col gap-3">
               <div className="text-lg font-bold">{t('contacts')}</div>
               <div className="flex flex-col gap-2 text-sm font-regular">
-                {contact?.phone && (
+                {phone1 && (
                   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                  <MLink noStyles href={`tel:${contact.phone}`} className="opacity-72">
-                    {contact.phone}
+                  <MLink noStyles href={`tel:${phone1}`} className="opacity-72">
+                    {phone1}
                   </MLink>
                 )}
-                {contact?.email && (
+                {email && (
                   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                  <MLink noStyles href={`mailto:${contact.email}`} className="opacity-72">
-                    {contact.email}
+                  <MLink noStyles href={`mailto:${email}`} className="opacity-72">
+                    {email}
                   </MLink>
                 )}
                 {(social?.facebook ||
