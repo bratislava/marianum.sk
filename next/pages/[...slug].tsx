@@ -6,6 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Layout from '../components/layouts/Layout'
 import AccordionGroup from '../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../components/molecules/Accordion/AccordionItem'
+import BranchGroup from '../components/molecules/BranchGroup'
 import ProcedureTabs from '../components/molecules/ProcedureTabs'
 import Section from '../components/molecules/Section'
 import CardSection from '../components/sections/CardSection'
@@ -68,9 +69,8 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsBranchGroup') {
             return (
-              <Section key={section.id} isContainer={isContainer}>
-                {/* TODO */}
-                branches
+              <Section key={section.id} isContainer={isContainer} title={section.title}>
+                <BranchGroup {...section} />
               </Section>
             )
           }

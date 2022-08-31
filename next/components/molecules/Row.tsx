@@ -1,6 +1,6 @@
 import cx from 'classnames'
 import { useRouter } from 'next/router'
-import React from 'react'
+import { Fragment, ReactNode } from 'react'
 
 import ChevronRightIcon from '../../assets/chevron_right.svg'
 import OpenInNewIcon from '../../assets/open_in_new.svg'
@@ -17,9 +17,9 @@ interface IRowProps {
   isExternal?: boolean
   showUrl?: boolean
   category?: string
-  address?: string
-  moreContent?: React.ReactNode
-  button?: React.ReactNode
+  address?: string | null
+  moreContent?: ReactNode
+  button?: ReactNode
   arrowInCorner?: boolean
   number?: number
   border?: boolean
@@ -88,10 +88,10 @@ const Row = ({
           )}
           {metadata?.map((metadataItem, i) => (
             // eslint-disable-next-line react/no-array-index-key
-            <React.Fragment key={i}>
+            <Fragment key={i}>
               <span>{metadataItem}</span>
               {i !== metadata.length - 1 && <span>•</span>}
-            </React.Fragment>
+            </Fragment>
           ))}
         </div>
 
