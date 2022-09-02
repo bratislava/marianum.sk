@@ -71,6 +71,24 @@ fragment PartnerEntity on PartnerEntity {
   }
 }
 
+fragment BundleCardEntity on BundleEntity {
+  id
+  attributes {
+    title
+    slug
+    perex
+    price
+    coverMedia {
+      data {
+        ...UploadImageEntity
+      }
+    }
+    bundleContent {
+      description
+    }
+  }
+}
+
 fragment BundleEntity on BundleEntity {
   id
   attributes {
@@ -83,7 +101,7 @@ fragment BundleEntity on BundleEntity {
         ...UploadImageEntity
       }
     }
-    packageContent {
+    bundleContent {
       description
     }
     additionalServices {
@@ -155,6 +173,10 @@ fragment PageEntity on PageEntity {
       ... on ComponentSectionsBranchGroup {
         __typename
         ...BranchGroup
+      }
+      ... on ComponentSectionsBundleListing {
+        __typename
+        ...BundleListing
       }
       ... on ComponentSectionsContactGroup {
         __typename

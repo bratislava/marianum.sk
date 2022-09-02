@@ -136,6 +136,22 @@ fragment PartnersSection on ComponentSectionsPartnersSection {
   otherPartnersTitle
 }
 
+fragment BundleListing on ComponentSectionsBundleListing {
+  id
+  title
+  description
+  bundles {
+    bundle {
+      data {
+        ...BundleCardEntity
+      }
+    }
+  }
+  showMoreButton {
+    ...CtaButton
+  }
+}
+
 fragment ContactGroup on ComponentSectionsContactGroup {
   id
   title

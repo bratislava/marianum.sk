@@ -42,12 +42,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "fullwidth",
-        "sidebar",
-        "centered",
-        "article"
-      ],
+      "enum": ["fullwidth", "sidebar", "centered", "article"],
       "required": true,
       "default": "fullwidth"
     },
@@ -87,7 +82,8 @@
         "sections.manual-listing",
         "sections.news-listing",
         "sections.procedures-section",
-        "sections.partners-section"
+        "sections.partners-section",
+        "sections.bundle-listing"
       ]
     },
     "sidebar": {
@@ -104,9 +100,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": false

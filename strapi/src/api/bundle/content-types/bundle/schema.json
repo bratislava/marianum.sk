@@ -56,16 +56,14 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       }
     },
-    "packageContent": {
+    "bundleContent": {
       "displayName": "bundle content item",
       "type": "component",
       "repeatable": true,

@@ -3,7 +3,8 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import TickListItem from '../../components/atoms/TickListItem'
+import CheckIcon from '../../assets/check.svg'
+import FormatCurrency from '../../components/atoms/FormatCurrency'
 import BundleLayout from '../../components/layouts/BundleLayout'
 import AccordionGroup from '../../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
@@ -18,9 +19,9 @@ type BundlePageProps = {
   bundle: BundleEntityFragment
 } & SSRConfig
 
-const PackagePage = ({ navigation, bundle, general }: BundlePageProps) => {
+const BundlePage = ({ navigation, bundle, general }: BundlePageProps) => {
   const { t } = useTranslation()
-  const { additionalServices, packageContent: bundleContent } = bundle.attributes ?? {}
+  const { additionalServices, bundleContent } = bundle.attributes ?? {}
 
   return (
     <BundleLayout navigation={navigation} general={general} bundle={bundle}>
@@ -29,9 +30,17 @@ const PackagePage = ({ navigation, bundle, general }: BundlePageProps) => {
         {bundleContent?.length ? (
           <Section>
             <h3 className="pb-6 text-h4">{t('sections.HeroSection.bundleContent')}</h3>
-            {bundleContent.map((item) => (
-              <TickListItem>{item?.description}</TickListItem>
-            ))}
+            <ul>
+              {bundleContent.map((item, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <li key={index} className="mt-4 flex gap-4">
+                  <span className="mt-1.5 text-primary">
+                    <CheckIcon className="scale-125" />
+                  </span>
+                  {item?.description}
+                </li>
+              ))}
+            </ul>
           </Section>
         ) : null}
 
@@ -44,10 +53,14 @@ const PackagePage = ({ navigation, bundle, general }: BundlePageProps) => {
                   key={service?.id}
                   title={service?.title}
                   additionalInfo={
-                    <div>
-                      {t('sections.HeroSection.priceFrom')}{' '}
-                      <span className="font-bold">{service?.price}</span>
-                    </div>
+                    service?.price ? (
+                      <div>
+                        {t('sections.HeroSection.priceFrom')}{' '}
+                        <span className="font-bold">
+                          <FormatCurrency value={service.price} />
+                        </span>
+                      </div>
+                    ) : null
                   }
                 >
                   {service?.content}
@@ -115,4 +128,4 @@ export const getStaticProps: GetStaticProps = async ({
   }
 }
 
-export default PackagePage
+export default BundlePage

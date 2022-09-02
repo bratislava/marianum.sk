@@ -9,6 +9,7 @@ import AccordionItem from '../components/molecules/Accordion/AccordionItem'
 import BranchGroup from '../components/molecules/BranchGroup'
 import ProcedureTabs from '../components/molecules/ProcedureTabs'
 import Section from '../components/molecules/Section'
+import BundleListingSection from '../components/sections/BundleListingSection'
 import CardSection from '../components/sections/CardSection'
 import ContactsSection from '../components/sections/ContactsSection'
 import ImageGallerySection from '../components/sections/ImageGallerySection'
@@ -73,6 +74,11 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               <Section key={section.id} isContainer={isContainer} title={section.title}>
                 <BranchGroup {...section} />
               </Section>
+            )
+          }
+          if (section?.__typename === 'ComponentSectionsBundleListing') {
+            return (
+              <BundleListingSection key={section.id} isContainer={isContainer} section={section} />
             )
           }
           if (section?.__typename === 'ComponentSectionsContactGroup') {

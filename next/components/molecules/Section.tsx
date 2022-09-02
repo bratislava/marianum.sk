@@ -11,6 +11,7 @@ export type SectionProps = {
   cardGrid?: boolean
   title?: string | null | undefined
   button?: CtaButtonFragment | null | undefined
+  description?: string | null | undefined
 }
 
 const Section = ({
@@ -20,6 +21,7 @@ const Section = ({
   cardGrid = false,
   title,
   button,
+  description,
 }: SectionProps) => {
   return (
     <div
@@ -37,7 +39,7 @@ const Section = ({
         })}
       >
         {(title || button?.url) && (
-          <div className="flex pb-3 md:pb-10">
+          <div className="flex">
             <h2 className="grow">{title}</h2>
             {button?.url && (
               <MLink
@@ -50,7 +52,14 @@ const Section = ({
             )}
           </div>
         )}
-        <div className={cx({ 'grid gap-6 md:grid-cols-2 lg:grid-cols-4': cardGrid })}>
+        {description && (
+          <div className="max-w-[744px] not-first:mt-3 not-first:md:mt-4">{description}</div>
+        )}
+        <div
+          className={cx('not-first:mt-3 not-first:md:mt-10', {
+            'grid gap-6 md:grid-cols-2 lg:grid-cols-4': cardGrid,
+          })}
+        >
           {children}
         </div>
         {button && button.url && (
