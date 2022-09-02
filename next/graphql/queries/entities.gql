@@ -71,6 +71,30 @@ fragment PartnerEntity on PartnerEntity {
   }
 }
 
+fragment BundleEntity on PackageEntity {
+  id
+  attributes {
+    title
+    slug
+    perex
+    price
+    coverMedia {
+      data {
+        ...UploadImageEntity
+      }
+    }
+    packageContent {
+      description
+    }
+    additionalServices {
+      id
+      title
+      content
+      price
+    }
+  }
+}
+
 fragment PageCategoryEntity on PageCategoryEntity {
   id
   attributes {

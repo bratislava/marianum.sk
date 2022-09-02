@@ -46,6 +46,14 @@ query BranchBySlug($locale: I18NLocaleCode!, $slug: String!) {
   }
 }
 
+query BundleBySlug($locale: I18NLocaleCode!, $slug: String!) {
+  bundles: packages(locale: $locale, filters: { slug: { eq: $slug } }) {
+    data {
+      ...BundleEntity
+    }
+  }
+}
+
 # strapi returns just the default locale if no locale is provided
 # easiest way to get all static paths is to ask for all locales sequentially
 query PagesStaticPaths($locale: I18NLocaleCode) {
@@ -60,10 +68,20 @@ query PagesStaticPaths($locale: I18NLocaleCode) {
   }
 }
 
-# strapi returns just the default locale if no locale is provided
-# easiest way to get all static paths is to ask for all locales sequentially
 query BranchesStaticPaths($locale: I18NLocaleCode) {
   branches(locale: $locale) {
+    data {
+      id
+      attributes {
+        slug
+        locale
+      }
+    }
+  }
+}
+
+query BundlesStaticPaths($locale: I18NLocaleCode) {
+  bundles: packages(locale: $locale) {
     data {
       id
       attributes {

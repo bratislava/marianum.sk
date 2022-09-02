@@ -147,6 +147,30 @@ export type ComponentBlocksAccordionItemFiltersInput = {
   title?: InputMaybe<StringFilterInput>;
 };
 
+export type ComponentBlocksAccordionItemWithPrice = {
+  __typename?: 'ComponentBlocksAccordionItemWithPrice';
+  content?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  price: Scalars['Float'];
+  title: Scalars['String'];
+};
+
+export type ComponentBlocksAccordionItemWithPriceFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentBlocksAccordionItemWithPriceFiltersInput>>>;
+  content?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentBlocksAccordionItemWithPriceFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentBlocksAccordionItemWithPriceFiltersInput>>>;
+  price?: InputMaybe<FloatFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentBlocksAccordionItemWithPriceInput = {
+  content?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  price?: InputMaybe<Scalars['Float']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
 export type ComponentBlocksBranchItem = {
   __typename?: 'ComponentBlocksBranchItem';
   branch?: Maybe<BranchEntityResponse>;
@@ -234,6 +258,24 @@ export type ComponentBlocksDocumentItemFiltersInput = {
   document?: InputMaybe<DocumentFiltersInput>;
   not?: InputMaybe<ComponentBlocksDocumentItemFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentBlocksDocumentItemFiltersInput>>>;
+};
+
+export type ComponentBlocksPackageContentItem = {
+  __typename?: 'ComponentBlocksPackageContentItem';
+  description: Scalars['String'];
+  id: Scalars['ID'];
+};
+
+export type ComponentBlocksPackageContentItemFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentBlocksPackageContentItemFiltersInput>>>;
+  description?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentBlocksPackageContentItemFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentBlocksPackageContentItemFiltersInput>>>;
+};
+
+export type ComponentBlocksPackageContentItemInput = {
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
 };
 
 export type ComponentBlocksPageItem = {
@@ -930,7 +972,7 @@ export type GeneralRelationResponseCollection = {
   data: Array<GeneralEntity>;
 };
 
-export type GenericMorph = Branch | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSidepanel | ComponentBlocksSimpleCtaItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsBranchGroup | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDocumentGroup | ComponentSectionsGallery | ComponentSectionsManualListing | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewsSection | ComponentSectionsRichtext | Contact | Document | DocumentCategory | General | HomePage | I18NLocale | Page | PageCategory | Partner | Procedure | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Branch | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksBranchItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksPackageContentItem | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSidepanel | ComponentBlocksSimpleCtaItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsBranchGroup | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDocumentGroup | ComponentSectionsGallery | ComponentSectionsManualListing | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewsSection | ComponentSectionsRichtext | Contact | Document | DocumentCategory | General | HomePage | I18NLocale | Package | Page | PageCategory | Partner | Procedure | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -1092,6 +1134,8 @@ export type Mutation = {
   createDocumentCategory?: Maybe<DocumentCategoryEntityResponse>;
   createGeneralLocalization?: Maybe<GeneralEntityResponse>;
   createHomePageLocalization?: Maybe<HomePageEntityResponse>;
+  createPackage?: Maybe<PackageEntityResponse>;
+  createPackageLocalization?: Maybe<PackageEntityResponse>;
   createPage?: Maybe<PageEntityResponse>;
   createPageCategory?: Maybe<PageCategoryEntityResponse>;
   createPageLocalization?: Maybe<PageEntityResponse>;
@@ -1109,6 +1153,7 @@ export type Mutation = {
   deleteDocumentCategory?: Maybe<DocumentCategoryEntityResponse>;
   deleteGeneral?: Maybe<GeneralEntityResponse>;
   deleteHomePage?: Maybe<HomePageEntityResponse>;
+  deletePackage?: Maybe<PackageEntityResponse>;
   deletePage?: Maybe<PageEntityResponse>;
   deletePageCategory?: Maybe<PageCategoryEntityResponse>;
   deletePartner?: Maybe<PartnerEntityResponse>;
@@ -1137,6 +1182,7 @@ export type Mutation = {
   updateFileInfo: UploadFileEntityResponse;
   updateGeneral?: Maybe<GeneralEntityResponse>;
   updateHomePage?: Maybe<HomePageEntityResponse>;
+  updatePackage?: Maybe<PackageEntityResponse>;
   updatePage?: Maybe<PageEntityResponse>;
   updatePageCategory?: Maybe<PageCategoryEntityResponse>;
   updatePartner?: Maybe<PartnerEntityResponse>;
@@ -1203,6 +1249,19 @@ export type MutationCreateGeneralLocalizationArgs = {
 
 export type MutationCreateHomePageLocalizationArgs = {
   data?: InputMaybe<HomePageInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreatePackageArgs = {
+  data: PackageInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreatePackageLocalizationArgs = {
+  data?: InputMaybe<PackageInput>;
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -1286,6 +1345,12 @@ export type MutationDeleteGeneralArgs = {
 
 
 export type MutationDeleteHomePageArgs = {
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationDeletePackageArgs = {
+  id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
@@ -1415,6 +1480,13 @@ export type MutationUpdateHomePageArgs = {
 };
 
 
+export type MutationUpdatePackageArgs = {
+  data: PackageInput;
+  id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
 export type MutationUpdatePageArgs = {
   data: PageInput;
   id: Scalars['ID'];
@@ -1509,6 +1581,95 @@ export enum NavigationRenderType {
   Rfr = 'RFR',
   Tree = 'TREE'
 }
+
+export type Package = {
+  __typename?: 'Package';
+  additionalServices?: Maybe<Array<Maybe<ComponentBlocksAccordionItemWithPrice>>>;
+  coverMedia: UploadFileEntityResponse;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  locale?: Maybe<Scalars['String']>;
+  localizations?: Maybe<PackageRelationResponseCollection>;
+  packageContent?: Maybe<Array<Maybe<ComponentBlocksPackageContentItem>>>;
+  perex?: Maybe<Scalars['String']>;
+  price: Scalars['Float'];
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  slug: Scalars['String'];
+  title: Scalars['String'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type PackageAdditionalServicesArgs = {
+  filters?: InputMaybe<ComponentBlocksAccordionItemWithPriceFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type PackageLocalizationsArgs = {
+  filters?: InputMaybe<PackageFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type PackagePackageContentArgs = {
+  filters?: InputMaybe<ComponentBlocksPackageContentItemFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type PackageEntity = {
+  __typename?: 'PackageEntity';
+  attributes?: Maybe<Package>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type PackageEntityResponse = {
+  __typename?: 'PackageEntityResponse';
+  data?: Maybe<PackageEntity>;
+};
+
+export type PackageEntityResponseCollection = {
+  __typename?: 'PackageEntityResponseCollection';
+  data: Array<PackageEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type PackageFiltersInput = {
+  additionalServices?: InputMaybe<ComponentBlocksAccordionItemWithPriceFiltersInput>;
+  and?: InputMaybe<Array<InputMaybe<PackageFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<PackageFiltersInput>;
+  not?: InputMaybe<PackageFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<PackageFiltersInput>>>;
+  packageContent?: InputMaybe<ComponentBlocksPackageContentItemFiltersInput>;
+  perex?: InputMaybe<StringFilterInput>;
+  price?: InputMaybe<FloatFilterInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type PackageInput = {
+  additionalServices?: InputMaybe<Array<InputMaybe<ComponentBlocksAccordionItemWithPriceInput>>>;
+  coverMedia?: InputMaybe<Scalars['ID']>;
+  packageContent?: InputMaybe<Array<InputMaybe<ComponentBlocksPackageContentItemInput>>>;
+  perex?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['Float']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  slug?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
+export type PackageRelationResponseCollection = {
+  __typename?: 'PackageRelationResponseCollection';
+  data: Array<PackageEntity>;
+};
 
 export type Page = {
   __typename?: 'Page';
@@ -1759,6 +1920,8 @@ export type Query = {
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
   me?: Maybe<UsersPermissionsMe>;
+  package?: Maybe<PackageEntityResponse>;
+  packages?: Maybe<PackageEntityResponseCollection>;
   page?: Maybe<PageEntityResponse>;
   pageCategories?: Maybe<PageCategoryEntityResponseCollection>;
   pageCategory?: Maybe<PageCategoryEntityResponse>;
@@ -1850,6 +2013,21 @@ export type QueryI18NLocaleArgs = {
 export type QueryI18NLocalesArgs = {
   filters?: InputMaybe<I18NLocaleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryPackageArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type QueryPackagesArgs = {
+  filters?: InputMaybe<PackageFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
@@ -2402,6 +2580,8 @@ export type ContactEntityFragment = { __typename?: 'ContactEntity', id?: string 
 
 export type PartnerEntityFragment = { __typename?: 'PartnerEntity', id?: string | null, attributes?: { __typename?: 'Partner', title: string, link?: string | null, featured?: boolean | null, priority?: number | null, logo: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } } | null };
 
+export type BundleEntityFragment = { __typename?: 'PackageEntity', id?: string | null, attributes?: { __typename?: 'Package', title: string, slug: string, perex?: string | null, price: number, coverMedia: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null }, packageContent?: Array<{ __typename?: 'ComponentBlocksPackageContentItem', description: string } | null> | null, additionalServices?: Array<{ __typename?: 'ComponentBlocksAccordionItemWithPrice', id: string, title: string, content?: string | null, price: number } | null> | null } | null };
+
 export type PageCategoryEntityFragment = { __typename?: 'PageCategoryEntity', id?: string | null, attributes?: { __typename?: 'PageCategory', title: string, slug: string } | null };
 
 export type PageCardEntityFragment = { __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, publishedAt?: any | null, perex?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, pageCategory?: { __typename?: 'PageCategoryEntityResponse', data?: { __typename?: 'PageCategoryEntity', id?: string | null, attributes?: { __typename?: 'PageCategory', title: string, slug: string } | null } | null } | null } | null };
@@ -2451,6 +2631,14 @@ export type BranchBySlugQueryVariables = Exact<{
 
 export type BranchBySlugQuery = { __typename?: 'Query', branches?: { __typename?: 'BranchEntityResponseCollection', data: Array<{ __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, type: Enum_Branch_Type, cemeteryType?: Enum_Branch_Cemeterytype | null, description?: string | null, address?: string | null, navigateToLink?: string | null, openingHoursOverride?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null } | null }> } | null };
 
+export type BundleBySlugQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+  slug: Scalars['String'];
+}>;
+
+
+export type BundleBySlugQuery = { __typename?: 'Query', bundles?: { __typename?: 'PackageEntityResponseCollection', data: Array<{ __typename?: 'PackageEntity', id?: string | null, attributes?: { __typename?: 'Package', title: string, slug: string, perex?: string | null, price: number, coverMedia: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null }, packageContent?: Array<{ __typename?: 'ComponentBlocksPackageContentItem', description: string } | null> | null, additionalServices?: Array<{ __typename?: 'ComponentBlocksAccordionItemWithPrice', id: string, title: string, content?: string | null, price: number } | null> | null } | null }> } | null };
+
 export type PagesStaticPathsQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 }>;
@@ -2464,6 +2652,13 @@ export type BranchesStaticPathsQueryVariables = Exact<{
 
 
 export type BranchesStaticPathsQuery = { __typename?: 'Query', branches?: { __typename?: 'BranchEntityResponseCollection', data: Array<{ __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', slug: string, locale?: string | null } | null }> } | null };
+
+export type BundlesStaticPathsQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
+
+
+export type BundlesStaticPathsQuery = { __typename?: 'Query', bundles?: { __typename?: 'PackageEntityResponseCollection', data: Array<{ __typename?: 'PackageEntity', id?: string | null, attributes?: { __typename?: 'Package', slug: string, locale?: string | null } | null }> } | null };
 
 export type HomePageQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -2573,6 +2768,31 @@ export const PartnerEntityFragmentDoc = gql`
     }
     featured
     priority
+  }
+}
+    ${UploadImageEntityFragmentDoc}`;
+export const BundleEntityFragmentDoc = gql`
+    fragment BundleEntity on PackageEntity {
+  id
+  attributes {
+    title
+    slug
+    perex
+    price
+    coverMedia {
+      data {
+        ...UploadImageEntity
+      }
+    }
+    packageContent {
+      description
+    }
+    additionalServices {
+      id
+      title
+      content
+      price
+    }
   }
 }
     ${UploadImageEntityFragmentDoc}`;
@@ -3007,6 +3227,15 @@ export const BranchBySlugDocument = gql`
   }
 }
     ${BranchEntityFragmentDoc}`;
+export const BundleBySlugDocument = gql`
+    query BundleBySlug($locale: I18NLocaleCode!, $slug: String!) {
+  bundles: packages(locale: $locale, filters: {slug: {eq: $slug}}) {
+    data {
+      ...BundleEntity
+    }
+  }
+}
+    ${BundleEntityFragmentDoc}`;
 export const PagesStaticPathsDocument = gql`
     query PagesStaticPaths($locale: I18NLocaleCode) {
   pages(locale: $locale) {
@@ -3023,6 +3252,19 @@ export const PagesStaticPathsDocument = gql`
 export const BranchesStaticPathsDocument = gql`
     query BranchesStaticPaths($locale: I18NLocaleCode) {
   branches(locale: $locale) {
+    data {
+      id
+      attributes {
+        slug
+        locale
+      }
+    }
+  }
+}
+    `;
+export const BundlesStaticPathsDocument = gql`
+    query BundlesStaticPaths($locale: I18NLocaleCode) {
+  bundles: packages(locale: $locale) {
     data {
       id
       attributes {
@@ -3111,11 +3353,17 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     BranchBySlug(variables: BranchBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<BranchBySlugQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<BranchBySlugQuery>(BranchBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'BranchBySlug', 'query');
     },
+    BundleBySlug(variables: BundleBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<BundleBySlugQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<BundleBySlugQuery>(BundleBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'BundleBySlug', 'query');
+    },
     PagesStaticPaths(variables?: PagesStaticPathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PagesStaticPathsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<PagesStaticPathsQuery>(PagesStaticPathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'PagesStaticPaths', 'query');
     },
     BranchesStaticPaths(variables?: BranchesStaticPathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<BranchesStaticPathsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<BranchesStaticPathsQuery>(BranchesStaticPathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'BranchesStaticPaths', 'query');
+    },
+    BundlesStaticPaths(variables?: BundlesStaticPathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<BundlesStaticPathsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<BundlesStaticPathsQuery>(BundlesStaticPathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'BundlesStaticPaths', 'query');
     },
     HomePage(variables?: HomePageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<HomePageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<HomePageQuery>(HomePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'HomePage', 'query');

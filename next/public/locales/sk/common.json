@@ -40,6 +40,11 @@
     }
   },
   "sections": {
+    "HeroSection": {
+      "priceFrom": "Cena od",
+      "bundleContent": "Obsah balíčka",
+      "additionalServices": "Doplnkové služby"
+    },
     "ImageGallerySection": {
       "morePhotos_one": "+{{count}} fotka",
       "morePhotos_few": "+{{count}} fotky",
