@@ -47,7 +47,7 @@ query BranchBySlug($locale: I18NLocaleCode!, $slug: String!) {
 }
 
 query BundleBySlug($locale: I18NLocaleCode!, $slug: String!) {
-  bundles: packages(locale: $locale, filters: { slug: { eq: $slug } }) {
+  bundles(locale: $locale, filters: { slug: { eq: $slug } }) {
     data {
       ...BundleEntity
     }
@@ -81,7 +81,7 @@ query BranchesStaticPaths($locale: I18NLocaleCode) {
 }
 
 query BundlesStaticPaths($locale: I18NLocaleCode) {
-  bundles: packages(locale: $locale) {
+  bundles(locale: $locale) {
     data {
       id
       attributes {

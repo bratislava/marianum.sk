@@ -71,7 +71,7 @@ fragment PartnerEntity on PartnerEntity {
   }
 }
 
-fragment BundleEntity on PackageEntity {
+fragment BundleEntity on BundleEntity {
   id
   attributes {
     title

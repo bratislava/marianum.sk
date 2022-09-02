@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "packages",
+  "collectionName": "bundles",
   "info": {
-    "singularName": "package",
-    "pluralName": "packages",
-    "displayName": "Packages",
+    "singularName": "bundle",
+    "pluralName": "bundles",
+    "displayName": "Bundles",
     "description": ""
   },
   "options": {
@@ -66,7 +66,7 @@
       }
     },
     "packageContent": {
-      "displayName": "package content item",
+      "displayName": "bundle content item",
       "type": "component",
       "repeatable": true,
       "pluginOptions": {
@@ -74,7 +74,7 @@
           "localized": true
         }
       },
-      "component": "blocks.package-content-item"
+      "component": "blocks.bundle-content-item"
     },
     "additionalServices": {
       "displayName": "accordion item with price",

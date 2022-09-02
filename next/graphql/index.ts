@@ -132,6 +132,95 @@ export type BranchRelationResponseCollection = {
   data: Array<BranchEntity>;
 };
 
+export type Bundle = {
+  __typename?: 'Bundle';
+  additionalServices?: Maybe<Array<Maybe<ComponentBlocksAccordionItemWithPrice>>>;
+  coverMedia: UploadFileEntityResponse;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  locale?: Maybe<Scalars['String']>;
+  localizations?: Maybe<BundleRelationResponseCollection>;
+  packageContent?: Maybe<Array<Maybe<ComponentBlocksBundleContentItem>>>;
+  perex?: Maybe<Scalars['String']>;
+  price: Scalars['Float'];
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  slug: Scalars['String'];
+  title: Scalars['String'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type BundleAdditionalServicesArgs = {
+  filters?: InputMaybe<ComponentBlocksAccordionItemWithPriceFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type BundleLocalizationsArgs = {
+  filters?: InputMaybe<BundleFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type BundlePackageContentArgs = {
+  filters?: InputMaybe<ComponentBlocksBundleContentItemFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type BundleEntity = {
+  __typename?: 'BundleEntity';
+  attributes?: Maybe<Bundle>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type BundleEntityResponse = {
+  __typename?: 'BundleEntityResponse';
+  data?: Maybe<BundleEntity>;
+};
+
+export type BundleEntityResponseCollection = {
+  __typename?: 'BundleEntityResponseCollection';
+  data: Array<BundleEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type BundleFiltersInput = {
+  additionalServices?: InputMaybe<ComponentBlocksAccordionItemWithPriceFiltersInput>;
+  and?: InputMaybe<Array<InputMaybe<BundleFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<BundleFiltersInput>;
+  not?: InputMaybe<BundleFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<BundleFiltersInput>>>;
+  packageContent?: InputMaybe<ComponentBlocksBundleContentItemFiltersInput>;
+  perex?: InputMaybe<StringFilterInput>;
+  price?: InputMaybe<FloatFilterInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type BundleInput = {
+  additionalServices?: InputMaybe<Array<InputMaybe<ComponentBlocksAccordionItemWithPriceInput>>>;
+  coverMedia?: InputMaybe<Scalars['ID']>;
+  packageContent?: InputMaybe<Array<InputMaybe<ComponentBlocksBundleContentItemInput>>>;
+  perex?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['Float']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  slug?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
+export type BundleRelationResponseCollection = {
+  __typename?: 'BundleRelationResponseCollection';
+  data: Array<BundleEntity>;
+};
+
 export type ComponentBlocksAccordionItem = {
   __typename?: 'ComponentBlocksAccordionItem';
   content?: Maybe<Scalars['String']>;
@@ -182,6 +271,24 @@ export type ComponentBlocksBranchItemFiltersInput = {
   branch?: InputMaybe<BranchFiltersInput>;
   not?: InputMaybe<ComponentBlocksBranchItemFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentBlocksBranchItemFiltersInput>>>;
+};
+
+export type ComponentBlocksBundleContentItem = {
+  __typename?: 'ComponentBlocksBundleContentItem';
+  description: Scalars['String'];
+  id: Scalars['ID'];
+};
+
+export type ComponentBlocksBundleContentItemFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentBlocksBundleContentItemFiltersInput>>>;
+  description?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentBlocksBundleContentItemFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentBlocksBundleContentItemFiltersInput>>>;
+};
+
+export type ComponentBlocksBundleContentItemInput = {
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
 };
 
 export type ComponentBlocksButtonLink = {
@@ -258,24 +365,6 @@ export type ComponentBlocksDocumentItemFiltersInput = {
   document?: InputMaybe<DocumentFiltersInput>;
   not?: InputMaybe<ComponentBlocksDocumentItemFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentBlocksDocumentItemFiltersInput>>>;
-};
-
-export type ComponentBlocksPackageContentItem = {
-  __typename?: 'ComponentBlocksPackageContentItem';
-  description: Scalars['String'];
-  id: Scalars['ID'];
-};
-
-export type ComponentBlocksPackageContentItemFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentBlocksPackageContentItemFiltersInput>>>;
-  description?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<ComponentBlocksPackageContentItemFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentBlocksPackageContentItemFiltersInput>>>;
-};
-
-export type ComponentBlocksPackageContentItemInput = {
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
 };
 
 export type ComponentBlocksPageItem = {
@@ -972,7 +1061,7 @@ export type GeneralRelationResponseCollection = {
   data: Array<GeneralEntity>;
 };
 
-export type GenericMorph = Branch | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksBranchItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksPackageContentItem | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSidepanel | ComponentBlocksSimpleCtaItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsBranchGroup | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDocumentGroup | ComponentSectionsGallery | ComponentSectionsManualListing | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewsSection | ComponentSectionsRichtext | Contact | Document | DocumentCategory | General | HomePage | I18NLocale | Package | Page | PageCategory | Partner | Procedure | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Branch | Bundle | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSidepanel | ComponentBlocksSimpleCtaItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsBranchGroup | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDocumentGroup | ComponentSectionsGallery | ComponentSectionsManualListing | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewsSection | ComponentSectionsRichtext | Contact | Document | DocumentCategory | General | HomePage | I18NLocale | Page | PageCategory | Partner | Procedure | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -1128,14 +1217,14 @@ export type Mutation = {
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
   createBranch?: Maybe<BranchEntityResponse>;
   createBranchLocalization?: Maybe<BranchEntityResponse>;
+  createBundle?: Maybe<BundleEntityResponse>;
+  createBundleLocalization?: Maybe<BundleEntityResponse>;
   createContact?: Maybe<ContactEntityResponse>;
   createContactLocalization?: Maybe<ContactEntityResponse>;
   createDocument?: Maybe<DocumentEntityResponse>;
   createDocumentCategory?: Maybe<DocumentCategoryEntityResponse>;
   createGeneralLocalization?: Maybe<GeneralEntityResponse>;
   createHomePageLocalization?: Maybe<HomePageEntityResponse>;
-  createPackage?: Maybe<PackageEntityResponse>;
-  createPackageLocalization?: Maybe<PackageEntityResponse>;
   createPage?: Maybe<PageEntityResponse>;
   createPageCategory?: Maybe<PageCategoryEntityResponse>;
   createPageLocalization?: Maybe<PageEntityResponse>;
@@ -1148,12 +1237,12 @@ export type Mutation = {
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
   deleteBranch?: Maybe<BranchEntityResponse>;
+  deleteBundle?: Maybe<BundleEntityResponse>;
   deleteContact?: Maybe<ContactEntityResponse>;
   deleteDocument?: Maybe<DocumentEntityResponse>;
   deleteDocumentCategory?: Maybe<DocumentCategoryEntityResponse>;
   deleteGeneral?: Maybe<GeneralEntityResponse>;
   deleteHomePage?: Maybe<HomePageEntityResponse>;
-  deletePackage?: Maybe<PackageEntityResponse>;
   deletePage?: Maybe<PageEntityResponse>;
   deletePageCategory?: Maybe<PageCategoryEntityResponse>;
   deletePartner?: Maybe<PartnerEntityResponse>;
@@ -1176,13 +1265,13 @@ export type Mutation = {
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
   updateBranch?: Maybe<BranchEntityResponse>;
+  updateBundle?: Maybe<BundleEntityResponse>;
   updateContact?: Maybe<ContactEntityResponse>;
   updateDocument?: Maybe<DocumentEntityResponse>;
   updateDocumentCategory?: Maybe<DocumentCategoryEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateGeneral?: Maybe<GeneralEntityResponse>;
   updateHomePage?: Maybe<HomePageEntityResponse>;
-  updatePackage?: Maybe<PackageEntityResponse>;
   updatePage?: Maybe<PageEntityResponse>;
   updatePageCategory?: Maybe<PageCategoryEntityResponse>;
   updatePartner?: Maybe<PartnerEntityResponse>;
@@ -1212,6 +1301,19 @@ export type MutationCreateBranchArgs = {
 
 export type MutationCreateBranchLocalizationArgs = {
   data?: InputMaybe<BranchInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreateBundleArgs = {
+  data: BundleInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreateBundleLocalizationArgs = {
+  data?: InputMaybe<BundleInput>;
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -1249,19 +1351,6 @@ export type MutationCreateGeneralLocalizationArgs = {
 
 export type MutationCreateHomePageLocalizationArgs = {
   data?: InputMaybe<HomePageInput>;
-  id?: InputMaybe<Scalars['ID']>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-};
-
-
-export type MutationCreatePackageArgs = {
-  data: PackageInput;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-};
-
-
-export type MutationCreatePackageLocalizationArgs = {
-  data?: InputMaybe<PackageInput>;
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -1323,6 +1412,12 @@ export type MutationDeleteBranchArgs = {
 };
 
 
+export type MutationDeleteBundleArgs = {
+  id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
 export type MutationDeleteContactArgs = {
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -1345,12 +1440,6 @@ export type MutationDeleteGeneralArgs = {
 
 
 export type MutationDeleteHomePageArgs = {
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-};
-
-
-export type MutationDeletePackageArgs = {
-  id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
@@ -1443,6 +1532,13 @@ export type MutationUpdateBranchArgs = {
 };
 
 
+export type MutationUpdateBundleArgs = {
+  data: BundleInput;
+  id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
 export type MutationUpdateContactArgs = {
   data: ContactInput;
   id: Scalars['ID'];
@@ -1476,13 +1572,6 @@ export type MutationUpdateGeneralArgs = {
 
 export type MutationUpdateHomePageArgs = {
   data: HomePageInput;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-};
-
-
-export type MutationUpdatePackageArgs = {
-  data: PackageInput;
-  id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
@@ -1581,95 +1670,6 @@ export enum NavigationRenderType {
   Rfr = 'RFR',
   Tree = 'TREE'
 }
-
-export type Package = {
-  __typename?: 'Package';
-  additionalServices?: Maybe<Array<Maybe<ComponentBlocksAccordionItemWithPrice>>>;
-  coverMedia: UploadFileEntityResponse;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  locale?: Maybe<Scalars['String']>;
-  localizations?: Maybe<PackageRelationResponseCollection>;
-  packageContent?: Maybe<Array<Maybe<ComponentBlocksPackageContentItem>>>;
-  perex?: Maybe<Scalars['String']>;
-  price: Scalars['Float'];
-  publishedAt?: Maybe<Scalars['DateTime']>;
-  slug: Scalars['String'];
-  title: Scalars['String'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-
-export type PackageAdditionalServicesArgs = {
-  filters?: InputMaybe<ComponentBlocksAccordionItemWithPriceFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-
-export type PackageLocalizationsArgs = {
-  filters?: InputMaybe<PackageFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-
-export type PackagePackageContentArgs = {
-  filters?: InputMaybe<ComponentBlocksPackageContentItemFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-export type PackageEntity = {
-  __typename?: 'PackageEntity';
-  attributes?: Maybe<Package>;
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type PackageEntityResponse = {
-  __typename?: 'PackageEntityResponse';
-  data?: Maybe<PackageEntity>;
-};
-
-export type PackageEntityResponseCollection = {
-  __typename?: 'PackageEntityResponseCollection';
-  data: Array<PackageEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type PackageFiltersInput = {
-  additionalServices?: InputMaybe<ComponentBlocksAccordionItemWithPriceFiltersInput>;
-  and?: InputMaybe<Array<InputMaybe<PackageFiltersInput>>>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  locale?: InputMaybe<StringFilterInput>;
-  localizations?: InputMaybe<PackageFiltersInput>;
-  not?: InputMaybe<PackageFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<PackageFiltersInput>>>;
-  packageContent?: InputMaybe<ComponentBlocksPackageContentItemFiltersInput>;
-  perex?: InputMaybe<StringFilterInput>;
-  price?: InputMaybe<FloatFilterInput>;
-  publishedAt?: InputMaybe<DateTimeFilterInput>;
-  slug?: InputMaybe<StringFilterInput>;
-  title?: InputMaybe<StringFilterInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type PackageInput = {
-  additionalServices?: InputMaybe<Array<InputMaybe<ComponentBlocksAccordionItemWithPriceInput>>>;
-  coverMedia?: InputMaybe<Scalars['ID']>;
-  packageContent?: InputMaybe<Array<InputMaybe<ComponentBlocksPackageContentItemInput>>>;
-  perex?: InputMaybe<Scalars['String']>;
-  price?: InputMaybe<Scalars['Float']>;
-  publishedAt?: InputMaybe<Scalars['DateTime']>;
-  slug?: InputMaybe<Scalars['String']>;
-  title?: InputMaybe<Scalars['String']>;
-};
-
-export type PackageRelationResponseCollection = {
-  __typename?: 'PackageRelationResponseCollection';
-  data: Array<PackageEntity>;
-};
 
 export type Page = {
   __typename?: 'Page';
@@ -1909,6 +1909,8 @@ export type Query = {
   __typename?: 'Query';
   branch?: Maybe<BranchEntityResponse>;
   branches?: Maybe<BranchEntityResponseCollection>;
+  bundle?: Maybe<BundleEntityResponse>;
+  bundles?: Maybe<BundleEntityResponseCollection>;
   contact?: Maybe<ContactEntityResponse>;
   contacts?: Maybe<ContactEntityResponseCollection>;
   document?: Maybe<DocumentEntityResponse>;
@@ -1920,8 +1922,6 @@ export type Query = {
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
   me?: Maybe<UsersPermissionsMe>;
-  package?: Maybe<PackageEntityResponse>;
-  packages?: Maybe<PackageEntityResponseCollection>;
   page?: Maybe<PageEntityResponse>;
   pageCategories?: Maybe<PageCategoryEntityResponseCollection>;
   pageCategory?: Maybe<PageCategoryEntityResponse>;
@@ -1952,6 +1952,21 @@ export type QueryBranchesArgs = {
   filters?: InputMaybe<BranchFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
   pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryBundleArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type QueryBundlesArgs = {
+  filters?: InputMaybe<BundleFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
@@ -2013,21 +2028,6 @@ export type QueryI18NLocaleArgs = {
 export type QueryI18NLocalesArgs = {
   filters?: InputMaybe<I18NLocaleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-
-export type QueryPackageArgs = {
-  id?: InputMaybe<Scalars['ID']>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-};
-
-
-export type QueryPackagesArgs = {
-  filters?: InputMaybe<PackageFiltersInput>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
@@ -2580,7 +2580,7 @@ export type ContactEntityFragment = { __typename?: 'ContactEntity', id?: string 
 
 export type PartnerEntityFragment = { __typename?: 'PartnerEntity', id?: string | null, attributes?: { __typename?: 'Partner', title: string, link?: string | null, featured?: boolean | null, priority?: number | null, logo: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } } | null };
 
-export type BundleEntityFragment = { __typename?: 'PackageEntity', id?: string | null, attributes?: { __typename?: 'Package', title: string, slug: string, perex?: string | null, price: number, coverMedia: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null }, packageContent?: Array<{ __typename?: 'ComponentBlocksPackageContentItem', description: string } | null> | null, additionalServices?: Array<{ __typename?: 'ComponentBlocksAccordionItemWithPrice', id: string, title: string, content?: string | null, price: number } | null> | null } | null };
+export type BundleEntityFragment = { __typename?: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, perex?: string | null, price: number, coverMedia: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null }, packageContent?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalServices?: Array<{ __typename?: 'ComponentBlocksAccordionItemWithPrice', id: string, title: string, content?: string | null, price: number } | null> | null } | null };
 
 export type PageCategoryEntityFragment = { __typename?: 'PageCategoryEntity', id?: string | null, attributes?: { __typename?: 'PageCategory', title: string, slug: string } | null };
 
@@ -2637,7 +2637,7 @@ export type BundleBySlugQueryVariables = Exact<{
 }>;
 
 
-export type BundleBySlugQuery = { __typename?: 'Query', bundles?: { __typename?: 'PackageEntityResponseCollection', data: Array<{ __typename?: 'PackageEntity', id?: string | null, attributes?: { __typename?: 'Package', title: string, slug: string, perex?: string | null, price: number, coverMedia: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null }, packageContent?: Array<{ __typename?: 'ComponentBlocksPackageContentItem', description: string } | null> | null, additionalServices?: Array<{ __typename?: 'ComponentBlocksAccordionItemWithPrice', id: string, title: string, content?: string | null, price: number } | null> | null } | null }> } | null };
+export type BundleBySlugQuery = { __typename?: 'Query', bundles?: { __typename?: 'BundleEntityResponseCollection', data: Array<{ __typename?: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, perex?: string | null, price: number, coverMedia: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null }, packageContent?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalServices?: Array<{ __typename?: 'ComponentBlocksAccordionItemWithPrice', id: string, title: string, content?: string | null, price: number } | null> | null } | null }> } | null };
 
 export type PagesStaticPathsQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -2658,7 +2658,7 @@ export type BundlesStaticPathsQueryVariables = Exact<{
 }>;
 
 
-export type BundlesStaticPathsQuery = { __typename?: 'Query', bundles?: { __typename?: 'PackageEntityResponseCollection', data: Array<{ __typename?: 'PackageEntity', id?: string | null, attributes?: { __typename?: 'Package', slug: string, locale?: string | null } | null }> } | null };
+export type BundlesStaticPathsQuery = { __typename?: 'Query', bundles?: { __typename?: 'BundleEntityResponseCollection', data: Array<{ __typename?: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', slug: string, locale?: string | null } | null }> } | null };
 
 export type HomePageQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -2772,7 +2772,7 @@ export const PartnerEntityFragmentDoc = gql`
 }
     ${UploadImageEntityFragmentDoc}`;
 export const BundleEntityFragmentDoc = gql`
-    fragment BundleEntity on PackageEntity {
+    fragment BundleEntity on BundleEntity {
   id
   attributes {
     title
@@ -3229,7 +3229,7 @@ export const BranchBySlugDocument = gql`
     ${BranchEntityFragmentDoc}`;
 export const BundleBySlugDocument = gql`
     query BundleBySlug($locale: I18NLocaleCode!, $slug: String!) {
-  bundles: packages(locale: $locale, filters: {slug: {eq: $slug}}) {
+  bundles(locale: $locale, filters: {slug: {eq: $slug}}) {
     data {
       ...BundleEntity
     }
@@ -3264,7 +3264,7 @@ export const BranchesStaticPathsDocument = gql`
     `;
 export const BundlesStaticPathsDocument = gql`
     query BundlesStaticPaths($locale: I18NLocaleCode) {
-  bundles: packages(locale: $locale) {
+  bundles(locale: $locale) {
     data {
       id
       attributes {
