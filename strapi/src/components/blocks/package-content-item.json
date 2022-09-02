@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_blocks_package_content_items",
+  "info": {
+    "displayName": "package content item",
+    "icon": "check",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "description": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
