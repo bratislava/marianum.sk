@@ -28,7 +28,7 @@ const ContactsSection = ({ contacts, title }: ContactGroupFragment) => {
                       <MLink
                         noStyles
                         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                        href={`tel:${phone1}`}
+                        href={`tel:${phone1.replace(/ /g, '')}`}
                       >
                         {phone1}
                       </MLink>
@@ -38,7 +38,7 @@ const ContactsSection = ({ contacts, title }: ContactGroupFragment) => {
                       <MLink
                         noStyles
                         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                        href={`tel:${phone2}`}
+                        href={`tel:${phone2.replace(/ /g, '')}`}
                       >
                         {phone2}
                       </MLink>
@@ -50,7 +50,7 @@ const ContactsSection = ({ contacts, title }: ContactGroupFragment) => {
                 <MLink
                   noStyles
                   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                  href={`mailto:${email}`}
+                  href={`mailto:${email.replace(/ /g, '')}`}
                   className="flex items-center gap-x-2 font-semibold text-primary"
                 >
                   <MailIcon />
