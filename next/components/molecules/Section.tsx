@@ -22,7 +22,7 @@ const Section = ({
   button,
 }: SectionProps) => {
   return (
-    <section
+    <div
       className={cx('group relative', {
         'odd:bg-white even:bg-background-beige last-of-type:bg-background-beige': !color,
         'bg-white': color === 'white',
@@ -31,7 +31,7 @@ const Section = ({
       {/* border displayed only when two last sections are same beige color */}
       <div className="container mx-auto group-even:hidden group-last-of-type:border-t group-last-of-type:border-border" />
       <div
-        className={cx('', {
+        className={cx({
           'container mx-auto px-4 py-6 group-last-of-type:pb-20 md:py-20 md:group-last-of-type:pb-36':
             isContainer,
         })}
@@ -61,7 +61,7 @@ const Section = ({
           </div>
         )}
       </div>
-    </section>
+    </div>
   )
 }
 
