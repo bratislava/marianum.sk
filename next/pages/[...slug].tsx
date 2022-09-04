@@ -9,6 +9,7 @@ import AccordionItem from '../components/molecules/Accordion/AccordionItem'
 import ProcedureTabs from '../components/molecules/ProcedureTabs'
 import Section from '../components/molecules/Section'
 import CardSection from '../components/sections/CardSection'
+import ContactsSection from '../components/sections/ContactsSection'
 import ImageGallerySection from '../components/sections/ImageGallerySection'
 import MenuListingSection from '../components/sections/MenuListingSection'
 import RichTextSection from '../components/sections/RichTextSection'
@@ -74,12 +75,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             )
           }
           if (section?.__typename === 'ComponentSectionsContactGroup') {
-            return (
-              <Section key={section.id} isContainer={isContainer}>
-                {/* TODO */}
-                contacts
-              </Section>
-            )
+            return section && <ContactsSection {...section} />
           }
           if (section?.__typename === 'ComponentSectionsDocumentGroup') {
             return (

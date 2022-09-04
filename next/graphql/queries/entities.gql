@@ -131,19 +131,7 @@ fragment PageEntity on PageEntity {
       }
       ... on ComponentSectionsContactGroup {
         __typename
-        id
-        title
-        contacts {
-          contact {
-            data {
-              # TODO replace by fragment
-              id
-              attributes {
-                title
-              }
-            }
-          }
-        }
+        ...ContactGroup
       }
       ... on ComponentSectionsDocumentGroup {
         __typename
