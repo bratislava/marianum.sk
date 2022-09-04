@@ -7,17 +7,17 @@ import { isDefined } from '../../utils/isDefined'
 import MLink from '../atoms/MLink'
 import Section from '../molecules/Section'
 
-const ContactsSection = ({ contacts }: ContactGroupFragment) => {
+const ContactsSection = ({ contacts, title }: ContactGroupFragment) => {
   const filteredContacts = useMemo(() => {
     return (contacts ?? []).map((contact) => contact?.contact?.data?.attributes).filter(isDefined)
   }, [contacts])
 
   return (
-    <Section isContainer>
+    <Section isContainer title={title}>
       <div className="flex flex-col gap-4">
-        {filteredContacts.map(({ title, email, phone1, phone2 }) => (
+        {filteredContacts.map(({ title: contactTitle, email, phone1, phone2 }) => (
           <div className="border border-border bg-white">
-            <div className="p-6 text-h4 font-bold">{title}</div>
+            <div className="p-6 text-h4 font-bold">{contactTitle}</div>
             <hr className="border-border" />
             <div className="flex flex-col gap-2 p-6">
               {(phone1 ?? phone2) && (
