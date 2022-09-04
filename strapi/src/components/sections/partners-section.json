@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_sections_partners_sections",
+  "info": {
+    "displayName": "partners section",
+    "icon": "handshake"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
