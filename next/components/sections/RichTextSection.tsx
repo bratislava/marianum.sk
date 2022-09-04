@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import { ComponentSectionsRichtext } from '../../graphql'
 import Section, { SectionProps } from '../molecules/Section'
 
-type RichTextSectionProps = Pick<SectionProps, 'fullWidth' | 'color'> & {
+type RichTextSectionProps = Pick<SectionProps, 'isContainer' | 'color'> & {
   content: ComponentSectionsRichtext['content']
 }
 

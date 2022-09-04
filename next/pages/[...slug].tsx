@@ -29,17 +29,16 @@ type PageProps = {
 } & SSRConfig
 
 const Slug = ({ navigation, page, general }: PageProps) => {
-  const fullWidth = page.attributes?.layout === Enum_Page_Layout.Fullwidth
+  const isContainer = page.attributes?.layout === Enum_Page_Layout.Fullwidth
 
   return (
     <Layout page={page} navigation={navigation} general={general}>
       <div className="gap-y-6 sm:gap-y-8">
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
-        {page.attributes?.sections?.map((section, index) => {
-          const color = index % 2 === 0 ? 'white' : 'default'
+        {page.attributes?.sections?.map((section) => {
           if (section?.__typename === 'ComponentSectionsProceduresSection') {
             return (
-              <Section key={section.id} fullWidth={fullWidth} color={color} title={section.title}>
+              <Section key={section.id} isContainer={isContainer} title={section.title}>
                 <ProcedureTabs />
               </Section>
             )
@@ -48,15 +47,14 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             return (
               <RichTextSection
                 key={section.id}
-                fullWidth={fullWidth}
-                color={color}
+                isContainer={isContainer}
                 content={section.content}
               />
             )
           }
           if (section?.__typename === 'ComponentSectionsAccordionGroup') {
             return (
-              <Section key={section.id} fullWidth={fullWidth} color={color} title={section.title}>
+              <Section key={section.id} isContainer={isContainer} title={section.title}>
                 <AccordionGroup>
                   {section.accordions?.map((accordion) => (
                     <AccordionItem key={accordion?.id} title={accordion?.title}>
@@ -70,22 +68,18 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsBranchGroup') {
             return (
-              <Section key={section.id} fullWidth={fullWidth} color={color}>
+              <Section key={section.id} isContainer={isContainer}>
                 {/* TODO */}
                 branches
               </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsContactGroup') {
-            return (
-              <Section key={section.id} color={color}>
-                {section && <ContactsSection {...section} />}
-              </Section>
-            )
+            return section && <ContactsSection {...section} />
           }
           if (section?.__typename === 'ComponentSectionsDocumentGroup') {
             return (
-              <Section key={section.id} fullWidth={fullWidth} color={color}>
+              <Section key={section.id} isContainer={isContainer}>
                 {/* TODO */}
                 documents
               </Section>
@@ -105,8 +99,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             return (
               <MenuListingSection
                 key={section.id}
-                fullWidth={fullWidth}
-                color={color}
+                isContainer={isContainer}
                 title={section.title}
                 slug={section.slug}
                 navigation={navigation}
@@ -114,13 +107,11 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             )
           }
           if (section?.__typename === 'ComponentSectionsManualListing') {
-            return (
-              <CardSection key={section.id} fullWidth={fullWidth} color={color} section={section} />
-            )
+            return <CardSection key={section.id} isContainer={isContainer} section={section} />
           }
           if (section?.__typename === 'ComponentSectionsNewsListing') {
             return (
-              <Section key={section.id} fullWidth={fullWidth} color={color}>
+              <Section key={section.id} isContainer={isContainer}>
                 {/* TODO */}
                 news listing
               </Section>

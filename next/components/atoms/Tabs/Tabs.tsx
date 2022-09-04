@@ -95,7 +95,7 @@ const Tabs = ({ children, areWhite = false, areBig = false }: TabsProps) => {
                       'border-b-2 border-white border-opacity-100 font-semibold text-white text-opacity-100':
                         selected && areWhite,
                       // unselected big
-                      'border border-border px-6 py-5 text-[18px] font-bold':
+                      'border border-border bg-background-beige px-6 py-5 text-[18px] font-bold':
                         !selected && areBig && !areWhite,
                       // selected big
                       'border border-primary bg-primary px-6 py-5 text-[18px] font-bold text-white':
