@@ -6,20 +6,20 @@ import Tabs from '../atoms/Tabs/Tabs'
 import Row from '../molecules/Row'
 import Section, { SectionProps } from '../molecules/Section'
 
-type HomepagePoceduresProps = Pick<SectionProps, 'title' | 'fullWidth' | 'color'> & {
+type HomepagePoceduresProps = Pick<SectionProps, 'title' | 'isContainer' | 'color'> & {
   procedures: ProcedureFragment[]
   showMoreButton: CtaButtonFragment | null | undefined
 }
 
 const HomepageProcedures = ({
   title,
-  fullWidth,
+  isContainer,
   color,
   procedures,
   showMoreButton,
 }: HomepagePoceduresProps) => {
   return (
-    <Section fullWidth={fullWidth} color={color}>
+    <Section isContainer={isContainer} color={color}>
       <div className="text-center lg:mx-32">
         <h2 className="pb-5 md:pb-10">{title}</h2>
         <Tabs areBig>

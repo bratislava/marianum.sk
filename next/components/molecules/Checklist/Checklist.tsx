@@ -40,12 +40,15 @@ const ChecklistRadio = ({
         })}
       />
       <div
-        className={cx('absolute h-6 w-6 rounded-full bg-primary text-white transition-transform', {
-          'scale-0': !isCompleted,
-          'scale-1': isCompleted,
-        })}
+        className={cx(
+          'absolute flex h-6 w-6 items-center justify-center rounded-full bg-primary text-white transition-transform',
+          {
+            'scale-0': !isCompleted,
+            'scale-1': isCompleted,
+          },
+        )}
       >
-        <CheckIcon className="scale-75" />
+        <CheckIcon />
       </div>
     </div>
   )
@@ -124,7 +127,7 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
             />
             <div
               className={cx(
-                'flex w-full flex-col bg-white outline-offset-2 outline-primary focus:outline-2',
+                'flex w-full flex-col border border-border bg-white outline-offset-2 outline-primary focus:outline-2',
                 {
                   'cursor-auto': isOpen,
                 },
