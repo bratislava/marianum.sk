@@ -12,6 +12,7 @@ import CardSection from '../components/sections/CardSection'
 import ContactsSection from '../components/sections/ContactsSection'
 import ImageGallerySection from '../components/sections/ImageGallerySection'
 import MenuListingSection from '../components/sections/MenuListingSection'
+import PartnersSection from '../components/sections/PartnersSection'
 import RichTextSection from '../components/sections/RichTextSection'
 import {
   Enum_Page_Layout,
@@ -83,6 +84,15 @@ const Slug = ({ navigation, page, general }: PageProps) => {
                 {/* TODO */}
                 documents
               </Section>
+            )
+          }
+          if (section?.__typename === 'ComponentSectionsPartnersSection') {
+            return (
+              <PartnersSection
+                key={section.id}
+                featuredTitle={section.featuredPartnersTitle}
+                otherTitle={section.otherPartnersTitle}
+              />
             )
           }
           if (section?.__typename === 'ComponentSectionsGallery') {
