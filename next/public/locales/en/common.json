@@ -40,6 +40,11 @@
     }
   },
   "sections": {
+    "HeroSection": {
+      "priceFrom": "Price from",
+      "bundleContent": "Package content",
+      "additionalServices": "AdditionalServices"
+    },
     "ImageGallerySection": {
       "morePhotos_one": "+{{count}} photo",
       "morePhotos_other": "+{{count}} photos",

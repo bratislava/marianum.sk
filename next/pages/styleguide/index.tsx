@@ -29,8 +29,8 @@ import AccordionGroup from '../../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
 import ArticleCard from '../../components/molecules/Cards/ArticleCard'
 import BranchCard from '../../components/molecules/Cards/BranchCard'
+import BundleCard from '../../components/molecules/Cards/BundleCard'
 import { CategoryCard, FaqThemeCard } from '../../components/molecules/Cards/CategoryFaqThemeCard'
-import PackageCard from '../../components/molecules/Cards/PackageCard'
 import PartnerCard from '../../components/molecules/Cards/PartnerCard'
 import ProductCard from '../../components/molecules/Cards/ProductCard'
 import ServiceCard from '../../components/molecules/Cards/ServiceCard'
@@ -1062,7 +1062,7 @@ const Showcase = () => {
               imageAlt="Example image for card"
               border={cardsBorder}
             />
-            <PackageCard
+            <BundleCard
               imageUrl="/card-example.jpg"
               imageAlt="Example image for card"
               name="Package name"

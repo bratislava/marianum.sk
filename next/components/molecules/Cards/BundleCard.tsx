@@ -8,7 +8,7 @@ import CardContent from '../../atoms/Card/CardContent'
 import FormatCurrency from '../../atoms/FormatCurrency'
 import MLink from '../../atoms/MLink'
 
-type PackageCardProps = {
+type BundleCardProps = {
   imageUrl: string
   imageAlt: string
   name: string
@@ -17,7 +17,7 @@ type PackageCardProps = {
   linkHref: string
 } & CardBoxProps
 
-const PackageCard = ({
+const BundleCard = ({
   imageUrl,
   imageAlt,
   name,
@@ -25,7 +25,7 @@ const PackageCard = ({
   claims,
   linkHref,
   ...props
-}: PackageCardProps) => {
+}: BundleCardProps) => {
   const router = useRouter()
 
   const handleCardClick = () => {
@@ -49,8 +49,8 @@ const PackageCard = ({
             <ul className="mb-6">
               {claims.map((claim, index) => (
                 // eslint-disable-next-line react/no-array-index-key
-                <li key={index} className="flex items-center text-sm">
-                  <span className="mr-2 text-primary">
+                <li key={index} className="mt-1 flex gap-3 text-sm">
+                  <span className="mt-1.5 text-primary">
                     <CheckIcon />
                   </span>
                   {claim}
@@ -70,4 +70,4 @@ const PackageCard = ({
   )
 }
 
-export default PackageCard
+export default BundleCard

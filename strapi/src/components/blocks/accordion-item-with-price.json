@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_blocks_accordion_item_with_prices",
+  "info": {
+    "displayName": "accordion item with price",
+    "icon": "chevron-down"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "content": {
+      "type": "text"
+    },
+    "price": {
+      "type": "decimal",
+      "required": true
+    }
+  }
+}

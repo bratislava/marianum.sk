@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_sections_bundle_listings",
+  "info": {
+    "displayName": "bundle listing",
+    "icon": "gift",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "bundles": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.bundle-item"
+    },
+    "showMoreButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "blocks.button-link"
+    }
+  }
+}

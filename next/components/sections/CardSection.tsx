@@ -12,10 +12,15 @@ type CardSectionProps = Pick<SectionProps, 'isContainer' | 'color'> & {
 const CardSection = ({ section, ...rest }: CardSectionProps) => {
   const { pages, title, style, showMoreButton } = section
 
+  const filteredPages = pages
+    ?.filter(isDefined)
+    .map((page) => page.page?.data)
+    .filter((page) => page?.attributes)
+
   return (
     <Section title={title} {...rest} cardGrid button={showMoreButton}>
-      {pages?.filter(isDefined).map(({ page }) => {
-        const { id, attributes } = page?.data || {}
+      {filteredPages?.map((page) => {
+        const { id, attributes } = page || {}
 
         if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
           return (

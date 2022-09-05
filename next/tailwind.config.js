@@ -27,6 +27,10 @@ const inputNumberArrowsHide = plugin(function ({ addUtilities }) {
   })
 })
 
+const customVariants = plugin(function ({ addVariant }) {
+  addVariant('not-first', '&:not(:first-child)')
+})
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./pages/**/*.{js,jsx,ts,tsx}', './components/**/*.{js,jsx,ts,tsx}'],
@@ -106,6 +110,7 @@ module.exports = {
   plugins: [
     scrollBarHide,
     inputNumberArrowsHide,
+    customVariants,
     require('tailwindcss-radix')(),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/line-clamp'),

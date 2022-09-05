@@ -1,10 +1,12 @@
 import Image from 'next/image'
+import { useTranslation } from 'next-i18next'
 
 import HomeIcon from '../../assets/home.svg'
 import { CtaButtonFragment, UploadImageEntityFragment } from '../../graphql'
 import { TBreadcrumbListItem } from '../../utils/types'
 import Breadcrumbs from '../atoms/Breadcrumbs'
 import Button from '../atoms/Button'
+import FormatCurrency from '../atoms/FormatCurrency'
 import MLink from '../atoms/MLink'
 
 type HeroSectionProps = {
@@ -13,9 +15,12 @@ type HeroSectionProps = {
   cta?: CtaButtonFragment | null | undefined
   image?: UploadImageEntityFragment | null | undefined
   breadcrumbs?: TBreadcrumbListItem[]
+  price?: number | null | undefined
 }
 
-const HeroSection = ({ title, perex, cta, image, breadcrumbs }: HeroSectionProps) => {
+const HeroSection = ({ title, perex, cta, image, breadcrumbs, price }: HeroSectionProps) => {
+  const { t } = useTranslation()
+
   const breadcrumbsWithHome = [{ label: <HomeIcon />, link: '/' }, ...(breadcrumbs ?? [])]
 
   return (
@@ -41,6 +46,14 @@ const HeroSection = ({ title, perex, cta, image, breadcrumbs }: HeroSectionProps
             <Button href={cta.url} className="mt-6">
               {cta.label}
             </Button>
+          )}
+          {price && (
+            <div className="mt-6">
+              <div>{t('sections.HeroSection.priceFrom')}</div>
+              <div className="mt-1 text-h4 font-bold text-white">
+                <FormatCurrency value={price} />
+              </div>
+            </div>
           )}
         </div>
       </div>
