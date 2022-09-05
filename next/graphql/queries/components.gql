@@ -130,6 +130,12 @@ fragment BranchGroup on ComponentSectionsBranchGroup {
   }
 }
 
+fragment PartnersSection on ComponentSectionsPartnersSection {
+  id
+  featuredPartnersTitle
+  otherPartnersTitle
+}
+
 fragment ContactGroup on ComponentSectionsContactGroup {
   id
   title

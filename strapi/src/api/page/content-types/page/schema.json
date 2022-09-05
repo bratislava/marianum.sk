@@ -86,7 +86,8 @@
         "sections.menu-listing",
         "sections.manual-listing",
         "sections.news-listing",
-        "sections.procedures-section"
+        "sections.procedures-section",
+        "sections.partners-section"
       ]
     },
     "sidebar": {
