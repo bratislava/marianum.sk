@@ -43,7 +43,7 @@
     "HeroSection": {
       "priceFrom": "Price from",
       "bundleContent": "Package content",
-      "additionalServices": "AdditionalServices"
+      "additionalServices": "Additional Services"
     },
     "ImageGallerySection": {
       "morePhotos_one": "+{{count}} photo",
