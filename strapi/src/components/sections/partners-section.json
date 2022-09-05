@@ -2,13 +2,17 @@
   "collectionName": "components_sections_partners_sections",
   "info": {
     "displayName": "partners section",
-    "icon": "handshake"
+    "icon": "handshake",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "title": {
+    "featuredPartnersTitle": {
       "type": "string",
       "required": true
+    },
+    "otherPartnersTitle": {
+      "type": "string"
     }
   }
 }
