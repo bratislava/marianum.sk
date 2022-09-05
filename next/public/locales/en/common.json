@@ -53,5 +53,10 @@
         "openImageGallery": "Open image gallery"
       }
     }
+  },
+  "layouts": {
+    "ArticleLayout": {
+      "moreNews": "More news"
+    }
   }
 }

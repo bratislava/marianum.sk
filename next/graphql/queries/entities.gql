@@ -21,6 +21,41 @@ fragment UploadFileEntity on UploadFileEntity {
   }
 }
 
+fragment ArticleCategoryEntity on ArticleCategoryEntity {
+  id
+  attributes {
+    title
+    slug
+  }
+}
+
+fragment ArticleCardEntity on ArticleEntity {
+  id
+  attributes {
+    title
+    slug
+    perex
+    publishedAt
+    coverMedia {
+      data {
+        ...UploadImageEntity
+      }
+    }
+    articleCategory {
+      data {
+        ...ArticleCategoryEntity
+      }
+    }
+  }
+}
+
+fragment ArticleEntity on ArticleEntity {
+  ...ArticleCardEntity
+  attributes {
+    content
+  }
+}
+
 fragment BranchEntity on BranchEntity {
   id
   attributes {
@@ -113,14 +148,6 @@ fragment BundleEntity on BundleEntity {
   }
 }
 
-fragment PageCategoryEntity on PageCategoryEntity {
-  id
-  attributes {
-    title
-    slug
-  }
-}
-
 fragment PageCardEntity on PageEntity {
   id
   attributes {
@@ -133,37 +160,18 @@ fragment PageCardEntity on PageEntity {
         ...UploadImageEntity
       }
     }
-    pageCategory {
-      data {
-        ...PageCategoryEntity
-      }
-    }
   }
 }
 
 fragment PageEntity on PageEntity {
-  id
+  ...PageCardEntity
   attributes {
-    title
-    slug
-    publishedAt
     layout
-    perex
     ctaButton {
       ...CtaButton
     }
     sidebar {
       ...Sidebar
-    }
-    coverMedia {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    pageCategory {
-      data {
-        ...PageCategoryEntity
-      }
     }
     sections {
       ... on ComponentSectionsAccordionGroup {
@@ -226,7 +234,6 @@ fragment PageEntity on PageEntity {
         __typename
         id
         title
-        # TODO
       }
       ... on ComponentSectionsRichtext {
         __typename

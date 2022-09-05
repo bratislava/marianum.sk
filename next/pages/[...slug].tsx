@@ -14,6 +14,7 @@ import CardSection from '../components/sections/CardSection'
 import ContactsSection from '../components/sections/ContactsSection'
 import ImageGallerySection from '../components/sections/ImageGallerySection'
 import MenuListingSection from '../components/sections/MenuListingSection'
+import NewsListing from '../components/sections/NewsListing'
 import PartnersSection from '../components/sections/PartnersSection'
 import RichTextSection from '../components/sections/RichTextSection'
 import {
@@ -27,8 +28,8 @@ import { isDefined } from '../utils/isDefined'
 
 type PageProps = {
   navigation: NavigationItemFragment[]
-  page: PageEntityFragment
   general: GeneralEntityFragment | null
+  page: PageEntityFragment
 } & SSRConfig
 
 const Slug = ({ navigation, page, general }: PageProps) => {
@@ -41,7 +42,11 @@ const Slug = ({ navigation, page, general }: PageProps) => {
         {page.attributes?.sections?.map((section) => {
           if (section?.__typename === 'ComponentSectionsProceduresSection') {
             return (
-              <Section key={section.id} isContainer={isContainer} title={section.title}>
+              <Section
+                key={`${section.__typename}-${section.id}`}
+                isContainer={isContainer}
+                title={section.title}
+              >
                 <ProcedureTabs />
               </Section>
             )
@@ -49,7 +54,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsRichtext') {
             return (
               <RichTextSection
-                key={section.id}
+                key={`${section.__typename}-${section.id}`}
                 isContainer={isContainer}
                 content={section.content}
               />
@@ -57,7 +62,11 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsAccordionGroup') {
             return (
-              <Section key={section.id} isContainer={isContainer} title={section.title}>
+              <Section
+                key={`${section.__typename}-${section.id}`}
+                isContainer={isContainer}
+                title={section.title}
+              >
                 <AccordionGroup>
                   {section.accordions?.map((accordion) => (
                     <AccordionItem key={accordion?.id} title={accordion?.title}>
@@ -71,14 +80,22 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsBranchGroup') {
             return (
-              <Section key={section.id} isContainer={isContainer} title={section.title}>
+              <Section
+                key={`${section.__typename}-${section.id}`}
+                isContainer={isContainer}
+                title={section.title}
+              >
                 <BranchGroup {...section} />
               </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsBundleListing') {
             return (
-              <BundleListingSection key={section.id} isContainer={isContainer} section={section} />
+              <BundleListingSection
+                key={`${section.__typename}-${section.id}`}
+                isContainer={isContainer}
+                section={section}
+              />
             )
           }
           if (section?.__typename === 'ComponentSectionsContactGroup') {
@@ -86,7 +103,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsDocumentGroup') {
             return (
-              <Section key={section.id} isContainer={isContainer}>
+              <Section key={`${section.__typename}-${section.id}`} isContainer={isContainer}>
                 {/* TODO */}
                 documents
               </Section>
@@ -95,7 +112,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsPartnersSection') {
             return (
               <PartnersSection
-                key={section.id}
+                key={`${section.__typename}-${section.id}`}
                 featuredTitle={section.featuredPartnersTitle}
                 otherTitle={section.otherPartnersTitle}
               />
@@ -104,7 +121,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsGallery') {
             return (
               <ImageGallerySection
-                key={section.id}
+                key={`${section.__typename}-${section.id}`}
                 title={section.title}
                 images={section.medias?.data}
                 variant="bellow"
@@ -114,7 +131,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsMenuListing') {
             return (
               <MenuListingSection
-                key={section.id}
+                key={`${section.__typename}-${section.id}`}
                 isContainer={isContainer}
                 title={section.title}
                 slug={section.slug}
@@ -123,13 +140,22 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             )
           }
           if (section?.__typename === 'ComponentSectionsManualListing') {
-            return <CardSection key={section.id} isContainer={isContainer} section={section} />
+            return (
+              <CardSection
+                key={`${section.__typename}-${section.id}`}
+                isContainer={isContainer}
+                section={section}
+              />
+            )
           }
           if (section?.__typename === 'ComponentSectionsNewsListing') {
             return (
-              <Section key={section.id} isContainer={isContainer}>
-                {/* TODO */}
-                news listing
+              <Section
+                key={`${section.__typename}-${section.id}`}
+                isContainer={isContainer}
+                title={section.title}
+              >
+                <NewsListing />
               </Section>
             )
           }
@@ -186,8 +212,8 @@ export const getStaticProps: GetStaticProps = async ({
   return {
     props: {
       navigation: filteredNavigation,
-      page: pages.data[0],
       general: general?.data ?? null,
+      page: pages.data[0],
       ...translations,
     },
     revalidate: 10,

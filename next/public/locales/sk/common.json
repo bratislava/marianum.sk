@@ -54,5 +54,10 @@
         "openImageGallery": "Otvoriť galériu obrázkov"
       }
     }
+  },
+  "layouts": {
+    "ArticleLayout": {
+      "moreNews": "Ďalšie novinky"
+    }
   }
 }

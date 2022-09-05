@@ -12,7 +12,10 @@
     },
     "style": {
       "type": "enumeration",
-      "enum": ["simple", "service", "article"],
+      "enum": [
+        "simple",
+        "service"
+      ],
       "required": true,
       "default": "simple"
     },

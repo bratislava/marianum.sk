@@ -1017,7 +1017,7 @@ const Showcase = () => {
               imageAlt="Example image for card"
               border={cardsBorder}
               title="Article card"
-              category={{ title: 'Category', linkHref: '#' }}
+              category={{ attributes: { title: 'Category', slug: 'category' } }}
               date={Date.now()}
               linkHref="#"
             />
