@@ -6,7 +6,7 @@ import MLink from '../atoms/MLink'
 
 export type SectionProps = {
   children: ReactNode
-  fullWidth?: boolean
+  isContainer?: boolean
   color?: 'default' | 'white'
   cardGrid?: boolean
   title?: string | null | undefined
@@ -15,22 +15,25 @@ export type SectionProps = {
 
 const Section = ({
   children,
-  color = 'default',
-  fullWidth = false,
+  color,
+  isContainer = false,
   cardGrid = false,
   title,
   button,
 }: SectionProps) => {
   return (
-    <section
-      className={cx('relative', {
-        'py-6 md:py-20': fullWidth,
-        'bg-white': color === 'white' && fullWidth,
+    <div
+      className={cx('group relative', {
+        'odd:bg-white even:bg-background-beige last-of-type:bg-background-beige': !color,
+        'bg-white': color === 'white',
       })}
     >
+      {/* border displayed only when two last sections are same beige color */}
+      <div className="container mx-auto group-even:hidden group-last-of-type:border-t group-last-of-type:border-border" />
       <div
         className={cx({
-          'container mx-auto px-4': fullWidth,
+          'container mx-auto px-4 py-6 group-last-of-type:pb-20 md:py-20 md:group-last-of-type:pb-36':
+            isContainer,
         })}
       >
         {(title || button?.url) && (
@@ -58,7 +61,7 @@ const Section = ({
           </div>
         )}
       </div>
-    </section>
+    </div>
   )
 }
 

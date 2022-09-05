@@ -3,7 +3,7 @@ import { getSlugsForNavFiltering } from '../../utils/getSlugsForNavFiltering'
 import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
 import Section, { SectionProps } from '../molecules/Section'
 
-type MenuListingSectionProps = Pick<SectionProps, 'title' | 'fullWidth' | 'color'> & {
+type MenuListingSectionProps = Pick<SectionProps, 'title' | 'isContainer' | 'color'> & {
   slug: string | null | undefined
   navigation: NavigationItemFragment[]
 }
@@ -12,7 +12,7 @@ const MenuListingSection = ({
   title,
   slug,
   navigation,
-  fullWidth,
+  isContainer,
   color,
 }: MenuListingSectionProps) => {
   const slugs = getSlugsForNavFiltering(slug)
@@ -26,7 +26,7 @@ const MenuListingSection = ({
   }
 
   return (
-    <Section title={title} fullWidth={fullWidth} color={color} cardGrid>
+    <Section title={title} isContainer={isContainer} color={color} cardGrid>
       {desiredChild?.items?.map((subItem) => (
         <CategoryCard
           key={subItem?.path}

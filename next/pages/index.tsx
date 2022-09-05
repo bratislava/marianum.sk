@@ -25,22 +25,19 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
 
       <div>
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
-        {page.attributes?.sections?.map((section, index) => {
-          const color = index % 2 === 0 ? 'default' : 'white'
-
+        {page.attributes?.sections?.map((section) => {
           if (section?.__typename === 'ComponentSectionsManualListing') {
             return (
               <CardSection
                 key={`${section.__typename}-${section.id}`}
-                fullWidth
-                color={color}
+                isContainer
                 section={section}
               />
             )
           }
           if (section?.__typename === 'ComponentSectionsNewsListing') {
             return (
-              <Section key={`${section.__typename}-${section.id}`} fullWidth color={color}>
+              <Section key={`${section.__typename}-${section.id}`} isContainer>
                 {/* TODO */}
                 news listing
               </Section>
@@ -48,7 +45,7 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           }
           if (section?.__typename === 'ComponentSectionsCeremoniesSection') {
             return (
-              <Section key={`${section.__typename}-${section.id}`} fullWidth color={color}>
+              <Section key={`${section.__typename}-${section.id}`} isContainer>
                 {/* TODO */}
                 ceremonies listing
               </Section>
@@ -64,8 +61,7 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
               <HomepageProcedures
                 key={`${__typename}-${id}`}
                 title={title}
-                fullWidth
-                color={color}
+                isContainer
                 procedures={proceduresArr}
                 showMoreButton={showMoreButton}
               />
@@ -73,7 +69,7 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           }
           if (section?.__typename === 'ComponentSectionsCtaSection') {
             return (
-              <Section key={`${section.__typename}-${section.id}`} fullWidth color={color}>
+              <Section key={`${section.__typename}-${section.id}`} isContainer>
                 {/* TODO */}
                 cta section
               </Section>
@@ -81,7 +77,7 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           }
           if (section?.__typename === 'ComponentSectionsReviewsSection') {
             return (
-              <Section key={`${section.__typename}-${section.id}`} fullWidth color={color}>
+              <Section key={`${section.__typename}-${section.id}`} isContainer>
                 {/* TODO */}
                 reviews section
               </Section>
