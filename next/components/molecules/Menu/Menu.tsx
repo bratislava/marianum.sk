@@ -1,18 +1,14 @@
-// import '@szhsin/react-menu/dist/core.css'
-
-import {
-  ControlledMenu as ReactControlledMenu,
-  MenuItem as ReactMenuItem,
-  useMenuState,
-} from '@szhsin/react-menu'
+import { ControlledMenu as ReactControlledMenu, useMenuState } from '@szhsin/react-menu'
 import cx from 'classnames'
-import { useMemo } from 'react'
+import { useRouter } from 'next/router'
+import { KeyboardEvent, useCallback, useEffect, useMemo } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 
 import ChevronIcon from '../../../assets/chevron_down.svg'
-import { MenuItem } from '../../../utils/types'
+import { MenuItemType } from '../../../utils/types'
 import { AnimateHeight } from '../../atoms/AnimateHeight'
 import MLink from '../../atoms/MLink'
+import MenuItem from './MenuItem'
 import SubMenu from './SubMenu'
 
 export type MenuProps<T> = {
@@ -21,34 +17,58 @@ export type MenuProps<T> = {
   items?: (T | null | undefined)[] | null
 }
 
-const Menu = <T extends MenuItem<T>>({ items, title, path }: MenuProps<T>) => {
+const Menu = <T extends MenuItemType<T>>({ items, title, path }: MenuProps<T>) => {
   const { ref, width } = useResizeDetector()
-  const [menuProps, toggleMenu] = useMenuState()
+  const [menuProps, toggleMenu] = useMenuState({})
+
+  const router = useRouter()
 
   const isOpen = useMemo(
     () => menuProps.state === 'opening' || menuProps.state === 'open',
     [menuProps.state],
   )
 
+  // close menu on route change
+  useEffect(() => {
+    toggleMenu(false)
+  }, [router.asPath, toggleMenu])
+
+  const keyDownHandler = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.code === 'Enter' || e.code === 'Space') {
+        e.preventDefault()
+        toggleMenu(true)
+      }
+    },
+    [toggleMenu],
+  )
+
   return (
     <div
       className="relative h-full w-full"
       onMouseEnter={() => toggleMenu(true)}
-      onMouseLeave={() => toggleMenu(false)}
+      // onMouseLeave={() => toggleMenu(false)}
     >
-      <MLink noStyles href={path ?? ''} className="flex h-full items-center" ref={ref}>
-        {/* {0 !== 0 && <div className="h-8 w-[1px] bg-border" />} */}
-        <div
-          className={cx(
-            'flex h-full flex-1 items-center justify-center gap-1 px-4 font-semibold transition-all group-focus:bg-primary/10',
-            { 'bg-primary/10': isOpen },
-          )}
-        >
+      <MLink
+        onKeyDown={keyDownHandler}
+        noStyles
+        href={path ?? ''}
+        className={cx(
+          'flex h-full w-full items-center justify-center font-semibold outline-none transition-all focus:bg-primary/10',
+          { 'bg-primary/10': isOpen },
+        )}
+        ref={ref}
+      >
+        <div className={cx('flex h-full flex-1 items-center justify-center gap-1 px-4 ')}>
           <span>{title}</span>
           <ChevronIcon />
         </div>
       </MLink>
-      <ReactControlledMenu {...menuProps} className="absolute w-full pt-3">
+      <ReactControlledMenu
+        {...menuProps}
+        onClose={() => toggleMenu(false)}
+        className="absolute w-full pt-3"
+      >
         <AnimateHeight
           isVisible
           initialVisible={false}
@@ -67,15 +87,7 @@ const Menu = <T extends MenuItem<T>>({ items, title, path }: MenuProps<T>) => {
                     items={item.items}
                   />
                 ) : (
-                  <ReactMenuItem className="group outline-none" key={item.id}>
-                    <MLink
-                      noStyles
-                      href={item.path ?? ''}
-                      className="flex w-full justify-between px-6 py-3 hover:bg-primary/10 group-focus-within:bg-primary/10"
-                    >
-                      {item.title}
-                    </MLink>
-                  </ReactMenuItem>
+                  <MenuItem path={item.path ?? ''} title={item.title} key={item.id} />
                 )),
             )}
           </div>

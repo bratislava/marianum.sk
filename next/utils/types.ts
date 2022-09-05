@@ -15,7 +15,7 @@ export type TBreadcrumbListItem = {
   link?: string | null | undefined
 }
 
-export type MenuItem<T extends MenuItem<T>> = {
+export type MenuItemType<T extends MenuItemType<T>> = {
   id: number
   title: string
   path?: string | null

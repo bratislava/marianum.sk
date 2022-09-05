@@ -1,10 +1,12 @@
-import { MenuItem as ReactMenuItem, SubMenu as ReactSubMenu } from '@szhsin/react-menu'
+import { SubMenu as ReactSubMenu } from '@szhsin/react-menu'
 import cx from 'classnames'
+import { useRouter } from 'next/router'
+import { MouseEvent, useCallback } from 'react'
 
 import ChevronIcon from '../../../assets/chevron_down.svg'
-import { MenuItem } from '../../../utils/types'
+import { MenuItemType } from '../../../utils/types'
 import { AnimateHeight } from '../../atoms/AnimateHeight'
-import MLink from '../../atoms/MLink'
+import MenuItem from './MenuItem'
 
 export type SubMenuProps<T> = {
   title: string
@@ -13,22 +15,34 @@ export type SubMenuProps<T> = {
   width: number
 }
 
-const SubMenu = <T extends MenuItem<T>>({ title, items, path, width }: SubMenuProps<T>) => {
+const SubMenu = <T extends MenuItemType<T>>({ title, items, path, width }: SubMenuProps<T>) => {
+  const router = useRouter()
+
+  const changeRouteHandler = useCallback(
+    (e: MouseEvent) => {
+      e.stopPropagation()
+      e.preventDefault()
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      router.push(path ?? '/')
+    },
+    [router, path],
+  )
+
   return (
     <ReactSubMenu
-      label={({ open }) => (
-        <MLink
-          noStyles
-          href={path ?? ''}
-          className={cx('flex w-full justify-between px-6 py-3 outline-none hover:bg-primary/10', {
-            'bg-primary/10': open,
+      label={({ open, hover }) => (
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+        <div
+          onClick={changeRouteHandler}
+          className={cx('flex w-full cursor-pointer select-none justify-between px-6 py-3', {
+            'bg-primary/10': open || hover,
           })}
         >
           <span>{title}</span>
           <div className="-rotate-90">
             <ChevronIcon />
           </div>
-        </MLink>
+        </div>
       )}
     >
       <div className="fixed px-3">
@@ -36,17 +50,7 @@ const SubMenu = <T extends MenuItem<T>>({ title, items, path, width }: SubMenuPr
           <div className="py-3" style={{ width: `${width}px` }}>
             {items?.map(
               (item) =>
-                item && (
-                  <ReactMenuItem className="group" key={item.id}>
-                    <MLink
-                      noStyles
-                      href={item.path ?? ''}
-                      className="flex w-full justify-between px-6 py-3 outline-none hover:bg-primary/10 group-focus-within:bg-primary/10"
-                    >
-                      {item.title}
-                    </MLink>
-                  </ReactMenuItem>
-                ),
+                item && <MenuItem path={item.path ?? ''} title={item.title} key={item.id} />,
             )}
           </div>
         </AnimateHeight>
