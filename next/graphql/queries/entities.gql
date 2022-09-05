@@ -115,19 +115,7 @@ fragment PageEntity on PageEntity {
       }
       ... on ComponentSectionsBranchGroup {
         __typename
-        id
-        title
-        branches {
-          branch {
-            data {
-              # TODO replace by fragment
-              id
-              attributes {
-                title
-              }
-            }
-          }
-        }
+        ...BranchGroup
       }
       ... on ComponentSectionsContactGroup {
         __typename

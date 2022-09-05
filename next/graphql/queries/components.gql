@@ -113,6 +113,23 @@ fragment AccordionGroup on ComponentSectionsAccordionGroup {
   }
 }
 
+fragment BranchGroup on ComponentSectionsBranchGroup {
+  id
+  title
+  branches {
+    branch {
+      data {
+        id
+        attributes {
+          title
+          slug
+          address
+        }
+      }
+    }
+  }
+}
+
 fragment ContactGroup on ComponentSectionsContactGroup {
   id
   title
