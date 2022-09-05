@@ -47,7 +47,7 @@ const Menu = <T extends MenuItemType<T>>({ items, title, path }: MenuProps<T>) =
     <div
       className="relative h-full w-full"
       onMouseEnter={() => toggleMenu(true)}
-      // onMouseLeave={() => toggleMenu(false)}
+      onMouseLeave={() => toggleMenu(false)}
     >
       <MLink
         onKeyDown={keyDownHandler}
