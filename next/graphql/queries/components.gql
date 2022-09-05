@@ -142,6 +142,19 @@ fragment ContactGroup on ComponentSectionsContactGroup {
   }
 }
 
+fragment CtaSection on ComponentSectionsCtaSection {
+  id
+  title
+  ctas {
+    id
+    title
+    description
+    button {
+      ...CtaButton
+    }
+  }
+}
+
 fragment ManualListing on ComponentSectionsManualListing {
   id
   title

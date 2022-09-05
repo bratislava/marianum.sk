@@ -3,6 +3,7 @@ import { GetStaticProps, GetStaticPropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import PageWrapper from '../components/layouts/PageWrapper'
+import CtaGroup from '../components/molecules/CtaGroup'
 import Section from '../components/molecules/Section'
 import CardSection from '../components/sections/CardSection'
 import HomepageProcedures from '../components/sections/HomepageProcedures'
@@ -69,9 +70,12 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           }
           if (section?.__typename === 'ComponentSectionsCtaSection') {
             return (
-              <Section key={`${section.__typename}-${section.id}`} isContainer>
-                {/* TODO */}
-                cta section
+              <Section
+                key={`${section.__typename}-${section.id}`}
+                isContainer
+                title={section.title}
+              >
+                <CtaGroup {...section} />
               </Section>
             )
           }

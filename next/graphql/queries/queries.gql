@@ -101,9 +101,7 @@ query HomePage($locale: I18NLocaleCode) {
           }
           ... on ComponentSectionsCtaSection {
             __typename
-            id
-            title
-            # TODO
+            ...CtaSection
           }
           ... on ComponentSectionsReviewsSection {
             __typename
