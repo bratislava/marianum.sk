@@ -56,6 +56,21 @@ fragment ContactEntity on ContactEntity {
   }
 }
 
+fragment PartnerEntity on PartnerEntity {
+  id
+  attributes {
+    title
+    link
+    logo {
+      data {
+        ...UploadImageEntity
+      }
+    }
+    featured
+    priority
+  }
+}
+
 fragment PageCategoryEntity on PageCategoryEntity {
   id
   attributes {
@@ -158,6 +173,10 @@ fragment PageEntity on PageEntity {
             ...UploadImageEntity
           }
         }
+      }
+      ... on ComponentSectionsPartnersSection {
+        __typename
+        ...PartnersSection
       }
       ... on ComponentSectionsMenuListing {
         __typename

@@ -22,6 +22,14 @@ query Procedures($locale: I18NLocaleCode!) {
   }
 }
 
+query Partners {
+  partners {
+    data {
+      ...PartnerEntity
+    }
+  }
+}
+
 query PageBySlug($locale: I18NLocaleCode!, $slug: String!) {
   pages(locale: $locale, filters: { slug: { eq: $slug } }) {
     data {
