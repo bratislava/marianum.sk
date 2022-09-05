@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "page_categories",
+  "collectionName": "article_categories",
   "info": {
-    "singularName": "page-category",
-    "pluralName": "page-categories",
-    "displayName": "Pages: Categories",
+    "singularName": "article-category",
+    "pluralName": "article-categories",
+    "displayName": "Articles: Categories",
     "description": ""
   },
   "options": {
@@ -21,11 +21,11 @@
       "targetField": "title",
       "required": true
     },
-    "pages": {
+    "articles": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::page.page",
-      "mappedBy": "pageCategory"
+      "target": "api::article.article",
+      "mappedBy": "articleCategory"
     }
   }
 }

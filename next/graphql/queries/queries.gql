@@ -30,6 +30,22 @@ query Partners {
   }
 }
 
+query News($locale: I18NLocaleCode!) {
+  articles(locale: $locale, sort: ["publishedAt:desc"], pagination: { limit: 4 }) {
+    data {
+      ...ArticleCardEntity
+    }
+  }
+}
+
+query ArticleBySlug($locale: I18NLocaleCode!, $slug: String!) {
+  articles(locale: $locale, filters: { slug: { eq: $slug } }) {
+    data {
+      ...ArticleEntity
+    }
+  }
+}
+
 query PageBySlug($locale: I18NLocaleCode!, $slug: String!) {
   pages(locale: $locale, filters: { slug: { eq: $slug } }) {
     data {
@@ -56,6 +72,18 @@ query BundleBySlug($locale: I18NLocaleCode!, $slug: String!) {
 
 # strapi returns just the default locale if no locale is provided
 # easiest way to get all static paths is to ask for all locales sequentially
+query ArticlesStaticPaths($locale: I18NLocaleCode) {
+  articles(locale: $locale) {
+    data {
+      id
+      attributes {
+        slug
+        locale
+      }
+    }
+  }
+}
+
 query PagesStaticPaths($locale: I18NLocaleCode) {
   pages(locale: $locale) {
     data {
@@ -108,7 +136,6 @@ query HomePage($locale: I18NLocaleCode) {
             __typename
             id
             title
-            # TODO
           }
           ... on ComponentSectionsCeremoniesSection {
             __typename

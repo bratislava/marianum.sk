@@ -8,6 +8,7 @@ import Section from '../components/molecules/Section'
 import CardSection from '../components/sections/CardSection'
 import HomepageProcedures from '../components/sections/HomepageProcedures'
 import HomepageSlider from '../components/sections/HomepageSlider'
+import NewsListing from '../components/sections/NewsListing'
 import { GeneralEntityFragment, HomePageQuery, NavigationItemFragment } from '../graphql'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
@@ -38,9 +39,12 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           }
           if (section?.__typename === 'ComponentSectionsNewsListing') {
             return (
-              <Section key={`${section.__typename}-${section.id}`} isContainer>
-                {/* TODO */}
-                news listing
+              <Section
+                key={`${section.__typename}-${section.id}`}
+                isContainer
+                title={section.title}
+              >
+                <NewsListing />
               </Section>
             )
           }

@@ -36,25 +36,14 @@ const Layout = ({ page, navigation, children, general }: LayoutProps) => {
             cta={page.attributes?.ctaButton}
             breadcrumbs={breadcrumbs}
           />
-        ) : page.attributes?.layout === Enum_Page_Layout.Article ? (
-          <HeroSection image={page.attributes?.coverMedia?.data} breadcrumbs={breadcrumbs} />
         ) : (
-          // Display just breadcrumbs for Centered and Article layout
+          // Display just breadcrumbs for Centered layout
           <HeroSection breadcrumbs={breadcrumbs} />
         )
       }
       general={general}
     >
-      <div
-        className={cx('h-full', {
-          // Change color to white for Article layout
-          'bg-white': page.attributes?.layout === Enum_Page_Layout.Article,
-          // Compensate image overlap
-          'pt-18':
-            page.attributes?.layout === Enum_Page_Layout.Article &&
-            page.attributes.coverMedia?.data,
-        })}
-      >
+      <div className="h-full">
         <div
           className={cx('h-auto', {
             // Add container for all layouts except 'fullwidth'
@@ -62,28 +51,14 @@ const Layout = ({ page, navigation, children, general }: LayoutProps) => {
             // Set grid for Sidebar layout
             'grid gap-6 p-4 md:grid-flow-col md:grid-cols-[1fr_auto] md:py-20':
               page.attributes?.layout === Enum_Page_Layout.Sidebar,
-            // Center content for Centered and Article layout
+            // Center content for Centered layout
             'px-4 pb-6 sm:px-20 sm:pb-12 md:px-28 lg:px-40':
-              page.attributes?.layout === Enum_Page_Layout.Centered ||
-              page.attributes?.layout === Enum_Page_Layout.Article,
-            'pt-6 sm:pt-12':
-              page.attributes?.layout === Enum_Page_Layout.Centered ||
-              (page.attributes?.layout === Enum_Page_Layout.Article &&
-                !page.attributes.coverMedia?.data),
-            'pt-6 sm:pt-10': page.attributes?.layout === Enum_Page_Layout.Article,
+              page.attributes?.layout === Enum_Page_Layout.Centered,
+            'pt-6 sm:pt-12': page.attributes?.layout === Enum_Page_Layout.Centered,
           })}
         >
-          {/* Show publish date for Article layout */}
-          {page.attributes?.layout === Enum_Page_Layout.Article && (
-            <div className="pb-1 text-center text-sm">
-              {/* TODO replace by date component or format function */}
-              {new Date(page.attributes.publishedAt as string).toDateString()}
-            </div>
-          )}
-
-          {/* Show title for Centered or Article layout */}
-          {(page.attributes?.layout === Enum_Page_Layout.Centered ||
-            page.attributes?.layout === Enum_Page_Layout.Article) && (
+          {/* Show title and perex for Centered layout */}
+          {page.attributes?.layout === Enum_Page_Layout.Centered && (
             <div className="pb-6 sm:pb-10">
               <h1 className="text-center">{page.attributes?.title}</h1>
               {page.attributes?.perex && <p className="mt-6 sm:mt-8">{page.attributes?.perex}</p>}

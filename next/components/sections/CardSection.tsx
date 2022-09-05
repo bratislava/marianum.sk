@@ -1,6 +1,5 @@
 import { Enum_Componentsectionsmanuallisting_Style, ManualListingFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
-import ArticleCard from '../molecules/Cards/ArticleCard'
 import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
 import ServiceCard from '../molecules/Cards/ServiceCard'
 import Section, { SectionProps } from '../molecules/Section'
@@ -29,21 +28,6 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
               title={attributes?.title ?? ''}
               linkHref={attributes?.slug ?? '#'}
               border
-            />
-          )
-        }
-
-        if (style === Enum_Componentsectionsmanuallisting_Style.Article) {
-          return (
-            <ArticleCard
-              key={id}
-              title={attributes?.title ?? ''}
-              linkHref={attributes?.slug ?? '#'}
-              border
-              imageUrl={attributes?.coverMedia?.data?.attributes?.url ?? ''}
-              imageAlt={attributes?.coverMedia?.data?.attributes?.alternativeText ?? ''}
-              date={attributes?.publishedAt}
-              // TODO add category
             />
           )
         }
