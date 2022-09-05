@@ -49,6 +49,13 @@
     @apply h-full;
   }
 
+  /*
+    globaly disable outline for menu item
+  */
+  .szh-menu__item:focus-visible {
+    @apply outline-none outline-transparent !important;
+  }
+
   h1,
   h2,
   h3,

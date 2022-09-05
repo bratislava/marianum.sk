@@ -1,76 +1,61 @@
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { SubMenu as ReactSubMenu } from '@szhsin/react-menu'
 import cx from 'classnames'
-import { FC, MouseEvent, ReactNode, useCallback, useState } from 'react'
-import { useResizeDetector } from 'react-resize-detector'
+import { useRouter } from 'next/router'
+import { MouseEvent, useCallback } from 'react'
 
-import { NavigationItemFragment } from '../../../graphql'
+import ChevronIcon from '../../../assets/chevron_down.svg'
+import { MenuItemType } from '../../../utils/types'
 import { AnimateHeight } from '../../atoms/AnimateHeight'
-import MLink from '../../atoms/MLink'
+import MenuItem from './MenuItem'
 
-export type MenuProps = {
-  children: ReactNode | FC<{ isOpen: boolean }>
-  items?: NavigationItemFragment[]
-  onTriggerClick?: () => void
+export type SubMenuProps<T> = {
+  title: string
+  path?: string | null
+  items?: (T | null | undefined)[] | null
+  width: number
 }
 
-const SubMenu = ({ children, items = [], onTriggerClick }: MenuProps) => {
-  const { ref: triggerRef, width } = useResizeDetector()
+const SubMenu = <T extends MenuItemType<T>>({ title, items, path, width }: SubMenuProps<T>) => {
+  const router = useRouter()
 
-  const [isOpen, setOpen] = useState(false)
-
-  const triggerClickHandler = useCallback(
-    (event: MouseEvent) => {
-      event.preventDefault()
-      if (onTriggerClick) onTriggerClick()
+  const changeRouteHandler = useCallback(
+    (e: MouseEvent) => {
+      e.stopPropagation()
+      e.preventDefault()
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      router.push(path ?? '/')
     },
-    [onTriggerClick],
+    [router, path],
   )
 
   return (
-    <DropdownMenu.Sub onOpenChange={setOpen}>
-      <div className="relative w-full">
-        <div className="h-full w-full">
-          <DropdownMenu.SubTrigger
-            onMouseDown={triggerClickHandler}
-            ref={triggerRef}
-            className={cx('group h-full w-full outline-none transition-all focus:bg-primary/10', {
-              'bg-primary/10': isOpen,
-            })}
-          >
-            {typeof children === 'function' ? children({ isOpen }) : children}
-          </DropdownMenu.SubTrigger>
+    <ReactSubMenu
+      label={({ open, hover }) => (
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+        <div
+          onClick={changeRouteHandler}
+          className={cx('flex w-full cursor-pointer select-none justify-between px-6 py-3', {
+            'bg-primary/10': open || hover,
+          })}
+        >
+          <span>{title}</span>
+          <div className="-rotate-90">
+            <ChevronIcon />
+          </div>
         </div>
-
-        {items.length > 0 && (
-          <DropdownMenu.Portal>
-            <DropdownMenu.SubContent
-              loop
-              sideOffset={8}
-              className="-mt-3 w-full font-semibold shadow outline-none"
-              style={{ width: `${width ?? 0}px` }}
-            >
-              <AnimateHeight isVisible={isOpen}>
-                {isOpen && (
-                  <div className="bg-white py-3">
-                    {items.map(({ id, title, path }) => (
-                      <DropdownMenu.Item key={id} asChild>
-                        <MLink
-                          noStyles
-                          className="flex w-full justify-between px-6 py-3 outline-none focus:bg-primary/10"
-                          href={path ?? ''}
-                        >
-                          {title}
-                        </MLink>
-                      </DropdownMenu.Item>
-                    ))}
-                  </div>
-                )}
-              </AnimateHeight>
-            </DropdownMenu.SubContent>
-          </DropdownMenu.Portal>
-        )}
+      )}
+    >
+      <div className="fixed px-3">
+        <AnimateHeight isVisible initialVisible={false} className="-mt-3 bg-white shadow-card">
+          <div className="py-3" style={{ width: `${width}px` }}>
+            {items?.map(
+              (item) =>
+                item && <MenuItem path={item.path ?? ''} title={item.title} key={item.id} />,
+            )}
+          </div>
+        </AnimateHeight>
       </div>
-    </DropdownMenu.Sub>
+    </ReactSubMenu>
   )
 }
 
