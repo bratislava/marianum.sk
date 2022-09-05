@@ -113,6 +113,23 @@ fragment AccordionGroup on ComponentSectionsAccordionGroup {
   }
 }
 
+fragment BranchGroup on ComponentSectionsBranchGroup {
+  id
+  title
+  branches {
+    branch {
+      data {
+        id
+        attributes {
+          title
+          slug
+          address
+        }
+      }
+    }
+  }
+}
+
 fragment PartnersSection on ComponentSectionsPartnersSection {
   id
   featuredPartnersTitle
@@ -127,6 +144,19 @@ fragment ContactGroup on ComponentSectionsContactGroup {
       data {
         ...ContactEntity
       }
+    }
+  }
+}
+
+fragment CtaSection on ComponentSectionsCtaSection {
+  id
+  title
+  ctas {
+    id
+    title
+    description
+    button {
+      ...CtaButton
     }
   }
 }

@@ -1,11 +1,11 @@
 import cx from 'classnames'
 import NextLink from 'next/link'
-import { ComponentProps, forwardRef } from 'react'
+import { ComponentProps, forwardRef, ReactNode } from 'react'
 
 import ArrowRightIcon from '../../assets/arrow_forward.svg'
 
 export type LinkProps = Omit<ComponentProps<typeof NextLink>, 'as' | 'passHref'> & {
-  children: React.ReactNode
+  children: ReactNode
   variant?: 'primary' | 'white'
   noArrow?: boolean
   noStyles?: boolean

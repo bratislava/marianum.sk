@@ -2,7 +2,7 @@ import { RadioGroup } from '@headlessui/react'
 import cx from 'classnames'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import React, { useMemo, useState } from 'react'
+import { ReactNode, useMemo, useState } from 'react'
 
 import AddIcon from '../../assets/add.svg'
 import ArrowRightIcon from '../../assets/arrow_forward.svg'
@@ -40,7 +40,7 @@ import Search from '../../components/molecules/Search'
 
 type WrapperProps = {
   title?: string
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export const Wrapper = ({ title, children }: WrapperProps) => {
