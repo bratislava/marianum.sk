@@ -5,6 +5,7 @@ import { DateFormatterOptions, useDateFormatter } from 'react-aria'
  */
 const formats = {
   articleCard: { year: 'numeric', month: 'short', day: 'numeric' } as DateFormatterOptions,
+  articlePage: { year: 'numeric', month: 'numeric', day: 'numeric' } as DateFormatterOptions,
 }
 
 type FormatDateProps = {
