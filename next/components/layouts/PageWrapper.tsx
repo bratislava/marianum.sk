@@ -1,31 +1,39 @@
 import Head from 'next/head'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
-import { NavigationItemFragment } from '../../graphql'
+import { GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
+import Footer from '../molecules/Footer/Footer'
 import Navigation from '../molecules/Navigation/Navigation'
 
 type PageWrapperProps = {
   navigation: NavigationItemFragment[]
-  faqLink: string
-  phoneNumber: string
   header?: ReactNode
   children?: ReactNode
+  general: GeneralEntityFragment | null
 }
 
-const PageWrapper = ({ navigation, faqLink, phoneNumber, header, children }: PageWrapperProps) => {
+const PageWrapper = ({ navigation, header, children, general }: PageWrapperProps) => {
   return (
-    <>
+    <div className="h-full">
       <Head>
         <title>Next.js + TypeScript</title>
       </Head>
 
       <header>
-        <Navigation faqLink={faqLink} phoneNumber={phoneNumber} navigationItems={navigation} />
+        <Navigation
+          faqLink={general?.attributes?.header?.faqLink ?? ''}
+          phoneNumber={general?.attributes?.header?.phoneNumber ?? ''}
+          navigationItems={navigation}
+        />
         {header}
       </header>
       <main className="bg-background-beige">{children}</main>
-      <footer />
-    </>
+      <Footer
+        contact={general?.attributes?.contact}
+        footer={general?.attributes?.footer}
+        social={general?.attributes?.social}
+      />
+    </div>
   )
 }
 

@@ -4,7 +4,7 @@
   "info": {
     "singularName": "branch",
     "pluralName": "branches",
-    "displayName": "Branch",
+    "displayName": "Branches",
     "description": ""
   },
   "options": {
@@ -42,7 +42,10 @@
         }
       },
       "type": "enumeration",
-      "enum": ["cintorin", "pobocka"],
+      "enum": [
+        "cintorin",
+        "pobocka"
+      ],
       "required": true,
       "default": "cintorin"
     },
@@ -53,7 +56,24 @@
         }
       },
       "type": "enumeration",
-      "enum": ["civilny", "historicky", "vojensky"]
+      "enum": [
+        "civilny",
+        "historicky",
+        "vojensky"
+      ]
+    },
+    "medias": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "contact": {
       "type": "relation",
@@ -75,6 +95,22 @@
         }
       },
       "type": "string"
+    },
+    "navigateToLink": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "string"
+    },
+    "openingHoursOverride": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "richtext"
     }
   }
 }

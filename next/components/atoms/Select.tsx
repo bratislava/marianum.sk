@@ -92,7 +92,7 @@ const Select = ({
                 <div className="truncate text-foreground-placeholder">{placeholder}</div>
               )}
             </div>
-            <div className={cx('p-2 transform transition-transform', { 'rotate-180': open })}>
+            <div className={cx('transform p-2 transition-transform', { 'rotate-180': open })}>
               <ChevronDown />
             </div>
           </FieldWrapper>
@@ -105,13 +105,13 @@ const Select = ({
         style={styles.popper}
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         {...attributes.popper}
-        className={cx('outline-none z-20 w-full flex-col border border-border bg-white')}
+        className={cx('z-20 w-full flex-col border border-border bg-white outline-none')}
       >
         {options.map((option) => (
           <Listbox.Option as="div" key={option.key} value={option}>
             {({ selected, active }) => (
               <div
-                className={cx('select-none px-4 h-10 flex items-center cursor-pointer', {
+                className={cx('flex h-10 cursor-pointer select-none items-center px-4', {
                   'bg-primary text-white': selected,
                   'bg-background-beige': active && !selected,
                 })}

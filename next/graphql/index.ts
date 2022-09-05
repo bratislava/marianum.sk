@@ -54,6 +54,9 @@ export type Branch = {
   description?: Maybe<Scalars['String']>;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<BranchRelationResponseCollection>;
+  medias?: Maybe<UploadFileRelationResponseCollection>;
+  navigateToLink?: Maybe<Scalars['String']>;
+  openingHoursOverride?: Maybe<Scalars['String']>;
   slug: Scalars['String'];
   title: Scalars['String'];
   type: Enum_Branch_Type;
@@ -63,6 +66,13 @@ export type Branch = {
 
 export type BranchLocalizationsArgs = {
   filters?: InputMaybe<BranchFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type BranchMediasArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
@@ -94,7 +104,9 @@ export type BranchFiltersInput = {
   id?: InputMaybe<IdFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<BranchFiltersInput>;
+  navigateToLink?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<BranchFiltersInput>;
+  openingHoursOverride?: InputMaybe<StringFilterInput>;
   or?: InputMaybe<Array<InputMaybe<BranchFiltersInput>>>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
@@ -107,6 +119,9 @@ export type BranchInput = {
   cemeteryType?: InputMaybe<Enum_Branch_Cemeterytype>;
   contact?: InputMaybe<Scalars['ID']>;
   description?: InputMaybe<Scalars['String']>;
+  medias?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  navigateToLink?: InputMaybe<Scalars['String']>;
+  openingHoursOverride?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<Enum_Branch_Type>;
@@ -119,14 +134,14 @@ export type BranchRelationResponseCollection = {
 
 export type ComponentBlocksAccordionItem = {
   __typename?: 'ComponentBlocksAccordionItem';
-  description?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   title?: Maybe<Scalars['String']>;
 };
 
 export type ComponentBlocksAccordionItemFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentBlocksAccordionItemFiltersInput>>>;
-  description?: InputMaybe<StringFilterInput>;
+  content?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<ComponentBlocksAccordionItemFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentBlocksAccordionItemFiltersInput>>>;
   title?: InputMaybe<StringFilterInput>;
@@ -294,28 +309,26 @@ export type ComponentBlocksSimpleCtaItemFiltersInput = {
 export type ComponentGeneralContacts = {
   __typename?: 'ComponentGeneralContacts';
   address?: Maybe<Scalars['String']>;
+  contact?: Maybe<ContactEntityResponse>;
   contactsLink?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
   featuredOpeningHours?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   latitude?: Maybe<Scalars['String']>;
   longitude?: Maybe<Scalars['String']>;
   navigateToLink?: Maybe<Scalars['String']>;
   openingHoursLink?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
 };
 
 export type ComponentGeneralContactsInput = {
   address?: InputMaybe<Scalars['String']>;
+  contact?: InputMaybe<Scalars['ID']>;
   contactsLink?: InputMaybe<Scalars['String']>;
-  email?: InputMaybe<Scalars['String']>;
   featuredOpeningHours?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['ID']>;
   latitude?: InputMaybe<Scalars['String']>;
   longitude?: InputMaybe<Scalars['String']>;
   navigateToLink?: InputMaybe<Scalars['String']>;
   openingHoursLink?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentGeneralFooter = {
@@ -410,7 +423,7 @@ export type ComponentGeneralLinkItemInput = {
 
 export type ComponentGeneralProcedure = {
   __typename?: 'ComponentGeneralProcedure';
-  downloadLink?: Maybe<Scalars['String']>;
+  downloadFile?: Maybe<UploadFileEntityResponse>;
   id: Scalars['ID'];
   steps?: Maybe<Array<Maybe<ComponentGeneralProcedureItem>>>;
   title: Scalars['String'];
@@ -424,7 +437,7 @@ export type ComponentGeneralProcedureStepsArgs = {
 };
 
 export type ComponentGeneralProcedureInput = {
-  downloadLink?: InputMaybe<Scalars['String']>;
+  downloadFile?: InputMaybe<Scalars['ID']>;
   id?: InputMaybe<Scalars['ID']>;
   steps?: InputMaybe<Array<InputMaybe<ComponentGeneralProcedureItemInput>>>;
   title?: InputMaybe<Scalars['String']>;
@@ -501,7 +514,7 @@ export type ComponentSectionsBranchGroupBranchesArgs = {
 export type ComponentSectionsCeremoniesSection = {
   __typename?: 'ComponentSectionsCeremoniesSection';
   id: Scalars['ID'];
-  linkMore?: Maybe<Scalars['String']>;
+  showMoreButton?: Maybe<ComponentBlocksButtonLink>;
   title?: Maybe<Scalars['String']>;
 };
 
@@ -564,8 +577,9 @@ export type ComponentSectionsGalleryMediasArgs = {
 export type ComponentSectionsManualListing = {
   __typename?: 'ComponentSectionsManualListing';
   id: Scalars['ID'];
-  linkMore?: Maybe<Scalars['String']>;
   pages?: Maybe<Array<Maybe<ComponentBlocksPageItem>>>;
+  showMoreButton?: Maybe<ComponentBlocksButtonLink>;
+  style: Enum_Componentsectionsmanuallisting_Style;
   title?: Maybe<Scalars['String']>;
 };
 
@@ -598,37 +612,22 @@ export type ComponentSectionsProceduresSection = {
 export type ComponentSectionsProceduresShortSection = {
   __typename?: 'ComponentSectionsProceduresShortSection';
   id: Scalars['ID'];
-  linkMore?: Maybe<Scalars['String']>;
+  showMoreButton?: Maybe<ComponentBlocksButtonLink>;
   title?: Maybe<Scalars['String']>;
 };
 
 export type ComponentSectionsReviewsSection = {
   __typename?: 'ComponentSectionsReviewsSection';
   id: Scalars['ID'];
-  linkMore?: Maybe<Scalars['String']>;
+  showMoreButton?: Maybe<ComponentBlocksButtonLink>;
   title?: Maybe<Scalars['String']>;
 };
 
 export type ComponentSectionsRichtext = {
   __typename?: 'ComponentSectionsRichtext';
   button?: Maybe<ComponentBlocksButtonLink>;
+  content?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
-  markdown?: Maybe<Scalars['String']>;
-};
-
-export type ComponentSectionsServicesListing = {
-  __typename?: 'ComponentSectionsServicesListing';
-  id: Scalars['ID'];
-  linkMore?: Maybe<Scalars['String']>;
-  services?: Maybe<Array<Maybe<ComponentBlocksPageItem>>>;
-  title?: Maybe<Scalars['String']>;
-};
-
-
-export type ComponentSectionsServicesListingServicesArgs = {
-  filters?: InputMaybe<ComponentBlocksPageItemFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type Contact = {
@@ -725,10 +724,63 @@ export type Document = {
   __typename?: 'Document';
   createdAt?: Maybe<Scalars['DateTime']>;
   description?: Maybe<Scalars['String']>;
+  documentCategory?: Maybe<DocumentCategoryEntityResponse>;
   file: UploadFileEntityResponse;
   publishedAt?: Maybe<Scalars['DateTime']>;
   title: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type DocumentCategory = {
+  __typename?: 'DocumentCategory';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  documents?: Maybe<DocumentRelationResponseCollection>;
+  slug: Scalars['String'];
+  title: Scalars['String'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type DocumentCategoryDocumentsArgs = {
+  filters?: InputMaybe<DocumentFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type DocumentCategoryEntity = {
+  __typename?: 'DocumentCategoryEntity';
+  attributes?: Maybe<DocumentCategory>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type DocumentCategoryEntityResponse = {
+  __typename?: 'DocumentCategoryEntityResponse';
+  data?: Maybe<DocumentCategoryEntity>;
+};
+
+export type DocumentCategoryEntityResponseCollection = {
+  __typename?: 'DocumentCategoryEntityResponseCollection';
+  data: Array<DocumentCategoryEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type DocumentCategoryFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<DocumentCategoryFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  documents?: InputMaybe<DocumentFiltersInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<DocumentCategoryFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<DocumentCategoryFiltersInput>>>;
+  slug?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type DocumentCategoryInput = {
+  documents?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  slug?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
 };
 
 export type DocumentEntity = {
@@ -752,6 +804,7 @@ export type DocumentFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<DocumentFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
+  documentCategory?: InputMaybe<DocumentCategoryFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<DocumentFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<DocumentFiltersInput>>>;
@@ -762,9 +815,15 @@ export type DocumentFiltersInput = {
 
 export type DocumentInput = {
   description?: InputMaybe<Scalars['String']>;
+  documentCategory?: InputMaybe<Scalars['ID']>;
   file?: InputMaybe<Scalars['ID']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   title?: InputMaybe<Scalars['String']>;
+};
+
+export type DocumentRelationResponseCollection = {
+  __typename?: 'DocumentRelationResponseCollection';
+  data: Array<DocumentEntity>;
 };
 
 export enum Enum_Branch_Cemeterytype {
@@ -776,6 +835,12 @@ export enum Enum_Branch_Cemeterytype {
 export enum Enum_Branch_Type {
   Cintorin = 'cintorin',
   Pobocka = 'pobocka'
+}
+
+export enum Enum_Componentsectionsmanuallisting_Style {
+  Article = 'article',
+  Service = 'service',
+  Simple = 'simple'
 }
 
 export enum Enum_Page_Layout {
@@ -826,6 +891,7 @@ export type General = {
   contact?: Maybe<ComponentGeneralContacts>;
   createdAt?: Maybe<Scalars['DateTime']>;
   footer?: Maybe<ComponentGeneralFooter>;
+  generalOpeningHours?: Maybe<Scalars['String']>;
   header?: Maybe<ComponentGeneralHeader>;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<GeneralRelationResponseCollection>;
@@ -847,6 +913,7 @@ export type GeneralEntityResponse = {
 export type GeneralInput = {
   contact?: InputMaybe<ComponentGeneralContactsInput>;
   footer?: InputMaybe<ComponentGeneralFooterInput>;
+  generalOpeningHours?: InputMaybe<Scalars['String']>;
   header?: InputMaybe<ComponentGeneralHeaderInput>;
   social?: InputMaybe<ComponentGeneralSocialInput>;
 };
@@ -856,12 +923,12 @@ export type GeneralRelationResponseCollection = {
   data: Array<GeneralEntity>;
 };
 
-export type GenericMorph = Branch | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSidepanel | ComponentBlocksSimpleCtaItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsBranchGroup | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDocumentGroup | ComponentSectionsGallery | ComponentSectionsManualListing | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewsSection | ComponentSectionsRichtext | ComponentSectionsServicesListing | Contact | Document | General | HomePage | I18NLocale | Page | Partner | Procedure | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Branch | ComponentBlocksAccordionItem | ComponentBlocksBranchItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSidepanel | ComponentBlocksSimpleCtaItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsBranchGroup | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDocumentGroup | ComponentSectionsGallery | ComponentSectionsManualListing | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewsSection | ComponentSectionsRichtext | Contact | Document | DocumentCategory | General | HomePage | I18NLocale | Page | PageCategory | Partner | Procedure | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
   createdAt?: Maybe<Scalars['DateTime']>;
-  featured?: Maybe<Array<Maybe<ComponentBlocksCta>>>;
+  featured: Array<Maybe<ComponentBlocksCta>>;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<HomePageRelationResponseCollection>;
   sections?: Maybe<Array<Maybe<HomePageSectionsDynamicZone>>>;
@@ -896,7 +963,7 @@ export type HomePageRelationResponseCollection = {
   data: Array<HomePageEntity>;
 };
 
-export type HomePageSectionsDynamicZone = ComponentSectionsCeremoniesSection | ComponentSectionsCtaSection | ComponentSectionsManualListing | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsProceduresShortSection | ComponentSectionsReviewsSection | ComponentSectionsServicesListing | Error;
+export type HomePageSectionsDynamicZone = ComponentSectionsCeremoniesSection | ComponentSectionsCtaSection | ComponentSectionsManualListing | ComponentSectionsNewsListing | ComponentSectionsProceduresShortSection | ComponentSectionsReviewsSection | Error;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -1015,9 +1082,11 @@ export type Mutation = {
   createContact?: Maybe<ContactEntityResponse>;
   createContactLocalization?: Maybe<ContactEntityResponse>;
   createDocument?: Maybe<DocumentEntityResponse>;
+  createDocumentCategory?: Maybe<DocumentCategoryEntityResponse>;
   createGeneralLocalization?: Maybe<GeneralEntityResponse>;
   createHomePageLocalization?: Maybe<HomePageEntityResponse>;
   createPage?: Maybe<PageEntityResponse>;
+  createPageCategory?: Maybe<PageCategoryEntityResponse>;
   createPageLocalization?: Maybe<PageEntityResponse>;
   createPartner?: Maybe<PartnerEntityResponse>;
   createProcedureLocalization?: Maybe<ProcedureEntityResponse>;
@@ -1030,9 +1099,11 @@ export type Mutation = {
   deleteBranch?: Maybe<BranchEntityResponse>;
   deleteContact?: Maybe<ContactEntityResponse>;
   deleteDocument?: Maybe<DocumentEntityResponse>;
+  deleteDocumentCategory?: Maybe<DocumentCategoryEntityResponse>;
   deleteGeneral?: Maybe<GeneralEntityResponse>;
   deleteHomePage?: Maybe<HomePageEntityResponse>;
   deletePage?: Maybe<PageEntityResponse>;
+  deletePageCategory?: Maybe<PageCategoryEntityResponse>;
   deletePartner?: Maybe<PartnerEntityResponse>;
   deleteProcedure?: Maybe<ProcedureEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
@@ -1055,10 +1126,12 @@ export type Mutation = {
   updateBranch?: Maybe<BranchEntityResponse>;
   updateContact?: Maybe<ContactEntityResponse>;
   updateDocument?: Maybe<DocumentEntityResponse>;
+  updateDocumentCategory?: Maybe<DocumentCategoryEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateGeneral?: Maybe<GeneralEntityResponse>;
   updateHomePage?: Maybe<HomePageEntityResponse>;
   updatePage?: Maybe<PageEntityResponse>;
+  updatePageCategory?: Maybe<PageCategoryEntityResponse>;
   updatePartner?: Maybe<PartnerEntityResponse>;
   updateProcedure?: Maybe<ProcedureEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
@@ -1109,6 +1182,11 @@ export type MutationCreateDocumentArgs = {
 };
 
 
+export type MutationCreateDocumentCategoryArgs = {
+  data: DocumentCategoryInput;
+};
+
+
 export type MutationCreateGeneralLocalizationArgs = {
   data?: InputMaybe<GeneralInput>;
   id?: InputMaybe<Scalars['ID']>;
@@ -1126,6 +1204,11 @@ export type MutationCreateHomePageLocalizationArgs = {
 export type MutationCreatePageArgs = {
   data: PageInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreatePageCategoryArgs = {
+  data: PageCategoryInput;
 };
 
 
@@ -1185,6 +1268,11 @@ export type MutationDeleteDocumentArgs = {
 };
 
 
+export type MutationDeleteDocumentCategoryArgs = {
+  id: Scalars['ID'];
+};
+
+
 export type MutationDeleteGeneralArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -1198,6 +1286,11 @@ export type MutationDeleteHomePageArgs = {
 export type MutationDeletePageArgs = {
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationDeletePageCategoryArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -1291,6 +1384,12 @@ export type MutationUpdateDocumentArgs = {
 };
 
 
+export type MutationUpdateDocumentCategoryArgs = {
+  data: DocumentCategoryInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateFileInfoArgs = {
   id: Scalars['ID'];
   info?: InputMaybe<FileInfoInput>;
@@ -1313,6 +1412,12 @@ export type MutationUpdatePageArgs = {
   data: PageInput;
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationUpdatePageCategoryArgs = {
+  data: PageCategoryInput;
+  id: Scalars['ID'];
 };
 
 
@@ -1406,6 +1511,7 @@ export type Page = {
   layout: Enum_Page_Layout;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<PageRelationResponseCollection>;
+  pageCategory?: Maybe<PageCategoryEntityResponse>;
   perex?: Maybe<Scalars['String']>;
   publishedAt?: Maybe<Scalars['DateTime']>;
   sections?: Maybe<Array<Maybe<PageSectionsDynamicZone>>>;
@@ -1421,6 +1527,58 @@ export type PageLocalizationsArgs = {
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type PageCategory = {
+  __typename?: 'PageCategory';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  pages?: Maybe<PageRelationResponseCollection>;
+  slug: Scalars['String'];
+  title: Scalars['String'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type PageCategoryPagesArgs = {
+  filters?: InputMaybe<PageFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type PageCategoryEntity = {
+  __typename?: 'PageCategoryEntity';
+  attributes?: Maybe<PageCategory>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type PageCategoryEntityResponse = {
+  __typename?: 'PageCategoryEntityResponse';
+  data?: Maybe<PageCategoryEntity>;
+};
+
+export type PageCategoryEntityResponseCollection = {
+  __typename?: 'PageCategoryEntityResponseCollection';
+  data: Array<PageCategoryEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type PageCategoryFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<PageCategoryFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<PageCategoryFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<PageCategoryFiltersInput>>>;
+  pages?: InputMaybe<PageFiltersInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type PageCategoryInput = {
+  pages?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  slug?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
 };
 
 export type PageEntity = {
@@ -1450,6 +1608,7 @@ export type PageFiltersInput = {
   localizations?: InputMaybe<PageFiltersInput>;
   not?: InputMaybe<PageFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<PageFiltersInput>>>;
+  pageCategory?: InputMaybe<PageCategoryFiltersInput>;
   perex?: InputMaybe<StringFilterInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   sidebar?: InputMaybe<ComponentBlocksSidebarFiltersInput>;
@@ -1462,6 +1621,7 @@ export type PageInput = {
   coverMedia?: InputMaybe<Scalars['ID']>;
   ctaButton?: InputMaybe<ComponentBlocksButtonLinkInput>;
   layout?: InputMaybe<Enum_Page_Layout>;
+  pageCategory?: InputMaybe<Scalars['ID']>;
   perex?: InputMaybe<Scalars['String']>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   sections?: InputMaybe<Array<Scalars['PageSectionsDynamicZoneInput']>>;
@@ -1475,7 +1635,7 @@ export type PageRelationResponseCollection = {
   data: Array<PageEntity>;
 };
 
-export type PageSectionsDynamicZone = ComponentSectionsAccordionGroup | ComponentSectionsBranchGroup | ComponentSectionsContactGroup | ComponentSectionsDocumentGroup | ComponentSectionsGallery | ComponentSectionsManualListing | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsRichtext | ComponentSectionsServicesListing | Error;
+export type PageSectionsDynamicZone = ComponentSectionsAccordionGroup | ComponentSectionsBranchGroup | ComponentSectionsContactGroup | ComponentSectionsDocumentGroup | ComponentSectionsGallery | ComponentSectionsManualListing | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsProceduresSection | ComponentSectionsRichtext | Error;
 
 export type Pagination = {
   __typename?: 'Pagination';
@@ -1584,6 +1744,8 @@ export type Query = {
   contact?: Maybe<ContactEntityResponse>;
   contacts?: Maybe<ContactEntityResponseCollection>;
   document?: Maybe<DocumentEntityResponse>;
+  documentCategories?: Maybe<DocumentCategoryEntityResponseCollection>;
+  documentCategory?: Maybe<DocumentCategoryEntityResponse>;
   documents?: Maybe<DocumentEntityResponseCollection>;
   general?: Maybe<GeneralEntityResponse>;
   homePage?: Maybe<HomePageEntityResponse>;
@@ -1591,6 +1753,8 @@ export type Query = {
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
   me?: Maybe<UsersPermissionsMe>;
   page?: Maybe<PageEntityResponse>;
+  pageCategories?: Maybe<PageCategoryEntityResponseCollection>;
+  pageCategory?: Maybe<PageCategoryEntityResponse>;
   pages?: Maybe<PageEntityResponseCollection>;
   partner?: Maybe<PartnerEntityResponse>;
   partners?: Maybe<PartnerEntityResponseCollection>;
@@ -1641,6 +1805,18 @@ export type QueryDocumentArgs = {
 };
 
 
+export type QueryDocumentCategoriesArgs = {
+  filters?: InputMaybe<DocumentCategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryDocumentCategoryArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
 export type QueryDocumentsArgs = {
   filters?: InputMaybe<DocumentFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -1674,6 +1850,18 @@ export type QueryI18NLocalesArgs = {
 export type QueryPageArgs = {
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type QueryPageCategoriesArgs = {
+  filters?: InputMaybe<PageCategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryPageCategoryArgs = {
+  id?: InputMaybe<Scalars['ID']>;
 };
 
 
@@ -2173,24 +2361,59 @@ export type CtaButtonFragment = { __typename?: 'ComponentBlocksButtonLink', labe
 
 export type SidebarFragment = { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null };
 
+export type CtaFragment = { __typename?: 'ComponentBlocksCta', title: string, description?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null };
+
+export type HeaderFragment = { __typename?: 'ComponentGeneralHeader', faqLink?: string | null, phoneNumber?: string | null };
+
+export type SocialFragment = { __typename?: 'ComponentGeneralSocial', facebook?: string | null, instagram?: string | null, youtube?: string | null, linkedin?: string | null, twitter?: string | null };
+
+export type ContactFragment = { __typename?: 'ComponentGeneralContacts', address?: string | null, featuredOpeningHours?: string | null, openingHoursLink?: string | null, contactsLink?: string | null, latitude?: string | null, longitude?: string | null, navigateToLink?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null };
+
+export type FooterFragment = { __typename?: 'ComponentGeneralFooter', title1?: string | null, title2?: string | null, title3?: string | null, title4?: string | null, links1?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url: string, targetBlank: boolean } | null> | null, links2?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url: string, targetBlank: boolean } | null> | null, links3?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url: string, targetBlank: boolean } | null> | null, links4?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url: string, targetBlank: boolean } | null> | null };
+
+export type ProcedureFragment = { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null } | null };
+
+export type AccordionGroupFragment = { __typename?: 'ComponentSectionsAccordionGroup', id: string, title?: string | null, accordions?: Array<{ __typename?: 'ComponentBlocksAccordionItem', id: string, title?: string | null, content?: string | null } | null> | null };
+
+export type ContactGroupFragment = { __typename?: 'ComponentSectionsContactGroup', id: string, title?: string | null, contacts?: Array<{ __typename?: 'ComponentBlocksContactItem', contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null> | null };
+
+export type ManualListingFragment = { __typename?: 'ComponentSectionsManualListing', id: string, title?: string | null, style: Enum_Componentsectionsmanuallisting_Style, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, pages?: Array<{ __typename?: 'ComponentBlocksPageItem', page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, publishedAt?: any | null, perex?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, pageCategory?: { __typename?: 'PageCategoryEntityResponse', data?: { __typename?: 'PageCategoryEntity', id?: string | null, attributes?: { __typename?: 'PageCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null };
+
 export type UploadImageEntityFragment = { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null };
 
-export type BranchEntityFragment = { __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, type: Enum_Branch_Type, cemeteryType?: Enum_Branch_Cemeterytype | null, description?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null };
+export type UploadFileEntityFragment = { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null };
+
+export type BranchEntityFragment = { __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, type: Enum_Branch_Type, cemeteryType?: Enum_Branch_Cemeterytype | null, description?: string | null, address?: string | null, navigateToLink?: string | null, openingHoursOverride?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null } | null };
 
 export type ContactEntityFragment = { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null };
 
-export type PageEntityFragment = { __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, publishedAt?: any | null, layout: Enum_Page_Layout, perex?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, sidebar?: { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, sections?: Array<{ __typename: 'ComponentSectionsAccordionGroup', id: string, title?: string | null, accordions?: Array<{ __typename?: 'ComponentBlocksAccordionItem', id: string, title?: string | null, description?: string | null } | null> | null } | { __typename: 'ComponentSectionsBranchGroup', id: string, title?: string | null, branches?: Array<{ __typename?: 'ComponentBlocksBranchItem', branch?: { __typename?: 'BranchEntityResponse', data?: { __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsContactGroup', id: string, title?: string | null, contacts?: Array<{ __typename?: 'ComponentBlocksContactItem', contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsDocumentGroup', id: string, title?: string | null, documents?: Array<{ __typename?: 'ComponentBlocksDocumentItem', document?: { __typename?: 'DocumentEntityResponse', data?: { __typename?: 'DocumentEntity', id?: string | null, attributes?: { __typename?: 'Document', title: string } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsGallery', id: string, title?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null } | { __typename?: 'ComponentSectionsManualListing' } | { __typename: 'ComponentSectionsMenuListing', id: string, title?: string | null, slug: string } | { __typename?: 'ComponentSectionsNewsListing' } | { __typename: 'ComponentSectionsRichtext', id: string, markdown?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null } | { __typename?: 'ComponentSectionsServicesListing' } | { __typename?: 'Error' } | null> | null } | null };
+export type PageCategoryEntityFragment = { __typename?: 'PageCategoryEntity', id?: string | null, attributes?: { __typename?: 'PageCategory', title: string, slug: string } | null };
+
+export type PageCardEntityFragment = { __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, publishedAt?: any | null, perex?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, pageCategory?: { __typename?: 'PageCategoryEntityResponse', data?: { __typename?: 'PageCategoryEntity', id?: string | null, attributes?: { __typename?: 'PageCategory', title: string, slug: string } | null } | null } | null } | null };
+
+export type PageEntityFragment = { __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, publishedAt?: any | null, layout: Enum_Page_Layout, perex?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, sidebar?: { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, pageCategory?: { __typename?: 'PageCategoryEntityResponse', data?: { __typename?: 'PageCategoryEntity', id?: string | null, attributes?: { __typename?: 'PageCategory', title: string, slug: string } | null } | null } | null, sections?: Array<{ __typename: 'ComponentSectionsAccordionGroup', id: string, title?: string | null, accordions?: Array<{ __typename?: 'ComponentBlocksAccordionItem', id: string, title?: string | null, content?: string | null } | null> | null } | { __typename: 'ComponentSectionsBranchGroup', id: string, title?: string | null, branches?: Array<{ __typename?: 'ComponentBlocksBranchItem', branch?: { __typename?: 'BranchEntityResponse', data?: { __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsContactGroup', id: string, title?: string | null, contacts?: Array<{ __typename?: 'ComponentBlocksContactItem', contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsDocumentGroup', id: string, title?: string | null, documents?: Array<{ __typename?: 'ComponentBlocksDocumentItem', document?: { __typename?: 'DocumentEntityResponse', data?: { __typename?: 'DocumentEntity', id?: string | null, attributes?: { __typename?: 'Document', title: string } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsGallery', id: string, title?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null } | { __typename: 'ComponentSectionsManualListing', id: string, title?: string | null, style: Enum_Componentsectionsmanuallisting_Style, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, pages?: Array<{ __typename?: 'ComponentBlocksPageItem', page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, publishedAt?: any | null, perex?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, pageCategory?: { __typename?: 'PageCategoryEntityResponse', data?: { __typename?: 'PageCategoryEntity', id?: string | null, attributes?: { __typename?: 'PageCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsMenuListing', id: string, title?: string | null, slug: string } | { __typename: 'ComponentSectionsNewsListing', id: string, title?: string | null } | { __typename: 'ComponentSectionsProceduresSection', id: string, title?: string | null } | { __typename: 'ComponentSectionsRichtext', id: string, content?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null } | { __typename?: 'Error' } | null> | null } | null };
+
+export type ProceduresEntityFragment = { __typename?: 'ProcedureEntity', attributes?: { __typename?: 'Procedure', outsideMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null } | null } | null, atMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null } | null } | null } | null };
 
 export type FlatNavigationItemFragment = { __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | null } | null };
 
 export type NavigationItemFragment = { __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | null } | null };
 
-export type NavigationQueryVariables = Exact<{
+export type GeneralEntityFragment = { __typename?: 'GeneralEntity', attributes?: { __typename?: 'General', header?: { __typename?: 'ComponentGeneralHeader', faqLink?: string | null, phoneNumber?: string | null } | null, social?: { __typename?: 'ComponentGeneralSocial', facebook?: string | null, instagram?: string | null, youtube?: string | null, linkedin?: string | null, twitter?: string | null } | null, contact?: { __typename?: 'ComponentGeneralContacts', address?: string | null, featuredOpeningHours?: string | null, openingHoursLink?: string | null, contactsLink?: string | null, latitude?: string | null, longitude?: string | null, navigateToLink?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, footer?: { __typename?: 'ComponentGeneralFooter', title1?: string | null, title2?: string | null, title3?: string | null, title4?: string | null, links1?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url: string, targetBlank: boolean } | null> | null, links2?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url: string, targetBlank: boolean } | null> | null, links3?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url: string, targetBlank: boolean } | null> | null, links4?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url: string, targetBlank: boolean } | null> | null } | null } | null };
+
+export type GeneralQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode'];
 }>;
 
 
-export type NavigationQuery = { __typename?: 'Query', navigation: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | null } | null } | null>, general?: { __typename?: 'GeneralEntityResponse', data?: { __typename?: 'GeneralEntity', attributes?: { __typename?: 'General', header?: { __typename?: 'ComponentGeneralHeader', faqLink?: string | null, phoneNumber?: string | null } | null } | null } | null } | null };
+export type GeneralQuery = { __typename?: 'Query', navigation: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | null } | null } | null>, general?: { __typename?: 'GeneralEntityResponse', data?: { __typename?: 'GeneralEntity', attributes?: { __typename?: 'General', header?: { __typename?: 'ComponentGeneralHeader', faqLink?: string | null, phoneNumber?: string | null } | null, social?: { __typename?: 'ComponentGeneralSocial', facebook?: string | null, instagram?: string | null, youtube?: string | null, linkedin?: string | null, twitter?: string | null } | null, contact?: { __typename?: 'ComponentGeneralContacts', address?: string | null, featuredOpeningHours?: string | null, openingHoursLink?: string | null, contactsLink?: string | null, latitude?: string | null, longitude?: string | null, navigateToLink?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, footer?: { __typename?: 'ComponentGeneralFooter', title1?: string | null, title2?: string | null, title3?: string | null, title4?: string | null, links1?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url: string, targetBlank: boolean } | null> | null, links2?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url: string, targetBlank: boolean } | null> | null, links3?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url: string, targetBlank: boolean } | null> | null, links4?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url: string, targetBlank: boolean } | null> | null } | null } | null } | null } | null };
+
+export type ProceduresQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+}>;
+
+
+export type ProceduresQuery = { __typename?: 'Query', procedures?: { __typename?: 'ProcedureEntityResponse', data?: { __typename?: 'ProcedureEntity', attributes?: { __typename?: 'Procedure', outsideMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null } | null } | null, atMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null } | null } | null } | null } | null } | null };
 
 export type PageBySlugQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode'];
@@ -2198,7 +2421,15 @@ export type PageBySlugQueryVariables = Exact<{
 }>;
 
 
-export type PageBySlugQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, publishedAt?: any | null, layout: Enum_Page_Layout, perex?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, sidebar?: { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, sections?: Array<{ __typename: 'ComponentSectionsAccordionGroup', id: string, title?: string | null, accordions?: Array<{ __typename?: 'ComponentBlocksAccordionItem', id: string, title?: string | null, description?: string | null } | null> | null } | { __typename: 'ComponentSectionsBranchGroup', id: string, title?: string | null, branches?: Array<{ __typename?: 'ComponentBlocksBranchItem', branch?: { __typename?: 'BranchEntityResponse', data?: { __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsContactGroup', id: string, title?: string | null, contacts?: Array<{ __typename?: 'ComponentBlocksContactItem', contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsDocumentGroup', id: string, title?: string | null, documents?: Array<{ __typename?: 'ComponentBlocksDocumentItem', document?: { __typename?: 'DocumentEntityResponse', data?: { __typename?: 'DocumentEntity', id?: string | null, attributes?: { __typename?: 'Document', title: string } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsGallery', id: string, title?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null } | { __typename?: 'ComponentSectionsManualListing' } | { __typename: 'ComponentSectionsMenuListing', id: string, title?: string | null, slug: string } | { __typename?: 'ComponentSectionsNewsListing' } | { __typename: 'ComponentSectionsRichtext', id: string, markdown?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null } | { __typename?: 'ComponentSectionsServicesListing' } | { __typename?: 'Error' } | null> | null } | null }> } | null };
+export type PageBySlugQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, publishedAt?: any | null, layout: Enum_Page_Layout, perex?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, sidebar?: { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, pageCategory?: { __typename?: 'PageCategoryEntityResponse', data?: { __typename?: 'PageCategoryEntity', id?: string | null, attributes?: { __typename?: 'PageCategory', title: string, slug: string } | null } | null } | null, sections?: Array<{ __typename: 'ComponentSectionsAccordionGroup', id: string, title?: string | null, accordions?: Array<{ __typename?: 'ComponentBlocksAccordionItem', id: string, title?: string | null, content?: string | null } | null> | null } | { __typename: 'ComponentSectionsBranchGroup', id: string, title?: string | null, branches?: Array<{ __typename?: 'ComponentBlocksBranchItem', branch?: { __typename?: 'BranchEntityResponse', data?: { __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsContactGroup', id: string, title?: string | null, contacts?: Array<{ __typename?: 'ComponentBlocksContactItem', contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsDocumentGroup', id: string, title?: string | null, documents?: Array<{ __typename?: 'ComponentBlocksDocumentItem', document?: { __typename?: 'DocumentEntityResponse', data?: { __typename?: 'DocumentEntity', id?: string | null, attributes?: { __typename?: 'Document', title: string } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsGallery', id: string, title?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null } | { __typename: 'ComponentSectionsManualListing', id: string, title?: string | null, style: Enum_Componentsectionsmanuallisting_Style, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, pages?: Array<{ __typename?: 'ComponentBlocksPageItem', page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, publishedAt?: any | null, perex?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, pageCategory?: { __typename?: 'PageCategoryEntityResponse', data?: { __typename?: 'PageCategoryEntity', id?: string | null, attributes?: { __typename?: 'PageCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsMenuListing', id: string, title?: string | null, slug: string } | { __typename: 'ComponentSectionsNewsListing', id: string, title?: string | null } | { __typename: 'ComponentSectionsProceduresSection', id: string, title?: string | null } | { __typename: 'ComponentSectionsRichtext', id: string, content?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null } | { __typename?: 'Error' } | null> | null } | null }> } | null };
+
+export type BranchBySlugQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+  slug: Scalars['String'];
+}>;
+
+
+export type BranchBySlugQuery = { __typename?: 'Query', branches?: { __typename?: 'BranchEntityResponseCollection', data: Array<{ __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, type: Enum_Branch_Type, cemeteryType?: Enum_Branch_Cemeterytype | null, description?: string | null, address?: string | null, navigateToLink?: string | null, openingHoursOverride?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null } | null }> } | null };
 
 export type PagesStaticPathsQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -2207,13 +2438,56 @@ export type PagesStaticPathsQueryVariables = Exact<{
 
 export type PagesStaticPathsQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null }> } | null };
 
+export type BranchesStaticPathsQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+}>;
+
+
+export type BranchesStaticPathsQuery = { __typename?: 'Query', branches?: { __typename?: 'BranchEntityResponseCollection', data: Array<{ __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', slug: string, locale?: string | null } | null }> } | null };
+
 export type HomePageQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 }>;
 
 
-export type HomePageQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePageEntityResponse', data?: { __typename?: 'HomePageEntity', attributes?: { __typename?: 'HomePage', sections?: Array<{ __typename: 'ComponentSectionsCeremoniesSection', id: string, title?: string | null } | { __typename: 'ComponentSectionsCtaSection', id: string, title?: string | null } | { __typename: 'ComponentSectionsManualListing', id: string, title?: string | null } | { __typename: 'ComponentSectionsMenuListing', id: string, title?: string | null } | { __typename: 'ComponentSectionsNewsListing', id: string, title?: string | null } | { __typename: 'ComponentSectionsProceduresShortSection', id: string, title?: string | null } | { __typename: 'ComponentSectionsReviewsSection', id: string, title?: string | null } | { __typename: 'ComponentSectionsServicesListing', id: string, title?: string | null } | { __typename?: 'Error' } | null> | null } | null } | null } | null };
+export type HomePageQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePageEntityResponse', data?: { __typename?: 'HomePageEntity', attributes?: { __typename?: 'HomePage', featured: Array<{ __typename?: 'ComponentBlocksCta', title: string, description?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null } | null>, sections?: Array<{ __typename: 'ComponentSectionsCeremoniesSection', id: string, title?: string | null } | { __typename: 'ComponentSectionsCtaSection', id: string, title?: string | null } | { __typename: 'ComponentSectionsManualListing', id: string, title?: string | null, style: Enum_Componentsectionsmanuallisting_Style, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null, pages?: Array<{ __typename?: 'ComponentBlocksPageItem', page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, publishedAt?: any | null, perex?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, pageCategory?: { __typename?: 'PageCategoryEntityResponse', data?: { __typename?: 'PageCategoryEntity', id?: string | null, attributes?: { __typename?: 'PageCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsNewsListing', id: string, title?: string | null } | { __typename: 'ComponentSectionsProceduresShortSection', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url: string, targetBlank?: boolean | null } | null } | { __typename: 'ComponentSectionsReviewsSection', id: string, title?: string | null } | { __typename?: 'Error' } | null> | null } | null } | null } | null, procedures?: { __typename?: 'ProcedureEntityResponse', data?: { __typename?: 'ProcedureEntity', attributes?: { __typename?: 'Procedure', outsideMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null } | null } | null, atMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null } | null } | null } | null } | null } | null };
 
+export const CtaButtonFragmentDoc = gql`
+    fragment CtaButton on ComponentBlocksButtonLink {
+  label
+  url
+  targetBlank
+}
+    `;
+export const UploadImageEntityFragmentDoc = gql`
+    fragment UploadImageEntity on UploadFileEntity {
+  id
+  attributes {
+    url
+    name
+    alternativeText
+    caption
+    size
+    width
+    height
+  }
+}
+    `;
+export const CtaFragmentDoc = gql`
+    fragment Cta on ComponentBlocksCta {
+  title
+  description
+  button {
+    ...CtaButton
+  }
+  image {
+    data {
+      ...UploadImageEntity
+    }
+  }
+}
+    ${CtaButtonFragmentDoc}
+${UploadImageEntityFragmentDoc}`;
 export const ContactEntityFragmentDoc = gql`
     fragment ContactEntity on ContactEntity {
   id
@@ -2240,16 +2514,18 @@ export const BranchEntityFragmentDoc = gql`
         ...ContactEntity
       }
     }
+    medias {
+      data {
+        ...UploadImageEntity
+      }
+    }
+    address
+    navigateToLink
+    openingHoursOverride
   }
 }
-    ${ContactEntityFragmentDoc}`;
-export const CtaButtonFragmentDoc = gql`
-    fragment CtaButton on ComponentBlocksButtonLink {
-  label
-  url
-  targetBlank
-}
-    `;
+    ${ContactEntityFragmentDoc}
+${UploadImageEntityFragmentDoc}`;
 export const SidebarFragmentDoc = gql`
     fragment Sidebar on ComponentBlocksSidebar {
   title
@@ -2265,20 +2541,79 @@ export const SidebarFragmentDoc = gql`
 }
     ${CtaButtonFragmentDoc}
 ${ContactEntityFragmentDoc}`;
-export const UploadImageEntityFragmentDoc = gql`
-    fragment UploadImageEntity on UploadFileEntity {
+export const PageCategoryEntityFragmentDoc = gql`
+    fragment PageCategoryEntity on PageCategoryEntity {
   id
   attributes {
-    url
-    name
-    alternativeText
-    caption
-    size
-    width
-    height
+    title
+    slug
   }
 }
     `;
+export const AccordionGroupFragmentDoc = gql`
+    fragment AccordionGroup on ComponentSectionsAccordionGroup {
+  id
+  title
+  accordions {
+    id
+    title
+    content
+  }
+}
+    `;
+export const ContactGroupFragmentDoc = gql`
+    fragment ContactGroup on ComponentSectionsContactGroup {
+  id
+  title
+  contacts {
+    contact {
+      data {
+        ...ContactEntity
+      }
+    }
+  }
+}
+    ${ContactEntityFragmentDoc}`;
+export const PageCardEntityFragmentDoc = gql`
+    fragment PageCardEntity on PageEntity {
+  id
+  attributes {
+    title
+    slug
+    publishedAt
+    perex
+    coverMedia {
+      data {
+        ...UploadImageEntity
+      }
+    }
+    pageCategory {
+      data {
+        ...PageCategoryEntity
+      }
+    }
+  }
+}
+    ${UploadImageEntityFragmentDoc}
+${PageCategoryEntityFragmentDoc}`;
+export const ManualListingFragmentDoc = gql`
+    fragment ManualListing on ComponentSectionsManualListing {
+  id
+  title
+  style
+  showMoreButton {
+    ...CtaButton
+  }
+  pages {
+    page {
+      data {
+        ...PageCardEntity
+      }
+    }
+  }
+}
+    ${CtaButtonFragmentDoc}
+${PageCardEntityFragmentDoc}`;
 export const PageEntityFragmentDoc = gql`
     fragment PageEntity on PageEntity {
   id
@@ -2299,16 +2634,15 @@ export const PageEntityFragmentDoc = gql`
         ...UploadImageEntity
       }
     }
+    pageCategory {
+      data {
+        ...PageCategoryEntity
+      }
+    }
     sections {
       ... on ComponentSectionsAccordionGroup {
         __typename
-        id
-        title
-        accordions {
-          id
-          title
-          description
-        }
+        ...AccordionGroup
       }
       ... on ComponentSectionsBranchGroup {
         __typename
@@ -2327,18 +2661,7 @@ export const PageEntityFragmentDoc = gql`
       }
       ... on ComponentSectionsContactGroup {
         __typename
-        id
-        title
-        contacts {
-          contact {
-            data {
-              id
-              attributes {
-                title
-              }
-            }
-          }
-        }
+        ...ContactGroup
       }
       ... on ComponentSectionsDocumentGroup {
         __typename
@@ -2371,22 +2694,78 @@ export const PageEntityFragmentDoc = gql`
         title
         slug
       }
+      ... on ComponentSectionsManualListing {
+        __typename
+        ...ManualListing
+      }
+      ... on ComponentSectionsNewsListing {
+        __typename
+        id
+        title
+      }
       ... on ComponentSectionsRichtext {
         __typename
         id
-        markdown
+        content
         button {
           label
           url
           targetBlank
         }
       }
+      ... on ComponentSectionsProceduresSection {
+        __typename
+        id
+        title
+      }
     }
   }
 }
     ${CtaButtonFragmentDoc}
 ${SidebarFragmentDoc}
-${UploadImageEntityFragmentDoc}`;
+${UploadImageEntityFragmentDoc}
+${PageCategoryEntityFragmentDoc}
+${AccordionGroupFragmentDoc}
+${ContactGroupFragmentDoc}
+${ManualListingFragmentDoc}`;
+export const UploadFileEntityFragmentDoc = gql`
+    fragment UploadFileEntity on UploadFileEntity {
+  id
+  attributes {
+    url
+    name
+    size
+    ext
+  }
+}
+    `;
+export const ProcedureFragmentDoc = gql`
+    fragment Procedure on ComponentGeneralProcedure {
+  title
+  steps {
+    id
+    title
+    description
+  }
+  downloadFile {
+    data {
+      ...UploadFileEntity
+    }
+  }
+}
+    ${UploadFileEntityFragmentDoc}`;
+export const ProceduresEntityFragmentDoc = gql`
+    fragment ProceduresEntity on ProcedureEntity {
+  attributes {
+    outsideMedicalFacility {
+      ...Procedure
+    }
+    atMedicalFacility {
+      ...Procedure
+    }
+  }
+}
+    ${ProcedureFragmentDoc}`;
 export const FlatNavigationItemFragmentDoc = gql`
     fragment FlatNavigationItem on NavigationItem {
   id
@@ -2420,8 +2799,92 @@ export const NavigationItemFragmentDoc = gql`
   }
 }
     ${FlatNavigationItemFragmentDoc}`;
-export const NavigationDocument = gql`
-    query Navigation($locale: I18NLocaleCode!) {
+export const HeaderFragmentDoc = gql`
+    fragment Header on ComponentGeneralHeader {
+  faqLink
+  phoneNumber
+}
+    `;
+export const SocialFragmentDoc = gql`
+    fragment Social on ComponentGeneralSocial {
+  facebook
+  instagram
+  youtube
+  linkedin
+  twitter
+}
+    `;
+export const ContactFragmentDoc = gql`
+    fragment Contact on ComponentGeneralContacts {
+  address
+  featuredOpeningHours
+  openingHoursLink
+  contact {
+    data {
+      ...ContactEntity
+    }
+  }
+  contactsLink
+  latitude
+  longitude
+  navigateToLink
+}
+    ${ContactEntityFragmentDoc}`;
+export const FooterFragmentDoc = gql`
+    fragment Footer on ComponentGeneralFooter {
+  title1
+  links1 {
+    id
+    label
+    url
+    targetBlank
+  }
+  title2
+  links2 {
+    id
+    label
+    url
+    targetBlank
+  }
+  title3
+  links3 {
+    id
+    label
+    url
+    targetBlank
+  }
+  title4
+  links4 {
+    id
+    label
+    url
+    targetBlank
+  }
+}
+    `;
+export const GeneralEntityFragmentDoc = gql`
+    fragment GeneralEntity on GeneralEntity {
+  attributes {
+    header {
+      ...Header
+    }
+    social {
+      ...Social
+    }
+    contact {
+      ...Contact
+    }
+    footer {
+      ...Footer
+    }
+  }
+}
+    ${HeaderFragmentDoc}
+${SocialFragmentDoc}
+${ContactFragmentDoc}
+${FooterFragmentDoc}`;
+export const GeneralDocument = gql`
+    query General($locale: I18NLocaleCode!) {
   navigation: renderNavigation(
     navigationIdOrSlug: "main-navigation"
     type: TREE
@@ -2432,16 +2895,21 @@ export const NavigationDocument = gql`
   }
   general(locale: $locale) {
     data {
-      attributes {
-        header {
-          faqLink
-          phoneNumber
-        }
-      }
+      ...GeneralEntity
     }
   }
 }
-    ${NavigationItemFragmentDoc}`;
+    ${NavigationItemFragmentDoc}
+${GeneralEntityFragmentDoc}`;
+export const ProceduresDocument = gql`
+    query Procedures($locale: I18NLocaleCode!) {
+  procedures: procedure(locale: $locale) {
+    data {
+      ...ProceduresEntity
+    }
+  }
+}
+    ${ProceduresEntityFragmentDoc}`;
 export const PageBySlugDocument = gql`
     query PageBySlug($locale: I18NLocaleCode!, $slug: String!) {
   pages(locale: $locale, filters: {slug: {eq: $slug}}) {
@@ -2451,9 +2919,31 @@ export const PageBySlugDocument = gql`
   }
 }
     ${PageEntityFragmentDoc}`;
+export const BranchBySlugDocument = gql`
+    query BranchBySlug($locale: I18NLocaleCode!, $slug: String!) {
+  branches(locale: $locale, filters: {slug: {eq: $slug}}) {
+    data {
+      ...BranchEntity
+    }
+  }
+}
+    ${BranchEntityFragmentDoc}`;
 export const PagesStaticPathsDocument = gql`
     query PagesStaticPaths($locale: I18NLocaleCode) {
   pages(locale: $locale) {
+    data {
+      id
+      attributes {
+        slug
+        locale
+      }
+    }
+  }
+}
+    `;
+export const BranchesStaticPathsDocument = gql`
+    query BranchesStaticPaths($locale: I18NLocaleCode) {
+  branches(locale: $locale) {
     data {
       id
       attributes {
@@ -2469,21 +2959,13 @@ export const HomePageDocument = gql`
   homePage(locale: $locale) {
     data {
       attributes {
+        featured {
+          ...Cta
+        }
         sections {
           ... on ComponentSectionsManualListing {
             __typename
-            id
-            title
-          }
-          ... on ComponentSectionsServicesListing {
-            __typename
-            id
-            title
-          }
-          ... on ComponentSectionsMenuListing {
-            __typename
-            id
-            title
+            ...ManualListing
           }
           ... on ComponentSectionsNewsListing {
             __typename
@@ -2499,6 +2981,9 @@ export const HomePageDocument = gql`
             __typename
             id
             title
+            showMoreButton {
+              ...CtaButton
+            }
           }
           ... on ComponentSectionsCtaSection {
             __typename
@@ -2514,8 +2999,16 @@ export const HomePageDocument = gql`
       }
     }
   }
+  procedures: procedure(locale: $locale) {
+    data {
+      ...ProceduresEntity
+    }
+  }
 }
-    `;
+    ${CtaFragmentDoc}
+${ManualListingFragmentDoc}
+${CtaButtonFragmentDoc}
+${ProceduresEntityFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -2524,14 +3017,23 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    Navigation(variables: NavigationQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<NavigationQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<NavigationQuery>(NavigationDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Navigation', 'query');
+    General(variables: GeneralQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GeneralQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GeneralQuery>(GeneralDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'General', 'query');
+    },
+    Procedures(variables: ProceduresQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProceduresQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ProceduresQuery>(ProceduresDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Procedures', 'query');
     },
     PageBySlug(variables: PageBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PageBySlugQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<PageBySlugQuery>(PageBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'PageBySlug', 'query');
     },
+    BranchBySlug(variables: BranchBySlugQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<BranchBySlugQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<BranchBySlugQuery>(BranchBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'BranchBySlug', 'query');
+    },
     PagesStaticPaths(variables?: PagesStaticPathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PagesStaticPathsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<PagesStaticPathsQuery>(PagesStaticPathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'PagesStaticPaths', 'query');
+    },
+    BranchesStaticPaths(variables?: BranchesStaticPathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<BranchesStaticPathsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<BranchesStaticPathsQuery>(BranchesStaticPathsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'BranchesStaticPaths', 'query');
     },
     HomePage(variables?: HomePageQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<HomePageQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<HomePageQuery>(HomePageDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'HomePage', 'query');

@@ -16,11 +16,10 @@
     "openingHoursLink": {
       "type": "string"
     },
-    "phone": {
-      "type": "string"
-    },
-    "email": {
-      "type": "string"
+    "contact": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::contact.contact"
     },
     "contactsLink": {
       "type": "string"

@@ -16,3 +16,127 @@ fragment Sidebar on ComponentBlocksSidebar {
     }
   }
 }
+
+fragment Cta on ComponentBlocksCta {
+  title
+  description
+  button {
+    ...CtaButton
+  }
+  image {
+    data {
+      ...UploadImageEntity
+    }
+  }
+}
+
+fragment Header on ComponentGeneralHeader {
+  faqLink
+  phoneNumber
+}
+
+fragment Social on ComponentGeneralSocial {
+  facebook
+  instagram
+  youtube
+  linkedin
+  twitter
+}
+
+fragment Contact on ComponentGeneralContacts {
+  address
+  featuredOpeningHours
+  openingHoursLink
+  contact {
+    data {
+      ...ContactEntity
+    }
+  }
+  contactsLink
+  latitude
+  longitude
+  navigateToLink
+}
+
+fragment Footer on ComponentGeneralFooter {
+  title1
+  links1 {
+    id
+    label
+    url
+    targetBlank
+  }
+  title2
+  links2 {
+    id
+    label
+    url
+    targetBlank
+  }
+  title3
+  links3 {
+    id
+    label
+    url
+    targetBlank
+  }
+  title4
+  links4 {
+    id
+    label
+    url
+    targetBlank
+  }
+}
+
+fragment Procedure on ComponentGeneralProcedure {
+  title
+  steps {
+    id
+    title
+    description
+  }
+  downloadFile {
+    data {
+      ...UploadFileEntity
+    }
+  }
+}
+
+fragment AccordionGroup on ComponentSectionsAccordionGroup {
+  id
+  title
+  accordions {
+    id
+    title
+    content
+  }
+}
+
+fragment ContactGroup on ComponentSectionsContactGroup {
+  id
+  title
+  contacts {
+    contact {
+      data {
+        ...ContactEntity
+      }
+    }
+  }
+}
+
+fragment ManualListing on ComponentSectionsManualListing {
+  id
+  title
+  style
+  showMoreButton {
+    ...CtaButton
+  }
+  pages {
+    page {
+      data {
+        ...PageCardEntity
+      }
+    }
+  }
+}

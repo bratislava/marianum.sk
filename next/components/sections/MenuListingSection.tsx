@@ -1,16 +1,20 @@
 import { NavigationItemFragment } from '../../graphql'
 import { getSlugsForNavFiltering } from '../../utils/getSlugsForNavFiltering'
 import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
-import Section from '../molecules/Section'
+import Section, { SectionProps } from '../molecules/Section'
 
-type MenuListingSectionProps = {
-  title: string | null | undefined
+type MenuListingSectionProps = Pick<SectionProps, 'title' | 'isContainer' | 'color'> & {
   slug: string | null | undefined
   navigation: NavigationItemFragment[]
-  isFullWidth: boolean
 }
 
-const MenuListingSection = ({ title, slug, navigation, isFullWidth }: MenuListingSectionProps) => {
+const MenuListingSection = ({
+  title,
+  slug,
+  navigation,
+  isContainer,
+  color,
+}: MenuListingSectionProps) => {
   const slugs = getSlugsForNavFiltering(slug)
 
   let desiredChild: NavigationItemFragment | null = null
@@ -22,7 +26,7 @@ const MenuListingSection = ({ title, slug, navigation, isFullWidth }: MenuListin
   }
 
   return (
-    <Section title={title} fullWidth={isFullWidth} cardGrid>
+    <Section title={title} isContainer={isContainer} color={color} cardGrid>
       {desiredChild?.items?.map((subItem) => (
         <CategoryCard
           key={subItem?.path}

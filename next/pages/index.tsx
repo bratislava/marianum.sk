@@ -1,119 +1,85 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { GetStaticProps } from 'next'
-import { useTranslation } from 'next-i18next'
+import { GetStaticProps, GetStaticPropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import PageWrapper from '../components/layouts/PageWrapper'
 import Section from '../components/molecules/Section'
+import CardSection from '../components/sections/CardSection'
+import HomepageProcedures from '../components/sections/HomepageProcedures'
 import HomepageSlider from '../components/sections/HomepageSlider'
-import { HomePageQuery, NavigationItemFragment } from '../graphql'
+import { GeneralEntityFragment, HomePageQuery, NavigationItemFragment } from '../graphql'
 import { client } from '../utils/gql'
+import { isDefined } from '../utils/isDefined'
 
 type HomeProps = {
   navigation: NavigationItemFragment[]
-  faqLink: string
-  phoneNumber: string
   page: NonNullable<NonNullable<HomePageQuery['homePage']>['data']>
+  procedures: NonNullable<HomePageQuery['procedures']>['data']
+  general: GeneralEntityFragment | null
 }
 
-const Home = ({ navigation, faqLink, phoneNumber, page }: HomeProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { t } = useTranslation()
-
+const Home = ({ navigation, page, procedures, general }: HomeProps) => {
   return (
-    <PageWrapper navigation={navigation} faqLink={faqLink} phoneNumber={phoneNumber}>
-      <HomepageSlider
-        slides={[
-          {
-            key: 'slide-1',
-            title: 'Slide 1',
-            description:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-            imageSrc: '',
-            buttonText: 'Zistiť viac',
-          },
-          {
-            key: 'slide-2',
-            title: 'Slide 2',
-            description:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-            imageSrc: '',
-            buttonText: 'Zistiť viac',
-          },
-          {
-            key: 'slide-3',
-            title: 'Slide 3',
-            description:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-            imageSrc: '',
-            buttonText: 'Zistiť viac',
-          },
-        ]}
-      />
+    <PageWrapper navigation={navigation} general={general}>
+      <HomepageSlider slides={page.attributes?.featured?.filter(isDefined)} />
+
       <div>
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
-        {page.attributes?.sections?.map((section, index) => {
+        {page.attributes?.sections?.map((section) => {
           if (section?.__typename === 'ComponentSectionsManualListing') {
             return (
-              <Section key={section.id} fullWidth color={index % 2 === 0 ? 'white' : 'default'}>
-                {/* TODO */}
-                {section.title}
-              </Section>
-            )
-          }
-          if (section?.__typename === 'ComponentSectionsServicesListing') {
-            return (
-              <Section key={section.id} fullWidth color={index % 2 === 0 ? 'white' : 'default'}>
-                {/* TODO */}
-                {section.title}
-              </Section>
-            )
-          }
-          if (section?.__typename === 'ComponentSectionsMenuListing') {
-            return (
-              <Section key={section.id} fullWidth color={index % 2 === 0 ? 'white' : 'default'}>
-                {/* TODO */}
-                {section.title}
-              </Section>
+              <CardSection
+                key={`${section.__typename}-${section.id}`}
+                isContainer
+                section={section}
+              />
             )
           }
           if (section?.__typename === 'ComponentSectionsNewsListing') {
             return (
-              <Section key={section.id} fullWidth color={index % 2 === 0 ? 'white' : 'default'}>
+              <Section key={`${section.__typename}-${section.id}`} isContainer>
                 {/* TODO */}
-                {section.title}
+                news listing
               </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsCeremoniesSection') {
             return (
-              <Section key={section.id} fullWidth color={index % 2 === 0 ? 'white' : 'default'}>
+              <Section key={`${section.__typename}-${section.id}`} isContainer>
                 {/* TODO */}
-                {section.title}
+                ceremonies listing
               </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsProceduresShortSection') {
+            const { outsideMedicalFacility, atMedicalFacility } = procedures?.attributes ?? {}
+            const proceduresArr = [outsideMedicalFacility, atMedicalFacility].filter(isDefined)
+
+            const { showMoreButton, title, __typename, id } = section
+
             return (
-              <Section key={section.id} fullWidth color={index % 2 === 0 ? 'white' : 'default'}>
-                {/* TODO */}
-                {section.title}
-              </Section>
+              <HomepageProcedures
+                key={`${__typename}-${id}`}
+                title={title}
+                isContainer
+                procedures={proceduresArr}
+                showMoreButton={showMoreButton}
+              />
             )
           }
           if (section?.__typename === 'ComponentSectionsCtaSection') {
             return (
-              <Section key={section.id} fullWidth color={index % 2 === 0 ? 'white' : 'default'}>
+              <Section key={`${section.__typename}-${section.id}`} isContainer>
                 {/* TODO */}
-                {section.title}
+                cta section
               </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsReviewsSection') {
             return (
-              <Section key={section.id} fullWidth color={index % 2 === 0 ? 'white' : 'default'}>
+              <Section key={`${section.__typename}-${section.id}`} isContainer>
                 {/* TODO */}
-                {section.title}
+                reviews section
               </Section>
             )
           }
@@ -125,12 +91,16 @@ const Home = ({ navigation, faqLink, phoneNumber, page }: HomeProps) => {
   )
 }
 
-export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale = 'sk' }) => {
-  const [{ navigation, general }, { homePage }, translations] = await Promise.all([
-    client.Navigation({ locale }),
+export const getStaticProps: GetStaticProps = async ({
+  locale = 'sk',
+}): Promise<GetStaticPropsResult<HomeProps>> => {
+  const [{ navigation, general }, { homePage, procedures }, translations] = await Promise.all([
+    client.General({ locale }),
     client.HomePage({ locale }),
-    serverSideTranslations(locale, ['common']) as any, // TODO: fix any
+    serverSideTranslations(locale, ['common']),
   ])
+
+  const filteredNavigation = navigation.filter(Boolean) as NavigationItemFragment[]
 
   if (!homePage?.data) {
     return {
@@ -140,10 +110,10 @@ export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale = 'sk' 
 
   return {
     props: {
-      navigation,
-      faqLink: general?.data?.attributes?.header?.faqLink ?? '',
-      phoneNumber: general?.data?.attributes?.header?.phoneNumber ?? '',
-      page: homePage?.data,
+      navigation: filteredNavigation,
+      general: general?.data ?? null,
+      page: homePage?.data ?? null,
+      procedures: procedures?.data ?? null,
       ...translations,
     },
     revalidate: 10,

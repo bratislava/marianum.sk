@@ -1,4 +1,4 @@
-query Navigation($locale: I18NLocaleCode!) {
+query General($locale: I18NLocaleCode!) {
   navigation: renderNavigation(
     navigationIdOrSlug: "main-navigation"
     type: TREE
@@ -9,12 +9,15 @@ query Navigation($locale: I18NLocaleCode!) {
   }
   general(locale: $locale) {
     data {
-      attributes {
-        header {
-          faqLink
-          phoneNumber
-        }
-      }
+      ...GeneralEntity
+    }
+  }
+}
+
+query Procedures($locale: I18NLocaleCode!) {
+  procedures: procedure(locale: $locale) {
+    data {
+      ...ProceduresEntity
     }
   }
 }
@@ -23,6 +26,14 @@ query PageBySlug($locale: I18NLocaleCode!, $slug: String!) {
   pages(locale: $locale, filters: { slug: { eq: $slug } }) {
     data {
       ...PageEntity
+    }
+  }
+}
+
+query BranchBySlug($locale: I18NLocaleCode!, $slug: String!) {
+  branches(locale: $locale, filters: { slug: { eq: $slug } }) {
+    data {
+      ...BranchEntity
     }
   }
 }
@@ -41,28 +52,31 @@ query PagesStaticPaths($locale: I18NLocaleCode) {
   }
 }
 
+# strapi returns just the default locale if no locale is provided
+# easiest way to get all static paths is to ask for all locales sequentially
+query BranchesStaticPaths($locale: I18NLocaleCode) {
+  branches(locale: $locale) {
+    data {
+      id
+      attributes {
+        slug
+        locale
+      }
+    }
+  }
+}
+
 query HomePage($locale: I18NLocaleCode) {
   homePage(locale: $locale) {
     data {
       attributes {
+        featured {
+          ...Cta
+        }
         sections {
           ... on ComponentSectionsManualListing {
             __typename
-            id
-            title
-            # TODO
-          }
-          ... on ComponentSectionsServicesListing {
-            __typename
-            id
-            title
-            # TODO
-          }
-          ... on ComponentSectionsMenuListing {
-            __typename
-            id
-            title
-            # TODO
+            ...ManualListing
           }
           ... on ComponentSectionsNewsListing {
             __typename
@@ -81,7 +95,9 @@ query HomePage($locale: I18NLocaleCode) {
             __typename
             id
             title
-            # TODO
+            showMoreButton {
+              ...CtaButton
+            }
           }
           ... on ComponentSectionsCtaSection {
             __typename
@@ -97,6 +113,11 @@ query HomePage($locale: I18NLocaleCode) {
           }
         }
       }
+    }
+  }
+  procedures: procedure(locale: $locale) {
+    data {
+      ...ProceduresEntity
     }
   }
 }

@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, PanInfo, Variant } from 'framer-motion'
+import { useTranslation } from 'next-i18next'
 import { wrap } from 'popmotion'
-import { FC, ReactNode, useCallback, useEffect, useState } from 'react'
+import { FC, KeyboardEvent, ReactNode, useCallback, useEffect, useState } from 'react'
 
 type SliderProps = {
   pages: ReactNode[]
@@ -12,6 +13,9 @@ type SliderProps = {
     goToPrevious: () => void
     goToNext: () => void
   }>
+  initialPage?: number
+  allowKeboardNavigation?: boolean
+  description?: string
 }
 
 const variants: { [name: string]: Variant } = {
@@ -41,10 +45,18 @@ const swipePower = (offset: number, velocity: number) => {
   return Math.abs(offset) * velocity
 }
 
-const Slider = ({ pages, autoSwipeDuration = 0, pagination: Pagination }: SliderProps) => {
-  const [[page, direction], setPage] = useState([0, 0])
+const Slider = ({
+  pages,
+  autoSwipeDuration = 0,
+  pagination: Pagination,
+  initialPage,
+  allowKeboardNavigation = false,
+  description,
+}: SliderProps) => {
+  const [[page, direction], setPage] = useState([initialPage ?? 0, 0])
   const [isDragging, setDragging] = useState(false)
   const index = wrap(0, pages.length, page)
+  const { t } = useTranslation('common', { keyPrefix: 'components.molecules.Slider' })
 
   const paginate = useCallback((newDirection: number) => {
     setPage(([currentPage]) => [currentPage + newDirection, newDirection])
@@ -77,14 +89,14 @@ const Slider = ({ pages, autoSwipeDuration = 0, pagination: Pagination }: Slider
   }, [])
 
   useEffect(() => {
-    if (!autoSwipeDuration || isDragging) return () => {}
+    if (!autoSwipeDuration || isDragging || pages.length < 2) return () => {}
 
     const timer = setInterval(() => {
       paginate(1)
     }, autoSwipeDuration)
 
     return () => clearInterval(timer)
-  }, [autoSwipeDuration, paginate, isDragging])
+  }, [autoSwipeDuration, paginate, isDragging, pages])
 
   const goToPage = useCallback(
     (goToIndex: number) => {
@@ -94,11 +106,36 @@ const Slider = ({ pages, autoSwipeDuration = 0, pagination: Pagination }: Slider
     [index],
   )
 
+  const keyUpHandler = useCallback(
+    (e: KeyboardEvent) => {
+      if (!allowKeboardNavigation) return
+      if (e.code === 'ArrowLeft') {
+        e.preventDefault()
+        e.stopPropagation()
+        goToPrevious()
+        return
+      }
+
+      if (e.code === 'ArrowRight') {
+        e.stopPropagation()
+        e.preventDefault()
+        goToNext()
+      }
+    },
+    [goToNext, goToPrevious, allowKeboardNavigation],
+  )
+
   return (
-    <div className="relative z-0 flex h-full w-full items-center justify-center overflow-hidden">
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+    <div
+      onKeyUp={keyUpHandler}
+      role="application"
+      aria-label={description ?? t('aria.description')}
+      className="relative z-0 flex h-full w-full items-center justify-center overflow-hidden"
+    >
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
-          className="absolute h-full w-full"
+          className="absolute h-full w-full outline-none"
           key={page}
           custom={direction}
           variants={variants}
@@ -109,7 +146,7 @@ const Slider = ({ pages, autoSwipeDuration = 0, pagination: Pagination }: Slider
             x: { type: 'spring', stiffness: 300, damping: 30 },
             opacity: { duration: 0.2 },
           }}
-          drag="x"
+          drag={pages.length > 1 ? 'x' : undefined}
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={1}
           onDragStart={dragStartHandler}

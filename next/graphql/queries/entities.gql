@@ -11,6 +11,16 @@ fragment UploadImageEntity on UploadFileEntity {
   }
 }
 
+fragment UploadFileEntity on UploadFileEntity {
+  id
+  attributes {
+    url
+    name
+    size
+    ext
+  }
+}
+
 fragment BranchEntity on BranchEntity {
   id
   attributes {
@@ -24,6 +34,14 @@ fragment BranchEntity on BranchEntity {
         ...ContactEntity
       }
     }
+    medias {
+      data {
+        ...UploadImageEntity
+      }
+    }
+    address
+    navigateToLink
+    openingHoursOverride
   }
 }
 
@@ -35,6 +53,34 @@ fragment ContactEntity on ContactEntity {
     email
     phone1
     phone2
+  }
+}
+
+fragment PageCategoryEntity on PageCategoryEntity {
+  id
+  attributes {
+    title
+    slug
+  }
+}
+
+fragment PageCardEntity on PageEntity {
+  id
+  attributes {
+    title
+    slug
+    publishedAt
+    perex
+    coverMedia {
+      data {
+        ...UploadImageEntity
+      }
+    }
+    pageCategory {
+      data {
+        ...PageCategoryEntity
+      }
+    }
   }
 }
 
@@ -57,16 +103,15 @@ fragment PageEntity on PageEntity {
         ...UploadImageEntity
       }
     }
+    pageCategory {
+      data {
+        ...PageCategoryEntity
+      }
+    }
     sections {
       ... on ComponentSectionsAccordionGroup {
         __typename
-        id
-        title
-        accordions {
-          id
-          title
-          description
-        }
+        ...AccordionGroup
       }
       ... on ComponentSectionsBranchGroup {
         __typename
@@ -86,19 +131,7 @@ fragment PageEntity on PageEntity {
       }
       ... on ComponentSectionsContactGroup {
         __typename
-        id
-        title
-        contacts {
-          contact {
-            data {
-              # TODO replace by fragment
-              id
-              attributes {
-                title
-              }
-            }
-          }
-        }
+        ...ContactGroup
       }
       ... on ComponentSectionsDocumentGroup {
         __typename
@@ -132,16 +165,42 @@ fragment PageEntity on PageEntity {
         title
         slug
       }
+      ... on ComponentSectionsManualListing {
+        __typename
+        ...ManualListing
+      }
+      ... on ComponentSectionsNewsListing {
+        __typename
+        id
+        title
+        # TODO
+      }
       ... on ComponentSectionsRichtext {
         __typename
         id
-        markdown
+        content
         button {
           label
           url
           targetBlank
         }
       }
+      ... on ComponentSectionsProceduresSection {
+        __typename
+        id
+        title
+      }
+    }
+  }
+}
+
+fragment ProceduresEntity on ProcedureEntity {
+  attributes {
+    outsideMedicalFacility {
+      ...Procedure
+    }
+    atMedicalFacility {
+      ...Procedure
     }
   }
 }

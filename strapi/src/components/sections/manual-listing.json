@@ -10,8 +10,16 @@
     "title": {
       "type": "string"
     },
-    "linkMore": {
-      "type": "string"
+    "style": {
+      "type": "enumeration",
+      "enum": ["simple", "service", "article"],
+      "required": true,
+      "default": "simple"
+    },
+    "showMoreButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "blocks.button-link"
     },
     "pages": {
       "type": "component",

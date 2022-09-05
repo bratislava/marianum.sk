@@ -29,3 +29,20 @@ fragment NavigationItem on NavigationItem {
     }
   }
 }
+
+fragment GeneralEntity on GeneralEntity {
+  attributes {
+    header {
+      ...Header
+    }
+    social {
+      ...Social
+    }
+    contact {
+      ...Contact
+    }
+    footer {
+      ...Footer
+    }
+  }
+}

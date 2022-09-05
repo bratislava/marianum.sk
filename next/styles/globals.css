@@ -36,6 +36,19 @@
     @apply text-foreground;
   }
 
+  /*
+    make all of the following elements full height
+    so we can sticky the footer to bottom of the page
+  */
+  html,
+  body,
+  /* next main div */
+  #__next,
+  /* <OverlayProvider /> from react-aria */
+  #__next > [data-overlay-container='true'] {
+    @apply h-full;
+  }
+
   h1,
   h2,
   h3,
