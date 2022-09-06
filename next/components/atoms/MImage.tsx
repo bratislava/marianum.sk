@@ -13,7 +13,7 @@ const MImage = ({ image, disableBlurPlaceholder = false, ...rest }: MImageProps)
   <Image
     src={image.url}
     // Type 'null' is not assignable to type 'string | undefined'.
-    alt={image.alternativeText === null ? undefined : image.alternativeText}
+    alt={image.alternativeText ?? undefined}
     placeholder={disableBlurPlaceholder ? undefined : 'blur'}
     // Type 'null' is not assignable to type 'string | undefined'.
     blurDataURL={
