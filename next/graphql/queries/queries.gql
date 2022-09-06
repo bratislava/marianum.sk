@@ -70,6 +70,14 @@ query BundleBySlug($locale: I18NLocaleCode!, $slug: String!) {
   }
 }
 
+query DocumentBySlug($slug: String!) {
+  documents(filters: { slug: { eq: $slug } }) {
+    data {
+      ...DocumentEntity
+    }
+  }
+}
+
 # strapi returns just the default locale if no locale is provided
 # easiest way to get all static paths is to ask for all locales sequentially
 query ArticlesStaticPaths($locale: I18NLocaleCode) {
@@ -115,6 +123,17 @@ query BundlesStaticPaths($locale: I18NLocaleCode) {
       attributes {
         slug
         locale
+      }
+    }
+  }
+}
+
+query DocumentsStaticPaths {
+  documents {
+    data {
+      id
+      attributes {
+        slug
       }
     }
   }
