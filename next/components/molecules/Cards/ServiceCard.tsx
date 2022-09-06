@@ -1,28 +1,21 @@
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
+import { UploadFile } from '../../../graphql'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
+import MImage from '../../atoms/MImage'
 import MLink from '../../atoms/MLink'
 
 type ServiceCardProps = {
-  imageUrl: string
-  imageAlt: string
+  image: UploadFile
   title: string
   subtitle: string | null | undefined
   linkHref: string
 } & CardBoxProps
 
-const ServiceCard = ({
-  imageUrl,
-  imageAlt,
-  title,
-  subtitle,
-  linkHref,
-  ...rest
-}: ServiceCardProps) => {
+const ServiceCard = ({ image, title, subtitle, linkHref, ...rest }: ServiceCardProps) => {
   const { t } = useTranslation()
   const router = useRouter()
 
@@ -34,7 +27,7 @@ const ServiceCard = ({
   return (
     <CardBox {...rest} onClick={handleCardClick}>
       <div className="aspect-w-1 aspect-h-1 w-full bg-gray">
-        <Image src={imageUrl} alt={imageAlt} layout="fill" objectFit="cover" />
+        <MImage image={image} layout="fill" objectFit="cover" />
       </div>
       <CardContent className="justify-between">
         <div>

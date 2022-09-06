@@ -1,33 +1,25 @@
 import cx from 'classnames'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useMemo, useRef } from 'react'
 import { useHover } from 'usehooks-ts'
 
+import { UploadFile } from '../../../graphql'
 import { ArticleCategoryEntityFragment } from '../../../graphql'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
 import FormatDate from '../../atoms/FormatDate'
+import MImage from '../../atoms/MImage'
 import MLink from '../../atoms/MLink'
 
 type ArticleCardProps = {
-  imageUrl: string
-  imageAlt: string
+  image: UploadFile
   title: string
   date: number | Date
   category?: ArticleCategoryEntityFragment | null | undefined
   linkHref: string
 } & CardBoxProps
 
-const ArticleCard = ({
-  imageUrl,
-  imageAlt,
-  title,
-  date,
-  category,
-  linkHref,
-  ...rest
-}: ArticleCardProps) => {
+const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: ArticleCardProps) => {
   const router = useRouter()
   const categoryHoverRef = useRef<HTMLAnchorElement>(null)
   const isCategoryHovered = useHover(categoryHoverRef)
@@ -42,7 +34,7 @@ const ArticleCard = ({
   return (
     <CardBox {...rest} hover={!isCategoryHovered} onClick={handleCardClick}>
       <div className="aspect-w-[264] aspect-h-[148] w-full bg-gray">
-        <Image src={imageUrl} alt={imageAlt} layout="fill" objectFit="cover" />
+        <MImage image={image} layout="fill" objectFit="cover" />
       </div>
       <CardContent className="gap-y-3">
         <span className="text-sm line-clamp-1">
@@ -53,9 +45,7 @@ const ArticleCard = ({
             <>
               {' '}
               •{' '}
-              <MLink
-                noStyles
-                // TODO link
+              <MLink noStyles// TODO link
                 href={category.attributes.slug ?? ''}
                 className="underline"
                 ref={categoryHoverRef}
