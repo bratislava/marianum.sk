@@ -39,5 +39,6 @@ module.exports = (phase, { defaultConfig }) => {
 
       return config
     },
+    assetPrefix: undefined,
   }
 }
