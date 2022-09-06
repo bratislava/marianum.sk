@@ -19,10 +19,11 @@ const MImage = ({ image, disableBlurPlaceholder = false, ...rest }: MImageProps)
     blurDataURL={
       disableBlurPlaceholder || image.placeholder === null ? undefined : image.placeholder
     }
+    // Next shows Image with src "..." and "layout='fill'" has unused properties assigned. Please remove "width" and "height".
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    width={image.width!}
+    width={rest.layout === 'fill' ? undefined : image.width!}
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    height={image.height!}
+    height={rest.layout === 'fill' ? undefined : image.height!}
     {...rest}
   />
 )
