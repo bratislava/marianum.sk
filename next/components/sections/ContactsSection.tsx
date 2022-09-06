@@ -5,19 +5,22 @@ import PhoneIcon from '../../assets/phone.svg'
 import { ContactGroupFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
 import MLink from '../atoms/MLink'
-import Section from '../molecules/Section'
+import Section, { SectionProps } from '../molecules/Section'
 
-const ContactsSection = ({ contacts, title }: ContactGroupFragment) => {
+const ContactsSection = ({
+  contacts,
+  ...rest
+}: Pick<SectionProps, 'isContainer' | 'background' | 'index' | 'title'> & ContactGroupFragment) => {
   const filteredContacts = useMemo(() => {
     return (contacts ?? []).map((contact) => contact?.contact?.data?.attributes).filter(isDefined)
   }, [contacts])
 
   return (
-    <Section isContainer title={title}>
+    <Section {...rest}>
       <div className="flex flex-col gap-4">
-        {filteredContacts.map(({ title: contactTitle, email, phone1, phone2 }) => (
+        {filteredContacts.map(({ title, email, phone1, phone2 }) => (
           <div className="border border-border bg-white">
-            <div className="p-6 text-h4 font-bold">{contactTitle}</div>
+            <div className="p-6 text-h4 font-bold">{title}</div>
             <hr className="border-border" />
             <div className="flex flex-col gap-2 p-6">
               {(phone1 ?? phone2) && (

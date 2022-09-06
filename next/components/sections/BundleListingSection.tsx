@@ -3,7 +3,7 @@ import { isDefined } from '../../utils/isDefined'
 import BundleCard from '../molecules/Cards/BundleCard'
 import Section, { SectionProps } from '../molecules/Section'
 
-type BundleListingSectionProps = Pick<SectionProps, 'isContainer' | 'color'> & {
+type BundleListingSectionProps = Pick<SectionProps, 'isContainer' | 'background' | 'index'> & {
   section: BundleListingFragment
 }
 

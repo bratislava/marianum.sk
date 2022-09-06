@@ -5,14 +5,18 @@ import { client } from '../../utils/gql'
 import { isDefined } from '../../utils/isDefined'
 import PartnerCard from '../molecules/Cards/PartnerCard'
 import Row from '../molecules/Row'
-import Section from '../molecules/Section'
+import Section, { SectionProps } from '../molecules/Section'
 
 type PartnersSectionProps = {
   featuredTitle: string | undefined | null
   otherTitle: string | undefined | null
 }
 
-const PartnersSection = ({ featuredTitle, otherTitle }: PartnersSectionProps) => {
+const PartnersSection = ({
+  featuredTitle,
+  otherTitle,
+  ...rest
+}: Pick<SectionProps, 'isContainer' | 'background' | 'index'> & PartnersSectionProps) => {
   const { data, error } = useSWR('Partners', () => client.Partners())
 
   const filteredPartners = useMemo(() => {
@@ -42,7 +46,7 @@ const PartnersSection = ({ featuredTitle, otherTitle }: PartnersSectionProps) =>
   }
 
   return (
-    <Section isContainer>
+    <Section {...rest}>
       <div className="flex flex-col gap-12">
         <div className="flex flex-col gap-6">
           {featuredTitle && <h2>{featuredTitle}</h2>}
