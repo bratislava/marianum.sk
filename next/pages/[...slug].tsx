@@ -40,7 +40,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
     <Layout page={page} navigation={navigation} general={general}>
       <SectionsWrapper
         alternateBackground={isContainer}
-        startBackground="dark"
+        startBackground="light"
         className="gap-y-6 sm:gap-y-8"
       >
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}

@@ -46,7 +46,7 @@ const SectionsWrapper = ({
           return 'dark'
         }
         // otherwise alternate
-        return oddOrEven ? evenBackground : oddBackground
+        return oddOrEven ? oddBackground : evenBackground
       }
       return background
     },
