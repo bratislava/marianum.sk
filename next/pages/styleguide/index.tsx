@@ -25,6 +25,7 @@ import Tabs from '../../components/atoms/Tabs/Tabs'
 import Tag from '../../components/atoms/Tag'
 import TagButton from '../../components/atoms/TagButton'
 import TextField from '../../components/atoms/TextField'
+import SectionsWrapper, { SectionsWrapperProps } from '../../components/layouts/SectionsWrapper'
 import AccordionGroup from '../../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
 import ArticleCard from '../../components/molecules/Cards/ArticleCard'
@@ -37,6 +38,7 @@ import ServiceCard from '../../components/molecules/Cards/ServiceCard'
 import Checklist from '../../components/molecules/Checklist/Checklist'
 import Row from '../../components/molecules/Row'
 import Search from '../../components/molecules/Search'
+import Section from '../../components/molecules/Section'
 
 type WrapperProps = {
   title?: string
@@ -117,6 +119,43 @@ const Showcase = () => {
     ],
     [],
   )
+
+  const dummySectionWrappers: (Omit<SectionsWrapperProps, 'children'> & { count: number })[] =
+    useMemo(
+      () => [
+        {
+          count: 10,
+          alternateBackground: false,
+          background: 'dark',
+        },
+        {
+          count: 10,
+          alternateBackground: false,
+          background: 'light',
+        },
+        {
+          count: 10,
+          alternateBackground: true,
+          startBackground: 'dark',
+        },
+        {
+          count: 10,
+          alternateBackground: true,
+          startBackground: 'light',
+        },
+        {
+          count: 9,
+          alternateBackground: true,
+          startBackground: 'dark',
+        },
+        {
+          count: 9,
+          alternateBackground: true,
+          startBackground: 'light',
+        },
+      ],
+      [],
+    )
 
   return (
     <div className="overflow-hidden bg-[#E5E5E5]">
@@ -1077,6 +1116,46 @@ const Showcase = () => {
               border={cardsBorder}
             />
           </div>
+        </Wrapper>
+
+        <Wrapper title="Section coloring">
+          <Stack direction="row">
+            {dummySectionWrappers.map(
+              ({ alternateBackground, startBackground, background, count }) => (
+                <div className="p-4">
+                  <div className="p-4">
+                    <div className="flex w-full justify-between gap-4">
+                      <div className="font-semibold">alternateBackground</div>
+                      <div>{alternateBackground ? 'true' : 'false'}</div>
+                    </div>
+                    <div className="flex w-full justify-between gap-4">
+                      <div className="font-semibold">startBackground</div>
+                      <div>{startBackground ?? 'undefined'}</div>
+                    </div>
+                    <div className="flex w-full justify-between gap-4">
+                      <div className="font-semibold">background</div>
+                      <div>{background ?? 'undefined'}</div>
+                    </div>
+                    <div className="flex w-full justify-between gap-4">
+                      <div className="font-semibold">count</div>
+                      <div>{count}</div>
+                    </div>
+                  </div>
+                  <SectionsWrapper
+                    alternateBackground={alternateBackground}
+                    startBackground={startBackground}
+                    background={background}
+                  >
+                    {Array.from({ length: count }, (item, index) => (
+                      <Section index={index} key={index}>
+                        <div className="p-4">Section {index + 1}</div>
+                      </Section>
+                    ))}
+                  </SectionsWrapper>
+                </div>
+              ),
+            )}
+          </Stack>
         </Wrapper>
       </div>
     </div>
