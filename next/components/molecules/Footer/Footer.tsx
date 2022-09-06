@@ -19,6 +19,8 @@ export type FooterProps = {
 const Footer = ({ contact, footer, social }: FooterProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'components.molecules.Footer' })
 
+  const { phone1, email } = contact?.contact?.data?.attributes ?? {}
+
   const year = useMemo(() => {
     return new Date().getFullYear()
   }, [])
@@ -45,7 +47,8 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
   }, [footer])
 
   return (
-    <footer className="sticky top-full flex flex-col gap-18">
+    // negative top margin to make footer overflow last section
+    <footer className="sticky top-full -mt-14 flex flex-col gap-18">
       <div className="container mx-auto flex flex-col gap-14 px-4">
         <div className="grid bg-primary text-white md:grid-cols-3 lg:grid-cols-2">
           <div className="h-52 w-full md:h-full">
@@ -87,16 +90,16 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
             <div className="relative flex flex-col gap-3">
               <div className="text-lg font-bold">{t('contacts')}</div>
               <div className="flex flex-col gap-2 text-sm font-regular">
-                {contact?.phone && (
+                {phone1 && (
                   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                  <MLink noStyles href={`tel:${contact.phone}`} className="opacity-72">
-                    {contact.phone}
+                  <MLink noStyles href={`tel:${phone1}`} className="opacity-72">
+                    {phone1}
                   </MLink>
                 )}
-                {contact?.email && (
+                {email && (
                   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                  <MLink noStyles href={`mailto:${contact.email}`} className="opacity-72">
-                    {contact.email}
+                  <MLink noStyles href={`mailto:${email}`} className="opacity-72">
+                    {email}
                   </MLink>
                 )}
                 {(social?.facebook ||

@@ -2,7 +2,7 @@ import { ComponentSectionsRichtext } from '../../graphql'
 import RichText from '../atoms/RichText/RichText'
 import Section, { SectionProps } from '../molecules/Section'
 
-type RichTextSectionProps = Pick<SectionProps, 'fullWidth' | 'color'> & {
+type RichTextSectionProps = Pick<SectionProps, 'isContainer' | 'color'> & {
   content: ComponentSectionsRichtext['content']
 }
 

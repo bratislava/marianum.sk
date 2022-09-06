@@ -24,10 +24,27 @@
         "founder": "Founder",
         "cityBratislava": "City of Bratislava",
         "allRightsReserved": "All rights reserved"
+      },
+      "Checklist": {
+        "aria": {
+          "markAsComplete": "Mark the step as complete",
+          "markAsUncomplete": "Mark the step as uncomplete",
+          "skip": "Skip the step"
+        },
+        "markAsComplete": "Mark as complete",
+        "markAsUncomplete": "Mark as uncomplete",
+        "skip": "Skip",
+        "print": "Print the steps",
+        "download": "Download the steps"
       }
     }
   },
   "sections": {
+    "HeroSection": {
+      "priceFrom": "Price from",
+      "bundleContent": "Package content",
+      "additionalServices": "Additional Services"
+    },
     "ImageGallerySection": {
       "morePhotos_one": "+{{count}} photo",
       "morePhotos_other": "+{{count}} photos",
@@ -35,6 +52,11 @@
       "aria": {
         "openImageGallery": "Open image gallery"
       }
+    }
+  },
+  "layouts": {
+    "ArticleLayout": {
+      "moreNews": "More news"
     }
   }
 }

@@ -1,12 +1,14 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { GetStaticProps, GetStaticPropsResult } from 'next'
-import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import PageWrapper from '../components/layouts/PageWrapper'
+import CtaGroup from '../components/molecules/CtaGroup'
 import Section from '../components/molecules/Section'
 import CardSection from '../components/sections/CardSection'
+import HomepageProcedures from '../components/sections/HomepageProcedures'
 import HomepageSlider from '../components/sections/HomepageSlider'
+import NewsListing from '../components/sections/NewsListing'
 import { GeneralEntityFragment, HomePageQuery, NavigationItemFragment } from '../graphql'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
@@ -14,58 +16,76 @@ import { isDefined } from '../utils/isDefined'
 type HomeProps = {
   navigation: NavigationItemFragment[]
   page: NonNullable<NonNullable<HomePageQuery['homePage']>['data']>
+  procedures: NonNullable<HomePageQuery['procedures']>['data']
   general: GeneralEntityFragment | null
 }
 
-const Home = ({ navigation, page, general }: HomeProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { t } = useTranslation()
-
+const Home = ({ navigation, page, procedures, general }: HomeProps) => {
   return (
     <PageWrapper navigation={navigation} general={general}>
       <HomepageSlider slides={page.attributes?.featured?.filter(isDefined)} />
 
       <div>
-        {page.attributes?.sections?.map((section, index) => {
-          const color = index % 2 === 0 ? 'default' : 'white'
+        {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
+        {page.attributes?.sections?.map((section) => {
           if (section?.__typename === 'ComponentSectionsManualListing') {
-            return <CardSection key={section.id} fullWidth color={color} section={section} />
+            return (
+              <CardSection
+                key={`${section.__typename}-${section.id}`}
+                isContainer
+                section={section}
+              />
+            )
           }
           if (section?.__typename === 'ComponentSectionsNewsListing') {
             return (
-              <Section key={section.id} fullWidth color={color}>
-                {/* TODO */}
-                news listing
+              <Section
+                key={`${section.__typename}-${section.id}`}
+                isContainer
+                title={section.title}
+              >
+                <NewsListing />
               </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsCeremoniesSection') {
             return (
-              <Section key={section.id} fullWidth color={color}>
+              <Section key={`${section.__typename}-${section.id}`} isContainer>
                 {/* TODO */}
                 ceremonies listing
               </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsProceduresShortSection') {
+            const { outsideMedicalFacility, atMedicalFacility } = procedures?.attributes ?? {}
+            const proceduresArr = [outsideMedicalFacility, atMedicalFacility].filter(isDefined)
+
+            const { showMoreButton, title, __typename, id } = section
+
             return (
-              <Section key={section.id} fullWidth color={color}>
-                {/* TODO */}
-                procedures with numbers
-              </Section>
+              <HomepageProcedures
+                key={`${__typename}-${id}`}
+                title={title}
+                isContainer
+                procedures={proceduresArr}
+                showMoreButton={showMoreButton}
+              />
             )
           }
           if (section?.__typename === 'ComponentSectionsCtaSection') {
             return (
-              <Section key={section.id} fullWidth color={color}>
-                {/* TODO */}
-                cta section
+              <Section
+                key={`${section.__typename}-${section.id}`}
+                isContainer
+                title={section.title}
+              >
+                <CtaGroup {...section} />
               </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsReviewsSection') {
             return (
-              <Section key={section.id} fullWidth color={color}>
+              <Section key={`${section.__typename}-${section.id}`} isContainer>
                 {/* TODO */}
                 reviews section
               </Section>
@@ -82,7 +102,7 @@ const Home = ({ navigation, page, general }: HomeProps) => {
 export const getStaticProps: GetStaticProps = async ({
   locale = 'sk',
 }): Promise<GetStaticPropsResult<HomeProps>> => {
-  const [{ navigation, general }, { homePage }, translations] = await Promise.all([
+  const [{ navigation, general }, { homePage, procedures }, translations] = await Promise.all([
     client.General({ locale }),
     client.HomePage({ locale }),
     serverSideTranslations(locale, ['common']),
@@ -100,7 +120,8 @@ export const getStaticProps: GetStaticProps = async ({
     props: {
       navigation: filteredNavigation,
       general: general?.data ?? null,
-      page: homePage?.data,
+      page: homePage?.data ?? null,
+      procedures: procedures?.data ?? null,
       ...translations,
     },
     revalidate: 10,

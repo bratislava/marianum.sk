@@ -1,9 +1,13 @@
 import cx from 'classnames'
+import { useTranslation } from 'next-i18next'
 import { useCallback, useReducer } from 'react'
 
 import CheckIcon from '../../../assets/check.svg'
 import CheckCircleIcon from '../../../assets/check_circle.svg'
+import DownloadIcon from '../../../assets/download.svg'
+import PrintIcon from '../../../assets/print.svg'
 import XIcon from '../../../assets/x-alt.svg'
+import { UploadFileEntityFragment } from '../../../graphql'
 import { AnimateHeight } from '../../atoms/AnimateHeight'
 import Button from '../../atoms/Button'
 import { ChecklistActionKind, ChecklistItem, checklistReducer } from './checklistReducer'
@@ -22,7 +26,7 @@ const ChecklistRadio = ({
   return (
     <div
       className={cx(
-        'relative flex shrink-0 h-6 w-6 items-center justify-center rounded-full border-primary',
+        'relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-primary',
         {
           'border-2': !isCompleted,
         },
@@ -30,18 +34,21 @@ const ChecklistRadio = ({
       )}
     >
       <div
-        className={cx('absolute w-3 h-3 rounded-full bg-primary transition-transform', {
+        className={cx('absolute h-3 w-3 rounded-full bg-primary transition-transform', {
           'scale-0': !isOpen || isCompleted,
           'scale-1': isOpen,
         })}
       />
       <div
-        className={cx('absolute w-6 h-6 rounded-full bg-primary text-white transition-transform', {
-          'scale-0': !isCompleted,
-          'scale-1': isCompleted,
-        })}
+        className={cx(
+          'absolute flex h-6 w-6 items-center justify-center rounded-full bg-primary text-white transition-transform',
+          {
+            'scale-0': !isCompleted,
+            'scale-1': isCompleted,
+          },
+        )}
       >
-        <CheckIcon className="scale-75" />
+        <CheckIcon />
       </div>
     </div>
   )
@@ -62,7 +69,7 @@ const ChecklistLineWithRadio = ({
 }: ChecklistLineWithRadioProps) => {
   return (
     <div className="hidden flex-col items-center gap-2 sm:flex">
-      <div className={cx('h-10 w-[2px] bg-primary -mt-6', { invisible: hideTopLine })} />
+      <div className={cx('-mt-6 h-10 w-[2px] bg-primary', { invisible: hideTopLine })} />
       <ChecklistRadio isOpen={isOpen} isCompleted={isCompleted} />
       <div className={cx('h-full w-[2px] flex-1 bg-primary', { invisible: hideBottomLine })} />
     </div>
@@ -71,9 +78,12 @@ const ChecklistLineWithRadio = ({
 
 export type ChecklistProps = {
   items: ChecklistItem[]
+  downloadFile: UploadFileEntityFragment | null | undefined
 }
 
-const Checklist = ({ items }: ChecklistProps) => {
+const Checklist = ({ items, downloadFile }: ChecklistProps) => {
+  const { t } = useTranslation()
+
   const [checklistState, dispatchChecklistState] = useReducer(checklistReducer, { items })
 
   const openItemHandler = useCallback((itemKey: string) => {
@@ -107,10 +117,7 @@ const Checklist = ({ items }: ChecklistProps) => {
   return (
     <div className="flex w-full flex-col gap-6">
       {checklistState.items.map(
-        (
-          { key, title, description, isOpen = false, isCompleted = false, footer = null },
-          index,
-        ) => (
+        ({ key, title, description, isOpen = false, isCompleted = false }, index) => (
           <div className="flex gap-10" key={key}>
             <ChecklistLineWithRadio
               hideTopLine={index === 0}
@@ -120,7 +127,7 @@ const Checklist = ({ items }: ChecklistProps) => {
             />
             <div
               className={cx(
-                'flex w-full flex-col bg-white focus:outline-2 outline-primary outline-offset-2',
+                'flex w-full flex-col border border-border bg-white outline-offset-2 outline-primary focus:outline-2',
                 {
                   'cursor-auto': isOpen,
                 },
@@ -135,7 +142,7 @@ const Checklist = ({ items }: ChecklistProps) => {
               >
                 <div
                   className={cx('transition-all sm:hidden', {
-                    'w-10 opacity-1 pr-4': isCompleted,
+                    'opacity-1 w-10 pr-4': isCompleted,
                     'w-0 opacity-0': !isCompleted,
                   })}
                 >
@@ -146,35 +153,65 @@ const Checklist = ({ items }: ChecklistProps) => {
               <AnimateHeight isVisible={isOpen}>
                 <div className="flex w-full flex-col gap-6 px-6 pb-6">
                   {/* item description */}
-                  <div className="pt-4">{description}</div>
+                  {description && <div className="mt-4">{description}</div>}
                   {
-                    // custom item footer
-                    footer ??
-                      (isCompleted ? (
-                        // completed item buttons
+                    // download buttons for last item
+                    index + 1 === items.length ? (
+                      downloadFile?.attributes?.url ? (
                         <div className="flex flex-col gap-4 sm:flex-row">
+                          {/* TODO make the file really downloadable and printable */}
                           <Button
-                            onPress={() => uncompleteItemHandler(key)}
+                            startIcon={<DownloadIcon />}
+                            href={downloadFile.attributes.url}
+                            // TODO format size to MB if needed
+                            /* eslint-disable @typescript-eslint/restrict-template-expressions */
+                            aria-label={`${t('components.molecules.Checklist.download')} ${
+                              downloadFile.attributes.name
+                            } ${downloadFile.attributes.size} KB`}
+                            /* eslint-enable @typescript-eslint/restrict-template-expressions */
+                          >
+                            {t('components.molecules.Checklist.download')}
+                          </Button>
+                          <Button
+                            startIcon={<PrintIcon />}
                             variant="secondary"
-                            startIcon={<XIcon />}
+                            href={downloadFile.attributes.url}
                           >
-                            Označť ako nevybavené
+                            {t('components.molecules.Checklist.print')}
                           </Button>
                         </div>
-                      ) : (
-                        // uncompleted item buttons
-                        <div className="flex flex-col gap-4 sm:flex-row">
-                          <Button
-                            onPress={() => completeItemHandler(key)}
-                            startIcon={<CheckCircleIcon />}
-                          >
-                            Vybavené
-                          </Button>
-                          <Button onPress={() => openNextItemHandler(key)} variant="secondary">
-                            Preskočiť
-                          </Button>
-                        </div>
-                      ))
+                      ) : null
+                    ) : isCompleted ? (
+                      // completed item buttons
+                      <div className="flex flex-col gap-4 sm:flex-row">
+                        <Button
+                          onPress={() => uncompleteItemHandler(key)}
+                          variant="secondary"
+                          startIcon={<XIcon />}
+                          aria-label={t('components.molecules.Checklist.aria.markAsUncomplete')}
+                        >
+                          {t('components.molecules.Checklist.markAsUncomplete')}
+                        </Button>
+                      </div>
+                    ) : (
+                      // uncompleted item buttons
+                      <div className="flex flex-col gap-4 sm:flex-row">
+                        <Button
+                          onPress={() => completeItemHandler(key)}
+                          startIcon={<CheckCircleIcon />}
+                          aria-label={t('components.molecules.Checklist.aria.markAsComplete')}
+                        >
+                          {t('components.molecules.Checklist.markAsComplete')}
+                        </Button>
+                        <Button
+                          onPress={() => openNextItemHandler(key)}
+                          variant="secondary"
+                          aria-label={t('components.molecules.Checklist.aria.skip')}
+                        >
+                          {t('components.molecules.Checklist.skip')}
+                        </Button>
+                      </div>
+                    )
                   }
                 </div>
               </AnimateHeight>

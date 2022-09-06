@@ -77,7 +77,7 @@ const ImageGallerySection = ({
   )
 
   return (
-    <Section>
+    <Section isContainer>
       <div className="relative flex w-full flex-col gap-4">
         {title && <div className="text-h2">{title}</div>}
 

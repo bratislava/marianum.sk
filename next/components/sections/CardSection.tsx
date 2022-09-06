@@ -1,27 +1,26 @@
-import React from 'react'
-
-import {
-  Enum_Componentsectionsmanuallisting_Style,
-  ManualListingFragment,
-  UploadFile,
-} from '../../graphql'
+import { Enum_Componentsectionsmanuallisting_Style, ManualListingFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
-import ArticleCard from '../molecules/Cards/ArticleCard'
 import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
 import ServiceCard from '../molecules/Cards/ServiceCard'
 import Section, { SectionProps } from '../molecules/Section'
 
-type CardSectionProps = Pick<SectionProps, 'fullWidth' | 'color'> & {
+type CardSectionProps = Pick<SectionProps, 'isContainer' | 'color'> & {
   section: ManualListingFragment
 }
 
 const CardSection = ({ section, ...rest }: CardSectionProps) => {
   const { pages, title, style, showMoreButton } = section
 
+  const filteredPages = pages
+    ?.filter(isDefined)
+    .map((page) => page.page?.data)
+    .filter((page) => page?.attributes)
+
   return (
     <Section title={title} {...rest} cardGrid button={showMoreButton}>
-      {pages?.filter(isDefined).map(({ page }) => {
-        const { id, attributes } = page?.data || {}
+      {filteredPages?.map((page) => {
+        const { id, attributes } = page || {}
+
         if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
           return (
             <CategoryCard
@@ -33,19 +32,6 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
           )
         }
 
-        if (style === Enum_Componentsectionsmanuallisting_Style.Article) {
-          return (
-            <ArticleCard
-              key={id}
-              title={attributes?.title ?? ''}
-              linkHref={attributes?.slug ?? '#'}
-              border
-              image={attributes?.coverMedia?.data?.attributes as UploadFile}
-              date={attributes?.publishedAt}
-            />
-          )
-        }
-
         if (style === Enum_Componentsectionsmanuallisting_Style.Service) {
           return (
             <ServiceCard
@@ -53,7 +39,8 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
               title={attributes?.title ?? ''}
               linkHref={attributes?.slug ?? '#'}
               border
-              image={attributes?.coverMedia?.data?.attributes as UploadFile}
+              imageUrl={attributes?.coverMedia?.data?.attributes?.url ?? ''}
+              imageAlt={attributes?.coverMedia?.data?.attributes?.alternativeText ?? ''}
               subtitle={attributes?.perex}
             />
           )

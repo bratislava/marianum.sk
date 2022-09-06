@@ -4,7 +4,7 @@
   "info": {
     "singularName": "page",
     "pluralName": "pages",
-    "displayName": "Page",
+    "displayName": "Pages",
     "description": ""
   },
   "options": {
@@ -85,7 +85,10 @@
         "sections.document-group",
         "sections.menu-listing",
         "sections.manual-listing",
-        "sections.news-listing"
+        "sections.news-listing",
+        "sections.procedures-section",
+        "sections.partners-section",
+        "sections.bundle-listing"
       ]
     },
     "sidebar": {

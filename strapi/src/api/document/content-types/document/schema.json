@@ -4,16 +4,11 @@
   "info": {
     "singularName": "document",
     "pluralName": "documents",
-    "displayName": "Document",
+    "displayName": "Documents",
     "description": ""
   },
   "options": {
     "draftAndPublish": true
-  },
-  "pluginOptions": {
-    "content-manager": {
-      "visible": false
-    }
   },
   "attributes": {
     "title": {
@@ -24,10 +19,16 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": ["images", "files", "videos", "audios"]
+      "allowedTypes": ["files"]
     },
     "description": {
       "type": "richtext"
+    },
+    "documentCategory": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::document-category.document-category",
+      "inversedBy": "documents"
     }
   }
 }

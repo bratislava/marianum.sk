@@ -9,7 +9,7 @@ import FormatCurrency from '../../atoms/FormatCurrency'
 import MImage from '../../atoms/MImage'
 import MLink from '../../atoms/MLink'
 
-type PackageCardProps = {
+type BundleCardProps = {
   image: UploadFile
   name: string
   priceFrom: number
@@ -17,7 +17,7 @@ type PackageCardProps = {
   linkHref: string
 } & CardBoxProps
 
-const PackageCard = ({ image, name, priceFrom, claims, linkHref, ...props }: PackageCardProps) => {
+const BundleCard = ({ image, name, priceFrom, claims, linkHref, ...props }: BundleCardProps) => {
   const router = useRouter()
 
   const handleCardClick = () => {
@@ -41,8 +41,8 @@ const PackageCard = ({ image, name, priceFrom, claims, linkHref, ...props }: Pac
             <ul className="mb-6">
               {claims.map((claim, index) => (
                 // eslint-disable-next-line react/no-array-index-key
-                <li key={index} className="flex items-center text-sm">
-                  <span className="mr-2 text-primary">
+                <li key={index} className="mt-1 flex gap-3 text-sm">
+                  <span className="mt-1.5 text-primary">
                     <CheckIcon />
                   </span>
                   {claim}
@@ -62,4 +62,4 @@ const PackageCard = ({ image, name, priceFrom, claims, linkHref, ...props }: Pac
   )
 }
 
-export default PackageCard
+export default BundleCard

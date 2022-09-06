@@ -28,11 +28,11 @@ const Navigation = ({ faqLink, phoneNumber, navigationItems }: NavigationProps) 
           <MarianumLogo className="h-full w-full" />
         </MLink>
         {/* right side of navigation */}
-        <div className="flex items-center gap-4 lg:gap-8">
+        <div className="flex items-center gap-4 xl:gap-8">
           {/* desktop faq and phone links */}
-          <div className="flex items-center gap-8">
+          <div className="hidden items-center gap-8 xl:flex">
             {faqLink && (
-              <MLink href={faqLink} className="hidden items-center gap-2 lg:flex" noStyles>
+              <MLink href={faqLink} className="flex items-center gap-2" noStyles>
                 <HelpIcon />
                 <span className="">Často kladené otázky</span>
               </MLink>

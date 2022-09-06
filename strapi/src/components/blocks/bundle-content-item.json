@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_blocks_bundle_content_items",
+  "info": {
+    "displayName": "bundle content item",
+    "icon": "check"
+  },
+  "options": {},
+  "attributes": {
+    "description": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

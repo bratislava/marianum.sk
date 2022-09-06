@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_blocks_bundle_items",
+  "info": {
+    "displayName": "bundle item",
+    "icon": "gift"
+  },
+  "options": {},
+  "attributes": {
+    "bundle": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::bundle.bundle"
+    }
+  }
+}

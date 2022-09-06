@@ -6,10 +6,16 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Layout from '../components/layouts/Layout'
 import AccordionGroup from '../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../components/molecules/Accordion/AccordionItem'
+import BranchGroup from '../components/molecules/BranchGroup'
+import ProcedureTabs from '../components/molecules/ProcedureTabs'
 import Section from '../components/molecules/Section'
+import BundleListingSection from '../components/sections/BundleListingSection'
 import CardSection from '../components/sections/CardSection'
+import ContactsSection from '../components/sections/ContactsSection'
 import ImageGallerySection from '../components/sections/ImageGallerySection'
 import MenuListingSection from '../components/sections/MenuListingSection'
+import NewsListing from '../components/sections/NewsListing'
+import PartnersSection from '../components/sections/PartnersSection'
 import RichTextSection from '../components/sections/RichTextSection'
 import {
   Enum_Page_Layout,
@@ -22,32 +28,45 @@ import { isDefined } from '../utils/isDefined'
 
 type PageProps = {
   navigation: NavigationItemFragment[]
-  page: PageEntityFragment
   general: GeneralEntityFragment | null
+  page: PageEntityFragment
 } & SSRConfig
 
 const Slug = ({ navigation, page, general }: PageProps) => {
-  const fullWidth = page.attributes?.layout === Enum_Page_Layout.Fullwidth
+  const isContainer = page.attributes?.layout === Enum_Page_Layout.Fullwidth
 
   return (
     <Layout page={page} navigation={navigation} general={general}>
       <div className="gap-y-6 sm:gap-y-8">
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
-        {page.attributes?.sections?.map((section, index) => {
-          const color = index % 2 === 0 ? 'white' : 'default'
+        {page.attributes?.sections?.map((section) => {
+          if (section?.__typename === 'ComponentSectionsProceduresSection') {
+            return (
+              <Section
+                key={`${section.__typename}-${section.id}`}
+                isContainer={isContainer}
+                title={section.title}
+              >
+                <ProcedureTabs />
+              </Section>
+            )
+          }
           if (section?.__typename === 'ComponentSectionsRichtext') {
             return (
               <RichTextSection
-                key={section.id}
-                fullWidth={fullWidth}
-                color={color}
+                key={`${section.__typename}-${section.id}`}
+                isContainer={isContainer}
                 content={section.content}
               />
             )
           }
           if (section?.__typename === 'ComponentSectionsAccordionGroup') {
             return (
-              <Section key={section.id} fullWidth={fullWidth} color={color} title={section.title}>
+              <Section
+                key={`${section.__typename}-${section.id}`}
+                isContainer={isContainer}
+                title={section.title}
+              >
                 <AccordionGroup>
                   {section.accordions?.map((accordion) => (
                     <AccordionItem key={accordion?.id} title={accordion?.title}>
@@ -61,32 +80,48 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsBranchGroup') {
             return (
-              <Section key={section.id} fullWidth={fullWidth} color={color}>
-                {/* TODO */}
-                branches
+              <Section
+                key={`${section.__typename}-${section.id}`}
+                isContainer={isContainer}
+                title={section.title}
+              >
+                <BranchGroup {...section} />
               </Section>
+            )
+          }
+          if (section?.__typename === 'ComponentSectionsBundleListing') {
+            return (
+              <BundleListingSection
+                key={`${section.__typename}-${section.id}`}
+                isContainer={isContainer}
+                section={section}
+              />
             )
           }
           if (section?.__typename === 'ComponentSectionsContactGroup') {
-            return (
-              <Section key={section.id} fullWidth={fullWidth} color={color}>
-                {/* TODO */}
-                contacts
-              </Section>
-            )
+            return section && <ContactsSection {...section} />
           }
           if (section?.__typename === 'ComponentSectionsDocumentGroup') {
             return (
-              <Section key={section.id} fullWidth={fullWidth} color={color}>
+              <Section key={`${section.__typename}-${section.id}`} isContainer={isContainer}>
                 {/* TODO */}
                 documents
               </Section>
             )
           }
+          if (section?.__typename === 'ComponentSectionsPartnersSection') {
+            return (
+              <PartnersSection
+                key={`${section.__typename}-${section.id}`}
+                featuredTitle={section.featuredPartnersTitle}
+                otherTitle={section.otherPartnersTitle}
+              />
+            )
+          }
           if (section?.__typename === 'ComponentSectionsGallery') {
             return (
               <ImageGallerySection
-                key={section.id}
+                key={`${section.__typename}-${section.id}`}
                 title={section.title}
                 images={section.medias?.data}
                 variant="bellow"
@@ -96,9 +131,8 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsMenuListing') {
             return (
               <MenuListingSection
-                key={section.id}
-                fullWidth={fullWidth}
-                color={color}
+                key={`${section.__typename}-${section.id}`}
+                isContainer={isContainer}
                 title={section.title}
                 slug={section.slug}
                 navigation={navigation}
@@ -107,14 +141,21 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsManualListing') {
             return (
-              <CardSection key={section.id} fullWidth={fullWidth} color={color} section={section} />
+              <CardSection
+                key={`${section.__typename}-${section.id}`}
+                isContainer={isContainer}
+                section={section}
+              />
             )
           }
           if (section?.__typename === 'ComponentSectionsNewsListing') {
             return (
-              <Section key={section.id} fullWidth={fullWidth} color={color}>
-                {/* TODO */}
-                news listing
+              <Section
+                key={`${section.__typename}-${section.id}`}
+                isContainer={isContainer}
+                title={section.title}
+              >
+                <NewsListing />
               </Section>
             )
           }
@@ -171,8 +212,8 @@ export const getStaticProps: GetStaticProps = async ({
   return {
     props: {
       navigation: filteredNavigation,
-      page: pages.data[0],
       general: general?.data ?? null,
+      page: pages.data[0],
       ...translations,
     },
     revalidate: 10,

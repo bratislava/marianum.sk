@@ -4,6 +4,7 @@ import React, { useMemo, useRef } from 'react'
 import { useHover } from 'usehooks-ts'
 
 import { UploadFile } from '../../../graphql'
+import { ArticleCategoryEntityFragment } from '../../../graphql'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
 import FormatDate from '../../atoms/FormatDate'
@@ -14,7 +15,7 @@ type ArticleCardProps = {
   image: UploadFile
   title: string
   date: number | Date
-  category?: { title: string; linkHref: string }
+  category?: ArticleCategoryEntityFragment | null | undefined
   linkHref: string
 } & CardBoxProps
 
@@ -40,12 +41,16 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
           <span>
             <FormatDate value={formattedDate} format="articleCard" />
           </span>
-          {category && (
+          {category?.attributes && (
             <>
               {' '}
               •{' '}
-              <MLink noStyles href={category.linkHref} className="underline" ref={categoryHoverRef}>
-                {category.title}
+              <MLink noStyles// TODO link
+                href={category.attributes.slug ?? ''}
+                className="underline"
+                ref={categoryHoverRef}
+              >
+                {category.attributes.title}
               </MLink>
             </>
           )}

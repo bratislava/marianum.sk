@@ -47,8 +47,11 @@ fragment Contact on ComponentGeneralContacts {
   address
   featuredOpeningHours
   openingHoursLink
-  phone
-  email
+  contact {
+    data {
+      ...ContactEntity
+    }
+  }
   contactsLink
   latitude
   longitude
@@ -86,6 +89,20 @@ fragment Footer on ComponentGeneralFooter {
   }
 }
 
+fragment Procedure on ComponentGeneralProcedure {
+  title
+  steps {
+    id
+    title
+    description
+  }
+  downloadFile {
+    data {
+      ...UploadFileEntity
+    }
+  }
+}
+
 fragment AccordionGroup on ComponentSectionsAccordionGroup {
   id
   title
@@ -93,6 +110,70 @@ fragment AccordionGroup on ComponentSectionsAccordionGroup {
     id
     title
     content
+  }
+}
+
+fragment BranchGroup on ComponentSectionsBranchGroup {
+  id
+  title
+  branches {
+    branch {
+      data {
+        id
+        attributes {
+          title
+          slug
+          address
+        }
+      }
+    }
+  }
+}
+
+fragment PartnersSection on ComponentSectionsPartnersSection {
+  id
+  featuredPartnersTitle
+  otherPartnersTitle
+}
+
+fragment BundleListing on ComponentSectionsBundleListing {
+  id
+  title
+  description
+  bundles {
+    bundle {
+      data {
+        ...BundleCardEntity
+      }
+    }
+  }
+  showMoreButton {
+    ...CtaButton
+  }
+}
+
+fragment ContactGroup on ComponentSectionsContactGroup {
+  id
+  title
+  contacts {
+    contact {
+      data {
+        ...ContactEntity
+      }
+    }
+  }
+}
+
+fragment CtaSection on ComponentSectionsCtaSection {
+  id
+  title
+  ctas {
+    id
+    title
+    description
+    button {
+      ...CtaButton
+    }
   }
 }
 
