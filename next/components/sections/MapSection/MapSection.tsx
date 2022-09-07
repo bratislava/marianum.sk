@@ -1,7 +1,7 @@
 import cx from 'classnames'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
-import { Fragment, useCallback, useMemo, useRef, useState } from 'react'
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Map, { MapRef, Marker } from 'react-map-gl'
 import slugify from 'slugify'
 import useSWR from 'swr'
@@ -44,19 +44,28 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
 
   const validBranches = useMemo(() => {
     return (
-      data?.branches?.data
+      (data?.branches?.data
         ?.map((branch) => branch.attributes)
         .filter(isDefined)
         .filter(
           (branch) =>
             branch.address &&
             branch.title &&
+            branch.slug &&
             branch.latitude &&
             branch.longitude &&
             branch.type === Enum_Branch_Type.Cintorin,
         )
         // sort by title alphabetically
-        .sort((a, b) => a.title.localeCompare(b.title)) ?? []
+        .sort((a, b) => a.title.localeCompare(b.title)) ?? []) as {
+        address: string
+        title: string
+        slug: string
+        latitude: number
+        longitude: number
+        type: Enum_Branch_Type
+        cemeteryType: Enum_Branch_Cemeterytype
+      }[]
     )
   }, [data?.branches])
 
@@ -93,13 +102,20 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
 
   const mapRef = useRef<MapRef | null>(null)
 
-  const fitBranches = useCallback(() => {
-    mapRef.current?.fitBounds(getBoundsForBranches(filteredBranches), {
-      padding: 100,
-      offset: [0, 10],
-      duration: 0,
-    })
-  }, [filteredBranches])
+  const fitBranches = useCallback(
+    (duration = 0) => {
+      mapRef.current?.fitBounds(getBoundsForBranches(filteredBranches), {
+        padding: 100,
+        offset: [0, 10],
+        duration,
+      })
+    },
+    [filteredBranches],
+  )
+
+  useEffect(() => {
+    fitBranches(500)
+  }, [fitBranches, filteredBranches])
 
   const [isMapOrFiltersDisplayed, setMapOrFiltersDisplayed] = useState(false)
 
@@ -170,7 +186,7 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
             style={{ width: '100%', height: '100%' }}
             mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
             mapStyle={process.env.NEXT_PUBLIC_MAPBOX_LIGHT_STYLE}
-            onLoad={fitBranches}
+            onLoad={() => fitBranches()}
           >
             {filteredBranches.map(({ latitude, longitude, slug }) =>
               latitude && longitude ? (
