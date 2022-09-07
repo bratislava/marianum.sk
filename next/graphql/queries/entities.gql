@@ -77,6 +77,8 @@ fragment BranchEntity on BranchEntity {
     address
     navigateToLink
     openingHoursOverride
+    longitude
+    latitude
   }
 }
 
@@ -234,6 +236,10 @@ fragment PageEntity on PageEntity {
         __typename
         id
         title
+      }
+      ... on ComponentSectionsMapSection {
+        __typename
+        ...MapSection
       }
       ... on ComponentSectionsRichtext {
         __typename

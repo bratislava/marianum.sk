@@ -62,6 +62,14 @@ query BranchBySlug($locale: I18NLocaleCode!, $slug: String!) {
   }
 }
 
+query Branches($locale: I18NLocaleCode!) {
+  branches(locale: $locale) {
+    data {
+      ...BranchEntity
+    }
+  }
+}
+
 query BundleBySlug($locale: I18NLocaleCode!, $slug: String!) {
   bundles(locale: $locale, filters: { slug: { eq: $slug } }) {
     data {
