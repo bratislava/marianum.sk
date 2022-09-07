@@ -13,6 +13,7 @@ import BundleListingSection from '../components/sections/BundleListingSection'
 import CardSection from '../components/sections/CardSection'
 import ContactsSection from '../components/sections/ContactsSection'
 import ImageGallerySection from '../components/sections/ImageGallerySection'
+import MapSection from '../components/sections/MapSection/MapSection'
 import MenuListingSection from '../components/sections/MenuListingSection'
 import NewsListing from '../components/sections/NewsListing'
 import PartnersSection from '../components/sections/PartnersSection'
@@ -157,6 +158,15 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               >
                 <NewsListing />
               </Section>
+            )
+          }
+          if (section?.__typename === 'ComponentSectionsMapSection') {
+            return (
+              <MapSection
+                key={`${section.__typename}-${section.id}`}
+                isContainer={isContainer}
+                {...section}
+              />
             )
           }
           return null
