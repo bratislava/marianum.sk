@@ -10,7 +10,7 @@ import PlaceIcon from '../../../assets/place.svg'
 import { client } from '../../../utils/gql'
 import { isDefined } from '../../../utils/isDefined'
 import MLink from '../../atoms/MLink'
-import TagButton from '../../atoms/TagButton'
+import TagToggle from '../../atoms/TagToggle'
 import Search from '../../molecules/Search'
 import Section, { SectionProps } from '../../molecules/Section'
 
@@ -75,9 +75,9 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
               onSearch={(value) => alert(`Searching for: ${value}`)}
             />
             <div className="flex gap-2">
-              <TagButton>Civilné</TagButton>
-              <TagButton>Historické</TagButton>
-              <TagButton>Vojnové</TagButton>
+              <TagToggle>Civilné</TagToggle>
+              <TagToggle>Historické</TagToggle>
+              <TagToggle>Vojnové</TagToggle>
             </div>
           </div>
           <div className="py-1">
