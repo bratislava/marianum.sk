@@ -1,27 +1,29 @@
 import cx from 'classnames'
-import { DetailedHTMLProps, InputHTMLAttributes, ReactNode } from 'react'
+import { useRef } from 'react'
+import { useToggleButton } from 'react-aria'
+import { ToggleProps, useToggleState } from 'react-stately'
 
-type TagButtonProps = DetailedHTMLProps<
-  InputHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
-> & {
-  children: ReactNode
-  isActive?: boolean
-}
+type TagButtonProps = { className?: string } & ToggleProps
 
-const TagButton = ({ children, isActive = false, className, ...rest }: TagButtonProps) => {
+const TagButton = (props: TagButtonProps) => {
+  const ref = useRef<HTMLButtonElement | null>(null)
+  const state = useToggleState(props)
+  const { buttonProps } = useToggleButton(props, state, ref)
+  const { children, className } = props
+  const { isSelected } = state
   return (
+    // eslint-disable-next-line react/button-has-type
     <button
-      {...rest}
-      type="button"
+      ref={ref}
       className={cx(
         'flex h-8 w-fit cursor-pointer select-none items-center whitespace-nowrap rounded-full border px-3 text-sm font-semibold',
         {
-          'border-primary bg-primary text-white': isActive,
-          'border-border bg-white hover:text-primary': !isActive,
+          'border-primary bg-primary text-white': isSelected,
+          'border-border bg-white hover:text-primary': !isSelected,
         },
         className,
       )}
+      {...buttonProps}
     >
       {children}
     </button>
