@@ -111,6 +111,22 @@
         }
       },
       "type": "richtext"
+    },
+    "latitude": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "float"
+    },
+    "longitude": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "float"
     }
   }
 }
