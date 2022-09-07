@@ -22,4 +22,8 @@ export default {
       size: 10,
     },
   },
+  "ceremonies-debtor-list": {
+    enabled: true,
+    resolve: "./src/plugins/ceremonies-debtor-list",
+  },
 };
