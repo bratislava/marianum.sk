@@ -25,7 +25,7 @@ import Select from '../../components/atoms/Select'
 import Tab from '../../components/atoms/Tabs/Tab'
 import Tabs from '../../components/atoms/Tabs/Tabs'
 import Tag from '../../components/atoms/Tag'
-import TagButton from '../../components/atoms/TagButton'
+import TagToggle from '../../components/atoms/TagToggle'
 import TextField from '../../components/atoms/TextField'
 import SectionsWrapper, { SectionsWrapperProps } from '../../components/layouts/SectionsWrapper'
 import AccordionGroup from '../../components/molecules/Accordion/AccordionGroup'
@@ -630,12 +630,12 @@ const Showcase = () => {
           </Stack>
         </Wrapper>
 
-        <Wrapper title="TagButton">
+        <Wrapper title="TagToggle">
           <Stack width="full">
-            <TagButton>Its</TagButton>
-            <TagButton>tag</TagButton>
-            <TagButton>button</TagButton>
-            <TagButton isActive>now</TagButton>
+            <TagToggle>Its</TagToggle>
+            <TagToggle>tag</TagToggle>
+            <TagToggle>button</TagToggle>
+            <TagToggle isActive>now</TagToggle>
           </Stack>
         </Wrapper>
 
