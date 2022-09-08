@@ -19,6 +19,7 @@ const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
     <div className="flex flex-col gap-4">
       {filteredDocuments?.map(({ title, slug, documentCategory, file }) => (
         <Row
+          key={slug}
           title={title}
           category={documentCategory?.data}
           // TODO add proper path
