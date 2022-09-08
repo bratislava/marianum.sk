@@ -16,6 +16,8 @@ COPY patches ./patches
 RUN yarn install
 COPY . ./
 
+RUN yarn --cwd ./src/plugins/ceremonies-debtor-list/
+
 RUN yarn build
 
 EXPOSE 1337
@@ -44,6 +46,8 @@ RUN yarn config set network-timeout 600000 -g
 RUN yarn install --production
 
 COPY . ./
+
+RUN yarn --cwd ./src/plugins/ceremonies-debtor-list/ install --production
 
 RUN yarn build
 
