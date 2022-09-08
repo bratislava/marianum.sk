@@ -9,7 +9,7 @@
     "start": "strapi start",
     "build": "yarn --cwd ./src/plugins/ceremonies-debtor-list/ build && strapi build",
     "strapi": "strapi",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package && yarn --cwd ./src/plugins/ceremonies-debtor-list/ install"
   },
   "devDependencies": {},
   "dependencies": {
