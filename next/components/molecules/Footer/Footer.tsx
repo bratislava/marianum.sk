@@ -1,14 +1,11 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import FacebookIcon from '../../../assets/facebook.svg'
-import InstagramIcon from '../../../assets/instagram.svg'
-import LinkedInIcon from '../../../assets/linked_in.svg'
-import TwitterIcon from '../../../assets/twitter.svg'
-import YoutubeIcon from '../../../assets/youtube.svg'
 import { ContactFragment, FooterFragment, SocialFragment } from '../../../graphql'
 import MLink from '../../atoms/MLink'
+import FooterCredentials from './FooterCredentials'
 import FooterMap from './FooterMap'
+import FooterSocials from './FooterSocials'
 
 export type FooterProps = {
   contact?: ContactFragment | null
@@ -20,10 +17,8 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'components.molecules.Footer' })
 
   const { phone1, email } = contact?.contact?.data?.attributes ?? {}
-
-  const year = useMemo(() => {
-    return new Date().getFullYear()
-  }, [])
+  const { slug: openingHoursSlug } = contact?.openingHoursPage?.data?.attributes ?? {}
+  const { slug: contactsSlug } = contact?.contactsPage?.data?.attributes ?? {}
 
   const footerColumns = useMemo(() => {
     return [
@@ -71,16 +66,10 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
                     {contact.address}
                   </MLink>
                 )}
-                {contact?.featuredOpeningHours && (
-                  <div className="flex gap-4">
-                    <div className="opacity-72">{t('open')}</div>
-                    <div>{contact.featuredOpeningHours}</div>
-                  </div>
-                )}
               </div>
               <div className="top-1 right-0 flex md:absolute">
-                {contact?.openingHoursLink && (
-                  <MLink variant="white" href={contact.openingHoursLink}>
+                {openingHoursSlug && (
+                  <MLink variant="white" href={openingHoursSlug}>
                     {t('openingHours')}
                   </MLink>
                 )}
@@ -91,54 +80,20 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
               <div className="text-lg font-bold">{t('contacts')}</div>
               <div className="flex flex-col gap-2 text-sm font-regular">
                 {phone1 && (
-                  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                   <MLink noStyles href={`tel:${phone1}`} className="opacity-72">
                     {phone1}
                   </MLink>
                 )}
                 {email && (
-                  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                   <MLink noStyles href={`mailto:${email}`} className="opacity-72">
                     {email}
                   </MLink>
                 )}
-                {(social?.facebook ||
-                  social?.instagram ||
-                  social?.youtube ||
-                  social?.twitter ||
-                  social?.linkedin) && (
-                  <div className="hidden items-center gap-4 pt-3 md:flex">
-                    {social.facebook && (
-                      <MLink noStyles href={social.facebook}>
-                        <FacebookIcon />
-                      </MLink>
-                    )}
-                    {social.instagram && (
-                      <MLink noStyles href={social.instagram}>
-                        <InstagramIcon />
-                      </MLink>
-                    )}
-                    {social.linkedin && (
-                      <MLink noStyles href={social.linkedin}>
-                        <LinkedInIcon />
-                      </MLink>
-                    )}
-                    {social.youtube && (
-                      <MLink noStyles href={social.youtube}>
-                        <YoutubeIcon />
-                      </MLink>
-                    )}
-                    {social.twitter && (
-                      <MLink noStyles href={social.twitter}>
-                        <TwitterIcon />
-                      </MLink>
-                    )}
-                  </div>
-                )}
+                {social && <FooterSocials social={social} />}
               </div>
               <div className="top-1 right-0 flex md:absolute">
-                {contact?.contactsLink && (
-                  <MLink variant="white" href={contact.contactsLink}>
+                {contactsSlug && (
+                  <MLink variant="white" href={contactsSlug}>
                     {t('allContacts')}
                   </MLink>
                 )}
@@ -168,29 +123,7 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
           ))}
         </div>
       </div>
-      <div className="border-t border-border">
-        <div className="container mx-auto flex flex-col items-center justify-between gap-2 py-5 px-4 text-sm md:h-18 md:flex-row">
-          <div className="flex items-center gap-2">
-            <span>{t('founder')}</span>
-            <MLink
-              noStyles
-              href="https://bratislava.sk"
-              className="text-sm font-semibold underline"
-            >
-              {t('cityBratislava')}
-            </MLink>
-          </div>
-          <div className="flex items-center gap-2">
-            <span>
-              {year} © {t('allRightsReserved')}
-            </span>
-            <span>•</span>
-            <MLink noStyles href="/" className="text-sm font-semibold underline">
-              Marianum
-            </MLink>
-          </div>
-        </div>
-      </div>
+      <FooterCredentials />
     </footer>
   )
 }

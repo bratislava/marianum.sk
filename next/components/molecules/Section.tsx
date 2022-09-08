@@ -24,6 +24,8 @@ const Section = ({
   button,
   description,
 }: SectionProps) => {
+  const showMoreSlug = button?.page?.data?.attributes?.slug
+
   const { getBackground, getDivider, getLast, isContainer } = useContext(sectionContext)
 
   const resultBackground = useMemo(() => {
@@ -54,15 +56,11 @@ const Section = ({
           'pb-20 md:pb-36': isLast,
         })}
       >
-        {(title || button?.url) && (
+        {(title || showMoreSlug) && (
           <div className="flex">
             <h2 className="grow">{title}</h2>
-            {button?.url && (
-              <MLink
-                href={button.url}
-                target={button.targetBlank ? '_blank' : '_self'}
-                className="hidden md:inline-flex"
-              >
+            {showMoreSlug && (
+              <MLink href={showMoreSlug} className="hidden md:inline-flex">
                 {button.label}
               </MLink>
             )}
@@ -78,11 +76,9 @@ const Section = ({
         >
           {children}
         </div>
-        {button && button.url && (
+        {showMoreSlug && (
           <div className="mt-4 text-center md:hidden">
-            <MLink href={button.url} target={button.targetBlank ? '_blank' : '_self'}>
-              {button.label}
-            </MLink>
+            <MLink href={showMoreSlug}>{button.label}</MLink>
           </div>
         )}
       </div>

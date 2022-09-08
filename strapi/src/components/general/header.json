@@ -7,11 +7,15 @@
   },
   "options": {},
   "attributes": {
-    "faqLink": {
-      "type": "string"
+    "faqPage": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
     },
-    "phoneNumber": {
-      "type": "string"
+    "contact": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::contact.contact"
     }
   }
 }
