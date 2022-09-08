@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import HelpIcon from '../../../assets/help.svg'
 import MarianumLogo from '../../../assets/marianum_logo.svg'
@@ -7,6 +7,7 @@ import PhoneIcon from '../../../assets/phone.svg'
 import { NavigationItemFragment } from '../../../graphql'
 import IconButton from '../../atoms/IconButton'
 import MLink from '../../atoms/MLink'
+import { NavigationContext } from '../../layouts/NavigationProvider'
 import NavigationMenuDesktop from './NavigationMenuDesktop'
 import NavigationMenuMobile from './NavigationMenuMobile'
 import NavigationSearch from './NavigationSearch'
@@ -19,6 +20,8 @@ type NavigationProps = {
 
 const Navigation = ({ faqLink, phoneNumber, navigationItems }: NavigationProps) => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
+
+  const { navMap, navigation } = useContext(NavigationContext)
 
   return (
     <div className="bg-primary text-white">
@@ -57,12 +60,12 @@ const Navigation = ({ faqLink, phoneNumber, navigationItems }: NavigationProps) 
           </IconButton>
         </div>
         {/* desktop navigation menu */}
-        <NavigationMenuDesktop navigationItems={navigationItems} />
+        <NavigationMenuDesktop navigationItems={navigation} />
         {/* mobile navigation menu */}
         <NavigationMenuMobile
           isOpen={isMobileNavOpen}
           onClose={() => setMobileNavOpen(false)}
-          items={navigationItems}
+          items={navigation}
         />
       </div>
     </div>

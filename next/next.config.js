@@ -5,6 +5,9 @@ const nextConfig = {
   i18n,
   reloadOnPrerender: process.env.NODE_ENV === 'development',
   reactStrictMode: true,
+  images: {
+    domains: ['localhost', 'cdn-api.bratislava.sk'],
+  },
   async rewrites() {
     return {
       beforeFiles: [
