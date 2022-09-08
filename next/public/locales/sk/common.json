@@ -58,6 +58,13 @@
   "layouts": {
     "ArticleLayout": {
       "moreNews": "Ďalšie novinky"
+    },
+    "DocumentLayout": {
+      "createdAt": "Vytvorené",
+      "downloadFile": "Stiahnuť súbor",
+      "category": "Kategória",
+      "description": "Popis",
+      "details": "Detaily"
     }
   }
 }

@@ -164,6 +164,18 @@ fragment ContactGroup on ComponentSectionsContactGroup {
   }
 }
 
+fragment DocumentGroup on ComponentSectionsDocumentGroup {
+  id
+  title
+  documents {
+    document {
+      data {
+        ...DocumentCardEntity
+      }
+    }
+  }
+}
+
 fragment CtaSection on ComponentSectionsCtaSection {
   id
   title
