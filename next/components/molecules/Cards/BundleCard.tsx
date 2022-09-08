@@ -2,15 +2,14 @@ import { useRouter } from 'next/router'
 import React from 'react'
 
 import CheckIcon from '../../../assets/check.svg'
-import { UploadFile } from '../../../graphql'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
 import FormatCurrency from '../../atoms/FormatCurrency'
-import MImage from '../../atoms/MImage'
+import MImage, { MImageImage } from '../../atoms/MImage'
 import MLink from '../../atoms/MLink'
 
 type BundleCardProps = {
-  image: UploadFile
+  image?: MImageImage | null
   name: string
   priceFrom: number
   claims: string[]
@@ -27,9 +26,11 @@ const BundleCard = ({ image, name, priceFrom, claims, linkHref, ...props }: Bund
 
   return (
     <CardBox {...props} onClick={handleCardClick}>
-      <div className="aspect-w-[360] aspect-h-[200] w-full bg-gray">
-        <MImage image={image} layout="fill" objectFit="cover" />
-      </div>
+      {image && (
+        <div className="aspect-w-[360] aspect-h-[200] w-full bg-gray">
+          <MImage image={image} layout="fill" objectFit="cover" />
+        </div>
+      )}
       <CardContent className="justify-between">
         <div>
           <h5 className="line-clamp-3 group-hover:underline">{name}</h5>

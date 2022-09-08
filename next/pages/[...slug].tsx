@@ -7,6 +7,7 @@ import Layout from '../components/layouts/Layout'
 import AccordionGroup from '../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../components/molecules/Accordion/AccordionItem'
 import BranchGroup from '../components/molecules/BranchGroup'
+import DocumentGroup from '../components/molecules/DocumentGroup'
 import ProcedureTabs from '../components/molecules/ProcedureTabs'
 import Section from '../components/molecules/Section'
 import BundleListingSection from '../components/sections/BundleListingSection'
@@ -103,9 +104,12 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsDocumentGroup') {
             return (
-              <Section key={`${section.__typename}-${section.id}`} isContainer={isContainer}>
-                {/* TODO */}
-                documents
+              <Section
+                key={`${section.__typename}-${section.id}`}
+                isContainer={isContainer}
+                title={section.title}
+              >
+                <DocumentGroup {...section} />
               </Section>
             )
           }
