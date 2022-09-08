@@ -35,10 +35,6 @@ export default {
         lastName: {
           type: "string",
         },
-        nameNormalized: {
-          type: "string",
-          private: true,
-        },
         // Birth dates and death dates are not "date" type because they contain various strings such as single year.
         birthDate: {
           type: "string",
@@ -84,10 +80,6 @@ export default {
         },
         name: {
           type: "string",
-        },
-        nameNormalized: {
-          type: "string",
-          private: true,
         },
         birthYear: {
           type: "string",

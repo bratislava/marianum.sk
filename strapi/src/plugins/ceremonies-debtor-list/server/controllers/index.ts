@@ -1,9 +1,9 @@
 import { Strapi } from "@strapi/strapi";
-import { readFile, utils } from "xlsx";
 import { parseDebtorsXlsx } from "../helpers/parse-debtors-xlsx";
-import { getBranchesSlugMap } from "../helpers/get-branches-slug-map";
+import { getBranchesSlugIdMap } from "../helpers/get-branches-slug-id-map";
 import { parseCeremoniesXlsx } from "../helpers/parse-ceremonies-xlsx";
-import { endOfDay, parse, startOfDay } from "date-fns";
+import moment from "moment/moment";
+import "moment-timezone";
 
 export default {
   debtorsCeremoniesController: ({ strapi }: { strapi: Strapi }) => ({
@@ -18,10 +18,11 @@ export default {
       }
 
       try {
-        const branchesIdMap = await getBranchesSlugMap(strapi, "debtors");
+        const branchesSlugIdMap = await getBranchesSlugIdMap(strapi, "debtors");
 
-        const parsedDebtors = parseDebtorsXlsx(file.path, branchesIdMap);
+        const parsedDebtors = parseDebtorsXlsx(file.path, branchesSlugIdMap);
 
+        // All the debtors are replaced when a new XLSX is uploaded.
         const deleteDebtors = () =>
           strapi.db
             .query("plugin::ceremonies-debtor-list.debtor")
@@ -31,7 +32,7 @@ export default {
 
         try {
           for (const debtor of parsedDebtors) {
-            // Query Engine API doesn't support relations in bulk options, so Entity Service API is used
+            // Query Engine API doesn't support relations in bulk options, so Entity Service API is used.
             // https://docs.strapi.io/developer-docs/latest/developer-resources/database-apis-reference/query-engine/bulk-operations.html
             await strapi.entityService.create(
               "plugin::ceremonies-debtor-list.debtor",
@@ -39,6 +40,8 @@ export default {
             );
           }
         } catch (createDebtorsError) {
+          // In case of failure to add some debtor we want to delete all the previously created entries, so we call the
+          // delete function but rethrow the error to be caught by the parent try/catch block.
           await deleteDebtors();
 
           throw createDebtorsError;
@@ -63,25 +66,31 @@ export default {
       }
 
       try {
-        const branchesIdMap = await getBranchesSlugMap(strapi, "ceremonies");
+        const branchesSlugIdMap = await getBranchesSlugIdMap(
+          strapi,
+          "ceremonies"
+        );
 
-        const parsedCeremonies = parseCeremoniesXlsx(file.path, branchesIdMap);
+        const parsedCeremonies = parseCeremoniesXlsx(
+          file.path,
+          branchesSlugIdMap
+        );
 
-        console.log(parsedCeremonies);
-
+        // Only ceremonies in the days that are present in XLSX are deleted and replaced by new one. All the others are
+        // kept as they are.
         const deleteFilters = {
           $or: parsedCeremonies.map(({ day }) => {
-            const parsedDay = parse(day, "dd.MM.yyyy", new Date());
+            const parsedDay = moment.tz(day, "dd.MM.yyyy", "Europe/Bratislava");
 
             return [
               {
                 dateTime: {
-                  $gte: startOfDay(parsedDay).toISOString(),
+                  $gte: parsedDay.startOf("day").toISOString(),
                 },
               },
               {
                 dateTime: {
-                  $lt: endOfDay(parsedDay).toISOString(),
+                  $lt: parsedDay.endOf("day").toISOString(),
                 },
               },
             ];
@@ -100,6 +109,8 @@ export default {
         try {
           for (const { data: ceremonies } of parsedCeremonies) {
             for (const ceremony of ceremonies) {
+              // Query Engine API doesn't support relations in bulk options, so Entity Service API is used.
+              // https://docs.strapi.io/developer-docs/latest/developer-resources/database-apis-reference/query-engine/bulk-operations.html
               await strapi.entityService.create(
                 "plugin::ceremonies-debtor-list.ceremony",
                 { data: ceremony }
@@ -107,17 +118,18 @@ export default {
             }
           }
         } catch (createCeremonyError) {
+          // In case of failure to add some ceremony we want to delete all the previously created entries, so we call the
+          // delete function but rethrow the error to be caught by the parent try/catch block.
           await deleteCeremonies();
 
           throw createCeremonyError;
         }
 
-        const message = parsedCeremonies
+        const successMessage = parsedCeremonies
           .map(({ day, data }) => `${day} (${data.length})`)
           .join(", ");
-        ctx.body = `Nahraných ${message} obradov.`;
+        ctx.body = `Nahraných ${successMessage} obradov.`;
       } catch (e) {
-        console.error(e);
         ctx.status = 400;
         ctx.body = {
           message: e.toString(),

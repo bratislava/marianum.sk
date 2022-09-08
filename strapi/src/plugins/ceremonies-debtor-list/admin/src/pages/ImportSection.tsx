@@ -6,7 +6,7 @@ import { useNotification } from "@strapi/helper-plugin";
 const updateUrls = {
   debtors: "/ceremonies-debtor-list/update-debtors",
   ceremonies: "/ceremonies-debtor-list/update-ceremonies",
-} as const;
+};
 
 const headerTexts = {
   debtors: "Import dlžníkov",
@@ -77,7 +77,9 @@ const ImportSection = ({ type }: ImportSectionProps) => {
         {loading && <Loader />}
         <input type="file" ref={inputFileRef} />
         <div>
-          <Button onClick={handleSubmit}>Nahrať</Button>
+          <Button onClick={handleSubmit} disabled={loading}>
+            Nahrať
+          </Button>
         </div>
       </Stack>
     </Box>

@@ -1,28 +1,49 @@
 import { readFile, utils } from "xlsx";
 import { getBranchBySlug } from "./get-branch-by-slug";
-import removeAccents from "remove-accents";
+import * as assert from "assert";
 
 export const parseDebtorsXlsx = (
   filePath: string,
-  branchesIdMap: Record<string, number>
+  branchesSlugIdMap: Record<string, number>
 ) => {
   const workBook = readFile(filePath);
+  // Only the first sheet is used.
   const sheet = workBook.Sheets[workBook.SheetNames[0]];
   const data = utils.sheet_to_json(sheet, {
     header: 1,
     raw: false,
   }) as unknown[][];
 
-  // TODO: Validate header
+  // Verifying the header is the best way to check whether the file uploaded is in a format we need.
+  const header = data.slice(0, 2);
+  const expectedHeader = [
+    [, "Hrob. miesto", , "Údaje o zomrelom"],
+    [
+      "p. č.",
+      "sekcia",
+      "číslo",
+      "priezvisko",
+      "meno",
+      "dátum narodenia",
+      "dátum úmrtia",
+    ],
+  ];
+  assert.deepStrictEqual(
+    header,
+    expectedHeader,
+    `Hlavička zošitu sa nezhoduje.\nOčakávaná hlavička: ${JSON.stringify(
+      expectedHeader
+    )}\nPrijatá hlavička: ${JSON.stringify(header)}`
+  );
 
-  const dataWithoutHeaders = data.slice(2);
-  return dataWithoutHeaders.map((row, index) => {
+  const dataWithoutHeader = data.slice(2);
+  return dataWithoutHeader.map((row, index) => {
     const [
       ,
       graveSection,
       graveNumber,
-      firstName,
       lastName,
+      firstName,
       birthDate,
       deathDate,
       branchSlug,
@@ -30,21 +51,16 @@ export const parseDebtorsXlsx = (
 
     const branch = getBranchBySlug(
       branchSlug,
-      branchesIdMap,
+      branchesSlugIdMap,
       `Pobočka na riadku ${
         index + 3
       } s "slug" "${branchSlug}" neexistuje alebo jej hodnota "allowInDebtors" nie je nastavená na "true".`
     );
-    const nameNormalized = removeAccents(
-      [firstName, lastName].join(" ")
-    ).toLocaleLowerCase("sk-SK");
-
     return {
       graveSection,
       graveNumber,
       firstName,
       lastName,
-      nameNormalized,
       birthDate,
       deathDate,
       branch,

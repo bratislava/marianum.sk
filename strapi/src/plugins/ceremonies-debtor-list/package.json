@@ -8,9 +8,8 @@
     "kind": "plugin"
   },
   "dependencies": {
-    "date-fns": "^2.29.2",
-    "joi": "^17.6.0",
-    "remove-accents": "^0.4.2",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.37",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

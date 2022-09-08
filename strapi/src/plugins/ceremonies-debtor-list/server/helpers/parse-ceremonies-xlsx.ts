@@ -1,12 +1,12 @@
 import { readFile, utils } from "xlsx";
-import { format, parse, isValid } from "date-fns";
-import { sk } from "date-fns/locale";
 import { getBranchBySlug } from "./get-branch-by-slug";
-import removeAccents from "remove-accents";
+import moment from "moment/moment";
+import "moment-timezone";
+import assert from "assert";
 
 export const parseCeremoniesXlsx = (
   filePath: string,
-  branchesIdMap: Record<string, number>
+  branchesSlugIdMap: Record<string, number>
 ) => {
   const workBook = readFile(filePath);
 
@@ -15,8 +15,9 @@ export const parseCeremoniesXlsx = (
   ).map(({ name }) => name);
 
   sheetNames.forEach((sheetName) => {
-    const parsedDate = parse(sheetName, "dd.MM.yyyy", new Date());
-    if (!isValid(parsedDate)) {
+    const parsedDate = moment.tz(sheetName, "dd.MM.yyyy", "Europe/Bratislava");
+
+    if (!parsedDate.isValid()) {
       throw new Error(
         `Názov zošitu "${sheetName}" neobsahuje platný dátum. Dátum musí byť v tvare 01.01.2022.`
       );
@@ -31,6 +32,27 @@ export const parseCeremoniesXlsx = (
       raw: false,
     }) as unknown[][];
 
+    // Verifying the header is the best way to check whether the file uploaded is in a format we need.
+    const header = data[0];
+    const expectedHeader = [
+      "Čas",
+      "Meno zosnulého",
+      "R. nar.",
+      "Obrad",
+      "Pohrebná služba",
+      "Obradníka zabezpečuje",
+      "tabuľa",
+      "WEB",
+      "Cintorín",
+    ];
+    assert.deepStrictEqual(
+      header,
+      expectedHeader,
+      `Hlavička zošitu "${sheetName}" sa nezhoduje.\nOčakávaná hlavička: ${JSON.stringify(
+        expectedHeader
+      )}\nPrijatá hlavička: ${JSON.stringify(header)}`
+    );
+
     const parsedData = data.splice(1).map((row, index) => {
       const [
         time,
@@ -44,13 +66,13 @@ export const parseCeremoniesXlsx = (
         branchSlug,
       ] = row.map(String);
 
-      const parsedDateTime = parse(
+      const parsedDateTime = moment.tz(
         `${sheetName} ${time}`,
         "dd.MM.yyyy H:mm",
-        new Date(),
-        { locale: sk }
-      ); // TODO: timezone
-      if (!isValid(parsedDateTime)) {
+        "Europe/Bratislava"
+      );
+
+      if (!parsedDateTime.isValid()) {
         throw new Error(
           `Čas na riadku ${
             index + 2
@@ -61,18 +83,16 @@ export const parseCeremoniesXlsx = (
       const dateTime = parsedDateTime.toISOString();
       const branch = getBranchBySlug(
         branchSlug,
-        branchesIdMap,
+        branchesSlugIdMap,
         `Pobočka na riadku ${
           index + 3
         } v zošite "${sheetName}" s "slug" "${branchSlug}" neexistuje alebo jej hodnota "allowInCeremonies" nie je nastavená na "true".`
       );
       const showOnWeb = showOnWebRaw === "A";
-      const nameNormalized = removeAccents(name).toLocaleLowerCase("sk-SK");
 
       return {
         dateTime,
         name: showOnWeb ? name : undefined,
-        nameNormalized: showOnWeb ? nameNormalized : undefined,
         birthYear: showOnWeb ? birthYear : undefined,
         type: showOnWeb ? type : undefined,
         company,

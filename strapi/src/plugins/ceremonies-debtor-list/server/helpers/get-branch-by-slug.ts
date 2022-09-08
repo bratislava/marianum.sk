@@ -1,11 +1,11 @@
 export const getBranchBySlug = (
   branchSlug: string,
-  branchesIdMap: Record<string, number>,
+  branchesSlugIdMap: Record<string, number>,
   errorMessage: string
 ) => {
   if (branchSlug) {
-    if (branchSlug in branchesIdMap) {
-      return branchesIdMap[branchSlug];
+    if (branchSlug in branchesSlugIdMap) {
+      return branchesSlugIdMap[branchSlug];
     } else {
       throw new Error(errorMessage);
     }

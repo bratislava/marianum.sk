@@ -1,6 +1,6 @@
 import { Strapi } from "@strapi/strapi";
 
-export const getBranchesSlugMap = async (
+export const getBranchesSlugIdMap = async (
   strapi: Strapi,
   type: "debtors" | "ceremonies"
 ) => {
