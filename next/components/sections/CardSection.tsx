@@ -39,8 +39,7 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
               title={attributes?.title ?? ''}
               linkHref={attributes?.slug ?? '#'}
               border
-              imageUrl={attributes?.coverMedia?.data?.attributes?.url ?? ''}
-              imageAlt={attributes?.coverMedia?.data?.attributes?.alternativeText ?? ''}
+              image={attributes?.coverMedia?.data?.attributes}
               subtitle={attributes?.perex}
             />
           )
