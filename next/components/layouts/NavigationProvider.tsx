@@ -1,5 +1,5 @@
 import last from 'lodash/last'
-import { createContext, PropsWithChildren } from 'react'
+import { createContext, PropsWithChildren, useMemo } from 'react'
 
 import { NavigationItemFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
@@ -21,32 +21,27 @@ const NavigationProvider = ({
   navigation,
   children,
 }: PropsWithChildren<NavigationContextProps>) => {
-  const navMap = new Map<string, string>()
+  const navMap = useMemo(() => {
+    const tmpMap = new Map<string, string>()
 
-  const addPathToMap = (path: string) => {
-    const slug = last(path?.split('/'))
-    if (slug) {
-      navMap.set(slug, path)
-    }
-  }
-
-  navigation.forEach((navItem) => {
-    if (navItem.path) {
-      addPathToMap(navItem.path)
-    }
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    navItem.items?.filter(isDefined)?.forEach((navItem) => {
-      if (navItem.path) {
-        addPathToMap(navItem.path)
-      }
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      navItem.items?.filter(isDefined)?.forEach((navItem) => {
-        if (navItem.path) {
-          addPathToMap(navItem.path)
+    const parseNavItems = (navItems: NavigationItemFragment[]) => {
+      navItems.forEach(({ path, items }) => {
+        if (path) {
+          const slug = last(path?.split('/'))
+          if (slug) {
+            tmpMap.set(slug, path)
+          }
+        }
+        if (items) {
+          parseNavItems(items.filter(isDefined))
         }
       })
-    })
-  })
+    }
+
+    parseNavItems(navigation)
+
+    return tmpMap
+  }, [navigation])
 
   return (
     <NavigationContext.Provider value={{ navMap, navigation }}>
