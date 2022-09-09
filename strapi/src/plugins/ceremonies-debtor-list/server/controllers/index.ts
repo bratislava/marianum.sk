@@ -24,9 +24,7 @@ export default {
 
         // All the debtors are replaced when a new XLSX is uploaded.
         const deleteDebtors = () =>
-          strapi.db
-            .query("plugin::ceremonies-debtor-list.debtor")
-            .deleteMany({});
+          strapi.db.query("api::debtor.debtor").deleteMany({});
 
         await deleteDebtors();
 
@@ -34,10 +32,9 @@ export default {
           for (const debtor of parsedDebtors) {
             // Query Engine API doesn't support relations in bulk options, so Entity Service API is used.
             // https://docs.strapi.io/developer-docs/latest/developer-resources/database-apis-reference/query-engine/bulk-operations.html
-            await strapi.entityService.create(
-              "plugin::ceremonies-debtor-list.debtor",
-              { data: debtor }
-            );
+            await strapi.entityService.create("api::debtor.debtor", {
+              data: debtor,
+            });
           }
         } catch (createDebtorsError) {
           // In case of failure to add some debtor we want to delete all the previously created entries, so we call the
@@ -98,11 +95,9 @@ export default {
         };
 
         const deleteCeremonies = () =>
-          strapi.db
-            .query("plugin::ceremonies-debtor-list.ceremony")
-            .deleteMany({
-              filters: deleteFilters,
-            });
+          strapi.db.query("api::ceremony.ceremony").deleteMany({
+            filters: deleteFilters,
+          });
 
         await deleteCeremonies();
 
@@ -111,10 +106,9 @@ export default {
             for (const ceremony of ceremonies) {
               // Query Engine API doesn't support relations in bulk options, so Entity Service API is used.
               // https://docs.strapi.io/developer-docs/latest/developer-resources/database-apis-reference/query-engine/bulk-operations.html
-              await strapi.entityService.create(
-                "plugin::ceremonies-debtor-list.ceremony",
-                { data: ceremony }
-              );
+              await strapi.entityService.create("api::ceremony.ceremony", {
+                data: ceremony,
+              });
             }
           }
         } catch (createCeremonyError) {
