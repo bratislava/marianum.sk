@@ -55,8 +55,7 @@ const PartnersSection = ({
               <PartnerCard
                 title={partner.title}
                 linkHref={partner.link ?? '#'}
-                imageUrl={partner.logo.data?.attributes?.url ?? ''}
-                imageAlt={partner.logo.data?.attributes?.alternativeText ?? ''}
+                image={partner.logo.data?.attributes}
                 border
               />
             ))}

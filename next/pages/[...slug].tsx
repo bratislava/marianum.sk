@@ -8,6 +8,7 @@ import SectionsWrapper from '../components/layouts/SectionsWrapper'
 import AccordionGroup from '../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../components/molecules/Accordion/AccordionItem'
 import BranchGroup from '../components/molecules/BranchGroup'
+import DocumentGroup from '../components/molecules/DocumentGroup'
 import ProcedureTabs from '../components/molecules/ProcedureTabs'
 import Section from '../components/molecules/Section'
 import BundleListingSection from '../components/sections/BundleListingSection'
@@ -119,9 +120,9 @@ const Slug = ({ navigation, page, general }: PageProps) => {
                 index={index}
                 key={`${section.__typename}-${section.id}`}
                 isContainer={isContainer}
+                title={section.title}
               >
-                {/* TODO */}
-                documents
+                <DocumentGroup {...section} />
               </Section>
             )
           }

@@ -35,8 +35,7 @@ const NewsListing = () => {
         return (
           <ArticleCard
             title={title}
-            imageUrl={coverMedia.data?.attributes?.url ?? ''}
-            imageAlt={coverMedia.data?.attributes?.alternativeText ?? ''}
+            image={coverMedia.data?.attributes}
             date={publishedAt}
             linkHref={slug}
             category={articleCategory?.data}
