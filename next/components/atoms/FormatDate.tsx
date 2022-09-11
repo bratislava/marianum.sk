@@ -14,7 +14,7 @@ type FormatDateProps = {
 }
 
 const FormatDate = ({ value, format }: FormatDateProps) => {
-  const formatter = useDateFormatter(formats[format])
+  const formatter = useDateFormatter({ ...formats[format], timeZone: 'Europe/Bratislava' })
 
   return <>{formatter.format(value)}</>
 }
