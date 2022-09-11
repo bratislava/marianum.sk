@@ -12,8 +12,12 @@
   },
   "attributes": {
     "title": {
-      "type": "text",
+      "type": "string",
       "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
     },
     "file": {
       "type": "media",
@@ -22,7 +26,7 @@
       "allowedTypes": ["files"]
     },
     "description": {
-      "type": "richtext"
+      "type": "text"
     },
     "documentCategory": {
       "type": "relation",

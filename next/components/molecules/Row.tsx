@@ -5,6 +5,7 @@ import { Fragment, ReactNode } from 'react'
 import ChevronRightIcon from '../../assets/chevron_right.svg'
 import OpenInNewIcon from '../../assets/open_in_new.svg'
 import PlaceIcon from '../../assets/place.svg'
+import { DocumentCategoryEntityFragment } from '../../graphql'
 import { onEnterOrSpaceKeyDown } from '../../utils/onEnterOrSpaceKeyDown'
 import Button from '../atoms/Button'
 import IconButton from '../atoms/IconButton'
@@ -16,8 +17,8 @@ interface IRowProps {
   link?: string
   isExternal?: boolean
   showUrl?: boolean
-  category?: string
-  address?: string | null
+  category?: DocumentCategoryEntityFragment | null | undefined
+  address?: string | null | undefined
   moreContent?: ReactNode
   button?: ReactNode
   arrowInCorner?: boolean
@@ -61,13 +62,14 @@ const Row = ({
     >
       {number && <div className="pr-8 pl-1 text-h1 font-bold text-primary">{number}</div>}
       <div className="grow space-y-1.5">
-        {category && (
+        {category?.attributes && (
           <MLink
+            // TODO add proper link
             href="#"
             noStyles
             className="text-sm text-primary underline hover:text-primary-dark"
           >
-            {category}
+            {category.attributes.title}
           </MLink>
         )}
 

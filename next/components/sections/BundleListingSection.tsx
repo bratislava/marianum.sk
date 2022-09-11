@@ -23,8 +23,7 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
         return (
           <BundleCard
             key={id}
-            imageUrl={attributes?.coverMedia.data?.attributes?.url ?? ''}
-            imageAlt={attributes?.coverMedia.data?.attributes?.alternativeText ?? ''}
+            image={attributes?.coverMedia?.data?.attributes}
             name={attributes?.title ?? ''}
             priceFrom={attributes?.price ?? 0}
             claims={

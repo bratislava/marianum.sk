@@ -913,7 +913,7 @@ const Showcase = () => {
             <Row title="Nazov partnera" border={cardsBorder} />
             <Row
               title="Nazov suboru"
-              category="Kategoria"
+              category={{ attributes: { title: 'Kategoria', slug: 'kategoria' } }}
               metadata={['Metadata', 'Metadata', 'Metadata']}
               link="#"
               button={
