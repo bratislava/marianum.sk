@@ -15,7 +15,12 @@ export const parseCeremoniesXlsx = (
   ).map(({ name }) => name);
 
   sheetNames.forEach((sheetName) => {
-    const parsedDate = moment.tz(sheetName, "DD.MM.YYYY", "Europe/Bratislava");
+    const parsedDate = moment.tz(
+      sheetName,
+      "DD.MM.YYYY",
+      true, // Strict mode ensures the date is in correct format.
+      "Europe/Bratislava"
+    );
 
     if (!parsedDate.isValid()) {
       throw new Error(
@@ -53,53 +58,57 @@ export const parseCeremoniesXlsx = (
       )}\nPrijatá hlavička: ${JSON.stringify(header)}`
     );
 
-    const parsedData = data.splice(1).map((row, index) => {
-      const [
-        time,
-        name,
-        birthYear,
-        type,
-        company,
-        officiantProvidedBy,
-        ,
-        showOnWebRaw,
-        branchSlug,
-      ] = row.map(String);
+    const parsedData = data
+      .splice(1)
+      .filter((row) => row.length !== 0 /* Filter empty rows */)
+      .map((row, index) => {
+        const [
+          time,
+          name,
+          birthYear,
+          type,
+          company,
+          officiantProvidedBy,
+          ,
+          showOnWebRaw,
+          branchSlug,
+        ] = row.map(String);
 
-      const parsedDateTime = moment.tz(
-        `${sheetName} ${time}`,
-        "DD.MM.YYYY H:mm",
-        "Europe/Bratislava"
-      );
-
-      if (!parsedDateTime.isValid()) {
-        throw new Error(
-          `Čas na riadku ${
-            index + 2
-          } "${time}" nie je platný. Čas musí byť v tvare 9:00.`
+        const parsedDateTime = moment.tz(
+          `${sheetName} ${time}`,
+          "DD.MM.YYYY H:mm",
+          true, // Strict mode ensures the date is in correct format.
+          "Europe/Bratislava"
         );
-      }
 
-      const dateTime = parsedDateTime.toISOString();
-      const branchId = getBranchIdBySlug(
-        branchSlug,
-        branchesSlugIdMap,
-        `Pobočka na riadku ${
-          index + 3
-        } v zošite "${sheetName}" s "slug" "${branchSlug}" neexistuje alebo jej hodnota "allowInCeremonies" nie je nastavená na "true".`
-      );
-      const showOnWeb = showOnWebRaw === "A";
+        if (!parsedDateTime.isValid()) {
+          throw new Error(
+            `Čas na riadku ${
+              index + 2
+            } "${time}" nie je platný. Čas musí byť v tvare 9:00.`
+          );
+        }
 
-      return {
-        dateTime,
-        name: showOnWeb ? name : undefined,
-        birthYear: showOnWeb ? birthYear : undefined,
-        type: showOnWeb ? type : undefined,
-        company,
-        officiantProvidedBy,
-        branch: branchId,
-      };
-    });
+        const dateTime = parsedDateTime.toISOString();
+        const branchId = getBranchIdBySlug(
+          branchSlug,
+          branchesSlugIdMap,
+          `Pobočka na riadku ${
+            index + 3
+          } v zošite "${sheetName}" s "slug" "${branchSlug}" neexistuje alebo jej hodnota "allowInCeremonies" nie je nastavená na "true".`
+        );
+        const showOnWeb = showOnWebRaw === "A";
+
+        return {
+          dateTime,
+          name: showOnWeb ? name : undefined,
+          birthYear: showOnWeb ? birthYear : undefined,
+          type: showOnWeb ? type : undefined,
+          company,
+          officiantProvidedBy,
+          branch: branchId,
+        };
+      });
 
     return { day: sheetName, data: parsedData };
   });

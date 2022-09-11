@@ -37,33 +37,35 @@ export const parseDebtorsXlsx = (
   );
 
   const dataWithoutHeader = data.slice(2);
-  return dataWithoutHeader.map((row, index) => {
-    const [
-      ,
-      graveSection,
-      graveNumber,
-      lastName,
-      firstName,
-      birthDate,
-      deathDate,
-      branchSlug,
-    ] = row.map(String);
+  return dataWithoutHeader
+    .filter((row) => row.length !== 0 /* Filter empty rows */)
+    .map((row, index) => {
+      const [
+        ,
+        graveSection,
+        graveNumber,
+        lastName,
+        firstName,
+        birthDate,
+        deathDate,
+        branchSlug,
+      ] = row.map(String);
 
-    const branchId = getBranchIdBySlug(
-      branchSlug,
-      branchesSlugIdMap,
-      `Pobočka na riadku ${
-        index + 3
-      } s "slug" "${branchSlug}" neexistuje alebo jej hodnota "allowInDebtors" nie je nastavená na "true".`
-    );
-    return {
-      graveSection,
-      graveNumber,
-      firstName,
-      lastName,
-      birthDate,
-      deathDate,
-      branch: branchId,
-    };
-  });
+      const branchId = getBranchIdBySlug(
+        branchSlug,
+        branchesSlugIdMap,
+        `Pobočka na riadku ${
+          index + 3
+        } s "slug" "${branchSlug}" neexistuje alebo jej hodnota "allowInDebtors" nie je nastavená na "true".`
+      );
+      return {
+        graveSection,
+        graveNumber,
+        firstName,
+        lastName,
+        birthDate,
+        deathDate,
+        branch: branchId,
+      };
+    });
 };

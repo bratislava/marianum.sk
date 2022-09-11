@@ -7,6 +7,7 @@ export const getBranchesSlugIdMap = async (
   const branches = await strapi.db.query("api::branch.branch").findMany({
     select: ["id", "slug"],
     where: {
+      locale: "sk", // The entities must be matched with Slovak versions only to work properly.
       ...(type === "debtors"
         ? {
             allowInDebtors: {
@@ -23,6 +24,8 @@ export const getBranchesSlugIdMap = async (
         : {}),
     },
   });
+
+  console.log(branches);
 
   return Object.fromEntries(branches.map(({ slug, id }) => [slug, id]));
 };
