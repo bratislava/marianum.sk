@@ -1,5 +1,5 @@
 import { readFile, utils } from "xlsx";
-import { getBranchBySlug } from "./get-branch-by-slug";
+import { getBranchIdBySlug } from "./get-branch-id-by-slug";
 import moment from "moment/moment";
 import "moment-timezone";
 import assert from "assert";
@@ -15,7 +15,7 @@ export const parseCeremoniesXlsx = (
   ).map(({ name }) => name);
 
   sheetNames.forEach((sheetName) => {
-    const parsedDate = moment.tz(sheetName, "dd.MM.yyyy", "Europe/Bratislava");
+    const parsedDate = moment.tz(sheetName, "DD.MM.YYYY", "Europe/Bratislava");
 
     if (!parsedDate.isValid()) {
       throw new Error(
@@ -68,7 +68,7 @@ export const parseCeremoniesXlsx = (
 
       const parsedDateTime = moment.tz(
         `${sheetName} ${time}`,
-        "dd.MM.yyyy H:mm",
+        "DD.MM.YYYY H:mm",
         "Europe/Bratislava"
       );
 
@@ -81,7 +81,7 @@ export const parseCeremoniesXlsx = (
       }
 
       const dateTime = parsedDateTime.toISOString();
-      const branch = getBranchBySlug(
+      const branchId = getBranchIdBySlug(
         branchSlug,
         branchesSlugIdMap,
         `Pobočka na riadku ${
@@ -97,7 +97,7 @@ export const parseCeremoniesXlsx = (
         type: showOnWeb ? type : undefined,
         company,
         officiantProvidedBy,
-        branch,
+        branch: branchId,
       };
     });
 

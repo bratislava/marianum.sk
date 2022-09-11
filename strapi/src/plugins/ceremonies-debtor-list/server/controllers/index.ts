@@ -77,7 +77,7 @@ export default {
         // kept as they are.
         const deleteFilters = {
           $or: parsedCeremonies.map(({ day }) => {
-            const parsedDay = moment.tz(day, "dd.MM.yyyy", "Europe/Bratislava");
+            const parsedDay = moment.tz(day, "DD.MM.YYYY", "Europe/Bratislava");
 
             return [
               {

@@ -1,4 +1,4 @@
-export const getBranchBySlug = (
+export const getBranchIdBySlug = (
   branchSlug: string,
   branchesSlugIdMap: Record<string, number>,
   errorMessage: string

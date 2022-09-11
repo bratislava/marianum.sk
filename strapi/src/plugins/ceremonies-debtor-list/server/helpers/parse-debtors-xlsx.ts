@@ -1,5 +1,5 @@
 import { readFile, utils } from "xlsx";
-import { getBranchBySlug } from "./get-branch-by-slug";
+import { getBranchIdBySlug } from "./get-branch-id-by-slug";
 import * as assert from "assert";
 
 export const parseDebtorsXlsx = (
@@ -49,7 +49,7 @@ export const parseDebtorsXlsx = (
       branchSlug,
     ] = row.map(String);
 
-    const branch = getBranchBySlug(
+    const branchId = getBranchIdBySlug(
       branchSlug,
       branchesSlugIdMap,
       `Pobočka na riadku ${
@@ -63,7 +63,7 @@ export const parseDebtorsXlsx = (
       lastName,
       birthDate,
       deathDate,
-      branch,
+      branch: branchId,
     };
   });
 };
