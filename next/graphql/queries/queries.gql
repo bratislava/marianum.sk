@@ -160,7 +160,9 @@ query HomePage($locale: I18NLocaleCode) {
             __typename
             id
             title
-            # TODO
+            showMoreButton {
+              ...CtaButton
+            }
           }
 
           ... on ComponentSectionsProceduresShortSection {
@@ -188,6 +190,38 @@ query HomePage($locale: I18NLocaleCode) {
   procedures: procedure(locale: $locale) {
     data {
       ...ProceduresEntity
+    }
+  }
+}
+
+query HomepageCeremonies($dateTime: DateTime!) {
+  ceremonies(
+    filters: { dateTime: { gte: $dateTime } }
+    sort: ["dateTime:asc"]
+    pagination: { limit: 5 }
+  ) {
+    data {
+      id
+      attributes {
+        dateTime
+        name
+        branch {
+          data {
+            attributes {
+              slug
+              title
+              localizations {
+                data {
+                  attributes {
+                    slug
+                    title
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
