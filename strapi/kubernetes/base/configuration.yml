@@ -5,3 +5,14 @@ namePrefix:
   - path: spec/template/spec/containers/envFrom/secretRef/name
   - kind: SealedSecret
     path: spec/template/metadata/name
+
+resources:
+  - ingress.yml
+  - stateful-set-meilisearch.yml
+  - service-meilisearch.yml
+
+configMapGenerator:
+  - name: ${BUILD_REPOSITORY_NAME}-meilisearch
+    namespace: ${NAMESPACE}
+    envs:
+      - .meilisearch.env

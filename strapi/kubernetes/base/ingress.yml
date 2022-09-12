@@ -7,7 +7,7 @@ metadata:
     service: app
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
-    cert-manager.io/issue-temporary-certificate: 'true'
+    cert-manager.io/issue-temporary-certificate: "true"
     kubernetes.io/ingress.class: haproxy
 spec:
   tls:
@@ -23,5 +23,15 @@ spec:
             backend:
               service:
                 name: ${BUILD_REPOSITORY_NAME}-app
+                port:
+                  number: 80
+    - host: ${BUILD_REPOSITORY_NAME}-meilisearch.${DEPLOYMENT_ENV}bratislava.sk
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: ${BUILD_REPOSITORY_NAME}-meilisearch
                 port:
                   number: 80
