@@ -10633,10 +10633,9 @@ std-env@^3.0.1:
   resolved "https://registry.yarnpkg.com/std-env/-/std-env-3.1.1.tgz#1f19c4d3f6278c52efd08a94574a2a8d32b7d092"
   integrity sha512-/c645XdExBypL01TpFKiG/3RAa/Qmu+zRi0MwAmrdEkwHNuN0ebo8ccAXBBDa5Z0QOJgBskUIbuCK91x0sCVEw==
 
-strapi-plugin-meilisearch@^0.7.1:
+"strapi-plugin-meilisearch@https://github.com/bratislava/strapi-plugin-meilisearch.git":
   version "0.7.1"
-  resolved "https://registry.yarnpkg.com/strapi-plugin-meilisearch/-/strapi-plugin-meilisearch-0.7.1.tgz#087d5bdb6e94f132768bd677b500f9a79848e43b"
-  integrity sha512-HW3M1ke6gqkbY8g6IAJTZhE5Iv86+kMFaC3sCU1hEMv05I4a/h9SKJvHTweyUEp0rp9P/b/tuAvFBamaisp2uw==
+  resolved "https://github.com/bratislava/strapi-plugin-meilisearch.git#6ca8a2a8542a9d50c3c1762861bd91bfb6726f00"
   dependencies:
     "@strapi/utils" "^4.2.3"
     meilisearch "^0.27.0"
