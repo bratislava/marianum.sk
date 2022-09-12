@@ -3,6 +3,7 @@ import { GetStaticProps, GetStaticPropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import PageWrapper from '../components/layouts/PageWrapper'
+import SectionsWrapper from '../components/layouts/SectionsWrapper'
 import CtaGroup from '../components/molecules/CtaGroup'
 import Section from '../components/molecules/Section'
 import CardSection from '../components/sections/CardSection'
@@ -26,14 +27,14 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
     <PageWrapper navigation={navigation} general={general}>
       <HomepageSlider slides={page.attributes?.featured?.filter(isDefined)} />
 
-      <div>
+      <SectionsWrapper alternateBackground startBackground="dark" isContainer>
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
-        {page.attributes?.sections?.map((section) => {
+        {page.attributes?.sections?.map((section, index) => {
           if (section?.__typename === 'ComponentSectionsManualListing') {
             return (
               <CardSection
+                index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer
                 section={section}
               />
             )
@@ -41,8 +42,8 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           if (section?.__typename === 'ComponentSectionsNewsListing') {
             return (
               <Section
+                index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer
                 title={section.title}
               >
                 <NewsListing />
@@ -65,9 +66,9 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
 
             return (
               <HomepageProcedures
+                index={index}
                 key={`${__typename}-${id}`}
                 title={title}
-                isContainer
                 procedures={proceduresArr}
                 showMoreButton={showMoreButton}
               />
@@ -76,8 +77,8 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           if (section?.__typename === 'ComponentSectionsCtaSection') {
             return (
               <Section
+                index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer
                 title={section.title}
               >
                 <CtaGroup {...section} />
@@ -86,7 +87,7 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           }
           if (section?.__typename === 'ComponentSectionsReviewsSection') {
             return (
-              <Section key={`${section.__typename}-${section.id}`} isContainer>
+              <Section index={index} key={`${section.__typename}-${section.id}`}>
                 {/* TODO */}
                 reviews section
               </Section>
@@ -95,7 +96,7 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
 
           return null
         })}
-      </div>
+      </SectionsWrapper>
     </PageWrapper>
   )
 }
