@@ -704,7 +704,13 @@ const Showcase = () => {
               metadata={['Metadata', 'Metadata', 'Metadata']}
               border={cardsBorder}
             />
-            <Row title="Hladany termin" link="#" showUrl border={cardsBorder} />
+            <Row
+              title="Hladany termin"
+              link="#"
+              showUrl
+              tags={['Typ vysledku']}
+              border={cardsBorder}
+            />
             <Row title="Nazov partnera" link="#" isExternal border={cardsBorder} />
             <Row
               title="Nazov pobocky"
