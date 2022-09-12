@@ -3,6 +3,7 @@ import { GetStaticProps, GetStaticPropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import PageWrapper from '../components/layouts/PageWrapper'
+import Row from '../components/molecules/Row'
 import { GeneralEntityFragment, NavigationItemFragment } from '../graphql'
 import { client } from '../utils/gql'
 
@@ -16,6 +17,15 @@ const Home = ({ navigation, general }: HomeProps) => {
     <PageWrapper navigation={navigation} general={general}>
       <div>
         <h1>Výsledky vyhľadávania</h1>
+        <div>
+          <Row
+            title="Hladany termin"
+            link="#hadany-termin"
+            showUrl
+            metadata={['Metadata', 'Metadata', 'Metadata']}
+            border
+          />
+        </div>
       </div>
     </PageWrapper>
   )
