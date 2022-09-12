@@ -2235,7 +2235,7 @@
     "@strapi/utils" "4.3.8"
     lodash "4.17.21"
 
-"@strapi/plugin-graphql@4.3.8":
+"@strapi/plugin-graphql@^4.3.8":
   version "4.3.8"
   resolved "https://registry.yarnpkg.com/@strapi/plugin-graphql/-/plugin-graphql-4.3.8.tgz#1cd0ac23f1a373a63c6de687c0e4991cde009347"
   integrity sha512-nHXWEje3nqF5v1NHQFqcfjJRbzk1B1HNZknKwiESeQ5IfiiDKSEx2Hq0pTT7FMeJx568SdbZaHT30R2Jih5eNQ==
@@ -2257,7 +2257,7 @@
     pluralize "^8.0.0"
     subscriptions-transport-ws "0.9.19"
 
-"@strapi/plugin-i18n@4.3.8":
+"@strapi/plugin-i18n@^4.3.8":
   version "4.3.8"
   resolved "https://registry.yarnpkg.com/@strapi/plugin-i18n/-/plugin-i18n-4.3.8.tgz#d6f86b528884f7834ba0e8210fcf39ce33bf8acd"
   integrity sha512-YNaNI2swPaFSwBR1ulW8cfn5Q4G3Ya44XVypwJZIlaV9utUT+9XjLzbRqQDun9XsKje/k4+HLf7gxF5SzgcYAw==
@@ -2265,7 +2265,7 @@
     "@strapi/utils" "4.3.8"
     lodash "4.17.21"
 
-"@strapi/plugin-upload@4.3.8":
+"@strapi/plugin-upload@4.3.8", "@strapi/plugin-upload@^4.3.8":
   version "4.3.8"
   resolved "https://registry.yarnpkg.com/@strapi/plugin-upload/-/plugin-upload-4.3.8.tgz#1bc79b3acb961f29b6bdc0e40b869031c1c0a466"
   integrity sha512-WwMcTj/BlfXVOHRAHYLwjMbZeMrP6xP5Z23SvoySKp8rucds68XdHPe5LkKMAj0vyogXKviXD8aJ2qnHraBfNg==
@@ -2291,7 +2291,7 @@
     react-router-dom "5.2.0"
     sharp "0.30.7"
 
-"@strapi/plugin-users-permissions@4.3.8":
+"@strapi/plugin-users-permissions@^4.3.8":
   version "4.3.8"
   resolved "https://registry.yarnpkg.com/@strapi/plugin-users-permissions/-/plugin-users-permissions-4.3.8.tgz#cc1d25a722042ca8a4a4459a639bd73abf3be8ca"
   integrity sha512-v7trvOtTsSKiJIn1HQEuNFLvtZPnc6RZNSrqqIeJgcNwscIPQQFyLPoE1uMp7OzZnho/nMxizMtOaHaOGzIVgg==
@@ -2330,7 +2330,7 @@
     "@strapi/utils" "4.3.8"
     fs-extra "10.0.0"
 
-"@strapi/strapi@4.3.8":
+"@strapi/strapi@^4.3.8":
   version "4.3.8"
   resolved "https://registry.yarnpkg.com/@strapi/strapi/-/strapi-4.3.8.tgz#f2becd737d81f1e2137522ae6141b4199394ae35"
   integrity sha512-zNsL061mWnDy5ISsFCbchZ0fb6/3L4WppD1G9StVzykroyv9f/3rQCxshugIMBD7yG19+QaBHuicfBhOb9jWsA==
