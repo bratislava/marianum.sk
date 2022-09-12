@@ -53,6 +53,7 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           if (section?.__typename === 'ComponentSectionsCeremoniesSection') {
             return (
               <HomepageCeremoniesListing
+                index={index}
                 key={`${section.__typename}-${section.id}`}
                 section={section}
               />

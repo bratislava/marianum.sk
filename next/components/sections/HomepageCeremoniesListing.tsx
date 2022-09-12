@@ -126,9 +126,10 @@ type CeremoniesListingProps = {
     >,
     { __typename: 'ComponentSectionsCeremoniesSection' }
   >
+  index: number
 }
 
-const HomepageCeremoniesListing = ({ section }: CeremoniesListingProps) => {
+const HomepageCeremoniesListing = ({ section, index }: CeremoniesListingProps) => {
   const showMoreButton = section.showMoreButton && (
     <MLink
       href={section.showMoreButton.url}
@@ -139,7 +140,7 @@ const HomepageCeremoniesListing = ({ section }: CeremoniesListingProps) => {
   )
 
   return (
-    <Section isContainer>
+    <Section index={index}>
       <div className="grid gap-x-6 gap-y-8 md:grid-cols-1 lg:grid-cols-2">
         <div>
           <h2 className="lg:mb-6">{section.title}</h2>
