@@ -2951,6 +2951,8 @@ export type PageEntityFragment = { __typename?: 'PageEntity', id?: string | null
 
 export type ProceduresEntityFragment = { __typename?: 'ProcedureEntity', attributes?: { __typename?: 'Procedure', outsideMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null } | null } | null, atMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null } | null } | null } | null };
 
+export type ComponentSectionsCeremoniesSectionFragment = { __typename: 'ComponentSectionsCeremoniesSection', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null };
+
 export type FlatNavigationItemFragment = { __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | null } | null };
 
 export type NavigationItemFragment = { __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | null } | null };
@@ -3557,6 +3559,16 @@ export const ProceduresEntityFragmentDoc = gql`
   }
 }
     ${ProcedureFragmentDoc}`;
+export const ComponentSectionsCeremoniesSectionFragmentDoc = gql`
+    fragment ComponentSectionsCeremoniesSection on ComponentSectionsCeremoniesSection {
+  __typename
+  id
+  title
+  showMoreButton {
+    ...CtaButton
+  }
+}
+    ${CtaButtonFragmentDoc}`;
 export const FlatNavigationItemFragmentDoc = gql`
     fragment FlatNavigationItem on NavigationItem {
   id
@@ -3863,14 +3875,7 @@ export const HomePageDocument = gql`
             id
             title
           }
-          ... on ComponentSectionsCeremoniesSection {
-            __typename
-            id
-            title
-            showMoreButton {
-              ...CtaButton
-            }
-          }
+          ...ComponentSectionsCeremoniesSection
           ... on ComponentSectionsProceduresShortSection {
             __typename
             id
@@ -3900,6 +3905,7 @@ export const HomePageDocument = gql`
 }
     ${CtaFragmentDoc}
 ${ManualListingFragmentDoc}
+${ComponentSectionsCeremoniesSectionFragmentDoc}
 ${CtaButtonFragmentDoc}
 ${CtaSectionFragmentDoc}
 ${ProceduresEntityFragmentDoc}`;

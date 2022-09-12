@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { useDateFormatter } from 'react-aria'
 import useSWR from 'swr'
 
-import { HomePageQuery } from '../../graphql'
+import { ComponentSectionsCeremoniesSectionFragment } from '../../graphql'
 import { client } from '../../utils/gql'
 import MLink from '../atoms/MLink'
 import Section from '../molecules/Section'
@@ -114,18 +114,8 @@ const HomepageCeremoniesListingTable = () => {
   )
 }
 
-// https://stackoverflow.com/a/52331580
-type Unpacked<T> = T extends (infer U)[] ? U : T
-
 type CeremoniesListingProps = {
-  section: Extract<
-    Unpacked<
-      NonNullable<
-        NonNullable<NonNullable<HomePageQuery['homePage']>['data']>['attributes']
-      >['sections']
-    >,
-    { __typename: 'ComponentSectionsCeremoniesSection' }
-  >
+  section: ComponentSectionsCeremoniesSectionFragment
   index: number
 }
 
