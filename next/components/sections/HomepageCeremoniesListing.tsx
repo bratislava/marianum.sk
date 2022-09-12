@@ -130,13 +130,9 @@ type CeremoniesListingProps = {
 }
 
 const HomepageCeremoniesListing = ({ section, index }: CeremoniesListingProps) => {
-  const showMoreButton = section.showMoreButton && (
-    <MLink
-      href={section.showMoreButton.url}
-      target={section.showMoreButton.targetBlank ? '_blank' : '_self'}
-    >
-      {section.showMoreButton.label}
-    </MLink>
+  const showMoreButtonSlug = section.showMoreButton?.page?.data?.attributes?.slug
+  const showMoreButton = section.showMoreButton && showMoreButtonSlug && (
+    <MLink href={showMoreButtonSlug}>{section.showMoreButton.label}</MLink>
   )
 
   return (
