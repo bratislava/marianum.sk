@@ -3,8 +3,8 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import RichText from '../../components/atoms/RichText/RichText'
 import ArticleLayout from '../../components/layouts/ArticleLayout'
-import RichTextSection from '../../components/sections/RichTextSection'
 import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import { client } from '../../utils/gql'
 import { isDefined } from '../../utils/isDefined'
@@ -18,10 +18,7 @@ type ArticlePageProps = {
 const ArticlePage = ({ navigation, article, general }: ArticlePageProps) => {
   return (
     <ArticleLayout article={article} navigation={navigation} general={general}>
-      <div className="gap-y-6 sm:gap-y-8">
-        {/* TODO use Editor.js blocks */}
-        <RichTextSection content={article.attributes?.content} />
-      </div>
+      <RichText data={article.attributes?.content} />
     </ArticleLayout>
   )
 }

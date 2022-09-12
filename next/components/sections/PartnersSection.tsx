@@ -65,7 +65,7 @@ const PartnersSection = ({
           {otherTitle && <h2>{otherTitle}</h2>}
           <div className="flex flex-col gap-3">
             {otherPartners.map((partner) => (
-              <Row title={partner.title} link={partner.link ?? '#'} border />
+              <Row title={partner.title} linkHref={partner.link ?? '#'} border />
             ))}
           </div>
         </div>

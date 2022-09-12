@@ -27,6 +27,7 @@ const BranchSlug = ({ navigation, branch, general }: PageProps) => {
         <div className="mb-18 bg-primary-dark text-white/72">
           <div className="container mx-auto">
             <div className="px-4">
+              {/* TODO not manual breadcrumbs */}
               <Breadcrumbs className="sm:pt-8">
                 <MLink aria-label="Domov" href="/" noStyles className="underline">
                   <HomeIcon />

@@ -1,24 +1,28 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import HelpIcon from '../../../assets/help.svg'
 import MarianumLogo from '../../../assets/marianum_logo.svg'
 import MenuIcon from '../../../assets/menu.svg'
 import PhoneIcon from '../../../assets/phone.svg'
-import { NavigationItemFragment } from '../../../graphql'
+import { ContactEntityFragment } from '../../../graphql'
 import IconButton from '../../atoms/IconButton'
 import MLink from '../../atoms/MLink'
+import { NavigationContext } from '../../layouts/NavigationProvider'
 import NavigationMenuDesktop from './NavigationMenuDesktop'
 import NavigationMenuMobile from './NavigationMenuMobile'
 import NavigationSearch from './NavigationSearch'
 
 type NavigationProps = {
-  faqLink?: string
-  phoneNumber?: string
-  navigationItems: NavigationItemFragment[]
+  faqSlug: string | null | undefined
+  contact: ContactEntityFragment | null | undefined
 }
 
-const Navigation = ({ faqLink, phoneNumber, navigationItems }: NavigationProps) => {
+const Navigation = ({ faqSlug, contact }: NavigationProps) => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
+
+  const { navigation } = useContext(NavigationContext)
+
+  const { phone1 } = contact?.attributes ?? {}
 
   return (
     <div className="bg-primary text-white">
@@ -31,16 +35,16 @@ const Navigation = ({ faqLink, phoneNumber, navigationItems }: NavigationProps) 
         <div className="flex items-center gap-4 xl:gap-8">
           {/* desktop faq and phone links */}
           <div className="hidden items-center gap-8 xl:flex">
-            {faqLink && (
-              <MLink href={faqLink} className="flex items-center gap-2" noStyles>
+            {faqSlug && (
+              <MLink href={faqSlug} className="flex items-center gap-2" noStyles>
                 <HelpIcon />
                 <span className="">Často kladené otázky</span>
               </MLink>
             )}
-            {phoneNumber && (
-              <MLink href={`tel:${phoneNumber}`} className="flex items-center gap-2" noStyles>
+            {phone1 && (
+              <MLink href={`tel:${phone1}`} className="flex items-center gap-2" noStyles>
                 <PhoneIcon />
-                <span>{phoneNumber}</span>
+                <span>{phone1}</span>
               </MLink>
             )}
           </div>
@@ -57,12 +61,12 @@ const Navigation = ({ faqLink, phoneNumber, navigationItems }: NavigationProps) 
           </IconButton>
         </div>
         {/* desktop navigation menu */}
-        <NavigationMenuDesktop navigationItems={navigationItems} />
+        <NavigationMenuDesktop navigationItems={navigation} />
         {/* mobile navigation menu */}
         <NavigationMenuMobile
           isOpen={isMobileNavOpen}
           onClose={() => setMobileNavOpen(false)}
-          items={navigationItems}
+          items={navigation}
         />
       </div>
     </div>

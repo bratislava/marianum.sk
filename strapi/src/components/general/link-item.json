@@ -2,7 +2,8 @@
   "collectionName": "components_general_link_items",
   "info": {
     "displayName": "link item",
-    "icon": "link"
+    "icon": "link",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -13,6 +14,11 @@
     "url": {
       "type": "string",
       "required": true
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
     },
     "targetBlank": {
       "type": "boolean",

@@ -11,13 +11,10 @@
       "type": "string",
       "required": true
     },
-    "url": {
-      "type": "string",
-      "required": true
-    },
-    "targetBlank": {
-      "type": "boolean",
-      "default": false
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
     }
   }
 }
