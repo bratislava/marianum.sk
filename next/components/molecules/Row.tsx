@@ -9,10 +9,12 @@ import { onEnterOrSpaceKeyDown } from '../../utils/onEnterOrSpaceKeyDown'
 import Button from '../atoms/Button'
 import IconButton from '../atoms/IconButton'
 import MLink from '../atoms/MLink'
+import Tag from '../atoms/Tag'
 
 interface IRowProps {
   title: string
   metadata?: string[]
+  tags?: string[]
   link?: string
   isExternal?: boolean
   showUrl?: boolean
@@ -28,6 +30,7 @@ interface IRowProps {
 const Row = ({
   title,
   metadata,
+  tags = [],
   link = '',
   isExternal = false,
   showUrl = false,
@@ -71,13 +74,16 @@ const Row = ({
           </MLink>
         )}
 
-        <h5
-          className={cx('w-fit text-left text-h5 text-foreground-heading', {
-            'group-hover:underline group-focus:underline': link,
-          })}
-        >
-          {title}
-        </h5>
+        <div className="flex gap-4">
+          <h5
+            className={cx('w-fit text-left text-h5 text-foreground-heading', {
+              'group-hover:underline group-focus:underline': link,
+            })}
+          >
+            {title}
+          </h5>
+          {tags.length > 0 && tags.map((tag) => <Tag className="bg-background-beige">{tag}</Tag>)}
+        </div>
 
         <div className="space-x-3 text-sm empty:hidden">
           {showUrl && link && (
