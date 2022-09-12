@@ -3,6 +3,7 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import RichText from '../components/atoms/RichText/RichText'
 import Layout from '../components/layouts/Layout'
 import SectionsWrapper from '../components/layouts/SectionsWrapper'
 import AccordionGroup from '../components/molecules/Accordion/AccordionGroup'
@@ -77,8 +78,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
                 <AccordionGroup>
                   {section.accordions?.map((accordion) => (
                     <AccordionItem key={accordion?.id} title={accordion?.title}>
-                      {/* TODO parse and display content properly with EditorJS <Blocks></Blocks> */}
-                      {accordion?.content}
+                      <RichText data={accordion?.content} coloredTable={false} />
                     </AccordionItem>
                   ))}
                 </AccordionGroup>
