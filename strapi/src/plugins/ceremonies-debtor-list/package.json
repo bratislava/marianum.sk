@@ -1,0 +1,37 @@
+{
+  "name": "ceremonies-debtor-list",
+  "version": "0.0.0",
+  "description": "This is the description of the plugin.",
+  "strapi": {
+    "name": "ceremonies-debtor-list",
+    "description": "Description of ceremonies-debtor-list plugin",
+    "kind": "plugin"
+  },
+  "dependencies": {
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.37",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@strapi/strapi": "4.3.4",
+    "@types/koa": "^2.13.5",
+    "typescript": "4.6.2"
+  },
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "maintainers": [
+    {
+      "name": "A Strapi developer"
+    }
+  ],
+  "engines": {
+    "node": ">=12.x.x <=16.x.x",
+    "npm": ">=6.0.0"
+  },
+  "scripts": {
+    "develop": "tsc -w",
+    "build": "tsc"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ceremonies",
+  "info": {
+    "singularName": "ceremony",
+    "pluralName": "ceremonies",
+    "displayName": "Ceremonies"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    },
+    "content-type-builder": {
+      "visible": true
+    }
+  },
+  "attributes": {
+    "dateTime": {
+      "type": "datetime",
+      "required": true
+    },
+    "name": {
+      "type": "string"
+    },
+    "birthYear": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "officiantProvidedBy": {
+      "type": "string"
+    },
+    "branch": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::branch.branch"
+    }
+  }
+}

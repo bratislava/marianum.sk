@@ -4,7 +4,7 @@ import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
 import ServiceCard from '../molecules/Cards/ServiceCard'
 import Section, { SectionProps } from '../molecules/Section'
 
-type CardSectionProps = Pick<SectionProps, 'isContainer' | 'color'> & {
+type CardSectionProps = Pick<SectionProps, 'background' | 'index'> & {
   section: ManualListingFragment
 }
 
@@ -39,8 +39,7 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
               title={attributes?.title ?? ''}
               linkHref={attributes?.slug ?? '#'}
               border
-              imageUrl={attributes?.coverMedia?.data?.attributes?.url ?? ''}
-              imageAlt={attributes?.coverMedia?.data?.attributes?.alternativeText ?? ''}
+              image={attributes?.coverMedia?.data?.attributes}
               subtitle={attributes?.perex}
             />
           )

@@ -1,5 +1,6 @@
 import { RadioGroup } from '@headlessui/react'
 import cx from 'classnames'
+import { DataProp } from 'editorjs-blocks-react-renderer'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ReactNode, useMemo, useState } from 'react'
@@ -19,12 +20,14 @@ import QuantitySelect from '../../components/atoms/QuantitySelect'
 import RadioBox from '../../components/atoms/Radio/RadioBox'
 import RadioSimple from '../../components/atoms/Radio/RadioSimple'
 import RadioSimpleGroup from '../../components/atoms/Radio/RadioSimpleGroup'
+import RichText from '../../components/atoms/RichText/RichText'
 import Select from '../../components/atoms/Select'
 import Tab from '../../components/atoms/Tabs/Tab'
 import Tabs from '../../components/atoms/Tabs/Tabs'
 import Tag from '../../components/atoms/Tag'
 import TagButton from '../../components/atoms/TagButton'
 import TextField from '../../components/atoms/TextField'
+import SectionsWrapper, { SectionsWrapperProps } from '../../components/layouts/SectionsWrapper'
 import AccordionGroup from '../../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
 import ArticleCard from '../../components/molecules/Cards/ArticleCard'
@@ -37,6 +40,231 @@ import ServiceCard from '../../components/molecules/Cards/ServiceCard'
 import Checklist from '../../components/molecules/Checklist/Checklist'
 import Row from '../../components/molecules/Row'
 import Search from '../../components/molecules/Search'
+import Section from '../../components/molecules/Section'
+import { UploadFile } from '../../graphql'
+
+/* eslint-disable no-secrets/no-secrets, sonarjs/no-duplicate-string, unicorn/numeric-separators-style */
+const image: UploadFile = {
+  updatedAt: '2022-08-24T20:30:23.750Z',
+  name: 'adams family',
+  alternativeText: "Adam's family alt",
+  caption: "Adam's family caption",
+  width: 663,
+  height: 422,
+  formats: {
+    small: {
+      ext: '.jpg',
+      url: '/uploads/small_adams_family_1681cf52bb.jpg',
+      hash: 'small_adams_family_1681cf52bb',
+      mime: 'image/jpeg',
+      name: 'small_adams family',
+      path: null,
+      size: 35.67,
+      width: 500,
+      height: 318,
+    },
+    thumbnail: {
+      ext: '.jpg',
+      url: '/uploads/thumbnail_adams_family_1681cf52bb.jpg',
+      hash: 'thumbnail_adams_family_1681cf52bb',
+      mime: 'image/jpeg',
+      name: 'thumbnail_adams family',
+      path: null,
+      size: 10.75,
+      width: 245,
+      height: 156,
+    },
+  },
+  hash: 'adams_family_1681cf52bb',
+  ext: '.jpg',
+  mime: 'image/jpeg',
+  size: 59.67,
+  url: '/uploads/adams_family_1681cf52bb.jpg',
+  previewUrl: null,
+  provider: 'local',
+  provider_metadata: null,
+  createdAt: '2022-08-24T20:30:23.750Z',
+  placeholder:
+    'data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUG/8QAIRAAAQQABwEBAAAAAAAAAAAAAQIDBAUABxESEyExBqH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AkZQSpl3UW1bDkphOQqlyZvSyklL7ShwuIV6DtJB1B8696yDWYP08NpEWPYOcLKQ2jV1QO1PQ/BhhgP/Z',
+}
+
+const richText: DataProp = {
+  time: 1_661_435_007_991,
+  blocks: [
+    { id: '8QXMEFDFIT', type: 'header', data: { text: 'Heading 1', level: 1 } },
+    { id: 'F43W2lcdg5', type: 'header', data: { text: 'Heading 2', level: 2 } },
+    { id: 'lbecFbfp6r', type: 'header', data: { text: 'Heading 3', level: 3 } },
+    { id: '9g4QGims7M', type: 'header', data: { text: 'Heading 4', level: 4 } },
+    { id: 'ct7ygqaNp1', type: 'header', data: { text: 'Heading 5', level: 5 } },
+    { id: 'uooZ-G7C4T', type: 'header', data: { text: 'Heading 6', level: 6 } },
+    {
+      id: 'y0mA6aqIWn',
+      type: 'paragraph',
+      data: {
+        text: '<b>Nezvyčajné </b><i>kŕdle </i><a href="http://google.com">šťastných </a>figliarskych ďatľov učia pri kótovanom ústí Váhu mĺkveho koňa Waldemara obžierať väčšie kusy exkluzívnej kôry.',
+      },
+    },
+    {
+      id: 'Vy-t_QsYUq',
+      type: 'table',
+      data: {
+        withHeadings: true,
+        content: [
+          ['First name', 'Last name', 'Test'],
+          ['<b>Abc</b>', '<i>Abc</i>', '<a href="http://google.com">Abc</a>'],
+          ['Abc', 'Abc', 'Abc'],
+        ],
+      },
+    },
+    { id: 'J49k_dgdA3', type: 'delimiter', data: {} },
+    {
+      id: 'lDHPtxwxi9',
+      type: 'table',
+      data: {
+        withHeadings: false,
+        content: [
+          ['<b>Abc</b>', '<i>Abc</i>', '<a href="http://google.com">Abc</a>'],
+          ['Abc', 'Abc', 'Abc'],
+        ],
+      },
+    },
+    {
+      id: 'Gdo7BsLUYb',
+      type: 'image',
+      data: {
+        file: {
+          url: '/uploads/adams_family_1681cf52bb.jpg',
+          mime: 'image/jpeg',
+          height: 422,
+          width: 663,
+          size: 59.67,
+          alt: "Adam's family alt",
+          formats: {
+            small: {
+              ext: '.jpg',
+              url: '/uploads/small_adams_family_1681cf52bb.jpg',
+              hash: 'small_adams_family_1681cf52bb',
+              mime: 'image/jpeg',
+              name: 'small_adams family',
+              path: null,
+              size: 35.67,
+              width: 500,
+              height: 318,
+            },
+            thumbnail: {
+              ext: '.jpg',
+              url: '/uploads/thumbnail_adams_family_1681cf52bb.jpg',
+              hash: 'thumbnail_adams_family_1681cf52bb',
+              mime: 'image/jpeg',
+              name: 'thumbnail_adams family',
+              path: null,
+              size: 10.75,
+              width: 245,
+              height: 156,
+            },
+          },
+          strapiImage: image,
+        },
+        caption: '',
+        withBorder: false,
+        stretched: false,
+        withBackground: false,
+      },
+    },
+    {
+      id: 'xPvMDIFqQb',
+      type: 'image',
+      data: {
+        file: {
+          url: '/uploads/adams_family_1681cf52bb.jpg',
+          mime: 'image/jpeg',
+          height: 422,
+          width: 663,
+          size: 59.67,
+          alt: "Adam's family alt",
+          formats: {
+            small: {
+              ext: '.jpg',
+              url: '/uploads/small_adams_family_1681cf52bb.jpg',
+              hash: 'small_adams_family_1681cf52bb',
+              mime: 'image/jpeg',
+              name: 'small_adams family',
+              path: null,
+              size: 35.67,
+              width: 500,
+              height: 318,
+            },
+            thumbnail: {
+              ext: '.jpg',
+              url: '/uploads/thumbnail_adams_family_1681cf52bb.jpg',
+              hash: 'thumbnail_adams_family_1681cf52bb',
+              mime: 'image/jpeg',
+              name: 'thumbnail_adams family',
+              path: null,
+              size: 10.75,
+              width: 245,
+              height: 156,
+            },
+          },
+          strapiImage: {
+            updatedAt: '2022-08-24T20:30:23.750Z',
+            id: 2,
+            name: 'adams family',
+            alternativeText: "Adam's family alt",
+            caption: "Adam's family caption",
+            width: 663,
+            height: 422,
+            formats: {
+              small: {
+                ext: '.jpg',
+                url: '/uploads/small_adams_family_1681cf52bb.jpg',
+                hash: 'small_adams_family_1681cf52bb',
+                mime: 'image/jpeg',
+                name: 'small_adams family',
+                path: null,
+                size: 35.67,
+                width: 500,
+                height: 318,
+              },
+              thumbnail: {
+                ext: '.jpg',
+                url: '/uploads/thumbnail_adams_family_1681cf52bb.jpg',
+                hash: 'thumbnail_adams_family_1681cf52bb',
+                mime: 'image/jpeg',
+                name: 'thumbnail_adams family',
+                path: null,
+                size: 10.75,
+                width: 245,
+                height: 156,
+              },
+            },
+            hash: 'adams_family_1681cf52bb',
+            ext: '.jpg',
+            mime: 'image/jpeg',
+            size: 59.67,
+            url: '/uploads/adams_family_1681cf52bb.jpg',
+            previewUrl: null,
+            provider: 'local',
+            provider_metadata: null,
+            folderPath: '/',
+            createdAt: '2022-08-24T20:30:23.750Z',
+            placeholder:
+              'data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUG/8QAIRAAAQQABwEBAAAAAAAAAAAAAQIDBAUABxESEyExBqH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AkZQSpl3UW1bDkphOQqlyZvSyklL7ShwuIV6DtJB1B8696yDWYP08NpEWPYOcLKQ2jV1QO1PQ/BhhgP/Z',
+            folder: null,
+            type: 'asset',
+          },
+        },
+        caption: '',
+        withBorder: false,
+        stretched: true,
+        withBackground: false,
+      },
+    },
+  ],
+  version: '2.23.2',
+}
+const richTextStringified = JSON.stringify(richText)
+/* eslint-enable */
 
 type WrapperProps = {
   title?: string
@@ -117,6 +345,43 @@ const Showcase = () => {
     ],
     [],
   )
+
+  const dummySectionWrappers: (Omit<SectionsWrapperProps, 'children'> & { count: number })[] =
+    useMemo(
+      () => [
+        {
+          count: 10,
+          alternateBackground: false,
+          background: 'dark',
+        },
+        {
+          count: 10,
+          alternateBackground: false,
+          background: 'light',
+        },
+        {
+          count: 10,
+          alternateBackground: true,
+          startBackground: 'dark',
+        },
+        {
+          count: 10,
+          alternateBackground: true,
+          startBackground: 'light',
+        },
+        {
+          count: 9,
+          alternateBackground: true,
+          startBackground: 'dark',
+        },
+        {
+          count: 9,
+          alternateBackground: true,
+          startBackground: 'light',
+        },
+      ],
+      [],
+    )
 
   return (
     <div className="overflow-hidden bg-[#E5E5E5]">
@@ -687,7 +952,7 @@ const Showcase = () => {
             <Row title="Nazov partnera" border={cardsBorder} />
             <Row
               title="Nazov suboru"
-              category="Kategoria"
+              category={{ attributes: { title: 'Kategoria', slug: 'kategoria' } }}
               metadata={['Metadata', 'Metadata', 'Metadata']}
               link="#"
               button={
@@ -1019,8 +1284,7 @@ const Showcase = () => {
 
           <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             <ArticleCard
-              imageUrl="/card-example.jpg"
-              imageAlt="Example image for card"
+              image={image}
               border={cardsBorder}
               title="Article card"
               category={{ attributes: { title: 'Category', slug: 'category' } }}
@@ -1029,16 +1293,14 @@ const Showcase = () => {
             />
             <ProductCard
               linkHref="#"
-              imageUrl="/card-example.jpg"
-              imageAlt="Example image for card"
+              image={image}
               title="Product card"
               price={500_011_656_161}
               border={cardsBorder}
             />
             <ProductCard
               linkHref="#"
-              imageUrl="/card-example.jpg"
-              imageAlt="Example image for card"
+              image={image}
               title="Product card"
               showAddToCartButton
               onAddToCartPress={() => {}}
@@ -1050,8 +1312,7 @@ const Showcase = () => {
               title="Headline"
               subtitle="Subtitle"
               linkHref="#"
-              imageUrl="/card-example.jpg"
-              imageAlt="Example image for card"
+              image={image}
               border={cardsBorder}
             />
             <FaqThemeCard border={cardsBorder} title="Faq card" subtitle="Subtitle" linkHref="" />
@@ -1061,16 +1322,9 @@ const Showcase = () => {
               openingHoursText="09:00 – 18:00"
               linkHref="#"
             />
-            <PartnerCard
-              title="Partner name"
-              linkHref="#"
-              imageUrl="/card-example.jpg"
-              imageAlt="Example image for card"
-              border={cardsBorder}
-            />
+            <PartnerCard title="Partner name" linkHref="#" image={image} border={cardsBorder} />
             <BundleCard
-              imageUrl="/card-example.jpg"
-              imageAlt="Example image for card"
+              image={image}
               name="Package name"
               priceFrom={1999}
               claims={[
@@ -1083,6 +1337,52 @@ const Showcase = () => {
               border={cardsBorder}
             />
           </div>
+        </Wrapper>
+
+        <Wrapper title="Richtext">
+          <RichText data={richTextStringified} />
+        </Wrapper>
+
+        <div className="h-64" />
+
+        <Wrapper title="Section coloring">
+          <Stack direction="row">
+            {dummySectionWrappers.map(
+              ({ alternateBackground, startBackground, background, count }) => (
+                <div className="p-4">
+                  <div className="p-4">
+                    <div className="flex w-full justify-between gap-4">
+                      <div className="font-semibold">alternateBackground</div>
+                      <div>{alternateBackground ? 'true' : 'false'}</div>
+                    </div>
+                    <div className="flex w-full justify-between gap-4">
+                      <div className="font-semibold">startBackground</div>
+                      <div>{startBackground ?? 'undefined'}</div>
+                    </div>
+                    <div className="flex w-full justify-between gap-4">
+                      <div className="font-semibold">background</div>
+                      <div>{background ?? 'undefined'}</div>
+                    </div>
+                    <div className="flex w-full justify-between gap-4">
+                      <div className="font-semibold">count</div>
+                      <div>{count}</div>
+                    </div>
+                  </div>
+                  <SectionsWrapper
+                    alternateBackground={alternateBackground}
+                    startBackground={startBackground}
+                    background={background}
+                  >
+                    {Array.from({ length: count }, (item, index) => (
+                      <Section index={index} key={index}>
+                        <div className="p-4">Section {index + 1}</div>
+                      </Section>
+                    ))}
+                  </SectionsWrapper>
+                </div>
+              ),
+            )}
+          </Stack>
         </Wrapper>
       </div>
     </div>

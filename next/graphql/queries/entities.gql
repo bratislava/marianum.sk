@@ -91,6 +91,40 @@ fragment ContactEntity on ContactEntity {
   }
 }
 
+fragment DocumentCategoryEntity on DocumentCategoryEntity {
+  id
+  attributes {
+    title
+    slug
+  }
+}
+
+fragment DocumentCardEntity on DocumentEntity {
+  id
+  attributes {
+    title
+    slug
+    publishedAt
+    documentCategory {
+      data {
+        ...DocumentCategoryEntity
+      }
+    }
+    file {
+      data {
+        ...UploadFileEntity
+      }
+    }
+  }
+}
+
+fragment DocumentEntity on DocumentEntity {
+  ...DocumentCardEntity
+  attributes {
+    description
+  }
+}
+
 fragment PartnerEntity on PartnerEntity {
   id
   attributes {
@@ -192,19 +226,7 @@ fragment PageEntity on PageEntity {
       }
       ... on ComponentSectionsDocumentGroup {
         __typename
-        id
-        title
-        documents {
-          document {
-            data {
-              # TODO replace by fragment
-              id
-              attributes {
-                title
-              }
-            }
-          }
-        }
+        ...DocumentGroup
       }
       ... on ComponentSectionsGallery {
         __typename
