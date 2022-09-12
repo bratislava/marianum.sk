@@ -10,19 +10,20 @@
     "address": {
       "type": "text"
     },
-    "featuredOpeningHours": {
-      "type": "string"
-    },
-    "openingHoursLink": {
-      "type": "string"
+    "openingHoursPage": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
     },
     "contact": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::contact.contact"
     },
-    "contactsLink": {
-      "type": "string"
+    "contactsPage": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
     },
     "latitude": {
       "type": "string"

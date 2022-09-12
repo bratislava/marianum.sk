@@ -22,8 +22,9 @@ const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
           key={slug}
           title={title}
           category={documentCategory?.data}
-          // TODO add proper path
-          link={slug ? `/documents/${slug}` : '#'}
+          // TODO link: add proper path
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+          linkHref={slug ? `/documents/${slug}` : '#'}
           button={
             file.data?.attributes?.url ? (
               <Button

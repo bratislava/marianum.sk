@@ -19,28 +19,22 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
   return (
     <Section title={title} {...rest} cardGrid button={showMoreButton}>
       {filteredPages?.map((page) => {
-        const { id, attributes } = page || {}
+        const { id, attributes } = page ?? {}
+        const { title: cardTitle, slug, coverMedia, perex } = attributes ?? {}
 
         if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
-          return (
-            <CategoryCard
-              key={id}
-              title={attributes?.title ?? ''}
-              linkHref={attributes?.slug ?? '#'}
-              border
-            />
-          )
+          return <CategoryCard key={id} title={cardTitle ?? ''} linkHref={slug ?? '#'} border />
         }
 
         if (style === Enum_Componentsectionsmanuallisting_Style.Service) {
           return (
             <ServiceCard
               key={id}
-              title={attributes?.title ?? ''}
-              linkHref={attributes?.slug ?? '#'}
+              title={cardTitle ?? ''}
+              linkHref={slug ?? '#'}
               border
-              image={attributes?.coverMedia?.data?.attributes}
-              subtitle={attributes?.perex}
+              image={coverMedia?.data?.attributes}
+              subtitle={perex}
             />
           )
         }

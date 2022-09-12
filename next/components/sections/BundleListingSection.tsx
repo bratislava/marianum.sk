@@ -18,20 +18,21 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
   return (
     <Section title={title} description={description} {...rest} cardGrid button={showMoreButton}>
       {filteredBundles?.map((bundle) => {
-        const { id, attributes } = bundle || {}
+        const { id, attributes } = bundle ?? {}
+        const { title: bundleTitle, coverMedia, price, bundleContent, slug } = attributes ?? {}
 
         return (
           <BundleCard
             key={id}
-            image={attributes?.coverMedia?.data?.attributes}
-            name={attributes?.title ?? ''}
-            priceFrom={attributes?.price ?? 0}
+            image={coverMedia?.data?.attributes}
+            name={bundleTitle ?? ''}
+            priceFrom={price ?? 0}
             claims={
-              attributes?.bundleContent
+              bundleContent
                 ?.map((bundleContentItem) => bundleContentItem?.description)
                 .filter(isDefined) ?? []
             }
-            linkHref={attributes?.slug ?? ''}
+            linkHref={slug ?? ''}
             border
           />
         )

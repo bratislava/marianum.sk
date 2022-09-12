@@ -17,6 +17,8 @@ const HomepageProcedures = ({
   showMoreButton,
   ...rest
 }: HomepagePoceduresProps) => {
+  const showMoreSlug = showMoreButton?.page?.data?.attributes?.slug
+
   return (
     <Section {...rest}>
       <div className="text-center lg:mx-32">
@@ -42,14 +44,9 @@ const HomepageProcedures = ({
             </Tab>
           ))}
         </Tabs>
-        {showMoreButton?.url && (
+        {showMoreSlug && (
           <div className="mt-8">
-            <MLink
-              href={showMoreButton.url}
-              target={showMoreButton.targetBlank ? '_blank' : '_self'}
-            >
-              {showMoreButton.label}
-            </MLink>
+            <MLink href={showMoreSlug}>{showMoreButton.label}</MLink>
           </div>
         )}
       </div>

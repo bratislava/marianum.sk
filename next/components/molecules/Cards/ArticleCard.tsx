@@ -48,7 +48,7 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
               •{' '}
               <MLink
                 noStyles // TODO link
-                href={category.attributes.slug ?? ''}
+                href={category.attributes.slug}
                 className="underline"
                 ref={categoryHoverRef}
               >

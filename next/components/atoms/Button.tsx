@@ -1,7 +1,6 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { LinkButtonProps } from '@react-types/button'
 import cx from 'classnames'
-import * as React from 'react'
 import { forwardRef, ReactNode, Ref, RefObject } from 'react'
 import { AriaButtonProps, useButton } from 'react-aria'
 
@@ -28,15 +27,21 @@ type ButtonBase = {
  *  This part makes the component return `HTMLAnchorElement` ref when `href` if provided and `HTMLButtonElement` when it's not.
  *  https://github.com/typescript-cheatsheets/react/issues/167#issuecomment-751347673
  */
-type ButtonProps = Omit<AriaButtonProps<'button'>, keyof LinkButtonProps> &
-  ButtonBase & { ref?: Ref<HTMLButtonElement>; href?: undefined }
-type AnchorProps = AriaButtonProps<'a'> &
+export type ButtonProps = Omit<AriaButtonProps<'button'>, keyof LinkButtonProps> &
+  ButtonBase & {
+    ref?: Ref<HTMLButtonElement>
+    href?: undefined
+    suffix?: undefined
+  }
+export type AnchorProps = AriaButtonProps<'a'> &
   ButtonBase & {
     ref?: Ref<HTMLAnchorElement>
     href: string
+    suffix?: string
   }
 
-type PolymorphicProps = ButtonProps | AnchorProps
+export type PolymorphicProps = ButtonProps | AnchorProps
+
 type PolymorphicButton = {
   (props: AnchorProps): JSX.Element
   (props: ButtonProps): JSX.Element
@@ -129,6 +134,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
         <MLink
           ref={ref as RefObject<HTMLAnchorElement>}
           href={rest.href}
+          suffix={rest.suffix}
           tabIndex={tabIndex}
           noArrow
           noStyles

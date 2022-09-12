@@ -10,6 +10,7 @@ import Section from '../molecules/Section'
 import HeroSection from '../sections/HeroSection'
 import NewsListing from '../sections/NewsListing'
 import PageWrapper from './PageWrapper'
+import SectionsWrapper from './SectionsWrapper'
 
 type ArticleLayoutProps = {
   navigation: NavigationItemFragment[]
@@ -31,7 +32,8 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
       general={general}
       header={<HeroSection image={coverMedia?.data} breadcrumbs={breadcrumbs} />}
     >
-      <div
+      <SectionsWrapper
+        isContainer
         className={cx('h-full bg-white', {
           // Compensate image overlap
           'pt-18': coverMedia?.data,
@@ -50,10 +52,12 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
           {children}
         </div>
 
-        <Section isContainer title={t('layouts.ArticleLayout.moreNews')}>
+        {/* TODO index is added manually to add padding that compensates the footer overlap
+         * This should be done automatically */}
+        <Section index={1} title={t('layouts.ArticleLayout.moreNews')}>
           <NewsListing />
         </Section>
-      </div>
+      </SectionsWrapper>
     </PageWrapper>
   )
 }

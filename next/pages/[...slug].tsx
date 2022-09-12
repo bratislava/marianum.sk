@@ -106,9 +106,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             )
           }
           if (section?.__typename === 'ComponentSectionsContactGroup') {
-            return (
-              section && <ContactsSection index={index} isContainer={isContainer} {...section} />
-            )
+            return section && <ContactsSection index={index} {...section} />
           }
           if (section?.__typename === 'ComponentSectionsDocumentGroup') {
             return (

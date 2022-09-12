@@ -1,8 +1,9 @@
 import cx from 'classnames'
 import NextLink from 'next/link'
-import { ComponentProps, forwardRef, ReactNode } from 'react'
+import { ComponentProps, forwardRef, ReactNode, useContext } from 'react'
 
 import ArrowRightIcon from '../../assets/arrow_forward.svg'
+import { NavigationContext } from '../layouts/NavigationProvider'
 
 export type LinkProps = Omit<ComponentProps<typeof NextLink>, 'as' | 'passHref'> & {
   children: ReactNode
@@ -10,9 +11,10 @@ export type LinkProps = Omit<ComponentProps<typeof NextLink>, 'as' | 'passHref'>
   noArrow?: boolean
   noStyles?: boolean
   className?: string
+  suffix?: string
 }
 
-const Link = forwardRef<HTMLAnchorElement, LinkProps>(
+const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
   (
     {
       href,
@@ -26,13 +28,20 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       noArrow = false,
       noStyles = false,
       className,
+      suffix,
       ...rest
     },
     ref,
   ) => {
+    const { navMap } = useContext(NavigationContext)
+
+    const wholeHref = `${navMap.get(href.toString()) ?? href.toString()}${
+      suffix ? (suffix.startsWith('/') ? suffix : `/${suffix}`) : ''
+    }`
+
     return (
       <NextLink
-        href={href}
+        href={wholeHref}
         replace={replace}
         scroll={scroll}
         shallow={shallow}
@@ -65,4 +74,4 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   },
 )
 
-export default Link
+export default MLink

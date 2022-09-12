@@ -1,7 +1,8 @@
 {
   "general": {
     "showMore": "Show more",
-    "goToSlide": "Go to slide {{number}}"
+    "goToSlide": "Go to slide {{number}}",
+    "or": "or"
   },
   "components": {
     "molecules": {

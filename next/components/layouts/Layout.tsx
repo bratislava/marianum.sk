@@ -33,7 +33,7 @@ const Layout = ({ page, navigation, children, general }: LayoutProps) => {
           <HeroSection
             title={page.attributes?.title}
             perex={page.attributes?.perex}
-            cta={page.attributes?.ctaButton}
+            ctaButton={page.attributes?.ctaButton}
             breadcrumbs={breadcrumbs}
           />
         ) : (
