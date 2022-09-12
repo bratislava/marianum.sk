@@ -3795,7 +3795,7 @@ export const DocumentBySlugDocument = gql`
     ${DocumentEntityFragmentDoc}`;
 export const ArticlesStaticPathsDocument = gql`
     query ArticlesStaticPaths($locale: I18NLocaleCode) {
-  articles(locale: $locale) {
+  articles(locale: $locale, pagination: {limit: 10000}) {
     data {
       id
       attributes {
@@ -3808,7 +3808,7 @@ export const ArticlesStaticPathsDocument = gql`
     `;
 export const PagesStaticPathsDocument = gql`
     query PagesStaticPaths($locale: I18NLocaleCode) {
-  pages(locale: $locale) {
+  pages(locale: $locale, pagination: {limit: 10000}) {
     data {
       id
       attributes {
@@ -3821,7 +3821,7 @@ export const PagesStaticPathsDocument = gql`
     `;
 export const BranchesStaticPathsDocument = gql`
     query BranchesStaticPaths($locale: I18NLocaleCode) {
-  branches(locale: $locale) {
+  branches(locale: $locale, pagination: {limit: 10000}) {
     data {
       id
       attributes {
@@ -3834,7 +3834,7 @@ export const BranchesStaticPathsDocument = gql`
     `;
 export const BundlesStaticPathsDocument = gql`
     query BundlesStaticPaths($locale: I18NLocaleCode) {
-  bundles(locale: $locale) {
+  bundles(locale: $locale, pagination: {limit: 10000}) {
     data {
       id
       attributes {
@@ -3847,7 +3847,7 @@ export const BundlesStaticPathsDocument = gql`
     `;
 export const DocumentsStaticPathsDocument = gql`
     query DocumentsStaticPaths {
-  documents {
+  documents(pagination: {limit: 10000}) {
     data {
       id
       attributes {
