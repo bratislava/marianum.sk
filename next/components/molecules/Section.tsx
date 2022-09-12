@@ -8,7 +8,6 @@ import { BackgroundColor, sectionContext } from '../layouts/SectionsWrapper'
 export type SectionProps = {
   children: ReactNode
   index?: number
-  isContainer?: boolean
   background?: BackgroundColor
   cardGrid?: boolean
   title?: string | null | undefined
@@ -20,13 +19,12 @@ const Section = ({
   children,
   background,
   index = 0,
-  isContainer = false,
   cardGrid = false,
   title,
   button,
   description,
 }: SectionProps) => {
-  const { getBackground, getDivider, getLast } = useContext(sectionContext)
+  const { getBackground, getDivider, getLast, isContainer } = useContext(sectionContext)
 
   const resultBackground = useMemo(() => {
     return background ?? getBackground(index)

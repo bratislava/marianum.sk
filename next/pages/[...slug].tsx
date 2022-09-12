@@ -40,6 +40,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
   return (
     <Layout page={page} navigation={navigation} general={general}>
       <SectionsWrapper
+        isContainer={isContainer}
         alternateBackground={isContainer}
         startBackground="light"
         className="gap-y-6 sm:gap-y-8"
@@ -51,7 +52,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               <Section
                 index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer={isContainer}
                 title={section.title}
               >
                 <ProcedureTabs />
@@ -63,7 +63,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               <RichTextSection
                 index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer={isContainer}
                 content={section.content}
               />
             )
@@ -73,7 +72,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               <Section
                 index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer={isContainer}
                 title={section.title}
               >
                 <AccordionGroup>
@@ -92,7 +90,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               <Section
                 index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer={isContainer}
                 title={section.title}
               >
                 <BranchGroup {...section} />
@@ -104,7 +101,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               <BundleListingSection
                 index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer={isContainer}
                 section={section}
               />
             )
@@ -119,7 +115,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               <Section
                 index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer={isContainer}
                 title={section.title}
               >
                 <DocumentGroup {...section} />
@@ -130,7 +125,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             return (
               <PartnersSection
                 index={index}
-                isContainer={isContainer}
                 key={`${section.__typename}-${section.id}`}
                 featuredTitle={section.featuredPartnersTitle}
                 otherTitle={section.otherPartnersTitle}
@@ -141,7 +135,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             return (
               <ImageGallerySection
                 index={index}
-                isContainer={isContainer}
                 key={`${section.__typename}-${section.id}`}
                 title={section.title}
                 images={section.medias?.data}
@@ -154,7 +147,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               <MenuListingSection
                 index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer={isContainer}
                 title={section.title}
                 slug={section.slug}
                 navigation={navigation}
@@ -166,7 +158,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               <CardSection
                 index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer={isContainer}
                 section={section}
               />
             )
@@ -176,7 +167,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               <Section
                 index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer={isContainer}
                 title={section.title}
               >
                 <NewsListing />

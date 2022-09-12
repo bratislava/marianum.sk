@@ -34,7 +34,6 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
               <CardSection
                 index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer
                 section={section}
               />
             )
@@ -44,7 +43,6 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
               <Section
                 index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer
                 title={section.title}
               >
                 <NewsListing />
@@ -53,7 +51,7 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           }
           if (section?.__typename === 'ComponentSectionsCeremoniesSection') {
             return (
-              <Section index={index} key={`${section.__typename}-${section.id}`} isContainer>
+              <Section index={index} key={`${section.__typename}-${section.id}`}>
                 {/* TODO */}
                 ceremonies listing
               </Section>
@@ -70,7 +68,6 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
                 index={index}
                 key={`${__typename}-${id}`}
                 title={title}
-                isContainer
                 procedures={proceduresArr}
                 showMoreButton={showMoreButton}
               />
@@ -81,7 +78,6 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
               <Section
                 index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer
                 title={section.title}
               >
                 <CtaGroup {...section} />
@@ -90,7 +86,7 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           }
           if (section?.__typename === 'ComponentSectionsReviewsSection') {
             return (
-              <Section index={index} key={`${section.__typename}-${section.id}`} isContainer>
+              <Section index={index} key={`${section.__typename}-${section.id}`}>
                 {/* TODO */}
                 reviews section
               </Section>

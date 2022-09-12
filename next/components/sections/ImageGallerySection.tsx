@@ -23,8 +23,7 @@ const ImageGallerySection = ({
   images = [],
   variant = 'bellow',
   ...rest
-}: Pick<SectionProps, 'title' | 'isContainer' | 'background' | 'index'> &
-  ImageGallerySectionProps) => {
+}: Pick<SectionProps, 'title' | 'background' | 'index'> & ImageGallerySectionProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'sections.ImageGallerySection' })
 
   // all images count

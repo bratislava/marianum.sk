@@ -4,7 +4,7 @@ import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
 import ServiceCard from '../molecules/Cards/ServiceCard'
 import Section, { SectionProps } from '../molecules/Section'
 
-type CardSectionProps = Pick<SectionProps, 'isContainer' | 'background' | 'index'> & {
+type CardSectionProps = Pick<SectionProps, 'background' | 'index'> & {
   section: ManualListingFragment
 }
 

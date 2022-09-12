@@ -6,12 +6,14 @@ type SectionContextValue = {
   getBackground: (index: number) => BackgroundColor
   getDivider: (index: number) => boolean
   getLast: (index: number) => boolean
+  isContainer: boolean
 }
 
 export const sectionContext = createContext<SectionContextValue>({
   getBackground: () => 'light',
   getDivider: () => false,
   getLast: () => false,
+  isContainer: false,
 })
 
 export type SectionsWrapperProps = {
@@ -19,6 +21,7 @@ export type SectionsWrapperProps = {
   alternateBackground?: boolean
   startBackground?: BackgroundColor
   background?: BackgroundColor
+  isContainer?: boolean
 } & HTMLProps<HTMLDivElement>
 
 const SectionsWrapper = ({
@@ -26,6 +29,7 @@ const SectionsWrapper = ({
   alternateBackground = false,
   startBackground = 'light',
   background = 'light',
+  isContainer = false,
   ...rest
 }: SectionsWrapperProps) => {
   const sectionCount = useMemo(() => (Array.isArray(children) ? children.length : 1), [children])
@@ -75,8 +79,9 @@ const SectionsWrapper = ({
       getBackground,
       getDivider,
       getLast,
+      isContainer,
     }),
-    [getBackground, getDivider, getLast],
+    [getBackground, getDivider, getLast, isContainer],
   )
 
   return (

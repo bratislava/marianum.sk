@@ -16,7 +16,7 @@ const PartnersSection = ({
   featuredTitle,
   otherTitle,
   ...rest
-}: Pick<SectionProps, 'isContainer' | 'background' | 'index'> & PartnersSectionProps) => {
+}: Pick<SectionProps, 'background' | 'index'> & PartnersSectionProps) => {
   const { data, error } = useSWR('Partners', () => client.Partners())
 
   const filteredPartners = useMemo(() => {
