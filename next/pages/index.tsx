@@ -7,6 +7,7 @@ import SectionsWrapper from '../components/layouts/SectionsWrapper'
 import CtaGroup from '../components/molecules/CtaGroup'
 import Section from '../components/molecules/Section'
 import CardSection from '../components/sections/CardSection'
+import HomepageCeremoniesListing from '../components/sections/HomepageCeremoniesListing'
 import HomepageProcedures from '../components/sections/HomepageProcedures'
 import HomepageSlider from '../components/sections/HomepageSlider'
 import NewsListing from '../components/sections/NewsListing'
@@ -51,10 +52,11 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           }
           if (section?.__typename === 'ComponentSectionsCeremoniesSection') {
             return (
-              <Section index={index} key={`${section.__typename}-${section.id}`}>
-                {/* TODO */}
-                ceremonies listing
-              </Section>
+              <HomepageCeremoniesListing
+                index={index}
+                key={`${section.__typename}-${section.id}`}
+                section={section}
+              />
             )
           }
           if (section?.__typename === 'ComponentSectionsProceduresShortSection') {

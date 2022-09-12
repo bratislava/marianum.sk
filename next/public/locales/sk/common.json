@@ -54,6 +54,9 @@
       "aria": {
         "openImageGallery": "Otvoriť galériu obrázkov"
       }
+    },
+    "CeremoniesSection": {
+      "noCeremonies": "Žiadne obrady na zobrazenie."
     }
   },
   "layouts": {

@@ -288,3 +288,12 @@ fragment ProceduresEntity on ProcedureEntity {
     }
   }
 }
+
+fragment ComponentSectionsCeremoniesSection on ComponentSectionsCeremoniesSection {
+  __typename
+  id
+  title
+  showMoreButton {
+    ...CtaButton
+  }
+}
