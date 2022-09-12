@@ -10,7 +10,7 @@ const CtaGroup = ({ ctas }: CtaSectionFragment) => {
       {filteredCtas?.map(({ title, description, button }) => {
         const ctaSlug = button?.page?.data?.attributes?.slug
         return (
-          <div className="bg-primary px-4 py-8 text-white md:p-12" key={ctaSlug}>
+          <div className="bg-primary px-4 py-8 text-white md:p-12" key={title}>
             <div className="text-h3 font-bold">{title}</div>
             {description && <p className="mt-4 opacity-72">{description}</p>}
             {ctaSlug && (

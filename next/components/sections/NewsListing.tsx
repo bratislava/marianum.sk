@@ -35,6 +35,7 @@ const NewsListing = () => {
 
         return (
           <ArticleCard
+            key={slug}
             title={title}
             image={coverMedia.data?.attributes}
             date={publishedAt}
