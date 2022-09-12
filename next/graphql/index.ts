@@ -172,6 +172,8 @@ export type BooleanFilterInput = {
 export type Branch = {
   __typename?: 'Branch';
   address?: Maybe<Scalars['String']>;
+  allowInCeremonies: Scalars['Boolean'];
+  allowInDebtors: Scalars['Boolean'];
   cemeteryType?: Maybe<Enum_Branch_Cemeterytype>;
   contact?: Maybe<ContactEntityResponse>;
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -220,6 +222,8 @@ export type BranchEntityResponseCollection = {
 
 export type BranchFiltersInput = {
   address?: InputMaybe<StringFilterInput>;
+  allowInCeremonies?: InputMaybe<BooleanFilterInput>;
+  allowInDebtors?: InputMaybe<BooleanFilterInput>;
   and?: InputMaybe<Array<InputMaybe<BranchFiltersInput>>>;
   cemeteryType?: InputMaybe<StringFilterInput>;
   contact?: InputMaybe<ContactFiltersInput>;
@@ -240,6 +244,8 @@ export type BranchFiltersInput = {
 
 export type BranchInput = {
   address?: InputMaybe<Scalars['String']>;
+  allowInCeremonies?: InputMaybe<Scalars['Boolean']>;
+  allowInDebtors?: InputMaybe<Scalars['Boolean']>;
   cemeteryType?: InputMaybe<Enum_Branch_Cemeterytype>;
   contact?: InputMaybe<Scalars['ID']>;
   description?: InputMaybe<Scalars['String']>;
@@ -343,6 +349,62 @@ export type BundleInput = {
 export type BundleRelationResponseCollection = {
   __typename?: 'BundleRelationResponseCollection';
   data: Array<BundleEntity>;
+};
+
+export type Ceremony = {
+  __typename?: 'Ceremony';
+  birthYear?: Maybe<Scalars['String']>;
+  branch?: Maybe<BranchEntityResponse>;
+  company?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  dateTime: Scalars['DateTime'];
+  name?: Maybe<Scalars['String']>;
+  officiantProvidedBy?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type CeremonyEntity = {
+  __typename?: 'CeremonyEntity';
+  attributes?: Maybe<Ceremony>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type CeremonyEntityResponse = {
+  __typename?: 'CeremonyEntityResponse';
+  data?: Maybe<CeremonyEntity>;
+};
+
+export type CeremonyEntityResponseCollection = {
+  __typename?: 'CeremonyEntityResponseCollection';
+  data: Array<CeremonyEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type CeremonyFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<CeremonyFiltersInput>>>;
+  birthYear?: InputMaybe<StringFilterInput>;
+  branch?: InputMaybe<BranchFiltersInput>;
+  company?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  dateTime?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<CeremonyFiltersInput>;
+  officiantProvidedBy?: InputMaybe<StringFilterInput>;
+  or?: InputMaybe<Array<InputMaybe<CeremonyFiltersInput>>>;
+  type?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type CeremonyInput = {
+  birthYear?: InputMaybe<Scalars['String']>;
+  branch?: InputMaybe<Scalars['ID']>;
+  company?: InputMaybe<Scalars['String']>;
+  dateTime?: InputMaybe<Scalars['DateTime']>;
+  name?: InputMaybe<Scalars['String']>;
+  officiantProvidedBy?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentBlocksAccordionItem = {
@@ -1011,6 +1073,65 @@ export type DateTimeFilterInput = {
   startsWith?: InputMaybe<Scalars['DateTime']>;
 };
 
+export type Debtor = {
+  __typename?: 'Debtor';
+  birthDate?: Maybe<Scalars['String']>;
+  branch?: Maybe<BranchEntityResponse>;
+  cemetery?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  deathDate?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  graveNumber?: Maybe<Scalars['String']>;
+  graveSection?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type DebtorEntity = {
+  __typename?: 'DebtorEntity';
+  attributes?: Maybe<Debtor>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type DebtorEntityResponse = {
+  __typename?: 'DebtorEntityResponse';
+  data?: Maybe<DebtorEntity>;
+};
+
+export type DebtorEntityResponseCollection = {
+  __typename?: 'DebtorEntityResponseCollection';
+  data: Array<DebtorEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type DebtorFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<DebtorFiltersInput>>>;
+  birthDate?: InputMaybe<StringFilterInput>;
+  branch?: InputMaybe<BranchFiltersInput>;
+  cemetery?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  deathDate?: InputMaybe<StringFilterInput>;
+  firstName?: InputMaybe<StringFilterInput>;
+  graveNumber?: InputMaybe<StringFilterInput>;
+  graveSection?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  lastName?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<DebtorFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<DebtorFiltersInput>>>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type DebtorInput = {
+  birthDate?: InputMaybe<Scalars['String']>;
+  branch?: InputMaybe<Scalars['ID']>;
+  cemetery?: InputMaybe<Scalars['String']>;
+  deathDate?: InputMaybe<Scalars['String']>;
+  firstName?: InputMaybe<Scalars['String']>;
+  graveNumber?: InputMaybe<Scalars['String']>;
+  graveSection?: InputMaybe<Scalars['String']>;
+  lastName?: InputMaybe<Scalars['String']>;
+};
+
 export type Document = {
   __typename?: 'Document';
   createdAt?: Maybe<Scalars['DateTime']>;
@@ -1216,7 +1337,7 @@ export type GeneralRelationResponseCollection = {
   data: Array<GeneralEntity>;
 };
 
-export type GenericMorph = Article | ArticleCategory | Branch | Bundle | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSidepanel | ComponentBlocksSimpleCtaItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDocumentGroup | ComponentSectionsGallery | ComponentSectionsManualListing | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewsSection | ComponentSectionsRichtext | Contact | Document | DocumentCategory | General | HomePage | I18NLocale | Page | Partner | Procedure | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Article | ArticleCategory | Branch | Bundle | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSidepanel | ComponentBlocksSimpleCtaItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDocumentGroup | ComponentSectionsGallery | ComponentSectionsManualListing | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewsSection | ComponentSectionsRichtext | Contact | Debtor | Document | DocumentCategory | General | HomePage | I18NLocale | Page | Partner | Procedure | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -1377,8 +1498,10 @@ export type Mutation = {
   createBranchLocalization?: Maybe<BranchEntityResponse>;
   createBundle?: Maybe<BundleEntityResponse>;
   createBundleLocalization?: Maybe<BundleEntityResponse>;
+  createCeremony?: Maybe<CeremonyEntityResponse>;
   createContact?: Maybe<ContactEntityResponse>;
   createContactLocalization?: Maybe<ContactEntityResponse>;
+  createDebtor?: Maybe<DebtorEntityResponse>;
   createDocument?: Maybe<DocumentEntityResponse>;
   createDocumentCategory?: Maybe<DocumentCategoryEntityResponse>;
   createGeneralLocalization?: Maybe<GeneralEntityResponse>;
@@ -1397,7 +1520,9 @@ export type Mutation = {
   deleteArticleCategory?: Maybe<ArticleCategoryEntityResponse>;
   deleteBranch?: Maybe<BranchEntityResponse>;
   deleteBundle?: Maybe<BundleEntityResponse>;
+  deleteCeremony?: Maybe<CeremonyEntityResponse>;
   deleteContact?: Maybe<ContactEntityResponse>;
+  deleteDebtor?: Maybe<DebtorEntityResponse>;
   deleteDocument?: Maybe<DocumentEntityResponse>;
   deleteDocumentCategory?: Maybe<DocumentCategoryEntityResponse>;
   deleteGeneral?: Maybe<GeneralEntityResponse>;
@@ -1426,7 +1551,9 @@ export type Mutation = {
   updateArticleCategory?: Maybe<ArticleCategoryEntityResponse>;
   updateBranch?: Maybe<BranchEntityResponse>;
   updateBundle?: Maybe<BundleEntityResponse>;
+  updateCeremony?: Maybe<CeremonyEntityResponse>;
   updateContact?: Maybe<ContactEntityResponse>;
+  updateDebtor?: Maybe<DebtorEntityResponse>;
   updateDocument?: Maybe<DocumentEntityResponse>;
   updateDocumentCategory?: Maybe<DocumentCategoryEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
@@ -1496,6 +1623,11 @@ export type MutationCreateBundleLocalizationArgs = {
 };
 
 
+export type MutationCreateCeremonyArgs = {
+  data: CeremonyInput;
+};
+
+
 export type MutationCreateContactArgs = {
   data: ContactInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -1506,6 +1638,11 @@ export type MutationCreateContactLocalizationArgs = {
   data?: InputMaybe<ContactInput>;
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationCreateDebtorArgs = {
+  data: DebtorInput;
 };
 
 
@@ -1601,9 +1738,19 @@ export type MutationDeleteBundleArgs = {
 };
 
 
+export type MutationDeleteCeremonyArgs = {
+  id: Scalars['ID'];
+};
+
+
 export type MutationDeleteContactArgs = {
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationDeleteDebtorArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -1730,10 +1877,22 @@ export type MutationUpdateBundleArgs = {
 };
 
 
+export type MutationUpdateCeremonyArgs = {
+  data: CeremonyInput;
+  id: Scalars['ID'];
+};
+
+
 export type MutationUpdateContactArgs = {
   data: ContactInput;
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+
+export type MutationUpdateDebtorArgs = {
+  data: DebtorInput;
+  id: Scalars['ID'];
 };
 
 
@@ -2045,8 +2204,12 @@ export type Query = {
   branches?: Maybe<BranchEntityResponseCollection>;
   bundle?: Maybe<BundleEntityResponse>;
   bundles?: Maybe<BundleEntityResponseCollection>;
+  ceremonies?: Maybe<CeremonyEntityResponseCollection>;
+  ceremony?: Maybe<CeremonyEntityResponse>;
   contact?: Maybe<ContactEntityResponse>;
   contacts?: Maybe<ContactEntityResponseCollection>;
+  debtor?: Maybe<DebtorEntityResponse>;
+  debtors?: Maybe<DebtorEntityResponseCollection>;
   document?: Maybe<DocumentEntityResponse>;
   documentCategories?: Maybe<DocumentCategoryEntityResponseCollection>;
   documentCategory?: Maybe<DocumentCategoryEntityResponse>;
@@ -2130,6 +2293,18 @@ export type QueryBundlesArgs = {
 };
 
 
+export type QueryCeremoniesArgs = {
+  filters?: InputMaybe<CeremonyFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryCeremonyArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
 export type QueryContactArgs = {
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -2139,6 +2314,18 @@ export type QueryContactArgs = {
 export type QueryContactsArgs = {
   filters?: InputMaybe<ContactFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryDebtorArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryDebtorsArgs = {
+  filters?: InputMaybe<DebtorFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };

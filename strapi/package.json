@@ -7,9 +7,9 @@
     "dev": "yarn develop",
     "develop": "cross-env ENV_PATH='./.env.local' strapi develop",
     "start": "strapi start",
-    "build": "strapi build",
+    "build": "yarn --cwd ./src/plugins/ceremonies-debtor-list/ build && strapi build",
     "strapi": "strapi",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package && yarn --cwd ./src/plugins/ceremonies-debtor-list/ install"
   },
   "devDependencies": {},
   "dependencies": {
