@@ -26,7 +26,7 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
     <PageWrapper navigation={navigation} general={general}>
       <HomepageSlider slides={page.attributes?.featured?.filter(isDefined)} />
 
-      <SectionsWrapper alternateBackground startBackground="dark">
+      <SectionsWrapper alternateBackground startBackground="dark" isContainer>
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
         {page.attributes?.sections?.map((section, index) => {
           if (section?.__typename === 'ComponentSectionsManualListing') {

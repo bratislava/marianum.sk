@@ -43,6 +43,7 @@ const Section = ({
       className={cx('relative', {
         'bg-background-beige': resultBackground === 'dark',
         'bg-white': resultBackground === 'light',
+        'not-first:mt-6 not-first:md:mt-8': !isContainer,
       })}
     >
       {/* border displayed only when two last sections are same beige color */}

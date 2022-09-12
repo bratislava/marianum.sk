@@ -10,7 +10,7 @@ type SectionContextValue = {
 }
 
 export const sectionContext = createContext<SectionContextValue>({
-  getBackground: () => 'light',
+  getBackground: () => 'dark',
   getDivider: () => false,
   getLast: () => false,
   isContainer: false,
@@ -28,7 +28,7 @@ const SectionsWrapper = ({
   children,
   alternateBackground = false,
   startBackground = 'light',
-  background = 'light',
+  background = 'dark',
   isContainer = false,
   ...rest
 }: SectionsWrapperProps) => {
