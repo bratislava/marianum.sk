@@ -1,17 +1,18 @@
 import { KeyboardEvent, useCallback, useEffect, useState } from 'react'
 
 import SearchIcon from '../../assets/search.svg'
-import XIcon from '../../assets/x-alt.svg'
+import XIcon from '../../assets/x.svg'
+import XAltIcon from '../../assets/x-alt.svg'
 import TextField from '../atoms/TextField'
 
 type SearchProps = {
   value?: string
   placeholder?: string
-  className?: string
   inputClassName?: string
   onChange?: (value: string) => void
   onSearch?: (value: string) => void
   isLarge?: boolean
+  className?: string
 }
 
 const Search = ({
@@ -78,7 +79,7 @@ const Search = ({
       rightSlot={
         realValue ? (
           <button onClick={clearHandler} type="button" className="p-2">
-            <XIcon />
+            {isLarge ? <XIcon /> : <XAltIcon />}
           </button>
         ) : null
       }
