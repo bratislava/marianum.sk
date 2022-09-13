@@ -38,7 +38,7 @@ import PartnerCard from '../../components/molecules/Cards/PartnerCard'
 import ProductCard from '../../components/molecules/Cards/ProductCard'
 import ServiceCard from '../../components/molecules/Cards/ServiceCard'
 import Checklist from '../../components/molecules/Checklist/Checklist'
-import Row from '../../components/molecules/Row'
+import Row from '../../components/molecules/Row/Row'
 import Search from '../../components/molecules/Search'
 import Section from '../../components/molecules/Section'
 import { UploadFile } from '../../graphql'
@@ -635,7 +635,7 @@ const Showcase = () => {
             <TagToggle>Its</TagToggle>
             <TagToggle>tag</TagToggle>
             <TagToggle>button</TagToggle>
-            <TagToggle isActive>now</TagToggle>
+            <TagToggle isSelected>now</TagToggle>
           </Stack>
         </Wrapper>
 
