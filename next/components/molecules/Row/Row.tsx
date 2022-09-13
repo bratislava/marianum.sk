@@ -2,15 +2,15 @@ import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { Fragment, ReactNode } from 'react'
 
-import ChevronRightIcon from '../../assets/chevron_right.svg'
-import OpenInNewIcon from '../../assets/open_in_new.svg'
-import PlaceIcon from '../../assets/place.svg'
-import { DocumentCategoryEntityFragment } from '../../graphql'
-import { onEnterOrSpaceKeyDown } from '../../utils/onEnterOrSpaceKeyDown'
-import Button from '../atoms/Button'
-import IconButton from '../atoms/IconButton'
-import MLink from '../atoms/MLink'
-import Tag from '../atoms/Tag'
+import ChevronRightIcon from '../../../assets/chevron_right.svg'
+import OpenInNewIcon from '../../../assets/open_in_new.svg'
+import PlaceIcon from '../../../assets/place.svg'
+import { DocumentCategoryEntityFragment } from '../../../graphql'
+import { onEnterOrSpaceKeyDown } from '../../../utils/onEnterOrSpaceKeyDown'
+import Button from '../../atoms/Button'
+import IconButton from '../../atoms/IconButton'
+import MLink from '../../atoms/MLink'
+import Tag from '../../atoms/Tag'
 
 interface IRowProps {
   title: string
@@ -84,7 +84,12 @@ const Row = ({
           >
             {title}
           </h5>
-          {tags.length > 0 && tags.map((tag) => <Tag className="bg-background-beige">{tag}</Tag>)}
+          {tags.length > 0 &&
+            tags.map((tag) => (
+              <Tag key={tag} className="bg-background-beige">
+                {tag}
+              </Tag>
+            ))}
         </div>
 
         <div className="space-x-3 text-sm empty:hidden">
