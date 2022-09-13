@@ -946,7 +946,7 @@ const Showcase = () => {
             <Row
               title="Nazov pozicie"
               metadata={['Metadata', 'Metadata', 'Metadata']}
-              link="#"
+              linkHref="#"
               border={cardsBorder}
             />
             <Row title="Nazov partnera" border={cardsBorder} />
@@ -954,7 +954,7 @@ const Showcase = () => {
               title="Nazov suboru"
               category={{ attributes: { title: 'Kategoria', slug: 'kategoria' } }}
               metadata={['Metadata', 'Metadata', 'Metadata']}
-              link="#"
+              linkHref="#"
               button={
                 <Button variant="tertiary" startIcon={<DownloadIcon />}>
                   Stiahnut
@@ -964,22 +964,22 @@ const Showcase = () => {
             />
             <Row
               title="Hladany termin"
-              link="#"
+              linkHref="#"
               showUrl
               metadata={['Metadata', 'Metadata', 'Metadata']}
               border={cardsBorder}
             />
             <Row
               title="Hladany termin"
-              link="#"
+              linkHref="#"
               showUrl
               tags={['Typ vysledku']}
               border={cardsBorder}
             />
-            <Row title="Nazov partnera" link="#" isExternal border={cardsBorder} />
+            <Row title="Nazov partnera" linkHref="#" isExternal border={cardsBorder} />
             <Row
               title="Nazov pobocky"
-              link="#"
+              linkHref="#"
               address="Adresa"
               arrowInCorner
               moreContent={

@@ -15,6 +15,7 @@ import FormatDate from '../atoms/FormatDate'
 import Section from '../molecules/Section'
 import HeroSection from '../sections/HeroSection'
 import PageWrapper from './PageWrapper'
+import SectionsWrapper from './SectionsWrapper'
 
 type DocumentLayoutProps = {
   navigation: NavigationItemFragment[]
@@ -61,8 +62,8 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
       general={general}
       header={<HeroSection breadcrumbs={breadcrumbs} />}
     >
-      <div className="h-full">
-        <Section isContainer>
+      <SectionsWrapper isContainer>
+        <Section background="light">
           <div className="flex flex-col items-center gap-5 md:flex-row md:items-start md:gap-8">
             <div className="flex h-[96px] w-[96px] items-center justify-center bg-background-beige md:h-[186px] md:w-[186px]">
               {icon}
@@ -82,11 +83,13 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
         </Section>
 
         {/* TODO add left margin to sections below */}
-        <Section isContainer title={t('layouts.DocumentLayout.description')}>
+        <Section title={t('layouts.DocumentLayout.description')}>
           <div className="whitespace-pre-wrap">{description}</div>
         </Section>
 
-        <Section isContainer title={t('layouts.DocumentLayout.details')}>
+        {/* TODO index is added manually to add padding that compensates the footer overlap
+         * This should be done automatically */}
+        <Section index={2} title={t('layouts.DocumentLayout.details')}>
           <dl>
             {dlData.map((dItem) => (
               <Fragment key={slugify(dItem.title)}>
@@ -98,7 +101,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
             ))}
           </dl>
         </Section>
-      </div>
+      </SectionsWrapper>
     </PageWrapper>
   )
 }

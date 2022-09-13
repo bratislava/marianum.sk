@@ -182,6 +182,13 @@ fragment BundleEntity on BundleEntity {
   }
 }
 
+fragment PageSlugEntity on PageEntity {
+  attributes {
+    slug
+    locale
+  }
+}
+
 fragment PageCardEntity on PageEntity {
   id
   attributes {
@@ -261,11 +268,6 @@ fragment PageEntity on PageEntity {
         __typename
         id
         content
-        button {
-          label
-          url
-          targetBlank
-        }
       }
       ... on ComponentSectionsProceduresSection {
         __typename
@@ -284,5 +286,14 @@ fragment ProceduresEntity on ProcedureEntity {
     atMedicalFacility {
       ...Procedure
     }
+  }
+}
+
+fragment ComponentSectionsCeremoniesSection on ComponentSectionsCeremoniesSection {
+  __typename
+  id
+  title
+  showMoreButton {
+    ...CtaButton
   }
 }

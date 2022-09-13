@@ -58,6 +58,10 @@ RUN yarn install --production
 
 COPY . ./
 
+USER root
+RUN chown -R node:node /home/node/app
+
+USER node
 COPY --chown=node:node --from=build /root/app/.next ./.next
 
 EXPOSE 3000
