@@ -66,5 +66,15 @@
       "description": "Popis",
       "details": "Detaily"
     }
+  },
+  "pages": {
+    "search": {
+      "paths": {
+        "document": "/dokumenty",
+        "page": "",
+        "article": "/clanky",
+        "branch": "/cintoriny-a-pobocky"
+      }
+    }
   }
 }

@@ -65,5 +65,15 @@
       "description": "Description",
       "details": "Details"
     }
+  },
+  "pages": {
+    "search": {
+      "paths": {
+        "document": "/documents",
+        "page": "",
+        "article": "/articles",
+        "branch": "/branches"
+      }
+    }
   }
 }
