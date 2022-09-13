@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDebounce } from 'usehooks-ts'
 
@@ -12,7 +13,10 @@ type ResultType<T> = {
 }
 
 export type UseMeilisearchOptions<T extends string> = {
-  indexes?: T[]
+  indexes?: {
+    name: T
+    localized?: boolean
+  }[]
   countPerPage?: number
 }
 
@@ -20,6 +24,10 @@ export const useMeilisearch = <T extends string>({
   indexes = [],
   countPerPage = 10,
 }: UseMeilisearchOptions<T>) => {
+  const {
+    i18n: { language },
+  } = useTranslation()
+
   const [isLoading, setLoading] = useState<boolean>(false)
 
   const [searchQuery, setSearchQuery] = useState<string | null>(null)
@@ -77,10 +85,13 @@ export const useMeilisearch = <T extends string>({
         ...(await Promise.all(
           indexes.map((index) =>
             meiliClient
-              .index(index)
-              .search<ResultType<T>>(debouncedSearchQuery ?? '*', { limit: 1000 })
+              .index(index.name)
+              .search<ResultType<T>>(debouncedSearchQuery ?? '*', {
+                limit: 1000,
+                filter: index.localized ? [`locale = ${language ?? 'sk'}`] : [],
+              })
               .then((results) => {
-                return results.hits.map((hit) => ({ ...hit, index }))
+                return results.hits.map((hit) => ({ ...hit, index: index.name }))
               }),
           ),
         )),
@@ -99,7 +110,7 @@ export const useMeilisearch = <T extends string>({
         // eslint-disable-next-line no-console
         console.error(error)
       })
-  }, [indexes, debouncedSearchQuery, countPerPage, changePage])
+  }, [indexes, debouncedSearchQuery, countPerPage, changePage, language])
 
   const results = useMemo(() => {
     const fromIndex = countPerPage * (currentPage - 1)

@@ -56,11 +56,20 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
 
   const indexes = useMemo(() => {
     const result = []
-    if (areBranchesSelected) result.push('branch')
-    if (areDocumentsSelected) result.push('document')
-    if (arePagesSelected) result.push('page')
-    if (areArticlesSelected) result.push('article')
-    return result.length > 0 ? result : ['branch', 'document', 'page', 'article']
+    if (areBranchesSelected) result.push({ name: 'branch', localized: true })
+    if (areDocumentsSelected) result.push({ name: 'document', localized: false })
+    if (arePagesSelected) result.push({ name: 'page', localized: true })
+    if (areArticlesSelected) result.push({ name: 'article', localized: true })
+    return result.length > 0
+      ? // if something is selected
+        result
+      : // otherwise get it all
+        [
+          { name: 'branch', localized: true },
+          { name: 'document', localized: false },
+          { name: 'page', localized: true },
+          { name: 'article', localized: true },
+        ]
   }, [areBranchesSelected, areDocumentsSelected, arePagesSelected, areArticlesSelected])
 
   const {
