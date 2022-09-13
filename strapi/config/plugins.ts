@@ -26,4 +26,23 @@ export default {
     enabled: true,
     resolve: "./src/plugins/ceremonies-debtor-list",
   },
+  meilisearch: {
+    config: {
+      page: {
+        settings: {
+          filterableAttributes: ["locale"],
+        },
+      },
+      branch: {
+        settings: {
+          filterableAttributes: ["locale"],
+        },
+      },
+      article: {
+        settings: {
+          filterableAttributes: ["locale"],
+        },
+      },
+    },
+  },
 };
