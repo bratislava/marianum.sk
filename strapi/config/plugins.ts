@@ -28,6 +28,8 @@ export default {
   },
   meilisearch: {
     config: {
+      host: process.env.MEILISEARCH_HOST,
+      apiKey: process.env.MEILISEARCH_ADMIN_API_KEY,
       page: {
         settings: {
           filterableAttributes: ["locale"],
