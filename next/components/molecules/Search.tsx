@@ -11,6 +11,7 @@ type SearchProps = {
   inputClassName?: string
   onChange?: (value: string) => void
   onSearch?: (value: string) => void
+  isLarge?: boolean
 }
 
 const Search = ({
@@ -20,6 +21,7 @@ const Search = ({
   onSearch = () => {},
   className,
   inputClassName,
+  isLarge = false,
 }: SearchProps) => {
   const [realValue, setRealValue] = useState(value)
 
@@ -27,13 +29,18 @@ const Search = ({
     setRealValue(value)
   }, [value])
 
-  useEffect(() => {
-    onChange(realValue)
-  }, [onChange, realValue])
+  const onRealValueChange = useCallback(
+    (text: string) => {
+      setRealValue(text)
+      onChange(text)
+    },
+    [onChange],
+  )
 
   const clearHandler = useCallback(() => {
     setRealValue('')
-  }, [])
+    onChange('')
+  }, [onChange])
 
   const onSearchHandler = useCallback(() => {
     onSearch(realValue)
@@ -57,10 +64,11 @@ const Search = ({
     <TextField
       id="search"
       value={realValue}
-      onChange={(e) => setRealValue(e.target.value)}
+      onChange={(e) => onRealValueChange(e.target.value)}
       placeholder={placeholder}
       onKeyUp={onKeyUpHandler}
       className={className}
+      isLarge={isLarge}
       inputClassName={inputClassName}
       leftSlot={
         <button onClick={onSearchHandler} type="button" className="p-2">
