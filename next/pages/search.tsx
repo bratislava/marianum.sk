@@ -145,7 +145,7 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
                           key={`${index}-${slug ?? id ?? ''}`}
                           title={title}
                           // eslint-disable-next-line sonarjs/no-nested-template-literals
-                          link={`${hostname}${t(`paths.${index}`)}/${slug ?? id ?? ''}`}
+                          linkHref={`${hostname}${t(`paths.${index}`)}/${slug ?? id ?? ''}`}
                           showUrl
                           tags={[t(`tags.${index}`)]}
                         />
