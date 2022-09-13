@@ -3,12 +3,12 @@ import { useMemo } from 'react'
 import { useDateFormatter } from 'react-aria'
 import useSWR from 'swr'
 
-import { ComponentSectionsCeremoniesSectionFragment } from '../../graphql'
+import { ComponentSectionsUpcomingCeremoniesSectionFragment } from '../../graphql'
 import { client } from '../../utils/gql'
 import MLink from '../atoms/MLink'
 import Section from '../molecules/Section'
 
-const HomepageCeremoniesListingTable = () => {
+const Table = () => {
   const { t, i18n } = useTranslation()
 
   const dateFormatter = useDateFormatter({
@@ -115,11 +115,11 @@ const HomepageCeremoniesListingTable = () => {
 }
 
 type CeremoniesListingProps = {
-  section: ComponentSectionsCeremoniesSectionFragment
+  section: ComponentSectionsUpcomingCeremoniesSectionFragment
   index: number
 }
 
-const HomepageCeremoniesListing = ({ section, index }: CeremoniesListingProps) => {
+const UpcomingCeremoniesSection = ({ section, index }: CeremoniesListingProps) => {
   const showMoreButtonSlug = section.showMoreButton?.page?.data?.attributes?.slug
   const showMoreButton = section.showMoreButton && showMoreButtonSlug && (
     <MLink href={showMoreButtonSlug}>{section.showMoreButton.label}</MLink>
@@ -133,7 +133,7 @@ const HomepageCeremoniesListing = ({ section, index }: CeremoniesListingProps) =
           <div className="hidden lg:block">{showMoreButton}</div>
         </div>
         <div>
-          <HomepageCeremoniesListingTable />
+          <Table />
         </div>
         <div className="text-center lg:hidden">{showMoreButton}</div>
       </div>
@@ -141,4 +141,4 @@ const HomepageCeremoniesListing = ({ section, index }: CeremoniesListingProps) =
   )
 }
 
-export default HomepageCeremoniesListing
+export default UpcomingCeremoniesSection

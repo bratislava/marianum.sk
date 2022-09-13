@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_sections_ceremonies_sections",
+  "collectionName": "components_sections_upcoming_ceremonies_sections",
   "info": {
-    "displayName": "ceremonies section",
+    "displayName": "upcoming ceremonies section",
     "icon": "feather-alt",
     "description": ""
   },

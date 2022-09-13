@@ -7,10 +7,11 @@ import SectionsWrapper from '../components/layouts/SectionsWrapper'
 import CtaGroup from '../components/molecules/CtaGroup'
 import Section from '../components/molecules/Section'
 import CardSection from '../components/sections/CardSection'
-import HomepageCeremoniesListing from '../components/sections/HomepageCeremoniesListing'
+import DebtorsSection from '../components/sections/DebtorsSection'
 import HomepageProcedures from '../components/sections/HomepageProcedures'
 import HomepageSlider from '../components/sections/HomepageSlider'
 import NewsListing from '../components/sections/NewsListing'
+import UpcomingCeremoniesSection from '../components/sections/UpcomingCeremoniesSection'
 import { GeneralEntityFragment, HomePageQuery, NavigationItemFragment } from '../graphql'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
@@ -50,9 +51,9 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
               </Section>
             )
           }
-          if (section?.__typename === 'ComponentSectionsCeremoniesSection') {
+          if (section?.__typename === 'ComponentSectionsUpcomingCeremoniesSection') {
             return (
-              <HomepageCeremoniesListing
+              <UpcomingCeremoniesSection
                 index={index}
                 key={`${section.__typename}-${section.id}`}
                 section={section}

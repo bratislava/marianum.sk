@@ -289,7 +289,7 @@ fragment ProceduresEntity on ProcedureEntity {
   }
 }
 
-fragment ComponentSectionsCeremoniesSection on ComponentSectionsCeremoniesSection {
+fragment ComponentSectionsUpcomingCeremoniesSection on ComponentSectionsUpcomingCeremoniesSection {
   __typename
   id
   title
