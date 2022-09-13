@@ -4,7 +4,7 @@ import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import RichText from '../components/atoms/RichText/RichText'
-import Layout from '../components/layouts/Layout'
+import PageLayout from '../components/layouts/PageLayout'
 import SectionsWrapper from '../components/layouts/SectionsWrapper'
 import AccordionGroup from '../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../components/molecules/Accordion/AccordionItem'
@@ -15,7 +15,7 @@ import Section from '../components/molecules/Section'
 import BundleListingSection from '../components/sections/BundleListingSection'
 import CardSection from '../components/sections/CardSection'
 import ContactsSection from '../components/sections/ContactsSection'
-import ImageGallerySection from '../components/sections/ImageGallerySection'
+import ImageGallery from '../components/sections/ImageGallery'
 // import MapSection from '../components/sections/MapSection/MapSection'
 import MenuListingSection from '../components/sections/MenuListingSection'
 import NewsListing from '../components/sections/NewsListing'
@@ -40,7 +40,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
   const isContainer = page.attributes?.layout === Enum_Page_Layout.Fullwidth
 
   return (
-    <Layout page={page} navigation={navigation} general={general}>
+    <PageLayout page={page} navigation={navigation} general={general}>
       <SectionsWrapper
         isContainer={isContainer}
         alternateBackground={isContainer}
@@ -138,13 +138,13 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsGallery') {
             return (
-              <ImageGallerySection
+              <Section
                 index={index}
                 key={`${section.__typename}-${section.id}`}
                 title={section.title}
-                images={section.medias?.data}
-                variant="bellow"
-              />
+              >
+                <ImageGallery images={section.medias?.data} variant="bellow" />
+              </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsMenuListing') {
@@ -191,7 +191,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           return null
         })}
       </SectionsWrapper>
-    </Layout>
+    </PageLayout>
   )
 }
 
@@ -212,7 +212,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] })
         },
       }))
     // eslint-disable-next-line no-console
-    console.log(`PAGES: GENERATED STATIC PATHS FOR ${paths.length} SLUGS`)
+    console.log(`Pages: Generated static paths for ${paths.length} slugs.`)
     return { paths, fallback: 'blocking' }
   }
   return { paths: [], fallback: 'blocking' }

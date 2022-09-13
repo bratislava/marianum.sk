@@ -6,6 +6,7 @@ import { ReactNode } from 'react'
 import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
 import FormatDate from '../atoms/FormatDate'
+import MImage from '../atoms/MImage'
 import Section from '../molecules/Section'
 import HeroSection from '../sections/HeroSection'
 import NewsListing from '../sections/NewsListing'
@@ -21,22 +22,35 @@ type ArticleLayoutProps = {
 
 const ArticleLayout = ({ article, navigation, children, general }: ArticleLayoutProps) => {
   const router = useRouter()
-  const breadcrumbs = getBreadcrumbs(router.asPath, navigation)
   const { t } = useTranslation()
 
-  const { title, perex, coverMedia, publishedAt } = article.attributes ?? {}
+  const { title, perex, coverMedia, publishedAt, slug } = article.attributes ?? {}
+  const coverImage = coverMedia?.data?.attributes
+
+  const breadcrumbs = getBreadcrumbs(router.asPath, navigation, [{ label: title, link: slug }])
 
   return (
     <PageWrapper
       navigation={navigation}
       general={general}
-      header={<HeroSection image={coverMedia?.data} breadcrumbs={breadcrumbs} />}
+      header={
+        <HeroSection
+          breadcrumbs={breadcrumbs}
+          moreContent={
+            coverImage ? (
+              <div className="h-[188px] sm:h-[238px] md:h-[287px] lg:h-[387px] xl:h-[440px]">
+                <MImage image={coverImage} layout="fill" objectFit="cover" unoptimized />
+              </div>
+            ) : null
+          }
+        />
+      }
     >
       <SectionsWrapper
         isContainer
         className={cx('h-full bg-white', {
           // Compensate image overlap
-          'pt-18': coverMedia?.data,
+          'pt-18': coverImage,
         })}
       >
         <div className="container relative mx-auto h-auto px-4 py-6 sm:px-20 sm:pb-12 sm:pt-10 md:px-28 lg:px-40">

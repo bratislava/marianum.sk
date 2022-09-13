@@ -1,13 +1,14 @@
 import last from 'lodash/last'
 import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
-import { SSRConfig } from 'next-i18next'
+import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import HomeIcon from '../../assets/home.svg'
-import Breadcrumbs from '../../components/atoms/Breadcrumbs'
-import MLink from '../../components/atoms/MLink'
-import PageWrapper from '../../components/layouts/PageWrapper'
-import ImageGallerySection from '../../components/sections/ImageGallerySection'
+import NavigateToIcon from '../../assets/directions.svg'
+import PlaceIcon from '../../assets/place.svg'
+import Button from '../../components/atoms/Button'
+import RichText from '../../components/atoms/RichText/RichText'
+import BranchLayout from '../../components/layouts/BranchLayout'
+import SectionBoxed from '../../components/molecules/SectionBoxed'
 import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import { client } from '../../utils/gql'
 import { isDefined } from '../../utils/isDefined'
@@ -15,41 +16,48 @@ import { isDefined } from '../../utils/isDefined'
 type PageProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
-  branch: BranchEntityFragment | null
+  branch: BranchEntityFragment
 } & SSRConfig
 
 const BranchSlug = ({ navigation, branch, general }: PageProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'layouts.BranchLayout' })
+
+  const { title, type, address, navigateToLink, description, openingHoursOverride } =
+    branch.attributes ?? {}
+
   return (
-    <PageWrapper
-      navigation={navigation}
-      general={general}
-      header={
-        <div className="mb-18 bg-primary-dark text-white/72">
-          <div className="container mx-auto">
-            <div className="px-4">
-              {/* TODO not manual breadcrumbs */}
-              <Breadcrumbs className="sm:pt-8">
-                <MLink aria-label="Domov" href="/" noStyles className="underline">
-                  <HomeIcon />
-                </MLink>
-                <MLink href="/branches" noStyles className="underline">
-                  Pobočky a cintoríny
-                </MLink>
-                <div>{branch?.attributes?.title}</div>
-              </Breadcrumbs>
-            </div>
-            <div className="-mt-18 translate-y-18 sm:px-4">
-              <ImageGallerySection images={branch?.attributes?.medias?.data} variant="aside" />
-            </div>
+    <BranchLayout branch={branch} navigation={navigation} general={general}>
+      <div className="flex flex-col gap-3 md:gap-4">
+        <SectionBoxed>
+          <h1 className="pb-1 md:pb-3">{title}</h1>
+          <div className="flex flex-col items-start gap-2 md:flex-row">
+            {address && (
+              <div className="flex items-center gap-x-2">
+                <span className="text-primary">
+                  <PlaceIcon />
+                </span>
+                {address}
+              </div>
+            )}
+            {navigateToLink && (
+              <Button
+                variant="plain-secondary"
+                startIcon={<NavigateToIcon />}
+                className="-ml-2 md:ml-0"
+              >
+                {t('navigate')}
+              </Button>
+            )}
           </div>
-        </div>
-      }
-    >
-      <div className="container mx-auto p-4">
-        {/* todo: display branch data */}
-        braaanch
+        </SectionBoxed>
+        <SectionBoxed title={type === 'cintorin' ? t('aboutCemetery') : t('aboutBranch')}>
+          <RichText data={description} coloredTable={false} />
+        </SectionBoxed>
+        <SectionBoxed title={t('openingHours')}>
+          <RichText data={openingHoursOverride || general?.attributes?.generalOpeningHours} />
+        </SectionBoxed>
       </div>
-    </PageWrapper>
+    </BranchLayout>
   )
 }
 
@@ -70,7 +78,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] })
         },
       }))
     // eslint-disable-next-line no-console
-    console.log(`BRANCHES: GENERATED STATIC PATHS FOR ${paths.length} SLUGS`)
+    console.log(`Branches: Generated static paths for ${paths.length} slugs.`)
     return { paths, fallback: 'blocking' }
   }
   return { paths: [], fallback: 'blocking' }

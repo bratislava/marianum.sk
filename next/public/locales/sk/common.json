@@ -80,6 +80,12 @@
       "category": "Kategória",
       "description": "Popis",
       "details": "Detaily"
+    },
+    "BranchLayout": {
+      "navigate": "Navigovať",
+      "openingHours": "Otváracie hodiny",
+      "aboutCemetery": "O cintoríne",
+      "aboutBranch": "O pobočke"
     }
   },
   "pages": {
