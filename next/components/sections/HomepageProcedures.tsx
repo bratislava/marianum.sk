@@ -3,7 +3,7 @@ import { isDefined } from '../../utils/isDefined'
 import MLink from '../atoms/MLink'
 import Tab from '../atoms/Tabs/Tab'
 import Tabs from '../atoms/Tabs/Tabs'
-import Row from '../molecules/Row'
+import Row from '../molecules/Row/Row'
 import Section, { SectionProps } from '../molecules/Section'
 
 type HomepagePoceduresProps = Pick<SectionProps, 'title' | 'background' | 'index'> & {
