@@ -80,32 +80,34 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
   return (
     <PageWrapper navigation={navigation} general={general}>
       <SectionsWrapper isContainer>
-        <Section title="Výsledky vyhľadávania">
+        <Section>
           <div className="flex flex-col gap-6">
-            <Search isLarge value={searchQuery ?? ''} onChange={setSearchQuery} />
+            <h1>{t('searchResults')}</h1>
+            <Search
+              placeholder={t('search')}
+              isLarge
+              value={searchQuery ?? ''}
+              onChange={setSearchQuery}
+            />
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <TagToggle isSelected={isNothingSelected} onChange={deselectAll}>
-                  Všetky výsledky
+                  {t('tags.allResults')}
                 </TagToggle>
                 <TagToggle isSelected={arePagesSelected} onChange={setPagesSelected}>
-                  Stránka
+                  {t('tags.page')}
                 </TagToggle>
                 <TagToggle isSelected={areDocumentsSelected} onChange={setDocumentsSelected}>
-                  Súbor
+                  {t('tags.document')}
                 </TagToggle>
                 <TagToggle isSelected={areArticlesSelected} onChange={setArticlesSelected}>
-                  Článok
+                  {t('tags.article')}
                 </TagToggle>
                 <TagToggle isSelected={areBranchesSelected} onChange={setBranchesSelected}>
-                  Cintorín/Pobočka
+                  {t('tags.branch')}
                 </TagToggle>
               </div>
-              {isLoading ? (
-                <div>Loading...</div>
-              ) : (
-                <div>Bolo nájdených {totalResultsCount} výsledkov</div>
-              )}
+              {!isLoading && <div>{t('resultsFound', { count: totalResultsCount })}</div>}
             </div>
 
             {
@@ -121,11 +123,11 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
                     </SkeletonTheme>
                   ) : totalResultsCount === 0 ? (
                     <motion.div
-                      initial={{ y: 16 }}
+                      initial={{ y: 48 }}
                       animate={{ y: 0 }}
-                      className="flex justify-center text-lg"
+                      className="flex justify-center py-8 text-lg"
                     >
-                      Nebol nájdený žiaden výsledok
+                      {t('resultsFound', { count: 0 })}
                     </motion.div>
                   ) : (
                     <div className="flex flex-col gap-3">
@@ -136,15 +138,21 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
                           // eslint-disable-next-line sonarjs/no-nested-template-literals
                           link={`${hostname}${t(`paths.${index}`)}/${slug ?? id ?? ''}`}
                           showUrl
-                          tags={[index]}
+                          tags={[t(`tags.${index}`)]}
                         />
                       ))}
                     </div>
                   )}
                 </AnimateHeight>
-                <div className="flex justify-end">
-                  <Pagination onChange={changePage} count={pageCount} selectedPage={currentPage} />
-                </div>
+                {totalResultsCount !== 0 && (
+                  <div className="flex justify-end">
+                    <Pagination
+                      onChange={changePage}
+                      count={pageCount}
+                      selectedPage={currentPage}
+                    />
+                  </div>
+                )}
               </div>
             }
           </div>

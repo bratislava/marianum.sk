@@ -68,6 +68,18 @@
   },
   "pages": {
     "search": {
+      "searchResults": "Search results",
+      "search": "Search",
+      "resultsFound_zero": "No results found",
+      "resultsFound_one": "{{count}} result found",
+      "resultsFound_other": "{{count}} results found",
+      "tags": {
+        "allResults": "All results",
+        "page": "Page",
+        "document": "Document",
+        "article": "Article",
+        "branch": "Branch"
+      },
       "paths": {
         "document": "/documents",
         "page": "",
