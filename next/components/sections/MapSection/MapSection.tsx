@@ -28,8 +28,8 @@ const getBoundsForBranches = (
   const branchesLongitude = branches.map((branch) => branch.longitude).filter(isDefined) ?? []
   const branchesLatitude = branches.map((branch) => branch.latitude).filter(isDefined) ?? []
   return [
-    [Math.min(...branchesLongitude), Math.min(...branchesLatitude)],
-    [Math.max(...branchesLongitude), Math.max(...branchesLatitude)],
+    [Math.min(...branchesLongitude) ?? 0, Math.min(...branchesLatitude) ?? 0],
+    [Math.max(...branchesLongitude) ?? 0, Math.max(...branchesLatitude) ?? 0],
   ] as [[number, number], [number, number]]
 }
 
