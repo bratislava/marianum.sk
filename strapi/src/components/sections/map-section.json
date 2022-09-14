@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_sections_map_sections",
+  "info": {
+    "displayName": "map section",
+    "icon": "map-marked-alt"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}

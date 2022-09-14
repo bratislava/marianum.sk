@@ -12,9 +12,9 @@ const TagButton = (props: TagButtonProps) => {
   const { children, className } = props
   const { isSelected } = state
   return (
-    // eslint-disable-next-line react/button-has-type
     <button
       ref={ref}
+      type="button"
       className={cx(
         'flex h-8 w-fit cursor-pointer select-none items-center whitespace-nowrap rounded-full border px-3 text-sm font-semibold',
         {

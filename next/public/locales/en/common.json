@@ -53,6 +53,17 @@
       "aria": {
         "openImageGallery": "Open image gallery"
       }
+    },
+    "MapSection": {
+      "search": "Search...",
+      "noResults": "No results...",
+      "map": "Map",
+      "filtering": "Filtering",
+      "filters": {
+        "civil": "Civil",
+        "historical": "Historical",
+        "war": "War"
+      }
     }
   },
   "layouts": {
