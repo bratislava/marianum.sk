@@ -21,7 +21,7 @@ import { GeneralEntityFragment, NavigationItemFragment } from '../graphql'
 import { useMeilisearch } from '../hooks/useMeilisearch'
 import { client } from '../utils/gql'
 
-const COUNT_PER_PAGE = 10
+const COUNT_PER_PAGE = 24
 
 type SearchResultsProps = {
   navigation: NavigationItemFragment[]
@@ -90,16 +90,25 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
     <PageWrapper navigation={navigation} general={general}>
       <SectionsWrapper isContainer>
         <Section>
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-3 md:gap-6">
             <h1>{t('searchResults')}</h1>
-            <Search
-              placeholder={t('search')}
-              isLarge
-              value={searchQuery ?? ''}
-              onChange={setSearchQuery}
-            />
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
+            <div className="hidden md:block">
+              <Search
+                placeholder={t('search')}
+                isLarge
+                value={searchQuery ?? ''}
+                onChange={setSearchQuery}
+              />
+            </div>
+            <div className="md:hidden">
+              <Search
+                placeholder={t('search')}
+                value={searchQuery ?? ''}
+                onChange={setSearchQuery}
+              />
+            </div>
+            <div className="flex flex-col-reverse justify-between gap-3 md:flex-row md:items-center">
+              <div className="flex w-full items-center gap-3 overflow-auto">
                 <TagToggle isSelected={isNothingSelected} onChange={deselectAll}>
                   {t('tags.allResults')}
                 </TagToggle>
@@ -148,13 +157,14 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
                           linkHref={`${hostname}${t(`paths.${index}`)}/${slug ?? id ?? ''}`}
                           showUrl
                           tags={[t(`tags.${index}`)]}
+                          border={false}
                         />
                       ))}
                     </div>
                   )}
                 </AnimateHeight>
                 {totalResultsCount !== 0 && (
-                  <div className="flex justify-end">
+                  <div className="flex justify-center md:justify-end">
                     <Pagination
                       onChange={changePage}
                       count={pageCount}
