@@ -77,6 +77,7 @@
       "tags": {
         "allResults": "All results",
         "page": "Page",
+        "bundle": "Package",
         "document": "Document",
         "article": "Article",
         "branch": "Branch"
@@ -84,6 +85,7 @@
       "paths": {
         "document": "/documents",
         "page": "",
+        "bundle": "/bundles",
         "article": "/articles",
         "branch": "/branches"
       }

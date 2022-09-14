@@ -82,6 +82,7 @@
       "tags": {
         "allResults": "Všetky výsledky",
         "page": "Stránka",
+        "bundle": "Balíček",
         "document": "Dokument",
         "article": "Článok",
         "branch": "Cintorín / Pobočka"
@@ -89,6 +90,7 @@
       "paths": {
         "document": "/dokumenty",
         "page": "",
+        "bundle": "/balicky",
         "article": "/clanky",
         "branch": "/cintoriny-a-pobocky"
       }

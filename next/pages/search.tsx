@@ -39,18 +39,30 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
   const [areBranchesSelected, setBranchesSelected] = useState(false)
   const [areDocumentsSelected, setDocumentsSelected] = useState(false)
   const [arePagesSelected, setPagesSelected] = useState(false)
+  const [areBundlesSelected, setBundlesSelected] = useState(false)
   const [areArticlesSelected, setArticlesSelected] = useState(false)
 
   const isNothingSelected = useMemo(() => {
     return (
-      !areBranchesSelected && !areDocumentsSelected && !arePagesSelected && !areArticlesSelected
+      !areBranchesSelected &&
+      !areDocumentsSelected &&
+      !arePagesSelected &&
+      !areBundlesSelected &&
+      !areArticlesSelected
     )
-  }, [areArticlesSelected, areBranchesSelected, areDocumentsSelected, arePagesSelected])
+  }, [
+    areArticlesSelected,
+    areBranchesSelected,
+    areDocumentsSelected,
+    areBundlesSelected,
+    arePagesSelected,
+  ])
 
   const deselectAll = useCallback(() => {
     setBranchesSelected(false)
     setDocumentsSelected(false)
     setPagesSelected(false)
+    setBundlesSelected(false)
     setArticlesSelected(false)
   }, [])
 
@@ -59,6 +71,7 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
     if (areBranchesSelected) result.push({ name: 'branch', localized: true })
     if (areDocumentsSelected) result.push({ name: 'document', localized: false })
     if (arePagesSelected) result.push({ name: 'page', localized: true })
+    if (areBundlesSelected) result.push({ name: 'bundle', localized: true })
     if (areArticlesSelected) result.push({ name: 'article', localized: true })
     return result.length > 0
       ? // if something is selected
@@ -68,9 +81,16 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
           { name: 'branch', localized: true },
           { name: 'document', localized: false },
           { name: 'page', localized: true },
+          { name: 'bundle', localized: true },
           { name: 'article', localized: true },
         ]
-  }, [areBranchesSelected, areDocumentsSelected, arePagesSelected, areArticlesSelected])
+  }, [
+    areBranchesSelected,
+    areDocumentsSelected,
+    arePagesSelected,
+    areArticlesSelected,
+    areBundlesSelected,
+  ])
 
   const {
     searchQuery,
@@ -111,6 +131,9 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
               <div className="flex w-full items-center gap-3 overflow-auto">
                 <TagToggle isSelected={isNothingSelected} onChange={deselectAll}>
                   {t('tags.allResults')}
+                </TagToggle>
+                <TagToggle isSelected={areBundlesSelected} onChange={setBundlesSelected}>
+                  {t('tags.bundle')}
                 </TagToggle>
                 <TagToggle isSelected={arePagesSelected} onChange={setPagesSelected}>
                   {t('tags.page')}

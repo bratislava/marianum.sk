@@ -45,6 +45,11 @@ export default {
           filterableAttributes: ["locale"],
         },
       },
+      bundle: {
+        settings: {
+          filterableAttributes: ["locale"],
+        },
+      },
     },
   },
 };
