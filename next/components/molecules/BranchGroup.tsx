@@ -11,7 +11,7 @@ const BranchGroup = ({ branches }: BranchGroupFragment) => {
   return (
     <div className="flex flex-col gap-4">
       {filteredBranches?.map(({ title, slug, address }) => (
-        <Row key={slug} title={title} address={address} link={slug} />
+        <Row key={slug} title={title} address={address} linkHref={slug} />
       ))}
     </div>
   )

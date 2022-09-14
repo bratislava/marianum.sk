@@ -12,16 +12,17 @@ import MLink from '../atoms/MLink'
 type HeroSectionProps = {
   title?: string | null | undefined
   perex?: string | null | undefined
-  cta?: CtaButtonFragment | null | undefined
+  ctaButton?: CtaButtonFragment | null | undefined
   image?: UploadImageEntityFragment | null | undefined
   breadcrumbs?: TBreadcrumbListItem[]
   price?: number | null | undefined
 }
 
-const HeroSection = ({ title, perex, cta, image, breadcrumbs, price }: HeroSectionProps) => {
+const HeroSection = ({ title, perex, ctaButton, image, breadcrumbs, price }: HeroSectionProps) => {
   const { t } = useTranslation()
 
   const breadcrumbsWithHome = [{ label: <HomeIcon />, link: '/' }, ...(breadcrumbs ?? [])]
+  const ctaSlug = ctaButton?.page?.data?.attributes?.slug
 
   return (
     <div className="bg-primary-dark text-white/72">
@@ -42,9 +43,9 @@ const HeroSection = ({ title, perex, cta, image, breadcrumbs, price }: HeroSecti
         <div className="py-5 empty:hidden md:w-[648px] md:pb-14 md:pt-6">
           {title && <h1 className="text-white">{title}</h1>}
           {perex && <p className="mt-3">{perex}</p>}
-          {cta && (
-            <Button href={cta.url} className="mt-6">
-              {cta.label}
+          {ctaSlug && (
+            <Button href={ctaSlug} className="mt-6">
+              {ctaButton.label}
             </Button>
           )}
           {price && (

@@ -1,7 +1,8 @@
 {
   "general": {
     "showMore": "Zobraziť viac",
-    "goToSlide": "Ísť na slide {{number}}"
+    "goToSlide": "Ísť na slide {{number}}",
+    "or": "alebo"
   },
   "components": {
     "molecules": {
@@ -54,6 +55,9 @@
         "openImageGallery": "Otvoriť galériu obrázkov"
       }
     },
+    "CeremoniesSection": {
+      "noCeremonies": "Žiadne obrady na zobrazenie."
+    },
     "MapSection": {
       "search": "Hladať...",
       "noResults": "Žiadne výsledky...",
@@ -69,6 +73,13 @@
   "layouts": {
     "ArticleLayout": {
       "moreNews": "Ďalšie novinky"
+    },
+    "DocumentLayout": {
+      "createdAt": "Vytvorené",
+      "downloadFile": "Stiahnuť súbor",
+      "category": "Kategória",
+      "description": "Popis",
+      "details": "Detaily"
     }
   }
 }

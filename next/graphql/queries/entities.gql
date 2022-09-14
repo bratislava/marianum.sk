@@ -93,6 +93,40 @@ fragment ContactEntity on ContactEntity {
   }
 }
 
+fragment DocumentCategoryEntity on DocumentCategoryEntity {
+  id
+  attributes {
+    title
+    slug
+  }
+}
+
+fragment DocumentCardEntity on DocumentEntity {
+  id
+  attributes {
+    title
+    slug
+    publishedAt
+    documentCategory {
+      data {
+        ...DocumentCategoryEntity
+      }
+    }
+    file {
+      data {
+        ...UploadFileEntity
+      }
+    }
+  }
+}
+
+fragment DocumentEntity on DocumentEntity {
+  ...DocumentCardEntity
+  attributes {
+    description
+  }
+}
+
 fragment PartnerEntity on PartnerEntity {
   id
   attributes {
@@ -150,6 +184,13 @@ fragment BundleEntity on BundleEntity {
   }
 }
 
+fragment PageSlugEntity on PageEntity {
+  attributes {
+    slug
+    locale
+  }
+}
+
 fragment PageCardEntity on PageEntity {
   id
   attributes {
@@ -194,19 +235,7 @@ fragment PageEntity on PageEntity {
       }
       ... on ComponentSectionsDocumentGroup {
         __typename
-        id
-        title
-        documents {
-          document {
-            data {
-              # TODO replace by fragment
-              id
-              attributes {
-                title
-              }
-            }
-          }
-        }
+        ...DocumentGroup
       }
       ... on ComponentSectionsGallery {
         __typename
@@ -245,11 +274,6 @@ fragment PageEntity on PageEntity {
         __typename
         id
         content
-        button {
-          label
-          url
-          targetBlank
-        }
       }
       ... on ComponentSectionsProceduresSection {
         __typename
@@ -268,5 +292,14 @@ fragment ProceduresEntity on ProcedureEntity {
     atMedicalFacility {
       ...Procedure
     }
+  }
+}
+
+fragment ComponentSectionsCeremoniesSection on ComponentSectionsCeremoniesSection {
+  __typename
+  id
+  title
+  showMoreButton {
+    ...CtaButton
   }
 }

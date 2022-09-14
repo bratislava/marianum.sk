@@ -3,18 +3,12 @@ import { getSlugsForNavFiltering } from '../../utils/getSlugsForNavFiltering'
 import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
 import Section, { SectionProps } from '../molecules/Section'
 
-type MenuListingSectionProps = Pick<SectionProps, 'title' | 'isContainer' | 'color'> & {
+type MenuListingSectionProps = Pick<SectionProps, 'title' | 'background' | 'index'> & {
   slug: string | null | undefined
   navigation: NavigationItemFragment[]
 }
 
-const MenuListingSection = ({
-  title,
-  slug,
-  navigation,
-  isContainer,
-  color,
-}: MenuListingSectionProps) => {
+const MenuListingSection = ({ slug, navigation, ...rest }: MenuListingSectionProps) => {
   const slugs = getSlugsForNavFiltering(slug)
 
   let desiredChild: NavigationItemFragment | null = null
@@ -26,7 +20,7 @@ const MenuListingSection = ({
   }
 
   return (
-    <Section title={title} isContainer={isContainer} color={color} cardGrid>
+    <Section {...rest} cardGrid>
       {desiredChild?.items?.map((subItem) => (
         <CategoryCard
           key={subItem?.path}

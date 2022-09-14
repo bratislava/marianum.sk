@@ -3,7 +3,7 @@ import { isDefined } from '../../utils/isDefined'
 import BundleCard from '../molecules/Cards/BundleCard'
 import Section, { SectionProps } from '../molecules/Section'
 
-type BundleListingSectionProps = Pick<SectionProps, 'isContainer' | 'color'> & {
+type BundleListingSectionProps = Pick<SectionProps, 'background' | 'index'> & {
   section: BundleListingFragment
 }
 
@@ -18,21 +18,21 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
   return (
     <Section title={title} description={description} {...rest} cardGrid button={showMoreButton}>
       {filteredBundles?.map((bundle) => {
-        const { id, attributes } = bundle || {}
+        const { id, attributes } = bundle ?? {}
+        const { title: bundleTitle, coverMedia, price, bundleContent, slug } = attributes ?? {}
 
         return (
           <BundleCard
             key={id}
-            imageUrl={attributes?.coverMedia.data?.attributes?.url ?? ''}
-            imageAlt={attributes?.coverMedia.data?.attributes?.alternativeText ?? ''}
-            name={attributes?.title ?? ''}
-            priceFrom={attributes?.price ?? 0}
+            image={coverMedia?.data?.attributes}
+            name={bundleTitle ?? ''}
+            priceFrom={price ?? 0}
             claims={
-              attributes?.bundleContent
+              bundleContent
                 ?.map((bundleContentItem) => bundleContentItem?.description)
                 .filter(isDefined) ?? []
             }
-            linkHref={attributes?.slug ?? ''}
+            linkHref={slug ?? ''}
             border
           />
         )

@@ -42,10 +42,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "cintorin",
-        "pobocka"
-      ],
+      "enum": ["cintorin", "pobocka"],
       "required": true,
       "default": "cintorin"
     },
@@ -56,19 +53,13 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "civilny",
-        "historicky",
-        "vojensky"
-      ]
+      "enum": ["civilny", "historicky", "vojensky"]
     },
     "medias": {
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -111,6 +102,26 @@
         }
       },
       "type": "richtext"
+    },
+    "allowInCeremonies": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "allowInDebtors": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": true,
+      "required": true
     },
     "latitude": {
       "pluginOptions": {

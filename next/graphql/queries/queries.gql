@@ -86,10 +86,18 @@ query BundleBySlug($locale: I18NLocaleCode!, $slug: String!) {
   }
 }
 
+query DocumentBySlug($slug: String!) {
+  documents(filters: { slug: { eq: $slug } }) {
+    data {
+      ...DocumentEntity
+    }
+  }
+}
+
 # strapi returns just the default locale if no locale is provided
 # easiest way to get all static paths is to ask for all locales sequentially
 query ArticlesStaticPaths($locale: I18NLocaleCode) {
-  articles(locale: $locale) {
+  articles(locale: $locale, pagination: { limit: 10000 }) {
     data {
       id
       attributes {
@@ -101,7 +109,7 @@ query ArticlesStaticPaths($locale: I18NLocaleCode) {
 }
 
 query PagesStaticPaths($locale: I18NLocaleCode) {
-  pages(locale: $locale) {
+  pages(locale: $locale, pagination: { limit: 10000 }) {
     data {
       id
       attributes {
@@ -113,7 +121,7 @@ query PagesStaticPaths($locale: I18NLocaleCode) {
 }
 
 query BranchesStaticPaths($locale: I18NLocaleCode) {
-  branches(locale: $locale) {
+  branches(locale: $locale, pagination: { limit: 10000 }) {
     data {
       id
       attributes {
@@ -125,12 +133,23 @@ query BranchesStaticPaths($locale: I18NLocaleCode) {
 }
 
 query BundlesStaticPaths($locale: I18NLocaleCode) {
-  bundles(locale: $locale) {
+  bundles(locale: $locale, pagination: { limit: 10000 }) {
     data {
       id
       attributes {
         slug
         locale
+      }
+    }
+  }
+}
+
+query DocumentsStaticPaths {
+  documents(pagination: { limit: 10000 }) {
+    data {
+      id
+      attributes {
+        slug
       }
     }
   }
@@ -153,13 +172,7 @@ query HomePage($locale: I18NLocaleCode) {
             id
             title
           }
-          ... on ComponentSectionsCeremoniesSection {
-            __typename
-            id
-            title
-            # TODO
-          }
-
+          ...ComponentSectionsCeremoniesSection
           ... on ComponentSectionsProceduresShortSection {
             __typename
             id
@@ -185,6 +198,38 @@ query HomePage($locale: I18NLocaleCode) {
   procedures: procedure(locale: $locale) {
     data {
       ...ProceduresEntity
+    }
+  }
+}
+
+query HomepageCeremonies($dateTime: DateTime!) {
+  ceremonies(
+    filters: { dateTime: { gte: $dateTime } }
+    sort: ["dateTime:asc"]
+    pagination: { limit: 5 }
+  ) {
+    data {
+      id
+      attributes {
+        dateTime
+        name
+        branch {
+          data {
+            attributes {
+              slug
+              title
+              localizations {
+                data {
+                  attributes {
+                    slug
+                    title
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

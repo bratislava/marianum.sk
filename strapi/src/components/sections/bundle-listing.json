@@ -13,15 +13,15 @@
     "description": {
       "type": "text"
     },
-    "bundles": {
-      "type": "component",
-      "repeatable": true,
-      "component": "blocks.bundle-item"
-    },
     "showMoreButton": {
       "type": "component",
       "repeatable": false,
       "component": "blocks.button-link"
+    },
+    "bundles": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.bundle-item"
     }
   }
 }

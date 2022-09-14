@@ -5,6 +5,7 @@ import { Fragment, ReactNode } from 'react'
 import ChevronRightIcon from '../../assets/chevron_right.svg'
 import OpenInNewIcon from '../../assets/open_in_new.svg'
 import PlaceIcon from '../../assets/place.svg'
+import { DocumentCategoryEntityFragment } from '../../graphql'
 import { onEnterOrSpaceKeyDown } from '../../utils/onEnterOrSpaceKeyDown'
 import Button from '../atoms/Button'
 import IconButton from '../atoms/IconButton'
@@ -13,11 +14,11 @@ import MLink from '../atoms/MLink'
 interface IRowProps {
   title: string
   metadata?: string[]
-  link?: string
+  linkHref?: string
   isExternal?: boolean
   showUrl?: boolean
-  category?: string
-  address?: string | null
+  category?: DocumentCategoryEntityFragment | null | undefined
+  address?: string | null | undefined
   moreContent?: ReactNode
   button?: ReactNode
   arrowInCorner?: boolean
@@ -28,7 +29,7 @@ interface IRowProps {
 const Row = ({
   title,
   metadata,
-  link = '',
+  linkHref = '',
   isExternal = false,
   showUrl = false,
   category,
@@ -41,12 +42,12 @@ const Row = ({
 }: IRowProps) => {
   const router = useRouter()
 
-  const linkProps = link
+  const linkProps = linkHref
     ? {
         role: 'link',
         tabIndex: -1,
-        onClick: () => router.push(link),
-        onKeyDown: onEnterOrSpaceKeyDown(() => router.push(link)),
+        onClick: () => router.push(linkHref),
+        onKeyDown: onEnterOrSpaceKeyDown(() => router.push(linkHref)),
       }
     : null
 
@@ -55,34 +56,35 @@ const Row = ({
       {...linkProps}
       aria-label={title}
       className={cx('group relative flex w-full items-center bg-white py-3 px-4 md:py-4 md:px-5', {
-        'cursor-pointer': link,
+        'cursor-pointer': linkHref,
         'border border-border': border,
       })}
     >
       {number && <div className="pr-8 pl-1 text-h1 font-bold text-primary">{number}</div>}
       <div className="grow space-y-1.5">
-        {category && (
+        {category?.attributes && (
           <MLink
+            // TODO add proper link
             href="#"
             noStyles
             className="text-sm text-primary underline hover:text-primary-dark"
           >
-            {category}
+            {category.attributes.title}
           </MLink>
         )}
 
         <h5
           className={cx('w-fit text-left text-h5 text-foreground-heading', {
-            'group-hover:underline group-focus:underline': link,
+            'group-hover:underline group-focus:underline': linkHref,
           })}
         >
           {title}
         </h5>
 
         <div className="space-x-3 text-sm empty:hidden">
-          {showUrl && link && (
+          {showUrl && linkHref && (
             <>
-              <span>{link}</span>
+              <span>{linkHref}</span>
               {metadata && metadata.length > 0 && <span>&bull;</span>}
             </>
           )}
@@ -109,12 +111,12 @@ const Row = ({
 
       <div className={cx('flex gap-x-5', { 'items-center': !arrowInCorner })}>
         {button && <div className="hidden md:flex">{button}</div>}
-        {link &&
+        {linkHref &&
           (isExternal ? (
             <>
               {/* desktop button */}
               <Button
-                href={link}
+                href={linkHref}
                 variant="plain-secondary"
                 startIcon={<OpenInNewIcon />}
                 className="hidden md:flex"
@@ -123,7 +125,7 @@ const Row = ({
               </Button>
               {/* mobile buttom */}
               <IconButton
-                href={link}
+                href={linkHref}
                 aria-label={title}
                 variant="plain-secondary"
                 className="-mr-2 md:hidden"
@@ -133,7 +135,7 @@ const Row = ({
             </>
           ) : (
             // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-            <IconButton href={link} aria-label={title} className="-mr-2 hidden md:flex">
+            <IconButton href={linkHref} aria-label={title} className="-mr-2 hidden md:flex">
               <ChevronRightIcon />
             </IconButton>
           ))}

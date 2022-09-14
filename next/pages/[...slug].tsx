@@ -3,10 +3,13 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import RichText from '../components/atoms/RichText/RichText'
 import Layout from '../components/layouts/Layout'
+import SectionsWrapper from '../components/layouts/SectionsWrapper'
 import AccordionGroup from '../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../components/molecules/Accordion/AccordionItem'
 import BranchGroup from '../components/molecules/BranchGroup'
+import DocumentGroup from '../components/molecules/DocumentGroup'
 import ProcedureTabs from '../components/molecules/ProcedureTabs'
 import Section from '../components/molecules/Section'
 import BundleListingSection from '../components/sections/BundleListingSection'
@@ -38,14 +41,19 @@ const Slug = ({ navigation, page, general }: PageProps) => {
 
   return (
     <Layout page={page} navigation={navigation} general={general}>
-      <div className="gap-y-6 sm:gap-y-8">
+      <SectionsWrapper
+        isContainer={isContainer}
+        alternateBackground={isContainer}
+        startBackground="light"
+        className="gap-y-6 sm:gap-y-8"
+      >
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
-        {page.attributes?.sections?.map((section) => {
+        {page.attributes?.sections?.map((section, index) => {
           if (section?.__typename === 'ComponentSectionsProceduresSection') {
             return (
               <Section
+                index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer={isContainer}
                 title={section.title}
               >
                 <ProcedureTabs />
@@ -55,8 +63,8 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsRichtext') {
             return (
               <RichTextSection
+                index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer={isContainer}
                 content={section.content}
               />
             )
@@ -64,15 +72,14 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsAccordionGroup') {
             return (
               <Section
+                index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer={isContainer}
                 title={section.title}
               >
                 <AccordionGroup>
                   {section.accordions?.map((accordion) => (
                     <AccordionItem key={accordion?.id} title={accordion?.title}>
-                      {/* TODO parse and display content properly with EditorJS <Blocks></Blocks> */}
-                      {accordion?.content}
+                      <RichText data={accordion?.content} coloredTable={false} />
                     </AccordionItem>
                   ))}
                 </AccordionGroup>
@@ -82,8 +89,8 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsBranchGroup') {
             return (
               <Section
+                index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer={isContainer}
                 title={section.title}
               >
                 <BranchGroup {...section} />
@@ -93,26 +100,36 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsBundleListing') {
             return (
               <BundleListingSection
+                index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer={isContainer}
                 section={section}
               />
             )
           }
           if (section?.__typename === 'ComponentSectionsContactGroup') {
-            return <ContactsSection key={`${section.__typename}-${section.id}`} {...section} />
+            return (
+              <ContactsSection
+                key={`${section.__typename}-${section.id}`}
+                index={index}
+                {...section}
+              />
+            )
           }
           if (section?.__typename === 'ComponentSectionsDocumentGroup') {
             return (
-              <Section key={`${section.__typename}-${section.id}`} isContainer={isContainer}>
-                {/* TODO */}
-                documents
+              <Section
+                index={index}
+                key={`${section.__typename}-${section.id}`}
+                title={section.title}
+              >
+                <DocumentGroup {...section} />
               </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsPartnersSection') {
             return (
               <PartnersSection
+                index={index}
                 key={`${section.__typename}-${section.id}`}
                 featuredTitle={section.featuredPartnersTitle}
                 otherTitle={section.otherPartnersTitle}
@@ -122,6 +139,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsGallery') {
             return (
               <ImageGallerySection
+                index={index}
                 key={`${section.__typename}-${section.id}`}
                 title={section.title}
                 images={section.medias?.data}
@@ -132,8 +150,8 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsMenuListing') {
             return (
               <MenuListingSection
+                index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer={isContainer}
                 title={section.title}
                 slug={section.slug}
                 navigation={navigation}
@@ -143,8 +161,8 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsManualListing') {
             return (
               <CardSection
+                index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer={isContainer}
                 section={section}
               />
             )
@@ -152,8 +170,8 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsNewsListing') {
             return (
               <Section
+                index={index}
                 key={`${section.__typename}-${section.id}`}
-                isContainer={isContainer}
                 title={section.title}
               >
                 <NewsListing />
@@ -172,7 +190,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           return null
         })}
-      </div>
+      </SectionsWrapper>
     </Layout>
   )
 }

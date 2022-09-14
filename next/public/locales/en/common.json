@@ -1,7 +1,8 @@
 {
   "general": {
     "showMore": "Show more",
-    "goToSlide": "Go to slide {{number}}"
+    "goToSlide": "Go to slide {{number}}",
+    "or": "or"
   },
   "components": {
     "molecules": {
@@ -68,6 +69,13 @@
   "layouts": {
     "ArticleLayout": {
       "moreNews": "More news"
+    },
+    "DocumentLayout": {
+      "createdAt": "Created",
+      "downloadFile": "Download file",
+      "category": "Category",
+      "description": "Description",
+      "details": "Details"
     }
   }
 }

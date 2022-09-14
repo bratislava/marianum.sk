@@ -32,12 +32,14 @@ const NewsListing = () => {
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
       {filteredNews?.map((article) => {
         const { title, publishedAt, coverMedia, slug, articleCategory } = article
+
         return (
           <ArticleCard
+            key={slug}
             title={title}
-            imageUrl={coverMedia.data?.attributes?.url ?? ''}
-            imageAlt={coverMedia.data?.attributes?.alternativeText ?? ''}
+            image={coverMedia.data?.attributes}
             date={publishedAt}
+            // TODO link: add proper link
             linkHref={slug}
             category={articleCategory?.data}
           />

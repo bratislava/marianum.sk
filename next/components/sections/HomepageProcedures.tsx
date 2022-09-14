@@ -6,20 +6,21 @@ import Tabs from '../atoms/Tabs/Tabs'
 import Row from '../molecules/Row'
 import Section, { SectionProps } from '../molecules/Section'
 
-type HomepagePoceduresProps = Pick<SectionProps, 'title' | 'isContainer' | 'color'> & {
+type HomepagePoceduresProps = Pick<SectionProps, 'title' | 'background' | 'index'> & {
   procedures: ProcedureFragment[]
   showMoreButton: CtaButtonFragment | null | undefined
 }
 
 const HomepageProcedures = ({
   title,
-  isContainer,
-  color,
   procedures,
   showMoreButton,
+  ...rest
 }: HomepagePoceduresProps) => {
+  const showMoreSlug = showMoreButton?.page?.data?.attributes?.slug
+
   return (
-    <Section isContainer={isContainer} color={color}>
+    <Section {...rest}>
       <div className="text-center lg:mx-32">
         <h2 className="pb-5 md:pb-10">{title}</h2>
         <Tabs areBig>
@@ -43,14 +44,9 @@ const HomepageProcedures = ({
             </Tab>
           ))}
         </Tabs>
-        {showMoreButton?.url && (
+        {showMoreSlug && (
           <div className="mt-8">
-            <MLink
-              href={showMoreButton.url}
-              target={showMoreButton.targetBlank ? '_blank' : '_self'}
-            >
-              {showMoreButton.label}
-            </MLink>
+            <MLink href={showMoreSlug}>{showMoreButton.label}</MLink>
           </div>
         )}
       </div>
