@@ -154,6 +154,11 @@ fragment PartnersSection on ComponentSectionsPartnersSection {
   otherPartnersTitle
 }
 
+fragment MapSection on ComponentSectionsMapSection {
+  id
+  title
+}
+
 fragment BundleListing on ComponentSectionsBundleListing {
   id
   title

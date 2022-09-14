@@ -57,6 +57,17 @@
     },
     "CeremoniesSection": {
       "noCeremonies": "Žiadne obrady na zobrazenie."
+    },
+    "MapSection": {
+      "search": "Hladať...",
+      "noResults": "Žiadne výsledky...",
+      "map": "Mapa",
+      "filtering": "Filtrácia",
+      "filters": {
+        "civil": "Civilné",
+        "historical": "Historické",
+        "war": "Vojnové"
+      }
     }
   },
   "layouts": {

@@ -18,8 +18,9 @@ const ContactsSection = ({
   return (
     <Section {...rest}>
       <div className="flex flex-col gap-4">
-        {filteredContacts.map(({ title, email, phone1, phone2 }) => (
-          <div className="border border-border bg-white">
+        {filteredContacts.map(({ title, email, phone1, phone2 }, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <div key={index} className="border border-border bg-white">
             <div className="p-6 text-h4 font-bold">{title}</div>
             <hr className="border-border" />
             <div className="flex flex-col gap-2 p-6">
