@@ -89,7 +89,8 @@
         "sections.procedures-section",
         "sections.partners-section",
         "sections.bundle-listing",
-        "sections.map-section"
+        "sections.map-section",
+        "sections.public-disclosure-section"
       ]
     },
     "sidebar": {

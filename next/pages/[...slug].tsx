@@ -9,6 +9,7 @@ import SectionsWrapper from '../components/layouts/SectionsWrapper'
 import AccordionGroup from '../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../components/molecules/Accordion/AccordionItem'
 import BranchGroup from '../components/molecules/BranchGroup'
+import DisclosureIframe from '../components/molecules/DisclosureIframe'
 import DocumentGroup from '../components/molecules/DocumentGroup'
 import ProcedureTabs from '../components/molecules/ProcedureTabs'
 import Section from '../components/molecules/Section'
@@ -186,6 +187,13 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               //   {...section}
               // />
               <span>Map</span>
+            )
+          }
+          if (section?.__typename === 'ComponentSectionsPublicDisclosureSection') {
+            return (
+              <Section index={index} key={`${section.__typename}-${section.id}`}>
+                <DisclosureIframe />
+              </Section>
             )
           }
           return null

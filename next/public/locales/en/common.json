@@ -2,7 +2,8 @@
   "general": {
     "showMore": "Show more",
     "goToSlide": "Go to slide {{number}}",
-    "or": "or"
+    "or": "or",
+    "disclosureOfInformation": "Disclosure of information"
   },
   "components": {
     "molecules": {

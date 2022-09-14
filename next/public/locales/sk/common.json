@@ -2,7 +2,8 @@
   "general": {
     "showMore": "Zobraziť viac",
     "goToSlide": "Ísť na slide {{number}}",
-    "or": "alebo"
+    "or": "alebo",
+    "disclosureOfInformation": "Zverejňovanie informácií"
   },
   "components": {
     "molecules": {

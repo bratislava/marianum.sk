@@ -270,6 +270,10 @@ fragment PageEntity on PageEntity {
         __typename
         ...MapSection
       }
+      ... on ComponentSectionsPublicDisclosureSection {
+        __typename
+        id
+      }
       ... on ComponentSectionsRichtext {
         __typename
         id
