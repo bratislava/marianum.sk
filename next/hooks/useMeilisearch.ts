@@ -4,13 +4,7 @@ import { useDebounce } from 'usehooks-ts'
 
 import { braidArrays } from '../utils/braidArrays'
 import { meiliClient } from '../utils/meilisearch'
-
-type ResultType<T> = {
-  id?: number
-  slug?: string
-  title: string
-  index: T
-}
+import { MeilisearchResultType } from '../utils/types'
 
 export type UseMeilisearchOptions<T extends string> = {
   indexes?: {
@@ -35,7 +29,7 @@ export const useMeilisearch = <T extends string>({
 
   const [currentPage, setCurrentPage] = useState(1)
   const [pageCount, setPageCount] = useState(0)
-  const [allResults, setAllResults] = useState<ResultType<T>[]>([])
+  const [allResults, setAllResults] = useState<MeilisearchResultType<T>[]>([])
   const [totalResultsCount, setTotalResultsCount] = useState(0)
 
   // on first render set searchQuery according to urlQuery
@@ -86,7 +80,7 @@ export const useMeilisearch = <T extends string>({
           indexes.map((index) =>
             meiliClient
               .index(index.name)
-              .search<ResultType<T>>(debouncedSearchQuery ?? '*', {
+              .search<MeilisearchResultType<T>>(debouncedSearchQuery ?? '*', {
                 limit: 1000,
                 filter: index.localized ? [`locale = ${language ?? 'sk'}`] : [],
               })
