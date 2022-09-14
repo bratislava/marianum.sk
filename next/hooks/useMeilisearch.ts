@@ -1,5 +1,5 @@
 import { useTranslation } from 'next-i18next'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useDebounce } from 'usehooks-ts'
 
 import { braidArrays } from '../utils/braidArrays'
@@ -53,10 +53,6 @@ export const useMeilisearch = <T extends string>({
     window.history.replaceState({}, '', `${window.location.pathname}${stringParams}`)
   }, [searchQuery])
 
-  const changePage = useCallback((page: number) => {
-    setCurrentPage(page)
-  }, [])
-
   useEffect(() => {
     // when searchQuery changes, set loading
     setLoading(true)
@@ -67,7 +63,7 @@ export const useMeilisearch = <T extends string>({
   }, [searchQuery])
 
   useEffect(() => {
-    changePage(1)
+    setCurrentPage(1)
 
     // fetch and braid arrays together
     const fetchResults = async () =>
@@ -100,7 +96,7 @@ export const useMeilisearch = <T extends string>({
         // eslint-disable-next-line no-console
         console.error(error)
       })
-  }, [indexes, debouncedSearchQuery, countPerPage, changePage, i18n.language])
+  }, [indexes, debouncedSearchQuery, countPerPage, i18n.language])
 
   const results = useMemo(() => {
     const fromIndex = countPerPage * (currentPage - 1)
@@ -114,7 +110,7 @@ export const useMeilisearch = <T extends string>({
     results,
     totalResultsCount,
     currentPage,
-    changePage,
+    changePage: setCurrentPage,
     pageCount,
     isLoading,
   }
