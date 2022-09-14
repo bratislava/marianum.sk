@@ -1,12 +1,8 @@
-/* eslint-disable sonarjs/no-duplicate-string */
-import 'react-loading-skeleton/dist/skeleton.css'
-
 import { motion } from 'framer-motion'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useCallback, useMemo, useState } from 'react'
-import { SkeletonTheme } from 'react-loading-skeleton'
 
 import { AnimateHeight } from '../components/atoms/AnimateHeight'
 import Pagination from '../components/atoms/Pagination/Pagination'
@@ -20,6 +16,7 @@ import Section from '../components/molecules/Section'
 import { GeneralEntityFragment, NavigationItemFragment } from '../graphql'
 import { useMeilisearch } from '../hooks/useMeilisearch'
 import { client } from '../utils/gql'
+import { isDefined } from '../utils/isDefined'
 
 const COUNT_PER_PAGE = 24
 
@@ -117,14 +114,14 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
                 placeholder={t('search')}
                 isLarge
                 value={searchQuery ?? ''}
-                onChange={setSearchQuery}
+                onSearchQueryChange={setSearchQuery}
               />
             </div>
             <div className="md:hidden">
               <Search
                 placeholder={t('search')}
                 value={searchQuery ?? ''}
-                onChange={setSearchQuery}
+                onSearchQueryChange={setSearchQuery}
               />
             </div>
             <div className="flex flex-col-reverse justify-between gap-3 md:flex-row md:items-center">
@@ -155,13 +152,11 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
               <div className="flex flex-col gap-6">
                 <AnimateHeight isVisible>
                   {isLoading ? (
-                    <SkeletonTheme baseColor="#d4d4d4" highlightColor="#e9e9e9">
-                      <div className="flex select-none flex-col gap-3">
-                        {Array.from({ length: COUNT_PER_PAGE }, (_item, index) => (
-                          <RowSkeleton key={index} />
-                        ))}
-                      </div>
-                    </SkeletonTheme>
+                    <div className="flex select-none flex-col gap-3">
+                      {Array.from({ length: COUNT_PER_PAGE }, (_item, index) => (
+                        <RowSkeleton key={index} />
+                      ))}
+                    </div>
                   ) : totalResultsCount === 0 ? (
                     <motion.div
                       initial={{ y: 48 }}
@@ -172,13 +167,15 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
                     </motion.div>
                   ) : (
                     <div className="flex flex-col gap-3">
-                      {results.map(({ title, index, slug, id }) => (
+                      {results.map(({ title, index, slug }) => (
                         <Row
-                          key={`${index}-${slug ?? id ?? ''}`}
+                          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                          key={`${index}-${slug ?? ''}`}
                           title={title}
-                          // eslint-disable-next-line sonarjs/no-nested-template-literals
-                          linkHref={`${hostname}${t(`paths.${index}`)}/${slug ?? id ?? ''}`}
+                          // eslint-disable-next-line sonarjs/no-nested-template-literals, @typescript-eslint/restrict-template-expressions
+                          linkHref={`${hostname}${t(`paths.${index}`)}/${slug ?? ''}`}
                           showUrl
+                          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                           tags={[t(`tags.${index}`)]}
                           border={false}
                         />
@@ -212,7 +209,7 @@ export const getStaticProps: GetStaticProps = async ({
     serverSideTranslations(locale, ['common']),
   ])
 
-  const filteredNavigation = navigation.filter(Boolean) as NavigationItemFragment[]
+  const filteredNavigation = navigation.filter(isDefined)
 
   return {
     props: {

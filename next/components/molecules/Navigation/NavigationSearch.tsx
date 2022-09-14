@@ -13,7 +13,7 @@ const NavigationSearch = () => {
     console.log(results)
   }, [results])
 
-  const search = useCallback(async (query: string) => {
+  const handleSearch = useCallback(async (query: string) => {
     meiliClient
       .index('branch')
       .search(query ?? '*')
@@ -32,7 +32,7 @@ const NavigationSearch = () => {
           inputClassName="placeholder:text-white focus:placeholder:text-foreground-placeholder"
           placeholder="Hľadať na stránke"
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
-          onChange={search}
+          onSearchQueryChange={handleSearch}
         />
       </div>
     </>

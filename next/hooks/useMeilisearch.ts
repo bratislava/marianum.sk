@@ -18,9 +18,7 @@ export const useMeilisearch = <T extends string>({
   indexes = [],
   countPerPage = 10,
 }: UseMeilisearchOptions<T>) => {
-  const {
-    i18n: { language },
-  } = useTranslation()
+  const { i18n } = useTranslation()
 
   const [isLoading, setLoading] = useState<boolean>(false)
 
@@ -43,12 +41,10 @@ export const useMeilisearch = <T extends string>({
   // set urlQuery according to searchQuery to keep them in sync
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search)
-    if (searchQuery !== null) {
-      if (searchQuery) {
-        queryParams.set('query', searchQuery)
-      } else {
-        queryParams.delete('query')
-      }
+    if (searchQuery) {
+      queryParams.set('query', searchQuery)
+    } else if (searchQuery !== null) {
+      queryParams.delete('query')
     }
 
     let stringParams = queryParams.toString()
@@ -82,7 +78,7 @@ export const useMeilisearch = <T extends string>({
               .index(index.name)
               .search<MeilisearchResultType<T>>(debouncedSearchQuery ?? '*', {
                 limit: 1000,
-                filter: index.localized ? [`locale = ${language ?? 'sk'}`] : [],
+                filter: index.localized ? [`locale = ${i18n.language ?? 'sk'}`] : [],
               })
               .then((results) => {
                 return results.hits.map((hit) => ({ ...hit, index: index.name }))
@@ -104,7 +100,7 @@ export const useMeilisearch = <T extends string>({
         // eslint-disable-next-line no-console
         console.error(error)
       })
-  }, [indexes, debouncedSearchQuery, countPerPage, changePage, language])
+  }, [indexes, debouncedSearchQuery, countPerPage, changePage, i18n.language])
 
   const results = useMemo(() => {
     const fromIndex = countPerPage * (currentPage - 1)

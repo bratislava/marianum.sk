@@ -1,7 +1,7 @@
 import { KeyboardEvent, useCallback, useEffect, useState } from 'react'
 
+import CloseIcon from '../../assets/close.svg'
 import SearchIcon from '../../assets/search.svg'
-import XIcon from '../../assets/x.svg'
 import XAltIcon from '../../assets/x-alt.svg'
 import TextField from '../atoms/TextField'
 
@@ -9,7 +9,7 @@ type SearchProps = {
   value?: string
   placeholder?: string
   inputClassName?: string
-  onChange?: (value: string) => void
+  onSearchQueryChange?: (value: string) => void
   onSearch?: (value: string) => void
   isLarge?: boolean
   className?: string
@@ -18,7 +18,7 @@ type SearchProps = {
 const Search = ({
   value = '',
   placeholder,
-  onChange = () => {},
+  onSearchQueryChange = () => {},
   onSearch = () => {},
   className,
   inputClassName,
@@ -30,18 +30,18 @@ const Search = ({
     setRealValue(value)
   }, [value])
 
-  const onRealValueChange = useCallback(
+  const handleChange = useCallback(
     (text: string) => {
       setRealValue(text)
-      onChange(text)
+      onSearchQueryChange(text)
     },
-    [onChange],
+    [onSearchQueryChange],
   )
 
   const clearHandler = useCallback(() => {
     setRealValue('')
-    onChange('')
-  }, [onChange])
+    onSearchQueryChange('')
+  }, [onSearchQueryChange])
 
   const onSearchHandler = useCallback(() => {
     onSearch(realValue)
@@ -65,7 +65,7 @@ const Search = ({
     <TextField
       id="search"
       value={realValue}
-      onChange={(e) => onRealValueChange(e.target.value)}
+      onChange={(e) => handleChange(e.target.value)}
       placeholder={placeholder}
       onKeyUp={onKeyUpHandler}
       className={className}
@@ -79,7 +79,7 @@ const Search = ({
       rightSlot={
         realValue ? (
           <button onClick={clearHandler} type="button" className="p-2">
-            {isLarge ? <XIcon /> : <XAltIcon />}
+            {isLarge ? <CloseIcon /> : <XAltIcon />}
           </button>
         ) : null
       }

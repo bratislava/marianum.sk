@@ -23,8 +23,7 @@ export type MenuItemType<T extends MenuItemType<T>> = {
 } | null
 
 export type MeilisearchResultType<T> = {
-  id?: number
-  slug?: string
+  slug: string
   title: string
   index: T
 }
