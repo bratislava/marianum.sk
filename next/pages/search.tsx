@@ -145,7 +145,11 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
                   {t('tags.branch')}
                 </TagToggle>
               </div>
-              {!isLoading && <div>{t('resultsFound', { count: totalResultsCount })}</div>}
+              {!isLoading && (
+                <div className="whitespace-nowrap">
+                  {t('resultsFound', { count: totalResultsCount })}
+                </div>
+              )}
             </div>
 
             {
