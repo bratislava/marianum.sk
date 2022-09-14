@@ -100,11 +100,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             )
           }
           if (section?.__typename === 'ComponentSectionsContactGroup') {
-            return (
-              section && (
-                <ContactsSection key={`${section.__typename}-${section.id}`} {...section} />
-              )
-            )
+            return <ContactsSection key={`${section.__typename}-${section.id}`} {...section} />
           }
           if (section?.__typename === 'ComponentSectionsDocumentGroup') {
             return (
