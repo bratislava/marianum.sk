@@ -37,6 +37,9 @@
         "skip": "Preskočiť",
         "print": "Vytlačiť postup",
         "download": "Stiahnuť postup"
+      },
+      "CeremoniesDebtorsBranchSelect": {
+        "allCemeteries": "Všetky cintoríny"
       }
     }
   },
@@ -54,6 +57,17 @@
       "aria": {
         "openImageGallery": "Otvoriť galériu obrázkov"
       }
+    },
+    "DebtorsSection": {
+      "graveSection": "Hr. miesto sekcia",
+      "graveNumber": "Hr. miesto číslo",
+      "firstName": "Meno zosnulého",
+      "lastName": "Priezvisko zosnulého",
+      "birthDate": "Dátum narodenia",
+      "deathDate": "Dátum úmrtia",
+      "branchName": "Cintorín",
+      "noRecords": "Žiadne záznamy",
+      "searchPlaceholder": "Hľadať..."
     },
     "CeremoniesSection": {
       "noCeremonies": "Žiadne obrady na zobrazenie."
