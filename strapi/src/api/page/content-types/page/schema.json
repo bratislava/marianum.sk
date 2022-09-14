@@ -88,7 +88,9 @@
         "sections.news-listing",
         "sections.procedures-section",
         "sections.partners-section",
-        "sections.bundle-listing"
+        "sections.bundle-listing",
+        "sections.debtors-section",
+        "sections.ceremonies-section"
       ]
     },
     "sidebar": {
