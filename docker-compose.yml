@@ -24,11 +24,11 @@ services:
       - MEILI_NO_ANALYTICS=true
       - MEILI_ENV=development
       - MEILI_LOG_LEVEL
-      # - MEILI_DB_PATH=${MEILI_DB_PATH:-/data.ms}
+      - MEILI_DB_PATH=/data.ms
     ports:
       - 7700:7700
     expose:
       - '7700'
-    # volumes:
-    #   - ./data.ms:/data.ms
+    volumes:
+      - ./meilisearch/data.ms:/data.ms
     restart: unless-stopped
