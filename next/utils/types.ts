@@ -21,3 +21,9 @@ export type MenuItemType<T extends MenuItemType<T>> = {
   path?: string | null
   items?: (T | null | undefined)[] | null
 } | null
+
+export type MeilisearchResultType<T> = {
+  slug: string
+  title: string
+  index: T
+}

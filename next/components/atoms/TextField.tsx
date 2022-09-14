@@ -22,6 +22,7 @@ type CommonProps = {
   id: string
   label?: string
   inputClassName?: string
+  isLarge?: boolean
 }
 
 type TextFieldProps = CommonProps & AreaOrInputConditionalProps
@@ -39,6 +40,7 @@ const TextField = (props: TextFieldProps) => {
       disabled = false,
       error = false,
       required = false,
+      isLarge = false,
       ...rest
     } = props
     return (
@@ -61,6 +63,7 @@ const TextField = (props: TextFieldProps) => {
             {
               'text-foreground-disabled': disabled,
               'placeholder:text-foreground-placeholder': !inputClassName?.includes('placeholder:'),
+              'h-16': isLarge,
             },
           )}
         />
@@ -79,6 +82,7 @@ const TextField = (props: TextFieldProps) => {
     inputClassName,
     error = false,
     required = false,
+    isLarge = false,
     ...rest
   } = props
 
@@ -93,19 +97,21 @@ const TextField = (props: TextFieldProps) => {
       error={error}
       required={required}
     >
-      {leftSlot && <div className="shrink-0 grow-0">{leftSlot}</div>}
+      {leftSlot && <div className={cx('shrink-0 grow-0', { 'p-3': isLarge })}>{leftSlot}</div>}
       <input
         {...rest}
         disabled={disabled}
         required={required}
-        className={cx('h-10 w-full bg-transparent outline-none', inputClassName, {
+        className={cx('w-full bg-transparent outline-none', inputClassName, {
           'text-foreground-disabled': disabled,
           'pl-4': !leftSlot,
           'pr-4': !rightSlot,
           'placeholder:text-foreground-placeholder': !inputClassName?.includes('placeholder:'),
+          'h-16': isLarge,
+          'h-10': !isLarge,
         })}
       />
-      {rightSlot && <div className="shrink-0 grow-0">{rightSlot}</div>}
+      {rightSlot && <div className={cx('shrink-0 grow-0', { 'p-3': isLarge })}>{rightSlot}</div>}
     </FieldWrapper>
   )
 }

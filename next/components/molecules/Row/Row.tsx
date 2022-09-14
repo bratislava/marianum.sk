@@ -2,18 +2,20 @@ import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { Fragment, ReactNode } from 'react'
 
-import ChevronRightIcon from '../../assets/chevron_right.svg'
-import OpenInNewIcon from '../../assets/open_in_new.svg'
-import PlaceIcon from '../../assets/place.svg'
-import { DocumentCategoryEntityFragment } from '../../graphql'
-import { onEnterOrSpaceKeyDown } from '../../utils/onEnterOrSpaceKeyDown'
-import Button from '../atoms/Button'
-import IconButton from '../atoms/IconButton'
-import MLink from '../atoms/MLink'
+import ChevronRightIcon from '../../../assets/chevron_right.svg'
+import OpenInNewIcon from '../../../assets/open_in_new.svg'
+import PlaceIcon from '../../../assets/place.svg'
+import { DocumentCategoryEntityFragment } from '../../../graphql'
+import { onEnterOrSpaceKeyDown } from '../../../utils/onEnterOrSpaceKeyDown'
+import Button from '../../atoms/Button'
+import IconButton from '../../atoms/IconButton'
+import MLink from '../../atoms/MLink'
+import Tag from '../../atoms/Tag'
 
 interface IRowProps {
   title: string
   metadata?: string[]
+  tags?: string[]
   linkHref?: string
   isExternal?: boolean
   showUrl?: boolean
@@ -29,6 +31,7 @@ interface IRowProps {
 const Row = ({
   title,
   metadata,
+  tags = [],
   linkHref = '',
   isExternal = false,
   showUrl = false,
@@ -73,13 +76,21 @@ const Row = ({
           </MLink>
         )}
 
-        <h5
-          className={cx('w-fit text-left text-h5 text-foreground-heading', {
-            'group-hover:underline group-focus:underline': linkHref,
-          })}
-        >
-          {title}
-        </h5>
+        <div className="flex gap-4">
+          <h5
+            className={cx('w-fit text-left text-h5 text-foreground-heading', {
+              'group-hover:underline group-focus:underline': linkHref,
+            })}
+          >
+            {title}
+          </h5>
+          {tags.length > 0 &&
+            tags.map((tag) => (
+              <Tag key={tag} className="bg-background-beige">
+                {tag}
+              </Tag>
+            ))}
+        </div>
 
         <div className="space-x-3 text-sm empty:hidden">
           {showUrl && linkHref && (

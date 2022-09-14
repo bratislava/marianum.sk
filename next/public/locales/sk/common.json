@@ -81,5 +81,30 @@
       "description": "Popis",
       "details": "Detaily"
     }
+  },
+  "pages": {
+    "search": {
+      "searchResults": "Výsledky vyhľadávania",
+      "search": "Hľadať",
+      "resultsFound_zero": "Nebol nájdený žiaden výsledok",
+      "resultsFound_one": "Bol nájdený {{count}} výsledok",
+      "resultsFound_few": "Boli nájdené {{count}} výsledky",
+      "resultsFound_other": "Bolo nájdených {{count}} výsledkov",
+      "tags": {
+        "allResults": "Všetky výsledky",
+        "page": "Stránka",
+        "bundle": "Balíček",
+        "document": "Dokument",
+        "article": "Článok",
+        "branch": "Cintorín / Pobočka"
+      },
+      "paths": {
+        "document": "/dokumenty",
+        "page": "",
+        "bundle": "/balicky",
+        "article": "/clanky",
+        "branch": "/cintoriny-a-pobocky"
+      }
+    }
   }
 }

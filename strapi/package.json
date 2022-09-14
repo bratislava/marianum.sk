@@ -21,6 +21,7 @@
     "patch-package": "^6.4.7",
     "pg": "8.6.0",
     "postinstall-postinstall": "^2.1.0",
+    "strapi-plugin-meilisearch": "https://github.com/bratislava/strapi-plugin-meilisearch.git",
     "strapi-plugin-navigation": "^2.2.1",
     "strapi-plugin-placeholder": "^4.1.7",
     "strapi-plugin-react-editorjs": "^2.0.1",

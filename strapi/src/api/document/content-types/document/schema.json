@@ -17,13 +17,16 @@
     },
     "slug": {
       "type": "uid",
-      "targetField": "title"
+      "targetField": "title",
+      "required": true
     },
     "file": {
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": ["files"]
+      "allowedTypes": [
+        "files"
+      ]
     },
     "description": {
       "type": "text"

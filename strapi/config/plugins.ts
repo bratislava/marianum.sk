@@ -26,4 +26,30 @@ export default {
     enabled: true,
     resolve: "./src/plugins/ceremonies-debtor-list",
   },
+  meilisearch: {
+    config: {
+      host: process.env.MEILISEARCH_HOST,
+      apiKey: process.env.MEILISEARCH_ADMIN_API_KEY,
+      page: {
+        settings: {
+          filterableAttributes: ["locale"],
+        },
+      },
+      branch: {
+        settings: {
+          filterableAttributes: ["locale"],
+        },
+      },
+      article: {
+        settings: {
+          filterableAttributes: ["locale"],
+        },
+      },
+      bundle: {
+        settings: {
+          filterableAttributes: ["locale"],
+        },
+      },
+    },
+  },
 };

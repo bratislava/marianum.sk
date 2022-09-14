@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { BranchGroupFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
-import Row from './Row'
+import Row from './Row/Row'
 
 const BranchGroup = ({ branches }: BranchGroupFragment) => {
   const filteredBranches = useMemo(() => {

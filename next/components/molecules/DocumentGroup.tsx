@@ -5,7 +5,7 @@ import DownloadIcon from '../../assets/download.svg'
 import { DocumentGroupFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
 import Button from '../atoms/Button'
-import Row from './Row'
+import Row from './Row/Row'
 
 const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
   const { t } = useTranslation()

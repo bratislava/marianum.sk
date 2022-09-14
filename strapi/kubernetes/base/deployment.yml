@@ -47,3 +47,9 @@ spec:
       terminationGracePeriodSeconds: 30
       imagePullSecrets:
         - name: ${IMAGE_PULL_SECRET}
+
+  envFrom:
+    - secretRef:
+        name: ${BUILD_REPOSITORY_NAME}-meilisearch-secret
+    - configMapRef:
+        name: ${BUILD_REPOSITORY_NAME}-meilisearch

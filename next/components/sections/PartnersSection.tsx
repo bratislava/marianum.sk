@@ -4,7 +4,7 @@ import useSWR from 'swr'
 import { client } from '../../utils/gql'
 import { isDefined } from '../../utils/isDefined'
 import PartnerCard from '../molecules/Cards/PartnerCard'
-import Row from '../molecules/Row'
+import Row from '../molecules/Row/Row'
 import Section, { SectionProps } from '../molecules/Section'
 
 type PartnersSectionProps = {
