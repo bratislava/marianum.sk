@@ -8,7 +8,7 @@ import useSWR from 'swr'
 
 import MapMarkerIcon from '../../../assets/map-marker.svg'
 import PlaceIcon from '../../../assets/place.svg'
-import { Enum_Branch_Cemeterytype, Enum_Branch_Type } from '../../../graphql'
+import { Enum_Branch_Cemeterytype } from '../../../graphql'
 import { client } from '../../../utils/gql'
 import { isDefined } from '../../../utils/isDefined'
 import Button from '../../atoms/Button'
@@ -38,35 +38,25 @@ type MapSectionProps = Pick<SectionProps, 'isContainer' | 'color' | 'title'>
 const MapSection = ({ ...rest }: MapSectionProps) => {
   const { t, i18n } = useTranslation('common', { keyPrefix: 'sections.MapSection' })
 
-  const { data, error } = useSWR(['Branches', i18n.language], (_key, locale) =>
-    client.Branches({ locale }),
+  const { data, error } = useSWR(['Cemeteries', i18n.language], (_key, locale) =>
+    client.Cemeteries({ locale }),
   )
 
   const validBranches = useMemo(() => {
-    return (
-      (data?.branches?.data
-        ?.map((branch) => branch.attributes)
-        .filter(isDefined)
-        .filter(
-          (branch) =>
-            branch.address &&
-            branch.title &&
-            branch.slug &&
-            branch.latitude &&
-            branch.longitude &&
-            branch.type === Enum_Branch_Type.Cintorin,
-        )
-        // sort by title alphabetically
-        .sort((a, b) => a.title.localeCompare(b.title)) ?? []) as {
-        address: string
-        title: string
-        slug: string
-        latitude: number
-        longitude: number
-        type: Enum_Branch_Type
-        cemeteryType: Enum_Branch_Cemeterytype
-      }[]
-    )
+    return (data?.branches?.data
+      ?.map((branch) => branch.attributes)
+      .filter(isDefined)
+      .filter(
+        (branch) =>
+          branch.address && branch.title && branch.slug && branch.latitude && branch.longitude,
+      ) ?? []) as {
+      address: string
+      title: string
+      slug: string
+      latitude: number
+      longitude: number
+      cemeteryType: Enum_Branch_Cemeterytype
+    }[]
   }, [data?.branches])
 
   const [searchQuery, setSearchQuery] = useState('')

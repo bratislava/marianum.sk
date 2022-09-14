@@ -70,6 +70,14 @@ query Branches($locale: I18NLocaleCode!) {
   }
 }
 
+query Cemeteries($locale: I18NLocaleCode!) {
+  branches(locale: $locale, filters: { type: { eq: "cintorin" } }, sort: ["title:asc"]) {
+    data {
+      ...BranchEntity
+    }
+  }
+}
+
 query BundleBySlug($locale: I18NLocaleCode!, $slug: String!) {
   bundles(locale: $locale, filters: { slug: { eq: $slug } }) {
     data {
