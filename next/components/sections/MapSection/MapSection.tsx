@@ -34,7 +34,7 @@ const getBoundsForBranches = (
   ] as [[number, number], [number, number]]
 }
 
-type MapSectionProps = Pick<SectionProps, 'isContainer' | 'color' | 'title'>
+type MapSectionProps = Pick<SectionProps, 'background' | 'title'>
 
 const MapSection = ({ ...rest }: MapSectionProps) => {
   const { t, i18n } = useTranslation('common', { keyPrefix: 'sections.MapSection' })
