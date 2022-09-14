@@ -27,9 +27,10 @@ const getBoundsForBranches = (
 ) => {
   const branchesLongitude = branches.map((branch) => branch.longitude).filter(isDefined) ?? []
   const branchesLatitude = branches.map((branch) => branch.latitude).filter(isDefined) ?? []
+
   return [
-    [Math.min(...branchesLongitude) ?? 0, Math.min(...branchesLatitude) ?? 0],
-    [Math.max(...branchesLongitude) ?? 0, Math.max(...branchesLatitude) ?? 0],
+    [Math.min(...branchesLongitude), Math.min(...branchesLatitude)],
+    [Math.max(...branchesLongitude), Math.max(...branchesLatitude)],
   ] as [[number, number], [number, number]]
 }
 
@@ -94,11 +95,15 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
 
   const fitBranches = useCallback(
     (duration = 0) => {
-      mapRef.current?.fitBounds(getBoundsForBranches(filteredBranches), {
-        padding: 100,
-        offset: [0, 10],
-        duration,
-      })
+      try {
+        mapRef.current?.fitBounds(getBoundsForBranches(filteredBranches), {
+          padding: 100,
+          offset: [0, 10],
+          duration,
+        })
+      } catch {
+        // TODO: handle error
+      }
     },
     [filteredBranches],
   )
