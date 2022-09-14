@@ -217,3 +217,56 @@ query HomepageCeremonies($dateTime: DateTime!) {
     }
   }
 }
+
+# Temporary, will be replaced by Meilisearch
+query Debtors($page: Int!, $search: String) {
+  debtors(pagination: { page: $page, pageSize: 20 }, filters: { lastName: { contains: $search } }) {
+    data {
+      attributes {
+        graveSection
+        graveNumber
+        firstName
+        lastName
+        birthDate
+        deathDate
+        branch {
+          data {
+            attributes {
+              title
+              slug
+              localizations {
+                data {
+                  attributes {
+                    title
+                    slug
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    meta {
+      pagination {
+        page
+        total
+        pageSize
+        pageCount
+      }
+    }
+  }
+}
+
+query BranchesInCeremonies {
+  branches(filters: { allowInCeremonies: { eq: true } }) {
+    ...BranchInCeremoniesDebtors
+  }
+}
+
+query BranchesInDebtors {
+  branches(filters: { allowInDebtors: { eq: true } }) {
+    ...BranchInCeremoniesDebtors
+  }
+}
+
