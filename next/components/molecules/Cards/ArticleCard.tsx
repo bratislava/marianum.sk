@@ -3,7 +3,10 @@ import { useRouter } from 'next/router'
 import React, { useMemo, useRef } from 'react'
 import { useHover } from 'usehooks-ts'
 
-import { ArticleCategoryEntityFragment } from '../../../graphql'
+import {
+  ArticleNewsCategoryEntityFragment,
+  ArticlePressCategoryEntityFragment,
+} from '../../../graphql'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
 import FormatDate from '../../atoms/FormatDate'
@@ -14,7 +17,11 @@ type ArticleCardProps = {
   image?: MImageImage | null
   title: string
   date: number | Date
-  category?: ArticleCategoryEntityFragment | null | undefined
+  category?:
+    | ArticleNewsCategoryEntityFragment
+    | ArticlePressCategoryEntityFragment
+    | null
+    | undefined
   linkHref: string
 } & CardBoxProps
 

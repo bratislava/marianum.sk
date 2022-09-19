@@ -21,7 +21,15 @@ fragment UploadFileEntity on UploadFileEntity {
   }
 }
 
-fragment ArticleCategoryEntity on ArticleCategoryEntity {
+fragment ArticleNewsCategoryEntity on ArticleNewsCategoryEntity {
+  id
+  attributes {
+    title
+    slug
+  }
+}
+
+fragment ArticlePressCategoryEntity on ArticlePressCategoryEntity {
   id
   attributes {
     title
@@ -41,9 +49,14 @@ fragment ArticleCardEntity on ArticleEntity {
         ...UploadImageEntity
       }
     }
-    articleCategory {
+    newsCategory {
       data {
-        ...ArticleCategoryEntity
+        ...ArticleNewsCategoryEntity
+      }
+    }
+    pressCategory {
+      data {
+        ...ArticlePressCategoryEntity
       }
     }
   }
@@ -53,6 +66,11 @@ fragment ArticleEntity on ArticleEntity {
   ...ArticleCardEntity
   attributes {
     content
+    mediaGallery {
+      data {
+        ...UploadImageEntity
+      }
+    }
   }
 }
 

@@ -55,8 +55,10 @@
     "coverMedia": {
       "type": "media",
       "multiple": false,
-      "required": true,
-      "allowedTypes": ["images"],
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ],
       "pluginOptions": {
         "i18n": {
           "localized": false

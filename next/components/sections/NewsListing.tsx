@@ -33,16 +33,16 @@ const NewsListing = () => {
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
       {filteredNews?.map((article) => {
-        const { title, publishedAt, coverMedia, slug, articleCategory } = article
+        const { title, publishedAt, coverMedia, slug, newsCategory } = article
 
         return (
           <ArticleCard
             key={slug}
             title={title}
-            image={coverMedia.data?.attributes}
+            image={coverMedia?.data?.attributes}
             date={publishedAt}
             linkHref={`${navMap.get(i18n.language === 'en' ? 'news' : 'novinky') ?? ''}/${slug}`}
-            category={articleCategory?.data}
+            category={newsCategory?.data}
           />
         )
       })}
