@@ -71,14 +71,6 @@
       "relation": "oneToOne",
       "target": "api::contact.contact"
     },
-    "description": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "richtext"
-    },
     "address": {
       "pluginOptions": {
         "i18n": {
@@ -95,13 +87,21 @@
       },
       "type": "string"
     },
-    "openingHoursOverride": {
+    "latitude": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "type": "richtext"
+      "type": "float"
+    },
+    "longitude": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "float"
     },
     "allowInCeremonies": {
       "pluginOptions": {
@@ -123,21 +123,21 @@
       "default": true,
       "required": true
     },
-    "latitude": {
+    "description": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "type": "float"
+      "type": "richtext"
     },
-    "longitude": {
+    "openingHoursOverride": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "type": "float"
+      "type": "richtext"
     }
   }
 }

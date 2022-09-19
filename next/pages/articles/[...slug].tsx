@@ -5,6 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import RichText from '../../components/atoms/RichText/RichText'
 import ArticleLayout from '../../components/layouts/ArticleLayout'
+import ImageGallery from '../../components/sections/ImageGallery'
 import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import { client } from '../../utils/gql'
 import { isDefined } from '../../utils/isDefined'
@@ -16,9 +17,12 @@ type ArticlePageProps = {
 } & SSRConfig
 
 const ArticlePage = ({ navigation, article, general }: ArticlePageProps) => {
+  const medias = article.attributes?.mediaGallery?.data.filter(isDefined)
+
   return (
     <ArticleLayout article={article} navigation={navigation} general={general}>
       <RichText data={article.attributes?.content} />
+      {medias?.length ? <ImageGallery images={medias} /> : null}
     </ArticleLayout>
   )
 }

@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "article_categories",
+  "collectionName": "article_press_categories",
   "info": {
-    "singularName": "article-category",
-    "pluralName": "article-categories",
-    "displayName": "Articles: Categories",
+    "singularName": "article-press-category",
+    "pluralName": "article-press-categories",
+    "displayName": "Articles: Press categories",
     "description": ""
   },
   "options": {
@@ -25,7 +25,7 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::article.article",
-      "mappedBy": "articleCategory"
+      "mappedBy": "pressCategory"
     }
   }
 }
