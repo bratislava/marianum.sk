@@ -26,7 +26,7 @@ type DocumentLayoutProps = {
 
 const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) => {
   const router = useRouter()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const { title, description, file, publishedAt, documentCategory, slug } =
     document.attributes ?? {}
@@ -55,9 +55,8 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
   }, [file])
 
   const size = useMemo(() => {
-    // filesize in bytes
-    return filesize((file?.data?.attributes?.size ?? 0) * 1000, { round: 1 })
-  }, [file])
+    return filesize((file?.data?.attributes?.size ?? 0) * 1000, { round: 1, locale: i18n.language })
+  }, [file, i18n.language])
 
   return (
     <PageWrapper
