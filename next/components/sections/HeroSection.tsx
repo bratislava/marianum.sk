@@ -1,8 +1,8 @@
-import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
+import { ReactNode } from 'react'
 
 import HomeIcon from '../../assets/home.svg'
-import { CtaButtonFragment, UploadImageEntityFragment } from '../../graphql'
+import { CtaButtonFragment } from '../../graphql'
 import { TBreadcrumbListItem } from '../../utils/types'
 import Breadcrumbs from '../atoms/Breadcrumbs'
 import Button from '../atoms/Button'
@@ -10,15 +10,22 @@ import FormatCurrency from '../atoms/FormatCurrency'
 import MLink from '../atoms/MLink'
 
 type HeroSectionProps = {
+  breadcrumbs?: TBreadcrumbListItem[]
   title?: string | null | undefined
   perex?: string | null | undefined
   ctaButton?: CtaButtonFragment | null | undefined
-  image?: UploadImageEntityFragment | null | undefined
-  breadcrumbs?: TBreadcrumbListItem[]
   price?: number | null | undefined
+  moreContent?: ReactNode
 }
 
-const HeroSection = ({ title, perex, ctaButton, image, breadcrumbs, price }: HeroSectionProps) => {
+const HeroSection = ({
+  breadcrumbs,
+  title,
+  perex,
+  ctaButton,
+  price,
+  moreContent,
+}: HeroSectionProps) => {
   const { t } = useTranslation()
 
   const breadcrumbsWithHome = [{ label: <HomeIcon />, link: '/' }, ...(breadcrumbs ?? [])]
@@ -58,16 +65,8 @@ const HeroSection = ({ title, perex, ctaButton, image, breadcrumbs, price }: Her
           )}
         </div>
       </div>
-      {image && (
-        <div className="container relative mx-auto -mb-18 h-[188px] w-full sm:h-[238px] md:h-[287px] lg:h-[387px] xl:h-[440px]">
-          <Image
-            src={image.attributes?.url ?? ''}
-            alt={image.attributes?.alternativeText ?? ''}
-            layout="fill"
-            objectFit="cover"
-            unoptimized
-          />
-        </div>
+      {moreContent && (
+        <div className="container relative mx-auto -mb-18 w-full px-4">{moreContent}</div>
       )}
     </div>
   )

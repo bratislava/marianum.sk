@@ -25,10 +25,12 @@ type DocumentLayoutProps = {
 
 const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) => {
   const router = useRouter()
-  const breadcrumbs = getBreadcrumbs(router.asPath, navigation)
   const { t } = useTranslation()
 
-  const { title, description, file, publishedAt, documentCategory } = document.attributes ?? {}
+  const { title, description, file, publishedAt, documentCategory, slug } =
+    document.attributes ?? {}
+
+  const breadcrumbs = getBreadcrumbs(router.asPath, navigation, [{ label: title, link: slug }])
 
   const dlData = useMemo(() => {
     return [

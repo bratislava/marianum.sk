@@ -78,6 +78,12 @@
       "details": "Details"
     }
   },
+  "BranchLayout": {
+    "navigate": "Navigate",
+    "openingHours": "Opening hours",
+    "aboutCemetery": "About cemetery",
+    "aboutBranch": "About branch"
+  },
   "pages": {
     "search": {
       "searchResults": "Search results",

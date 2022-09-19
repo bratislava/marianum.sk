@@ -6,18 +6,19 @@ import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
 import HeroSection from '../sections/HeroSection'
 import PageWrapper from './PageWrapper'
 
-type LayoutProps = {
+type BundleLayoutProps = {
   bundle: BundleEntityFragment
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   children?: ReactNode
 }
 
-const Layout = ({ bundle, navigation, children, general }: LayoutProps) => {
+const BundleLayout = ({ bundle, navigation, children, general }: BundleLayoutProps) => {
   const router = useRouter()
-  const breadcrumbs = getBreadcrumbs(router.asPath, navigation)
 
-  const { title, perex, price } = bundle.attributes ?? {}
+  const { title, perex, price, slug } = bundle.attributes ?? {}
+
+  const breadcrumbs = getBreadcrumbs(router.asPath, navigation, [{ label: title, link: slug }])
 
   return (
     <PageWrapper
@@ -38,4 +39,4 @@ const Layout = ({ bundle, navigation, children, general }: LayoutProps) => {
   )
 }
 
-export default Layout
+export default BundleLayout
