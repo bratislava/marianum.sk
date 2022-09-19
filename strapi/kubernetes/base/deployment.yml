@@ -38,6 +38,8 @@ spec:
                 name: ${BUILD_REPOSITORY_NAME}-env
             - configMapRef:
                 name: ${BUILD_REPOSITORY_NAME}-database
+            - configMapRef:
+                name: ${BUILD_REPOSITORY_NAME}-meilisearch
           readinessProbe:
             httpGet:
               path: /admin
@@ -47,9 +49,3 @@ spec:
       terminationGracePeriodSeconds: 30
       imagePullSecrets:
         - name: ${IMAGE_PULL_SECRET}
-
-  envFrom:
-    - secretRef:
-        name: ${BUILD_REPOSITORY_NAME}-meilisearch-secret
-    - configMapRef:
-        name: ${BUILD_REPOSITORY_NAME}-meilisearch
