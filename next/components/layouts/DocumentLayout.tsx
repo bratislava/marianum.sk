@@ -3,7 +3,6 @@ import { useTranslation } from 'next-i18next'
 import { Fragment, ReactNode, useMemo } from 'react'
 import slugify from 'slugify'
 
-import PdfIcon from '../../assets/file-types/pdf.svg'
 import {
   DocumentEntityFragment,
   GeneralEntityFragment,
@@ -11,6 +10,7 @@ import {
 } from '../../graphql'
 import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
 import Button from '../atoms/Button'
+import FileIcon from '../atoms/FileIcon'
 import FormatDate from '../atoms/FormatDate'
 import Section from '../molecules/Section'
 import HeroSection from '../sections/HeroSection'
@@ -50,12 +50,8 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
   }, [documentCategory, publishedAt, t])
 
   const icon = useMemo(() => {
-    const ext = file?.data?.attributes?.ext?.slice(1)
-    // TODO add more icons and general file icon
-    if (ext === 'pdf') {
-      return <PdfIcon />
-    }
-    return <>TODO</>
+    const extension = file?.data?.attributes?.ext?.slice(1)
+    return <FileIcon extension={extension} />
   }, [file])
 
   return (
