@@ -13,6 +13,9 @@ export type SectionProps = {
   title?: string | null | undefined
   button?: CtaButtonFragment | null | undefined
   description?: string | null | undefined
+  className?: string
+  innerClassName?: string
+  dividerClassName?: string
 }
 
 const Section = ({
@@ -23,6 +26,9 @@ const Section = ({
   title,
   button,
   description,
+  className,
+  innerClassName,
+  dividerClassName,
 }: SectionProps) => {
   const showMoreSlug = button?.page?.data?.attributes?.slug
 
@@ -42,19 +48,31 @@ const Section = ({
 
   return (
     <div
-      className={cx('relative', {
-        'bg-background-beige': resultBackground === 'dark',
-        'bg-white': resultBackground === 'light',
-        'not-first:mt-6 not-first:md:mt-8': !isContainer,
-      })}
+      className={cx(
+        'relative',
+        {
+          'bg-background-beige': resultBackground === 'dark',
+          'bg-white': resultBackground === 'light',
+          'not-first:mt-6 not-first:md:mt-8': !isContainer,
+        },
+        className,
+      )}
     >
       {/* border displayed only when two last sections are same beige color */}
-      {isDivider && <div className={cx('container mx-auto border-t border-border')} />}
+
+      {isDivider && (
+        <div className="container mx-auto">
+          <div className={cx('h-px bg-border', dividerClassName)} />
+        </div>
+      )}
       <div
-        className={cx({
-          'container mx-auto px-4 py-6 md:py-20': isContainer,
-          'pb-20 md:pb-36': isLast,
-        })}
+        className={cx(
+          {
+            'container mx-auto px-4 py-6 md:py-20': isContainer,
+            'pb-20 md:pb-36': isLast,
+          },
+          innerClassName,
+        )}
       >
         {(title || showMoreSlug) && (
           <div className="flex">
