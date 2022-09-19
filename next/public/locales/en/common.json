@@ -1,5 +1,6 @@
 {
   "general": {
+    "siteName": "Marianum",
     "showMore": "Show more",
     "goToSlide": "Go to slide {{number}}",
     "or": "or",

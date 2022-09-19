@@ -162,6 +162,9 @@ query HomePage($locale: I18NLocaleCode) {
         featured {
           ...Cta
         }
+        seo {
+          ...Seo
+        }
         sections {
           ... on ComponentSectionsManualListing {
             __typename
@@ -220,7 +223,7 @@ query HomepageCeremonies($dateTime: DateTime!) {
 query Ceremonies($dateTime: DateTime!, $branchIdFilter: IDFilterInput = {}) {
   ceremonies(
     pagination: { limit: -1 }
-    filters: { dateTime: { gte: $dateTime } branch: { id: $branchIdFilter } }
+    filters: { dateTime: { gte: $dateTime }, branch: { id: $branchIdFilter } }
     sort: ["dateTime:asc"]
   ) {
     data {
@@ -244,4 +247,3 @@ query BranchesInDebtors {
     }
   }
 }
-

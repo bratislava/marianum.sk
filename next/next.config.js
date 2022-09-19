@@ -28,6 +28,10 @@ const nextConfig = {
 
         // TODO add english equivalents
         {
+          source: '/vyhladavanie',
+          destination: '/search',
+        },
+        {
           source: '/aktuality/novinky/:slug',
           destination: '/articles/:slug',
         },

@@ -1,5 +1,6 @@
 import last from 'lodash/last'
 import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
+import Head from 'next/head'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -9,6 +10,7 @@ import Button from '../../components/atoms/Button'
 import RichText from '../../components/atoms/RichText/RichText'
 import BranchLayout from '../../components/layouts/BranchLayout'
 import SectionBoxed from '../../components/molecules/SectionBoxed'
+import Seo from '../../components/molecules/Seo'
 import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import { client } from '../../utils/gql'
 import { isDefined } from '../../utils/isDefined'
@@ -22,42 +24,49 @@ type PageProps = {
 const BranchSlug = ({ navigation, branch, general }: PageProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'layouts.BranchLayout' })
 
-  const { title, type, address, navigateToLink, description, openingHoursOverride } =
+  const { seo, title, type, address, navigateToLink, description, openingHoursOverride } =
     branch.attributes ?? {}
 
   return (
-    <BranchLayout branch={branch} navigation={navigation} general={general}>
-      <div className="flex flex-col gap-3 md:gap-4">
-        <SectionBoxed>
-          <h1 className="pb-1 md:pb-3">{title}</h1>
-          <div className="flex flex-col items-start gap-2 md:flex-row">
-            {address && (
-              <div className="flex items-center gap-x-2">
-                <span className="text-primary">
-                  <PlaceIcon />
-                </span>
-                {address}
-              </div>
-            )}
-            {navigateToLink && (
-              <Button
-                variant="plain-secondary"
-                startIcon={<NavigateToIcon />}
-                className="-ml-2 md:ml-0"
-              >
-                {t('navigate')}
-              </Button>
-            )}
-          </div>
-        </SectionBoxed>
-        <SectionBoxed title={type === 'cintorin' ? t('aboutCemetery') : t('aboutBranch')}>
-          <RichText data={description} coloredTable={false} />
-        </SectionBoxed>
-        <SectionBoxed title={t('openingHours')}>
-          <RichText data={openingHoursOverride || general?.attributes?.generalOpeningHours} />
-        </SectionBoxed>
-      </div>
-    </BranchLayout>
+    <>
+      <Seo seo={seo} title={title} />
+      <Head>
+        <title>{title}</title>
+      </Head>
+
+      <BranchLayout branch={branch} navigation={navigation} general={general}>
+        <div className="flex flex-col gap-3 md:gap-4">
+          <SectionBoxed>
+            <h1 className="pb-1 md:pb-3">{title}</h1>
+            <div className="flex flex-col items-start gap-2 md:flex-row">
+              {address && (
+                <div className="flex items-center gap-x-2">
+                  <span className="text-primary">
+                    <PlaceIcon />
+                  </span>
+                  {address}
+                </div>
+              )}
+              {navigateToLink && (
+                <Button
+                  variant="plain-secondary"
+                  startIcon={<NavigateToIcon />}
+                  className="-ml-2 md:ml-0"
+                >
+                  {t('navigate')}
+                </Button>
+              )}
+            </div>
+          </SectionBoxed>
+          <SectionBoxed title={type === 'cintorin' ? t('aboutCemetery') : t('aboutBranch')}>
+            <RichText data={description} coloredTable={false} />
+          </SectionBoxed>
+          <SectionBoxed title={t('openingHours')}>
+            <RichText data={openingHoursOverride || general?.attributes?.generalOpeningHours} />
+          </SectionBoxed>
+        </div>
+      </BranchLayout>
+    </>
   )
 }
 
