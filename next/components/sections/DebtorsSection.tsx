@@ -1,16 +1,27 @@
+import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
 import SearchIcon from '../../assets/search.svg'
-import { DebtorsQuery } from '../../graphql'
-import { client } from '../../utils/gql'
+import { Branch, Debtor } from '../../graphql'
+import { meiliClient } from '../../utils/meilisearch'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import Pagination from '../atoms/Pagination/Pagination'
 import TextField from '../atoms/TextField'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
 import Section from '../molecules/Section'
+
+type BranchMeili = Omit<Branch, '__typename' | 'localizations'> & { id: string }
+
+type DebtorMeili = Omit<Debtor, '__typename' | 'branch'> & {
+  branch: BranchMeili & {
+    localizations: BranchMeili[]
+  }
+}
+
+const pageSize = 20
 
 type Filters = {
   search: string
@@ -18,13 +29,13 @@ type Filters = {
   page: number
 }
 
-const Table = ({ data }: { data: DebtorsQuery }) => {
+const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
   const { t, i18n } = useTranslation('common', {
     keyPrefix: 'sections.DebtorsSection',
   })
 
   const debtors = useMemo(() => {
-    const debtorsData = data?.debtors?.data
+    const debtorsData = data.hits
     if (!debtorsData) {
       // eslint-disable-next-line unicorn/no-useless-undefined
       return undefined
@@ -36,14 +47,13 @@ const Table = ({ data }: { data: DebtorsQuery }) => {
     return debtorsData.map((debtor) => {
       // Debtors are not localized, and they return their Slovak relation as the main and the English version
       // as the first localization.
-      const skBranchName = debtor.attributes?.branch?.data?.attributes?.title
-      const branchName =
-        i18n.language === 'en'
-          ? debtor.attributes?.branch?.data?.attributes?.localizations?.data[0]?.attributes
-              ?.title ?? skBranchName
-          : skBranchName
+      const skBranchTitle = debtor.branch.title
+      const localeBranchTitle = debtor.branch?.localizations.find(
+        (branch) => branch.locale === i18n.language,
+      )?.title
+      const branchTitle = localeBranchTitle ?? skBranchTitle
 
-      return { ...debtor.attributes, branchName }
+      return { ...debtor, branchTitle }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
@@ -60,7 +70,7 @@ const Table = ({ data }: { data: DebtorsQuery }) => {
             <th>{t('lastName')}</th>
             <th>{t('birthDate')}</th>
             <th>{t('deathDate')}</th>
-            <th>{t('branchName')}</th>
+            <th>{t('branchTitle')}</th>
           </tr>
         </thead>
         <tbody>
@@ -74,7 +84,7 @@ const Table = ({ data }: { data: DebtorsQuery }) => {
               <td>{debtor.birthDate}</td>
               <td>{debtor.deathDate}</td>
               {/* TODO: Branch link */}
-              <td>{debtor.branchName}</td>
+              <td>{debtor.branchTitle}</td>
             </tr>
           ))}
           {debtors?.length === 0 && (
@@ -98,11 +108,10 @@ const DataWrapper = ({
   onPageChange: (page: number) => void
 }) => {
   const { data, error } = useSwr(['Debtors', filters], () => {
-    // TODO: replace with Meilisearch
-    return client.Debtors({
-      page: filters.page,
-      // branchId: filters.branchId,
-      search: filters.search,
+    return meiliClient.index('debtor').search<DebtorMeili>(filters.search, {
+      limit: pageSize,
+      offset: (filters.page - 1) * pageSize,
+      filter: filters.branchId ? [`branch.id = ${filters.branchId}`] : [],
     })
   })
 
@@ -120,8 +129,7 @@ const DataWrapper = ({
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
-  /* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */
-  const pageCount = dataToDisplay!.debtors!.meta.pagination.pageCount!
+  const pageCount = dataToDisplay ? Math.ceil(dataToDisplay.estimatedTotalHits / pageSize) : 0
   return (
     <>
       {/* TODO: Use loading overlay with spinner */}

@@ -350,6 +350,7 @@ fragment BranchInCeremoniesDebtors on BranchEntityResponseCollection {
         data {
           attributes {
             title
+            locale
           }
         }
       }

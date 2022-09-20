@@ -3084,7 +3084,7 @@ export type ComponentSectionsCeremoniesSectionFragment = { __typename: 'Componen
 
 export type ComponentSectionsUpcomingCeremoniesSectionFragment = { __typename: 'ComponentSectionsUpcomingCeremoniesSection', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, page?: { __typename?: 'PageEntityResponse', data?: { __typename?: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null };
 
-export type BranchInCeremoniesDebtorsFragment = { __typename?: 'BranchEntityResponseCollection', data: Array<{ __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, localizations?: { __typename?: 'BranchRelationResponseCollection', data: Array<{ __typename?: 'BranchEntity', attributes?: { __typename?: 'Branch', title: string } | null }> } | null } | null }> };
+export type BranchInCeremoniesDebtorsFragment = { __typename?: 'BranchEntityResponseCollection', data: Array<{ __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, localizations?: { __typename?: 'BranchRelationResponseCollection', data: Array<{ __typename?: 'BranchEntity', attributes?: { __typename?: 'Branch', title: string, locale?: string | null } | null }> } | null } | null }> };
 
 export type FlatNavigationItemFragment = { __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch', title: string, slug: string } | { __typename: 'Page', title: string, slug: string } | null } | null };
 
@@ -3218,23 +3218,15 @@ export type HomepageCeremoniesQueryVariables = Exact<{
 
 export type HomepageCeremoniesQuery = { __typename?: 'Query', ceremonies?: { __typename?: 'CeremonyEntityResponseCollection', data: Array<{ __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename?: 'BranchEntity', attributes?: { __typename?: 'Branch', slug: string, title: string, localizations?: { __typename?: 'BranchRelationResponseCollection', data: Array<{ __typename?: 'BranchEntity', attributes?: { __typename?: 'Branch', slug: string, title: string } | null }> } | null } | null } | null } | null } | null }> } | null };
 
-export type DebtorsQueryVariables = Exact<{
-  page: Scalars['Int'];
-  search?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type DebtorsQuery = { __typename?: 'Query', debtors?: { __typename?: 'DebtorEntityResponseCollection', data: Array<{ __typename?: 'DebtorEntity', attributes?: { __typename?: 'Debtor', graveSection?: string | null, graveNumber?: string | null, firstName?: string | null, lastName?: string | null, birthDate?: string | null, deathDate?: string | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename?: 'BranchEntity', attributes?: { __typename?: 'Branch', title: string, slug: string, localizations?: { __typename?: 'BranchRelationResponseCollection', data: Array<{ __typename?: 'BranchEntity', attributes?: { __typename?: 'Branch', title: string, slug: string } | null }> } | null } | null } | null } | null } | null }>, meta: { __typename?: 'ResponseCollectionMeta', pagination: { __typename?: 'Pagination', page: number, total: number, pageSize: number, pageCount: number } } } | null };
-
 export type BranchesInCeremoniesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BranchesInCeremoniesQuery = { __typename?: 'Query', branches?: { __typename?: 'BranchEntityResponseCollection', data: Array<{ __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, localizations?: { __typename?: 'BranchRelationResponseCollection', data: Array<{ __typename?: 'BranchEntity', attributes?: { __typename?: 'Branch', title: string } | null }> } | null } | null }> } | null };
+export type BranchesInCeremoniesQuery = { __typename?: 'Query', branches?: { __typename?: 'BranchEntityResponseCollection', data: Array<{ __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, localizations?: { __typename?: 'BranchRelationResponseCollection', data: Array<{ __typename?: 'BranchEntity', attributes?: { __typename?: 'Branch', title: string, locale?: string | null } | null }> } | null } | null }> } | null };
 
 export type BranchesInDebtorsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BranchesInDebtorsQuery = { __typename?: 'Query', branches?: { __typename?: 'BranchEntityResponseCollection', data: Array<{ __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, localizations?: { __typename?: 'BranchRelationResponseCollection', data: Array<{ __typename?: 'BranchEntity', attributes?: { __typename?: 'Branch', title: string } | null }> } | null } | null }> } | null };
+export type BranchesInDebtorsQuery = { __typename?: 'Query', branches?: { __typename?: 'BranchEntityResponseCollection', data: Array<{ __typename?: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, localizations?: { __typename?: 'BranchRelationResponseCollection', data: Array<{ __typename?: 'BranchEntity', attributes?: { __typename?: 'Branch', title: string, locale?: string | null } | null }> } | null } | null }> } | null };
 
 export const PageSlugEntityFragmentDoc = gql`
     fragment PageSlugEntity on PageEntity {
@@ -3797,6 +3789,7 @@ export const BranchInCeremoniesDebtorsFragmentDoc = gql`
         data {
           attributes {
             title
+            locale
           }
         }
       }
@@ -4200,49 +4193,6 @@ export const HomepageCeremoniesDocument = gql`
   }
 }
     `;
-export const DebtorsDocument = gql`
-    query Debtors($page: Int!, $search: String) {
-  debtors(
-    pagination: {page: $page, pageSize: 20}
-    filters: {lastName: {contains: $search}}
-  ) {
-    data {
-      attributes {
-        graveSection
-        graveNumber
-        firstName
-        lastName
-        birthDate
-        deathDate
-        branch {
-          data {
-            attributes {
-              title
-              slug
-              localizations {
-                data {
-                  attributes {
-                    title
-                    slug
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    meta {
-      pagination {
-        page
-        total
-        pageSize
-        pageCount
-      }
-    }
-  }
-}
-    `;
 export const BranchesInCeremoniesDocument = gql`
     query BranchesInCeremonies {
   branches(filters: {allowInCeremonies: {eq: true}}) {
@@ -4318,9 +4268,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     HomepageCeremonies(variables: HomepageCeremoniesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<HomepageCeremoniesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<HomepageCeremoniesQuery>(HomepageCeremoniesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'HomepageCeremonies', 'query');
-    },
-    Debtors(variables: DebtorsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DebtorsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<DebtorsQuery>(DebtorsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Debtors', 'query');
     },
     BranchesInCeremonies(variables?: BranchesInCeremoniesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<BranchesInCeremoniesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<BranchesInCeremoniesQuery>(BranchesInCeremoniesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'BranchesInCeremonies', 'query');

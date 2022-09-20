@@ -80,7 +80,7 @@
       "lastName": "Priezvisko zosnulého",
       "birthDate": "Dátum narodenia",
       "deathDate": "Dátum úmrtia",
-      "branchName": "Cintorín",
+      "branchTitle": "Cintorín",
       "noRecords": "Žiadne záznamy",
       "searchPlaceholder": "Hľadať..."
     }

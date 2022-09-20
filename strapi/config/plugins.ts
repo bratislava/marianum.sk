@@ -50,6 +50,17 @@ export default {
           filterableAttributes: ["locale"],
         },
       },
+      debtor: {
+        settings: {
+          filterableAttributes: ["branch.id"],
+          searchableAttributes: ["firstName", "lastName"],
+          pagination: {
+            // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
+            maxTotalHits: 10000,
+          },
+        },
+        populateEntryRule: ["branch", "branch.localizations"],
+      },
     },
   },
 };
