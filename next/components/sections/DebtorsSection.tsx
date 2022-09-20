@@ -64,8 +64,9 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
       <table className="m-table colored sticky-header overflow-scroll">
         <thead>
           <tr>
-            <th>{t('graveSection')}</th>
+            <th>{t('graveSector')}</th>
             <th>{t('graveNumber')}</th>
+            <th>{t('gravePreviousNumber')}</th>
             <th>{t('firstName')}</th>
             <th>{t('lastName')}</th>
             <th>{t('birthDate')}</th>
@@ -77,8 +78,9 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
           {debtors?.map((debtor, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <tr key={index}>
-              <td>{debtor.graveSection}</td>
+              <td>{debtor.graveSector}</td>
               <td>{debtor.graveNumber}</td>
+              <td>{debtor.gravePreviousNumber}</td>
               <td>{debtor.firstName}</td>
               <td>{debtor.lastName}</td>
               <td>{debtor.birthDate}</td>

@@ -18,10 +18,13 @@
     }
   },
   "attributes": {
-    "graveSection": {
+    "graveSector": {
       "type": "string"
     },
     "graveNumber": {
+      "type": "string"
+    },
+    "gravePreviousNumber": {
       "type": "string"
     },
     "firstName": {
@@ -34,9 +37,6 @@
       "type": "string"
     },
     "deathDate": {
-      "type": "string"
-    },
-    "cemetery": {
       "type": "string"
     },
     "branch": {

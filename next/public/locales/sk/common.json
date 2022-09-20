@@ -74,8 +74,9 @@
       }
     },
     "DebtorsSection": {
-      "graveSection": "Hr. miesto sekcia",
+      "graveSector": "Hr. miesto sektor",
       "graveNumber": "Hr. miesto číslo",
+      "gravePreviousNumber": "Hr. miesto predošlé č.",
       "firstName": "Meno zosnulého",
       "lastName": "Priezvisko zosnulého",
       "birthDate": "Dátum narodenia",

@@ -1175,12 +1175,12 @@ export type Debtor = {
   __typename?: 'Debtor';
   birthDate?: Maybe<Scalars['String']>;
   branch?: Maybe<BranchEntityResponse>;
-  cemetery?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   deathDate?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   graveNumber?: Maybe<Scalars['String']>;
-  graveSection?: Maybe<Scalars['String']>;
+  gravePreviousNumber?: Maybe<Scalars['String']>;
+  graveSector?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -1206,12 +1206,12 @@ export type DebtorFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<DebtorFiltersInput>>>;
   birthDate?: InputMaybe<StringFilterInput>;
   branch?: InputMaybe<BranchFiltersInput>;
-  cemetery?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   deathDate?: InputMaybe<StringFilterInput>;
   firstName?: InputMaybe<StringFilterInput>;
   graveNumber?: InputMaybe<StringFilterInput>;
-  graveSection?: InputMaybe<StringFilterInput>;
+  gravePreviousNumber?: InputMaybe<StringFilterInput>;
+  graveSector?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   lastName?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<DebtorFiltersInput>;
@@ -1222,11 +1222,11 @@ export type DebtorFiltersInput = {
 export type DebtorInput = {
   birthDate?: InputMaybe<Scalars['String']>;
   branch?: InputMaybe<Scalars['ID']>;
-  cemetery?: InputMaybe<Scalars['String']>;
   deathDate?: InputMaybe<Scalars['String']>;
   firstName?: InputMaybe<Scalars['String']>;
   graveNumber?: InputMaybe<Scalars['String']>;
-  graveSection?: InputMaybe<Scalars['String']>;
+  gravePreviousNumber?: InputMaybe<Scalars['String']>;
+  graveSector?: InputMaybe<Scalars['String']>;
   lastName?: InputMaybe<Scalars['String']>;
 };
 
