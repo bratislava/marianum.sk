@@ -35,14 +35,14 @@ const CeremoniesDebtorsBranchSelect = ({
     // As the relation in ceremonies and debtors is always with the Slovak version, we need the Slovak id,
     // so we fetch the Slovak version and only display the title if the locale is English.
     const mappedBranches = data?.branches?.data?.map((branch) => {
-      const skTitle = branch?.attributes?.title
-      const title =
-        i18n.language === 'sk'
-          ? skTitle
-          : branch?.attributes?.localizations?.data[0]?.attributes?.title ?? skTitle
+      const skBranchTitle = branch?.attributes?.title
+      const localeBranchTitle = branch?.attributes?.localizations?.data?.find(
+        (innerBranch) => innerBranch?.attributes?.locale === i18n.language,
+      )?.attributes?.title
+      const branchTitle = localeBranchTitle ?? skBranchTitle
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return { label: title ?? '', key: branch.id! }
+      return { label: branchTitle ?? '', key: branch.id! }
     })
 
     return [{ label: t('allCemeteries'), key: '' }, ...(mappedBranches ?? [])]
