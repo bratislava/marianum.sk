@@ -2,7 +2,8 @@
   "general": {
     "showMore": "Zobraziť viac",
     "goToSlide": "Ísť na slide {{number}}",
-    "or": "alebo"
+    "or": "alebo",
+    "disclosureOfInformation": "Zverejňovanie informácií"
   },
   "components": {
     "molecules": {
@@ -58,6 +59,20 @@
         "openImageGallery": "Otvoriť galériu obrázkov"
       }
     },
+    "CeremoniesSection": {
+      "noCeremonies": "Žiadne obrady na zobrazenie."
+    },
+    "MapSection": {
+      "search": "Hladať...",
+      "noResults": "Žiadne výsledky...",
+      "map": "Mapa",
+      "filtering": "Filtrácia",
+      "filters": {
+        "civil": "Civilné",
+        "historical": "Historické",
+        "war": "Vojnové"
+      }
+    },
     "DebtorsSection": {
       "graveSection": "Hr. miesto sekcia",
       "graveNumber": "Hr. miesto číslo",
@@ -68,9 +83,6 @@
       "branchName": "Cintorín",
       "noRecords": "Žiadne záznamy",
       "searchPlaceholder": "Hľadať..."
-    },
-    "CeremoniesSection": {
-      "noCeremonies": "Žiadne obrady na zobrazenie."
     }
   },
   "layouts": {
@@ -83,6 +95,37 @@
       "category": "Kategória",
       "description": "Popis",
       "details": "Detaily"
+    },
+    "BranchLayout": {
+      "navigate": "Navigovať",
+      "openingHours": "Otváracie hodiny",
+      "aboutCemetery": "O cintoríne",
+      "aboutBranch": "O pobočke"
+    }
+  },
+  "pages": {
+    "search": {
+      "searchResults": "Výsledky vyhľadávania",
+      "search": "Hľadať",
+      "resultsFound_zero": "Nebol nájdený žiaden výsledok",
+      "resultsFound_one": "Bol nájdený {{count}} výsledok",
+      "resultsFound_few": "Boli nájdené {{count}} výsledky",
+      "resultsFound_other": "Bolo nájdených {{count}} výsledkov",
+      "tags": {
+        "allResults": "Všetky výsledky",
+        "page": "Stránka",
+        "bundle": "Balíček",
+        "document": "Dokument",
+        "article": "Článok",
+        "branch": "Cintorín / Pobočka"
+      },
+      "paths": {
+        "document": "/dokumenty",
+        "page": "",
+        "bundle": "/balicky",
+        "article": "/clanky",
+        "branch": "/cintoriny-a-pobocky"
+      }
     }
   }
 }

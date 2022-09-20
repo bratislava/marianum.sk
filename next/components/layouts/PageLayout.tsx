@@ -13,14 +13,14 @@ import SideBar from '../molecules/SideBar'
 import HeroSection from '../sections/HeroSection'
 import PageWrapper from './PageWrapper'
 
-type LayoutProps = {
+type PageLayoutProps = {
   page: PageEntityFragment
   navigation: NavigationItemFragment[]
   children?: ReactNode
   general: GeneralEntityFragment | null
 }
 
-const Layout = ({ page, navigation, children, general }: LayoutProps) => {
+const PageLayout = ({ page, navigation, children, general }: PageLayoutProps) => {
   const router = useRouter()
   const breadcrumbs = getBreadcrumbs(router.asPath, navigation)
 
@@ -77,4 +77,4 @@ const Layout = ({ page, navigation, children, general }: LayoutProps) => {
   )
 }
 
-export default Layout
+export default PageLayout

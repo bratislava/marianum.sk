@@ -49,7 +49,9 @@ RUN yarn install --production
 
 COPY . ./
 
-RUN yarn build
+USER root
+RUN yarn build && chown -R node:node /home/node/app
+USER node
 
 EXPOSE 1337
 CMD ["yarn", "start"]

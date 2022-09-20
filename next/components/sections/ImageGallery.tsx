@@ -11,19 +11,13 @@ import { useOverlayTriggerState } from 'react-stately'
 import { UploadImageEntityFragment } from '../../graphql'
 import { onEnterOrSpaceKeyDown } from '../../utils/onEnterOrSpaceKeyDown'
 import ImageLightBox from '../molecules/ImageLightBox'
-import Section, { SectionProps } from '../molecules/Section'
 
-export type ImageGallerySectionProps = {
-  title?: string | null
+export type ImageGalleryProps = {
   images: UploadImageEntityFragment[] | undefined
   variant?: 'bellow' | 'aside'
 }
 
-const ImageGallerySection = ({
-  images = [],
-  variant = 'bellow',
-  ...rest
-}: Pick<SectionProps, 'title' | 'background' | 'index'> & ImageGallerySectionProps) => {
+const ImageGallery = ({ images = [], variant = 'bellow' }: ImageGalleryProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'sections.ImageGallerySection' })
 
   // all images count
@@ -77,7 +71,7 @@ const ImageGallerySection = ({
   )
 
   return (
-    <Section {...rest}>
+    <>
       <div className="relative flex w-full flex-col gap-4">
         <div
           ref={containerRef}
@@ -192,8 +186,8 @@ const ImageGallerySection = ({
         initialImageIndex={initialImageIndex}
         isDismissable
       />
-    </Section>
+    </>
   )
 }
 
-export default ImageGallerySection
+export default ImageGallery

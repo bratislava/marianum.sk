@@ -44,5 +44,6 @@ fragment GeneralEntity on GeneralEntity {
     footer {
       ...Footer
     }
+    generalOpeningHours
   }
 }

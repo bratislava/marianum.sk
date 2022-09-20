@@ -38,6 +38,8 @@ spec:
                 name: ${BUILD_REPOSITORY_NAME}-env
             - configMapRef:
                 name: ${BUILD_REPOSITORY_NAME}-database
+            - configMapRef:
+                name: ${BUILD_REPOSITORY_NAME}-meilisearch
           readinessProbe:
             httpGet:
               path: /admin

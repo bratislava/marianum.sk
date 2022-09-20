@@ -2,7 +2,8 @@
   "general": {
     "showMore": "Show more",
     "goToSlide": "Go to slide {{number}}",
-    "or": "or"
+    "or": "or",
+    "disclosureOfInformation": "Disclosure of information"
   },
   "components": {
     "molecules": {
@@ -53,6 +54,17 @@
       "aria": {
         "openImageGallery": "Open image gallery"
       }
+    },
+    "MapSection": {
+      "search": "Search...",
+      "noResults": "No results...",
+      "map": "Map",
+      "filtering": "Filtering",
+      "filters": {
+        "civil": "Civil",
+        "historical": "Historical",
+        "war": "War"
+      }
     }
   },
   "layouts": {
@@ -65,6 +77,36 @@
       "category": "Category",
       "description": "Description",
       "details": "Details"
+    }
+  },
+  "BranchLayout": {
+    "navigate": "Navigate",
+    "openingHours": "Opening hours",
+    "aboutCemetery": "About cemetery",
+    "aboutBranch": "About branch"
+  },
+  "pages": {
+    "search": {
+      "searchResults": "Search results",
+      "search": "Search",
+      "resultsFound_zero": "No results found",
+      "resultsFound_one": "{{count}} result found",
+      "resultsFound_other": "{{count}} results found",
+      "tags": {
+        "allResults": "All results",
+        "page": "Page",
+        "bundle": "Package",
+        "document": "Document",
+        "article": "Article",
+        "branch": "Branch"
+      },
+      "paths": {
+        "document": "/documents",
+        "page": "",
+        "bundle": "/bundles",
+        "article": "/articles",
+        "branch": "/branches"
+      }
     }
   }
 }

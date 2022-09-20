@@ -90,7 +90,9 @@
         "sections.partners-section",
         "sections.bundle-listing",
         "sections.debtors-section",
-        "sections.ceremonies-section"
+        "sections.ceremonies-section",
+        "sections.map-section",
+        "sections.public-disclosure-section"
       ]
     },
     "sidebar": {

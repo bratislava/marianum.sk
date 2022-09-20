@@ -4,11 +4,12 @@ import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import RichText from '../components/atoms/RichText/RichText'
-import Layout from '../components/layouts/Layout'
+import PageLayout from '../components/layouts/PageLayout'
 import SectionsWrapper from '../components/layouts/SectionsWrapper'
 import AccordionGroup from '../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../components/molecules/Accordion/AccordionItem'
 import BranchGroup from '../components/molecules/BranchGroup'
+import DisclosureIframe from '../components/molecules/DisclosureIframe'
 import DocumentGroup from '../components/molecules/DocumentGroup'
 import ProcedureTabs from '../components/molecules/ProcedureTabs'
 import Section from '../components/molecules/Section'
@@ -16,7 +17,8 @@ import BundleListingSection from '../components/sections/BundleListingSection'
 import CardSection from '../components/sections/CardSection'
 import ContactsSection from '../components/sections/ContactsSection'
 import DebtorsSection from '../components/sections/DebtorsSection'
-import ImageGallerySection from '../components/sections/ImageGallerySection'
+import ImageGallery from '../components/sections/ImageGallery'
+// import MapSection from '../components/sections/MapSection/MapSection'
 import MenuListingSection from '../components/sections/MenuListingSection'
 import NewsListing from '../components/sections/NewsListing'
 import PartnersSection from '../components/sections/PartnersSection'
@@ -40,7 +42,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
   const isContainer = page.attributes?.layout === Enum_Page_Layout.Fullwidth
 
   return (
-    <Layout page={page} navigation={navigation} general={general}>
+    <PageLayout page={page} navigation={navigation} general={general}>
       <SectionsWrapper
         isContainer={isContainer}
         alternateBackground={isContainer}
@@ -107,7 +109,13 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             )
           }
           if (section?.__typename === 'ComponentSectionsContactGroup') {
-            return section && <ContactsSection index={index} {...section} />
+            return (
+              <ContactsSection
+                key={`${section.__typename}-${section.id}`}
+                index={index}
+                {...section}
+              />
+            )
           }
           if (section?.__typename === 'ComponentSectionsDocumentGroup') {
             return (
@@ -132,13 +140,13 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsGallery') {
             return (
-              <ImageGallerySection
+              <Section
                 index={index}
                 key={`${section.__typename}-${section.id}`}
                 title={section.title}
-                images={section.medias?.data}
-                variant="bellow"
-              />
+              >
+                <ImageGallery images={section.medias?.data} variant="bellow" />
+              </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsMenuListing') {
@@ -172,6 +180,23 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               </Section>
             )
           }
+          if (section?.__typename === 'ComponentSectionsMapSection') {
+            return (
+              // <MapSection
+              //   key={`${section.__typename}-${section.id}`}
+              //   isContainer={isContainer}
+              //   {...section}
+              // />
+              <span>Map</span>
+            )
+          }
+          if (section?.__typename === 'ComponentSectionsPublicDisclosureSection') {
+            return (
+              <Section index={index} key={`${section.__typename}-${section.id}`}>
+                <DisclosureIframe />
+              </Section>
+            )
+          }
           if (section?.__typename === 'ComponentSectionsDebtorsSection') {
             return (
               <DebtorsSection
@@ -184,7 +209,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           return null
         })}
       </SectionsWrapper>
-    </Layout>
+    </PageLayout>
   )
 }
 
@@ -205,7 +230,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] })
         },
       }))
     // eslint-disable-next-line no-console
-    console.log(`PAGES: GENERATED STATIC PATHS FOR ${paths.length} SLUGS`)
+    console.log(`Pages: Generated static paths for ${paths.length} slugs.`)
     return { paths, fallback: 'blocking' }
   }
   return { paths: [], fallback: 'blocking' }

@@ -46,7 +46,7 @@
     "coverMedia": {
       "type": "media",
       "multiple": false,
-      "required": true,
+      "required": false,
       "allowedTypes": [
         "images"
       ],
@@ -64,11 +64,30 @@
       },
       "type": "richtext"
     },
-    "articleCategory": {
+    "newsCategory": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::article-category.article-category",
+      "target": "api::article-news-category.article-news-category",
       "inversedBy": "articles"
+    },
+    "pressCategory": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::article-press-category.article-press-category",
+      "inversedBy": "articles"
+    },
+    "mediaGallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }

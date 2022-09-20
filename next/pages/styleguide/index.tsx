@@ -25,7 +25,7 @@ import Select from '../../components/atoms/Select'
 import Tab from '../../components/atoms/Tabs/Tab'
 import Tabs from '../../components/atoms/Tabs/Tabs'
 import Tag from '../../components/atoms/Tag'
-import TagButton from '../../components/atoms/TagButton'
+import TagToggle from '../../components/atoms/TagToggle'
 import TextField from '../../components/atoms/TextField'
 import SectionsWrapper, { SectionsWrapperProps } from '../../components/layouts/SectionsWrapper'
 import AccordionGroup from '../../components/molecules/Accordion/AccordionGroup'
@@ -38,7 +38,7 @@ import PartnerCard from '../../components/molecules/Cards/PartnerCard'
 import ProductCard from '../../components/molecules/Cards/ProductCard'
 import ServiceCard from '../../components/molecules/Cards/ServiceCard'
 import Checklist from '../../components/molecules/Checklist/Checklist'
-import Row from '../../components/molecules/Row'
+import Row from '../../components/molecules/Row/Row'
 import Search from '../../components/molecules/Search'
 import Section from '../../components/molecules/Section'
 import { UploadFile } from '../../graphql'
@@ -630,12 +630,12 @@ const Showcase = () => {
           </Stack>
         </Wrapper>
 
-        <Wrapper title="TagButton">
+        <Wrapper title="TagToggle">
           <Stack width="full">
-            <TagButton>Its</TagButton>
-            <TagButton>tag</TagButton>
-            <TagButton>button</TagButton>
-            <TagButton isActive>now</TagButton>
+            <TagToggle>Its</TagToggle>
+            <TagToggle>tag</TagToggle>
+            <TagToggle>button</TagToggle>
+            <TagToggle isSelected>now</TagToggle>
           </Stack>
         </Wrapper>
 
@@ -969,7 +969,13 @@ const Showcase = () => {
               metadata={['Metadata', 'Metadata', 'Metadata']}
               border={cardsBorder}
             />
-            <Row title="Hladany termin" linkHref="#" showUrl border={cardsBorder} />
+            <Row
+              title="Hladany termin"
+              linkHref="#"
+              showUrl
+              tags={['Typ vysledku']}
+              border={cardsBorder}
+            />
             <Row title="Nazov partnera" linkHref="#" isExternal border={cardsBorder} />
             <Row
               title="Nazov pobocky"

@@ -1,25 +1,28 @@
 import { KeyboardEvent, useCallback, useEffect, useState } from 'react'
 
+import CloseIcon from '../../assets/close.svg'
 import SearchIcon from '../../assets/search.svg'
-import XIcon from '../../assets/x-alt.svg'
+import XAltIcon from '../../assets/x-alt.svg'
 import TextField from '../atoms/TextField'
 
 type SearchProps = {
   value?: string
   placeholder?: string
-  className?: string
   inputClassName?: string
-  onChange?: (value: string) => void
+  onSearchQueryChange?: (value: string) => void
   onSearch?: (value: string) => void
+  isLarge?: boolean
+  className?: string
 }
 
 const Search = ({
   value = '',
   placeholder,
-  onChange = () => {},
+  onSearchQueryChange = () => {},
   onSearch = () => {},
   className,
   inputClassName,
+  isLarge = false,
 }: SearchProps) => {
   const [realValue, setRealValue] = useState(value)
 
@@ -27,13 +30,18 @@ const Search = ({
     setRealValue(value)
   }, [value])
 
-  useEffect(() => {
-    onChange(realValue)
-  }, [onChange, realValue])
+  const handleChange = useCallback(
+    (text: string) => {
+      setRealValue(text)
+      onSearchQueryChange(text)
+    },
+    [onSearchQueryChange],
+  )
 
   const clearHandler = useCallback(() => {
     setRealValue('')
-  }, [])
+    onSearchQueryChange('')
+  }, [onSearchQueryChange])
 
   const onSearchHandler = useCallback(() => {
     onSearch(realValue)
@@ -57,10 +65,11 @@ const Search = ({
     <TextField
       id="search"
       value={realValue}
-      onChange={(e) => setRealValue(e.target.value)}
+      onChange={(e) => handleChange(e.target.value)}
       placeholder={placeholder}
       onKeyUp={onKeyUpHandler}
       className={className}
+      isLarge={isLarge}
       inputClassName={inputClassName}
       leftSlot={
         <button onClick={onSearchHandler} type="button" className="p-2">
@@ -70,7 +79,7 @@ const Search = ({
       rightSlot={
         realValue ? (
           <button onClick={clearHandler} type="button" className="p-2">
-            <XIcon />
+            {isLarge ? <CloseIcon /> : <XAltIcon />}
           </button>
         ) : null
       }

@@ -1,9 +1,9 @@
+import filesize from 'filesize'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Fragment, ReactNode, useMemo } from 'react'
 import slugify from 'slugify'
 
-import PdfIcon from '../../assets/file-types/pdf.svg'
 import {
   DocumentEntityFragment,
   GeneralEntityFragment,
@@ -11,6 +11,7 @@ import {
 } from '../../graphql'
 import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
 import Button from '../atoms/Button'
+import FileIcon from '../atoms/FileIcon'
 import FormatDate from '../atoms/FormatDate'
 import Section from '../molecules/Section'
 import HeroSection from '../sections/HeroSection'
@@ -25,10 +26,12 @@ type DocumentLayoutProps = {
 
 const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) => {
   const router = useRouter()
-  const breadcrumbs = getBreadcrumbs(router.asPath, navigation)
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
-  const { title, description, file, publishedAt, documentCategory } = document.attributes ?? {}
+  const { title, description, file, publishedAt, documentCategory, slug } =
+    document.attributes ?? {}
+
+  const breadcrumbs = getBreadcrumbs(router.asPath, navigation, [{ label: title, link: slug }])
 
   const dlData = useMemo(() => {
     return [
@@ -47,14 +50,13 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
     ] as { title: string; description: ReactNode }[]
   }, [documentCategory, publishedAt, t])
 
-  const icon = useMemo(() => {
-    const ext = file?.data?.attributes?.ext?.slice(1)
-    // TODO add more icons and general file icon
-    if (ext === 'pdf') {
-      return <PdfIcon />
-    }
-    return <>TODO</>
+  const extension = useMemo(() => {
+    return file?.data?.attributes?.ext?.slice(1)
   }, [file])
+
+  const size = useMemo(() => {
+    return filesize((file?.data?.attributes?.size ?? 0) * 1000, { round: 1, locale: i18n.language })
+  }, [file, i18n.language])
 
   return (
     <PageWrapper
@@ -62,11 +64,11 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
       general={general}
       header={<HeroSection breadcrumbs={breadcrumbs} />}
     >
-      <SectionsWrapper isContainer>
-        <Section background="light">
+      <SectionsWrapper isContainer alternateBackground>
+        <Section index={0} background="light">
           <div className="flex flex-col items-center gap-5 md:flex-row md:items-start md:gap-8">
             <div className="flex h-[96px] w-[96px] items-center justify-center bg-background-beige md:h-[186px] md:w-[186px]">
-              {icon}
+              <FileIcon extension={extension} />
             </div>
             <div className="flex flex-col items-center gap-2 text-sm md:items-start">
               <div>
@@ -74,8 +76,16 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
                 <FormatDate value={new Date(publishedAt)} format="articlePage" />
               </div>
               <h1 className="text-center">{title}</h1>
-              <div className="text-sm">metadata TODO</div>
-              <Button href={file?.data?.attributes?.url ?? ''} className="mt-4 md:w-fit">
+              <div className="flex items-center gap-2 text-sm">
+                <span>{size}</span>
+                <span>•</span>
+                <span className="uppercase">{extension}</span>
+              </div>
+              <Button
+                target="_blank"
+                href={file?.data?.attributes?.url ?? ''}
+                className="mt-4 md:w-fit"
+              >
                 {t('layouts.DocumentLayout.downloadFile')}
               </Button>
             </div>
@@ -83,13 +93,22 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
         </Section>
 
         {/* TODO add left margin to sections below */}
-        <Section title={t('layouts.DocumentLayout.description')}>
+        <Section
+          innerClassName="md:pl-[234px]"
+          index={1}
+          title={t('layouts.DocumentLayout.description')}
+        >
           <div className="whitespace-pre-wrap">{description}</div>
         </Section>
 
         {/* TODO index is added manually to add padding that compensates the footer overlap
          * This should be done automatically */}
-        <Section index={2} title={t('layouts.DocumentLayout.details')}>
+        <Section
+          innerClassName="md:pl-[234px]"
+          dividerClassName="md:ml-[218px]"
+          index={2}
+          title={t('layouts.DocumentLayout.details')}
+        >
           <dl>
             {dlData.map((dItem) => (
               <Fragment key={slugify(dItem.title)}>

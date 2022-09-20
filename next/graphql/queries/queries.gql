@@ -62,6 +62,22 @@ query BranchBySlug($locale: I18NLocaleCode!, $slug: String!) {
   }
 }
 
+query Branches($locale: I18NLocaleCode!) {
+  branches(locale: $locale) {
+    data {
+      ...BranchEntity
+    }
+  }
+}
+
+query Cemeteries($locale: I18NLocaleCode!) {
+  branches(locale: $locale, filters: { type: { eq: "cintorin" } }, sort: ["title:asc"]) {
+    data {
+      ...BranchEntity
+    }
+  }
+}
+
 query BundleBySlug($locale: I18NLocaleCode!, $slug: String!) {
   bundles(locale: $locale, filters: { slug: { eq: $slug } }) {
     data {
@@ -81,7 +97,7 @@ query DocumentBySlug($slug: String!) {
 # strapi returns just the default locale if no locale is provided
 # easiest way to get all static paths is to ask for all locales sequentially
 query ArticlesStaticPaths($locale: I18NLocaleCode) {
-  articles(locale: $locale) {
+  articles(locale: $locale, pagination: { limit: 10000 }) {
     data {
       id
       attributes {
@@ -93,7 +109,7 @@ query ArticlesStaticPaths($locale: I18NLocaleCode) {
 }
 
 query PagesStaticPaths($locale: I18NLocaleCode) {
-  pages(locale: $locale) {
+  pages(locale: $locale, pagination: { limit: 10000 }) {
     data {
       id
       attributes {
@@ -105,7 +121,7 @@ query PagesStaticPaths($locale: I18NLocaleCode) {
 }
 
 query BranchesStaticPaths($locale: I18NLocaleCode) {
-  branches(locale: $locale) {
+  branches(locale: $locale, pagination: { limit: 10000 }) {
     data {
       id
       attributes {
@@ -117,7 +133,7 @@ query BranchesStaticPaths($locale: I18NLocaleCode) {
 }
 
 query BundlesStaticPaths($locale: I18NLocaleCode) {
-  bundles(locale: $locale) {
+  bundles(locale: $locale, pagination: { limit: 10000 }) {
     data {
       id
       attributes {
@@ -129,7 +145,7 @@ query BundlesStaticPaths($locale: I18NLocaleCode) {
 }
 
 query DocumentsStaticPaths {
-  documents {
+  documents(pagination: { limit: 10000 }) {
     data {
       id
       attributes {

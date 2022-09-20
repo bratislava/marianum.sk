@@ -1,20 +1,23 @@
 import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
+import { useContext, useMemo } from 'react'
 
 import DownloadIcon from '../../assets/download.svg'
 import { DocumentGroupFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
 import Button from '../atoms/Button'
-import Row from './Row'
+import { NavigationContext } from '../layouts/NavigationProvider'
+import Row from './Row/Row'
 
 const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const { navMap } = useContext(NavigationContext)
 
   const filteredDocuments = useMemo(() => {
     return (documents ?? [])
       .map((document) => document?.document?.data?.attributes)
       .filter(isDefined)
   }, [documents])
+
   return (
     <div className="flex flex-col gap-4">
       {filteredDocuments?.map(({ title, slug, documentCategory, file }) => (
@@ -22,9 +25,9 @@ const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
           key={slug}
           title={title}
           category={documentCategory?.data}
-          // TODO link: add proper path
-          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-          linkHref={slug ? `/documents/${slug}` : '#'}
+          linkHref={`${navMap.get(i18n.language === 'en' ? 'documents' : 'dokumenty') ?? ''}/${
+            slug ?? ''
+          }`}
           button={
             file.data?.attributes?.url ? (
               <Button
