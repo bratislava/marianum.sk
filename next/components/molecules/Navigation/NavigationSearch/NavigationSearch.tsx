@@ -1,5 +1,5 @@
-import { IndexConfig, useMeilisearch } from '../../../hooks/useMeilisearch'
-import NavigationSearchMobile from './NavigationSearch/NavigationSearchMobile'
+import { IndexConfig, useMeilisearch } from '../../../../hooks/useMeilisearch'
+import NavigationSearchMobile from './NavigationSearchMobile'
 
 const branchIndexConfig: IndexConfig = { name: 'branch', localized: true }
 const documentIndexConfig: IndexConfig = { name: 'document', localized: false }
