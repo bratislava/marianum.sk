@@ -1,8 +1,7 @@
-import last from 'lodash/last'
 import { createContext, PropsWithChildren, useMemo } from 'react'
 
 import { NavigationItemFragment } from '../../graphql'
-import { isDefined } from '../../utils/isDefined'
+import { parseNavigation } from '../../utils/parseNavigation'
 
 type NavigationContextProps = {
   navigation: NavigationItemFragment[]
@@ -22,25 +21,7 @@ const NavigationProvider = ({
   children,
 }: PropsWithChildren<NavigationContextProps>) => {
   const navMap = useMemo(() => {
-    const tmpMap = new Map<string, string>()
-
-    const parseNavItems = (navItems: NavigationItemFragment[]) => {
-      navItems.forEach(({ path, items }) => {
-        if (path) {
-          const slug = last(path?.split('/'))
-          if (slug) {
-            tmpMap.set(slug, path)
-          }
-        }
-        if (items) {
-          parseNavItems(items.filter(isDefined))
-        }
-      })
-    }
-
-    parseNavItems(navigation)
-
-    return tmpMap
+    return parseNavigation(navigation)
   }, [navigation])
 
   return (

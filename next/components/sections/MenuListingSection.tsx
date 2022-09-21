@@ -26,6 +26,7 @@ const MenuListingSection = ({ slug, navigation, ...rest }: MenuListingSectionPro
           key={subItem?.path}
           title={subItem?.title ?? ''}
           linkHref={subItem?.path ?? ''}
+          border
         />
       ))}
     </Section>

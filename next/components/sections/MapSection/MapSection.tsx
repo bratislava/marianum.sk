@@ -161,7 +161,7 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
                 <MLink
                   onMouseEnter={() => setHoveredBranchSlug(slug)}
                   noStyles
-                  href={`/branches/${slug}`}
+                  href={`${t('paths.branches')}/${slug}`}
                   className={cx('flex gap-2 px-5 py-3', {
                     'bg-primary/5': slug === hoveredBranchSlug,
                   })}
@@ -206,7 +206,7 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
                       onMouseEnter={() => setHoveredBranchSlug(slug)}
                       onMouseLeave={() => setHoveredBranchSlug(null)}
                       noStyles
-                      href={`/branches/${slug}`}
+                      href={`${t('paths.branches')}/${slug}`}
                     >
                       <MapMarkerIcon />
                     </MLink>
