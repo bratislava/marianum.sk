@@ -6,6 +6,23 @@ import { DateFormatterOptions, useDateFormatter } from 'react-aria'
 const formats = {
   articleCard: { year: 'numeric', month: 'short', day: 'numeric' } as DateFormatterOptions,
   articlePage: { year: 'numeric', month: 'numeric', day: 'numeric' } as DateFormatterOptions,
+  ceremoniesArchive: {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  } as DateFormatterOptions,
+  ceremoniesTime: {
+    hour: 'numeric',
+    minute: 'numeric',
+  } as DateFormatterOptions,
+  ceremoniesDate: { dateStyle: 'full' } as DateFormatterOptions,
+  homepageCeremoniesDate: {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+  } as DateFormatterOptions,
 }
 
 type FormatDateProps = {
