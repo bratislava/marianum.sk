@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_upcoming_ceremonies_sections",
+  "info": {
+    "displayName": "upcoming ceremonies section",
+    "icon": "feather-alt",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "showMoreButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "blocks.button-link"
+    }
+  }
+}

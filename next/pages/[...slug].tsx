@@ -16,6 +16,7 @@ import Section from '../components/molecules/Section'
 import BundleListingSection from '../components/sections/BundleListingSection'
 import CardSection from '../components/sections/CardSection'
 import ContactsSection from '../components/sections/ContactsSection'
+import DebtorsSection from '../components/sections/DebtorsSection'
 import ImageGallery from '../components/sections/ImageGallery'
 // import MapSection from '../components/sections/MapSection/MapSection'
 import MenuListingSection from '../components/sections/MenuListingSection'
@@ -194,6 +195,15 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               <Section index={index} key={`${section.__typename}-${section.id}`}>
                 <DisclosureIframe />
               </Section>
+            )
+          }
+          if (section?.__typename === 'ComponentSectionsDebtorsSection') {
+            return (
+              <DebtorsSection
+                index={index}
+                key={`${section.__typename}-${section.id}`}
+                description={section.description}
+              />
             )
           }
           return null

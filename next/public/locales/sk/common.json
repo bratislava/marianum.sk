@@ -47,6 +47,9 @@
         "skip": "Preskočiť",
         "print": "Vytlačiť postup",
         "download": "Stiahnuť postup"
+      },
+      "CeremoniesDebtorsBranchSelect": {
+        "allCemeteries": "Všetky cintoríny"
       }
     }
   },
@@ -78,6 +81,18 @@
         "historical": "Historické",
         "war": "Vojnové"
       }
+    },
+    "DebtorsSection": {
+      "graveSector": "Hr. miesto sektor",
+      "graveNumber": "Hr. miesto číslo",
+      "gravePreviousNumber": "Hr. miesto predošlé č.",
+      "firstName": "Meno zosnulého",
+      "lastName": "Priezvisko zosnulého",
+      "birthDate": "Dátum narodenia",
+      "deathDate": "Dátum úmrtia",
+      "branchTitle": "Cintorín",
+      "noRecords": "Žiadne záznamy",
+      "searchPlaceholder": "Hľadať..."
     }
   },
   "layouts": {

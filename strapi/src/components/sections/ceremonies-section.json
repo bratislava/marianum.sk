@@ -2,18 +2,8 @@
   "collectionName": "components_sections_ceremonies_sections",
   "info": {
     "displayName": "ceremonies section",
-    "icon": "feather-alt",
-    "description": ""
+    "icon": "feather-alt"
   },
   "options": {},
-  "attributes": {
-    "title": {
-      "type": "string"
-    },
-    "showMoreButton": {
-      "type": "component",
-      "repeatable": false,
-      "component": "blocks.button-link"
-    }
-  }
+  "attributes": {}
 }

@@ -227,3 +227,15 @@ fragment ManualListing on ComponentSectionsManualListing {
     }
   }
 }
+
+fragment CeremoniesSection on ComponentSectionsCeremoniesSection {
+  id
+}
+
+fragment UpcomingCeremoniesSection on ComponentSectionsUpcomingCeremoniesSection {
+  id
+  title
+  showMoreButton {
+    ...CtaButton
+  }
+}
