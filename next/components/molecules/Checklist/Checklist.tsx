@@ -168,7 +168,6 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
                     index + 1 === items.length ? (
                       downloadFile?.attributes?.url ? (
                         <div className="flex flex-col gap-4 sm:flex-row">
-                          {/* TODO make the file really downloadable and printable */}
                           <Button
                             startIcon={<DownloadIcon />}
                             target="_blank"
