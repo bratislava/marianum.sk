@@ -1,5 +1,7 @@
 import cx from 'classnames'
+import filesize from 'filesize'
 import { useTranslation } from 'next-i18next'
+import prntr from 'prntr'
 import { useCallback, useReducer } from 'react'
 
 import CheckIcon from '../../../assets/check.svg'
@@ -114,6 +116,13 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
     })
   }, [])
 
+  const handlePrint = useCallback(() => {
+    // we can only print pdf files
+    if (downloadFile?.attributes?.ext === '.pdf' && downloadFile?.attributes?.url) {
+      prntr({ printable: downloadFile.attributes.url, type: 'pdf' })
+    }
+  }, [downloadFile?.attributes])
+
   return (
     <div className="flex w-full flex-col gap-6">
       {checklistState.items.map(
@@ -159,26 +168,29 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
                     index + 1 === items.length ? (
                       downloadFile?.attributes?.url ? (
                         <div className="flex flex-col gap-4 sm:flex-row">
-                          {/* TODO make the file really downloadable and printable */}
                           <Button
                             startIcon={<DownloadIcon />}
+                            target="_blank"
                             href={downloadFile.attributes.url}
                             // TODO format size to MB if needed
                             /* eslint-disable @typescript-eslint/restrict-template-expressions */
                             aria-label={`${t('components.molecules.Checklist.download')} ${
                               downloadFile.attributes.name
-                            } ${downloadFile.attributes.size} KB`}
+                            } ${filesize(downloadFile.attributes.size * 1000)}`}
                             /* eslint-enable @typescript-eslint/restrict-template-expressions */
                           >
                             {t('components.molecules.Checklist.download')}
                           </Button>
-                          <Button
-                            startIcon={<PrintIcon />}
-                            variant="secondary"
-                            href={downloadFile.attributes.url}
-                          >
-                            {t('components.molecules.Checklist.print')}
-                          </Button>
+                          {/* we can only print pdf files */}
+                          {downloadFile.attributes.ext === '.pdf' && (
+                            <Button
+                              startIcon={<PrintIcon />}
+                              variant="secondary"
+                              onPress={handlePrint}
+                            >
+                              {t('components.molecules.Checklist.print')}
+                            </Button>
+                          )}
                         </div>
                       ) : null
                     ) : isCompleted ? (
