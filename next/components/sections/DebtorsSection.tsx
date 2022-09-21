@@ -59,9 +59,9 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
   }, [data])
 
   return (
-    <div>
+    <div className="overflow-x-auto">
       {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
-      <table className="m-table colored sticky-header overflow-scroll">
+      <table className="m-table colored">
         <thead>
           <tr>
             <th>{t('graveSector')}</th>
