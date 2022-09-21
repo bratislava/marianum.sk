@@ -38,7 +38,7 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
           breadcrumbs={breadcrumbs}
           moreContent={
             coverImage ? (
-              <div className="h-[188px] sm:h-[238px] md:h-[287px] lg:h-[387px] xl:h-[440px]">
+              <div className="static h-[188px] sm:h-[238px] md:relative md:h-[287px] lg:h-[387px] xl:h-[440px]">
                 <MImage image={coverImage} layout="fill" objectFit="cover" unoptimized />
               </div>
             ) : null
