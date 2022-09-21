@@ -5,6 +5,7 @@ import useSWR from 'swr'
 
 import { UpcomingCeremoniesSectionFragment } from '../../graphql'
 import { bratislavaTimezone } from '../../utils/consts'
+import { getBranchTitleInCeremoniesDebtors } from '../../utils/getBranchTitleInCeremoniesDebtors'
 import { client } from '../../utils/gql'
 import FormatDate from '../atoms/FormatDate'
 import MLink from '../atoms/MLink'
@@ -47,17 +48,11 @@ const Table = () => {
     return {
       day: firstCeremonyDayDateTimeZoned.toDate(),
       ceremonies: filteredCeremonies.map((ceremony) => {
-        // Ceremonies are not localized, and they return their Slovak relation as the main and the English version
-        // as the first localization.
-        const skBranchName = ceremony.attributes?.branch?.data?.attributes?.title
-
         return {
           name: ceremony.attributes?.name,
-          branchName:
-            i18n.language === 'en'
-              ? ceremony.attributes?.branch?.data?.attributes?.localizations?.data[0]?.attributes
-                  ?.title ?? skBranchName
-              : skBranchName,
+          branchTitle:
+            ceremony?.attributes?.branch?.data &&
+            getBranchTitleInCeremoniesDebtors(ceremony.attributes.branch.data, i18n.language),
           time: new Date(ceremony.attributes?.dateTime),
         }
       }),
@@ -98,7 +93,7 @@ const Table = () => {
           <tr className="group border-t border-border first:border-t-0" key={index}>
             <td className="py-4 group-last:pb-0">{ceremony.name}</td>
             {/* TODO: Branch link */}
-            <td className="py-4 group-last:pb-0">{ceremony.branchName}</td>
+            <td className="py-4 group-last:pb-0">{ceremony.branchTitle}</td>
             <td className="py-4 group-last:pb-0">
               <FormatDate value={ceremony.time} format="ceremoniesTime" />
             </td>

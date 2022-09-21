@@ -5,7 +5,11 @@ import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
 import SearchIcon from '../../assets/search.svg'
-import { Branch, Ceremony } from '../../graphql'
+import { Ceremony } from '../../graphql'
+import {
+  BranchMeili,
+  getBranchTitleInCeremoniesDebtorsMeili,
+} from '../../utils/getBranchTitleInCeremoniesDebtors'
 import { isDefined } from '../../utils/isDefined'
 import { meiliClient } from '../../utils/meilisearch'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
@@ -15,12 +19,8 @@ import TextField from '../atoms/TextField'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
 import Section from '../molecules/Section'
 
-type BranchMeili = Omit<Branch, '__typename' | 'localizations'> & { id: string }
-
 type CeremonyMeili = Omit<Ceremony, '__typename' | 'branch'> & {
-  branch: BranchMeili & {
-    localizations: BranchMeili[]
-  }
+  branch: BranchMeili
 }
 
 const pageSize = 20
@@ -49,16 +49,13 @@ const Table = ({ data }: { data: SearchResponse<CeremonyMeili> }) => {
     }
 
     return ceremoniesData.map((ceremony) => {
-      // Ceremonies are not localized, and they return their Slovak relation as the main and the English version
-      // as the first localization.
-      const skBranchTitle = ceremony.branch.title
-      const localeBranchTitle = ceremony.branch?.localizations.find(
-        (branch) => branch.locale === i18n.language,
-      )?.title
-      const branchTitle = localeBranchTitle ?? skBranchTitle
       const dateTime = new Date(ceremony.dateTime)
 
-      return { ...ceremony, dateTime, branchTitle }
+      return {
+        ...ceremony,
+        dateTime,
+        branchTitle: getBranchTitleInCeremoniesDebtorsMeili(ceremony.branch, i18n.language),
+      }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
