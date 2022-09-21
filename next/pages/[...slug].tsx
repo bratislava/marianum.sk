@@ -38,18 +38,17 @@ type PageProps = {
 } & SSRConfig
 
 const Slug = ({ navigation, page, general }: PageProps) => {
-  const isContainer = page.attributes?.layout === Enum_Page_Layout.Fullwidth
+  const alternateBackground = page.attributes?.layout === Enum_Page_Layout.Fullwidth
 
   return (
     <PageLayout page={page} navigation={navigation} general={general}>
       <SectionsWrapper
-        isContainer={isContainer}
-        alternateBackground={isContainer}
+        alternateBackground={alternateBackground}
         startBackground="light"
         className="gap-y-6 sm:gap-y-8"
       >
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
-        {page.attributes?.sections?.map((section, index) => {
+        {page.attributes?.sections?.map((section) => {
           if (section?.__typename === 'ComponentSectionsProceduresSection') {
             return (
               <Section key={`${section.__typename}-${section.id}`} title={section.title}>
@@ -60,7 +59,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsRichtext') {
             return (
               <RichTextSection
-                index={index}
                 key={`${section.__typename}-${section.id}`}
                 content={section.content}
               />
@@ -92,13 +90,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             )
           }
           if (section?.__typename === 'ComponentSectionsContactGroup') {
-            return (
-              <ContactsSection
-                key={`${section.__typename}-${section.id}`}
-                index={index}
-                {...section}
-              />
-            )
+            return <ContactsSection key={`${section.__typename}-${section.id}`} {...section} />
           }
           if (section?.__typename === 'ComponentSectionsDocumentGroup') {
             return (
@@ -110,7 +102,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsPartnersSection') {
             return (
               <PartnersSection
-                index={index}
                 key={`${section.__typename}-${section.id}`}
                 featuredTitle={section.featuredPartnersTitle}
                 otherTitle={section.otherPartnersTitle}
@@ -156,7 +147,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsPublicDisclosureSection') {
             return (
-              <Section index={index} key={`${section.__typename}-${section.id}`}>
+              <Section key={`${section.__typename}-${section.id}`}>
                 <DisclosureIframe />
               </Section>
             )

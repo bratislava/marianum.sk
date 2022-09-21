@@ -27,9 +27,9 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
     <PageWrapper navigation={navigation} general={general}>
       <HomepageSlider slides={page.attributes?.featured?.filter(isDefined)} />
 
-      <SectionsWrapper alternateBackground startBackground="dark" isContainer>
+      <SectionsWrapper alternateBackground startBackground="dark">
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
-        {page.attributes?.sections?.map((section, index) => {
+        {page.attributes?.sections?.map((section) => {
           if (section?.__typename === 'ComponentSectionsManualListing') {
             return <CardSection key={`${section.__typename}-${section.id}`} section={section} />
           }
@@ -43,7 +43,6 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           if (section?.__typename === 'ComponentSectionsCeremoniesSection') {
             return (
               <HomepageCeremoniesListing
-                index={index}
                 key={`${section.__typename}-${section.id}`}
                 section={section}
               />
@@ -57,7 +56,6 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
 
             return (
               <HomepageProcedures
-                index={index}
                 key={`${__typename}-${id}`}
                 title={title}
                 procedures={proceduresArr}

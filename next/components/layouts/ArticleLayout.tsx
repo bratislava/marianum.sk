@@ -47,7 +47,7 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
       }
     >
       <SectionsWrapper
-        isContainer
+        alternateBackground
         className={cx('h-full bg-white', {
           // Compensate image overlap
           'pt-18': coverImage,

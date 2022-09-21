@@ -105,7 +105,7 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
 
   return (
     <PageWrapper navigation={navigation} general={general}>
-      <SectionsWrapper isContainer>
+      <SectionsWrapper alternateBackground>
         <Section>
           <div className="flex flex-col gap-3 md:gap-6">
             <h1>{t('searchResults')}</h1>

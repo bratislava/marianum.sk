@@ -30,7 +30,7 @@ const Section = ({
 }: SectionProps) => {
   const showMoreSlug = button?.page?.data?.attributes?.slug
 
-  const { background, isDivider, isLast, isContainer } = useContext(sectionContext)
+  const { background, isDivider, isLast, alternateBackground } = useContext(sectionContext)
 
   const resultBackground = useMemo(() => {
     return propBackground ?? background
@@ -43,7 +43,7 @@ const Section = ({
         {
           'bg-background-beige': resultBackground === 'dark',
           'bg-white': resultBackground === 'light',
-          'not-first:mt-6 not-first:md:mt-8': !isContainer,
+          'not-first:mt-6 not-first:md:mt-8': !alternateBackground,
         },
         className,
       )}
@@ -58,7 +58,7 @@ const Section = ({
       <div
         className={cx(
           {
-            'container mx-auto px-4 py-6 md:py-20': isContainer,
+            'container mx-auto px-4 py-6 md:py-20': alternateBackground,
             'pb-20 md:pb-36': isLast,
           },
           innerClassName,
