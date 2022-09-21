@@ -1,7 +1,8 @@
 {
   "collectionName": "components_sections_ceremonies_sections",
   "info": {
-    "displayName": "ceremonies section"
+    "displayName": "ceremonies section",
+    "icon": "feather-alt"
   },
   "options": {},
   "attributes": {}
