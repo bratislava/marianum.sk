@@ -1,31 +1,19 @@
+import { isSameDay, parseAbsolute } from '@internationalized/date'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
-import { useDateFormatter } from 'react-aria'
 import useSWR from 'swr'
 
 import { UpcomingCeremoniesSectionFragment } from '../../graphql'
 import { bratislavaTimezone } from '../../utils/consts'
 import { client } from '../../utils/gql'
+import FormatDate from '../atoms/FormatDate'
 import MLink from '../atoms/MLink'
 import Section from '../molecules/Section'
 
 const Table = () => {
   const { t, i18n } = useTranslation()
 
-  const dateFormatter = useDateFormatter({
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
-    timeZone: bratislavaTimezone,
-  })
-
-  const timeFormatter = useDateFormatter({
-    hour: 'numeric',
-    minute: 'numeric',
-    timeZone: bratislavaTimezone,
-  })
-
-  const { data, error } = useSWR(['HomepageCeremonies'], () => {
+  const { data, error } = useSWR(['UpcomingCeremonies'], () => {
     const dateTime = new Date()
     // I think we also want to display ongoing ceremonies, 2 hours seems like a reasonable time.
     dateTime.setHours(dateTime.getHours() - 2)
@@ -44,18 +32,22 @@ const Table = () => {
     }
     // The API returns first 5 ceremonies, but we want to display ceremonies only of the same date. Therefore, we get the
     // date of the first ceremony and filter only those taking place on the same date.
-    const firstCeremonyDayFormatted = dateFormatter.format(
-      new Date(ceremoniesData[0]?.attributes?.dateTime),
+    const firstCeremonyDayDateTimeZoned = parseAbsolute(
+      ceremoniesData[0]?.attributes?.dateTime,
+      bratislavaTimezone,
     )
-    const filteredCeremonies = ceremoniesData.filter(
-      (ceremony) =>
-        dateFormatter.format(new Date(ceremony.attributes?.dateTime)) === firstCeremonyDayFormatted,
+
+    const filteredCeremonies = ceremoniesData.filter((ceremony) =>
+      isSameDay(
+        parseAbsolute(ceremony.attributes?.dateTime, bratislavaTimezone),
+        firstCeremonyDayDateTimeZoned,
+      ),
     )
 
     return {
-      day: firstCeremonyDayFormatted,
+      day: firstCeremonyDayDateTimeZoned.toDate(),
       ceremonies: filteredCeremonies.map((ceremony) => {
-        // Ceremonies are not localized and they return their Slovak relation as the main and the English version
+        // Ceremonies are not localized, and they return their Slovak relation as the main and the English version
         // as the first localization.
         const skBranchName = ceremony.attributes?.branch?.data?.attributes?.title
 
@@ -66,7 +58,7 @@ const Table = () => {
               ? ceremony.attributes?.branch?.data?.attributes?.localizations?.data[0]?.attributes
                   ?.title ?? skBranchName
               : skBranchName,
-          time: timeFormatter.format(new Date(ceremony.attributes?.dateTime)),
+          time: new Date(ceremony.attributes?.dateTime),
         }
       }),
     }
@@ -92,11 +84,11 @@ const Table = () => {
 
   return (
     <table className="w-full overflow-x-auto">
-      {/* TODO: Make scrollable on mobile */}
       <thead>
         <tr>
           <th colSpan={3} className="pb-4 text-left">
-            {ceremonies?.day}
+            {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
+            <FormatDate value={ceremonies!.day!} format="homepageCeremoniesDate" />
           </th>
         </tr>
       </thead>
@@ -107,7 +99,9 @@ const Table = () => {
             <td className="py-4 group-last:pb-0">{ceremony.name}</td>
             {/* TODO: Branch link */}
             <td className="py-4 group-last:pb-0">{ceremony.branchName}</td>
-            <td className="py-4 group-last:pb-0">{ceremony.time}</td>
+            <td className="py-4 group-last:pb-0">
+              <FormatDate value={ceremony.time} format="ceremoniesTime" />
+            </td>
           </tr>
         ))}
       </tbody>
