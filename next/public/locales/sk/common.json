@@ -38,6 +38,12 @@
         "skip": "Preskočiť",
         "print": "Vytlačiť postup",
         "download": "Stiahnuť postup"
+      },
+      "Navigation": {
+        "NavigationSearch": {
+          "close": "Zavrieť",
+          "allResults": "Všetky výsledky"
+        }
       }
     }
   },

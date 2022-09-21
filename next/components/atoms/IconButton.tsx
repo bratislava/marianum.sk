@@ -21,7 +21,7 @@ type IconButtonProps = Omit<PolymorphicProps, 'variant' | 'startIcon' | 'endIcon
   size?: 'small' | 'default'
 }
 
-type PolymorphicIconProps = IconButtonProps | AnchorProps
+export type PolymorphicIconProps = IconButtonProps | AnchorProps
 
 type PolymorphicIconButton = {
   (props: AnchorProps): JSX.Element

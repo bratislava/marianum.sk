@@ -6,17 +6,21 @@ import { braidArrays } from '../utils/braidArrays'
 import { meiliClient } from '../utils/meilisearch'
 import { MeilisearchResultType } from '../utils/types'
 
+export type IndexConfig<T = string> = {
+  name: T
+  localized?: boolean
+}
+
 export type UseMeilisearchOptions<T extends string> = {
-  indexes?: {
-    name: T
-    localized?: boolean
-  }[]
+  indexes?: IndexConfig<T>[]
   countPerPage?: number
+  isSyncedWithUrlQuery?: boolean
 }
 
 export const useMeilisearch = <T extends string>({
   indexes = [],
   countPerPage = 10,
+  isSyncedWithUrlQuery = false,
 }: UseMeilisearchOptions<T>) => {
   const { i18n } = useTranslation()
 
@@ -32,26 +36,30 @@ export const useMeilisearch = <T extends string>({
 
   // on first render set searchQuery according to urlQuery
   useEffect(() => {
-    const urlSearchQuery = new URLSearchParams(window.location.search).get('query')
-    if (urlSearchQuery) {
-      setSearchQuery(urlSearchQuery)
+    if (isSyncedWithUrlQuery) {
+      const urlSearchQuery = new URLSearchParams(window.location.search).get('query')
+      if (urlSearchQuery) {
+        setSearchQuery(urlSearchQuery)
+      }
     }
-  }, [])
+  }, [isSyncedWithUrlQuery])
 
   // set urlQuery according to searchQuery to keep them in sync
   useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search)
-    if (searchQuery) {
-      queryParams.set('query', searchQuery)
-    } else if (searchQuery !== null) {
-      queryParams.delete('query')
+    if (isSyncedWithUrlQuery) {
+      const queryParams = new URLSearchParams(window.location.search)
+      if (searchQuery) {
+        queryParams.set('query', searchQuery)
+      } else if (searchQuery !== null) {
+        queryParams.delete('query')
+      }
+
+      let stringParams = queryParams.toString()
+      stringParams = stringParams ? `?${stringParams}` : ''
+
+      window.history.replaceState({}, '', `${window.location.pathname}${stringParams}`)
     }
-
-    let stringParams = queryParams.toString()
-    stringParams = stringParams ? `?${stringParams}` : ''
-
-    window.history.replaceState({}, '', `${window.location.pathname}${stringParams}`)
-  }, [searchQuery])
+  }, [searchQuery, isSyncedWithUrlQuery])
 
   useEffect(() => {
     // when searchQuery changes, set loading
@@ -67,21 +75,23 @@ export const useMeilisearch = <T extends string>({
 
     // fetch and braid arrays together
     const fetchResults = async () =>
-      braidArrays(
-        ...(await Promise.all(
-          indexes.map((index) =>
-            meiliClient
-              .index(index.name)
-              .search<MeilisearchResultType<T>>(debouncedSearchQuery ?? '*', {
-                limit: 1000,
-                filter: index.localized ? [`locale = ${i18n.language ?? 'sk'}`] : [],
-              })
-              .then((results) => {
-                return results.hits.map((hit) => ({ ...hit, index: index.name }))
-              }),
-          ),
-        )),
-      )
+      debouncedSearchQuery
+        ? braidArrays(
+            ...(await Promise.all(
+              indexes.map((index) =>
+                meiliClient
+                  .index(index.name)
+                  .search<MeilisearchResultType<T>>(debouncedSearchQuery ?? '*', {
+                    limit: 1000,
+                    filter: index.localized ? [`locale = ${i18n.language ?? 'sk'}`] : [],
+                  })
+                  .then((results) => {
+                    return results.hits.map((hit) => ({ ...hit, index: index.name }))
+                  }),
+              ),
+            )),
+          )
+        : []
 
     fetchResults()
       .then((braidResults) => {

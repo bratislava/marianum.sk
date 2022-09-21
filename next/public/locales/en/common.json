@@ -38,6 +38,12 @@
         "skip": "Skip",
         "print": "Print the steps",
         "download": "Download the steps"
+      },
+      "Navigation": {
+        "NavigationSearch": {
+          "close": "Close",
+          "allResults": "All results"
+        }
       }
     }
   },

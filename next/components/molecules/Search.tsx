@@ -72,9 +72,9 @@ const Search = ({
       isLarge={isLarge}
       inputClassName={inputClassName}
       leftSlot={
-        <button onClick={onSearchHandler} type="button" className="p-2">
+        <div className="p-2">
           <SearchIcon width={24} />
-        </button>
+        </div>
       }
       rightSlot={
         realValue ? (
