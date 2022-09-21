@@ -112,7 +112,7 @@ export const getStaticProps: GetStaticProps = async ({
     serverSideTranslations(locale, ['common']),
   ])
 
-  const filteredNavigation = navigation.filter(Boolean) as NavigationItemFragment[]
+  const filteredNavigation = navigation.filter(isDefined)
 
   if (!homePage?.data) {
     return {

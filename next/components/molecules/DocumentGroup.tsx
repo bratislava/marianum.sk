@@ -1,16 +1,14 @@
 import { useTranslation } from 'next-i18next'
-import { useContext, useMemo } from 'react'
+import { useMemo } from 'react'
 
 import DownloadIcon from '../../assets/download.svg'
 import { DocumentGroupFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
 import Button from '../atoms/Button'
-import { NavigationContext } from '../layouts/NavigationProvider'
 import Row from './Row/Row'
 
 const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
-  const { t, i18n } = useTranslation()
-  const { navMap } = useContext(NavigationContext)
+  const { t } = useTranslation()
 
   const filteredDocuments = useMemo(() => {
     return (documents ?? [])
@@ -25,9 +23,7 @@ const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
           key={slug}
           title={title}
           category={documentCategory?.data}
-          linkHref={`${navMap.get(i18n.language === 'en' ? 'documents' : 'dokumenty') ?? ''}/${
-            slug ?? ''
-          }`}
+          linkHref={`${t('paths.documents')}/${slug ?? ''}`}
           button={
             file.data?.attributes?.url ? (
               <Button

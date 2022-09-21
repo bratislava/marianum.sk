@@ -1,15 +1,13 @@
 import { useTranslation } from 'next-i18next'
-import { useContext, useMemo } from 'react'
+import { useMemo } from 'react'
 import useSWR from 'swr'
 
 import { client } from '../../utils/gql'
 import { isDefined } from '../../utils/isDefined'
-import { NavigationContext } from '../layouts/NavigationProvider'
 import ArticleCard from '../molecules/Cards/ArticleCard'
 
 const NewsListing = () => {
-  const { i18n } = useTranslation()
-  const { navMap } = useContext(NavigationContext)
+  const { t, i18n } = useTranslation()
 
   const { data, error } = useSWR(['News', i18n.language], (_key, locale) => client.News({ locale }))
 
@@ -41,8 +39,9 @@ const NewsListing = () => {
             title={title}
             image={coverMedia?.data?.attributes}
             date={publishedAt}
-            linkHref={`${navMap.get(i18n.language === 'en' ? 'news' : 'novinky') ?? ''}/${slug}`}
+            linkHref={`${t('paths.news')}/${slug}`}
             category={newsCategory?.data}
+            border
           />
         )
       })}
