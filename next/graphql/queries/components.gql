@@ -230,6 +230,12 @@ fragment ManualListing on ComponentSectionsManualListing {
 
 fragment CeremoniesSection on ComponentSectionsCeremoniesSection {
   id
+  archive {
+    title
+    button {
+      ...CtaButton
+    }
+  }
 }
 
 fragment UpcomingCeremoniesSection on ComponentSectionsUpcomingCeremoniesSection {

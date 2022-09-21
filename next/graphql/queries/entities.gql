@@ -326,6 +326,10 @@ fragment PageEntity on PageEntity {
         __typename
         ...CeremoniesSection
       }
+      ... on ComponentSectionsCeremoniesArchiveSection {
+        __typename
+        id
+      }
     }
   }
 }
@@ -340,3 +344,58 @@ fragment ProceduresEntity on ProcedureEntity {
     }
   }
 }
+
+fragment CeremonyEntity on CeremonyEntity {
+  id
+  attributes {
+    dateTime
+    name
+    birthYear
+    type
+    company
+    officiantProvidedBy
+    consentForPrivateFields
+    branch {
+      data {
+        attributes {
+          title
+          slug
+          localizations {
+            data {
+              attributes {
+                title
+                slug
+                locale
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment HomepageCeremonyEntity on CeremonyEntity {
+  id
+  attributes {
+    dateTime
+    name
+    branch {
+      data {
+        attributes {
+          slug
+          title
+          localizations {
+            data {
+              attributes {
+                slug
+                title
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
