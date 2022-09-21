@@ -4,6 +4,7 @@ import { useDateFormatter } from 'react-aria'
 import useSWR from 'swr'
 
 import { ComponentSectionsUpcomingCeremoniesSectionFragment } from '../../graphql'
+import { bratislavaTimezone } from '../../utils/consts'
 import { client } from '../../utils/gql'
 import MLink from '../atoms/MLink'
 import Section from '../molecules/Section'
@@ -15,13 +16,13 @@ const Table = () => {
     year: 'numeric',
     month: 'numeric',
     day: 'numeric',
-    timeZone: 'Europe/Bratislava',
+    timeZone: bratislavaTimezone,
   })
 
   const timeFormatter = useDateFormatter({
     hour: 'numeric',
     minute: 'numeric',
-    timeZone: 'Europe/Bratislava',
+    timeZone: bratislavaTimezone,
   })
 
   const { data, error } = useSWR(['HomepageCeremonies'], () => {

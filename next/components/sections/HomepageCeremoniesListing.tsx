@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import useSWR from 'swr'
 
 import { UpcomingCeremoniesSectionFragment } from '../../graphql'
+import { bratislavaTimezone } from '../../utils/consts'
 import { client } from '../../utils/gql'
 import FormatDate from '../atoms/FormatDate'
 import MLink from '../atoms/MLink'
@@ -33,12 +34,12 @@ const HomepageCeremoniesListingTable = () => {
     // date of the first ceremony and filter only those taking place on the same date.
     const firstCeremonyDayDateTimeZoned = parseAbsolute(
       ceremoniesData[0]?.attributes?.dateTime,
-      'Europe/Bratislava',
+      bratislavaTimezone,
     )
 
     const filteredCeremonies = ceremoniesData.filter((ceremony) =>
       isSameDay(
-        parseAbsolute(ceremony.attributes?.dateTime, 'Europe/Bratislava'),
+        parseAbsolute(ceremony.attributes?.dateTime, bratislavaTimezone),
         firstCeremonyDayDateTimeZoned,
       ),
     )

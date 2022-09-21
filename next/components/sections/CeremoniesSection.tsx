@@ -5,6 +5,7 @@ import { Fragment, useMemo, useState } from 'react'
 import useSwr from 'swr'
 
 import { CeremoniesQuery, CeremoniesSectionFragment } from '../../graphql'
+import { bratislavaTimezone } from '../../utils/consts'
 import { client } from '../../utils/gql'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import FormatDate from '../atoms/FormatDate'
@@ -44,7 +45,7 @@ const Table = ({ data }: { data: CeremoniesQuery }) => {
 
       const branchTitle = localeBranchTitle ?? skBranchTitle
 
-      const dateTimeZoned = parseAbsolute(ceremony.attributes?.dateTime, 'Europe/Bratislava')
+      const dateTimeZoned = parseAbsolute(ceremony.attributes?.dateTime, bratislavaTimezone)
       const calendarDate = toCalendarDate(dateTimeZoned)
 
       return { ...ceremony.attributes, calendarDate, dateTime: dateTimeZoned.toDate(), branchTitle }
@@ -56,7 +57,7 @@ const Table = ({ data }: { data: CeremoniesQuery }) => {
     return Object.entries(groupedByDate).map(([date, list]) => ({
       date,
       list,
-      parsedDate: parseDate(date).toDate('Europe/Bratislava'),
+      parsedDate: parseDate(date).toDate(bratislavaTimezone),
     }))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
@@ -123,7 +124,7 @@ const Table = ({ data }: { data: CeremoniesQuery }) => {
 
 const DataWrapper = ({ filters }: { filters: Filters }) => {
   const { data, error } = useSwr(['Ceremonies', filters], () => {
-    const currentDate = parseAbsolute(new Date().toISOString(), 'Europe/Bratislava')
+    const currentDate = parseAbsolute(new Date().toISOString(), bratislavaTimezone)
     const startOfDay = currentDate.set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
     const startOfDayString = startOfDay.toAbsoluteString()
 

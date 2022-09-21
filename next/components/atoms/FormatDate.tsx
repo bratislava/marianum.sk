@@ -1,5 +1,7 @@
 import { DateFormatterOptions, useDateFormatter } from 'react-aria'
 
+import { bratislavaTimezone } from '../../utils/consts'
+
 /**
  * It's hard to make up a name, name the format by the first usage. Then at the end we can change the naming.
  */
@@ -31,7 +33,7 @@ type FormatDateProps = {
 }
 
 const FormatDate = ({ value, format }: FormatDateProps) => {
-  const formatter = useDateFormatter({ ...formats[format], timeZone: 'Europe/Bratislava' })
+  const formatter = useDateFormatter({ ...formats[format], timeZone: bratislavaTimezone })
 
   return <>{formatter.format(value)}</>
 }
