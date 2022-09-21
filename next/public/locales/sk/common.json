@@ -69,11 +69,21 @@
       }
     },
     "CeremoniesSection": {
-      "noCeremonies": "Žiadne obrady na zobrazenie."
+      "noCeremonies": "Žiadne obrady na zobrazenie.",
+      "time": "",
+      "dateTime": "Dátum a čas",
+      "name": "Meno a priezvisko",
+      "birthYear": "Rok narodenia",
+      "branchTitle": "Cintorín",
+      "type": "Typ obradu",
+      "company": "Pohrebná služba",
+      "officiantProvidedBy": "Obradníka zabezpečuje",
+      "searchPlaceholder": "Hľadať…",
+      "filterBy": "Filtrovať podľa"
     },
     "MapSection": {
-      "search": "Hladať...",
-      "noResults": "Žiadne výsledky...",
+      "search": "Hladať…",
+      "noResults": "Žiadne výsledky…",
       "map": "Mapa",
       "filtering": "Filtrácia",
       "filters": {
@@ -92,7 +102,7 @@
       "deathDate": "Dátum úmrtia",
       "branchTitle": "Cintorín",
       "noRecords": "Žiadne záznamy",
-      "searchPlaceholder": "Hľadať..."
+      "searchPlaceholder": "Hľadať…"
     }
   },
   "layouts": {
