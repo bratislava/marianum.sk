@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { useDateFormatter } from 'react-aria'
 import useSWR from 'swr'
 
-import { ComponentSectionsUpcomingCeremoniesSectionFragment } from '../../graphql'
+import { UpcomingCeremoniesSectionFragment } from '../../graphql'
 import { bratislavaTimezone } from '../../utils/consts'
 import { client } from '../../utils/gql'
 import MLink from '../atoms/MLink'
@@ -116,7 +116,7 @@ const Table = () => {
 }
 
 type CeremoniesListingProps = {
-  section: ComponentSectionsUpcomingCeremoniesSectionFragment
+  section: UpcomingCeremoniesSectionFragment
   index: number
 }
 
