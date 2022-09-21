@@ -79,7 +79,8 @@
       "company": "Pohrebná služba",
       "officiantProvidedBy": "Obradníka zabezpečuje",
       "searchPlaceholder": "Hľadať…",
-      "filterBy": "Filtrovať podľa"
+      "filterBy": "Filtrovať podľa",
+      "privateFieldsDescription": "Objednávateľ obradu neudelil súhlas na zverejnenie osobných údajov a údajov o pohrebnom obrade zosnulého."
     },
     "MapSection": {
       "search": "Hladať…",

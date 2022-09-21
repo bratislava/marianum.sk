@@ -31,6 +31,8 @@ type Filters = {
   page: number
 }
 
+const PrivateField = () => <span className="opacity-50">**</span>
+
 const Table = ({ data }: { data: SearchResponse<CeremonyMeili> }) => {
   const { t, i18n } = useTranslation('common', {
     keyPrefix: 'sections.CeremoniesSection',
@@ -62,46 +64,51 @@ const Table = ({ data }: { data: SearchResponse<CeremonyMeili> }) => {
   }, [data])
 
   return (
-    <div className="overflow-x-auto">
-      {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
-      <table className="m-table colored">
-        <thead>
-          <tr>
-            <th>{t('dateTime')}</th>
-            <th>{t('name')}</th>
-            <th>{t('birthYear')}</th>
-            <th>{t('branchTitle')}</th>
-            <th>{t('type')}</th>
-            <th>{t('company')}</th>
-            <th>{t('officiantProvidedBy')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {ceremonies?.map((ceremony, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <tr key={index}>
-              <td>
-                {ceremony.dateTime && (
-                  <FormatDate value={ceremony.dateTime} format="ceremoniesArchive" />
-                )}
-              </td>
-              <td>{ceremony.name}</td>
-              <td>{ceremony.birthYear}</td>
-              {/* TODO: Branch link */}
-              <td>{ceremony.branchTitle}</td>
-              <td>{ceremony.type}</td>
-              <td>{ceremony.company}</td>
-              <td>{ceremony.officiantProvidedBy}</td>
-            </tr>
-          ))}
-          {ceremonies?.length === 0 && (
+    <>
+      <div className="mb-6 overflow-x-auto md:mb-10">
+        {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
+        <table className="m-table colored">
+          <thead>
             <tr>
-              <td colSpan={7}>{t('noCeremonies')}</td>
+              <th>{t('dateTime')}</th>
+              <th>{t('name')}</th>
+              <th>{t('birthYear')}</th>
+              <th>{t('branchTitle')}</th>
+              <th>{t('type')}</th>
+              <th>{t('company')}</th>
+              <th>{t('officiantProvidedBy')}</th>
             </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {ceremonies?.map((ceremony, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <tr key={index}>
+                <td>
+                  {ceremony.dateTime && (
+                    <FormatDate value={ceremony.dateTime} format="ceremoniesArchive" />
+                  )}
+                </td>
+                <td>{ceremony.consentForPrivateFields ? ceremony.name : <PrivateField />}</td>
+                <td>{ceremony.consentForPrivateFields ? ceremony.birthYear : <PrivateField />}</td>
+                {/* TODO: Branch link */}
+                <td>{ceremony.branchTitle}</td>
+                <td>{ceremony.consentForPrivateFields ? ceremony.type : <PrivateField />}</td>
+                <td>{ceremony.company}</td>
+                <td>{ceremony.officiantProvidedBy}</td>
+              </tr>
+            ))}
+            {ceremonies?.length === 0 && (
+              <tr>
+                <td colSpan={7}>{t('noCeremonies')}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      <p>
+        <PrivateField /> {t('privateFieldsDescription')}
+      </p>
+    </>
   )
 }
 

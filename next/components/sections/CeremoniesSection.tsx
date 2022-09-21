@@ -110,13 +110,12 @@ const Table = ({ data }: { data: CeremoniesQuery }) => {
         </Fragment>
       ))}
       {ceremonies?.length === 0 && (
-        <div>
+        <div className="mb-6 md:mb-10">
           <strong>{t('noCeremonies')}</strong>
         </div>
       )}
       <p>
-        <PrivateField /> Objednávateľ obradu neudelil súhlas na zverejnenie osobných údajov a údajov
-        o pohrebnom obrade zosnulého
+        <PrivateField /> {t('privateFieldsDescription')}
       </p>
     </div>
   )
