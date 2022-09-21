@@ -100,6 +100,21 @@ fragment BranchEntity on BranchEntity {
   }
 }
 
+fragment BranchInCeremoniesDebtorsEntity on BranchEntity {
+  id
+  attributes {
+    title
+    localizations {
+      data {
+        attributes {
+          title
+          locale
+        }
+      }
+    }
+  }
+}
+
 fragment ContactEntity on ContactEntity {
   id
   attributes {
@@ -309,7 +324,7 @@ fragment PageEntity on PageEntity {
       }
       ... on ComponentSectionsCeremoniesSection {
         __typename
-        id
+        ...CeremoniesSection
       }
     }
   }
@@ -322,38 +337,6 @@ fragment ProceduresEntity on ProcedureEntity {
     }
     atMedicalFacility {
       ...Procedure
-    }
-  }
-}
-
-fragment ComponentSectionsCeremoniesSection on ComponentSectionsCeremoniesSection {
-  __typename
-  id
-}
-
-fragment ComponentSectionsUpcomingCeremoniesSection on ComponentSectionsUpcomingCeremoniesSection {
-  __typename
-  id
-  title
-  showMoreButton {
-    ...CtaButton
-  }
-}
-
-
-fragment BranchInCeremoniesDebtors on BranchEntityResponseCollection {
-  data {
-    id
-    attributes {
-      title
-      localizations {
-        data {
-          attributes {
-            title
-            locale
-          }
-        }
-      }
     }
   }
 }

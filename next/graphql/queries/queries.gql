@@ -172,7 +172,10 @@ query HomePage($locale: I18NLocaleCode) {
             id
             title
           }
-          ...ComponentSectionsUpcomingCeremoniesSection
+          ... on ComponentSectionsUpcomingCeremoniesSection {
+            __typename
+            ...UpcomingCeremoniesSection
+          }
           ... on ComponentSectionsProceduresShortSection {
             __typename
             id
@@ -236,13 +239,17 @@ query HomepageCeremonies($dateTime: DateTime!) {
 
 query BranchesInCeremonies {
   branches(filters: { allowInCeremonies: { eq: true } }) {
-    ...BranchInCeremoniesDebtors
+    data {
+      ...BranchInCeremoniesDebtorsEntity
+    }
   }
 }
 
 query BranchesInDebtors {
   branches(filters: { allowInDebtors: { eq: true } }) {
-    ...BranchInCeremoniesDebtors
+    data {
+      ...BranchInCeremoniesDebtorsEntity
+    }
   }
 }
 
