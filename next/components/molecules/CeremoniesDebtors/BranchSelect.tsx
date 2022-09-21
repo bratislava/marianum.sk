@@ -7,11 +7,13 @@ import useGetSwrExtras from '../../../utils/useGetSwrExtras'
 import Select from '../../atoms/Select'
 
 type CeremoniesDebtorsBranchSelectProps = {
+  label?: string
   type: 'ceremonies' | 'debtors'
   onBranchChange: (id: string) => void
 }
 
 const CeremoniesDebtorsBranchSelect = ({
+  label,
   type,
   onBranchChange = () => {},
 }: CeremoniesDebtorsBranchSelectProps) => {
@@ -50,6 +52,7 @@ const CeremoniesDebtorsBranchSelect = ({
 
   return (
     <Select
+      label={label}
       disabled={loading || error}
       options={branches}
       defaultSelected=""
