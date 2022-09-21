@@ -52,11 +52,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
         {page.attributes?.sections?.map((section, index) => {
           if (section?.__typename === 'ComponentSectionsProceduresSection') {
             return (
-              <Section
-                index={index}
-                key={`${section.__typename}-${section.id}`}
-                title={section.title}
-              >
+              <Section key={`${section.__typename}-${section.id}`} title={section.title}>
                 <ProcedureTabs />
               </Section>
             )
@@ -72,11 +68,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsAccordionGroup') {
             return (
-              <Section
-                index={index}
-                key={`${section.__typename}-${section.id}`}
-                title={section.title}
-              >
+              <Section key={`${section.__typename}-${section.id}`} title={section.title}>
                 <AccordionGroup>
                   {section.accordions?.map((accordion) => (
                     <AccordionItem key={accordion?.id} title={accordion?.title}>
@@ -89,22 +81,14 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsBranchGroup') {
             return (
-              <Section
-                index={index}
-                key={`${section.__typename}-${section.id}`}
-                title={section.title}
-              >
+              <Section key={`${section.__typename}-${section.id}`} title={section.title}>
                 <BranchGroup {...section} />
               </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsBundleListing') {
             return (
-              <BundleListingSection
-                index={index}
-                key={`${section.__typename}-${section.id}`}
-                section={section}
-              />
+              <BundleListingSection key={`${section.__typename}-${section.id}`} section={section} />
             )
           }
           if (section?.__typename === 'ComponentSectionsContactGroup') {
@@ -118,11 +102,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsDocumentGroup') {
             return (
-              <Section
-                index={index}
-                key={`${section.__typename}-${section.id}`}
-                title={section.title}
-              >
+              <Section key={`${section.__typename}-${section.id}`} title={section.title}>
                 <DocumentGroup {...section} />
               </Section>
             )
@@ -139,11 +119,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           }
           if (section?.__typename === 'ComponentSectionsGallery') {
             return (
-              <Section
-                index={index}
-                key={`${section.__typename}-${section.id}`}
-                title={section.title}
-              >
+              <Section key={`${section.__typename}-${section.id}`} title={section.title}>
                 <ImageGallery images={section.medias?.data} variant="bellow" />
               </Section>
             )
@@ -151,7 +127,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
           if (section?.__typename === 'ComponentSectionsMenuListing') {
             return (
               <MenuListingSection
-                index={index}
                 key={`${section.__typename}-${section.id}`}
                 title={section.title}
                 slug={section.slug}
@@ -160,21 +135,11 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             )
           }
           if (section?.__typename === 'ComponentSectionsManualListing') {
-            return (
-              <CardSection
-                index={index}
-                key={`${section.__typename}-${section.id}`}
-                section={section}
-              />
-            )
+            return <CardSection key={`${section.__typename}-${section.id}`} section={section} />
           }
           if (section?.__typename === 'ComponentSectionsNewsListing') {
             return (
-              <Section
-                index={index}
-                key={`${section.__typename}-${section.id}`}
-                title={section.title}
-              >
+              <Section key={`${section.__typename}-${section.id}`} title={section.title}>
                 <NewsListing />
               </Section>
             )

@@ -31,21 +31,11 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
         {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
         {page.attributes?.sections?.map((section, index) => {
           if (section?.__typename === 'ComponentSectionsManualListing') {
-            return (
-              <CardSection
-                index={index}
-                key={`${section.__typename}-${section.id}`}
-                section={section}
-              />
-            )
+            return <CardSection key={`${section.__typename}-${section.id}`} section={section} />
           }
           if (section?.__typename === 'ComponentSectionsNewsListing') {
             return (
-              <Section
-                index={index}
-                key={`${section.__typename}-${section.id}`}
-                title={section.title}
-              >
+              <Section key={`${section.__typename}-${section.id}`} title={section.title}>
                 <NewsListing />
               </Section>
             )
@@ -77,18 +67,14 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           }
           if (section?.__typename === 'ComponentSectionsCtaSection') {
             return (
-              <Section
-                index={index}
-                key={`${section.__typename}-${section.id}`}
-                title={section.title}
-              >
+              <Section key={`${section.__typename}-${section.id}`} title={section.title}>
                 <CtaGroup {...section} />
               </Section>
             )
           }
           if (section?.__typename === 'ComponentSectionsReviewsSection') {
             return (
-              <Section index={index} key={`${section.__typename}-${section.id}`}>
+              <Section key={`${section.__typename}-${section.id}`}>
                 {/* TODO */}
                 reviews section
               </Section>

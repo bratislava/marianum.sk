@@ -3,16 +3,16 @@ import { createContext, HTMLProps, ReactNode, useCallback, useMemo } from 'react
 export type BackgroundColor = 'dark' | 'light'
 
 type SectionContextValue = {
-  getBackground: (index: number) => BackgroundColor
-  getDivider: (index: number) => boolean
-  getLast: (index: number) => boolean
+  background: BackgroundColor
+  isDivider: boolean
+  isLast: boolean
   isContainer: boolean
 }
 
 export const sectionContext = createContext<SectionContextValue>({
-  getBackground: () => 'dark',
-  getDivider: () => false,
-  getLast: () => false,
+  background: 'dark',
+  isDivider: false,
+  isLast: false,
   isContainer: false,
 })
 
@@ -74,20 +74,34 @@ const SectionsWrapper = ({
     [sectionCount],
   )
 
-  const contextValue: SectionContextValue = useMemo(
-    () => ({
-      getBackground,
-      getDivider,
-      getLast,
-      isContainer,
-    }),
-    [getBackground, getDivider, getLast, isContainer],
-  )
-
   return (
-    <sectionContext.Provider value={contextValue}>
-      <div {...rest}>{children}</div>
-    </sectionContext.Provider>
+    <div {...rest}>
+      {Array.isArray(children) ? (
+        children.map((child, index) => (
+          <sectionContext.Provider
+            value={{
+              isContainer,
+              background: getBackground(index),
+              isDivider: getDivider(index),
+              isLast: getLast(index),
+            }}
+          >
+            {child}
+          </sectionContext.Provider>
+        ))
+      ) : (
+        <sectionContext.Provider
+          value={{
+            isContainer,
+            background: getBackground(0),
+            isDivider: getDivider(0),
+            isLast: getLast(0),
+          }}
+        >
+          {children}
+        </sectionContext.Provider>
+      )}
+    </div>
   )
 }
 

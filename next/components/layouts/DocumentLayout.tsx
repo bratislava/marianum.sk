@@ -65,7 +65,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
       header={<HeroSection breadcrumbs={breadcrumbs} />}
     >
       <SectionsWrapper isContainer alternateBackground>
-        <Section index={0} background="light">
+        <Section background="light">
           <div className="flex flex-col items-center gap-5 md:flex-row md:items-start md:gap-8">
             <div className="flex h-[96px] w-[96px] items-center justify-center bg-background-beige md:h-[186px] md:w-[186px]">
               <FileIcon extension={extension} />
@@ -92,21 +92,13 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
           </div>
         </Section>
 
-        {/* TODO add left margin to sections below */}
-        <Section
-          innerClassName="md:pl-[234px]"
-          index={1}
-          title={t('layouts.DocumentLayout.description')}
-        >
+        <Section innerClassName="md:pl-[234px]" title={t('layouts.DocumentLayout.description')}>
           <div className="whitespace-pre-wrap">{description}</div>
         </Section>
 
-        {/* TODO index is added manually to add padding that compensates the footer overlap
-         * This should be done automatically */}
         <Section
           innerClassName="md:pl-[234px]"
           dividerClassName="md:ml-[218px]"
-          index={2}
           title={t('layouts.DocumentLayout.details')}
         >
           <dl>

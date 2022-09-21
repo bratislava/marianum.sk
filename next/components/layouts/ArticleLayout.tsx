@@ -66,9 +66,7 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
           {children}
         </div>
 
-        {/* TODO index is added manually to add padding that compensates the footer overlap
-         * This should be done automatically */}
-        <Section index={1} title={t('layouts.ArticleLayout.moreNews')}>
+        <Section title={t('layouts.ArticleLayout.moreNews')}>
           <NewsListing />
         </Section>
       </SectionsWrapper>
