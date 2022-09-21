@@ -182,6 +182,7 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
                           // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                           key={`${index}-${slug ?? ''}`}
                           title={title}
+                          // TODO add proper paths
                           // eslint-disable-next-line sonarjs/no-nested-template-literals, @typescript-eslint/restrict-template-expressions
                           linkHref={`${hostname}${t(`paths.${index}`)}/${slug ?? ''}`}
                           showUrl

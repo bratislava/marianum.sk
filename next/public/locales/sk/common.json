@@ -5,6 +5,15 @@
     "or": "alebo",
     "disclosureOfInformation": "Zverejňovanie informácií"
   },
+  "paths": {
+    "contacts": "/o-nas/kontakty",
+    "news": "/aktuality/novinky",
+    "press": "/o-nas/pre-media",
+    "bundles": "/sluzby/pohrebna-sluzba/balicky-pohrebov",
+    "cemeteries": "/o-nas/cintoriny-v-sprave",
+    "documents": "/o-nas/dokumenty",
+    "legislative": "/o-nas/dokumenty/legislativa"
+  },
   "components": {
     "molecules": {
       "Slider": {
