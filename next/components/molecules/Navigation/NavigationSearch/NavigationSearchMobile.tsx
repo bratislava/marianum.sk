@@ -9,6 +9,7 @@ type NavigationSearchMobileProps = {
   onSearchQueryChange: (query: string) => void
   results: MeilisearchResultType<string>[]
   isLoading: boolean
+  onSearch: () => void
 }
 
 const NavigationSearchMobile = ({
@@ -16,6 +17,7 @@ const NavigationSearchMobile = ({
   onSearchQueryChange,
   results,
   isLoading,
+  onSearch,
 }: NavigationSearchMobileProps) => {
   const [isOpen, setOpen] = useState(false)
 
@@ -29,6 +31,7 @@ const NavigationSearchMobile = ({
         onClose={() => setOpen(false)}
         results={results}
         isLoading={isLoading}
+        onSearch={onSearch}
       />
     </>
   )

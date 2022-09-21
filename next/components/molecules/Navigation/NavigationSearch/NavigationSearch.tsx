@@ -1,4 +1,8 @@
+import { useRouter } from 'next/router'
+import { useCallback } from 'react'
+
 import { IndexConfig, useMeilisearch } from '../../../../hooks/useMeilisearch'
+import NavigationSearchDesktop from './NavigationSearchDesktop'
 import NavigationSearchMobile from './NavigationSearchMobile'
 
 const branchIndexConfig: IndexConfig = { name: 'branch', localized: true }
@@ -21,6 +25,13 @@ const NavigationSearch = () => {
     countPerPage: 5,
   })
 
+  const router = useRouter()
+
+  const handleSearch = useCallback(() => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    router.push(`/search?query=${searchQuery ?? ''}`)
+  }, [router, searchQuery])
+
   return (
     <>
       <div className="md:hidden">
@@ -29,18 +40,19 @@ const NavigationSearch = () => {
           onSearchQueryChange={setSearchQuery}
           results={results}
           isLoading={isLoading}
+          onSearch={handleSearch}
         />
       </div>
 
-      {/* <div className="hidden w-72 transition-all duration-500 md:flex">
-        <Search
-          className="w-full border-transparent bg-white/[16%] focus-within:bg-white/100 focus-within:text-foreground hover:border-transparent hover:focus-within:border-border"
-          inputClassName="placeholder:text-white focus:placeholder:text-foreground-placeholder"
-          placeholder="Hľadať na stránke"
-          // eslint-disable-next-line @typescript-eslint/no-misused-promises
-          onSearchQueryChange={handleSearch}
+      <div className="hidden md:flex">
+        <NavigationSearchDesktop
+          searchQuery={searchQuery ?? ''}
+          onSearchQueryChange={setSearchQuery}
+          results={results}
+          isLoading={isLoading}
+          onSearch={handleSearch}
         />
-      </div> */}
+      </div>
     </>
   )
 }

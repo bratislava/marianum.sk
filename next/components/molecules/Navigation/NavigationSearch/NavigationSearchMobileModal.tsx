@@ -1,31 +1,26 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AriaOverlayProps, FocusScope, OverlayContainer, useModal, useOverlay } from 'react-aria'
 
 import { MeilisearchResultType } from '../../../../utils/types'
 import { AnimateHeight } from '../../../atoms/AnimateHeight'
 import Button from '../../../atoms/Button'
-import MLink from '../../../atoms/MLink'
-import Spinner from '../../../atoms/Spinner'
 import Search from '../../Search'
+import NavigationSearchResults from './NavigationSearchResults'
 
 type NavigationSearchMobileModalProps = {
   searchQuery: string
   onSearchQueryChange: (query: string) => void
   results: MeilisearchResultType<string>[]
   isLoading: boolean
+  onSearch: () => void
 } & AriaOverlayProps
 
 const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) => {
-  const { isOpen, onClose, searchQuery, onSearchQueryChange, results, isLoading } = props
+  const { isOpen, onClose, searchQuery, onSearchQueryChange, results, isLoading, onSearch } = props
   const { t } = useTranslation('common', {
     keyPrefix: 'components.molecules.Navigation.NavigationSearch',
-  })
-
-  const { t: searchPagePathsT } = useTranslation('common', {
-    keyPrefix: 'pages.search.paths',
   })
 
   const ref = useRef<HTMLDivElement | null>(null)
@@ -39,13 +34,6 @@ const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) =>
   useEffect(() => {
     setBrowser(true)
   }, [])
-
-  const router = useRouter()
-
-  const handleSearch = useCallback(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    router.push(`/search?query=${searchQuery}`)
-  }, [router, searchQuery])
 
   return isBrowser ? (
     <OverlayContainer>
@@ -68,40 +56,18 @@ const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) =>
                     value={searchQuery}
                     onSearchQueryChange={onSearchQueryChange}
                     className="flex-1"
-                    onSearch={handleSearch}
+                    onSearch={onSearch}
                   />
                   <Button variant="plain-secondary" className="px-4 !text-white" onPress={onClose}>
                     {t('close')}
                   </Button>
                 </div>
-                <AnimateHeight isVisible className="bg-white">
-                  {isLoading ? (
-                    <div className="flex flex-col items-center justify-center py-4 text-primary">
-                      <motion.div animate={{ scale: 1 }} initial={{ scale: 0 }}>
-                        <Spinner className="h-8 w-8" />
-                      </motion.div>
-                    </div>
-                  ) : results.length > 0 ? (
-                    <div className="flex flex-col py-2">
-                      {results.map(({ slug, title, index }) => (
-                        <MLink
-                          noStyles
-                          // eslint-disable-next-line sonarjs/no-nested-template-literals, @typescript-eslint/restrict-template-expressions
-                          href={`${searchPagePathsT(index)}/${slug ?? ''}`}
-                          key={`${index}-${slug}`}
-                          className="px-4 py-2 text-[14px]"
-                        >
-                          {title}
-                        </MLink>
-                      ))}
-                      <MLink
-                        className="!justify-start px-4 py-2"
-                        href={`/search?query=${searchQuery}`}
-                      >
-                        {t('allResults')}
-                      </MLink>
-                    </div>
-                  ) : null}
+                <AnimateHeight isVisible>
+                  <NavigationSearchResults
+                    results={results}
+                    isLoading={isLoading}
+                    searchQuery={searchQuery}
+                  />
                 </AnimateHeight>
               </div>
             </FocusScope>

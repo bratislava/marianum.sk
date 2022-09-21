@@ -1,4 +1,11 @@
-import { KeyboardEvent, useCallback, useEffect, useState } from 'react'
+import {
+  DetailedHTMLProps,
+  InputHTMLAttributes,
+  KeyboardEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
 
 import CloseIcon from '../../assets/close.svg'
 import SearchIcon from '../../assets/search.svg'
@@ -13,7 +20,7 @@ type SearchProps = {
   onSearch?: (value: string) => void
   isLarge?: boolean
   className?: string
-}
+} & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 const Search = ({
   value = '',
@@ -23,6 +30,7 @@ const Search = ({
   className,
   inputClassName,
   isLarge = false,
+  ...rest
 }: SearchProps) => {
   const [realValue, setRealValue] = useState(value)
 
@@ -83,6 +91,7 @@ const Search = ({
           </button>
         ) : null
       }
+      {...rest}
     />
   )
 }
