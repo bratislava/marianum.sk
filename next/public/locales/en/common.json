@@ -42,6 +42,7 @@
       "Navigation": {
         "NavigationSearch": {
           "close": "Close",
+          "search": "Search",
           "allResults": "All results"
         }
       }

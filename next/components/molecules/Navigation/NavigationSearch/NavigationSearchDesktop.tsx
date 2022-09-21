@@ -1,4 +1,5 @@
 import cx from 'classnames'
+import { useTranslation } from 'next-i18next'
 import { useRef, useState } from 'react'
 import { useOnClickOutside } from 'usehooks-ts'
 
@@ -26,6 +27,10 @@ const NavigationSearchDesktop = ({
 
   const ref = useRef(null)
 
+  const { t } = useTranslation('common', {
+    keyPrefix: 'components.molecules.Navigation.NavigationSearch',
+  })
+
   useOnClickOutside(ref, () => setOpen(false))
 
   return (
@@ -40,11 +45,12 @@ const NavigationSearchDesktop = ({
           'bg-white text-foreground': isOpen,
           'bg-white/20 text-white': !isOpen,
         })}
-        inputClassName=""
+        inputClassName={cx({ 'placeholder:text-white': !isOpen })}
         value={searchQuery}
         onSearchQueryChange={onSearchQueryChange}
         onSearch={onSearch}
         onFocus={() => setOpen(true)}
+        placeholder={t('search')}
       />
       <AnimateHeight
         isVisible={isOpen}

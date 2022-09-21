@@ -42,6 +42,7 @@
       "Navigation": {
         "NavigationSearch": {
           "close": "Zavrieť",
+          "search": "Hľadať",
           "allResults": "Všetky výsledky"
         }
       }

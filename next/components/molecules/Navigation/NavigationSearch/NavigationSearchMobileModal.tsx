@@ -54,6 +54,7 @@ const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) =>
                 >
                   <Search
                     value={searchQuery}
+                    placeholder={t('search')}
                     onSearchQueryChange={onSearchQueryChange}
                     className="flex-1"
                     onSearch={onSearch}
@@ -62,7 +63,7 @@ const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) =>
                     {t('close')}
                   </Button>
                 </div>
-                <AnimateHeight isVisible>
+                <AnimateHeight className="bg-white" isVisible>
                   <NavigationSearchResults
                     results={results}
                     isLoading={isLoading}
