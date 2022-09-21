@@ -1,9 +1,7 @@
 import { useTranslation } from 'next-i18next'
-import { useContext } from 'react'
 
 import { BundleListingFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
-import { NavigationContext } from '../layouts/NavigationProvider'
 import BundleCard from '../molecules/Cards/BundleCard'
 import Section, { SectionProps } from '../molecules/Section'
 
@@ -12,8 +10,7 @@ type BundleListingSectionProps = Pick<SectionProps, 'background' | 'index'> & {
 }
 
 const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) => {
-  const { i18n } = useTranslation()
-  const { navMap } = useContext(NavigationContext)
+  const { t } = useTranslation()
 
   const { title, description, bundles, showMoreButton } = section
 
@@ -39,9 +36,7 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
                 ?.map((bundleContentItem) => bundleContentItem?.description)
                 .filter(isDefined) ?? []
             }
-            linkHref={`${
-              navMap.get(i18n.language === 'en' ? 'funeral-packages' : 'balicky-pohrebov') ?? ''
-            }/${slug ?? ''}`}
+            linkHref={`${t('paths.bundles')}/${slug ?? ''}`}
             border
           />
         )
