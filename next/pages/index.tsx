@@ -2,6 +2,7 @@
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { SWRConfig } from 'swr'
 
 import PageWrapper from '../components/layouts/PageWrapper'
 import SectionsWrapper from '../components/layouts/SectionsWrapper'
@@ -13,7 +14,13 @@ import HomepageProcedures from '../components/sections/HomepageProcedures'
 import HomepageSlider from '../components/sections/HomepageSlider'
 import NewsListing from '../components/sections/NewsListing'
 import UpcomingCeremoniesSection from '../components/sections/UpcomingCeremoniesSection'
-import { GeneralEntityFragment, HomePageQuery, NavigationItemFragment } from '../graphql'
+import {
+  GeneralEntityFragment,
+  HomepageCeremoniesQuery,
+  HomePageQuery,
+  NavigationItemFragment,
+} from '../graphql'
+import { upcomingCeremoniesFetcher } from '../utils/fetchers/upcomingCeremoniesFetcher'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
 
@@ -22,13 +29,14 @@ type HomeProps = {
   page: NonNullable<NonNullable<HomePageQuery['homePage']>['data']>
   procedures: NonNullable<HomePageQuery['procedures']>['data']
   general: GeneralEntityFragment | null
+  fallback: { UpcomingCeremonies: HomepageCeremoniesQuery }
 }
 
-const Home = ({ navigation, page, procedures, general }: HomeProps) => {
+const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) => {
   const { seo } = page.attributes ?? {}
 
   return (
-    <>
+    <SWRConfig value={{ fallback }}>
       <Seo seo={seo} />
       <Head>
         <title>Marianum</title>
@@ -93,18 +101,20 @@ const Home = ({ navigation, page, procedures, general }: HomeProps) => {
           })}
         </SectionsWrapper>
       </PageWrapper>
-    </>
+    </SWRConfig>
   )
 }
 
 export const getStaticProps: GetStaticProps = async ({
   locale = 'sk',
 }): Promise<GetStaticPropsResult<HomeProps>> => {
-  const [{ navigation, general }, { homePage, procedures }, translations] = await Promise.all([
-    client.General({ locale }),
-    client.HomePage({ locale }),
-    serverSideTranslations(locale, ['common']),
-  ])
+  const [{ navigation, general }, { homePage, procedures }, translations, upcomingCeremonies] =
+    await Promise.all([
+      client.General({ locale }),
+      client.HomePage({ locale }),
+      serverSideTranslations(locale, ['common']),
+      upcomingCeremoniesFetcher(),
+    ])
 
   const filteredNavigation = navigation.filter(isDefined)
 
@@ -120,6 +130,9 @@ export const getStaticProps: GetStaticProps = async ({
       general: general?.data ?? null,
       page: homePage?.data ?? null,
       procedures: procedures?.data ?? null,
+      fallback: {
+        UpcomingCeremonies: upcomingCeremonies,
+      },
       ...translations,
     },
     revalidate: 10,

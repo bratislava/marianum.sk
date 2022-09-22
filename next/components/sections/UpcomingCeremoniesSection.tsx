@@ -5,8 +5,8 @@ import useSWR from 'swr'
 
 import { UpcomingCeremoniesSectionFragment } from '../../graphql'
 import { bratislavaTimezone } from '../../utils/consts'
+import { upcomingCeremoniesFetcher } from '../../utils/fetchers/upcomingCeremoniesFetcher'
 import { getBranchTitleInCeremoniesDebtors } from '../../utils/getBranchTitleInCeremoniesDebtors'
-import { client } from '../../utils/gql'
 import FormatDate from '../atoms/FormatDate'
 import MLink from '../atoms/MLink'
 import Section from '../molecules/Section'
@@ -14,13 +14,7 @@ import Section from '../molecules/Section'
 const Table = () => {
   const { t, i18n } = useTranslation()
 
-  const { data, error } = useSWR(['UpcomingCeremonies'], () => {
-    const dateTime = new Date()
-    // I think we also want to display ongoing ceremonies, 2 hours seems like a reasonable time.
-    dateTime.setHours(dateTime.getHours() - 2)
-
-    return client.HomepageCeremonies({ dateTime })
-  })
+  const { data, error } = useSWR('UpcomingCeremonies', upcomingCeremoniesFetcher)
 
   const ceremonies = useMemo(() => {
     const ceremoniesData = data?.ceremonies?.data
