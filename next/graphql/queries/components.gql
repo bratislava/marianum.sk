@@ -20,6 +20,12 @@ fragment Sidebar on ComponentBlocksSidebar {
   }
 }
 
+fragment Seo on ComponentGeneralSeo {
+  metaTitle
+  metaDescription
+  keywords
+}
+
 fragment Cta on ComponentBlocksCta {
   title
   description

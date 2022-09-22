@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
+import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useCallback, useMemo, useState } from 'react'
@@ -104,105 +105,113 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
   })
 
   return (
-    <PageWrapper navigation={navigation} general={general}>
-      <SectionsWrapper isContainer>
-        <Section>
-          <div className="flex flex-col gap-3 md:gap-6">
-            <h1>{t('searchResults')}</h1>
-            <div className="hidden md:block">
-              <Search
-                placeholder={t('search')}
-                isLarge
-                value={searchQuery ?? ''}
-                onSearchQueryChange={setSearchQuery}
-              />
-            </div>
-            <div className="md:hidden">
-              <Search
-                placeholder={t('search')}
-                value={searchQuery ?? ''}
-                onSearchQueryChange={setSearchQuery}
-              />
-            </div>
-            <div className="flex flex-col-reverse justify-between gap-3 md:flex-row md:items-center">
-              <div className="flex w-full items-center gap-3 overflow-auto">
-                <TagToggle isSelected={isNothingSelected} onChange={deselectAll}>
-                  {t('tags.allResults')}
-                </TagToggle>
-                <TagToggle isSelected={areBundlesSelected} onChange={setBundlesSelected}>
-                  {t('tags.bundle')}
-                </TagToggle>
-                <TagToggle isSelected={arePagesSelected} onChange={setPagesSelected}>
-                  {t('tags.page')}
-                </TagToggle>
-                <TagToggle isSelected={areDocumentsSelected} onChange={setDocumentsSelected}>
-                  {t('tags.document')}
-                </TagToggle>
-                <TagToggle isSelected={areArticlesSelected} onChange={setArticlesSelected}>
-                  {t('tags.article')}
-                </TagToggle>
-                <TagToggle isSelected={areBranchesSelected} onChange={setBranchesSelected}>
-                  {t('tags.branch')}
-                </TagToggle>
-              </div>
-              {!isLoading && (
-                <div className="whitespace-nowrap">
-                  {t('resultsFound', { count: totalResultsCount })}
-                </div>
-              )}
-            </div>
+    <>
+      <Head>
+        <title>Vyhľadávanie - marianum.sk</title>
 
-            {
-              <div className="flex flex-col gap-6">
-                <AnimateHeight isVisible>
-                  {isLoading ? (
-                    <div className="flex select-none flex-col gap-3">
-                      {Array.from({ length: COUNT_PER_PAGE }, (_item, index) => (
-                        <RowSkeleton key={index} />
-                      ))}
-                    </div>
-                  ) : totalResultsCount === 0 ? (
-                    <motion.div
-                      initial={{ y: 48 }}
-                      animate={{ y: 0 }}
-                      className="flex justify-center py-8 text-lg"
-                    >
-                      {t('resultsFound', { count: 0 })}
-                    </motion.div>
-                  ) : (
-                    <div className="flex flex-col gap-3">
-                      {results.map(({ title, index, slug }) => (
-                        <Row
-                          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                          key={`${index}-${slug ?? ''}`}
-                          title={title}
-                          // TODO add proper paths
-                          // eslint-disable-next-line sonarjs/no-nested-template-literals, @typescript-eslint/restrict-template-expressions
-                          linkHref={`${hostname}${t(`paths.${index}`)}/${slug ?? ''}`}
-                          showUrl
-                          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                          tags={[t(`tags.${index}`)]}
-                          border={false}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </AnimateHeight>
-                {totalResultsCount !== 0 && (
-                  <div className="flex justify-center md:justify-end">
-                    <Pagination
-                      onChange={changePage}
-                      count={pageCount}
-                      selectedPage={currentPage}
-                    />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+
+      <PageWrapper navigation={navigation} general={general}>
+        <SectionsWrapper isContainer>
+          <Section>
+            <div className="flex flex-col gap-3 md:gap-6">
+              <h1>{t('searchResults')}</h1>
+              <div className="hidden md:block">
+                <Search
+                  placeholder={t('search')}
+                  isLarge
+                  value={searchQuery ?? ''}
+                  onSearchQueryChange={setSearchQuery}
+                />
+              </div>
+              <div className="md:hidden">
+                <Search
+                  placeholder={t('search')}
+                  value={searchQuery ?? ''}
+                  onSearchQueryChange={setSearchQuery}
+                />
+              </div>
+              <div className="flex flex-col-reverse justify-between gap-3 md:flex-row md:items-center">
+                <div className="flex w-full items-center gap-3 overflow-auto">
+                  <TagToggle isSelected={isNothingSelected} onChange={deselectAll}>
+                    {t('tags.allResults')}
+                  </TagToggle>
+                  <TagToggle isSelected={areBundlesSelected} onChange={setBundlesSelected}>
+                    {t('tags.bundle')}
+                  </TagToggle>
+                  <TagToggle isSelected={arePagesSelected} onChange={setPagesSelected}>
+                    {t('tags.page')}
+                  </TagToggle>
+                  <TagToggle isSelected={areDocumentsSelected} onChange={setDocumentsSelected}>
+                    {t('tags.document')}
+                  </TagToggle>
+                  <TagToggle isSelected={areArticlesSelected} onChange={setArticlesSelected}>
+                    {t('tags.article')}
+                  </TagToggle>
+                  <TagToggle isSelected={areBranchesSelected} onChange={setBranchesSelected}>
+                    {t('tags.branch')}
+                  </TagToggle>
+                </div>
+                {!isLoading && (
+                  <div className="whitespace-nowrap">
+                    {t('resultsFound', { count: totalResultsCount })}
                   </div>
                 )}
               </div>
-            }
-          </div>
-        </Section>
-      </SectionsWrapper>
-    </PageWrapper>
+
+              {
+                <div className="flex flex-col gap-6">
+                  <AnimateHeight isVisible>
+                    {isLoading ? (
+                      <div className="flex select-none flex-col gap-3">
+                        {Array.from({ length: COUNT_PER_PAGE }, (_item, index) => (
+                          <RowSkeleton key={index} />
+                        ))}
+                      </div>
+                    ) : totalResultsCount === 0 ? (
+                      <motion.div
+                        initial={{ y: 48 }}
+                        animate={{ y: 0 }}
+                        className="flex justify-center py-8 text-lg"
+                      >
+                        {t('resultsFound', { count: 0 })}
+                      </motion.div>
+                    ) : (
+                      <div className="flex flex-col gap-3">
+                        {results.map(({ title, index, slug }) => (
+                          <Row
+                            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                            key={`${index}-${slug ?? ''}`}
+                            title={title}
+                            // TODO add proper paths
+                            // eslint-disable-next-line sonarjs/no-nested-template-literals, @typescript-eslint/restrict-template-expressions
+                            linkHref={`${hostname}${t(`paths.${index}`)}/${slug ?? ''}`}
+                            showUrl
+                            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                            tags={[t(`tags.${index}`)]}
+                            border={false}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </AnimateHeight>
+                  {totalResultsCount !== 0 && (
+                    <div className="flex justify-center md:justify-end">
+                      <Pagination
+                        onChange={changePage}
+                        count={pageCount}
+                        selectedPage={currentPage}
+                      />
+                    </div>
+                  )}
+                </div>
+              }
+            </div>
+          </Section>
+        </SectionsWrapper>
+      </PageWrapper>
+    </>
   )
 }
 

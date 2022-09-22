@@ -71,6 +71,9 @@ fragment ArticleEntity on ArticleEntity {
         ...UploadImageEntity
       }
     }
+    seo {
+      ...Seo
+    }
   }
 }
 
@@ -97,6 +100,9 @@ fragment BranchEntity on BranchEntity {
     openingHoursOverride
     longitude
     latitude
+    seo {
+      ...Seo
+    }
   }
 }
 
@@ -157,6 +163,9 @@ fragment DocumentEntity on DocumentEntity {
   ...DocumentCardEntity
   attributes {
     description
+    seo {
+      ...Seo
+    }
   }
 }
 
@@ -194,25 +203,16 @@ fragment BundleCardEntity on BundleEntity {
 }
 
 fragment BundleEntity on BundleEntity {
-  id
+  ...BundleCardEntity
   attributes {
-    title
-    slug
-    perex
-    price
-    coverMedia {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    bundleContent {
-      description
-    }
     additionalServices {
       id
       title
       content
       price
+    }
+    seo {
+      ...Seo
     }
   }
 }
@@ -248,6 +248,9 @@ fragment PageEntity on PageEntity {
     }
     sidebar {
       ...Sidebar
+    }
+    seo {
+      ...Seo
     }
     sections {
       ... on ComponentSectionsAccordionGroup {
@@ -398,4 +401,3 @@ fragment HomepageCeremonyEntity on CeremonyEntity {
     }
   }
 }
-

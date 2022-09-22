@@ -1,9 +1,11 @@
 import last from 'lodash/last'
 import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
+import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import DocumentLayout from '../../components/layouts/DocumentLayout'
+import Seo from '../../components/molecules/Seo'
 import {
   DocumentEntityFragment,
   GeneralEntityFragment,
@@ -19,7 +21,18 @@ type DocumentPageProps = {
 } & SSRConfig
 
 const DocumentPage = ({ navigation, document, general }: DocumentPageProps) => {
-  return <DocumentLayout document={document} navigation={navigation} general={general} />
+  const { seo, title, description } = document.attributes ?? {}
+
+  return (
+    <>
+      <Seo seo={seo} title={title} description={description} />
+      <Head>
+        <title>{title}</title>
+      </Head>
+
+      <DocumentLayout document={document} navigation={navigation} general={general} />
+    </>
+  )
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
