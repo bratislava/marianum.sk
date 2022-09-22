@@ -11,7 +11,7 @@ type SideBarProps = {
 }
 
 const SideBar = ({ sidebar }: SideBarProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common', { keyPrefix: 'components.molecules.SideBar' })
 
   if (!sidebar) {
     return <aside className="md:w-[360px]" />
@@ -32,7 +32,7 @@ const SideBar = ({ sidebar }: SideBarProps) => {
           </Button>
           {contact?.data?.attributes && (
             <div className="flex flex-col items-center">
-              <div className="mt-4">{t('general.or')}</div>
+              <div className="mt-4">{t('or')}</div>
               <Button variant="plain-primary" startIcon={<PhoneIcon />} className="mt-4">
                 {phone1}
               </Button>
@@ -45,20 +45,24 @@ const SideBar = ({ sidebar }: SideBarProps) => {
       ) : (
         contact?.data?.attributes && (
           <>
-            <Button variant="primary" startIcon={<PhoneIcon />} className="mt-6">
-              {phone1}
-            </Button>
+            {phone1 && (
+              <Button variant="primary" startIcon={<PhoneIcon />} className="mt-6">
+                {phone1}
+              </Button>
+            )}
             {phone2 && (
               <Button variant="tertiary" startIcon={<PhoneIcon />} className="mt-3">
                 {phone2}
               </Button>
             )}
-            <div className="flex flex-col items-center">
-              <div className="mt-4">alebo nas kontaktujte emailom</div>
-              <Button variant="plain-primary" startIcon={<MailIcon />} className="mt-4">
-                {email}
-              </Button>
-            </div>
+            {email && (
+              <div className="flex flex-col items-center">
+                {(phone1 || phone2) && <div className="mt-4">{t('orContactUsByEmail')}</div>}
+                <Button variant="plain-primary" startIcon={<MailIcon />} className="mt-4">
+                  {email}
+                </Button>
+              </div>
+            )}
           </>
         )
       )}

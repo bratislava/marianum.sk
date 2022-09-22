@@ -3,7 +3,6 @@
     "siteName": "Marianum",
     "showMore": "Show more",
     "goToSlide": "Go to slide {{number}}",
-    "or": "or",
     "disclosureOfInformation": "Disclosure of information"
   },
   "components": {
@@ -12,6 +11,10 @@
         "aria": {
           "description": "Slider"
         }
+      },
+      "SideBar": {
+        "or": "or",
+        "orContactUsByEmail": "or contact us by email"
       },
       "ImageLightBox": {
         "aria": {
@@ -81,7 +84,7 @@
     },
     "DocumentLayout": {
       "createdAt": "Created",
-      "downloadFile": "Download file",
+      "downloadFile": "Download",
       "category": "Category",
       "description": "Description",
       "details": "Details"

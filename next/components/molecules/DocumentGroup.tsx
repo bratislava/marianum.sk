@@ -18,11 +18,10 @@ const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
 
   return (
     <div className="flex flex-col gap-4">
-      {filteredDocuments?.map(({ title, slug, documentCategory, file }) => (
+      {filteredDocuments?.map(({ title, slug, file }) => (
         <Row
           key={slug}
           title={title}
-          category={documentCategory?.data}
           linkHref={`${t('paths.documents')}/${slug ?? ''}`}
           button={
             file.data?.attributes?.url ? (

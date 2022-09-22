@@ -1,11 +1,11 @@
 import pluginId from "./pluginId";
-import BulletList from "@strapi/icons/BulletList";
+import UploadIcon from "@strapi/icons/Upload";
 
 export default {
   register(app) {
     app.addMenuLink({
       to: `/plugins/${pluginId}`,
-      icon: BulletList,
+      icon: UploadIcon,
       intlLabel: {
         id: `${pluginId}.plugin.name`,
         defaultMessage: "Import dlžníkov a obradov",
