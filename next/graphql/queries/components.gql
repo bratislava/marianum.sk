@@ -20,6 +20,12 @@ fragment Sidebar on ComponentBlocksSidebar {
   }
 }
 
+fragment Seo on ComponentGeneralSeo {
+  metaTitle
+  metaDescription
+  keywords
+}
+
 fragment Cta on ComponentBlocksCta {
   title
   description
@@ -225,5 +231,23 @@ fragment ManualListing on ComponentSectionsManualListing {
         ...PageCardEntity
       }
     }
+  }
+}
+
+fragment CeremoniesSection on ComponentSectionsCeremoniesSection {
+  id
+  archive {
+    title
+    button {
+      ...CtaButton
+    }
+  }
+}
+
+fragment UpcomingCeremoniesSection on ComponentSectionsUpcomingCeremoniesSection {
+  id
+  title
+  showMoreButton {
+    ...CtaButton
   }
 }

@@ -7,13 +7,11 @@
   },
   "options": {},
   "attributes": {
-    "title": {
-      "type": "string"
-    },
-    "showMoreButton": {
+    "archive": {
+      "displayName": "blocks - ceremony archive block",
       "type": "component",
       "repeatable": false,
-      "component": "blocks.button-link"
+      "component": "blocks.blocks-ceremony-archive-block"
     }
   }
 }

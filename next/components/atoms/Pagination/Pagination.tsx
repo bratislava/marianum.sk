@@ -9,6 +9,7 @@ import usePagination from './usePagination'
 type PaginationProps = {
   selectedPage: number
   count: number
+  className?: string
   onChange?: (value: number) => void
 }
 
@@ -16,14 +17,18 @@ type PaginationProps = {
  * Slightly edited version of example from https://mui.com/material-ui/react-pagination/#usepagination + accessibility
  * as implemented in @mui/material.
  */
-const Pagination = ({ count, selectedPage, onChange = () => {} }: PaginationProps) => {
+const Pagination = ({ count, selectedPage, className, onChange = () => {} }: PaginationProps) => {
   const { items } = usePagination({
     count,
     page: selectedPage,
-    onChange: (event, value) => onChange(value),
+    onChange: (event, value) => {
+      // When not blurred the button stays focused and is confusing.
+      ;(event.target as HTMLButtonElement).blur()
+      onChange(value)
+    },
   })
   return (
-    <nav>
+    <nav className={className}>
       <ul className="flex items-center gap-x-1">
         {items.map(
           ({ page, type, selected, disabled, onPress, 'aria-current': ariaCurrent }, index) => {

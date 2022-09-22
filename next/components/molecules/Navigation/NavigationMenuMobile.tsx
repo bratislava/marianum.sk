@@ -54,7 +54,7 @@ const RenderItems = ({
             tabIndex={disableFocusAndScreenReader ? -1 : 0}
             onClick={onClose}
             key={id}
-            noStyles
+            noStyles={LinkComponent === 'div' ? undefined : true}
             href={path ?? ''}
             className="flex w-full justify-between px-4 py-3 focus:bg-primary/10"
           >

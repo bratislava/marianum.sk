@@ -1,16 +1,18 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { GetStaticProps, GetStaticPropsResult } from 'next'
+import Head from 'next/head'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import PageWrapper from '../components/layouts/PageWrapper'
 import SectionsWrapper from '../components/layouts/SectionsWrapper'
 import CtaGroup from '../components/molecules/CtaGroup'
 import Section from '../components/molecules/Section'
+import Seo from '../components/molecules/Seo'
 import CardSection from '../components/sections/CardSection'
-import HomepageCeremoniesListing from '../components/sections/HomepageCeremoniesListing'
 import HomepageProcedures from '../components/sections/HomepageProcedures'
 import HomepageSlider from '../components/sections/HomepageSlider'
 import NewsListing from '../components/sections/NewsListing'
+import UpcomingCeremoniesSection from '../components/sections/UpcomingCeremoniesSection'
 import { GeneralEntityFragment, HomePageQuery, NavigationItemFragment } from '../graphql'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
@@ -23,66 +25,75 @@ type HomeProps = {
 }
 
 const Home = ({ navigation, page, procedures, general }: HomeProps) => {
+  const { seo } = page.attributes ?? {}
+
   return (
-    <PageWrapper navigation={navigation} general={general}>
-      <HomepageSlider slides={page.attributes?.featured?.filter(isDefined)} />
+    <>
+      <Seo seo={seo} />
+      <Head>
+        <title>Marianum</title>
+      </Head>
 
-      <SectionsWrapper alternateBackground startBackground="dark">
-        {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
-        {page.attributes?.sections?.map((section) => {
-          if (section?.__typename === 'ComponentSectionsManualListing') {
-            return <CardSection key={`${section.__typename}-${section.id}`} section={section} />
-          }
-          if (section?.__typename === 'ComponentSectionsNewsListing') {
-            return (
-              <Section key={`${section.__typename}-${section.id}`} title={section.title}>
-                <NewsListing />
-              </Section>
-            )
-          }
-          if (section?.__typename === 'ComponentSectionsCeremoniesSection') {
-            return (
-              <HomepageCeremoniesListing
-                key={`${section.__typename}-${section.id}`}
-                section={section}
-              />
-            )
-          }
-          if (section?.__typename === 'ComponentSectionsProceduresShortSection') {
-            const { outsideMedicalFacility, atMedicalFacility } = procedures?.attributes ?? {}
-            const proceduresArr = [outsideMedicalFacility, atMedicalFacility].filter(isDefined)
+      <PageWrapper navigation={navigation} general={general}>
+        <HomepageSlider slides={page.attributes?.featured?.filter(isDefined)} />
 
-            const { showMoreButton, title, __typename, id } = section
+        <SectionsWrapper alternateBackground startBackground="dark">
+          {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
+          {page.attributes?.sections?.map((section) => {
+            if (section?.__typename === 'ComponentSectionsManualListing') {
+              return <CardSection key={`${section.__typename}-${section.id}`} section={section} />
+            }
+            if (section?.__typename === 'ComponentSectionsNewsListing') {
+              return (
+                <Section key={`${section.__typename}-${section.id}`} title={section.title}>
+                  <NewsListing />
+                </Section>
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsUpcomingCeremoniesSection') {
+              return (
+                <UpcomingCeremoniesSection
+                  key={`${section.__typename}-${section.id}`}
+                  section={section}
+                />
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsProceduresShortSection') {
+              const { outsideMedicalFacility, atMedicalFacility } = procedures?.attributes ?? {}
+              const proceduresArr = [outsideMedicalFacility, atMedicalFacility].filter(isDefined)
 
-            return (
-              <HomepageProcedures
-                key={`${__typename}-${id}`}
-                title={title}
-                procedures={proceduresArr}
-                showMoreButton={showMoreButton}
-              />
-            )
-          }
-          if (section?.__typename === 'ComponentSectionsCtaSection') {
-            return (
-              <Section key={`${section.__typename}-${section.id}`} title={section.title}>
-                <CtaGroup {...section} />
-              </Section>
-            )
-          }
-          if (section?.__typename === 'ComponentSectionsReviewsSection') {
-            return (
-              <Section key={`${section.__typename}-${section.id}`}>
-                {/* TODO */}
-                reviews section
-              </Section>
-            )
-          }
+              const { showMoreButton, title, __typename, id } = section
 
-          return null
-        })}
-      </SectionsWrapper>
-    </PageWrapper>
+              return (
+                <HomepageProcedures
+                  key={`${__typename}-${id}`}
+                  title={title}
+                  procedures={proceduresArr}
+                  showMoreButton={showMoreButton}
+                />
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsCtaSection') {
+              return (
+                <Section key={`${section.__typename}-${section.id}`} title={section.title}>
+                  <CtaGroup {...section} />
+                </Section>
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsReviewsSection') {
+              return (
+                <Section key={`${section.__typename}-${section.id}`}>
+                  {/* TODO */}
+                  reviews section
+                </Section>
+              )
+            }
+
+            return null
+          })}
+        </SectionsWrapper>
+      </PageWrapper>
+    </>
   )
 }
 

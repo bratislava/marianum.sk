@@ -1,9 +1,10 @@
 import { Listbox } from '@headlessui/react'
 import cx from 'classnames'
-import { ReactNode, useCallback, useMemo, useState } from 'react'
+import { ReactNode, useCallback, useId, useMemo, useState } from 'react'
 import { usePopper } from 'react-popper'
 
 import ChevronDown from '../../assets/chevron_down.svg'
+import { isDefined } from '../../utils/isDefined'
 import FieldWrapper from './FieldWrapper'
 
 export interface Option {
@@ -12,16 +13,29 @@ export interface Option {
   [key: string]: unknown
 }
 
-type SelectProps = {
-  id: string
+type SelectBase = {
+  id?: string
   placeholder?: string
   options?: Option[]
   disabled?: boolean
   error?: boolean
   label?: string
   required?: boolean
-  multiple?: boolean
 }
+
+type SingleSelect = {
+  multiple?: false | undefined
+  defaultSelected?: string
+  onSelectionChange?: (selection: string) => void
+} & SelectBase
+
+type MultipleSelect = {
+  multiple: true
+  defaultSelected?: string[]
+  onSelectionChange?: (selection: string[]) => void
+} & SelectBase
+
+type SelectProps = SingleSelect | MultipleSelect
 
 const Select = ({
   id,
@@ -32,8 +46,20 @@ const Select = ({
   label,
   required,
   multiple,
+  defaultSelected,
+  onSelectionChange = () => {},
 }: SelectProps) => {
-  const [selectedOptions, setSelectedOptions] = useState<Option[]>([])
+  const generatedId = useId()
+  const generatedOrProvidedId = id ?? generatedId
+
+  const defaultSelectedOptions = isDefined(defaultSelected)
+    ? multiple
+      ? (defaultSelected.map((selected) =>
+          options.find((option) => option.key === selected),
+        ) as Option[])
+      : [options.find((option) => option.key === defaultSelected) as Option]
+    : []
+  const [selectedOptions, setSelectedOptions] = useState<Option[]>(defaultSelectedOptions)
 
   const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null)
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null)
@@ -47,13 +73,18 @@ const Select = ({
     ],
   })
 
-  const changeHandler = useCallback((optionOrOptions: Option | Option[]) => {
-    if (Array.isArray(optionOrOptions)) {
-      setSelectedOptions(optionOrOptions)
-    } else {
-      setSelectedOptions([optionOrOptions])
-    }
-  }, [])
+  const changeHandler = useCallback(
+    (optionOrOptions: Option | Option[]) => {
+      if (Array.isArray(optionOrOptions)) {
+        setSelectedOptions(optionOrOptions)
+        ;(onSelectionChange as (selection: string[]) => void)(optionOrOptions.map((o) => o.key))
+      } else {
+        setSelectedOptions([optionOrOptions])
+        ;(onSelectionChange as (selection: string) => void)(optionOrOptions.key)
+      }
+    },
+    [onSelectionChange],
+  )
 
   const selectedOption = useMemo(() => {
     return selectedOptions[0]
@@ -66,6 +97,7 @@ const Select = ({
       value={multiple ? selectedOptions : selectedOption}
       onChange={changeHandler}
       multiple={multiple}
+      disabled={disabled}
     >
       <Listbox.Button as="button" className="group flex w-full outline-none">
         {({ open }) => (
@@ -74,7 +106,7 @@ const Select = ({
             disabled={disabled}
             label={label}
             required={required}
-            id={id}
+            id={generatedOrProvidedId}
             hasRightSlot
           >
             <div

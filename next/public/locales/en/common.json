@@ -1,5 +1,6 @@
 {
   "general": {
+    "siteName": "Marianum",
     "showMore": "Show more",
     "goToSlide": "Go to slide {{number}}",
     "or": "or",
@@ -38,6 +39,13 @@
         "skip": "Skip",
         "print": "Print the steps",
         "download": "Download the steps"
+      },
+      "Navigation": {
+        "NavigationSearch": {
+          "close": "Close",
+          "search": "Search",
+          "allResults": "All results"
+        }
       }
     }
   },

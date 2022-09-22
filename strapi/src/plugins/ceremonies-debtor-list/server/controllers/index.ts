@@ -17,14 +17,24 @@ export default {
         return;
       }
 
+      const meilisearch = strapi.plugin("meilisearch").service("meilisearch");
+
       try {
         const branchesSlugIdMap = await getBranchesSlugIdMap(strapi, "debtors");
 
         const parsedDebtors = parseDebtorsXlsx(file.path, branchesSlugIdMap);
 
         // All the debtors are replaced when a new XLSX is uploaded.
-        const deleteDebtors = () =>
-          strapi.db.query("api::debtor.debtor").deleteMany({});
+        const deleteDebtors = async () => {
+          await strapi.db.query("api::debtor.debtor").deleteMany({});
+          // `deleteMany` doesn't trigger Meilisearch hooks, so the old debtors stay in its database,
+          // also having Meilisearch on while adding debtors triggers the update content hook after
+          // every query, therefore the best solution is to turn the Meilisearch off while adding new debtors
+          // and turn it back on afterwards.
+          await meilisearch.emptyOrDeleteIndex({
+            contentType: "api::debtor.debtor",
+          });
+        };
 
         await deleteDebtors();
 
@@ -34,6 +44,10 @@ export default {
             // https://docs.strapi.io/developer-docs/latest/developer-resources/database-apis-reference/query-engine/bulk-operations.html
             await strapi.entityService.create("api::debtor.debtor", {
               data: debtor,
+            });
+
+            await meilisearch.updateContentTypeInMeiliSearch({
+              contentType: "api::debtor.debtor",
             });
           }
         } catch (createDebtorsError) {
@@ -61,6 +75,8 @@ export default {
         };
         return;
       }
+
+      const meilisearch = strapi.plugin("meilisearch").service("meilisearch");
 
       try {
         const branchesSlugIdMap = await getBranchesSlugIdMap(
@@ -99,10 +115,18 @@ export default {
           }),
         };
 
-        const deleteCeremonies = () =>
-          strapi.db.query("api::ceremony.ceremony").deleteMany({
+        const deleteCeremonies = async () => {
+          await strapi.db.query("api::ceremony.ceremony").deleteMany({
             filters: deleteFilters,
           });
+          // `deleteMany` doesn't trigger Meilisearch hooks, so the old ceremonies stay in its database,
+          // also having Meilisearch on while adding ceremonies triggers the update content hook after
+          // every query, therefore the best solution is to turn the Meilisearch off while adding new ceremonies
+          // and turn it back on afterwards.
+          await meilisearch.emptyOrDeleteIndex({
+            contentType: "api::ceremony.ceremony",
+          });
+        };
 
         await deleteCeremonies();
 
@@ -116,6 +140,10 @@ export default {
               });
             }
           }
+
+          await meilisearch.updateContentTypeInMeiliSearch({
+            contentType: "api::ceremony.ceremony",
+          });
         } catch (createCeremonyError) {
           // In case of failure to add some ceremony we want to delete all the previously created entries, so we call the
           // delete function but rethrow the error to be caught by the parent try/catch block.

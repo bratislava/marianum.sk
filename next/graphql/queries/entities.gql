@@ -71,6 +71,9 @@ fragment ArticleEntity on ArticleEntity {
         ...UploadImageEntity
       }
     }
+    seo {
+      ...Seo
+    }
   }
 }
 
@@ -97,6 +100,24 @@ fragment BranchEntity on BranchEntity {
     openingHoursOverride
     longitude
     latitude
+    seo {
+      ...Seo
+    }
+  }
+}
+
+fragment BranchInCeremoniesDebtorsEntity on BranchEntity {
+  id
+  attributes {
+    title
+    localizations {
+      data {
+        attributes {
+          title
+          locale
+        }
+      }
+    }
   }
 }
 
@@ -142,6 +163,9 @@ fragment DocumentEntity on DocumentEntity {
   ...DocumentCardEntity
   attributes {
     description
+    seo {
+      ...Seo
+    }
   }
 }
 
@@ -179,25 +203,16 @@ fragment BundleCardEntity on BundleEntity {
 }
 
 fragment BundleEntity on BundleEntity {
-  id
+  ...BundleCardEntity
   attributes {
-    title
-    slug
-    perex
-    price
-    coverMedia {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    bundleContent {
-      description
-    }
     additionalServices {
       id
       title
       content
       price
+    }
+    seo {
+      ...Seo
     }
   }
 }
@@ -233,6 +248,9 @@ fragment PageEntity on PageEntity {
     }
     sidebar {
       ...Sidebar
+    }
+    seo {
+      ...Seo
     }
     sections {
       ... on ComponentSectionsAccordionGroup {
@@ -302,6 +320,19 @@ fragment PageEntity on PageEntity {
         id
         title
       }
+      ... on ComponentSectionsDebtorsSection {
+        __typename
+        id
+        description
+      }
+      ... on ComponentSectionsCeremoniesSection {
+        __typename
+        ...CeremoniesSection
+      }
+      ... on ComponentSectionsCeremoniesArchiveSection {
+        __typename
+        id
+      }
     }
   }
 }
@@ -317,11 +348,56 @@ fragment ProceduresEntity on ProcedureEntity {
   }
 }
 
-fragment ComponentSectionsCeremoniesSection on ComponentSectionsCeremoniesSection {
-  __typename
+fragment CeremonyEntity on CeremonyEntity {
   id
-  title
-  showMoreButton {
-    ...CtaButton
+  attributes {
+    dateTime
+    name
+    birthYear
+    type
+    company
+    officiantProvidedBy
+    consentForPrivateFields
+    branch {
+      data {
+        attributes {
+          title
+          slug
+          localizations {
+            data {
+              attributes {
+                title
+                slug
+                locale
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment HomepageCeremonyEntity on CeremonyEntity {
+  id
+  attributes {
+    dateTime
+    name
+    branch {
+      data {
+        attributes {
+          slug
+          title
+          localizations {
+            data {
+              attributes {
+                slug
+                title
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
