@@ -1,5 +1,6 @@
 {
   "general": {
+    "siteName": "Marianum - Pohrebníctvo mesta Bratislavy",
     "showMore": "Zobraziť viac",
     "goToSlide": "Ísť na slide {{number}}",
     "or": "alebo",
@@ -54,6 +55,9 @@
           "search": "Hľadať",
           "allResults": "Všetky výsledky"
         }
+      },
+      "CeremoniesDebtorsBranchSelect": {
+        "allCemeteries": "Všetky cintoríny"
       }
     }
   },
@@ -73,11 +77,22 @@
       }
     },
     "CeremoniesSection": {
-      "noCeremonies": "Žiadne obrady na zobrazenie."
+      "noCeremonies": "Žiadne obrady na zobrazenie.",
+      "time": "",
+      "dateTime": "Dátum a čas",
+      "name": "Meno a priezvisko",
+      "birthYear": "Rok narodenia",
+      "branchTitle": "Cintorín",
+      "type": "Typ obradu",
+      "company": "Pohrebná služba",
+      "officiantProvidedBy": "Obradníka zabezpečuje",
+      "searchPlaceholder": "Hľadať…",
+      "filterBy": "Filtrovať podľa",
+      "privateFieldsDescription": "Objednávateľ obradu neudelil súhlas na zverejnenie osobných údajov a údajov o pohrebnom obrade zosnulého."
     },
     "MapSection": {
-      "search": "Hladať...",
-      "noResults": "Žiadne výsledky...",
+      "search": "Hladať…",
+      "noResults": "Žiadne výsledky…",
       "map": "Mapa",
       "filtering": "Filtrácia",
       "filters": {
@@ -85,6 +100,18 @@
         "historical": "Historické",
         "war": "Vojnové"
       }
+    },
+    "DebtorsSection": {
+      "graveSector": "Hr. miesto sektor",
+      "graveNumber": "Hr. miesto číslo",
+      "gravePreviousNumber": "Hr. miesto predošlé č.",
+      "firstName": "Meno zosnulého",
+      "lastName": "Priezvisko zosnulého",
+      "birthDate": "Dátum narodenia",
+      "deathDate": "Dátum úmrtia",
+      "branchTitle": "Cintorín",
+      "noRecords": "Žiadne záznamy",
+      "searchPlaceholder": "Hľadať…"
     }
   },
   "layouts": {

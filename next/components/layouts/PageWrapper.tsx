@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import { ReactNode } from 'react'
 
 import { GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
@@ -17,10 +16,6 @@ const PageWrapper = ({ navigation, header, children, general }: PageWrapperProps
   return (
     <NavigationProvider navigation={navigation}>
       <div className="h-full">
-        <Head>
-          <title>Next.js + TypeScript</title>
-        </Head>
-
         <header>
           <Navigation
             faqSlug={general?.attributes?.header?.faqPage?.data?.attributes?.slug}

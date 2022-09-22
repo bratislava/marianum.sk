@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_blocks_blocks_ceremony_archive_blocks",
+  "info": {
+    "displayName": "blocks - ceremony archive block"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "button": {
+      "type": "component",
+      "component": "blocks.button-link"
+    }
+  }
+}

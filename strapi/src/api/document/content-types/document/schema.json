@@ -24,9 +24,7 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": [
-        "files"
-      ]
+      "allowedTypes": ["files"]
     },
     "description": {
       "type": "text"
@@ -36,6 +34,16 @@
       "relation": "manyToOne",
       "target": "api::document-category.document-category",
       "inversedBy": "documents"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "general.seo"
     }
   }
 }
