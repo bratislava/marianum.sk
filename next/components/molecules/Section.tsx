@@ -7,7 +7,6 @@ import { BackgroundColor, sectionContext } from '../layouts/SectionsWrapper'
 
 export type SectionProps = {
   children: ReactNode
-  index?: number
   background?: BackgroundColor
   cardGrid?: boolean
   title?: string | null | undefined
@@ -20,8 +19,7 @@ export type SectionProps = {
 
 const Section = ({
   children,
-  background,
-  index = 0,
+  background: propBackground,
   cardGrid = false,
   title,
   button,
@@ -32,19 +30,11 @@ const Section = ({
 }: SectionProps) => {
   const showMoreSlug = button?.page?.data?.attributes?.slug
 
-  const { getBackground, getDivider, getLast, isContainer } = useContext(sectionContext)
+  const { background, isDivider, isLast, alternateBackground } = useContext(sectionContext)
 
   const resultBackground = useMemo(() => {
-    return background ?? getBackground(index)
-  }, [background, getBackground, index])
-
-  const isDivider = useMemo(() => {
-    return getDivider(index)
-  }, [getDivider, index])
-
-  const isLast = useMemo(() => {
-    return getLast(index)
-  }, [getLast, index])
+    return propBackground ?? background
+  }, [propBackground, background])
 
   return (
     <div
@@ -53,7 +43,7 @@ const Section = ({
         {
           'bg-background-beige': resultBackground === 'dark',
           'bg-white': resultBackground === 'light',
-          'not-first:mt-6 not-first:md:mt-8': !isContainer,
+          'not-first:mt-6 not-first:md:mt-8': !alternateBackground,
         },
         className,
       )}
@@ -68,7 +58,7 @@ const Section = ({
       <div
         className={cx(
           {
-            'container mx-auto px-4 py-6 md:py-20': isContainer,
+            'container mx-auto px-4 py-6 md:py-20': alternateBackground,
             'pb-20 md:pb-36': isLast,
           },
           innerClassName,

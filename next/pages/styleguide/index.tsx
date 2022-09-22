@@ -1380,7 +1380,7 @@ const Showcase = () => {
                       background={background}
                     >
                       {Array.from({ length: count }, (item, index) => (
-                        <Section index={index} key={index}>
+                        <Section key={index}>
                           <div className="p-4">Section {index + 1}</div>
                         </Section>
                       ))}

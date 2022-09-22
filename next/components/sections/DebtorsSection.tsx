@@ -149,12 +149,11 @@ const DataWrapper = ({
 }
 
 type DebtorsSectionProps = {
-  index: number
   description?: string | null
 }
 
 // TODO: Overlap with header
-const DebtorsSection = ({ index, description }: DebtorsSectionProps) => {
+const DebtorsSection = ({ description }: DebtorsSectionProps) => {
   const { t } = useTranslation('common', {
     keyPrefix: 'sections.DebtorsSection',
   })
@@ -177,7 +176,7 @@ const DebtorsSection = ({ index, description }: DebtorsSectionProps) => {
   }
 
   return (
-    <Section index={index}>
+    <Section>
       <div className="mb-4 grid grid-cols-1 gap-4 bg-white p-4 md:mb-6 md:grid-cols-3 md:p-6">
         <div>
           <CeremoniesDebtorsBranchSelect type="debtors" onBranchChange={handleBranchChange} />

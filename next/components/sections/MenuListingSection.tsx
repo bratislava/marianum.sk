@@ -3,7 +3,7 @@ import { getSlugsForNavFiltering } from '../../utils/getSlugsForNavFiltering'
 import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
 import Section, { SectionProps } from '../molecules/Section'
 
-type MenuListingSectionProps = Pick<SectionProps, 'title' | 'background' | 'index'> & {
+type MenuListingSectionProps = Pick<SectionProps, 'title' | 'background'> & {
   slug: string | null | undefined
   navigation: NavigationItemFragment[]
 }

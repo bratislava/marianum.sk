@@ -56,20 +56,15 @@ const Slug = ({ navigation, page, general }: PageProps) => {
 
       <PageLayout page={page} navigation={navigation} general={general}>
         <SectionsWrapper
-          isContainer={isContainer}
           alternateBackground={isContainer}
           startBackground="light"
           className="gap-y-6 sm:gap-y-8"
         >
           {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
-          {sections?.map((section, index) => {
+          {sections?.map((section) => {
             if (section?.__typename === 'ComponentSectionsProceduresSection') {
               return (
-                <Section
-                  index={index}
-                  key={`${section.__typename}-${section.id}`}
-                  title={section.title}
-                >
+                <Section key={`${section.__typename}-${section.id}`} title={section.title}>
                   <ProcedureTabs />
                 </Section>
               )
@@ -77,7 +72,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             if (section?.__typename === 'ComponentSectionsRichtext') {
               return (
                 <RichTextSection
-                  index={index}
                   key={`${section.__typename}-${section.id}`}
                   content={section.content}
                 />
@@ -85,11 +79,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             }
             if (section?.__typename === 'ComponentSectionsAccordionGroup') {
               return (
-                <Section
-                  index={index}
-                  key={`${section.__typename}-${section.id}`}
-                  title={section.title}
-                >
+                <Section key={`${section.__typename}-${section.id}`} title={section.title}>
                   <AccordionGroup>
                     {section.accordions?.map((accordion) => (
                       <AccordionItem key={accordion?.id} title={accordion?.title}>
@@ -102,11 +92,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             }
             if (section?.__typename === 'ComponentSectionsBranchGroup') {
               return (
-                <Section
-                  index={index}
-                  key={`${section.__typename}-${section.id}`}
-                  title={section.title}
-                >
+                <Section key={`${section.__typename}-${section.id}`} title={section.title}>
                   <BranchGroup {...section} />
                 </Section>
               )
@@ -114,28 +100,17 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             if (section?.__typename === 'ComponentSectionsBundleListing') {
               return (
                 <BundleListingSection
-                  index={index}
                   key={`${section.__typename}-${section.id}`}
                   section={section}
                 />
               )
             }
             if (section?.__typename === 'ComponentSectionsContactGroup') {
-              return (
-                <ContactsSection
-                  key={`${section.__typename}-${section.id}`}
-                  index={index}
-                  {...section}
-                />
-              )
+              return <ContactsSection key={`${section.__typename}-${section.id}`} {...section} />
             }
             if (section?.__typename === 'ComponentSectionsDocumentGroup') {
               return (
-                <Section
-                  index={index}
-                  key={`${section.__typename}-${section.id}`}
-                  title={section.title}
-                >
+                <Section key={`${section.__typename}-${section.id}`} title={section.title}>
                   <DocumentGroup {...section} />
                 </Section>
               )
@@ -143,7 +118,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             if (section?.__typename === 'ComponentSectionsPartnersSection') {
               return (
                 <PartnersSection
-                  index={index}
                   key={`${section.__typename}-${section.id}`}
                   featuredTitle={section.featuredPartnersTitle}
                   otherTitle={section.otherPartnersTitle}
@@ -152,11 +126,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             }
             if (section?.__typename === 'ComponentSectionsGallery') {
               return (
-                <Section
-                  index={index}
-                  key={`${section.__typename}-${section.id}`}
-                  title={section.title}
-                >
+                <Section key={`${section.__typename}-${section.id}`} title={section.title}>
                   <ImageGallery images={section.medias?.data} variant="bellow" />
                 </Section>
               )
@@ -164,7 +134,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             if (section?.__typename === 'ComponentSectionsMenuListing') {
               return (
                 <MenuListingSection
-                  index={index}
                   key={`${section.__typename}-${section.id}`}
                   title={section.title}
                   slug={section.slug}
@@ -173,21 +142,11 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               )
             }
             if (section?.__typename === 'ComponentSectionsManualListing') {
-              return (
-                <CardSection
-                  index={index}
-                  key={`${section.__typename}-${section.id}`}
-                  section={section}
-                />
-              )
+              return <CardSection key={`${section.__typename}-${section.id}`} section={section} />
             }
             if (section?.__typename === 'ComponentSectionsNewsListing') {
               return (
-                <Section
-                  index={index}
-                  key={`${section.__typename}-${section.id}`}
-                  title={section.title}
-                >
+                <Section key={`${section.__typename}-${section.id}`} title={section.title}>
                   <NewsListing />
                 </Section>
               )
@@ -204,7 +163,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             }
             if (section?.__typename === 'ComponentSectionsPublicDisclosureSection') {
               return (
-                <Section index={index} key={`${section.__typename}-${section.id}`}>
+                <Section key={`${section.__typename}-${section.id}`}>
                   <DisclosureIframe />
                 </Section>
               )
@@ -212,7 +171,6 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             if (section?.__typename === 'ComponentSectionsDebtorsSection') {
               return (
                 <DebtorsSection
-                  index={index}
                   key={`${section.__typename}-${section.id}`}
                   description={section.description}
                 />
@@ -220,20 +178,11 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             }
             if (section?.__typename === 'ComponentSectionsCeremoniesSection') {
               return (
-                <CeremoniesSection
-                  index={index}
-                  key={`${section.__typename}-${section.id}`}
-                  section={section}
-                />
+                <CeremoniesSection key={`${section.__typename}-${section.id}`} section={section} />
               )
             }
             if (section?.__typename === 'ComponentSectionsCeremoniesArchiveSection') {
-              return (
-                <CeremoniesArchiveSection
-                  index={index}
-                  key={`${section.__typename}-${section.id}`}
-                />
-              )
+              return <CeremoniesArchiveSection key={`${section.__typename}-${section.id}`} />
             }
             return null
           })}

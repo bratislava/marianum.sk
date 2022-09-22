@@ -160,11 +160,7 @@ const DataWrapper = ({
   )
 }
 
-type CeremoniesListingProps = {
-  index: number
-}
-
-const CeremoniesArchiveSection = ({ index }: CeremoniesListingProps) => {
+const CeremoniesArchiveSection = () => {
   const { t } = useTranslation('common', {
     keyPrefix: 'sections.CeremoniesSection',
   })
@@ -194,7 +190,7 @@ const CeremoniesArchiveSection = ({ index }: CeremoniesListingProps) => {
   }
 
   return (
-    <Section index={index}>
+    <Section>
       <div className="mb-4 grid grid-cols-1 gap-4 bg-white p-4 md:mb-6 md:grid-cols-3 md:p-6">
         <div>
           <CeremoniesDebtorsBranchSelect type="ceremonies" onBranchChange={handleBranchChange} />
