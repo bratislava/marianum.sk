@@ -10,7 +10,7 @@ import MLink from '../../atoms/MLink'
 import { NavigationContext } from '../../layouts/NavigationProvider'
 import NavigationMenuDesktop from './NavigationMenuDesktop'
 import NavigationMenuMobile from './NavigationMenuMobile'
-import NavigationSearch from './NavigationSearch'
+import NavigationSearch from './NavigationSearch/NavigationSearch'
 
 type NavigationProps = {
   faqSlug: string | null | undefined

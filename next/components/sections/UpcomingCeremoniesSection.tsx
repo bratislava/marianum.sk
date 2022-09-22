@@ -100,17 +100,16 @@ const Table = () => {
 
 type CeremoniesListingProps = {
   section: UpcomingCeremoniesSectionFragment
-  index: number
 }
 
-const UpcomingCeremoniesSection = ({ section, index }: CeremoniesListingProps) => {
+const UpcomingCeremoniesSection = ({ section }: CeremoniesListingProps) => {
   const showMoreButtonSlug = section.showMoreButton?.page?.data?.attributes?.slug
   const showMoreButton = section.showMoreButton && showMoreButtonSlug && (
     <MLink href={showMoreButtonSlug}>{section.showMoreButton.label}</MLink>
   )
 
   return (
-    <Section index={index}>
+    <Section>
       <div className="grid gap-x-6 gap-y-8 md:grid-cols-1 lg:grid-cols-2">
         <div>
           <h2 className="lg:mb-6">{section.title}</h2>

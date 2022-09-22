@@ -3,17 +3,17 @@ import { createContext, HTMLProps, ReactNode, useCallback, useMemo } from 'react
 export type BackgroundColor = 'dark' | 'light'
 
 type SectionContextValue = {
-  getBackground: (index: number) => BackgroundColor
-  getDivider: (index: number) => boolean
-  getLast: (index: number) => boolean
-  isContainer: boolean
+  background: BackgroundColor
+  isDivider: boolean
+  isLast: boolean
+  alternateBackground: boolean
 }
 
 export const sectionContext = createContext<SectionContextValue>({
-  getBackground: () => 'dark',
-  getDivider: () => false,
-  getLast: () => false,
-  isContainer: false,
+  background: 'dark',
+  isDivider: false,
+  isLast: false,
+  alternateBackground: false,
 })
 
 export type SectionsWrapperProps = {
@@ -21,7 +21,6 @@ export type SectionsWrapperProps = {
   alternateBackground?: boolean
   startBackground?: BackgroundColor
   background?: BackgroundColor
-  isContainer?: boolean
 } & HTMLProps<HTMLDivElement>
 
 const SectionsWrapper = ({
@@ -29,7 +28,6 @@ const SectionsWrapper = ({
   alternateBackground = false,
   startBackground = 'light',
   background = 'dark',
-  isContainer = false,
   ...rest
 }: SectionsWrapperProps) => {
   const sectionCount = useMemo(() => (Array.isArray(children) ? children.length : 1), [children])
@@ -74,20 +72,34 @@ const SectionsWrapper = ({
     [sectionCount],
   )
 
-  const contextValue: SectionContextValue = useMemo(
-    () => ({
-      getBackground,
-      getDivider,
-      getLast,
-      isContainer,
-    }),
-    [getBackground, getDivider, getLast, isContainer],
-  )
-
   return (
-    <sectionContext.Provider value={contextValue}>
-      <div {...rest}>{children}</div>
-    </sectionContext.Provider>
+    <div {...rest}>
+      {Array.isArray(children) ? (
+        children.map((child, index) => (
+          <sectionContext.Provider
+            value={{
+              alternateBackground,
+              background: getBackground(index),
+              isDivider: getDivider(index),
+              isLast: getLast(index),
+            }}
+          >
+            {child}
+          </sectionContext.Provider>
+        ))
+      ) : (
+        <sectionContext.Provider
+          value={{
+            alternateBackground,
+            background: getBackground(0),
+            isDivider: getDivider(0),
+            isLast: getLast(0),
+          }}
+        >
+          {children}
+        </sectionContext.Provider>
+      )}
+    </div>
   )
 }
 

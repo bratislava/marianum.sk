@@ -42,12 +42,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "fullwidth",
-        "sidebar",
-        "centered",
-        "article"
-      ],
+      "enum": ["fullwidth", "sidebar", "centered", "article"],
       "required": true,
       "default": "fullwidth"
     },
@@ -58,6 +53,17 @@
         }
       },
       "type": "text"
+    },
+    "coverMedia": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     },
     "ctaButton": {
       "type": "component",
@@ -106,18 +112,15 @@
       },
       "component": "blocks.sidebar"
     },
-    "coverMedia": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ],
+    "seo": {
+      "type": "component",
+      "repeatable": false,
       "pluginOptions": {
         "i18n": {
-          "localized": false
+          "localized": true
         }
-      }
+      },
+      "component": "general.seo"
     }
   }
 }

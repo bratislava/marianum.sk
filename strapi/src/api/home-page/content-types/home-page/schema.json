@@ -43,6 +43,16 @@
         "sections.reviews-section",
         "sections.cta-section"
       ]
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "general.seo"
     }
   }
 }
