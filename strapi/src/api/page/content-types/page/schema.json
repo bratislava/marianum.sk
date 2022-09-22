@@ -91,6 +91,7 @@
         "sections.bundle-listing",
         "sections.debtors-section",
         "sections.ceremonies-section",
+        "sections.ceremonies-archive-section",
         "sections.map-section",
         "sections.public-disclosure-section"
       ]

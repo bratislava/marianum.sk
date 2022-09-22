@@ -2,8 +2,16 @@
   "collectionName": "components_sections_ceremonies_sections",
   "info": {
     "displayName": "ceremonies section",
-    "icon": "feather-alt"
+    "icon": "feather-alt",
+    "description": ""
   },
   "options": {},
-  "attributes": {}
+  "attributes": {
+    "archive": {
+      "displayName": "blocks - ceremony archive block",
+      "type": "component",
+      "repeatable": false,
+      "component": "blocks.blocks-ceremony-archive-block"
+    }
+  }
 }

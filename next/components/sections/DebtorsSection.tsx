@@ -5,15 +5,17 @@ import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
 import SearchIcon from '../../assets/search.svg'
-import { Branch, Debtor } from '../../graphql'
+import { Debtor } from '../../graphql'
+import {
+  BranchMeili,
+  getBranchTitleInCeremoniesDebtorsMeili,
+} from '../../utils/getBranchTitleInCeremoniesDebtors'
 import { meiliClient } from '../../utils/meilisearch'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import Pagination from '../atoms/Pagination/Pagination'
 import TextField from '../atoms/TextField'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
 import Section from '../molecules/Section'
-
-type BranchMeili = Omit<Branch, '__typename' | 'localizations'> & { id: string }
 
 type DebtorMeili = Omit<Debtor, '__typename' | 'branch'> & {
   branch: BranchMeili & {
@@ -45,15 +47,10 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
     }
 
     return debtorsData.map((debtor) => {
-      // Debtors are not localized, and they return their Slovak relation as the main and the English version
-      // as the first localization.
-      const skBranchTitle = debtor.branch.title
-      const localeBranchTitle = debtor.branch?.localizations.find(
-        (branch) => branch.locale === i18n.language,
-      )?.title
-      const branchTitle = localeBranchTitle ?? skBranchTitle
-
-      return { ...debtor, branchTitle }
+      return {
+        ...debtor,
+        branchTitle: getBranchTitleInCeremoniesDebtorsMeili(debtor.branch, i18n.language),
+      }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])

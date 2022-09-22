@@ -3,6 +3,9 @@
   thead {
     tr {
       @apply font-semibold;
+      th {
+        @apply text-left;
+      }
     }
   }
 

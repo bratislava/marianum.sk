@@ -212,27 +212,19 @@ query HomepageCeremonies($dateTime: DateTime!) {
     pagination: { limit: 5 }
   ) {
     data {
-      id
-      attributes {
-        dateTime
-        name
-        branch {
-          data {
-            attributes {
-              slug
-              title
-              localizations {
-                data {
-                  attributes {
-                    slug
-                    title
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+      ...HomepageCeremonyEntity
+    }
+  }
+}
+
+query Ceremonies($dateTime: DateTime!, $branchIdFilter: IDFilterInput = {}) {
+  ceremonies(
+    pagination: { limit: -1 }
+    filters: { dateTime: { gte: $dateTime } branch: { id: $branchIdFilter } }
+    sort: ["dateTime:asc"]
+  ) {
+    data {
+      ...CeremonyEntity
     }
   }
 }

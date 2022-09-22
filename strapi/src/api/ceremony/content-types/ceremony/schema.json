@@ -41,6 +41,9 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::branch.branch"
+    },
+    "consentForPrivateFields": {
+      "type": "boolean"
     }
   }
 }

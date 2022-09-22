@@ -97,6 +97,7 @@ const Select = ({
       value={multiple ? selectedOptions : selectedOption}
       onChange={changeHandler}
       multiple={multiple}
+      disabled={disabled}
     >
       <Listbox.Button as="button" className="group flex w-full outline-none">
         {({ open }) => (
