@@ -155,11 +155,10 @@ const DataWrapper = ({ filters }: { filters: Filters }) => {
 }
 
 type CeremoniesSectionProps = {
-  index: number
   section: CeremoniesSectionFragment
 }
 
-const CeremoniesSection = ({ index, section }: CeremoniesSectionProps) => {
+const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
   const { t } = useTranslation('common', {
     keyPrefix: 'sections.CeremoniesSection',
   })
@@ -173,7 +172,7 @@ const CeremoniesSection = ({ index, section }: CeremoniesSectionProps) => {
   }
 
   return (
-    <Section index={index}>
+    <Section>
       <div className="mb-6 md:mb-8 md:w-[360px]">
         <CeremoniesDebtorsBranchSelect
           label={t('filterBy')}
