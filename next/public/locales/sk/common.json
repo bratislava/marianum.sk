@@ -49,6 +49,13 @@
         "print": "Vytlačiť postup",
         "download": "Stiahnuť postup"
       },
+      "Navigation": {
+        "NavigationSearch": {
+          "close": "Zavrieť",
+          "search": "Hľadať",
+          "allResults": "Všetky výsledky"
+        }
+      },
       "CeremoniesDebtorsBranchSelect": {
         "allCemeteries": "Všetky cintoríny"
       }

@@ -15,7 +15,7 @@ import RowSkeleton from '../components/molecules/Row/RowSkeleton'
 import Search from '../components/molecules/Search'
 import Section from '../components/molecules/Section'
 import { GeneralEntityFragment, NavigationItemFragment } from '../graphql'
-import { useMeilisearch } from '../hooks/useMeilisearch'
+import { IndexConfig, useMeilisearch } from '../hooks/useMeilisearch'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
 
@@ -25,6 +25,12 @@ type SearchResultsProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
 }
+
+const branchIndexConfig: IndexConfig = { name: 'branch', localized: true }
+const documentIndexConfig: IndexConfig = { name: 'document', localized: false }
+const pageIndexConfig: IndexConfig = { name: 'page', localized: true }
+const bundleIndexConfig: IndexConfig = { name: 'bundle', localized: true }
+const articleIndexConfig: IndexConfig = { name: 'article', localized: true }
 
 const SearchResults = ({ navigation, general }: SearchResultsProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'pages.search' })
@@ -66,21 +72,21 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
 
   const indexes = useMemo(() => {
     const result = []
-    if (areBranchesSelected) result.push({ name: 'branch', localized: true })
-    if (areDocumentsSelected) result.push({ name: 'document', localized: false })
-    if (arePagesSelected) result.push({ name: 'page', localized: true })
-    if (areBundlesSelected) result.push({ name: 'bundle', localized: true })
-    if (areArticlesSelected) result.push({ name: 'article', localized: true })
+    if (areBranchesSelected) result.push(branchIndexConfig)
+    if (areDocumentsSelected) result.push(documentIndexConfig)
+    if (arePagesSelected) result.push(pageIndexConfig)
+    if (areBundlesSelected) result.push(bundleIndexConfig)
+    if (areArticlesSelected) result.push(articleIndexConfig)
     return result.length > 0
       ? // if something is selected
         result
       : // otherwise get it all
         [
-          { name: 'branch', localized: true },
-          { name: 'document', localized: false },
-          { name: 'page', localized: true },
-          { name: 'bundle', localized: true },
-          { name: 'article', localized: true },
+          branchIndexConfig,
+          documentIndexConfig,
+          pageIndexConfig,
+          bundleIndexConfig,
+          articleIndexConfig,
         ]
   }, [
     areBranchesSelected,
@@ -102,16 +108,15 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
   } = useMeilisearch({
     indexes,
     countPerPage: COUNT_PER_PAGE,
+    isSyncedWithUrlQuery: true,
   })
 
   return (
     <>
       <Head>
         <title>Vyhľadávanie - marianum.sk</title>
-
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-
       <PageWrapper navigation={navigation} general={general}>
         <SectionsWrapper isContainer>
           <Section>
