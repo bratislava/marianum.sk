@@ -3,7 +3,6 @@
     "siteName": "Marianum - Pohrebníctvo mesta Bratislavy",
     "showMore": "Zobraziť viac",
     "goToSlide": "Ísť na slide {{number}}",
-    "or": "alebo",
     "disclosureOfInformation": "Zverejňovanie informácií"
   },
   "paths": {
@@ -21,6 +20,10 @@
         "aria": {
           "description": "Posúvač"
         }
+      },
+      "SideBar": {
+        "or": "alebo",
+        "orContactUsByEmail": "alebo nás kontaktujte emailom"
       },
       "ImageLightBox": {
         "aria": {
@@ -120,7 +123,7 @@
     },
     "DocumentLayout": {
       "createdAt": "Vytvorené",
-      "downloadFile": "Stiahnuť súbor",
+      "downloadFile": "Stiahnuť",
       "category": "Kategória",
       "description": "Popis",
       "details": "Detaily"
