@@ -39,7 +39,7 @@ const BranchLayout = ({ branch, navigation, children, general }: BranchLayoutPro
       }
     >
       <div className="h-full">
-        <div className="container relative mx-auto grid h-auto gap-6 px-4 pt-24 pb-20 md:grid-flow-col md:grid-cols-[1fr_auto]">
+        <div className="container relative grid h-auto gap-6 pt-24 pb-20 md:grid-flow-col md:grid-cols-[1fr_auto]">
           {children}
 
           <SideBarContact title={contactTitle} phone1={phone1} phone2={phone2} email={email} />

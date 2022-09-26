@@ -51,14 +51,14 @@ const Section = ({
       {/* border displayed only when two last sections are same beige color */}
 
       {isDivider && (
-        <div className="container mx-auto">
+        <div className="container">
           <div className={cx('h-px bg-border', dividerClassName)} />
         </div>
       )}
       <div
         className={cx(
           {
-            'container mx-auto px-4 py-6 md:py-20': alternateBackground,
+            'container py-6 md:py-20': alternateBackground,
             'pb-20 md:pb-36': isLast,
           },
           innerClassName,

@@ -47,7 +47,7 @@ const PageLayout = ({ page, navigation, children, general }: PageLayoutProps) =>
         <div
           className={cx('h-auto', {
             // Add container for all layouts except 'fullwidth'
-            'container relative mx-auto': page.attributes?.layout !== Enum_Page_Layout.Fullwidth,
+            'container relative': page.attributes?.layout !== Enum_Page_Layout.Fullwidth,
             // Set grid for Sidebar layout
             'grid gap-6 p-4 md:grid-flow-col md:grid-cols-[1fr_auto] md:py-20':
               page.attributes?.layout === Enum_Page_Layout.Sidebar,

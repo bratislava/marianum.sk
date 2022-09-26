@@ -8,7 +8,7 @@ export type NavigationMenuDesktopProps = {
 
 const NavigationMenuDesktop = ({ navigationItems }: NavigationMenuDesktopProps) => {
   return (
-    <nav className="absolute inset-x-0 -bottom-8 z-10 mx-4 hidden h-16 grid-cols-4 bg-white text-foreground-heading shadow md:grid">
+    <nav className="z-10 -mb-8 hidden h-16 grid-cols-4 bg-white text-foreground-heading shadow md:grid">
       {navigationItems.map(({ id, title, items: menuItems, path }, index) => (
         <div key={id} className="relative flex items-center">
           {index !== 0 && <div className="h-8 w-[1px] bg-border" />}

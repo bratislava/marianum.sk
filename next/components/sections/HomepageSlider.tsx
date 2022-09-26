@@ -29,9 +29,9 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
           return (
             <div
               key={ctaSlug}
-              className="container mx-auto flex h-full flex-col-reverse content-center lg:flex-row"
+              className="container flex h-full flex-col-reverse content-center lg:flex-row"
             >
-              <div className="flex flex-1 flex-col items-center justify-center p-4 pb-12 lg:items-start lg:pb-4 lg:pr-40">
+              <div className="flex flex-1 flex-col items-center justify-center pb-12 lg:items-start lg:pb-4 lg:pr-40">
                 <div className="mb-3 text-h1 font-bold">{title}</div>
                 {description && (
                   <div className="mb-6 hidden opacity-72 lg:block">{description}</div>
@@ -42,7 +42,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                   </Button>
                 )}
               </div>
-              <div className="relative mr-4 h-[228px] w-full lg:h-full lg:w-[450px] lg:pr-4 xl:w-[612px]">
+              <div className="relative h-[228px] w-full lg:h-full lg:w-[450px] lg:pr-4 xl:w-[612px]">
                 {url && (
                   <Image
                     src={url}
@@ -58,7 +58,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
           )
         })}
         pagination={({ count, activeIndex, goToPage }) => (
-          <div className="container pointer-events-none absolute bottom-4 z-20 mx-auto flex justify-center lg:bottom-12 lg:justify-start">
+          <div className="container pointer-events-none absolute bottom-4 z-20 flex justify-center lg:bottom-12 lg:justify-start">
             <div className="left-0 flex items-center px-2">
               {Array.from({ length: count }, (element, index) => (
                 <button

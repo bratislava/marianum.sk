@@ -391,7 +391,7 @@ const Showcase = () => {
       </Head>
 
       <div className="overflow-hidden bg-[#E5E5E5]">
-        <div className="container mx-auto p-4 pb-64">
+        <div className="container pb-64">
           <Wrapper title="Headings">
             <h1>Headline 1</h1>
             <h2>Headline 2</h2>
