@@ -1,3 +1,5 @@
+// Inspired by original renderer here: https://github.com/moveyourdigital/editorjs-blocks-react-renderer/blob/master/src/renderers/paragraph/index.tsx
+
 import { RenderFn } from 'editorjs-blocks-react-renderer'
 import { ParagraphBlockData } from 'editorjs-blocks-react-renderer/dist/renderers/paragraph'
 import parse from 'html-react-parser'

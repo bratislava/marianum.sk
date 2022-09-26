@@ -11,7 +11,6 @@ const RichTextImage: RenderFn<ImageBlockData & { file: { strapiImage: UploadFile
   return (
     <figure className={className}>
       <MImage image={data.file.strapiImage} layout={data.stretched ? 'responsive' : undefined} />
-      {/* TODO: Add styles to caption */}
       {data.file.strapiImage.caption && (
         <figcaption className="text-center text-sm">{data.file.strapiImage.caption}</figcaption>
       )}
