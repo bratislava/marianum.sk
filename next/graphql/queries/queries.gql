@@ -162,6 +162,9 @@ query HomePage($locale: I18NLocaleCode) {
         featured {
           ...Cta
         }
+        seo {
+          ...Seo
+        }
         sections {
           ... on ComponentSectionsManualListing {
             __typename
@@ -172,7 +175,10 @@ query HomePage($locale: I18NLocaleCode) {
             id
             title
           }
-          ...ComponentSectionsCeremoniesSection
+          ... on ComponentSectionsUpcomingCeremoniesSection {
+            __typename
+            ...UpcomingCeremoniesSection
+          }
           ... on ComponentSectionsProceduresShortSection {
             __typename
             id
@@ -209,27 +215,35 @@ query HomepageCeremonies($dateTime: DateTime!) {
     pagination: { limit: 5 }
   ) {
     data {
-      id
-      attributes {
-        dateTime
-        name
-        branch {
-          data {
-            attributes {
-              slug
-              title
-              localizations {
-                data {
-                  attributes {
-                    slug
-                    title
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+      ...HomepageCeremonyEntity
+    }
+  }
+}
+
+query Ceremonies($dateTime: DateTime!, $branchIdFilter: IDFilterInput = {}) {
+  ceremonies(
+    pagination: { limit: -1 }
+    filters: { dateTime: { gte: $dateTime }, branch: { id: $branchIdFilter } }
+    sort: ["dateTime:asc"]
+  ) {
+    data {
+      ...CeremonyEntity
+    }
+  }
+}
+
+query BranchesInCeremonies {
+  branches(filters: { allowInCeremonies: { eq: true } }) {
+    data {
+      ...BranchInCeremoniesDebtorsEntity
+    }
+  }
+}
+
+query BranchesInDebtors {
+  branches(filters: { allowInDebtors: { eq: true } }) {
+    data {
+      ...BranchInCeremoniesDebtorsEntity
     }
   }
 }

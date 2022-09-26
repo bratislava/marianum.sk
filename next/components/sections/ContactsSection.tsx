@@ -10,7 +10,7 @@ import Section, { SectionProps } from '../molecules/Section'
 const ContactsSection = ({
   contacts,
   ...rest
-}: Pick<SectionProps, 'background' | 'index' | 'title'> & ContactGroupFragment) => {
+}: Pick<SectionProps, 'background' | 'title'> & ContactGroupFragment) => {
   const filteredContacts = useMemo(() => {
     return (contacts ?? []).map((contact) => contact?.contact?.data?.attributes).filter(isDefined)
   }, [contacts])

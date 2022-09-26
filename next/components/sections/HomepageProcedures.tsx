@@ -10,7 +10,7 @@ import Tabs from '../atoms/Tabs/Tabs'
 import Row from '../molecules/Row/Row'
 import Section, { SectionProps } from '../molecules/Section'
 
-type HomepagePoceduresProps = Pick<SectionProps, 'title' | 'background' | 'index'> & {
+type HomepagePoceduresProps = Pick<SectionProps, 'title' | 'background'> & {
   procedures: ProcedureFragment[]
   showMoreButton: CtaButtonFragment | null | undefined
 }

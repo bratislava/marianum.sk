@@ -5,7 +5,7 @@ import { isDefined } from '../../utils/isDefined'
 import BundleCard from '../molecules/Cards/BundleCard'
 import Section, { SectionProps } from '../molecules/Section'
 
-type BundleListingSectionProps = Pick<SectionProps, 'background' | 'index'> & {
+type BundleListingSectionProps = Pick<SectionProps, 'background'> & {
   section: BundleListingFragment
 }
 

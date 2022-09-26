@@ -70,7 +70,7 @@ export const parseCeremoniesXlsx = (
           company,
           officiantProvidedBy,
           ,
-          showOnWebRaw,
+          consentForPrivateFieldsRaw,
           branchSlug,
         ] = row.map(String);
 
@@ -97,16 +97,17 @@ export const parseCeremoniesXlsx = (
             index + 3
           } v zošite "${sheetName}" s "slug" "${branchSlug}" neexistuje alebo jej hodnota "allowInCeremonies" nie je nastavená na "true".`
         );
-        const showOnWeb = showOnWebRaw === "A";
+        const consentForPrivateFields = consentForPrivateFieldsRaw === "A";
 
         return {
           dateTime,
-          name: showOnWeb ? name : undefined,
-          birthYear: showOnWeb ? birthYear : undefined,
-          type: showOnWeb ? type : undefined,
+          name: consentForPrivateFields ? name : undefined,
+          birthYear: consentForPrivateFields ? birthYear : undefined,
+          type: consentForPrivateFields ? type : undefined,
           company,
           officiantProvidedBy,
           branch: branchId,
+          consentForPrivateFields,
         };
       });
 
