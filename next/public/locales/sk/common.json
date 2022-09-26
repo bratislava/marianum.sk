@@ -12,7 +12,8 @@
     "bundles": "/sluzby/pohrebna-sluzba/balicky-pohrebov",
     "cemeteries": "/o-nas/cintoriny-v-sprave",
     "documents": "/o-nas/dokumenty",
-    "legislative": "/o-nas/dokumenty/legislativa"
+    "legislative": "/o-nas/dokumenty/legislativa",
+    "search": "/vyhladavanie"
   },
   "components": {
     "molecules": {
@@ -150,13 +151,6 @@
         "document": "Dokument",
         "article": "Článok",
         "branch": "Cintorín / Pobočka"
-      },
-      "paths": {
-        "document": "/dokumenty",
-        "page": "",
-        "bundle": "/balicky",
-        "article": "/clanky",
-        "branch": "/cintoriny-a-pobocky"
       }
     }
   }

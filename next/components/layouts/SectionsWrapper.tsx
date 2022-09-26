@@ -77,6 +77,8 @@ const SectionsWrapper = ({
       {Array.isArray(children) ? (
         children.map((child, index) => (
           <sectionContext.Provider
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
             value={{
               alternateBackground,
               background: getBackground(index),

@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { useCallback } from 'react'
 
 import { IndexConfig, useMeilisearch } from '../../../../hooks/useMeilisearch'
@@ -27,10 +28,12 @@ const NavigationSearch = () => {
 
   const router = useRouter()
 
+  const { t: pathsT } = useTranslation('common', { keyPrefix: 'paths' })
+
   const handleSearch = useCallback(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    router.push(`/search?query=${searchQuery ?? ''}`)
-  }, [router, searchQuery])
+    router.push(`${pathsT('search')}?query=${searchQuery ?? ''}`)
+  }, [router, searchQuery, pathsT])
 
   return (
     <>
