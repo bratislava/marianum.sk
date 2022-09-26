@@ -39,6 +39,21 @@ module.exports = {
       DEFAULT: '0px 4px 12px 0px #00000014',
       card: '0px 4px 16px #00000014',
     },
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '3rem',
+        xl: '4.75rem',
+      },
+    },
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+    },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',

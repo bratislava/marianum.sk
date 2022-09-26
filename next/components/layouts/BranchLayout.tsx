@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 
 import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
+import SideBarContact from '../molecules/SideBarContact'
 import HeroSection from '../sections/HeroSection'
 import ImageGallery from '../sections/ImageGallery'
 import PageWrapper from './PageWrapper'
@@ -17,7 +18,8 @@ type BranchLayoutProps = {
 const BranchLayout = ({ branch, navigation, children, general }: BranchLayoutProps) => {
   const router = useRouter()
 
-  const { title, slug } = branch.attributes ?? {}
+  const { title, slug, contact, medias } = branch.attributes ?? {}
+  const { title: contactTitle, phone1, phone2, email } = contact?.data?.attributes ?? {}
 
   const breadcrumbs = getBreadcrumbs(router.asPath, navigation, [{ label: title, link: slug }])
 
@@ -28,17 +30,19 @@ const BranchLayout = ({ branch, navigation, children, general }: BranchLayoutPro
       header={
         <HeroSection
           breadcrumbs={breadcrumbs}
-          moreContent={<ImageGallery images={branch?.attributes?.medias?.data} variant="aside" />}
+          moreContent={
+            medias?.data?.length ? (
+              <ImageGallery images={medias?.data} variant="aside" />
+            ) : undefined
+          }
         />
       }
     >
       <div className="h-full">
-        <div className="container relative mx-auto grid h-auto gap-6 px-4 pt-24 pb-20 md:grid-flow-col md:grid-cols-[1fr_auto]">
+        <div className="container relative grid h-auto gap-6 pt-24 pb-20 md:grid-flow-col md:grid-cols-[1fr_auto]">
           {children}
 
-          {/* TODO add hardcoded sidebar */}
-          {/* <SideBar sidebar={sidebar} /> */}
-          <aside className="h-[250px] bg-white md:w-[360px]">Kontakty TODO</aside>
+          <SideBarContact title={contactTitle} phone1={phone1} phone2={phone2} email={email} />
         </div>
       </div>
     </PageWrapper>

@@ -12,7 +12,7 @@ const FooterCredentials = () => {
 
   return (
     <div className="border-t border-border">
-      <div className="container mx-auto flex flex-col items-center justify-between gap-2 py-5 px-4 text-sm md:h-18 md:flex-row">
+      <div className="container flex flex-col items-center justify-between gap-2 py-5 text-sm md:h-18 md:flex-row">
         <div className="flex items-center gap-2">
           <span>{t('founder')}</span>
           <MLink noStyles href="https://bratislava.sk" className="text-sm font-semibold underline">

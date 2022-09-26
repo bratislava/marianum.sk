@@ -140,15 +140,11 @@ fragment AccordionGroup on ComponentSectionsAccordionGroup {
 fragment BranchGroup on ComponentSectionsBranchGroup {
   id
   title
+  showOpeningHours
   branches {
     branch {
       data {
-        id
-        attributes {
-          title
-          slug
-          address
-        }
+        ...BranchCardEntity
       }
     }
   }

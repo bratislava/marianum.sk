@@ -77,11 +77,19 @@ fragment ArticleEntity on ArticleEntity {
   }
 }
 
-fragment BranchEntity on BranchEntity {
+fragment BranchCardEntity on BranchEntity {
   id
   attributes {
     title
     slug
+    address
+    openingHoursOverride
+  }
+}
+
+fragment BranchEntity on BranchEntity {
+  ...BranchCardEntity
+  attributes {
     type
     cemeteryType
     description
@@ -95,11 +103,9 @@ fragment BranchEntity on BranchEntity {
         ...UploadImageEntity
       }
     }
-    address
     navigateToLink
-    openingHoursOverride
-    longitude
     latitude
+    longitude
     seo {
       ...Seo
     }
@@ -117,6 +123,40 @@ fragment BranchInCeremoniesDebtorsEntity on BranchEntity {
           locale
         }
       }
+    }
+  }
+}
+
+fragment BundleCardEntity on BundleEntity {
+  id
+  attributes {
+    title
+    slug
+    perex
+    price
+    coverMedia {
+      data {
+        ...UploadImageEntity
+      }
+    }
+    bundleContent {
+      description
+    }
+  }
+}
+
+fragment BundleEntity on BundleEntity {
+  ...BundleCardEntity
+  attributes {
+    description
+    additionalServices {
+      id
+      title
+      content
+      price
+    }
+    seo {
+      ...Seo
     }
   }
 }
@@ -184,39 +224,6 @@ fragment PartnerEntity on PartnerEntity {
   }
 }
 
-fragment BundleCardEntity on BundleEntity {
-  id
-  attributes {
-    title
-    slug
-    perex
-    price
-    coverMedia {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    bundleContent {
-      description
-    }
-  }
-}
-
-fragment BundleEntity on BundleEntity {
-  ...BundleCardEntity
-  attributes {
-    additionalServices {
-      id
-      title
-      content
-      price
-    }
-    seo {
-      ...Seo
-    }
-  }
-}
-
 fragment PageSlugEntity on PageEntity {
   attributes {
     slug
@@ -268,6 +275,11 @@ fragment PageEntity on PageEntity {
       ... on ComponentSectionsContactGroup {
         __typename
         ...ContactGroup
+      }
+      ... on ComponentSectionsDivider {
+        __typename
+        id
+        color
       }
       ... on ComponentSectionsDocumentGroup {
         __typename

@@ -94,7 +94,9 @@
     "navigate": "Navigate",
     "openingHours": "Opening hours",
     "aboutCemetery": "About cemetery",
-    "aboutBranch": "About branch"
+    "aboutBranch": "About branch",
+    "contacts": "Contacts",
+    "writeMessage": "Write a message"
   },
   "pages": {
     "search": {

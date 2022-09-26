@@ -33,12 +33,16 @@ const SideBar = ({ sidebar }: SideBarProps) => {
           {contact?.data?.attributes && (
             <div className="flex flex-col items-center">
               <div className="mt-4">{t('or')}</div>
-              <Button variant="plain-primary" startIcon={<PhoneIcon />} className="mt-4">
-                {phone1}
-              </Button>
-              <Button variant="plain-primary" startIcon={<MailIcon />} className="mt-2">
-                {email}
-              </Button>
+              {phone1 && (
+                <Button variant="plain-primary" startIcon={<PhoneIcon />} className="mt-4">
+                  {phone1}
+                </Button>
+              )}
+              {email && (
+                <Button variant="plain-primary" startIcon={<MailIcon />} className="mt-2">
+                  {email}
+                </Button>
+              )}
             </div>
           )}
         </>
