@@ -34,6 +34,18 @@ const articleIndexConfig: IndexConfig = { name: 'article', localized: true }
 
 const SearchResults = ({ navigation, general }: SearchResultsProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'pages.search' })
+  const { t: pathsT } = useTranslation('common', { keyPrefix: 'paths' })
+
+  const indexToPathName: { [key: string]: string } = useMemo(
+    () => ({
+      bundle: pathsT('bundles'),
+      page: '',
+      article: pathsT('news'),
+      branch: pathsT('cemeteries'),
+      document: pathsT('documents'),
+    }),
+    [pathsT],
+  )
 
   const hostname =
     typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
@@ -187,9 +199,7 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
                             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                             key={`${index}-${slug ?? ''}`}
                             title={title}
-                            // TODO add proper paths
-                            // eslint-disable-next-line sonarjs/no-nested-template-literals, @typescript-eslint/restrict-template-expressions
-                            linkHref={`${hostname}${t(`paths.${index}`)}/${slug ?? ''}`}
+                            linkHref={`${hostname}${indexToPathName[index]}/${slug ?? ''}`}
                             showUrl
                             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                             tags={[t(`tags.${index}`)]}
