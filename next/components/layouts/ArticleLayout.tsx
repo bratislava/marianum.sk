@@ -68,7 +68,6 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
         </div>
 
         <Section
-          // TODO: it works, but its ugly so rewrite Section to accept more basic "show more button props"
           button={{
             page: { data: { attributes: { slug: pathsT('news') } } },
             label: t(`layouts.ArticleLayout.allArticles`),
