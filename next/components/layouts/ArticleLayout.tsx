@@ -23,6 +23,7 @@ type ArticleLayoutProps = {
 const ArticleLayout = ({ article, navigation, children, general }: ArticleLayoutProps) => {
   const router = useRouter()
   const { t } = useTranslation()
+  const { t: pathsT } = useTranslation('common', { keyPrefix: 'paths' })
 
   const { title, perex, coverMedia, publishedAt, slug } = article.attributes ?? {}
   const coverImage = coverMedia?.data?.attributes
@@ -66,7 +67,15 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
           {children}
         </div>
 
-        <Section title={t('layouts.ArticleLayout.moreNews')}>
+        <Section
+          // TODO: it works, but its ugly so rewrite Section to accept more basic "show more button props"
+          button={{
+            page: { data: { attributes: { slug: pathsT('news') } } },
+            label: t(`layouts.ArticleLayout.allArticles`),
+          }}
+          className="relative"
+          title={t('layouts.ArticleLayout.moreNews')}
+        >
           <NewsListing />
         </Section>
       </SectionsWrapper>
