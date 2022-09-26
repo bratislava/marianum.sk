@@ -14,7 +14,7 @@ type PageWrapperProps = {
 
 const PageWrapper = ({ navigation, header, children, general }: PageWrapperProps) => {
   return (
-    <NavigationProvider navigation={navigation}>
+    <NavigationProvider navigation={navigation} general={general}>
       <div className="h-full">
         <header>
           <Navigation

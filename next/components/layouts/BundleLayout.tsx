@@ -31,7 +31,6 @@ const BundleLayout = ({ bundle, navigation, children, general }: BundleLayoutPro
           {children}
 
           {/* TODO add hardcoded sidebar */}
-          {/* <SideBar sidebar={sidebar} /> */}
           <aside className="md:w-[360px]" />
         </div>
       </div>

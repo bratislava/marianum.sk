@@ -20,7 +20,7 @@ const MenuListingSection = ({ slug, navigation, ...rest }: MenuListingSectionPro
   }
 
   return (
-    <Section {...rest} cardGrid>
+    <Section {...rest} cardGrid="cards">
       {desiredChild?.items?.map((subItem) => (
         <CategoryCard
           key={subItem?.path}

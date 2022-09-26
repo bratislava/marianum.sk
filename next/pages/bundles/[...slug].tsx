@@ -6,6 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import CheckIcon from '../../assets/check.svg'
 import FormatCurrency from '../../components/atoms/FormatCurrency'
+import RichText from '../../components/atoms/RichText/RichText'
 import BundleLayout from '../../components/layouts/BundleLayout'
 import AccordionGroup from '../../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
@@ -23,7 +24,8 @@ type BundlePageProps = {
 
 const BundlePage = ({ navigation, bundle, general }: BundlePageProps) => {
   const { t } = useTranslation()
-  const { seo, title, perex, additionalServices, bundleContent } = bundle.attributes ?? {}
+  const { seo, title, perex, additionalServices, bundleContent, description } =
+    bundle.attributes ?? {}
 
   return (
     <>
@@ -49,6 +51,12 @@ const BundlePage = ({ navigation, bundle, general }: BundlePageProps) => {
                   </li>
                 ))}
               </ul>
+            </Section>
+          ) : null}
+
+          {description ? (
+            <Section>
+              <RichText data={description} />
             </Section>
           ) : null}
 

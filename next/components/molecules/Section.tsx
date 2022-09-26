@@ -8,7 +8,7 @@ import { BackgroundColor, sectionContext } from '../layouts/SectionsWrapper'
 export type SectionProps = {
   children: ReactNode
   background?: BackgroundColor
-  cardGrid?: boolean
+  cardGrid?: 'cards' | 'bundles'
   title?: string | null | undefined
   button?: CtaButtonFragment | null | undefined
   description?: string | null | undefined
@@ -20,7 +20,7 @@ export type SectionProps = {
 const Section = ({
   children,
   background: propBackground,
-  cardGrid = false,
+  cardGrid,
   title,
   button,
   description,
@@ -79,7 +79,8 @@ const Section = ({
         )}
         <div
           className={cx('not-first:mt-3 not-first:md:mt-10', {
-            'grid gap-6 md:grid-cols-2 lg:grid-cols-4': cardGrid,
+            'grid gap-6 md:grid-cols-2 lg:grid-cols-4': cardGrid === 'cards',
+            'grid gap-6 md:grid-cols-2 lg:grid-cols-3': cardGrid === 'bundles',
           })}
         >
           {children}

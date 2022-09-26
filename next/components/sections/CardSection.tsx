@@ -17,7 +17,7 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
     .filter((page) => page?.attributes)
 
   return (
-    <Section title={title} {...rest} cardGrid button={showMoreButton}>
+    <Section title={title} {...rest} cardGrid="cards" button={showMoreButton}>
       {filteredPages?.map((page) => {
         const { id, attributes } = page ?? {}
         const { title: cardTitle, slug, coverMedia, perex } = attributes ?? {}
