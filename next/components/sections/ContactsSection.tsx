@@ -37,15 +37,18 @@ const ContactsSection = ({
                         {phone1}
                       </MLink>
                     )}
-                    <span>, </span>
+
                     {phone2 && (
-                      <MLink
-                        noStyles
-                        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                        href={`tel:${phone2.replace(/ /g, '')}`}
-                      >
-                        {phone2}
-                      </MLink>
+                      <>
+                        {', '}
+                        <MLink
+                          noStyles
+                          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                          href={`tel:${phone2.replace(/ /g, '')}`}
+                        >
+                          {phone2}
+                        </MLink>
+                      </>
                     )}
                   </div>
                 </div>
