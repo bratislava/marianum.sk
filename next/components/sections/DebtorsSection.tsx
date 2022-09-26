@@ -177,7 +177,7 @@ const DebtorsSection = ({ description }: DebtorsSectionProps) => {
 
   return (
     <Section>
-      <div className="mb-4 grid grid-cols-1 gap-4 bg-white p-4 md:mb-6 md:grid-cols-3 md:p-6">
+      <div className="mb-4 grid grid-cols-1 gap-4 bg-white md:mb-6 md:grid-cols-3 md:p-6">
         <div>
           <CeremoniesDebtorsBranchSelect type="debtors" onBranchChange={handleBranchChange} />
         </div>

@@ -94,7 +94,7 @@ const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
         ) : (
           <div className="flex w-full flex-col">
             <div className="flex w-full items-center justify-between">
-              <div className="flex items-center gap-1 p-4">
+              <div className="flex items-center gap-1">
                 {/* first child */}
                 {breadcrumbedChildren[0]}
                 {/* ... */}
@@ -120,7 +120,7 @@ const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
       {/* expanded breadcrumbs for calculation purposes */}
       <div
         ref={breadcrumbsExpandedRef}
-        className={cx('invisible absolute flex w-full select-none items-center gap-1 p-4')}
+        className={cx('invisible absolute flex w-full select-none items-center gap-1')}
       >
         {breadcrumbedChildren}
       </div>
@@ -128,9 +128,7 @@ const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
       {/* expanded wrapping breadcrumbs for calculation purposes */}
       <div
         ref={breadcrumbsExpandedWrappingRef}
-        className={cx(
-          'invisible absolute flex w-full select-none flex-wrap items-center gap-1 p-4',
-        )}
+        className={cx('invisible absolute flex w-full select-none flex-wrap items-center gap-1')}
       >
         {breadcrumbedChildren}
       </div>
