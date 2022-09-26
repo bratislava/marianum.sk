@@ -36,9 +36,7 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'pages.search' })
 
   const hostname =
-    typeof window !== 'undefined' && window.location.origin
-      ? window.location.origin.replace(/https?:\/\//g, '')
-      : ''
+    typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
 
   const [areBranchesSelected, setBranchesSelected] = useState(false)
   const [areDocumentsSelected, setDocumentsSelected] = useState(false)
