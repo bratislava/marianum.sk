@@ -33,7 +33,7 @@ const HeroSection = ({
 
   return (
     <div className="bg-primary-dark text-white/72">
-      <div className="container relative mx-auto px-4">
+      <div className="container relative">
         <Breadcrumbs className="sm:pt-8">
           {breadcrumbsWithHome?.map(({ label, link }, index) =>
             // The home icon should always be clickable and the last item not be clickable
@@ -65,9 +65,7 @@ const HeroSection = ({
           )}
         </div>
       </div>
-      {moreContent && (
-        <div className="container relative mx-auto -mb-18 w-full px-4">{moreContent}</div>
-      )}
+      {moreContent && <div className="container relative -mb-18 w-full">{moreContent}</div>}
     </div>
   )
 }

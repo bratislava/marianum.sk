@@ -1,36 +1,20 @@
+import { isSameDay, parseAbsolute } from '@internationalized/date'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
-import { useDateFormatter } from 'react-aria'
 import useSWR from 'swr'
 
-import { ComponentSectionsCeremoniesSectionFragment } from '../../graphql'
-import { client } from '../../utils/gql'
+import { UpcomingCeremoniesSectionFragment } from '../../graphql'
+import { bratislavaTimezone } from '../../utils/consts'
+import { upcomingCeremoniesFetcher } from '../../utils/fetchers/upcomingCeremoniesFetcher'
+import { getBranchTitleInCeremoniesDebtors } from '../../utils/getBranchTitleInCeremoniesDebtors'
+import FormatDate from '../atoms/FormatDate'
 import MLink from '../atoms/MLink'
 import Section from '../molecules/Section'
 
-const HomepageCeremoniesListingTable = () => {
+const Table = () => {
   const { t, i18n } = useTranslation()
 
-  const dateFormatter = useDateFormatter({
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
-    timeZone: 'Europe/Bratislava',
-  })
-
-  const timeFormatter = useDateFormatter({
-    hour: 'numeric',
-    minute: 'numeric',
-    timeZone: 'Europe/Bratislava',
-  })
-
-  const { data, error } = useSWR(['HomepageCeremonies'], () => {
-    const dateTime = new Date()
-    // I think we also want to display ongoing ceremonies, 2 hours seems like a reasonable time.
-    dateTime.setHours(dateTime.getHours() - 2)
-
-    return client.HomepageCeremonies({ dateTime })
-  })
+  const { data, error } = useSWR('UpcomingCeremonies', upcomingCeremoniesFetcher)
 
   const ceremonies = useMemo(() => {
     const ceremoniesData = data?.ceremonies?.data
@@ -43,29 +27,27 @@ const HomepageCeremoniesListingTable = () => {
     }
     // The API returns first 5 ceremonies, but we want to display ceremonies only of the same date. Therefore, we get the
     // date of the first ceremony and filter only those taking place on the same date.
-    const firstCeremonyDayFormatted = dateFormatter.format(
-      new Date(ceremoniesData[0]?.attributes?.dateTime),
+    const firstCeremonyDayDateTimeZoned = parseAbsolute(
+      ceremoniesData[0]?.attributes?.dateTime,
+      bratislavaTimezone,
     )
-    const filteredCeremonies = ceremoniesData.filter(
-      (ceremony) =>
-        dateFormatter.format(new Date(ceremony.attributes?.dateTime)) === firstCeremonyDayFormatted,
+
+    const filteredCeremonies = ceremoniesData.filter((ceremony) =>
+      isSameDay(
+        parseAbsolute(ceremony.attributes?.dateTime, bratislavaTimezone),
+        firstCeremonyDayDateTimeZoned,
+      ),
     )
 
     return {
-      day: firstCeremonyDayFormatted,
+      day: firstCeremonyDayDateTimeZoned.toDate(),
       ceremonies: filteredCeremonies.map((ceremony) => {
-        // Ceremonies are not localized and they return their Slovak relation as the main and the English version
-        // as the first localization.
-        const skBranchName = ceremony.attributes?.branch?.data?.attributes?.title
-
         return {
           name: ceremony.attributes?.name,
-          branchName:
-            i18n.language === 'en'
-              ? ceremony.attributes?.branch?.data?.attributes?.localizations?.data[0]?.attributes
-                  ?.title ?? skBranchName
-              : skBranchName,
-          time: timeFormatter.format(new Date(ceremony.attributes?.dateTime)),
+          branchTitle:
+            ceremony?.attributes?.branch?.data &&
+            getBranchTitleInCeremoniesDebtors(ceremony.attributes.branch.data, i18n.language),
+          time: new Date(ceremony.attributes?.dateTime),
         }
       }),
     }
@@ -91,11 +73,11 @@ const HomepageCeremoniesListingTable = () => {
 
   return (
     <table className="w-full overflow-x-auto">
-      {/* TODO: Make scrollable on mobile */}
       <thead>
         <tr>
           <th colSpan={3} className="pb-4 text-left">
-            {ceremonies?.day}
+            {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
+            <FormatDate value={ceremonies!.day!} format="homepageCeremoniesDate" />
           </th>
         </tr>
       </thead>
@@ -105,8 +87,10 @@ const HomepageCeremoniesListingTable = () => {
           <tr className="group border-t border-border first:border-t-0" key={index}>
             <td className="py-4 group-last:pb-0">{ceremony.name}</td>
             {/* TODO: Branch link */}
-            <td className="py-4 group-last:pb-0">{ceremony.branchName}</td>
-            <td className="py-4 group-last:pb-0">{ceremony.time}</td>
+            <td className="py-4 group-last:pb-0">{ceremony.branchTitle}</td>
+            <td className="py-4 group-last:pb-0">
+              <FormatDate value={ceremony.time} format="ceremoniesTime" />
+            </td>
           </tr>
         ))}
       </tbody>
@@ -115,25 +99,24 @@ const HomepageCeremoniesListingTable = () => {
 }
 
 type CeremoniesListingProps = {
-  section: ComponentSectionsCeremoniesSectionFragment
-  index: number
+  section: UpcomingCeremoniesSectionFragment
 }
 
-const HomepageCeremoniesListing = ({ section, index }: CeremoniesListingProps) => {
+const UpcomingCeremoniesSection = ({ section }: CeremoniesListingProps) => {
   const showMoreButtonSlug = section.showMoreButton?.page?.data?.attributes?.slug
   const showMoreButton = section.showMoreButton && showMoreButtonSlug && (
     <MLink href={showMoreButtonSlug}>{section.showMoreButton.label}</MLink>
   )
 
   return (
-    <Section index={index}>
+    <Section>
       <div className="grid gap-x-6 gap-y-8 md:grid-cols-1 lg:grid-cols-2">
         <div>
           <h2 className="lg:mb-6">{section.title}</h2>
           <div className="hidden lg:block">{showMoreButton}</div>
         </div>
         <div>
-          <HomepageCeremoniesListingTable />
+          <Table />
         </div>
         <div className="text-center lg:hidden">{showMoreButton}</div>
       </div>
@@ -141,4 +124,4 @@ const HomepageCeremoniesListing = ({ section, index }: CeremoniesListingProps) =
   )
 }
 
-export default HomepageCeremoniesListing
+export default UpcomingCeremoniesSection

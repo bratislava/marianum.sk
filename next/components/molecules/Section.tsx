@@ -7,54 +7,62 @@ import { BackgroundColor, sectionContext } from '../layouts/SectionsWrapper'
 
 export type SectionProps = {
   children: ReactNode
-  index?: number
   background?: BackgroundColor
-  cardGrid?: boolean
+  cardGrid?: 'cards' | 'bundles'
   title?: string | null | undefined
   button?: CtaButtonFragment | null | undefined
   description?: string | null | undefined
+  className?: string
+  innerClassName?: string
+  dividerClassName?: string
 }
 
 const Section = ({
   children,
-  background,
-  index = 0,
-  cardGrid = false,
+  background: propBackground,
+  cardGrid,
   title,
   button,
   description,
+  className,
+  innerClassName,
+  dividerClassName,
 }: SectionProps) => {
   const showMoreSlug = button?.page?.data?.attributes?.slug
 
-  const { getBackground, getDivider, getLast, isContainer } = useContext(sectionContext)
+  const { background, isDivider, isLast, alternateBackground } = useContext(sectionContext)
 
   const resultBackground = useMemo(() => {
-    return background ?? getBackground(index)
-  }, [background, getBackground, index])
-
-  const isDivider = useMemo(() => {
-    return getDivider(index)
-  }, [getDivider, index])
-
-  const isLast = useMemo(() => {
-    return getLast(index)
-  }, [getLast, index])
+    return propBackground ?? background
+  }, [propBackground, background])
 
   return (
     <div
-      className={cx('relative', {
-        'bg-background-beige': resultBackground === 'dark',
-        'bg-white': resultBackground === 'light',
-        'not-first:mt-6 not-first:md:mt-8': !isContainer,
-      })}
+      className={cx(
+        'relative',
+        {
+          'bg-background-beige': resultBackground === 'dark',
+          'bg-white': resultBackground === 'light',
+          'not-first:mt-6 not-first:md:mt-8': !alternateBackground,
+        },
+        className,
+      )}
     >
       {/* border displayed only when two last sections are same beige color */}
-      {isDivider && <div className={cx('container mx-auto border-t border-border')} />}
+
+      {isDivider && (
+        <div className="container">
+          <div className={cx('h-px bg-border', dividerClassName)} />
+        </div>
+      )}
       <div
-        className={cx({
-          'container mx-auto px-4 py-6 md:py-20': isContainer,
-          'pb-20 md:pb-36': isLast,
-        })}
+        className={cx(
+          {
+            'container py-6 md:py-20': alternateBackground,
+            'pb-20 md:pb-36': isLast,
+          },
+          innerClassName,
+        )}
       >
         {(title || showMoreSlug) && (
           <div className="flex">
@@ -71,7 +79,8 @@ const Section = ({
         )}
         <div
           className={cx('not-first:mt-3 not-first:md:mt-10', {
-            'grid gap-6 md:grid-cols-2 lg:grid-cols-4': cardGrid,
+            'grid gap-6 md:grid-cols-2 lg:grid-cols-4': cardGrid === 'cards',
+            'grid gap-6 md:grid-cols-2 lg:grid-cols-3': cardGrid === 'bundles',
           })}
         >
           {children}

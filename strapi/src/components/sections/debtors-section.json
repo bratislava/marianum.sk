@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_sections_debtors_section",
+  "info": {
+    "displayName": "debtors section",
+    "description": "",
+    "icon": "euro-sign"
+  },
+  "options": {},
+  "attributes": {
+    "description": {
+      "type": "text"
+    }
+  }
+}

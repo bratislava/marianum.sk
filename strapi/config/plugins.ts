@@ -50,6 +50,37 @@ export default {
           filterableAttributes: ["locale"],
         },
       },
+      debtor: {
+        settings: {
+          filterableAttributes: ["branch.id"],
+          searchableAttributes: ["firstName", "lastName"],
+          pagination: {
+            // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
+            maxTotalHits: 10000,
+          },
+        },
+        populateEntryRule: ["branch", "branch.localizations"],
+      },
+      ceremony: {
+        settings: {
+          filterableAttributes: ["branch.id", "dateTimeTimestamp"],
+          searchableAttributes: ["name"],
+          pagination: {
+            // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
+            maxTotalHits: 100000,
+          },
+        },
+        populateEntryRule: ["branch", "branch.localizations"],
+        transformEntry({ entry }) {
+          return {
+            ...entry,
+            // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
+            // use (number) filters.
+            dateTimeTimestamp:
+              entry.dateTime && new Date(entry.dateTime).getTime(),
+          };
+        },
+      },
     },
   },
 };

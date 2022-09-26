@@ -44,7 +44,7 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
   return (
     // negative top margin to make footer overflow last section
     <footer className="sticky top-full -mt-14 flex flex-col gap-18">
-      <div className="container mx-auto flex flex-col gap-14 px-4">
+      <div className="container flex flex-col gap-14">
         <div className="grid bg-primary text-white md:grid-cols-3 lg:grid-cols-2">
           <div className="h-52 w-full md:h-full">
             <FooterMap
@@ -60,7 +60,7 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
           <div className="flex w-full flex-col gap-4 px-4 py-6 md:col-span-2 md:px-8 lg:col-span-1 lg:gap-8 lg:px-12 lg:py-8">
             <div className="relative flex flex-col gap-3">
               <div className="text-lg font-bold">{t('address')}</div>
-              <div className="flex flex-col gap-2 text-sm font-regular">
+              <div className="flex flex-col gap-2 whitespace-pre-wrap text-sm font-regular">
                 {contact?.address && (
                   <MLink noStyles href={contact?.navigateToLink ?? ''} className="opacity-72">
                     {contact.address}

@@ -33,7 +33,7 @@ type WhiteOrBigConditionalProps =
     }
 
 export type TabsProps = WhiteOrBigConditionalProps & {
-  children: ReactNode[]
+  children: ReactNode
 }
 
 const Tabs = ({ children, areWhite = false, areBig = false }: TabsProps) => {

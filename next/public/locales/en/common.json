@@ -1,8 +1,8 @@
 {
   "general": {
+    "siteName": "Marianum",
     "showMore": "Show more",
     "goToSlide": "Go to slide {{number}}",
-    "or": "or",
     "disclosureOfInformation": "Disclosure of information"
   },
   "components": {
@@ -11,6 +11,10 @@
         "aria": {
           "description": "Slider"
         }
+      },
+      "SideBar": {
+        "or": "or",
+        "orContactUsByEmail": "or contact us by email"
       },
       "ImageLightBox": {
         "aria": {
@@ -38,6 +42,13 @@
         "skip": "Skip",
         "print": "Print the steps",
         "download": "Download the steps"
+      },
+      "Navigation": {
+        "NavigationSearch": {
+          "close": "Close",
+          "search": "Search",
+          "allResults": "All results"
+        }
       }
     }
   },
@@ -69,11 +80,12 @@
   },
   "layouts": {
     "ArticleLayout": {
-      "moreNews": "More news"
+      "moreNews": "More news",
+      "allArticles": "All articles"
     },
     "DocumentLayout": {
       "createdAt": "Created",
-      "downloadFile": "Download file",
+      "downloadFile": "Download",
       "category": "Category",
       "description": "Description",
       "details": "Details"
@@ -83,7 +95,9 @@
     "navigate": "Navigate",
     "openingHours": "Opening hours",
     "aboutCemetery": "About cemetery",
-    "aboutBranch": "About branch"
+    "aboutBranch": "About branch",
+    "contacts": "Contacts",
+    "writeMessage": "Write a message"
   },
   "pages": {
     "search": {

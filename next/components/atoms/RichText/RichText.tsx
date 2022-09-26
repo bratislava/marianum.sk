@@ -5,7 +5,7 @@ import { useMemo } from 'react'
 import RichTextImage from './RichTextImage'
 
 type RichTextProps = {
-  data?: string | null
+  data: string | null | undefined
   coloredTable?: boolean
 }
 
@@ -47,7 +47,7 @@ const RichText = ({ data, coloredTable = true }: RichTextProps) => {
             className: 'mb-4 md:mb-6 last:mb-0',
           },
           table: {
-            className: cx('m-table large-padding mb-4 last:mb-0 md:mb-6', {
+            className: cx('m-table mb-4 last:mb-0 md:mb-6', {
               colored: coloredTable,
             }),
           },

@@ -23,6 +23,7 @@ type ArticleLayoutProps = {
 const ArticleLayout = ({ article, navigation, children, general }: ArticleLayoutProps) => {
   const router = useRouter()
   const { t } = useTranslation()
+  const { t: pathsT } = useTranslation('common', { keyPrefix: 'paths' })
 
   const { title, perex, coverMedia, publishedAt, slug } = article.attributes ?? {}
   const coverImage = coverMedia?.data?.attributes
@@ -38,7 +39,7 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
           breadcrumbs={breadcrumbs}
           moreContent={
             coverImage ? (
-              <div className="h-[188px] sm:h-[238px] md:h-[287px] lg:h-[387px] xl:h-[440px]">
+              <div className="static h-[188px] sm:h-[238px] md:relative md:h-[287px] lg:h-[387px] xl:h-[440px]">
                 <MImage image={coverImage} layout="fill" objectFit="cover" unoptimized />
               </div>
             ) : null
@@ -47,13 +48,13 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
       }
     >
       <SectionsWrapper
-        isContainer
+        alternateBackground
         className={cx('h-full bg-white', {
           // Compensate image overlap
           'pt-18': coverImage,
         })}
       >
-        <div className="container relative mx-auto h-auto px-4 py-6 sm:px-20 sm:pb-12 sm:pt-10 md:px-28 lg:px-40">
+        <div className="container relative h-auto py-6 sm:px-20 sm:pb-12 sm:pt-10 md:px-28 lg:px-40">
           <div className="pb-1 text-center text-sm">
             <FormatDate value={new Date(publishedAt as string)} format="articlePage" />
           </div>
@@ -66,9 +67,14 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
           {children}
         </div>
 
-        {/* TODO index is added manually to add padding that compensates the footer overlap
-         * This should be done automatically */}
-        <Section index={1} title={t('layouts.ArticleLayout.moreNews')}>
+        <Section
+          button={{
+            page: { data: { attributes: { slug: pathsT('news') } } },
+            label: t(`layouts.ArticleLayout.allArticles`),
+          }}
+          className="relative"
+          title={t('layouts.ArticleLayout.moreNews')}
+        >
           <NewsListing />
         </Section>
       </SectionsWrapper>

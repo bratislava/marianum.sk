@@ -1,9 +1,19 @@
 {
   "general": {
+    "siteName": "Marianum - Pohrebníctvo mesta Bratislavy",
     "showMore": "Zobraziť viac",
     "goToSlide": "Ísť na slide {{number}}",
-    "or": "alebo",
     "disclosureOfInformation": "Zverejňovanie informácií"
+  },
+  "paths": {
+    "contacts": "/o-nas/kontakty",
+    "news": "/aktuality/novinky",
+    "press": "/o-nas/pre-media",
+    "bundles": "/sluzby/pohrebna-sluzba/balicky-pohrebov",
+    "cemeteries": "/o-nas/cintoriny-v-sprave",
+    "documents": "/o-nas/dokumenty",
+    "legislative": "/o-nas/dokumenty/legislativa",
+    "search": "/vyhladavanie"
   },
   "components": {
     "molecules": {
@@ -11,6 +21,10 @@
         "aria": {
           "description": "Posúvač"
         }
+      },
+      "SideBar": {
+        "or": "alebo",
+        "orContactUsByEmail": "alebo nás kontaktujte emailom"
       },
       "ImageLightBox": {
         "aria": {
@@ -38,6 +52,16 @@
         "skip": "Preskočiť",
         "print": "Vytlačiť postup",
         "download": "Stiahnuť postup"
+      },
+      "Navigation": {
+        "NavigationSearch": {
+          "close": "Zavrieť",
+          "search": "Hľadať",
+          "allResults": "Všetky výsledky"
+        }
+      },
+      "CeremoniesDebtorsBranchSelect": {
+        "allCemeteries": "Všetky cintoríny"
       }
     }
   },
@@ -57,11 +81,22 @@
       }
     },
     "CeremoniesSection": {
-      "noCeremonies": "Žiadne obrady na zobrazenie."
+      "noCeremonies": "Žiadne obrady na zobrazenie.",
+      "time": "",
+      "dateTime": "Dátum a čas",
+      "name": "Meno a priezvisko",
+      "birthYear": "Rok narodenia",
+      "branchTitle": "Cintorín",
+      "type": "Typ obradu",
+      "company": "Pohrebná služba",
+      "officiantProvidedBy": "Obradníka zabezpečuje",
+      "searchPlaceholder": "Hľadať…",
+      "filterBy": "Filtrovať podľa",
+      "privateFieldsDescription": "Objednávateľ obradu neudelil súhlas na zverejnenie osobných údajov a údajov o pohrebnom obrade zosnulého."
     },
     "MapSection": {
-      "search": "Hladať...",
-      "noResults": "Žiadne výsledky...",
+      "search": "Hladať…",
+      "noResults": "Žiadne výsledky…",
       "map": "Mapa",
       "filtering": "Filtrácia",
       "filters": {
@@ -69,15 +104,28 @@
         "historical": "Historické",
         "war": "Vojnové"
       }
+    },
+    "DebtorsSection": {
+      "graveSector": "Hr. miesto sektor",
+      "graveNumber": "Hr. miesto číslo",
+      "gravePreviousNumber": "Hr. miesto predošlé č.",
+      "firstName": "Meno zosnulého",
+      "lastName": "Priezvisko zosnulého",
+      "birthDate": "Dátum narodenia",
+      "deathDate": "Dátum úmrtia",
+      "branchTitle": "Cintorín",
+      "noRecords": "Žiadne záznamy",
+      "searchPlaceholder": "Hľadať…"
     }
   },
   "layouts": {
     "ArticleLayout": {
-      "moreNews": "Ďalšie novinky"
+      "moreNews": "Ďalšie novinky",
+      "allArticles": "Všetky články"
     },
     "DocumentLayout": {
       "createdAt": "Vytvorené",
-      "downloadFile": "Stiahnuť súbor",
+      "downloadFile": "Stiahnuť",
       "category": "Kategória",
       "description": "Popis",
       "details": "Detaily"
@@ -86,7 +134,9 @@
       "navigate": "Navigovať",
       "openingHours": "Otváracie hodiny",
       "aboutCemetery": "O cintoríne",
-      "aboutBranch": "O pobočke"
+      "aboutBranch": "O pobočke",
+      "contacts": "Kontakty",
+      "writeMessage": "Napísať správu"
     }
   },
   "pages": {
@@ -104,13 +154,6 @@
         "document": "Dokument",
         "article": "Článok",
         "branch": "Cintorín / Pobočka"
-      },
-      "paths": {
-        "document": "/dokumenty",
-        "page": "",
-        "bundle": "/balicky",
-        "article": "/clanky",
-        "branch": "/cintoriny-a-pobocky"
       }
     }
   }

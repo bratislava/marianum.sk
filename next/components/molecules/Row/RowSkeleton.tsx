@@ -8,9 +8,9 @@ const RowSkeleton = () => {
         <div className="h-5 w-48 rounded bg-gray" />
         <div className="h-5 w-12 rounded-full bg-gray" />
       </div>
-      <p>
+      <div>
         <div className="h-4 rounded bg-gray" style={{ width }} />
-      </p>
+      </div>
     </div>
   )
 }

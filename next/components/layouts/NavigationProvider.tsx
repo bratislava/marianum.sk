@@ -1,50 +1,37 @@
-import last from 'lodash/last'
 import { createContext, PropsWithChildren, useMemo } from 'react'
 
-import { NavigationItemFragment } from '../../graphql'
-import { isDefined } from '../../utils/isDefined'
+import { GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
+import { parseNavigation } from '../../utils/parseNavigation'
 
 type NavigationContextProps = {
   navigation: NavigationItemFragment[]
+  general: GeneralEntityFragment | null | undefined
 }
 
 type TNavigationContext = {
   navMap: Map<string, string>
   navigation: NavigationItemFragment[]
+  general: GeneralEntityFragment['attributes'] | null
 }
 export const NavigationContext = createContext<TNavigationContext>({
   navMap: new Map(),
   navigation: [],
+  general: null,
 })
 
 const NavigationProvider = ({
   navigation,
+  general,
   children,
 }: PropsWithChildren<NavigationContextProps>) => {
   const navMap = useMemo(() => {
-    const tmpMap = new Map<string, string>()
-
-    const parseNavItems = (navItems: NavigationItemFragment[]) => {
-      navItems.forEach(({ path, items }) => {
-        if (path) {
-          const slug = last(path?.split('/'))
-          if (slug) {
-            tmpMap.set(slug, path)
-          }
-        }
-        if (items) {
-          parseNavItems(items.filter(isDefined))
-        }
-      })
-    }
-
-    parseNavItems(navigation)
-
-    return tmpMap
+    return parseNavigation(navigation)
   }, [navigation])
 
   return (
-    <NavigationContext.Provider value={{ navMap, navigation }}>
+    <NavigationContext.Provider
+      value={{ navMap, navigation, general: general?.attributes ?? null }}
+    >
       {children}
     </NavigationContext.Provider>
   )

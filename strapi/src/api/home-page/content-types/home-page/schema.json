@@ -36,13 +36,23 @@
       },
       "type": "dynamiczone",
       "components": [
-        "sections.ceremonies-section",
+        "sections.upcoming-ceremonies-section",
         "sections.manual-listing",
         "sections.news-listing",
         "sections.procedures-short-section",
         "sections.reviews-section",
         "sections.cta-section"
       ]
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "general.seo"
     }
   }
 }

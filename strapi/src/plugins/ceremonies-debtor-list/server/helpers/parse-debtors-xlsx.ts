@@ -17,15 +17,16 @@ export const parseDebtorsXlsx = (
   // Verifying the header is the best way to check whether the file uploaded is in a format we need.
   const header = data.slice(0, 2);
   const expectedHeader = [
-    [, "Hrob. miesto", , "Údaje o zomrelom"],
+    ["Hrobové miesto", , , , "Údaje o zosnulom"],
     [
-      "p. č.",
-      "sekcia",
-      "číslo",
-      "priezvisko",
-      "meno",
-      "dátum narodenia",
-      "dátum úmrtia",
+      "Cintorín",
+      "Sektor",
+      "Číslo",
+      "Predošlé č.",
+      "Priezvisko",
+      "Meno",
+      "Dátum narodenia",
+      "Dátum úmrtia",
     ],
   ];
   assert.deepStrictEqual(
@@ -41,14 +42,14 @@ export const parseDebtorsXlsx = (
     .filter((row) => row.length !== 0 /* Filter empty rows */)
     .map((row, index) => {
       const [
-        ,
-        graveSection,
+        branchSlug,
+        graveSector,
         graveNumber,
+        gravePreviousNumber,
         lastName,
         firstName,
         birthDate,
         deathDate,
-        branchSlug,
       ] = row.map(String);
 
       const branchId = getBranchIdBySlug(
@@ -59,8 +60,9 @@ export const parseDebtorsXlsx = (
         } s "slug" "${branchSlug}" neexistuje alebo jej hodnota "allowInDebtors" nie je nastavená na "true".`
       );
       return {
-        graveSection,
+        graveSector,
         graveNumber,
+        gravePreviousNumber,
         firstName,
         lastName,
         birthDate,

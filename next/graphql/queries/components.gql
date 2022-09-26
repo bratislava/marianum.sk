@@ -20,6 +20,12 @@ fragment Sidebar on ComponentBlocksSidebar {
   }
 }
 
+fragment Seo on ComponentGeneralSeo {
+  metaTitle
+  metaDescription
+  keywords
+}
+
 fragment Cta on ComponentBlocksCta {
   title
   description
@@ -134,15 +140,11 @@ fragment AccordionGroup on ComponentSectionsAccordionGroup {
 fragment BranchGroup on ComponentSectionsBranchGroup {
   id
   title
+  showOpeningHours
   branches {
     branch {
       data {
-        id
-        attributes {
-          title
-          slug
-          address
-        }
+        ...BranchCardEntity
       }
     }
   }
@@ -225,5 +227,23 @@ fragment ManualListing on ComponentSectionsManualListing {
         ...PageCardEntity
       }
     }
+  }
+}
+
+fragment CeremoniesSection on ComponentSectionsCeremoniesSection {
+  id
+  archive {
+    title
+    button {
+      ...CtaButton
+    }
+  }
+}
+
+fragment UpcomingCeremoniesSection on ComponentSectionsUpcomingCeremoniesSection {
+  id
+  title
+  showMoreButton {
+    ...CtaButton
   }
 }
