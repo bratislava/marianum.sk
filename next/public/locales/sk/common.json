@@ -120,7 +120,8 @@
   },
   "layouts": {
     "ArticleLayout": {
-      "moreNews": "Ďalšie novinky"
+      "moreNews": "Ďalšie novinky",
+      "allArticles": "Všetky články"
     },
     "DocumentLayout": {
       "createdAt": "Vytvorené",
