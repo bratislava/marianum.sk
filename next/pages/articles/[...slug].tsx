@@ -22,7 +22,11 @@ const ArticlePage = ({ navigation, article, general }: ArticlePageProps) => {
   return (
     <ArticleLayout article={article} navigation={navigation} general={general}>
       <RichText data={article.attributes?.content} />
-      {medias?.length ? <ImageGallery images={medias} /> : null}
+      {medias?.length ? (
+        <div className="mt-4 md:mt-6">
+          <ImageGallery images={medias} />
+        </div>
+      ) : null}
     </ArticleLayout>
   )
 }

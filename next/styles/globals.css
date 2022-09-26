@@ -56,6 +56,11 @@
     @apply outline-none outline-transparent !important;
   }
 
+  /* style links in richtext */
+  .m-link-inline > a {
+    @apply text-primary hover:text-primary-dark underline;
+  }
+
   h1,
   h2,
   h3,

@@ -25,6 +25,7 @@
     "graphql": "^16.5.0",
     "graphql-request": "^4.3.0",
     "graphql-tag": "^2.12.6",
+    "html-react-parser": "^3.0.4",
     "lodash": "^4.17.21",
     "mapbox-gl": "^2.10.0",
     "meilisearch": "^0.27.0",

@@ -3,6 +3,9 @@ import Blocks, { DataProp } from 'editorjs-blocks-react-renderer'
 import { useMemo } from 'react'
 
 import RichTextImage from './RichTextImage'
+import RichTextList from './RichTextList'
+// import RichTextParagraph from './RichTextParagraph'
+import RichTextQuote from './RichTextQuote'
 
 type RichTextProps = {
   data: string | null | undefined
@@ -10,7 +13,7 @@ type RichTextProps = {
 }
 
 /*
- TODO: Links don't have any style.
+ TODO: Use custom RichTextParagraph parser
  TODO: It uses `html-react-parser`, explore XSS risks.
  */
 const RichText = ({ data, coloredTable = true }: RichTextProps) => {
@@ -44,7 +47,7 @@ const RichText = ({ data, coloredTable = true }: RichTextProps) => {
             className: 'list-disc mb-4 md:mb-6 last:mb-0',
           },
           paragraph: {
-            className: 'mb-4 md:mb-6 last:mb-0',
+            className: 'm-link-inline mb-4 md:mb-6 last:mb-0',
           },
           table: {
             className: cx('m-table mb-4 last:mb-0 md:mb-6', {
@@ -52,7 +55,12 @@ const RichText = ({ data, coloredTable = true }: RichTextProps) => {
             }),
           },
         }}
-        renderers={{ image: RichTextImage }}
+        renderers={{
+          image: RichTextImage,
+          list: RichTextList,
+          quote: RichTextQuote,
+          // paragraph: RichTextParagraph,
+        }}
       />
     )
   )
