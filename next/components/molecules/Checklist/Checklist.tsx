@@ -2,7 +2,8 @@ import cx from 'classnames'
 import filesize from 'filesize'
 import { useTranslation } from 'next-i18next'
 import prntr from 'prntr'
-import { useCallback, useReducer } from 'react'
+import { useCallback, useEffect, useMemo, useReducer } from 'react'
+import { useLocalStorage } from 'usehooks-ts'
 
 import CheckIcon from '../../../assets/check.svg'
 import CheckCircleIcon from '../../../assets/check_circle.svg'
@@ -86,7 +87,18 @@ export type ChecklistProps = {
 const Checklist = ({ items, downloadFile }: ChecklistProps) => {
   const { t } = useTranslation()
 
-  const [checklistState, dispatchChecklistState] = useReducer(checklistReducer, { items })
+  // generate id from titles
+  const checklistId = useMemo(() => {
+    return items.map((item) => item.title).join('-')
+  }, [items])
+
+  const [localChecklistState, setLocalChecklistState] = useLocalStorage(checklistId, { items })
+
+  const [checklistState, dispatchChecklistState] = useReducer(checklistReducer, localChecklistState)
+
+  useEffect(() => {
+    setLocalChecklistState(checklistState)
+  }, [checklistState, setLocalChecklistState])
 
   const openItemHandler = useCallback((itemKey: string) => {
     dispatchChecklistState({
@@ -125,7 +137,7 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
 
   return (
     <div className="flex w-full flex-col gap-6">
-      {checklistState.items.map(
+      {localChecklistState.items.map(
         ({ key, title, description, isOpen = false, isCompleted = false }, index) => (
           <div className="flex gap-10" key={key}>
             <ChecklistLineWithRadio
