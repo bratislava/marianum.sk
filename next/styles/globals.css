@@ -134,3 +134,8 @@
     --line-height-button: 24px;
   }
 }
+
+/* style editorjs anchors */
+.editorjs-wrapper a {
+  @apply underline font-semibold text-primary;
+}
