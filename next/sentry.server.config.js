@@ -8,5 +8,5 @@ const SENTRY_DSN = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN
 
 Sentry.init({
   dsn: SENTRY_DSN || 'https://6aff3b4117f645ff879023645a2e7ee7@o701870.ingest.sentry.io/6776436',
-  tracesSampleRate: 1.0,
+  tracesSampleRate: 0.05,
 })
