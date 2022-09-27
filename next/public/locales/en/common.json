@@ -5,9 +5,18 @@
     "showMore": "Show more",
     "goToSlide": "Go to slide {{number}}",
     "disclosureOfInformation": "Disclosure of information",
-    "openingHours": "Opening hours"
+    "openingHours": "Opening hours",
+    "addToCart": "Add to cart"
   },
   "components": {
+    "atoms": {
+      "QuantitySelect": {
+        "aria": {
+          "increaseAmount": "Increase amount",
+          "decreaseAmount": "Decrease amount"
+        }
+      }
+    },
     "molecules": {
       "Slider": {
         "aria": {

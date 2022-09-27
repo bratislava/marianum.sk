@@ -1,5 +1,6 @@
 import cx from 'classnames'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
@@ -20,6 +21,7 @@ const CategoryFaqThemeCard = ({
   ...rest
 }: CategoryFaqThemeCardProps) => {
   const router = useRouter()
+  const { t } = useTranslation()
 
   const handleCardClick = () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -37,8 +39,7 @@ const CategoryFaqThemeCard = ({
         </div>
         <div>
           <MLink href={linkHref} noArrow className="inline-block">
-            {/* TODO: Translation */}
-            Zobraziť viac
+            {t('general.showMore')}
           </MLink>
         </div>
       </CardContent>

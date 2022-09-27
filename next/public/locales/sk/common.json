@@ -5,7 +5,8 @@
     "showMore": "Zobraziť viac",
     "goToSlide": "Ísť na slide {{number}}",
     "disclosureOfInformation": "Zverejňovanie informácií",
-    "openingHours": "Otváracie hodiny"
+    "openingHours": "Otváracie hodiny",
+    "addToCart": "Pridať do košíka"
   },
   "paths": {
     "contacts": "/o-nas/kontakty",
@@ -18,6 +19,14 @@
     "search": "/vyhladavanie"
   },
   "components": {
+    "atoms": {
+      "QuantitySelect": {
+        "aria": {
+          "increaseAmount": "Zvýšiť množstvo",
+          "decreaseAmount": "Znížiť množstvo"
+        }
+      }
+    },
     "molecules": {
       "Slider": {
         "aria": {
