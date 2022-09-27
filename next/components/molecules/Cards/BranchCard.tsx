@@ -1,5 +1,5 @@
 import { useTranslation } from 'next-i18next'
-import React from 'react'
+import { ReactNode } from 'react'
 
 import PlaceIcon from '../../../assets/place.svg'
 import CardBox from '../../atoms/Card/CardBox'
@@ -9,11 +9,11 @@ import MLink from '../../atoms/MLink'
 type BranchCardProps = {
   branchName: string
   address: string
-  openingHoursText: string
+  openingHours: ReactNode
   linkHref: string
 }
 
-const BranchCard = ({ branchName, address, openingHoursText, linkHref }: BranchCardProps) => {
+const BranchCard = ({ branchName, address, openingHours, linkHref }: BranchCardProps) => {
   const { t } = useTranslation()
   return (
     <CardBox hover={false} border={false}>
@@ -29,10 +29,7 @@ const BranchCard = ({ branchName, address, openingHoursText, linkHref }: BranchC
         </div>
         <div>
           <span className="mb-1 block md:mb-2">{t('general.openingHours')}</span>
-          <p>
-            {/* TODO: Maybe would be multiline */}
-            {openingHoursText}
-          </p>
+          <div>{openingHours}</div>
         </div>
         <div>
           <MLink href={linkHref} noArrow className="inline-block">
