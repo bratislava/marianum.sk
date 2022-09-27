@@ -1,5 +1,6 @@
 import cx from 'classnames'
-import React, { ReactNode } from 'react'
+import { useTranslation } from 'next-i18next'
+import { ReactNode } from 'react'
 
 import ArrowLeftIcon from '../../../assets/arrow_back.svg'
 import ArrowRightIcon from '../../../assets/arrow_forward.svg'
@@ -18,6 +19,7 @@ type PaginationProps = {
  * as implemented in @mui/material.
  */
 const Pagination = ({ count, selectedPage, className, onChange = () => {} }: PaginationProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'components.atoms.Pagination' })
   const { items } = usePagination({
     count,
     page: selectedPage,
@@ -44,7 +46,7 @@ const Pagination = ({ count, selectedPage, className, onChange = () => {} }: Pag
                   disabled={disabled}
                   onPress={onPress}
                   aria-current={ariaCurrent}
-                  aria-label={`Ísť na stranu ${page}`} // TODO: Translations.
+                  aria-label={t('goToPage', { page })}
                 >
                   {page}
                 </IconButton>
@@ -54,11 +56,11 @@ const Pagination = ({ count, selectedPage, className, onChange = () => {} }: Pag
               let ariaLabel = ''
               if (type === 'previous') {
                 icon = <ArrowLeftIcon />
-                ariaLabel = 'Ísť na predchádzajúcu stranu' // TODO: Translations.
+                ariaLabel = t('goToPreviousPage', { page })
               }
               if (type === 'next') {
                 icon = <ArrowRightIcon />
-                ariaLabel = 'Ísť na ďalšiu stranu' // TODO: Translations.
+                ariaLabel = t('goToNextPage', { page })
               }
 
               children = (

@@ -15,6 +15,13 @@
           "increaseAmount": "Increase amount",
           "decreaseAmount": "Decrease amount"
         }
+      },
+      "Pagination": {
+        "aria": {
+          "goToPage": "Go to page {{page}}",
+          "goToPreviousPage": "Go to previous page",
+          "goToNextPage": "Go to next page"
+        }
       }
     },
     "molecules": {
