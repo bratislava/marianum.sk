@@ -1,5 +1,6 @@
 {
   "general": {
+    "from": "od",
     "siteName": "Marianum - Pohrebníctvo mesta Bratislavy",
     "showMore": "Zobraziť viac",
     "goToSlide": "Ísť na slide {{number}}",
