@@ -23,8 +23,8 @@ const SideBar = ({ sidebar }: SideBarProps) => {
 
   return (
     <aside className="flex h-fit flex-col bg-white p-6 md:w-[360px]">
-      {title && <h5>{title}</h5>}
-      {text && <p className="mt-2">{text}</p>}
+      {title && <h5 className="whitespace-pre-wrap">{title}</h5>}
+      {text && <p className="mt-2 whitespace-pre-wrap">{text}</p>}
       {ctaSlug ? (
         <>
           <Button href={ctaSlug} variant="primary" className="mt-6">

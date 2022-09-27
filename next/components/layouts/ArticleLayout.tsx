@@ -23,6 +23,7 @@ type ArticleLayoutProps = {
 const ArticleLayout = ({ article, navigation, children, general }: ArticleLayoutProps) => {
   const router = useRouter()
   const { t } = useTranslation()
+  const { t: pathsT } = useTranslation('common', { keyPrefix: 'paths' })
 
   const { title, perex, coverMedia, publishedAt, slug } = article.attributes ?? {}
   const coverImage = coverMedia?.data?.attributes
@@ -38,7 +39,7 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
           breadcrumbs={breadcrumbs}
           moreContent={
             coverImage ? (
-              <div className="h-[188px] sm:h-[238px] md:h-[287px] lg:h-[387px] xl:h-[440px]">
+              <div className="static h-[188px] sm:h-[238px] md:relative md:h-[287px] lg:h-[387px] xl:h-[440px]">
                 <MImage image={coverImage} layout="fill" objectFit="cover" unoptimized />
               </div>
             ) : null
@@ -66,7 +67,14 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
           {children}
         </div>
 
-        <Section title={t('layouts.ArticleLayout.moreNews')}>
+        <Section
+          button={{
+            page: { data: { attributes: { slug: pathsT('news') } } },
+            label: t(`layouts.ArticleLayout.allArticles`),
+          }}
+          className="relative"
+          title={t('layouts.ArticleLayout.moreNews')}
+        >
           <NewsListing />
         </Section>
       </SectionsWrapper>
