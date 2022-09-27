@@ -92,9 +92,11 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
           </div>
         </Section>
 
-        <Section innerClassName="md:pl-[234px]" title={t('layouts.DocumentLayout.description')}>
-          <div className="whitespace-pre-wrap">{description}</div>
-        </Section>
+        {description ? (
+          <Section innerClassName="md:pl-[234px]" title={t('layouts.DocumentLayout.description')}>
+            <div className="whitespace-pre-wrap">{description}</div>
+          </Section>
+        ) : undefined}
 
         <Section
           innerClassName="md:pl-[234px]"
