@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 
 import PlaceIcon from '../../../assets/place.svg'
@@ -13,6 +14,7 @@ type BranchCardProps = {
 }
 
 const BranchCard = ({ branchName, address, openingHoursText, linkHref }: BranchCardProps) => {
+  const { t } = useTranslation()
   return (
     <CardBox hover={false} border={false}>
       <CardContent className="gap-y-5 md:gap-y-10" largePadding>
@@ -26,8 +28,7 @@ const BranchCard = ({ branchName, address, openingHoursText, linkHref }: BranchC
           </div>
         </div>
         <div>
-          {/* TODO: Translation */}
-          <span className="mb-1 block md:mb-2">Otváracie hodiny</span>
+          <span className="mb-1 block md:mb-2">{t('general.openingHours')}</span>
           <p>
             {/* TODO: Maybe would be multiline */}
             {openingHoursText}
@@ -35,8 +36,7 @@ const BranchCard = ({ branchName, address, openingHoursText, linkHref }: BranchC
         </div>
         <div>
           <MLink href={linkHref} noArrow className="inline-block">
-            {/* TODO: Translation */}
-            Zobraziť viac
+            {t('general.showMore')}
           </MLink>
         </div>
       </CardContent>

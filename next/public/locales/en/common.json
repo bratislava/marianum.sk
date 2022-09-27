@@ -4,7 +4,8 @@
     "siteName": "Marianum",
     "showMore": "Show more",
     "goToSlide": "Go to slide {{number}}",
-    "disclosureOfInformation": "Disclosure of information"
+    "disclosureOfInformation": "Disclosure of information",
+    "openingHours": "Opening hours"
   },
   "components": {
     "molecules": {

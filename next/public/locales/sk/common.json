@@ -4,7 +4,8 @@
     "siteName": "Marianum - Pohrebníctvo mesta Bratislavy",
     "showMore": "Zobraziť viac",
     "goToSlide": "Ísť na slide {{number}}",
-    "disclosureOfInformation": "Zverejňovanie informácií"
+    "disclosureOfInformation": "Zverejňovanie informácií",
+    "openingHours": "Otváracie hodiny"
   },
   "paths": {
     "contacts": "/o-nas/kontakty",
