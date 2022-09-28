@@ -1,8 +1,9 @@
 import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
+import { useContext, useMemo } from 'react'
 
 import { ContactFragment, FooterFragment, SocialFragment } from '../../../graphql'
 import MLink from '../../atoms/MLink'
+import { NavigationContext } from '../../layouts/NavigationProvider'
 import FooterCredentials from './FooterCredentials'
 import FooterMap from './FooterMap'
 import FooterSocials from './FooterSocials'
@@ -15,6 +16,7 @@ export type FooterProps = {
 
 const Footer = ({ contact, footer, social }: FooterProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'components.molecules.Footer' })
+  const { navMap } = useContext(NavigationContext)
 
   const { phone1, email } = contact?.contact?.data?.attributes ?? {}
   const { slug: openingHoursSlug } = contact?.openingHoursPage?.data?.attributes ?? {}
@@ -107,17 +109,25 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
             <div key={colIndex} className="flex flex-col gap-4">
               <h4>{title}</h4>
               <div className="flex flex-col gap-3">
-                {links?.map((link, linkIndex) => (
-                  <MLink
-                    // eslint-disable-next-line react/no-array-index-key
-                    key={linkIndex}
-                    noStyles
-                    href={link?.url ?? ''}
-                    target={link?.targetBlank ? '_blank' : '_self'}
-                  >
-                    {link?.label}
-                  </MLink>
-                ))}
+                {links?.map((link, linkIndex) => {
+                  const pageSlug = link?.page?.data?.attributes?.slug
+                  const linkHref = pageSlug
+                    ? navMap.get(pageSlug ?? '') || pageSlug
+                    : link?.url || ''
+
+                  return (
+                    <MLink
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={linkIndex}
+                      noStyles
+                      href={linkHref}
+                      target={link?.targetBlank ? '_blank' : '_self'}
+                      className="w-fit"
+                    >
+                      {link?.label}
+                    </MLink>
+                  )
+                })}
               </div>
             </div>
           ))}

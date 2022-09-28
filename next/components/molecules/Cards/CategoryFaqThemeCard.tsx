@@ -1,11 +1,12 @@
 import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import React from 'react'
+import { useContext } from 'react'
 
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
 import MLink from '../../atoms/MLink'
+import { NavigationContext } from '../../layouts/NavigationProvider'
 
 type CategoryCardProps = {
   title: string
@@ -22,10 +23,14 @@ const CategoryFaqThemeCard = ({
 }: CategoryFaqThemeCardProps) => {
   const router = useRouter()
   const { t } = useTranslation()
+  const { navMap } = useContext(NavigationContext)
 
   const handleCardClick = () => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    router.push(linkHref)
+    const wholeLink = navMap.get(linkHref)
+    if (wholeLink) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      router.push(wholeLink)
+    }
   }
 
   return (

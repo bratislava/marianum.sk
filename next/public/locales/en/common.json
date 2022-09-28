@@ -98,7 +98,8 @@
   },
   "layouts": {
     "ArticleLayout": {
-      "moreNews": "More news"
+      "moreNews": "More news",
+      "allArticles": "All articles"
     },
     "DocumentLayout": {
       "createdAt": "Created",

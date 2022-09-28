@@ -93,6 +93,16 @@
       },
       "component": "blocks.accordion-item-with-price"
     },
+    "documents": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.document-group"
+    },
     "seo": {
       "type": "component",
       "repeatable": false,

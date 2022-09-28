@@ -152,8 +152,11 @@ fragment BundleEntity on BundleEntity {
     additionalServices {
       id
       title
-      content
+      description
       price
+    }
+    documents {
+      ...DocumentGroup
     }
     seo {
       ...Seo
