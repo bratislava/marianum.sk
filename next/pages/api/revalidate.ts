@@ -1,4 +1,4 @@
-// import { withSentry } from '@sentry/nextjs'
+import { withSentry } from '@sentry/nextjs'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { client } from '../../utils/gql'
@@ -42,4 +42,4 @@ const revalidate = async (req: NextApiRequest, res: NextApiResponse<Response>) =
   }
 }
 
-export default revalidate
+export default withSentry(revalidate)
