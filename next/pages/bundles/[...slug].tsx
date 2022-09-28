@@ -10,6 +10,7 @@ import RichText from '../../components/atoms/RichText/RichText'
 import BundleLayout from '../../components/layouts/BundleLayout'
 import AccordionGroup from '../../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
+import DocumentGroup from '../../components/molecules/DocumentGroup'
 import Section from '../../components/molecules/Section'
 import Seo from '../../components/molecules/Seo'
 import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
@@ -24,7 +25,7 @@ type BundlePageProps = {
 
 const BundlePage = ({ navigation, bundle, general }: BundlePageProps) => {
   const { t } = useTranslation()
-  const { seo, title, perex, additionalServices, bundleContent, description } =
+  const { seo, title, perex, additionalServices, bundleContent, description, documents } =
     bundle.attributes ?? {}
 
   return (
@@ -35,7 +36,7 @@ const BundlePage = ({ navigation, bundle, general }: BundlePageProps) => {
       </Head>
 
       <BundleLayout navigation={navigation} general={general} bundle={bundle}>
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col">
           {/* todo: display bundle data */}
           {bundleContent?.length ? (
             <Section>
@@ -79,12 +80,17 @@ const BundlePage = ({ navigation, bundle, general }: BundlePageProps) => {
                       ) : null
                     }
                   >
-                    {service?.content}
+                    <RichText data={service?.description} />
                   </AccordionItem>
                 ))}
               </AccordionGroup>
             </Section>
           ) : null}
+          {documents && (
+            <Section title={documents?.title}>
+              <DocumentGroup {...documents} />
+            </Section>
+          )}
         </div>
       </BundleLayout>
     </>
