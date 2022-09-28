@@ -86,6 +86,7 @@
     "DocumentLayout": {
       "createdAt": "Created",
       "downloadFile": "Download",
+      "showFile": "Show",
       "category": "Category",
       "description": "Description",
       "details": "Details"

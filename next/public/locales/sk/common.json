@@ -126,6 +126,7 @@
     "DocumentLayout": {
       "createdAt": "Vytvorené",
       "downloadFile": "Stiahnuť",
+      "showFile": "Zobraziť",
       "category": "Kategória",
       "description": "Popis",
       "details": "Detaily"
