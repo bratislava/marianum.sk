@@ -63,7 +63,8 @@
       "CeremoniesDebtorsBranchSelect": {
         "allCemeteries": "Všetky cintoríny"
       }
-    }
+    },
+    "SortSelect": { "byNewest": "Od najnovšieho", "byOldest": "Od najstaršieho" }
   },
   "sections": {
     "HeroSection": {
