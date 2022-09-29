@@ -230,6 +230,11 @@ fragment ManualListing on ComponentSectionsManualListing {
   }
 }
 
+fragment NewsListing on ComponentSectionsNewsListing {
+  id
+  title
+}
+
 fragment CeremoniesSection on ComponentSectionsCeremoniesSection {
   id
   archive {

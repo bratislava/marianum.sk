@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react'
 
-import HelpIcon from '../../../assets/help.svg'
 import MarianumLogo from '../../../assets/marianum_logo.svg'
 import MenuIcon from '../../../assets/menu.svg'
 import PhoneIcon from '../../../assets/phone.svg'
@@ -13,16 +12,15 @@ import NavigationMenuMobile from './NavigationMenuMobile'
 import NavigationSearch from './NavigationSearch/NavigationSearch'
 
 type NavigationProps = {
-  faqSlug: string | null | undefined
   contact: ContactEntityFragment | null | undefined
 }
 
-const Navigation = ({ faqSlug, contact }: NavigationProps) => {
+const Navigation = ({ contact }: NavigationProps) => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
 
   const { navigation } = useContext(NavigationContext)
 
-  const { phone1 } = contact?.attributes ?? {}
+  const { title, phone1, phone2 } = contact?.attributes ?? {}
 
   return (
     <div className="bg-primary text-white">
@@ -36,14 +34,15 @@ const Navigation = ({ faqSlug, contact }: NavigationProps) => {
           <div className="flex items-center gap-4 xl:gap-8">
             {/* desktop faq and phone links */}
             <div className="hidden items-center gap-8 xl:flex">
-              {faqSlug && (
-                <MLink href={faqSlug} className="flex items-center gap-2" noStyles>
-                  <HelpIcon />
-                  <span className="">Často kladené otázky</span>
-                </MLink>
-              )}
+              <span>{title}</span>
               {phone1 && (
                 <MLink href={`tel:${phone1}`} className="flex items-center gap-2" noStyles>
+                  <PhoneIcon />
+                  <span>{phone1}</span>
+                </MLink>
+              )}
+              {phone2 && (
+                <MLink href={`tel:${phone2}`} className="flex items-center gap-2" noStyles>
                   <PhoneIcon />
                   <span>{phone1}</span>
                 </MLink>

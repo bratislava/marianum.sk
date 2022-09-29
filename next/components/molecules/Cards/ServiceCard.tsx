@@ -27,16 +27,22 @@ const ServiceCard = ({ image, title, subtitle, linkHref, ...rest }: ServiceCardP
     <CardBox {...rest} onClick={handleCardClick}>
       {image && (
         <div className="aspect-w-1 aspect-h-1 w-full bg-gray">
-          <MImage image={image} layout="fill" objectFit="cover" />
+          <MLink href={linkHref} tabIndex={-1} noStyles>
+            <MImage image={image} layout="fill" objectFit="cover" />
+          </MLink>
         </div>
       )}
       <CardContent className="justify-between">
         <div>
-          <h5 className="line-clamp-3 group-hover:underline">{title}</h5>
+          <h5 className="line-clamp-3 group-hover:underline">
+            <MLink href={linkHref} noStyles>
+              {title}
+            </MLink>
+          </h5>
           {subtitle && <div className="mt-2">{subtitle}</div>}
         </div>
         <div className="mt-4">
-          <MLink href={linkHref} noArrow className="inline-block">
+          <MLink href={linkHref} tabIndex={-1} noArrow className="inline-block">
             {t('general.showMore')}
           </MLink>
         </div>

@@ -8,7 +8,7 @@ type NavigationContextProps = {
   general: GeneralEntityFragment | null | undefined
 }
 
-type TNavigationContext = {
+export type TNavigationContext = {
   navMap: Map<string, string>
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment['attributes'] | null

@@ -33,7 +33,6 @@ import SectionsWrapper, { SectionsWrapperProps } from '../../components/layouts/
 import AccordionGroup from '../../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
 import ArticleCard from '../../components/molecules/Cards/ArticleCard'
-import BranchCard from '../../components/molecules/Cards/BranchCard'
 import BundleCard from '../../components/molecules/Cards/BundleCard'
 import { CategoryCard, FaqThemeCard } from '../../components/molecules/Cards/CategoryFaqThemeCard'
 import PartnerCard from '../../components/molecules/Cards/PartnerCard'
@@ -1323,12 +1322,6 @@ const Showcase = () => {
                 border={cardsBorder}
               />
               <FaqThemeCard border={cardsBorder} title="Faq card" subtitle="Subtitle" linkHref="" />
-              <BranchCard
-                branchName="Branch name"
-                address="Address"
-                openingHours="09:00 – 18:00"
-                linkHref="#"
-              />
               <PartnerCard title="Partner name" linkHref="#" image={image} border={cardsBorder} />
               <BundleCard
                 image={image}

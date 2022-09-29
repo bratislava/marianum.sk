@@ -6,6 +6,7 @@ import Button from '../../atoms/Button'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
 import MImage, { MImageImage } from '../../atoms/MImage'
+import MLink from '../../atoms/MLink'
 
 type PartnerCardProps = {
   title: string
@@ -31,9 +32,14 @@ const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
           </div>
         )}
         <div className="flex flex-col items-center gap-y-2">
-          <h5 className="line-clamp-3 group-hover:underline">{title}</h5>
+          <h5 className="line-clamp-3 group-hover:underline">
+            <MLink href={linkHref} noStyles>
+              {title}
+            </MLink>
+          </h5>
           <Button
             href={linkHref}
+            tabIndex={-1}
             variant="plain-primary"
             className="inline-block"
             startIcon={<OpenInNewIcon />}

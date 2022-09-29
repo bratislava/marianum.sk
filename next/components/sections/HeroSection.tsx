@@ -1,13 +1,15 @@
 import { useTranslation } from 'next-i18next'
-import { ReactNode } from 'react'
+import { ReactNode, useContext } from 'react'
 
 import HomeIcon from '../../assets/home.svg'
 import { CtaButtonFragment } from '../../graphql'
+import { getFullPath } from '../../utils/localPaths'
 import { TBreadcrumbListItem } from '../../utils/types'
 import Breadcrumbs from '../atoms/Breadcrumbs'
 import Button from '../atoms/Button'
 import FormatCurrency from '../atoms/FormatCurrency'
 import MLink from '../atoms/MLink'
+import { NavigationContext } from '../layouts/NavigationProvider'
 
 type HeroSectionProps = {
   breadcrumbs?: TBreadcrumbListItem[]
@@ -27,9 +29,10 @@ const HeroSection = ({
   moreContent,
 }: HeroSectionProps) => {
   const { t } = useTranslation()
+  const { navMap } = useContext(NavigationContext)
 
   const breadcrumbsWithHome = [{ label: <HomeIcon />, link: '/' }, ...(breadcrumbs ?? [])]
-  const ctaSlug = ctaButton?.page?.data?.attributes?.slug
+  const ctaSlug = getFullPath(ctaButton?.page?.data, navMap)
 
   return (
     <div className="bg-primary-dark text-white/72">
@@ -52,7 +55,7 @@ const HeroSection = ({
           {perex && <p className="mt-3">{perex}</p>}
           {ctaSlug && (
             <Button href={ctaSlug} className="mt-6">
-              {ctaButton.label}
+              {ctaButton?.label}
             </Button>
           )}
           {price && (

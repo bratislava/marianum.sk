@@ -1,15 +1,13 @@
 import cx from 'classnames'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
 
 import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
 import FormatDate from '../atoms/FormatDate'
 import MImage from '../atoms/MImage'
-import Section from '../molecules/Section'
 import HeroSection from '../sections/HeroSection'
-import NewsListing from '../sections/NewsListing'
+import NewsSection from '../sections/NewsSection'
 import PageWrapper from './PageWrapper'
 import SectionsWrapper from './SectionsWrapper'
 
@@ -22,8 +20,6 @@ type ArticleLayoutProps = {
 
 const ArticleLayout = ({ article, navigation, children, general }: ArticleLayoutProps) => {
   const router = useRouter()
-  const { t } = useTranslation()
-  const { t: pathsT } = useTranslation('common', { keyPrefix: 'paths' })
 
   const { title, perex, coverMedia, publishedAt, slug } = article.attributes ?? {}
   const coverImage = coverMedia?.data?.attributes
@@ -67,16 +63,7 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
           {children}
         </div>
 
-        <Section
-          button={{
-            page: { data: { attributes: { slug: pathsT('news') } } },
-            label: t(`layouts.ArticleLayout.allArticles`),
-          }}
-          className="relative"
-          title={t('layouts.ArticleLayout.moreNews')}
-        >
-          <NewsListing />
-        </Section>
+        <NewsSection />
       </SectionsWrapper>
     </PageWrapper>
   )
