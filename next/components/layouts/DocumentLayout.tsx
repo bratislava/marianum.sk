@@ -2,7 +2,6 @@ import filesize from 'filesize'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Fragment, ReactNode, useMemo } from 'react'
-import slugify from 'slugify'
 
 import {
   DocumentEntityFragment,
@@ -38,16 +37,18 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
       ...(documentCategory?.data?.attributes
         ? [
             {
+              key: 'category',
               title: t('layouts.DocumentLayout.category'),
               description: documentCategory.data.attributes.title,
             },
           ]
         : []),
       {
+        key: 'createdAt',
         title: t('layouts.DocumentLayout.createdAt'),
         description: <FormatDate value={new Date(publishedAt)} format="articlePage" />,
       },
-    ] as { title: string; description: ReactNode }[]
+    ] as { key: string; title: string; description: ReactNode }[]
   }, [documentCategory, publishedAt, t])
 
   const extension = useMemo(() => {
@@ -92,9 +93,11 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
           </div>
         </Section>
 
-        <Section innerClassName="md:pl-[234px]" title={t('layouts.DocumentLayout.description')}>
-          <div className="whitespace-pre-wrap">{description}</div>
-        </Section>
+        {description ? (
+          <Section innerClassName="md:pl-[234px]" title={t('layouts.DocumentLayout.description')}>
+            <div className="whitespace-pre-wrap">{description}</div>
+          </Section>
+        ) : undefined}
 
         <Section
           innerClassName="md:pl-[234px]"
@@ -103,7 +106,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
         >
           <dl>
             {dlData.map((dItem) => (
-              <Fragment key={slugify(dItem.title)}>
+              <Fragment key={dItem.key}>
                 <dt className="float-left clear-left w-32 after:content-[':'] not-first:mt-3">
                   {dItem.title}
                 </dt>

@@ -1,5 +1,7 @@
 import { createContext, HTMLProps, ReactNode, useCallback, useMemo } from 'react'
 
+import { isDefined } from '../../utils/isDefined'
+
 export type BackgroundColor = 'dark' | 'light'
 
 type SectionContextValue = {
@@ -30,7 +32,11 @@ const SectionsWrapper = ({
   background = 'dark',
   ...rest
 }: SectionsWrapperProps) => {
-  const sectionCount = useMemo(() => (Array.isArray(children) ? children.length : 1), [children])
+  const filteredChildren = useMemo(
+    () => (Array.isArray(children) ? children.filter(isDefined) : [children]),
+    [children],
+  )
+  const sectionCount = useMemo(() => filteredChildren.length, [filteredChildren])
 
   const oddBackground: BackgroundColor = useMemo(() => startBackground, [startBackground])
 
@@ -74,33 +80,20 @@ const SectionsWrapper = ({
 
   return (
     <div {...rest}>
-      {Array.isArray(children) ? (
-        children.map((child, index) => (
-          <sectionContext.Provider
-            // eslint-disable-next-line react/no-array-index-key
-            key={index}
-            value={{
-              alternateBackground,
-              background: getBackground(index),
-              isDivider: getDivider(index),
-              isLast: getLast(index),
-            }}
-          >
-            {child}
-          </sectionContext.Provider>
-        ))
-      ) : (
+      {filteredChildren.map((child, index) => (
         <sectionContext.Provider
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
           value={{
             alternateBackground,
-            background: getBackground(0),
-            isDivider: getDivider(0),
-            isLast: getLast(0),
+            background: getBackground(index),
+            isDivider: getDivider(index),
+            isLast: getLast(index),
           }}
         >
-          {children}
+          {child}
         </sectionContext.Provider>
-      )}
+      ))}
     </div>
   )
 }
