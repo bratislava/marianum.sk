@@ -42,7 +42,23 @@ export default {
       },
       article: {
         settings: {
-          filterableAttributes: ["locale"],
+          filterableAttributes: ["newsCategory.id", "locale"],
+          searchableAttributes: ["title"],
+          sortableAttributes: ["updatedAtTimestamp"],
+          pagination: {
+            // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
+            maxTotalHits: 10000,
+          },
+        },
+        transformEntry({ entry }) {
+          return {
+            ...entry,
+            // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
+            // use (number) filters.
+            updatedAtTimestamp: entry.updatedAt
+              ? new Date(entry.updatedAt).getTime()
+              : undefined,
+          };
         },
       },
       bundle: {
@@ -76,8 +92,30 @@ export default {
             ...entry,
             // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
             // use (number) filters.
-            dateTimeTimestamp:
-              entry.dateTime && new Date(entry.dateTime).getTime(),
+            dateTimeTimestamp: entry.dateTime
+              ? new Date(entry.dateTime).getTime()
+              : undefined,
+          };
+        },
+      },
+      document: {
+        settings: {
+          filterableAttributes: ["documentCategory.id", "file.ext"],
+          searchableAttributes: ["title"],
+          sortableAttributes: ["updatedAtTimestamp"],
+          pagination: {
+            // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
+            maxTotalHits: 10000,
+          },
+        },
+        transformEntry({ entry }) {
+          return {
+            ...entry,
+            // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
+            // use (number) filters.
+            updatedAtTimestamp: entry.updatedAt
+              ? new Date(entry.updatedAt).getTime()
+              : undefined,
           };
         },
       },
