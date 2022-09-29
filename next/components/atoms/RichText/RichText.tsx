@@ -2,6 +2,7 @@ import cx from 'classnames'
 import Blocks, { DataProp } from 'editorjs-blocks-react-renderer'
 import { useMemo } from 'react'
 
+import RichTextDivider from './RichTextDivider'
 import RichTextImage from './RichTextImage'
 import RichTextList from './RichTextList'
 // import RichTextParagraph from './RichTextParagraph'
@@ -37,7 +38,7 @@ const RichText = ({ data, coloredTable = true }: RichTextProps) => {
           data={parsedData}
           config={{
             delimiter: {
-              className: 'border border-border w-full mb-4 md:mb-6 last:mb-0',
+              className: 'mb-4 md:mb-6 last:mb-0',
             },
             header: {
               className: 'mb-3 md:mb-4 last:mb-0',
