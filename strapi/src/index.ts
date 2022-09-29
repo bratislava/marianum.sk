@@ -5,7 +5,29 @@ export default {
    *
    * This gives you an opportunity to extend code.
    */
-  register(/*{ strapi }*/) {},
+  register({ strapi }) {
+    const extensionService = strapi.service("plugin::graphql.extension");
+    extensionService.use(({ strapi }) => ({
+      typeDefs: `
+            type Query {
+              documentFiletypes: [String]
+            }
+          `,
+      resolvers: {
+        Query: {
+          documentFiletypes: {
+            resolve: async (ctx) =>
+              strapi.controller("api::document.document").listFiletypes(ctx),
+          },
+        },
+      },
+      resolversConfig: {
+        "Query.documentFiletypes": {
+          auth: false,
+        },
+      },
+    }));
+  },
 
   /**
    * An asynchronous bootstrap function that runs before
