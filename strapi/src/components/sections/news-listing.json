@@ -5,5 +5,9 @@
     "icon": "newspaper"
   },
   "options": {},
-  "attributes": {}
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
 }

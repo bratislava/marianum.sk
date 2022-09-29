@@ -3,7 +3,8 @@
     "siteName": "Marianum - Pohrebníctvo mesta Bratislavy",
     "showMore": "Zobraziť viac",
     "goToSlide": "Ísť na slide {{number}}",
-    "disclosureOfInformation": "Zverejňovanie informácií"
+    "disclosureOfInformation": "Zverejňovanie informácií",
+    "searchPlaceholder": "Hľadať…"
   },
   "paths": {
     "contacts": "/o-nas/kontakty",
@@ -64,7 +65,16 @@
         "allCemeteries": "Všetky cintoríny"
       }
     },
-    "SortSelect": { "byNewest": "Od najnovšieho", "byOldest": "Od najstaršieho" }
+    "SortSelect": { "byNewest": "Od najnovšieho", "byOldest": "Od najstaršieho" },
+    "DocumentsSection": {
+      "allFileTypes":  "Všetky typy súborov",
+      "allCategories":  "Všetky kategórie",
+      "noDocuments": "Žiadne dokumenty na zobrazenie."
+    },
+    "NewsSection": {
+      "allCategories": "Všetky kategórie",
+      "noNews": "Žiadne novinky na zobrazenie."
+    }
   },
   "sections": {
     "HeroSection": {

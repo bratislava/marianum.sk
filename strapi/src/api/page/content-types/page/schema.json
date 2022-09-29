@@ -108,7 +108,8 @@
         "sections.map-section",
         "sections.public-disclosure-section",
         "sections.divider",
-        "sections.documents-section"
+        "sections.documents-section",
+        "sections.news-section"
       ]
     },
     "sidebar": {
