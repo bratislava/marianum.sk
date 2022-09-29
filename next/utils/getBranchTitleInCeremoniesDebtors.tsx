@@ -38,7 +38,7 @@ export type BranchMeili = Omit<Branch, '__typename' | 'localizations'> & {
  * Differs from the Strapi version as the structure is flatter.
  */
 export const getBranchTitleInCeremoniesDebtorsMeili = (branch: BranchMeili, locale: string) => {
-  const skBranchTitle = branch.title
+  const skBranchTitle = branch?.title
   const localeBranchTitle = branch?.localizations.find(
     (branchInner) => branchInner.locale === locale,
   )?.title
