@@ -315,6 +315,7 @@ fragment PageEntity on PageEntity {
       ... on ComponentSectionsNewsListing {
         __typename
         id
+        title
       }
       ... on ComponentSectionsMapSection {
         __typename
@@ -348,6 +349,10 @@ fragment PageEntity on PageEntity {
         id
       }
       ... on ComponentSectionsDocumentsSection {
+        __typename
+        id
+      }
+      ... on ComponentSectionsNewsSection {
         __typename
         id
       }
