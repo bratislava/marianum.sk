@@ -173,7 +173,6 @@ query HomePage($locale: I18NLocaleCode) {
           ... on ComponentSectionsNewsListing {
             __typename
             id
-            title
           }
           ... on ComponentSectionsUpcomingCeremoniesSection {
             __typename
@@ -247,3 +246,24 @@ query BranchesInDebtors {
     }
   }
 }
+
+query DocumentCategories {
+  documentCategories {
+    data {
+      ...DocumentCategoryEntity
+    }
+  }
+}
+
+query NewsCategories {
+  articleNewsCategories {
+    data {
+      ...ArticleNewsCategoryEntity
+    }
+  }
+}
+
+query DocumentFiletypes {
+  documentFiletypes
+}
+
