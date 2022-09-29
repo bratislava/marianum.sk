@@ -32,38 +32,41 @@ const RichText = ({ data, coloredTable = true }: RichTextProps) => {
 
   return (
     parsedData && (
-      <Blocks
-        data={parsedData}
-        config={{
-          delimiter: {
-            className: 'mb-3 md:mb-4 last:mb-0',
-          },
-          header: {
-            className: 'mb-3 md:mb-4 last:mb-0',
-          },
-          image: {
-            className: 'mb-4 md:mb-6 last:mb-0',
-          },
-          list: {
-            className: 'list-disc mb-4 md:mb-6 last:mb-0',
-          },
-          paragraph: {
-            className: 'm-link-inline mb-4 md:mb-6 last:mb-0',
-          },
-          table: {
-            className: cx('m-table mb-4 last:mb-0 md:mb-6', {
-              colored: coloredTable,
-            }),
-          },
-        }}
-        renderers={{
-          image: RichTextImage,
-          list: RichTextList,
-          quote: RichTextQuote,
-          delimiter: RichTextDivider,
-          // paragraph: RichTextParagraph,
-        }}
-      />
+      // eslint-disable-next-line tailwindcss/no-custom-classname
+      <div className="editorjs-wrapper">
+        <Blocks
+          data={parsedData}
+          config={{
+            delimiter: {
+              className: 'mb-4 md:mb-6 last:mb-0',
+            },
+            header: {
+              className: 'mb-3 md:mb-4 last:mb-0',
+            },
+            image: {
+              className: 'mb-4 md:mb-6 last:mb-0',
+            },
+            list: {
+              className: 'list-disc mb-4 md:mb-6 last:mb-0',
+            },
+            paragraph: {
+              className: 'm-link-inline mb-4 md:mb-6 last:mb-0',
+            },
+            table: {
+              className: cx('m-table mb-4 last:mb-0 md:mb-6', {
+                colored: coloredTable,
+              }),
+            },
+          }}
+          renderers={{
+            image: RichTextImage,
+            list: RichTextList,
+            quote: RichTextQuote,
+            divider: RichTextDivider,
+            // paragraph: RichTextParagraph,
+          }}
+        />
+      </div>
     )
   )
 }

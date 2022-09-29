@@ -1,6 +1,7 @@
 import cx from 'classnames'
 import { useRouter } from 'next/router'
-import React, { useRef } from 'react'
+import { useTranslation } from 'next-i18next'
+import { useRef } from 'react'
 import { useHover } from 'usehooks-ts'
 
 import ShoppingCartIcon from '../../../assets/shopping_cart.svg'
@@ -30,6 +31,7 @@ const ProductCard = ({
   ...rest
 }: ProductCardProps) => {
   const router = useRouter()
+  const { t } = useTranslation()
   const buttonHoverRef = useRef<HTMLButtonElement>(null)
   const isButtonHovered = useHover(buttonHoverRef)
 
@@ -65,8 +67,7 @@ const ProductCard = ({
             onPress={() => onAddToCartPress()}
             ref={buttonHoverRef}
           >
-            {/* TODO: Translation */}
-            Pridať do košíka
+            {t('general.addToCart')}
           </Button>
         )}
       </CardContent>
