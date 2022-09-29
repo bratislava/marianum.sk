@@ -1326,7 +1326,7 @@ const Showcase = () => {
               <BranchCard
                 branchName="Branch name"
                 address="Address"
-                openingHoursText="09:00 – 18:00"
+                openingHours="09:00 – 18:00"
                 linkHref="#"
               />
               <PartnerCard title="Partner name" linkHref="#" image={image} border={cardsBorder} />
