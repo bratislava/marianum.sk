@@ -21,7 +21,7 @@ const DocumentsSectionFiletypeSelect = ({
   onFiletypeChange = () => {},
 }: DocumentsSectionFiletypeSelectProps) => {
   const { t } = useTranslation('common', {
-    keyPrefix: 'components.DocumentsSectionFiletypeSelect',
+    keyPrefix: 'components.DocumentsSection',
   })
 
   const defaultOption = useMemo(() => ({ label: t('allFileTypes'), key: '' }), [t])

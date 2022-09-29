@@ -4,31 +4,31 @@ import { useMemo } from 'react'
 import { client } from '../../../utils/gql'
 import SelectWithFetcher from '../../molecules/SelectWithFetcher'
 
-type DocumentsSectionCategorySelectProps = {
+type NewsSectionCategorySelectProps = {
   onCategoryChange: (id: string | null) => void
 }
 
-const mappedFetcher = client.DocumentCategories().then(
+const mappedFetcher = client.NewsCategories().then(
   (data) =>
-    data.documentCategories?.data.map((category) => ({
+    data.articleNewsCategories?.data.map((category) => ({
       label: category.attributes?.title,
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       key: category.id!,
     })) ?? [],
 )
 
-const DocumentsSectionCategorySelect = ({
+const NewsSectionCategorySelect = ({
   onCategoryChange = () => {},
-}: DocumentsSectionCategorySelectProps) => {
+}: NewsSectionCategorySelectProps) => {
   const { t } = useTranslation('common', {
-    keyPrefix: 'components.DocumentsSection',
+    keyPrefix: 'components.NewsSection',
   })
 
   const defaultOption = useMemo(() => ({ label: t('allCategories'), key: '' }), [t])
 
   return (
     <SelectWithFetcher
-      swrKey="DocumentsSectionCategorySelect"
+      swrKey="NewsSectionCategorySelect"
       defaultOption={defaultOption}
       fetcher={mappedFetcher}
       onSelectionChange={(selection: string) => {
@@ -38,4 +38,4 @@ const DocumentsSectionCategorySelect = ({
   )
 }
 
-export default DocumentsSectionCategorySelect
+export default NewsSectionCategorySelect

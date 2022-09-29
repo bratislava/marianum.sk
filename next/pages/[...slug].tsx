@@ -22,10 +22,12 @@ import CeremoniesArchiveSection from '../components/sections/CeremoniesArchiveSe
 import CeremoniesSection from '../components/sections/CeremoniesSection'
 import ContactsSection from '../components/sections/ContactsSection'
 import DebtorsSection from '../components/sections/DebtorsSection'
+import DocumentsSection from '../components/sections/DocumentsSection/DocumentsSection'
 import ImageGallery from '../components/sections/ImageGallery'
 // import MapSection from '../components/sections/MapSection/MapSection'
 import MenuListingSection from '../components/sections/MenuListingSection'
 import NewsListing from '../components/sections/NewsListing'
+import NewsSection from '../components/sections/NewsSection/NewsSection'
 import PartnersSection from '../components/sections/PartnersSection'
 import RichTextSection from '../components/sections/RichTextSection'
 import {
@@ -191,6 +193,12 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             }
             if (section?.__typename === 'ComponentSectionsCeremoniesArchiveSection') {
               return <CeremoniesArchiveSection key={`${section.__typename}-${section.id}`} />
+            }
+            if (section?.__typename === 'ComponentSectionsDocumentsSection') {
+              return <DocumentsSection key={`${section.__typename}-${section.id}`} />
+            }
+            if (section?.__typename === 'ComponentSectionsNewsSection') {
+              return <NewsSection key={`${section.__typename}-${section.id}`} />
             }
             return null
           })}
