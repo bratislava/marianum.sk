@@ -62,6 +62,7 @@ const RichText = ({ data, coloredTable = true }: RichTextProps) => {
             image: RichTextImage,
             list: RichTextList,
             quote: RichTextQuote,
+            divider: RichTextDivider,
             // paragraph: RichTextParagraph,
           }}
         />
