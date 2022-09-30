@@ -11,6 +11,8 @@ export default factories.createCoreController("api::document.document", {
       populate: ["file"],
     });
 
-    return [...new Set(entries.map((entry) => entry.file?.ext))];
+    return [
+      ...new Set(entries.map((entry) => entry.file?.ext).filter(Boolean)),
+    ];
   },
 });
