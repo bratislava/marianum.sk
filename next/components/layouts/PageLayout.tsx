@@ -1,5 +1,4 @@
 import cx from 'classnames'
-import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 
 import {
@@ -8,7 +7,6 @@ import {
   NavigationItemFragment,
   PageEntityFragment,
 } from '../../graphql'
-import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
 import SideBar from '../molecules/SideBar'
 import HeroSection from '../sections/HeroSection'
 import PageWrapper from './PageWrapper'
@@ -21,9 +19,6 @@ type PageLayoutProps = {
 }
 
 const PageLayout = ({ page, navigation, children, general }: PageLayoutProps) => {
-  const router = useRouter()
-  const breadcrumbs = getBreadcrumbs(router.asPath, navigation)
-
   return (
     <PageWrapper
       navigation={navigation}
@@ -34,11 +29,10 @@ const PageLayout = ({ page, navigation, children, general }: PageLayoutProps) =>
             title={page.attributes?.title}
             perex={page.attributes?.perex}
             ctaButton={page.attributes?.ctaButton}
-            breadcrumbs={breadcrumbs}
           />
         ) : (
           // Display just breadcrumbs for Centered layout
-          <HeroSection breadcrumbs={breadcrumbs} />
+          <HeroSection />
         )
       }
       general={general}

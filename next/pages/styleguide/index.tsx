@@ -317,31 +317,31 @@ const Showcase = () => {
     () => [
       {
         label: <DownloadIcon />,
-        link: '#home',
+        linkHref: '#home',
       },
       {
         label: 'very',
-        link: '#very',
+        linkHref: '#very',
       },
       {
         label: 'looong',
-        link: '#looong',
+        linkHref: '#looong',
       },
       {
         label: 'path',
-        link: '#path',
+        linkHref: '#path',
       },
       {
         label: 'to',
-        link: '#to',
+        linkHref: '#to',
       },
       {
         label: 'some',
-        link: '#some',
+        linkHref: '#some',
       },
       {
         label: 'page',
-        link: '#page',
+        linkHref: '#page',
       },
     ],
     [],
@@ -404,31 +404,28 @@ const Showcase = () => {
 
           <Wrapper title="Breadcrumbs">
             <Stack width="full" bg="white">
-              <Breadcrumbs>
-                <div>One item</div>
-              </Breadcrumbs>
+              <Breadcrumbs crumbs={[{ label: 'One item', linkHref: '#' }]} />
             </Stack>
             <Stack width="full" bg="dark">
-              <Breadcrumbs className="text-white opacity-72">
-                <div>First item</div>
-                <div>Second item</div>
-              </Breadcrumbs>
+              <Breadcrumbs
+                className="text-white opacity-72"
+                crumbs={[
+                  { label: 'First item', linkHref: '#' },
+                  { label: 'Second item', linkHref: '#' },
+                ]}
+              />
             </Stack>
             <Stack width="full" bg="white">
-              <Breadcrumbs>
-                <div>First item</div>
-                <div>Second item</div>
-                <div>Third item</div>
-              </Breadcrumbs>
+              <Breadcrumbs
+                crumbs={[
+                  { label: 'First item', linkHref: '#' },
+                  { label: 'Second item', linkHref: '#' },
+                  { label: 'Third item', linkHref: '#' },
+                ]}
+              />
             </Stack>
             <Stack width="full" bg="dark">
-              <Breadcrumbs className="text-white opacity-72">
-                {dummyBreadcrumbLinks.map(({ label, link }) => (
-                  <MLink key={link} href={link} noStyles className="underline">
-                    {label}
-                  </MLink>
-                ))}
-              </Breadcrumbs>
+              <Breadcrumbs className="text-white opacity-72" crumbs={dummyBreadcrumbLinks} />
             </Stack>
           </Wrapper>
 

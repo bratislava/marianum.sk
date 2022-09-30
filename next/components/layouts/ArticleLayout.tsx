@@ -1,9 +1,7 @@
 import cx from 'classnames'
-import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 
 import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
-import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
 import FormatDate from '../atoms/FormatDate'
 import MImage from '../atoms/MImage'
 import HeroSection from '../sections/HeroSection'
@@ -19,12 +17,8 @@ type ArticleLayoutProps = {
 }
 
 const ArticleLayout = ({ article, navigation, children, general }: ArticleLayoutProps) => {
-  const router = useRouter()
-
   const { title, perex, coverMedia, publishedAt, slug } = article.attributes ?? {}
   const coverImage = coverMedia?.data?.attributes
-
-  const breadcrumbs = getBreadcrumbs(router.asPath, navigation, [{ label: title, link: slug }])
 
   return (
     <PageWrapper
@@ -32,7 +26,7 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
       general={general}
       header={
         <HeroSection
-          breadcrumbs={breadcrumbs}
+          breadcrumbsMoreItems={[{ label: title, linkHref: slug ?? '' }]}
           moreContent={
             coverImage ? (
               <div className="static h-[188px] sm:h-[238px] md:relative md:h-[287px] lg:h-[387px] xl:h-[440px]">
