@@ -22,7 +22,7 @@ export const parseDebtorsXlsx = (
       "Cintorín",
       "Sektor",
       "Číslo",
-      "Predošlé č.",
+      "Predošlé číslo",
       "Priezvisko",
       "Meno",
       "Dátum narodenia",
