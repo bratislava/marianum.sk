@@ -32,7 +32,7 @@ const Row = ({
   title,
   metadata,
   tags = [],
-  linkHref = '',
+  linkHref,
   isExternal = false,
   showUrl = false,
   category,
@@ -67,7 +67,7 @@ const Row = ({
       <div className="grow space-y-1.5">
         {category?.attributes && (
           <MLink
-            // TODO add proper link
+            // TODO add proper link for category
             href="#"
             noStyles
             className="text-sm text-primary underline hover:text-primary-dark"

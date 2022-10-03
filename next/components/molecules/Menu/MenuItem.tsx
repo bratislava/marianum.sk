@@ -1,39 +1,27 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-import { ClickEvent, MenuItem as ReactMenuItem } from '@szhsin/react-menu'
 import cx from 'classnames'
-import { useRouter } from 'next/router'
-import { useCallback } from 'react'
+
+import ChevronRightIcon from '../../../assets/chevron_right.svg'
 
 type MenuItemProps = {
   title: string
-  path: string
+  hover?: boolean
+  open?: boolean
+  isSubmenu?: boolean
 }
 
-const MenuItem = ({ title, path }: MenuItemProps) => {
-  const router = useRouter()
-
-  const clickHandler = useCallback(
-    (e: ClickEvent) => {
-      e.syntheticEvent.preventDefault()
-      e.syntheticEvent.stopPropagation()
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      router.push(path ?? '/')
-    },
-    [path, router],
-  )
-
+const MenuItem = ({ title, hover, open, isSubmenu }: MenuItemProps) => {
   return (
-    <ReactMenuItem onClick={clickHandler} className="outline-none">
-      {({ hover }) => (
-        <div
-          className={cx('flex w-full cursor-pointer select-none justify-between px-6 py-3', {
-            'bg-primary/10': hover,
-          })}
-        >
-          {title}
-        </div>
+    <div
+      className={cx(
+        'flex w-full cursor-pointer select-none justify-between px-6 py-3 outline-none',
+        {
+          'bg-primary/10': open || hover,
+        },
       )}
-    </ReactMenuItem>
+    >
+      {title}
+      {isSubmenu && <ChevronRightIcon />}
+    </div>
   )
 }
 

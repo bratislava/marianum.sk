@@ -8,13 +8,16 @@ type NavigationContextProps = {
   general: GeneralEntityFragment | null | undefined
 }
 
-type TNavigationContext = {
+export type TNavigationContext = {
   navMap: Map<string, string>
+  crumbsMap: Map<string, { label: string; linkHref: string }>
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment['attributes'] | null
 }
+
 export const NavigationContext = createContext<TNavigationContext>({
   navMap: new Map(),
+  crumbsMap: new Map(),
   navigation: [],
   general: null,
 })
@@ -24,13 +27,13 @@ const NavigationProvider = ({
   general,
   children,
 }: PropsWithChildren<NavigationContextProps>) => {
-  const navMap = useMemo(() => {
+  const { navMap, crumbsMap } = useMemo(() => {
     return parseNavigation(navigation)
   }, [navigation])
 
   return (
     <NavigationContext.Provider
-      value={{ navMap, navigation, general: general?.attributes ?? null }}
+      value={{ navMap, crumbsMap, navigation, general: general?.attributes ?? null }}
     >
       {children}
     </NavigationContext.Provider>

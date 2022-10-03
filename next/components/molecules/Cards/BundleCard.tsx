@@ -29,12 +29,18 @@ const BundleCard = ({ image, name, priceFrom, claims, linkHref, ...props }: Bund
     <CardBox {...props} onClick={handleCardClick}>
       {image && (
         <div className="aspect-w-[360] aspect-h-[200] w-full bg-gray">
-          <MImage image={image} layout="fill" objectFit="cover" />
+          <MLink href={linkHref} tabIndex={-1} noStyles>
+            <MImage image={image} layout="fill" objectFit="cover" />
+          </MLink>
         </div>
       )}
       <CardContent className="justify-between">
         <div>
-          <h5 className="line-clamp-3 group-hover:underline">{name}</h5>
+          <h5 className="line-clamp-3 group-hover:underline">
+            <MLink href={linkHref} noStyles>
+              {name}
+            </MLink>
+          </h5>
           <div className="mb-4 font-semibold">
             {t('general.from')} <FormatCurrency value={priceFrom} />
           </div>
@@ -53,7 +59,7 @@ const BundleCard = ({ image, name, priceFrom, claims, linkHref, ...props }: Bund
           )}
         </div>
         <div>
-          <MLink href={linkHref} noArrow className="inline-block">
+          <MLink href={linkHref} tabIndex={-1} noArrow className="inline-block">
             {t('general.showMore')}
           </MLink>
         </div>

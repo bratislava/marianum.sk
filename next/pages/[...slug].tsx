@@ -25,7 +25,7 @@ import DebtorsSection from '../components/sections/DebtorsSection'
 import ImageGallery from '../components/sections/ImageGallery'
 // import MapSection from '../components/sections/MapSection/MapSection'
 import MenuListingSection from '../components/sections/MenuListingSection'
-import NewsListing from '../components/sections/NewsListing'
+import NewsSection from '../components/sections/NewsSection'
 import PartnersSection from '../components/sections/PartnersSection'
 import RichTextSection from '../components/sections/RichTextSection'
 import {
@@ -153,11 +153,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               return <CardSection key={`${section.__typename}-${section.id}`} section={section} />
             }
             if (section?.__typename === 'ComponentSectionsNewsListing') {
-              return (
-                <Section key={`${section.__typename}-${section.id}`} title={section.title}>
-                  <NewsListing />
-                </Section>
-              )
+              return <NewsSection key={`${section.__typename}-${section.id}`} section={section} />
             }
             if (section?.__typename === 'ComponentSectionsMapSection') {
               return (
