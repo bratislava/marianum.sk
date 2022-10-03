@@ -11,11 +11,6 @@ fragment FlatNavigationItem on NavigationItem {
         title
         slug
       }
-
-      ... on Branch {
-        title
-        slug
-      }
     }
   }
 }
