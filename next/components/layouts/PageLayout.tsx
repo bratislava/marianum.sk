@@ -7,7 +7,6 @@ import {
   NavigationItemFragment,
   PageEntityFragment,
 } from '../../graphql'
-import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
 import NormalizeSkText from '../atoms/NormalizeSkText'
 import SideBar from '../molecules/SideBar'
 import HeroSection from '../sections/HeroSection'

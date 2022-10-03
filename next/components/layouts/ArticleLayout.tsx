@@ -5,7 +5,6 @@ import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } 
 import FormatDate from '../atoms/FormatDate'
 import MImage from '../atoms/MImage'
 import NormalizeSkText from '../atoms/NormalizeSkText'
-import Section from '../molecules/Section'
 import HeroSection from '../sections/HeroSection'
 import NewsSection from '../sections/NewsSection'
 import PageWrapper from './PageWrapper'
