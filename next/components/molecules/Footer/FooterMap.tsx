@@ -23,6 +23,7 @@ const FooterMap = ({ markerLat, markerLng, onMarkerClick }: FooterMapProps) => {
       style={{ width: '100%', height: '100%' }}
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
       mapStyle={process.env.NEXT_PUBLIC_MAPBOX_DARK_STYLE}
+      cooperativeGestures
     >
       <Marker
         anchor="bottom"
