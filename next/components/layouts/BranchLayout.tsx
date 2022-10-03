@@ -1,8 +1,6 @@
-import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 
 import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
-import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
 import SideBarContact from '../molecules/SideBarContact'
 import HeroSection from '../sections/HeroSection'
 import ImageGallery from '../sections/ImageGallery'
@@ -16,12 +14,8 @@ type BranchLayoutProps = {
 }
 
 const BranchLayout = ({ branch, navigation, children, general }: BranchLayoutProps) => {
-  const router = useRouter()
-
   const { title, slug, contact, medias } = branch.attributes ?? {}
   const { title: contactTitle, phone1, phone2, email } = contact?.data?.attributes ?? {}
-
-  const breadcrumbs = getBreadcrumbs(router.asPath, navigation, [{ label: title, link: slug }])
 
   return (
     <PageWrapper
@@ -29,7 +23,7 @@ const BranchLayout = ({ branch, navigation, children, general }: BranchLayoutPro
       general={general}
       header={
         <HeroSection
-          breadcrumbs={breadcrumbs}
+          breadcrumbsMoreItems={[{ label: title, linkHref: slug ?? '' }]}
           moreContent={
             medias?.data?.length ? (
               <ImageGallery images={medias?.data} variant="aside" />

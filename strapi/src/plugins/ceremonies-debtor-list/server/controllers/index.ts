@@ -45,11 +45,10 @@ export default {
             await strapi.entityService.create("api::debtor.debtor", {
               data: debtor,
             });
-
-            await meilisearch.updateContentTypeInMeiliSearch({
-              contentType: "api::debtor.debtor",
-            });
           }
+          await meilisearch.updateContentTypeInMeiliSearch({
+            contentType: "api::debtor.debtor",
+          });
         } catch (createDebtorsError) {
           // In case of failure to add some debtor we want to delete all the previously created entries, so we call the
           // delete function but rethrow the error to be caught by the parent try/catch block.

@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { useContext, useMemo } from 'react'
 
 import { ContactFragment, FooterFragment, SocialFragment } from '../../../graphql'
+import { getFullPath } from '../../../utils/localPaths'
 import MLink from '../../atoms/MLink'
 import { NavigationContext } from '../../layouts/NavigationProvider'
 import FooterCredentials from './FooterCredentials'
@@ -19,8 +20,8 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
   const { navMap } = useContext(NavigationContext)
 
   const { phone1, email } = contact?.contact?.data?.attributes ?? {}
-  const { slug: openingHoursSlug } = contact?.openingHoursPage?.data?.attributes ?? {}
-  const { slug: contactsSlug } = contact?.contactsPage?.data?.attributes ?? {}
+  const openingHoursPath = getFullPath(contact?.openingHoursPage?.data, navMap)
+  const contactsPath = getFullPath(contact?.contactsPage?.data, navMap)
 
   const footerColumns = useMemo(() => {
     return [
@@ -70,8 +71,8 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
                 )}
               </div>
               <div className="top-1 right-0 flex md:absolute">
-                {openingHoursSlug && (
-                  <MLink variant="white" href={openingHoursSlug}>
+                {openingHoursPath && (
+                  <MLink variant="white" href={openingHoursPath}>
                     {t('openingHours')}
                   </MLink>
                 )}
@@ -94,8 +95,8 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
                 {social && <FooterSocials social={social} />}
               </div>
               <div className="top-1 right-0 flex md:absolute">
-                {contactsSlug && (
-                  <MLink variant="white" href={contactsSlug}>
+                {contactsPath && (
+                  <MLink variant="white" href={contactsPath}>
                     {t('allContacts')}
                   </MLink>
                 )}
@@ -110,17 +111,14 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
               <h4>{title}</h4>
               <div className="flex flex-col gap-3">
                 {links?.map((link, linkIndex) => {
-                  const pageSlug = link?.page?.data?.attributes?.slug
-                  const linkHref = pageSlug
-                    ? navMap.get(pageSlug ?? '') || pageSlug
-                    : link?.url || ''
+                  const fullPath = getFullPath(link?.page?.data, navMap) || link?.url || ''
 
                   return (
                     <MLink
                       // eslint-disable-next-line react/no-array-index-key
                       key={linkIndex}
                       noStyles
-                      href={linkHref}
+                      href={fullPath}
                       target={link?.targetBlank ? '_blank' : '_self'}
                       className="w-fit"
                     >

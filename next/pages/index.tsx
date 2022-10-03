@@ -12,7 +12,7 @@ import Seo from '../components/molecules/Seo'
 import CardSection from '../components/sections/CardSection'
 import HomepageProcedures from '../components/sections/HomepageProcedures'
 import HomepageSlider from '../components/sections/HomepageSlider'
-import NewsListing from '../components/sections/NewsListing'
+import NewsSection from '../components/sections/NewsSection'
 import UpcomingCeremoniesSection from '../components/sections/UpcomingCeremoniesSection'
 import {
   GeneralEntityFragment,
@@ -52,11 +52,7 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
               return <CardSection key={`${section.__typename}-${section.id}`} section={section} />
             }
             if (section?.__typename === 'ComponentSectionsNewsListing') {
-              return (
-                <Section key={`${section.__typename}-${section.id}`} title={section.title}>
-                  <NewsListing />
-                </Section>
-              )
+              return <NewsSection key={`${section.__typename}-${section.id}`} section={section} />
             }
             if (section?.__typename === 'ComponentSectionsUpcomingCeremoniesSection') {
               return (

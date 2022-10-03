@@ -2,7 +2,9 @@ import cx from 'classnames'
 import { ReactNode, useContext, useMemo } from 'react'
 
 import { CtaButtonFragment } from '../../graphql'
+import { getFullPath } from '../../utils/localPaths'
 import MLink from '../atoms/MLink'
+import { NavigationContext } from '../layouts/NavigationProvider'
 import { BackgroundColor, sectionContext } from '../layouts/SectionsWrapper'
 
 export type SectionProps = {
@@ -10,7 +12,10 @@ export type SectionProps = {
   background?: BackgroundColor
   cardGrid?: 'cards' | 'bundles'
   title?: string | null | undefined
+  /* use `button` for strapi sections with link to more content */
   button?: CtaButtonFragment | null | undefined
+  /* use `buttonLink` for hardcoded link to more content */
+  buttonLink?: { label: string; linkHref: string | null }
   description?: string | null | undefined
   className?: string
   innerClassName?: string
@@ -23,12 +28,16 @@ const Section = ({
   cardGrid,
   title,
   button,
+  buttonLink,
   description,
   className,
   innerClassName,
   dividerClassName,
 }: SectionProps) => {
-  const showMoreSlug = button?.page?.data?.attributes?.slug
+  const { navMap } = useContext(NavigationContext)
+
+  const showMorePath = getFullPath(button?.page?.data, navMap) ?? buttonLink?.linkHref
+  const showMoreLabel = button?.label ?? buttonLink?.label
 
   const { background, isDivider, isLast, alternateBackground } = useContext(sectionContext)
 
@@ -64,12 +73,12 @@ const Section = ({
           innerClassName,
         )}
       >
-        {(title || showMoreSlug) && (
+        {(title || showMorePath) && (
           <div className="flex">
             <h2 className="grow">{title}</h2>
-            {showMoreSlug && (
-              <MLink href={showMoreSlug} className="hidden md:inline-flex">
-                {button.label}
+            {showMorePath && (
+              <MLink href={showMorePath} className="hidden md:inline-flex">
+                {showMoreLabel}
               </MLink>
             )}
           </div>
@@ -85,9 +94,9 @@ const Section = ({
         >
           {children}
         </div>
-        {showMoreSlug && (
+        {showMorePath && (
           <div className="mt-4 text-center md:hidden">
-            <MLink href={showMoreSlug}>{button.label}</MLink>
+            <MLink href={showMorePath}>{showMoreLabel}</MLink>
           </div>
         )}
       </div>

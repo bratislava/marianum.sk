@@ -1,47 +1,37 @@
 import { ControlledMenu as ReactControlledMenu, useMenuState } from '@szhsin/react-menu'
 import cx from 'classnames'
 import { useRouter } from 'next/router'
-import { KeyboardEvent, useCallback, useEffect, useMemo } from 'react'
+import { KeyboardEvent, useEffect } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 
 import ChevronIcon from '../../../assets/chevron_down.svg'
-import { MenuItemType } from '../../../utils/types'
+import { NavigationItemFragment } from '../../../graphql'
 import { AnimateHeight } from '../../atoms/AnimateHeight'
 import MLink from '../../atoms/MLink'
-import MenuItem from './MenuItem'
+import MenuLeaf from './MenuLeaf'
 import SubMenu from './SubMenu'
 
-export type MenuProps<T> = {
-  title: string
-  path?: string | null
-  items?: (T | null | undefined)[] | null
-}
+export type MenuProps = Pick<NavigationItemFragment, 'title' | 'path' | 'items'>
 
-const Menu = <T extends MenuItemType<T>>({ items, title, path }: MenuProps<T>) => {
+const Menu = ({ items, title, path }: MenuProps) => {
+  const router = useRouter()
   const { ref, width } = useResizeDetector()
+
   const [menuProps, toggleMenu] = useMenuState({})
 
-  const router = useRouter()
-
-  const isOpen = useMemo(
-    () => menuProps.state === 'opening' || menuProps.state === 'open',
-    [menuProps.state],
-  )
+  const isOpen = menuProps.state === 'opening' || menuProps.state === 'open'
 
   // close menu on route change
   useEffect(() => {
     toggleMenu(false)
   }, [router.asPath, toggleMenu])
 
-  const keyDownHandler = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.code === 'Enter' || e.code === 'Space') {
-        e.preventDefault()
-        toggleMenu(true)
-      }
-    },
-    [toggleMenu],
-  )
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.code === 'Enter' || e.code === 'Space') {
+      e.preventDefault()
+      toggleMenu(true)
+    }
+  }
 
   return (
     <div
@@ -50,7 +40,7 @@ const Menu = <T extends MenuItemType<T>>({ items, title, path }: MenuProps<T>) =
       onMouseLeave={() => toggleMenu(false)}
     >
       <MLink
-        onKeyDown={keyDownHandler}
+        onKeyDown={handleKeyDown}
         noStyles
         href={path ?? ''}
         className={cx(
@@ -59,15 +49,16 @@ const Menu = <T extends MenuItemType<T>>({ items, title, path }: MenuProps<T>) =
         )}
         ref={ref}
       >
-        <div className={cx('flex h-full flex-1 items-center justify-center gap-1 px-4 ')}>
+        <div className={cx('flex h-full flex-1 items-center justify-center gap-1 px-4')}>
           <span>{title}</span>
           <ChevronIcon />
         </div>
       </MLink>
+
       <ReactControlledMenu
         {...menuProps}
         onClose={() => toggleMenu(false)}
-        className="absolute w-full pt-3"
+        className={cx('absolute w-full pt-3', { hidden: !isOpen })}
       >
         <AnimateHeight
           isVisible
@@ -78,7 +69,7 @@ const Menu = <T extends MenuItemType<T>>({ items, title, path }: MenuProps<T>) =
             {items?.map(
               (item) =>
                 item &&
-                (item.items && item.items.length > 0 ? (
+                (item.items?.length ? (
                   <SubMenu
                     path={item.path}
                     width={width ?? 0}
@@ -87,7 +78,7 @@ const Menu = <T extends MenuItemType<T>>({ items, title, path }: MenuProps<T>) =
                     items={item.items}
                   />
                 ) : (
-                  <MenuItem path={item.path ?? ''} title={item.title} key={item.id} />
+                  <MenuLeaf path={item.path ?? ''} title={item.title} key={item.id} />
                 )),
             )}
           </div>
