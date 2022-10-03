@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React from 'react'
+import { useTranslation } from 'next-i18next'
 
 import OpenInNewIcon from '../../../assets/open_in_new.svg'
 import Button from '../../atoms/Button'
@@ -15,6 +15,7 @@ type PartnerCardProps = {
 
 const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
   const router = useRouter()
+  const { t } = useTranslation()
 
   const handleCardClick = () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -37,8 +38,7 @@ const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
             className="inline-block"
             startIcon={<OpenInNewIcon />}
           >
-            {/* TODO: Translation */}
-            Zobraziť viac
+            {t('general.showMore')}
           </Button>
         </div>
       </CardContent>

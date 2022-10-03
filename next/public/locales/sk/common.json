@@ -1,9 +1,12 @@
 {
   "general": {
+    "from": "od",
     "siteName": "Marianum - Pohrebníctvo mesta Bratislavy",
     "showMore": "Zobraziť viac",
     "goToSlide": "Ísť na slide {{number}}",
     "disclosureOfInformation": "Zverejňovanie informácií",
+    "openingHours": "Otváracie hodiny",
+    "addToCart": "Pridať do košíka",
     "searchPlaceholder": "Hľadať…"
   },
   "paths": {
@@ -17,6 +20,21 @@
     "search": "/vyhladavanie"
   },
   "components": {
+    "atoms": {
+      "QuantitySelect": {
+        "aria": {
+          "increaseAmount": "Zvýšiť množstvo",
+          "decreaseAmount": "Znížiť množstvo"
+        }
+      },
+      "Pagination": {
+        "aria": {
+          "goToPage": "Ísť na stranu {{page}}",
+          "goToPreviousPage": "Ísť na predchádzajúcu stranu",
+          "goToNextPage": "Ísť na ďalšiu stranu"
+        }
+      }
+    },
     "molecules": {
       "Slider": {
         "aria": {
@@ -137,6 +155,7 @@
     "DocumentLayout": {
       "createdAt": "Vytvorené",
       "downloadFile": "Stiahnuť",
+      "showFile": "Zobraziť",
       "category": "Kategória",
       "description": "Popis",
       "details": "Detaily"

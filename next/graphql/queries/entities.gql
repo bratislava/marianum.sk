@@ -158,6 +158,9 @@ fragment BundleEntity on BundleEntity {
     documents {
       ...DocumentGroup
     }
+    sidebar {
+      ...Sidebar
+    }
     seo {
       ...Seo
     }

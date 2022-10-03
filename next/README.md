@@ -12,6 +12,14 @@ yarn
 
 For CMS setup see `strapi` directory. You can also run the project against staging or production strapi (useful when developing and debugging) - provided that you're not working on Strapi model changes or tth
 
+## Sentry login
+
+To get sentry auth token run:
+
+```
+yarn sentry-cli login
+```
+
 ## Run project locally
 
 ```

@@ -3,7 +3,6 @@ import { PropsWithChildren, useMemo } from 'react'
 import { I18nProvider } from 'react-aria'
 
 const MI18nProvider = ({ children }: PropsWithChildren) => {
-  // TODO: `i18n` doesn't return any value in styleguide
   const { i18n } = useTranslation()
   const locale = useMemo(() => {
     if (i18n?.language === 'en') {

@@ -1,5 +1,7 @@
 const { i18n } = require('./next-i18next.config')
 const { withSentryConfig } = require('@sentry/nextjs')
+const CopyPlugin = require('copy-webpack-plugin')
+const path = require('path')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -99,6 +101,19 @@ const config = (phase, { defaultConfig }) => {
         issuer: /\.[jt]sx?$/,
         use: ['@svgr/webpack'],
       })
+
+      // pdf worker must be available through url
+      // => so we have to copy it from node_modules to public folder
+      config.plugins.push(
+        new CopyPlugin({
+          patterns: [
+            {
+              from: require.resolve('pdfjs-dist/build/pdf.worker.min.js'),
+              to: path.join(__dirname, 'public'),
+            },
+          ],
+        }),
+      )
 
       return config
     },
