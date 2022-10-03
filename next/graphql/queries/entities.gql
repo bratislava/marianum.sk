@@ -375,6 +375,14 @@ fragment PageEntity on PageEntity {
         __typename
         id
       }
+      ... on ComponentSectionsDocumentsSection {
+        __typename
+        id
+      }
+      ... on ComponentSectionsNewsSection {
+        __typename
+        id
+      }
     }
   }
 }

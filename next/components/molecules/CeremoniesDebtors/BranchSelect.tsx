@@ -1,11 +1,9 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
-import useSwr from 'swr'
 
 import { getBranchTitleInCeremoniesDebtors } from '../../../utils/getBranchTitleInCeremoniesDebtors'
 import { client } from '../../../utils/gql'
-import useGetSwrExtras from '../../../utils/useGetSwrExtras'
-import Select from '../../atoms/Select'
+import SelectWithFetcher from '../SelectWithFetcher'
 
 type CeremoniesDebtorsBranchSelectProps = {
   label?: string
@@ -23,40 +21,52 @@ const CeremoniesDebtorsBranchSelect = ({
   })
 
   // eslint-disable-next-line consistent-return
-  const { data, error } = useSwr(['BranchesInCeremoniesDebtors'], () => {
+  const fetcher = useMemo(() => {
     if (type === 'ceremonies') {
       return client.BranchesInCeremonies()
     }
     if (type === 'debtors') {
       return client.BranchesInDebtors()
     }
-  })
+  }, [type])
 
-  const { loading } = useGetSwrExtras({ data, error })
+  // eslint-disable-next-line consistent-return
+  const swrKey = useMemo(() => {
+    if (type === 'ceremonies') {
+      return 'BranchesInCeremonies'
+    }
+    if (type === 'debtors') {
+      return 'BranchesInDebtors'
+    }
+  }, [type])
 
-  const branches = useMemo(() => {
-    const mappedBranches = data?.branches?.data?.map((branch) => {
-      return {
-        label: getBranchTitleInCeremoniesDebtors(branch, i18n.language) ?? '',
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        key: branch.id!,
-      }
+  const mappedFetcher = useMemo(() => {
+    return fetcher?.then((data) => {
+      return (
+        data?.branches?.data?.map((branch) => {
+          return {
+            label: getBranchTitleInCeremoniesDebtors(branch, i18n.language) ?? '',
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            key: branch.id!,
+          }
+        }) ?? []
+      )
     })
+  }, [fetcher, i18n.language])
 
-    return [{ label: t('allCemeteries'), key: '' }, ...(mappedBranches ?? [])]
-  }, [data, i18n.language, t])
+  const defaultOption = useMemo(() => ({ label: t('allCemeteries'), key: '' }), [t])
 
-  return (
-    <Select
+  return mappedFetcher ? (
+    <SelectWithFetcher
+      swrKey={swrKey}
+      defaultOption={defaultOption}
+      fetcher={mappedFetcher}
       label={label}
-      disabled={loading || error}
-      options={branches}
-      defaultSelected=""
-      onSelectionChange={(selection) => {
+      onSelectionChange={(selection: string) => {
         onBranchChange(selection)
       }}
     />
-  )
+  ) : null
 }
 
 export default CeremoniesDebtorsBranchSelect

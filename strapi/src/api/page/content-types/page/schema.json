@@ -42,7 +42,12 @@
         }
       },
       "type": "enumeration",
-      "enum": ["fullwidth", "sidebar", "centered", "article"],
+      "enum": [
+        "fullwidth",
+        "sidebar",
+        "centered",
+        "article"
+      ],
       "required": true,
       "default": "fullwidth"
     },
@@ -58,7 +63,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"],
+      "allowedTypes": [
+        "images"
+      ],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -100,7 +107,9 @@
         "sections.ceremonies-archive-section",
         "sections.map-section",
         "sections.public-disclosure-section",
-        "sections.divider"
+        "sections.divider",
+        "sections.documents-section",
+        "sections.news-section"
       ]
     },
     "sidebar": {
