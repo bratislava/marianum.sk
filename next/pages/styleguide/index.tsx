@@ -317,31 +317,31 @@ const Showcase = () => {
     () => [
       {
         label: <DownloadIcon />,
-        linkHref: '#home',
+        path: '#home',
       },
       {
         label: 'very',
-        linkHref: '#very',
+        path: '#very',
       },
       {
         label: 'looong',
-        linkHref: '#looong',
+        path: '#looong',
       },
       {
         label: 'path',
-        linkHref: '#path',
+        path: '#path',
       },
       {
         label: 'to',
-        linkHref: '#to',
+        path: '#to',
       },
       {
         label: 'some',
-        linkHref: '#some',
+        path: '#some',
       },
       {
         label: 'page',
-        linkHref: '#page',
+        path: '#page',
       },
     ],
     [],
@@ -404,23 +404,23 @@ const Showcase = () => {
 
           <Wrapper title="Breadcrumbs">
             <Stack width="full" bg="white">
-              <Breadcrumbs crumbs={[{ label: 'One item', linkHref: '#' }]} />
+              <Breadcrumbs crumbs={[{ label: 'One item', path: '#' }]} />
             </Stack>
             <Stack width="full" bg="dark">
               <Breadcrumbs
                 className="text-white opacity-72"
                 crumbs={[
-                  { label: 'First item', linkHref: '#' },
-                  { label: 'Second item', linkHref: '#' },
+                  { label: 'First item', path: '#' },
+                  { label: 'Second item', path: '#' },
                 ]}
               />
             </Stack>
             <Stack width="full" bg="white">
               <Breadcrumbs
                 crumbs={[
-                  { label: 'First item', linkHref: '#' },
-                  { label: 'Second item', linkHref: '#' },
-                  { label: 'Third item', linkHref: '#' },
+                  { label: 'First item', path: '#' },
+                  { label: 'Second item', path: '#' },
+                  { label: 'Third item', path: '#' },
                 ]}
               />
             </Stack>

@@ -1,11 +1,8 @@
-import { useContext } from 'react'
-
 import { Enum_Componentsectionsmanuallisting_Style, ManualListingFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
-import { getFullPath } from '../../utils/localPaths'
-import { NavigationContext } from '../layouts/NavigationProvider'
 import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
 import ServiceCard from '../molecules/Cards/ServiceCard'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Section, { SectionProps } from '../molecules/Section'
 
 type CardSectionProps = Pick<SectionProps, 'background'> & {
@@ -13,8 +10,9 @@ type CardSectionProps = Pick<SectionProps, 'background'> & {
 }
 
 const CardSection = ({ section, ...rest }: CardSectionProps) => {
+  const { getFullSlug } = useSlug()
+
   const { pages, title, style, showMoreButton } = section
-  const { navMap } = useContext(NavigationContext)
 
   const filteredPages = pages
     ?.filter(isDefined)
@@ -27,7 +25,7 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
         const { id, attributes } = page ?? {}
         const { title: cardTitle, coverMedia, perex } = attributes ?? {}
 
-        const fullPath = getFullPath(page, navMap) ?? ''
+        const fullPath = getFullSlug(page) ?? ''
 
         if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
           return <CategoryCard key={id} title={cardTitle ?? ''} linkHref={fullPath} border />

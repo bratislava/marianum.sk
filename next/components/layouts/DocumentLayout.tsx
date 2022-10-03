@@ -65,7 +65,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
     <PageWrapper
       navigation={navigation}
       general={general}
-      header={<HeroSection breadcrumbsMoreItems={[{ label: title, linkHref: slug ?? '' }]} />}
+      header={<HeroSection breadcrumbsMoreItems={[{ label: title, path: slug ?? '' }]} />}
     >
       <SectionsWrapper alternateBackground>
         <Section background="light">

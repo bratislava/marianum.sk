@@ -1,12 +1,10 @@
 import cx from 'classnames'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
-import { useContext } from 'react'
 
 import { CtaFragment } from '../../graphql'
-import { getFullPath } from '../../utils/localPaths'
 import Button from '../atoms/Button'
-import { NavigationContext } from '../layouts/NavigationProvider'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Slider from '../molecules/Slider'
 
 type HomepageSliderProps = {
@@ -15,7 +13,7 @@ type HomepageSliderProps = {
 
 const HomepageSlider = ({ slides }: HomepageSliderProps) => {
   const { t } = useTranslation()
-  const { navMap } = useContext(NavigationContext)
+  const { getFullSlug } = useSlug()
 
   if (!slides) {
     return null
@@ -26,7 +24,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
       <Slider
         autoSwipeDuration={5000}
         pages={slides.map(({ title, description, button, image }) => {
-          const ctaSlug = getFullPath(button?.page?.data, navMap)
+          const ctaSlug = getFullSlug(button?.page?.data)
 
           const { url, alternativeText, width, height } = image?.data?.attributes ?? {}
 

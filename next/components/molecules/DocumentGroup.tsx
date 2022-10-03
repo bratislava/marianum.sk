@@ -4,12 +4,13 @@ import { useMemo } from 'react'
 import DownloadIcon from '../../assets/download.svg'
 import { DocumentGroupFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
-import { getFullPath } from '../../utils/localPaths'
 import Button from '../atoms/Button'
+import { useSlug } from './Navigation/NavigationProvider/useFullSlug'
 import Row from './Row/Row'
 
 const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
   const { t } = useTranslation()
+  const { getFullSlug } = useSlug()
 
   const filteredDocuments = useMemo(() => {
     return (documents ?? []).map((document) => document?.document?.data).filter(isDefined)
@@ -24,7 +25,7 @@ const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
           <Row
             key={slug}
             title={title ?? ''}
-            linkHref={getFullPath(doc) ?? ''}
+            linkHref={getFullSlug(doc) ?? ''}
             button={
               file?.data?.attributes?.url ? (
                 <Button

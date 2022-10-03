@@ -1,15 +1,15 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { ReactNode, useContext } from 'react'
+import { ReactNode } from 'react'
 
 import HomeIcon from '../../assets/home.svg'
 import { CtaButtonFragment } from '../../graphql'
 import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
-import { getFullPath } from '../../utils/localPaths'
 import Breadcrumbs, { BreadcrumbItem } from '../atoms/Breadcrumbs'
 import Button from '../atoms/Button'
 import FormatCurrency from '../atoms/FormatCurrency'
-import { NavigationContext } from '../layouts/NavigationProvider'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
+import { useNavigationContext } from '../molecules/Navigation/NavigationProvider/useNavigationContext'
 
 type HeroSectionProps = {
   breadcrumbsMoreItems?: BreadcrumbItem[]
@@ -29,14 +29,15 @@ const HeroSection = ({
   moreContent,
 }: HeroSectionProps) => {
   const { t } = useTranslation()
-  const { navMap, crumbsMap } = useContext(NavigationContext)
+  const { navMap } = useNavigationContext()
+  const { getFullSlug } = useSlug()
   const router = useRouter()
 
-  const ctaSlug = getFullPath(ctaButton?.page?.data, navMap)
+  const ctaSlug = getFullSlug(ctaButton?.page?.data)
 
   const breadcrumbs = [
-    { label: <HomeIcon />, linkHref: '/' },
-    ...getBreadcrumbs(router.asPath, crumbsMap),
+    { label: <HomeIcon />, path: '/' },
+    ...getBreadcrumbs(router.asPath, navMap),
     ...(breadcrumbsMoreItems ?? []),
   ]
 
