@@ -1,7 +1,8 @@
 import filesize from 'filesize'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Fragment, ReactNode, useMemo } from 'react'
+import { Fragment, ReactNode, useMemo, useState } from 'react'
 
 import {
   DocumentEntityFragment,
@@ -59,6 +60,12 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
     return filesize((file?.data?.attributes?.size ?? 0) * 1000, { round: 1, locale: i18n.language })
   }, [file, i18n.language])
 
+  const PDFModalViewer = dynamic(() => import('../atoms/PDFModalViewer'), {
+    ssr: false,
+  })
+
+  const [isPdfModalOpen, setPdfModalOpen] = useState(false)
+
   return (
     <PageWrapper
       navigation={navigation}
@@ -82,13 +89,33 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
                 <span>•</span>
                 <span className="uppercase">{extension}</span>
               </div>
-              <Button
-                target="_blank"
-                href={file?.data?.attributes?.url ?? ''}
-                className="mt-4 md:w-fit"
-              >
-                {t('layouts.DocumentLayout.downloadFile')}
-              </Button>
+              <div className="mt-4 flex flex-col gap-4 md:flex-row md:items-center">
+                <Button
+                  target="_blank"
+                  href={file?.data?.attributes?.url ?? ''}
+                  className="md:w-fit"
+                >
+                  {t('layouts.DocumentLayout.downloadFile')}
+                </Button>
+                {file?.data?.attributes?.url && extension === 'pdf' && (
+                  <Button
+                    variant="secondary"
+                    className="md:w-fit"
+                    onPress={() => setPdfModalOpen(true)}
+                  >
+                    {t('layouts.DocumentLayout.showFile')}
+                  </Button>
+                )}
+              </div>
+              <div>
+                {file?.data?.attributes?.url && extension === 'pdf' && (
+                  <PDFModalViewer
+                    onClose={() => setPdfModalOpen(false)}
+                    isOpen={isPdfModalOpen}
+                    url={file?.data?.attributes?.url}
+                  />
+                )}
+              </div>
             </div>
           </div>
         </Section>
