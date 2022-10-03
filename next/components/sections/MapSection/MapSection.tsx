@@ -188,6 +188,7 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
             mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
             mapStyle={process.env.NEXT_PUBLIC_MAPBOX_LIGHT_STYLE}
             onLoad={() => fitBranches()}
+            cooperativeGestures
           >
             {filteredBranches.map(({ latitude, longitude, slug }) =>
               latitude && longitude ? (
