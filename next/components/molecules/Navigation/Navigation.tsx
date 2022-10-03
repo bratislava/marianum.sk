@@ -26,39 +26,41 @@ const Navigation = ({ faqSlug, contact }: NavigationProps) => {
 
   return (
     <div className="bg-primary text-white">
-      <div className="container relative mx-auto flex h-16 items-center justify-between px-4 md:h-[120px] md:pb-8">
-        {/* left side of navigation */}
-        <MLink className="w-[108px] lg:w-[142px]" href="/" noStyles noArrow>
-          <MarianumLogo className="h-full w-full" />
-        </MLink>
-        {/* right side of navigation */}
-        <div className="flex items-center gap-4 xl:gap-8">
-          {/* desktop faq and phone links */}
-          <div className="hidden items-center gap-8 xl:flex">
-            {faqSlug && (
-              <MLink href={faqSlug} className="flex items-center gap-2" noStyles>
-                <HelpIcon />
-                <span className="">Často kladené otázky</span>
-              </MLink>
-            )}
-            {phone1 && (
-              <MLink href={`tel:${phone1}`} className="flex items-center gap-2" noStyles>
-                <PhoneIcon />
-                <span>{phone1}</span>
-              </MLink>
-            )}
+      <div className="container relative flex h-[64px] flex-col md:h-[120px]">
+        <div className="flex h-[64px] items-center justify-between md:h-[88px]">
+          {/* left side of navigation */}
+          <MLink className="w-[108px] lg:w-[142px]" href="/" noStyles noArrow>
+            <MarianumLogo className="h-full w-full" />
+          </MLink>
+          {/* right side of navigation */}
+          <div className="flex items-center gap-4 xl:gap-8">
+            {/* desktop faq and phone links */}
+            <div className="hidden items-center gap-8 xl:flex">
+              {faqSlug && (
+                <MLink href={faqSlug} className="flex items-center gap-2" noStyles>
+                  <HelpIcon />
+                  <span className="">Často kladené otázky</span>
+                </MLink>
+              )}
+              {phone1 && (
+                <MLink href={`tel:${phone1}`} className="flex items-center gap-2" noStyles>
+                  <PhoneIcon />
+                  <span>{phone1}</span>
+                </MLink>
+              )}
+            </div>
+            {/* search (both mobile and desktop) */}
+            <NavigationSearch />
+            {/* mobile menu button */}
+            <IconButton
+              aria-label="navigačné menu"
+              onPress={() => setMobileNavOpen(true)}
+              variant="primary"
+              className="md:hidden"
+            >
+              <MenuIcon width={24} height={24} />
+            </IconButton>
           </div>
-          {/* search (both mobile and desktop) */}
-          <NavigationSearch />
-          {/* mobile menu button */}
-          <IconButton
-            aria-label="navigačné menu"
-            onPress={() => setMobileNavOpen(true)}
-            variant="primary"
-            className="md:hidden"
-          >
-            <MenuIcon width={24} height={24} />
-          </IconButton>
         </div>
         {/* desktop navigation menu */}
         <NavigationMenuDesktop navigationItems={navigation} />

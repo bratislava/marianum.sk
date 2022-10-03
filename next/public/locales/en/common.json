@@ -1,11 +1,29 @@
 {
   "general": {
+    "from": "from",
     "siteName": "Marianum",
     "showMore": "Show more",
     "goToSlide": "Go to slide {{number}}",
-    "disclosureOfInformation": "Disclosure of information"
+    "disclosureOfInformation": "Disclosure of information",
+    "openingHours": "Opening hours",
+    "addToCart": "Add to cart"
   },
   "components": {
+    "atoms": {
+      "QuantitySelect": {
+        "aria": {
+          "increaseAmount": "Increase amount",
+          "decreaseAmount": "Decrease amount"
+        }
+      },
+      "Pagination": {
+        "aria": {
+          "goToPage": "Go to page {{page}}",
+          "goToPreviousPage": "Go to previous page",
+          "goToNextPage": "Go to next page"
+        }
+      }
+    },
     "molecules": {
       "Slider": {
         "aria": {
@@ -86,6 +104,7 @@
     "DocumentLayout": {
       "createdAt": "Created",
       "downloadFile": "Download",
+      "showFile": "Show",
       "category": "Category",
       "description": "Description",
       "details": "Details"
@@ -95,7 +114,9 @@
     "navigate": "Navigate",
     "openingHours": "Opening hours",
     "aboutCemetery": "About cemetery",
-    "aboutBranch": "About branch"
+    "aboutBranch": "About branch",
+    "contacts": "Contacts",
+    "writeMessage": "Write a message"
   },
   "pages": {
     "search": {

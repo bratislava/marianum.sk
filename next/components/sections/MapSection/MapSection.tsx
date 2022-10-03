@@ -96,13 +96,15 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
   const fitBranches = useCallback(
     (duration = 0) => {
       try {
+        // This code fails when there is no branches in the database.
+        // For that reason there is a try-catch block. It's not clean but it's enough.
         mapRef.current?.fitBounds(getBoundsForBranches(filteredBranches), {
           padding: 100,
           offset: [0, 10],
           duration,
         })
       } catch {
-        // TODO: handle error
+        // When it fails, no one cares because there is no branches :)
       }
     },
     [filteredBranches],

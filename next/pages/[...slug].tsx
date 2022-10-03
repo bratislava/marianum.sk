@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
+import Divider from '../components/atoms/Divider'
 import RichText from '../components/atoms/RichText/RichText'
 import PageLayout from '../components/layouts/PageLayout'
 import SectionsWrapper from '../components/layouts/SectionsWrapper'
@@ -107,6 +108,13 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             }
             if (section?.__typename === 'ComponentSectionsContactGroup') {
               return <ContactsSection key={`${section.__typename}-${section.id}`} {...section} />
+            }
+            if (section?.__typename === 'ComponentSectionsDivider') {
+              return (
+                <Section key={`${section.__typename}-${section.id}`}>
+                  <Divider color={section.color} />
+                </Section>
+              )
             }
             if (section?.__typename === 'ComponentSectionsDocumentGroup') {
               return (

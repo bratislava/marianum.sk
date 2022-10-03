@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 
 const fileColorsMap: { [ext: string]: string } = {
-  // TODO: maybe add more extensions
   pdf: '#F15642',
   doc: '#257cee',
   docx: '#257cee',

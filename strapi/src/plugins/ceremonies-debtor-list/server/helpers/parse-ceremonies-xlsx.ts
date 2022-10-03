@@ -40,15 +40,17 @@ export const parseCeremoniesXlsx = (
     // Verifying the header is the best way to check whether the file uploaded is in a format we need.
     const header = data[0];
     const expectedHeader = [
+      "Číslo obradu",
+      "Deň",
       "Čas",
+      "Typ",
       "Meno zosnulého",
-      "R. nar.",
-      "Obrad",
+      "Rok narodenia",
+      "Miesto konania",
       "Pohrebná služba",
       "Obradníka zabezpečuje",
-      "tabuľa",
-      "WEB",
-      "Cintorín",
+      "Tabuľa",
+      "Web",
     ];
     assert.deepStrictEqual(
       header,
@@ -63,15 +65,17 @@ export const parseCeremoniesXlsx = (
       .filter((row) => row.length !== 0 /* Filter empty rows */)
       .map((row, index) => {
         const [
+          ,
+          ,
           time,
+          type,
           name,
           birthYear,
-          type,
+          branchSlug,
           company,
           officiantProvidedBy,
           ,
           consentForPrivateFieldsRaw,
-          branchSlug,
         ] = row.map(String);
 
         const parsedDateTime = moment.tz(

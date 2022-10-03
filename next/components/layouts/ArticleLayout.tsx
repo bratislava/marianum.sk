@@ -54,7 +54,7 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
           'pt-18': coverImage,
         })}
       >
-        <div className="container relative mx-auto h-auto px-4 py-6 sm:px-20 sm:pb-12 sm:pt-10 md:px-28 lg:px-40">
+        <div className="container relative h-auto py-6 sm:px-20 sm:pb-12 sm:pt-10 md:px-28 lg:px-40">
           <div className="pb-1 text-center text-sm">
             <FormatDate value={new Date(publishedAt as string)} format="articlePage" />
           </div>

@@ -20,7 +20,13 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
     .filter((bundle) => bundle?.attributes)
 
   return (
-    <Section title={title} description={description} {...rest} cardGrid button={showMoreButton}>
+    <Section
+      title={title}
+      description={description}
+      {...rest}
+      cardGrid="bundles"
+      button={showMoreButton}
+    >
       {filteredBundles?.map((bundle) => {
         const { id, attributes } = bundle ?? {}
         const { title: bundleTitle, coverMedia, price, bundleContent, slug } = attributes ?? {}

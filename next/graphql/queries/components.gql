@@ -82,34 +82,34 @@ fragment Contact on ComponentGeneralContacts {
   navigateToLink
 }
 
+fragment FooterLinkItem on ComponentGeneralLinkItem {
+  id
+  label
+  page {
+    data {
+      ...PageSlugEntity
+    }
+  }
+  url
+  targetBlank
+}
+
 fragment Footer on ComponentGeneralFooter {
   title1
   links1 {
-    id
-    label
-    url
-    targetBlank
+    ...FooterLinkItem
   }
   title2
   links2 {
-    id
-    label
-    url
-    targetBlank
+    ...FooterLinkItem
   }
   title3
   links3 {
-    id
-    label
-    url
-    targetBlank
+    ...FooterLinkItem
   }
   title4
   links4 {
-    id
-    label
-    url
-    targetBlank
+    ...FooterLinkItem
   }
 }
 
@@ -140,15 +140,11 @@ fragment AccordionGroup on ComponentSectionsAccordionGroup {
 fragment BranchGroup on ComponentSectionsBranchGroup {
   id
   title
+  showOpeningHours
   branches {
     branch {
       data {
-        id
-        attributes {
-          title
-          slug
-          address
-        }
+        ...BranchCardEntity
       }
     }
   }

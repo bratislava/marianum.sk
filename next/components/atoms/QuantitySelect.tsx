@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next'
 import { useEffect, useId, useState } from 'react'
 import AutosizeInput from 'react-input-autosize'
 
@@ -19,6 +20,7 @@ const QuantitySelect = ({
   maxValue,
   onChange = () => {},
 }: QuantitySelectProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'components.atoms.QuantitySelect' })
   const generatedId = useId()
   const generatedOrProvidedId = id ?? generatedId
 
@@ -73,7 +75,7 @@ const QuantitySelect = ({
         onClick={handleMinusClick}
         className="grid h-10 w-10 place-content-center border-r border-border bg-white text-primary hover:text-primary-dark"
         aria-controls={generatedOrProvidedId}
-        aria-label="Znížiť množstvo" /* TODO: Translation */
+        aria-label={t('aria.decreaseAmount')}
         disabled={isLowerThanMin(value - 1)}
       >
         <RemoveIcon />
@@ -96,7 +98,7 @@ const QuantitySelect = ({
         onClick={handlePlusClick}
         className="grid h-10 w-10 place-content-center border-l border-border bg-white text-primary"
         aria-controls={generatedOrProvidedId}
-        aria-label="Zvýšiť množstvo" /* TODO: Translation */
+        aria-label={t('aria.increaseAmount')}
         disabled={isHigherThanMax(value + 1)}
       >
         <AddIcon />

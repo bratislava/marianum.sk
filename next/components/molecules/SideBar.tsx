@@ -23,8 +23,8 @@ const SideBar = ({ sidebar }: SideBarProps) => {
 
   return (
     <aside className="flex h-fit flex-col bg-white p-6 md:w-[360px]">
-      {title && <h5>{title}</h5>}
-      {text && <p className="mt-2">{text}</p>}
+      {title && <h5 className="whitespace-pre-wrap">{title}</h5>}
+      {text && <p className="mt-2 whitespace-pre-wrap">{text}</p>}
       {ctaSlug ? (
         <>
           <Button href={ctaSlug} variant="primary" className="mt-6">
@@ -33,12 +33,16 @@ const SideBar = ({ sidebar }: SideBarProps) => {
           {contact?.data?.attributes && (
             <div className="flex flex-col items-center">
               <div className="mt-4">{t('or')}</div>
-              <Button variant="plain-primary" startIcon={<PhoneIcon />} className="mt-4">
-                {phone1}
-              </Button>
-              <Button variant="plain-primary" startIcon={<MailIcon />} className="mt-2">
-                {email}
-              </Button>
+              {phone1 && (
+                <Button variant="plain-primary" startIcon={<PhoneIcon />} className="mt-4">
+                  {phone1}
+                </Button>
+              )}
+              {email && (
+                <Button variant="plain-primary" startIcon={<MailIcon />} className="mt-2">
+                  {email}
+                </Button>
+              )}
             </div>
           )}
         </>

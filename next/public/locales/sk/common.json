@@ -1,9 +1,12 @@
 {
   "general": {
+    "from": "od",
     "siteName": "Marianum - Pohrebníctvo mesta Bratislavy",
     "showMore": "Zobraziť viac",
     "goToSlide": "Ísť na slide {{number}}",
-    "disclosureOfInformation": "Zverejňovanie informácií"
+    "disclosureOfInformation": "Zverejňovanie informácií",
+    "openingHours": "Otváracie hodiny",
+    "addToCart": "Pridať do košíka"
   },
   "paths": {
     "contacts": "/o-nas/kontakty",
@@ -16,6 +19,21 @@
     "search": "/vyhladavanie"
   },
   "components": {
+    "atoms": {
+      "QuantitySelect": {
+        "aria": {
+          "increaseAmount": "Zvýšiť množstvo",
+          "decreaseAmount": "Znížiť množstvo"
+        }
+      },
+      "Pagination": {
+        "aria": {
+          "goToPage": "Ísť na stranu {{page}}",
+          "goToPreviousPage": "Ísť na predchádzajúcu stranu",
+          "goToNextPage": "Ísť na ďalšiu stranu"
+        }
+      }
+    },
     "molecules": {
       "Slider": {
         "aria": {
@@ -126,6 +144,7 @@
     "DocumentLayout": {
       "createdAt": "Vytvorené",
       "downloadFile": "Stiahnuť",
+      "showFile": "Zobraziť",
       "category": "Kategória",
       "description": "Popis",
       "details": "Detaily"
@@ -134,7 +153,9 @@
       "navigate": "Navigovať",
       "openingHours": "Otváracie hodiny",
       "aboutCemetery": "O cintoríne",
-      "aboutBranch": "O pobočke"
+      "aboutBranch": "O pobočke",
+      "contacts": "Kontakty",
+      "writeMessage": "Napísať správu"
     }
   },
   "pages": {

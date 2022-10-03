@@ -64,7 +64,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
                     pages={images.map(({ id, attributes }) => (
                       <div
                         key={id}
-                        className="container pointer-events-none mx-auto flex h-full w-full max-w-6xl items-center justify-center md:px-[88px]"
+                        className="container pointer-events-none flex h-full w-full max-w-6xl items-center justify-center md:px-[88px]"
                       >
                         <img
                           draggable="false"
@@ -75,7 +75,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
                       </div>
                     ))}
                     pagination={({ goToPrevious, goToNext }) => (
-                      <div className="container pointer-events-none absolute bottom-0 z-20 mx-auto flex w-full max-w-6xl justify-between p-6 md:bottom-auto">
+                      <div className="container pointer-events-none absolute bottom-0 z-20 flex w-full max-w-6xl justify-between p-6 md:bottom-auto">
                         <IconButton
                           variant="white"
                           className="pointer-events-auto fixed top-6 right-6"

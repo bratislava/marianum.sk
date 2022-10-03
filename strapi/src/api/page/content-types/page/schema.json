@@ -99,7 +99,8 @@
         "sections.ceremonies-section",
         "sections.ceremonies-archive-section",
         "sections.map-section",
-        "sections.public-disclosure-section"
+        "sections.public-disclosure-section",
+        "sections.divider"
       ]
     },
     "sidebar": {

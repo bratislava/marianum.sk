@@ -1,23 +1,27 @@
 import { createContext, PropsWithChildren, useMemo } from 'react'
 
-import { NavigationItemFragment } from '../../graphql'
+import { GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import { parseNavigation } from '../../utils/parseNavigation'
 
 type NavigationContextProps = {
   navigation: NavigationItemFragment[]
+  general: GeneralEntityFragment | null | undefined
 }
 
 type TNavigationContext = {
   navMap: Map<string, string>
   navigation: NavigationItemFragment[]
+  general: GeneralEntityFragment['attributes'] | null
 }
 export const NavigationContext = createContext<TNavigationContext>({
   navMap: new Map(),
   navigation: [],
+  general: null,
 })
 
 const NavigationProvider = ({
   navigation,
+  general,
   children,
 }: PropsWithChildren<NavigationContextProps>) => {
   const navMap = useMemo(() => {
@@ -25,7 +29,9 @@ const NavigationProvider = ({
   }, [navigation])
 
   return (
-    <NavigationContext.Provider value={{ navMap, navigation }}>
+    <NavigationContext.Provider
+      value={{ navMap, navigation, general: general?.attributes ?? null }}
+    >
       {children}
     </NavigationContext.Provider>
   )
