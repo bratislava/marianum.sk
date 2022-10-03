@@ -9,7 +9,8 @@
     "start": "next start",
     "gen": "graphql-codegen",
     "lint": "eslint components pages utils",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "yarn lint --fix",
+    "sentry-cli": "sentry-cli"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.6",
