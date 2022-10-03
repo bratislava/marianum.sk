@@ -1,12 +1,14 @@
 import cx from 'classnames'
-import { useMemo } from 'react'
+import { useContext, useMemo } from 'react'
 
 import { CtaButtonFragment, ProcedureFragment } from '../../graphql'
 import { useTailwindBreakpoint } from '../../hooks/useTailwindBreakpoint'
 import { isDefined } from '../../utils/isDefined'
+import { getFullPath } from '../../utils/localPaths'
 import MLink from '../atoms/MLink'
 import Tab from '../atoms/Tabs/Tab'
 import Tabs from '../atoms/Tabs/Tabs'
+import { NavigationContext } from '../layouts/NavigationProvider'
 import Row from '../molecules/Row/Row'
 import Section, { SectionProps } from '../molecules/Section'
 
@@ -21,11 +23,11 @@ const HomepageProcedures = ({
   showMoreButton,
   ...rest
 }: HomepagePoceduresProps) => {
-  const showMoreSlug = showMoreButton?.page?.data?.attributes?.slug
-
+  const { navMap } = useContext(NavigationContext)
   const breakpoint = useTailwindBreakpoint()
-
   const isMobile = useMemo(() => breakpoint === null, [breakpoint])
+
+  const showMoreSlug = getFullPath(showMoreButton?.page?.data, navMap)
 
   const slicedProcedures = useMemo(() => {
     return procedures.map((procedure) => ({
@@ -75,7 +77,7 @@ const HomepageProcedures = ({
         </Tabs>
         {showMoreSlug && (
           <div className="mt-8">
-            <MLink href={showMoreSlug}>{showMoreButton.label}</MLink>
+            <MLink href={showMoreSlug}>{showMoreButton?.label}</MLink>
           </div>
         )}
       </div>

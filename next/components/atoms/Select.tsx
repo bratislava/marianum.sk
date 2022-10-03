@@ -23,7 +23,7 @@ type SelectBase = {
   required?: boolean
 }
 
-type SingleSelect = {
+export type SingleSelect = {
   multiple?: false | undefined
   defaultSelected?: string
   onSelectionChange?: (selection: string) => void
@@ -35,7 +35,7 @@ type MultipleSelect = {
   onSelectionChange?: (selection: string[]) => void
 } & SelectBase
 
-type SelectProps = SingleSelect | MultipleSelect
+export type SelectProps = SingleSelect | MultipleSelect
 
 const Select = ({
   id,

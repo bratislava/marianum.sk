@@ -27,8 +27,10 @@ Sentry.init({
         /^\//, // everything starting with "/"
       ],
       shouldCreateSpanForRequest: (url) => {
-        // TODO: if we use some 3rd party services we have to filter them out here
-        return true
+        const isPlausible = url.includes('plausible')
+
+        const conditions = [isPlausible]
+        return conditions.every((value) => !value) // make sure every value is false
       },
     }),
   ],

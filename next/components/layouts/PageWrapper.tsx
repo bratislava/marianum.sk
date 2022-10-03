@@ -17,10 +17,7 @@ const PageWrapper = ({ navigation, header, children, general }: PageWrapperProps
     <NavigationProvider navigation={navigation} general={general}>
       <div className="h-full">
         <header>
-          <Navigation
-            faqSlug={general?.attributes?.header?.faqPage?.data?.attributes?.slug}
-            contact={general?.attributes?.header?.contact?.data}
-          />
+          <Navigation contact={general?.attributes?.header?.contact?.data} />
           {header}
         </header>
 

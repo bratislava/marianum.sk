@@ -15,13 +15,6 @@ export type TBreadcrumbListItem = {
   link?: string | null | undefined
 }
 
-export type MenuItemType<T extends MenuItemType<T>> = {
-  id: number
-  title: string
-  path?: string | null
-  items?: (T | null | undefined)[] | null
-} | null
-
 export type MeilisearchResultType<T> = {
   slug: string
   title: string

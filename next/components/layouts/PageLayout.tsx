@@ -1,5 +1,4 @@
 import cx from 'classnames'
-import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 
 import {
@@ -22,9 +21,6 @@ type PageLayoutProps = {
 }
 
 const PageLayout = ({ page, navigation, children, general }: PageLayoutProps) => {
-  const router = useRouter()
-  const breadcrumbs = getBreadcrumbs(router.asPath, navigation)
-
   return (
     <PageWrapper
       navigation={navigation}
@@ -35,11 +31,10 @@ const PageLayout = ({ page, navigation, children, general }: PageLayoutProps) =>
             title={page.attributes?.title}
             perex={page.attributes?.perex}
             ctaButton={page.attributes?.ctaButton}
-            breadcrumbs={breadcrumbs}
           />
         ) : (
           // Display just breadcrumbs for Centered layout
-          <HeroSection breadcrumbs={breadcrumbs} />
+          <HeroSection />
         )
       }
       general={general}

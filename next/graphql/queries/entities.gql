@@ -37,18 +37,11 @@ fragment ArticlePressCategoryEntity on ArticlePressCategoryEntity {
   }
 }
 
-fragment ArticleCardEntity on ArticleEntity {
+fragment ArticleSlugEntity on ArticleEntity {
+  __typename
   id
   attributes {
-    title
     slug
-    perex
-    publishedAt
-    coverMedia {
-      data {
-        ...UploadImageEntity
-      }
-    }
     newsCategory {
       data {
         ...ArticleNewsCategoryEntity
@@ -57,6 +50,20 @@ fragment ArticleCardEntity on ArticleEntity {
     pressCategory {
       data {
         ...ArticlePressCategoryEntity
+      }
+    }
+  }
+}
+
+fragment ArticleCardEntity on ArticleEntity {
+  ...ArticleSlugEntity
+  attributes {
+    title
+    perex
+    publishedAt
+    coverMedia {
+      data {
+        ...UploadImageEntity
       }
     }
   }
@@ -77,11 +84,19 @@ fragment ArticleEntity on ArticleEntity {
   }
 }
 
-fragment BranchCardEntity on BranchEntity {
+fragment BranchSlugEntity on BranchEntity {
+  __typename
   id
   attributes {
-    title
     slug
+    type
+  }
+}
+
+fragment BranchCardEntity on BranchEntity {
+  ...BranchSlugEntity
+  attributes {
+    title
     address
     openingHoursOverride
   }
@@ -90,7 +105,6 @@ fragment BranchCardEntity on BranchEntity {
 fragment BranchEntity on BranchEntity {
   ...BranchCardEntity
   attributes {
-    type
     cemeteryType
     description
     contact {
@@ -113,6 +127,7 @@ fragment BranchEntity on BranchEntity {
 }
 
 fragment BranchInCeremoniesDebtorsEntity on BranchEntity {
+  __typename
   id
   attributes {
     title
@@ -128,6 +143,7 @@ fragment BranchInCeremoniesDebtorsEntity on BranchEntity {
 }
 
 fragment BundleCardEntity on BundleEntity {
+  __typename
   id
   attributes {
     title
@@ -186,17 +202,24 @@ fragment DocumentCategoryEntity on DocumentCategoryEntity {
   }
 }
 
-fragment DocumentCardEntity on DocumentEntity {
+fragment DocumentSlugEntity on DocumentEntity {
+  __typename
   id
   attributes {
-    title
     slug
-    publishedAt
     documentCategory {
       data {
         ...DocumentCategoryEntity
       }
     }
+  }
+}
+
+fragment DocumentCardEntity on DocumentEntity {
+  ...DocumentSlugEntity
+  attributes {
+    title
+    publishedAt
     file {
       data {
         ...UploadFileEntity
@@ -231,6 +254,7 @@ fragment PartnerEntity on PartnerEntity {
 }
 
 fragment PageSlugEntity on PageEntity {
+  __typename
   attributes {
     slug
     locale
@@ -238,6 +262,7 @@ fragment PageSlugEntity on PageEntity {
 }
 
 fragment PageCardEntity on PageEntity {
+  __typename
   id
   attributes {
     title
@@ -317,8 +342,7 @@ fragment PageEntity on PageEntity {
       }
       ... on ComponentSectionsNewsListing {
         __typename
-        id
-        title
+        ...NewsListing
       }
       ... on ComponentSectionsMapSection {
         __typename
@@ -348,6 +372,14 @@ fragment PageEntity on PageEntity {
         ...CeremoniesSection
       }
       ... on ComponentSectionsCeremoniesArchiveSection {
+        __typename
+        id
+      }
+      ... on ComponentSectionsDocumentsSection {
+        __typename
+        id
+      }
+      ... on ComponentSectionsNewsSection {
         __typename
         id
       }

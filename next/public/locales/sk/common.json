@@ -6,7 +6,8 @@
     "goToSlide": "Ísť na slide {{number}}",
     "disclosureOfInformation": "Zverejňovanie informácií",
     "openingHours": "Otváracie hodiny",
-    "addToCart": "Pridať do košíka"
+    "addToCart": "Pridať do košíka",
+    "searchPlaceholder": "Hľadať…"
   },
   "paths": {
     "contacts": "/o-nas/kontakty",
@@ -81,6 +82,16 @@
       "CeremoniesDebtorsBranchSelect": {
         "allCemeteries": "Všetky cintoríny"
       }
+    },
+    "SortSelect": { "byNewest": "Od najnovšieho", "byOldest": "Od najstaršieho" },
+    "DocumentsSection": {
+      "allFileTypes":  "Všetky typy súborov",
+      "allCategories":  "Všetky kategórie",
+      "noDocuments": "Žiadne dokumenty na zobrazenie."
+    },
+    "NewsSection": {
+      "allCategories": "Všetky kategórie",
+      "noNews": "Žiadne novinky na zobrazenie."
     }
   },
   "sections": {

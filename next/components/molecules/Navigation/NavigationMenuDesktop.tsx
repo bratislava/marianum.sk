@@ -12,7 +12,7 @@ const NavigationMenuDesktop = ({ navigationItems }: NavigationMenuDesktopProps) 
       {navigationItems.map(({ id, title, items: menuItems, path }, index) => (
         <div key={id} className="relative flex items-center">
           {index !== 0 && <div className="h-8 w-[1px] bg-border" />}
-          {(menuItems?.length ?? 0) > 0 ? (
+          {menuItems?.length ? (
             <Menu path={path} title={title} items={menuItems} />
           ) : (
             <MLink
