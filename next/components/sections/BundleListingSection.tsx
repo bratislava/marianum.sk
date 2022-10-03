@@ -1,7 +1,7 @@
 import { BundleListingFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
-import { getFullPath } from '../../utils/localPaths'
 import BundleCard from '../molecules/Cards/BundleCard'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Section, { SectionProps } from '../molecules/Section'
 
 type BundleListingSectionProps = Pick<SectionProps, 'background'> & {
@@ -9,6 +9,8 @@ type BundleListingSectionProps = Pick<SectionProps, 'background'> & {
 }
 
 const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) => {
+  const { getFullSlug } = useSlug()
+
   const { title, description, bundles, showMoreButton } = section
 
   const filteredBundles = bundles
@@ -39,7 +41,7 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
                 ?.map((bundleContentItem) => bundleContentItem?.description)
                 .filter(isDefined) ?? []
             }
-            linkHref={getFullPath(bundle) ?? ''}
+            linkHref={getFullSlug(bundle) ?? ''}
             border
           />
         )

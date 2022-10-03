@@ -1,10 +1,9 @@
 import { useTranslation } from 'next-i18next'
-import { useContext, useMemo } from 'react'
+import { useMemo } from 'react'
 
 import { ContactFragment, FooterFragment, SocialFragment } from '../../../graphql'
-import { getFullPath } from '../../../utils/localPaths'
 import MLink from '../../atoms/MLink'
-import { NavigationContext } from '../../layouts/NavigationProvider'
+import { useSlug } from '../Navigation/NavigationProvider/useFullSlug'
 import FooterCredentials from './FooterCredentials'
 import FooterMap from './FooterMap'
 import FooterSocials from './FooterSocials'
@@ -17,11 +16,11 @@ export type FooterProps = {
 
 const Footer = ({ contact, footer, social }: FooterProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'components.molecules.Footer' })
-  const { navMap } = useContext(NavigationContext)
+  const { getFullSlug } = useSlug()
 
   const { phone1, email } = contact?.contact?.data?.attributes ?? {}
-  const openingHoursPath = getFullPath(contact?.openingHoursPage?.data, navMap)
-  const contactsPath = getFullPath(contact?.contactsPage?.data, navMap)
+  const openingHoursPath = getFullSlug(contact?.openingHoursPage?.data)
+  const contactsPath = getFullSlug(contact?.contactsPage?.data)
 
   const footerColumns = useMemo(() => {
     return [
@@ -111,7 +110,7 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
               <h4>{title}</h4>
               <div className="flex flex-col gap-3">
                 {links?.map((link, linkIndex) => {
-                  const fullPath = getFullPath(link?.page?.data, navMap) || link?.url || ''
+                  const fullPath = getFullSlug(link?.page?.data) || link?.url || ''
 
                   return (
                     <MLink

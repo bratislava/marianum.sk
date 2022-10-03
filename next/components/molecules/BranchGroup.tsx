@@ -2,13 +2,14 @@ import { useContext, useMemo } from 'react'
 
 import { BranchGroupFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
-import { getFullPath } from '../../utils/localPaths'
 import RichText from '../atoms/RichText/RichText'
-import { NavigationContext } from '../layouts/NavigationProvider'
+import { NavigationContext } from './Navigation/NavigationProvider/NavigationProvider'
+import { useSlug } from './Navigation/NavigationProvider/useFullSlug'
 import Row from './Row/Row'
 
 const BranchGroup = ({ branches, showOpeningHours }: BranchGroupFragment) => {
   const { general } = useContext(NavigationContext)
+  const { getFullSlug } = useSlug()
 
   const filteredBranches = useMemo(() => {
     return (branches ?? []).map((branch) => branch?.branch?.data).filter(isDefined)
@@ -23,7 +24,7 @@ const BranchGroup = ({ branches, showOpeningHours }: BranchGroupFragment) => {
             key={slug}
             title={title ?? ''}
             address={address}
-            linkHref={getFullPath(branch) ?? ''}
+            linkHref={getFullSlug(branch) ?? ''}
             moreContent={
               showOpeningHours ? (
                 <RichText data={openingHoursOverride || general?.generalOpeningHours} />

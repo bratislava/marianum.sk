@@ -1,12 +1,14 @@
-import { TNavigationContext } from '../components/layouts/NavigationProvider'
 import {
   ArticleSlugEntityFragment,
   BranchSlugEntityFragment,
   BundleCardEntityFragment,
   DocumentSlugEntityFragment,
   PageSlugEntityFragment,
-} from '../graphql/index'
+} from '../../../../graphql/index'
+import { TNavigationContext } from './NavigationProvider'
+import { useNavigationContext } from './useNavigationContext'
 
+// TODO move this to separate file and add translation logic
 const localPaths = {
   contacts: '/o-nas/kontakty',
   news: '/aktuality/novinky',
@@ -20,23 +22,26 @@ const localPaths = {
 
 type LocalRouteType = keyof typeof localPaths
 
-export const getFullPath = (
-  entity:
-    | PageSlugEntityFragment
-    | ArticleSlugEntityFragment
-    | BranchSlugEntityFragment
-    | BundleCardEntityFragment
-    | DocumentSlugEntityFragment
-    | null
-    | undefined,
+type UnionEntityType =
+  | PageSlugEntityFragment
+  | ArticleSlugEntityFragment
+  | BranchSlugEntityFragment
+  | BundleCardEntityFragment
+  | DocumentSlugEntityFragment
+  | null
+  | undefined
+
+const getFullPath = (
+  entity: UnionEntityType,
   navMap?: TNavigationContext['navMap'],
-  nudge?: LocalRouteType,
+  explicitPathPrefix?: LocalRouteType,
   // eslint-disable-next-line sonarjs/cognitive-complexity
 ) => {
   const { slug } = entity?.attributes ?? {}
 
-  if (nudge) {
-    return [localPaths[nudge], slug].join('/')
+  // Use explicitPathPrefix for Articles and whenever you need to specify a path prefix manually
+  if (explicitPathPrefix) {
+    return [localPaths[explicitPathPrefix], slug].join('/')
   }
 
   if (!slug || !entity || !entity.attributes) {
@@ -44,12 +49,8 @@ export const getFullPath = (
   }
 
   if (entity.__typename === 'PageEntity') {
-    const path = navMap?.get(slug)
+    const path = navMap?.get(slug)?.path
     return path || null
-  }
-
-  if (entity.__typename === 'ArticleEntity' && nudge) {
-    return [localPaths[nudge], slug].join('/')
   }
 
   if (entity.__typename === 'BranchEntity') {
@@ -71,4 +72,14 @@ export const getFullPath = (
   }
 
   return null
+}
+
+export const useSlug = () => {
+  const { navMap } = useNavigationContext()
+
+  const getFullSlug = (entity: UnionEntityType, explicitPathPrefix?: LocalRouteType) => {
+    return getFullPath(entity, navMap, explicitPathPrefix)
+  }
+
+  return { getFullSlug }
 }

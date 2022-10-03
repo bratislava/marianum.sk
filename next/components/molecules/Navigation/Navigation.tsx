@@ -6,9 +6,9 @@ import PhoneIcon from '../../../assets/phone.svg'
 import { ContactEntityFragment } from '../../../graphql'
 import IconButton from '../../atoms/IconButton'
 import MLink from '../../atoms/MLink'
-import { NavigationContext } from '../../layouts/NavigationProvider'
 import NavigationMenuDesktop from './NavigationMenuDesktop'
 import NavigationMenuMobile from './NavigationMenuMobile'
+import { NavigationContext } from './NavigationProvider/NavigationProvider'
 import NavigationSearch from './NavigationSearch/NavigationSearch'
 
 type NavigationProps = {
