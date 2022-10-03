@@ -6,7 +6,7 @@ const ThirdPartyScripts = () => {
       {/* Plausible */}
       <Script
         strategy="afterInteractive"
-        data-domain="marianum.sk" // TODO: take the domain from env variable
+        data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
         src="https://plausible.io/js/plausible.js"
       />
     </>
