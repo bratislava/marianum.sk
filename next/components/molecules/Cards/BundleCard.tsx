@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React from 'react'
+import { useTranslation } from 'next-i18next'
 
 import CheckIcon from '../../../assets/check.svg'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
@@ -18,6 +18,7 @@ type BundleCardProps = {
 
 const BundleCard = ({ image, name, priceFrom, claims, linkHref, ...props }: BundleCardProps) => {
   const router = useRouter()
+  const { t } = useTranslation()
 
   const handleCardClick = () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -34,9 +35,8 @@ const BundleCard = ({ image, name, priceFrom, claims, linkHref, ...props }: Bund
       <CardContent className="justify-between">
         <div>
           <h5 className="line-clamp-3 group-hover:underline">{name}</h5>
-          {/* TODO: Translation */}
           <div className="mb-4 font-semibold">
-            od <FormatCurrency value={priceFrom} />
+            {t('general.from')} <FormatCurrency value={priceFrom} />
           </div>
           {claims.length > 0 && (
             <ul className="mb-6">
@@ -54,8 +54,7 @@ const BundleCard = ({ image, name, priceFrom, claims, linkHref, ...props }: Bund
         </div>
         <div>
           <MLink href={linkHref} noArrow className="inline-block">
-            {/* TODO: Translation */}
-            Zobraziť viac
+            {t('general.showMore')}
           </MLink>
         </div>
       </CardContent>

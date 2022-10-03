@@ -85,7 +85,7 @@ export type ChecklistProps = {
 }
 
 const Checklist = ({ items, downloadFile }: ChecklistProps) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   // generate id from titles
   const checklistId = useMemo(() => {
@@ -184,12 +184,12 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
                             startIcon={<DownloadIcon />}
                             target="_blank"
                             href={downloadFile.attributes.url}
-                            // TODO format size to MB if needed
-                            /* eslint-disable @typescript-eslint/restrict-template-expressions */
                             aria-label={`${t('components.molecules.Checklist.download')} ${
                               downloadFile.attributes.name
-                            } ${filesize(downloadFile.attributes.size * 1000)}`}
-                            /* eslint-enable @typescript-eslint/restrict-template-expressions */
+                            } ${filesize(downloadFile.attributes.size * 1000, {
+                              round: 1,
+                              locale: i18n.language,
+                            })}`}
                           >
                             {t('components.molecules.Checklist.download')}
                           </Button>

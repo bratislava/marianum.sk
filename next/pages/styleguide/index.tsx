@@ -1,8 +1,9 @@
 import { RadioGroup } from '@headlessui/react'
 import cx from 'classnames'
 import { DataProp } from 'editorjs-blocks-react-renderer'
-import { GetStaticProps } from 'next'
+import { GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
+import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ReactNode, useMemo, useState } from 'react'
 
@@ -1325,7 +1326,7 @@ const Showcase = () => {
               <BranchCard
                 branchName="Branch name"
                 address="Address"
-                openingHoursText="09:00 – 18:00"
+                openingHours="09:00 – 18:00"
                 linkHref="#"
               />
               <PartnerCard title="Partner name" linkHref="#" image={image} border={cardsBorder} />
@@ -1396,9 +1397,10 @@ const Showcase = () => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
-  const translations = await serverSideTranslations(locale, ['common']) // TODO: fix any
-
+export const getStaticProps: GetStaticProps = async ({
+  locale = 'sk',
+}): Promise<GetStaticPropsResult<SSRConfig>> => {
+  const translations = await serverSideTranslations(locale, ['common'])
   return {
     props: {
       ...translations,
