@@ -61,6 +61,7 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
       <table className="m-table colored">
         <thead>
           <tr>
+            <th>{t('branchTitle')}</th>
             <th>{t('graveSector')}</th>
             <th>{t('graveNumber')}</th>
             <th>{t('gravePreviousNumber')}</th>
@@ -68,13 +69,14 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
             <th>{t('lastName')}</th>
             <th>{t('birthDate')}</th>
             <th>{t('deathDate')}</th>
-            <th>{t('branchTitle')}</th>
           </tr>
         </thead>
         <tbody>
           {debtors?.map((debtor, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <tr key={index}>
+              {/* TODO: Branch link */}
+              <td>{debtor.branchTitle}</td>
               <td>{debtor.graveSector}</td>
               <td>{debtor.graveNumber}</td>
               <td>{debtor.gravePreviousNumber}</td>
@@ -82,8 +84,6 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
               <td>{debtor.lastName}</td>
               <td>{debtor.birthDate}</td>
               <td>{debtor.deathDate}</td>
-              {/* TODO: Branch link */}
-              <td>{debtor.branchTitle}</td>
             </tr>
           ))}
           {debtors?.length === 0 && (
