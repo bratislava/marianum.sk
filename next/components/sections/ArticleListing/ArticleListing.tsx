@@ -12,6 +12,7 @@ import {
   ArticlePressCategory,
   Enum_Componentsectionsarticlelisting_Type,
 } from '../../../graphql'
+import { isDefined } from '../../../utils/isDefined'
 import { meiliClient } from '../../../utils/meilisearch'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
 import Pagination from '../../atoms/Pagination/Pagination'
@@ -74,6 +75,8 @@ const DataWrapper = ({
   onPageChange: (page: number) => void
   section: ArticleListingFragment
 }) => {
+  const { i18n } = useTranslation()
+
   const sectionFilter = useMemo(() => {
     switch (section.type) {
       case Enum_Componentsectionsarticlelisting_Type.Press:
@@ -97,7 +100,7 @@ const DataWrapper = ({
     return meiliClient.index('article').search<ArticleMeili>(filters.search, {
       limit: pageSize,
       offset: (filters.page - 1) * pageSize,
-      ...(sectionFilter ? { filter: sectionFilter } : {}),
+      filter: [sectionFilter, i18n.language ? `locale = ${i18n.language}` : null].filter(isDefined),
       sort: ['updatedAtTimestamp:desc'],
     })
   })
