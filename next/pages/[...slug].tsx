@@ -16,6 +16,7 @@ import DocumentGroup from '../components/molecules/DocumentGroup'
 import ProcedureTabs from '../components/molecules/ProcedureTabs'
 import Section from '../components/molecules/Section'
 import Seo from '../components/molecules/Seo'
+import ArticleListing from '../components/sections/ArticleListing/ArticleListing'
 import BundleListingSection from '../components/sections/BundleListingSection'
 import CardSection from '../components/sections/CardSection'
 import CeremoniesArchiveSection from '../components/sections/CeremoniesArchiveSection'
@@ -27,7 +28,6 @@ import ImageGallery from '../components/sections/ImageGallery'
 // import MapSection from '../components/sections/MapSection/MapSection'
 import MenuListingSection from '../components/sections/MenuListingSection'
 import NewsListing from '../components/sections/NewsSection'
-import NewsSection from '../components/sections/NewsSection/NewsSection'
 import PartnersSection from '../components/sections/PartnersSection'
 import RichTextSection from '../components/sections/RichTextSection'
 import {
@@ -193,8 +193,10 @@ const Slug = ({ navigation, page, general }: PageProps) => {
             if (section?.__typename === 'ComponentSectionsDocumentsSection') {
               return <DocumentsSection key={`${section.__typename}-${section.id}`} />
             }
-            if (section?.__typename === 'ComponentSectionsNewsSection') {
-              return <NewsSection key={`${section.__typename}-${section.id}`} />
+            if (section?.__typename === 'ComponentSectionsArticleListing') {
+              return (
+                <ArticleListing key={`${section.__typename}-${section.id}`} section={section} />
+              )
             }
             return null
           })}
