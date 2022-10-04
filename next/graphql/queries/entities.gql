@@ -379,9 +379,9 @@ fragment PageEntity on PageEntity {
         __typename
         id
       }
-      ... on ComponentSectionsNewsSection {
+      ... on ComponentSectionsArticleListing {
         __typename
-        id
+        ...ArticleListing
       }
     }
   }

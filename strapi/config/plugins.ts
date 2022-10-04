@@ -42,7 +42,11 @@ export default {
       },
       article: {
         settings: {
-          filterableAttributes: ["newsCategory.id", "locale"],
+          filterableAttributes: [
+            "pressCategory.id",
+            "newsCategory.id",
+            "locale",
+          ],
           searchableAttributes: ["title"],
           sortableAttributes: ["updatedAtTimestamp"],
           pagination: {

@@ -4,7 +4,9 @@ import {
   BundleCardEntityFragment,
   DocumentSlugEntityFragment,
   PageSlugEntityFragment,
-} from '../../../../graphql/index'
+} from '../../../../graphql'
+import { isDefined } from '../../../../utils/isDefined'
+import { ArticleMeili } from '../../../sections/ArticleListing/ArticleListing'
 import { TNavigationContext } from './NavigationProvider'
 import { useNavigationContext } from './useNavigationContext'
 
@@ -48,6 +50,15 @@ const getFullPath = (
     return null
   }
 
+  if (entity.__typename === 'ArticleEntity') {
+    if (isDefined(entity.attributes.pressCategory?.data)) {
+      return [localPaths.press, slug].join('/')
+    }
+    if (isDefined(entity.attributes.newsCategory?.data)) {
+      return [localPaths.news, slug].join('/')
+    }
+  }
+
   if (entity.__typename === 'PageEntity') {
     const path = navMap?.get(slug)?.path
     return path || null
@@ -74,6 +85,28 @@ const getFullPath = (
   return null
 }
 
+// https://stackoverflow.com/a/71469571
+type getFullPathMeiliFn = (
+  ...args: ['article', ArticleMeili] /* | ['another', AnotherMeili'] */
+) => string | null
+
+const getFullPathMeili: getFullPathMeiliFn = (entityType, entity) => {
+  const { slug } = entity
+
+  if (entityType === 'article') {
+    // eslint-disable-next-line unicorn/consistent-destructuring
+    if (isDefined(entity.pressCategory)) {
+      return [localPaths.press, slug].join('/')
+    }
+    // eslint-disable-next-line unicorn/consistent-destructuring
+    if (isDefined(entity.newsCategory)) {
+      return [localPaths.news, slug].join('/')
+    }
+  }
+
+  return null
+}
+
 export const useSlug = () => {
   const { navMap } = useNavigationContext()
 
@@ -82,4 +115,8 @@ export const useSlug = () => {
   }
 
   return { getFullSlug }
+}
+
+export const useSlugMeili = () => {
+  return { getFullSlugMeili: getFullPathMeili }
 }
