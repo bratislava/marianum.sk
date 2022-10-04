@@ -1,9 +1,9 @@
 import { useTranslation } from 'next-i18next'
-import { useContext, useMemo } from 'react'
+import { useMemo } from 'react'
 
 import { ContactFragment, FooterFragment, SocialFragment } from '../../../graphql'
 import MLink from '../../atoms/MLink'
-import { NavigationContext } from '../../layouts/NavigationProvider'
+import { useSlug } from '../Navigation/NavigationProvider/useFullSlug'
 import FooterCredentials from './FooterCredentials'
 import FooterMap from './FooterMap'
 import FooterSocials from './FooterSocials'
@@ -16,11 +16,11 @@ export type FooterProps = {
 
 const Footer = ({ contact, footer, social }: FooterProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'components.molecules.Footer' })
-  const { navMap } = useContext(NavigationContext)
+  const { getFullSlug } = useSlug()
 
   const { phone1, email } = contact?.contact?.data?.attributes ?? {}
-  const { slug: openingHoursSlug } = contact?.openingHoursPage?.data?.attributes ?? {}
-  const { slug: contactsSlug } = contact?.contactsPage?.data?.attributes ?? {}
+  const openingHoursPath = getFullSlug(contact?.openingHoursPage?.data)
+  const contactsPath = getFullSlug(contact?.contactsPage?.data)
 
   const footerColumns = useMemo(() => {
     return [
@@ -70,8 +70,8 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
                 )}
               </div>
               <div className="top-1 right-0 flex md:absolute">
-                {openingHoursSlug && (
-                  <MLink variant="white" href={openingHoursSlug}>
+                {openingHoursPath && (
+                  <MLink variant="white" href={openingHoursPath}>
                     {t('openingHours')}
                   </MLink>
                 )}
@@ -94,8 +94,8 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
                 {social && <FooterSocials social={social} />}
               </div>
               <div className="top-1 right-0 flex md:absolute">
-                {contactsSlug && (
-                  <MLink variant="white" href={contactsSlug}>
+                {contactsPath && (
+                  <MLink variant="white" href={contactsPath}>
                     {t('allContacts')}
                   </MLink>
                 )}
@@ -110,17 +110,14 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
               <h4>{title}</h4>
               <div className="flex flex-col gap-3">
                 {links?.map((link, linkIndex) => {
-                  const pageSlug = link?.page?.data?.attributes?.slug
-                  const linkHref = pageSlug
-                    ? navMap.get(pageSlug ?? '') || pageSlug
-                    : link?.url || ''
+                  const fullPath = getFullSlug(link?.page?.data) || link?.url || ''
 
                   return (
                     <MLink
                       // eslint-disable-next-line react/no-array-index-key
                       key={linkIndex}
                       noStyles
-                      href={linkHref}
+                      href={fullPath}
                       target={link?.targetBlank ? '_blank' : '_self'}
                       className="w-fit"
                     >

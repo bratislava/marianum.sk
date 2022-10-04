@@ -1,21 +1,25 @@
 import { CtaSectionFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
 import Button from '../atoms/Button'
+import { useSlug } from './Navigation/NavigationProvider/useFullSlug'
 
 const CtaGroup = ({ ctas }: CtaSectionFragment) => {
+  const { getFullSlug } = useSlug()
+
   const filteredCtas = ctas?.filter(isDefined)
 
   return (
     <div className="grid auto-cols-fr gap-4 md:grid-flow-col">
       {filteredCtas?.map(({ title, description, button }) => {
-        const ctaSlug = button?.page?.data?.attributes?.slug
+        const ctaSlug = getFullSlug(button?.page?.data)
+
         return (
-          <div className="bg-primary px-4 py-8 text-white md:p-12" key={title}>
+          <div className="flex flex-col bg-primary px-4 py-8 text-white md:p-12" key={title}>
             <div className="text-h3 font-bold">{title}</div>
-            {description && <p className="mt-4 opacity-72">{description}</p>}
+            <p className="mt-4 grow opacity-72">{description}</p>
             {ctaSlug && (
-              <Button href={ctaSlug} className="mt-6" variant="white">
-                {button.label}
+              <Button href={ctaSlug} className="mt-6 w-fit" variant="white">
+                {button?.label}
               </Button>
             )}
           </div>

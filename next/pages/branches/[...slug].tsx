@@ -49,6 +49,8 @@ const BranchSlug = ({ navigation, branch, general }: PageProps) => {
               )}
               {navigateToLink && (
                 <Button
+                  href={navigateToLink}
+                  target="_blank"
                   variant="plain-secondary"
                   startIcon={<NavigateToIcon />}
                   className="-ml-2 md:ml-0"

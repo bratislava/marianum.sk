@@ -1,21 +1,29 @@
 import cx from 'classnames'
+import last from 'lodash/last'
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 
 import ChevronDown from '../../assets/chevron_down.svg'
 import { usePrevious } from '../../utils/hooks'
+import MLink from './MLink'
+
+export type BreadcrumbItem = {
+  label: string | ReactNode
+  path: string
+}
 
 export type BreadcrumbsProps = {
-  children: ReactNode
+  crumbs: BreadcrumbItem[]
   className?: string
 }
 
 export type BreadcrumbChildProps = {
-  children: ReactNode
+  crumb: BreadcrumbItem
   noChevron?: boolean
+  noLink?: boolean
 }
 
-const BreadcrumbChild = ({ children, noChevron = false }: BreadcrumbChildProps) => {
+const BreadcrumbChild = ({ crumb, noChevron = false, noLink = false }: BreadcrumbChildProps) => {
   return (
     <div className="flex gap-1">
       {!noChevron && (
@@ -23,12 +31,18 @@ const BreadcrumbChild = ({ children, noChevron = false }: BreadcrumbChildProps) 
           <ChevronDown />
         </div>
       )}
-      <div className="whitespace-nowrap">{children}</div>
+      {noLink ? (
+        <div>{crumb.label}</div>
+      ) : (
+        <MLink href={crumb.path} noStyles className="whitespace-nowrap underline">
+          {crumb.label}
+        </MLink>
+      )}
     </div>
   )
 }
 
-const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
+const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
   const { height, ref: breadcrumbsExpandedRef } = useResizeDetector()
   const { height: fullHeight, ref: breadcrumbsExpandedWrappingRef } = useResizeDetector()
 
@@ -50,41 +64,22 @@ const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
     }
   }, [fullHeight, previousFullHeight, recalculateExpansion])
 
-  const breadcrumbedChildren = useMemo(
-    () =>
-      Array.isArray(children)
-        ? children.map((child, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <BreadcrumbChild key={index} noChevron={index === 0}>
-              {child}
-            </BreadcrumbChild>
-          ))
-        : [
-            <BreadcrumbChild key={0} noChevron>
-              {children}
-            </BreadcrumbChild>,
-          ],
-    [children],
-  )
+  const breadcrumbedChildren = useMemo(() => {
+    return crumbs.map((crumb, index) => (
+      /* eslint-disable react/no-array-index-key */
+      <BreadcrumbChild
+        key={index}
+        crumb={crumb}
+        noChevron={index === 0}
+        noLink={index === crumbs.length - 1}
+      />
+      /* eslint-enable react/no-array-index-key */
+    ))
+  }, [crumbs])
 
   const isCollapsing = useMemo(() => breadcrumbedChildren.length > 2, [breadcrumbedChildren])
 
   const [isOpen, setOpen] = useState(false)
-
-  const hiddenItems = useMemo(
-    () => (
-      <div className="flex flex-col gap-2 px-3 pb-4">
-        {Array.isArray(children) &&
-          children.slice(1, -1).map((child, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <div key={index}>
-              <BreadcrumbChild>{child}</BreadcrumbChild>
-            </div>
-          ))}
-      </div>
-    ),
-    [children],
-  )
 
   return (
     <div className={cx('relative w-full', className)}>
@@ -97,22 +92,26 @@ const Breadcrumbs = ({ children, className }: BreadcrumbsProps) => {
               <div className="flex items-center gap-1">
                 {/* first child */}
                 {breadcrumbedChildren[0]}
-                {/* ... */}
-                <BreadcrumbChild>...</BreadcrumbChild>
+                {/* dots, linkHref is ignored */}
+                <BreadcrumbChild crumb={{ label: '…', path: '#' }} noLink />
                 {/* last child */}
-                {breadcrumbedChildren[breadcrumbedChildren.length - 1]}
+                {last(breadcrumbedChildren)}
               </div>
+              {/* TODO add aria attributes */}
               <button className="p-4" type="button" onClick={() => setOpen((o) => !o)}>
-                <div
-                  className={cx('transform transition-transform', {
-                    'rotate-180': isOpen,
-                  })}
-                >
+                <div className={cx('transform transition-transform', { 'rotate-180': isOpen })}>
                   <ChevronDown />
                 </div>
               </button>
             </div>
-            {isOpen && hiddenItems}
+            {isOpen && (
+              <div className="flex flex-col gap-2 px-3 pb-4">
+                {breadcrumbedChildren.slice(1, -1).map((crumbedChild, index) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <div key={index}>{crumbedChild}</div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>

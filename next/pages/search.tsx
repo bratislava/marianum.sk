@@ -199,6 +199,7 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
                             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                             key={`${index}-${slug ?? ''}`}
                             title={title}
+                            // TODO add proper link
                             linkHref={`${hostname}${indexToPathName[index]}/${slug ?? ''}`}
                             showUrl
                             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions

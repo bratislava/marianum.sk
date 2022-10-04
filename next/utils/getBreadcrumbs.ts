@@ -1,27 +1,10 @@
-import { NavigationItemFragment } from '../graphql'
-import { getSlugsForNavFiltering } from './getSlugsForNavFiltering'
-import { TBreadcrumbListItem } from './types'
+import { BreadcrumbItem } from '../components/atoms/Breadcrumbs'
+import { TNavigationContext } from '../components/molecules/Navigation/NavigationProvider/NavigationProvider'
+import { isDefined } from './isDefined'
 
-export const getBreadcrumbs = (
-  slug: string,
-  navigation: NavigationItemFragment[],
-  moreItems?: TBreadcrumbListItem[],
-) => {
-  const slugs = getSlugsForNavFiltering(slug)
-  let breadcrumbs: TBreadcrumbListItem[] = []
+export const getBreadcrumbs = (path: string, navMap: TNavigationContext['navMap']) => {
+  const pathToSplit = path.startsWith('/') ? path.slice(1) : path
+  const slugs = pathToSplit.split('/')
 
-  let desiredChild: NavigationItemFragment | null = null
-  slugs.forEach((slugPart, index) => {
-    desiredChild =
-      index === 0
-        ? navigation.find((navItem) => navItem.path === slugs[0]) || null
-        : desiredChild?.items?.find((navItem) => navItem?.path === slugPart) ?? null
-    if (desiredChild) {
-      breadcrumbs.push({ label: desiredChild.title, link: desiredChild?.path })
-    }
-  })
-
-  breadcrumbs = [...breadcrumbs, ...(moreItems ?? [])]
-
-  return breadcrumbs
+  return slugs.map((slug) => navMap.get(slug) as BreadcrumbItem).filter(isDefined)
 }

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React from 'react'
+import { useTranslation } from 'next-i18next'
 
 import CheckIcon from '../../../assets/check.svg'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
@@ -18,6 +18,7 @@ type BundleCardProps = {
 
 const BundleCard = ({ image, name, priceFrom, claims, linkHref, ...props }: BundleCardProps) => {
   const router = useRouter()
+  const { t } = useTranslation()
 
   const handleCardClick = () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -28,15 +29,20 @@ const BundleCard = ({ image, name, priceFrom, claims, linkHref, ...props }: Bund
     <CardBox {...props} onClick={handleCardClick}>
       {image && (
         <div className="aspect-w-[360] aspect-h-[200] w-full bg-gray">
-          <MImage image={image} layout="fill" objectFit="cover" />
+          <MLink href={linkHref} tabIndex={-1} noStyles>
+            <MImage image={image} layout="fill" objectFit="cover" />
+          </MLink>
         </div>
       )}
       <CardContent className="justify-between">
         <div>
-          <h5 className="line-clamp-3 group-hover:underline">{name}</h5>
-          {/* TODO: Translation */}
+          <h5 className="line-clamp-3 group-hover:underline">
+            <MLink href={linkHref} noStyles>
+              {name}
+            </MLink>
+          </h5>
           <div className="mb-4 font-semibold">
-            od <FormatCurrency value={priceFrom} />
+            {t('general.from')} <FormatCurrency value={priceFrom} />
           </div>
           {claims.length > 0 && (
             <ul className="mb-6">
@@ -53,9 +59,8 @@ const BundleCard = ({ image, name, priceFrom, claims, linkHref, ...props }: Bund
           )}
         </div>
         <div>
-          <MLink href={linkHref} noArrow className="inline-block">
-            {/* TODO: Translation */}
-            Zobraziť viac
+          <MLink href={linkHref} tabIndex={-1} noArrow className="inline-block">
+            {t('general.showMore')}
           </MLink>
         </div>
       </CardContent>

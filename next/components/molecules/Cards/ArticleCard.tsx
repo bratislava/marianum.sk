@@ -41,7 +41,9 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
     <CardBox {...rest} hover={!isCategoryHovered} onClick={handleCardClick}>
       {image && (
         <div className="aspect-w-[264] aspect-h-[148] w-full bg-gray">
-          <MImage image={image} layout="fill" objectFit="cover" />
+          <MLink href={linkHref} tabIndex={-1} noStyles>
+            <MImage image={image} layout="fill" objectFit="cover" />
+          </MLink>
         </div>
       )}
       <CardContent className="gap-y-3">
@@ -54,7 +56,7 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
               {' '}
               •{' '}
               <MLink
-                noStyles // TODO link
+                noStyles // TODO link to filtered articles
                 href={category.attributes.slug}
                 className="underline"
                 ref={categoryHoverRef}
@@ -64,15 +66,16 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
             </>
           )}
         </span>
-        <MLink noStyles href={linkHref}>
-          <h5
-            className={cx({
-              'group-hover:underline': !isCategoryHovered,
-            })}
-          >
+
+        <h5
+          className={cx({
+            'group-hover:underline': !isCategoryHovered,
+          })}
+        >
+          <MLink href={linkHref} noStyles>
             {title}
-          </h5>
-        </MLink>
+          </MLink>
+        </h5>
       </CardContent>
     </CardBox>
   )

@@ -1,11 +1,10 @@
 import cx from 'classnames'
 import { useRouter } from 'next/router'
-import React, { useContext } from 'react'
+import { useTranslation } from 'next-i18next'
 
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
 import MLink from '../../atoms/MLink'
-import { NavigationContext } from '../../layouts/NavigationProvider'
 
 type CategoryCardProps = {
   title: string
@@ -21,29 +20,28 @@ const CategoryFaqThemeCard = ({
   ...rest
 }: CategoryFaqThemeCardProps) => {
   const router = useRouter()
-  const { navMap } = useContext(NavigationContext)
+  const { t } = useTranslation()
 
   const handleCardClick = () => {
-    const wholeLink = navMap.get(linkHref)
-    if (wholeLink) {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      router.push(wholeLink)
-    }
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    router.push(linkHref)
   }
 
   return (
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <CardBox {...rest} onClick={handleCardClick}>
       <CardContent
         className={cx('justify-between', subtitle ? 'md:min-h-[264px]' : 'md:min-h-[240px]')}
       >
-        <div className={cx(subtitle ? 'mb-[54px]' : 'mb-5')}>
-          <h5 className="line-clamp-3 group-hover:underline">{title}</h5>
+        <div className={cx('flex grow', subtitle ? 'mb-[54px]' : 'mb-5')}>
+          <MLink href={linkHref} noStyles>
+            <h5 className="flex grow line-clamp-3 group-hover:underline">{title}</h5>
+          </MLink>
           {subtitle && <div className="mt-2 block line-clamp-3">{subtitle}</div>}
         </div>
         <div>
-          <MLink href={linkHref} noArrow className="inline-block">
-            {/* TODO: Translation */}
-            Zobraziť viac
+          <MLink href={linkHref} tabIndex={-1} noArrow className="inline-block">
+            {t('general.showMore')}
           </MLink>
         </div>
       </CardContent>
@@ -51,5 +49,6 @@ const CategoryFaqThemeCard = ({
   )
 }
 
+// FaqThemeCard is not used so far, but we keep it for future improvements
 export const CategoryCard = CategoryFaqThemeCard as React.FC<CategoryCardProps>
 export const FaqThemeCard = CategoryFaqThemeCard as React.FC<CategoryFaqThemeCardProps>

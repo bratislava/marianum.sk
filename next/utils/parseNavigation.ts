@@ -3,14 +3,14 @@ import last from 'lodash/last'
 import { NavigationItemFragment } from '../graphql'
 import { isDefined } from './isDefined'
 
-const tmpMap = new Map<string, string>()
+const navMap = new Map<string, { label: string; path: string }>()
 
 export const parseNavigation = (navItems: NavigationItemFragment[]) => {
-  navItems.forEach(({ path, items }) => {
+  navItems.forEach(({ path, items, title }) => {
     if (path) {
       const slug = last(path?.split('/'))
       if (slug) {
-        tmpMap.set(slug, path)
+        navMap.set(slug, { label: title, path })
       }
     }
     if (items) {
@@ -18,5 +18,5 @@ export const parseNavigation = (navItems: NavigationItemFragment[]) => {
     }
   })
 
-  return tmpMap
+  return { navMap }
 }

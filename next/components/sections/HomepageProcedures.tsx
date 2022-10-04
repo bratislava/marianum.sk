@@ -7,6 +7,7 @@ import { isDefined } from '../../utils/isDefined'
 import MLink from '../atoms/MLink'
 import Tab from '../atoms/Tabs/Tab'
 import Tabs from '../atoms/Tabs/Tabs'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Row from '../molecules/Row/Row'
 import Section, { SectionProps } from '../molecules/Section'
 
@@ -21,11 +22,11 @@ const HomepageProcedures = ({
   showMoreButton,
   ...rest
 }: HomepagePoceduresProps) => {
-  const showMoreSlug = showMoreButton?.page?.data?.attributes?.slug
-
+  const { getFullSlug } = useSlug()
   const breakpoint = useTailwindBreakpoint()
-
   const isMobile = useMemo(() => breakpoint === null, [breakpoint])
+
+  const showMoreSlug = getFullSlug(showMoreButton?.page?.data)
 
   const slicedProcedures = useMemo(() => {
     return procedures.map((procedure) => ({
@@ -75,7 +76,7 @@ const HomepageProcedures = ({
         </Tabs>
         {showMoreSlug && (
           <div className="mt-8">
-            <MLink href={showMoreSlug}>{showMoreButton.label}</MLink>
+            <MLink href={showMoreSlug}>{showMoreButton?.label}</MLink>
           </div>
         )}
       </div>

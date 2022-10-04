@@ -1,15 +1,11 @@
 import cx from 'classnames'
-import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
 
 import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
-import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
 import FormatDate from '../atoms/FormatDate'
 import MImage from '../atoms/MImage'
-import Section from '../molecules/Section'
 import HeroSection from '../sections/HeroSection'
-import NewsListing from '../sections/NewsListing'
+import NewsSection from '../sections/NewsSection'
 import PageWrapper from './PageWrapper'
 import SectionsWrapper from './SectionsWrapper'
 
@@ -21,14 +17,8 @@ type ArticleLayoutProps = {
 }
 
 const ArticleLayout = ({ article, navigation, children, general }: ArticleLayoutProps) => {
-  const router = useRouter()
-  const { t } = useTranslation()
-  const { t: pathsT } = useTranslation('common', { keyPrefix: 'paths' })
-
   const { title, perex, coverMedia, publishedAt, slug } = article.attributes ?? {}
   const coverImage = coverMedia?.data?.attributes
-
-  const breadcrumbs = getBreadcrumbs(router.asPath, navigation, [{ label: title, link: slug }])
 
   return (
     <PageWrapper
@@ -36,7 +26,7 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
       general={general}
       header={
         <HeroSection
-          breadcrumbs={breadcrumbs}
+          breadcrumbsMoreItems={[{ label: title, path: slug ?? '' }]}
           moreContent={
             coverImage ? (
               <div className="static h-[188px] sm:h-[238px] md:relative md:h-[287px] lg:h-[387px] xl:h-[440px]">
@@ -67,16 +57,7 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
           {children}
         </div>
 
-        <Section
-          button={{
-            page: { data: { attributes: { slug: pathsT('news') } } },
-            label: t(`layouts.ArticleLayout.allArticles`),
-          }}
-          className="relative"
-          title={t('layouts.ArticleLayout.moreNews')}
-        >
-          <NewsListing />
-        </Section>
+        <NewsSection />
       </SectionsWrapper>
     </PageWrapper>
   )

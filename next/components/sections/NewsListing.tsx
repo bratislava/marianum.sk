@@ -5,14 +5,16 @@ import useSWR from 'swr'
 import { client } from '../../utils/gql'
 import { isDefined } from '../../utils/isDefined'
 import ArticleCard from '../molecules/Cards/ArticleCard'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 
 const NewsListing = () => {
-  const { t, i18n } = useTranslation()
+  const { i18n } = useTranslation()
+  const { getFullSlug } = useSlug()
 
   const { data, error } = useSWR(['News', i18n.language], (_key, locale) => client.News({ locale }))
 
   const filteredNews = useMemo(() => {
-    return data?.articles?.data?.map((article) => article.attributes).filter(isDefined)
+    return data?.articles?.data?.filter(isDefined)
   }, [data?.articles])
 
   // // TODO replace by proper loading and error
@@ -31,15 +33,15 @@ const NewsListing = () => {
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
       {filteredNews?.map((article) => {
-        const { title, publishedAt, coverMedia, slug, newsCategory } = article
+        const { title, publishedAt, coverMedia, slug, newsCategory } = article.attributes ?? {}
 
         return (
           <ArticleCard
             key={slug}
-            title={title}
+            title={title ?? ''}
             image={coverMedia?.data?.attributes}
             date={publishedAt}
-            linkHref={`${t('paths.news')}/${slug}`}
+            linkHref={getFullSlug(article, 'news') ?? ''}
             category={newsCategory?.data}
             border
           />

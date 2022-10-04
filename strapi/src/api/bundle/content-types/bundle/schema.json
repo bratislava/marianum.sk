@@ -103,6 +103,16 @@
       },
       "component": "sections.document-group"
     },
+    "sidebar": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "blocks.sidebar"
+    },
     "seo": {
       "type": "component",
       "repeatable": false,

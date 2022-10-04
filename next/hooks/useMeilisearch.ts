@@ -102,7 +102,7 @@ export const useMeilisearch = <T extends string>({
         return braidResults
       })
       .catch((error) => {
-        // TODO: handle errors better way :)
+        // TODO: log error to sentry when it gets implented :)
         // eslint-disable-next-line no-console
         console.error(error)
       })

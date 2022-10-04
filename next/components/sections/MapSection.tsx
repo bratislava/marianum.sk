@@ -8,25 +8,26 @@ import useSWR from 'swr'
 
 import MapMarkerIcon from '../../../assets/map-marker.svg'
 import PlaceIcon from '../../../assets/place.svg'
-import { Enum_Branch_Cemeterytype } from '../../../graphql'
-import { client } from '../../../utils/gql'
-import { isDefined } from '../../../utils/isDefined'
-import Button from '../../atoms/Button'
-import MLink from '../../atoms/MLink'
-import TagToggle from '../../atoms/TagToggle'
-import Search from '../../molecules/Search'
-import Section, { SectionProps } from '../../molecules/Section'
+import { BranchEntityFragment, Enum_Branch_Cemeterytype } from '../../graphql'
+import { client } from '../../utils/gql'
+import { isDefined } from '../../utils/isDefined'
+import Button from '../atoms/Button'
+import MLink from '../atoms/MLink'
+import TagToggle from '../atoms/TagToggle'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
+import Search from '../molecules/Search'
+import Section, { SectionProps } from '../molecules/Section'
 
 const slugifyText = (text: string) => {
   return slugify(text, { replacement: ' ', lower: true })
 }
 
 // calculate bounding box for branches
-const getBoundsForBranches = (
-  branches: { longitude?: number | null; latitude?: number | null }[],
-) => {
-  const branchesLongitude = branches.map((branch) => branch.longitude).filter(isDefined) ?? []
-  const branchesLatitude = branches.map((branch) => branch.latitude).filter(isDefined) ?? []
+const getBoundsForBranches = (branches: BranchEntityFragment[]) => {
+  const branchesLongitude =
+    branches.map((branch) => branch.attributes?.longitude).filter(isDefined) ?? []
+  const branchesLatitude =
+    branches.map((branch) => branch.attributes?.latitude).filter(isDefined) ?? []
 
   return [
     [Math.min(...branchesLongitude), Math.min(...branchesLatitude)],
@@ -38,26 +39,24 @@ type MapSectionProps = Pick<SectionProps, 'background' | 'title'>
 
 const MapSection = ({ ...rest }: MapSectionProps) => {
   const { t, i18n } = useTranslation('common', { keyPrefix: 'sections.MapSection' })
+  const { getFullSlug } = useSlug()
 
   const { data, error } = useSWR(['Cemeteries', i18n.language], (_key, locale) =>
     client.Cemeteries({ locale }),
   )
 
   const validBranches = useMemo(() => {
-    return (data?.branches?.data
-      ?.map((branch) => branch.attributes)
-      .filter(isDefined)
-      .filter(
-        (branch) =>
-          branch.address && branch.title && branch.slug && branch.latitude && branch.longitude,
-      ) ?? []) as {
-      address: string
-      title: string
-      slug: string
-      latitude: number
-      longitude: number
-      cemeteryType: Enum_Branch_Cemeterytype
-    }[]
+    return (
+      data?.branches?.data
+        ?.map((branch) => {
+          const { address, title, slug, latitude, longitude } = branch.attributes ?? {}
+          if (address && title && slug && latitude && longitude) {
+            return branch
+          }
+          return null
+        })
+        .filter(isDefined) ?? []
+    )
   }, [data?.branches])
 
   const [searchQuery, setSearchQuery] = useState('')
@@ -76,17 +75,20 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
     return validBranches.filter(
       (branch) =>
         // search filter for address and title
-        ((slugifyText(branch.address ?? '').includes(slugifiedSearchQuery) ||
-          slugifyText(branch.title).includes(slugifiedSearchQuery)) &&
+        ((slugifyText(branch.attributes?.address ?? '').includes(slugifiedSearchQuery) ||
+          slugifyText(branch.attributes?.title ?? '').includes(slugifiedSearchQuery)) &&
           // if no cemetery type selected, show all
           ((!isCivilChecked && !isHistoricalChecked && !isWarChecked) ||
             // otherwise
             // civil cemetery filter
-            (isCivilChecked && branch.cemeteryType === Enum_Branch_Cemeterytype.Civilny) ||
+            (isCivilChecked &&
+              branch.attributes?.cemeteryType === Enum_Branch_Cemeterytype.Civilny) ||
             // historical cemetery filter
-            (isHistoricalChecked && branch.cemeteryType === Enum_Branch_Cemeterytype.Historicky) ||
+            (isHistoricalChecked &&
+              branch.attributes?.cemeteryType === Enum_Branch_Cemeterytype.Historicky) ||
             // war cemetery filter
-            (isWarChecked && branch.cemeteryType === Enum_Branch_Cemeterytype.Vojensky))) ??
+            (isWarChecked &&
+              branch.attributes?.cemeteryType === Enum_Branch_Cemeterytype.Vojensky))) ??
         [],
     )
   }, [validBranches, slugifiedSearchQuery, isCivilChecked, isHistoricalChecked, isWarChecked])
@@ -96,13 +98,15 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
   const fitBranches = useCallback(
     (duration = 0) => {
       try {
+        // This code fails when there is no branches in the database.
+        // For that reason there is a try-catch block. It's not clean but it's enough.
         mapRef.current?.fitBounds(getBoundsForBranches(filteredBranches), {
           padding: 100,
           offset: [0, 10],
           duration,
         })
       } catch {
-        // TODO: handle error
+        // When it fails, no one cares because there is no branches :)
       }
     },
     [filteredBranches],
@@ -155,27 +159,31 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
           </div>
           {/* results */}
           <div className="flex-1 overflow-auto" onMouseLeave={() => setHoveredBranchSlug(null)}>
-            {filteredBranches.map(({ title, address, slug }, index) => (
-              <Fragment key={slug}>
-                {index !== 0 && <hr className="mx-5 border-border" />}
-                <MLink
-                  onMouseEnter={() => setHoveredBranchSlug(slug)}
-                  noStyles
-                  href={`${t('paths.branches')}/${slug}`}
-                  className={cx('flex gap-2 px-5 py-3', {
-                    'bg-primary/5': slug === hoveredBranchSlug,
-                  })}
-                >
-                  <div className="pt-[2px] text-primary">
-                    <PlaceIcon />
-                  </div>
-                  <div className="flex flex-col">
-                    <div className="font-semibold text-primary">{title}</div>
-                    <div className="text-sm">{address}</div>
-                  </div>
-                </MLink>
-              </Fragment>
-            ))}
+            {filteredBranches.map((branch, index) => {
+              const { title, slug, address } = branch.attributes ?? {}
+
+              return (
+                <Fragment key={slug}>
+                  {index !== 0 && <hr className="mx-5 border-border" />}
+                  <MLink
+                    onMouseEnter={() => setHoveredBranchSlug(slug ?? '')}
+                    noStyles
+                    href={getFullSlug(branch) ?? ''}
+                    className={cx('flex gap-2 px-5 py-3', {
+                      'bg-primary/5': slug === hoveredBranchSlug,
+                    })}
+                  >
+                    <div className="pt-[2px] text-primary">
+                      <PlaceIcon />
+                    </div>
+                    <div className="flex flex-col">
+                      <div className="font-semibold text-primary">{title}</div>
+                      <div className="text-sm">{address}</div>
+                    </div>
+                  </MLink>
+                </Fragment>
+              )
+            })}
             {filteredBranches.length === 0 && <div className="p-5">{t('noResults')}</div>}
           </div>
         </div>
@@ -186,34 +194,40 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
             mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
             mapStyle={process.env.NEXT_PUBLIC_MAPBOX_LIGHT_STYLE}
             onLoad={() => fitBranches()}
+            cooperativeGestures
           >
-            {filteredBranches.map(({ latitude, longitude, slug }) =>
-              latitude && longitude ? (
-                <Marker
-                  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                  key={`${latitude}${longitude}`}
-                  anchor="bottom"
-                  latitude={latitude}
-                  longitude={longitude}
-                >
-                  <motion.button
-                    style={{ originY: 1 }}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: hoveredBranchSlug !== slug ? 0.75 : 1 }}
-                    whileTap={{ scale: 0.8 }}
+            {filteredBranches.map((branch) => {
+              const { latitude, longitude, slug } = branch.attributes ?? {}
+
+              if (latitude && longitude) {
+                return (
+                  <Marker
+                    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                    key={`${latitude}${longitude}`}
+                    anchor="bottom"
+                    latitude={latitude}
+                    longitude={longitude}
                   >
-                    <MLink
-                      onMouseEnter={() => setHoveredBranchSlug(slug)}
-                      onMouseLeave={() => setHoveredBranchSlug(null)}
-                      noStyles
-                      href={`${t('paths.branches')}/${slug}`}
+                    <motion.button
+                      style={{ originY: 1 }}
+                      initial={{ scale: 0 }}
+                      animate={{ scale: hoveredBranchSlug !== slug ? 0.75 : 1 }}
+                      whileTap={{ scale: 0.8 }}
                     >
-                      <MapMarkerIcon />
-                    </MLink>
-                  </motion.button>
-                </Marker>
-              ) : null,
-            )}
+                      <MLink
+                        onMouseEnter={() => setHoveredBranchSlug(slug ?? '')}
+                        onMouseLeave={() => setHoveredBranchSlug(null)}
+                        noStyles
+                        href={getFullSlug(branch) ?? ''}
+                      >
+                        <MapMarkerIcon />
+                      </MLink>
+                    </motion.button>
+                  </Marker>
+                )
+              }
+              return null
+            })}
           </Map>
         </div>
         {/* mobile bottom button */}

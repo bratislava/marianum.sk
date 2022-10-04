@@ -8,6 +8,8 @@ import "moment-timezone";
 export default {
   debtorsCeremoniesController: ({ strapi }: { strapi: Strapi }) => ({
     async updateDebtors(ctx) {
+      ctx.request.socket.setTimeout(60000);
+
       const file = ctx.request.files?.file;
       if (!file) {
         ctx.status = 400;
@@ -31,6 +33,7 @@ export default {
           // also having Meilisearch on while adding debtors triggers the update content hook after
           // every query, therefore the best solution is to turn the Meilisearch off while adding new debtors
           // and turn it back on afterwards.
+          // See `strapi/patches/strapi-plugin-meilisearch+0.7.1.patch`.
           await meilisearch.emptyOrDeleteIndex({
             contentType: "api::debtor.debtor",
           });
@@ -45,11 +48,10 @@ export default {
             await strapi.entityService.create("api::debtor.debtor", {
               data: debtor,
             });
-
-            await meilisearch.updateContentTypeInMeiliSearch({
-              contentType: "api::debtor.debtor",
-            });
           }
+          await meilisearch.updateContentTypeInMeiliSearch({
+            contentType: "api::debtor.debtor",
+          });
         } catch (createDebtorsError) {
           // In case of failure to add some debtor we want to delete all the previously created entries, so we call the
           // delete function but rethrow the error to be caught by the parent try/catch block.
@@ -123,6 +125,7 @@ export default {
           // also having Meilisearch on while adding ceremonies triggers the update content hook after
           // every query, therefore the best solution is to turn the Meilisearch off while adding new ceremonies
           // and turn it back on afterwards.
+          // See `strapi/patches/strapi-plugin-meilisearch+0.7.1.patch`.
           await meilisearch.emptyOrDeleteIndex({
             contentType: "api::ceremony.ceremony",
           });

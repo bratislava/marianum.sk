@@ -1,8 +1,7 @@
-import { useTranslation } from 'next-i18next'
-
 import { BundleListingFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
 import BundleCard from '../molecules/Cards/BundleCard'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Section, { SectionProps } from '../molecules/Section'
 
 type BundleListingSectionProps = Pick<SectionProps, 'background'> & {
@@ -10,7 +9,7 @@ type BundleListingSectionProps = Pick<SectionProps, 'background'> & {
 }
 
 const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) => {
-  const { t } = useTranslation()
+  const { getFullSlug } = useSlug()
 
   const { title, description, bundles, showMoreButton } = section
 
@@ -29,7 +28,7 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
     >
       {filteredBundles?.map((bundle) => {
         const { id, attributes } = bundle ?? {}
-        const { title: bundleTitle, coverMedia, price, bundleContent, slug } = attributes ?? {}
+        const { title: bundleTitle, coverMedia, price, bundleContent } = attributes ?? {}
 
         return (
           <BundleCard
@@ -42,7 +41,7 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
                 ?.map((bundleContentItem) => bundleContentItem?.description)
                 .filter(isDefined) ?? []
             }
-            linkHref={`${t('paths.bundles')}/${slug ?? ''}`}
+            linkHref={getFullSlug(bundle) ?? ''}
             border
           />
         )

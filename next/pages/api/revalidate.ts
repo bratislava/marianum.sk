@@ -21,10 +21,9 @@ const revalidate = async (req: NextApiRequest, res: NextApiResponse<Response>) =
     // TODO add proper page urls
     if (payload?.model === 'page') {
       const { navigation } = await client.General({ locale: 'sk' })
-      const navMap = parseNavigation(navigation.filter(isDefined))
+      const { navMap } = parseNavigation(navigation.filter(isDefined))
 
-      const path = navMap.get(slug)
-      console.log(path)
+      const path = navMap.get(slug)?.path
 
       await res.revalidate(path || `/${slug}`)
     }

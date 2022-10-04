@@ -11,6 +11,7 @@ import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import FormatDate from '../atoms/FormatDate'
 import MLink from '../atoms/MLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Section from '../molecules/Section'
 
 type Filters = {
@@ -159,9 +160,8 @@ type CeremoniesSectionProps = {
 }
 
 const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
-  const { t } = useTranslation('common', {
-    keyPrefix: 'sections.CeremoniesSection',
-  })
+  const { t } = useTranslation('common', { keyPrefix: 'sections.CeremoniesSection' })
+  const { getFullSlug } = useSlug()
 
   const [filters, setFilters] = useState<Filters>({
     branchId: null,
@@ -189,7 +189,7 @@ const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
         <div className="mt-6 flex flex-col items-center gap-y-3 bg-white px-8 py-4 md:mt-16 md:flex-row md:justify-between md:px-12 md:py-10">
           <h4>{section.archive.title}</h4>
           {section.archive.button?.page?.data?.attributes?.slug && (
-            <MLink href={section.archive.button.page.data.attributes.slug}>
+            <MLink href={getFullSlug(section.archive.button.page.data) ?? ''}>
               {section.archive.button?.label}
             </MLink>
           )}

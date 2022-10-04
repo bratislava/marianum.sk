@@ -7,6 +7,7 @@ on:
       - 'next/**'
 env:
   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+  STRAPI_URL: https://marianum-strapi.staging.bratislava.sk
 jobs:
   build:
     name: Test yarn build

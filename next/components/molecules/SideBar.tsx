@@ -1,10 +1,10 @@
 import { useTranslation } from 'next-i18next'
-import React from 'react'
 
 import MailIcon from '../../assets/mail.svg'
 import PhoneIcon from '../../assets/phone.svg'
 import { SidebarFragment } from '../../graphql'
 import Button from '../atoms/Button'
+import { useSlug } from './Navigation/NavigationProvider/useFullSlug'
 
 type SideBarProps = {
   sidebar: SidebarFragment | null | undefined
@@ -12,13 +12,14 @@ type SideBarProps = {
 
 const SideBar = ({ sidebar }: SideBarProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'components.molecules.SideBar' })
+  const { getFullSlug } = useSlug()
 
   if (!sidebar) {
     return <aside className="md:w-[360px]" />
   }
 
   const { title, text, ctaButton, contact } = sidebar
-  const ctaSlug = ctaButton?.page?.data?.attributes?.slug
+  const ctaSlug = getFullSlug(ctaButton?.page?.data)
   const { phone1, phone2, email } = contact?.data?.attributes ?? {}
 
   return (
@@ -28,7 +29,7 @@ const SideBar = ({ sidebar }: SideBarProps) => {
       {ctaSlug ? (
         <>
           <Button href={ctaSlug} variant="primary" className="mt-6">
-            {ctaButton.label}
+            {ctaButton?.label}
           </Button>
           {contact?.data?.attributes && (
             <div className="flex flex-col items-center">

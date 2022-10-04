@@ -247,3 +247,24 @@ query BranchesInDebtors {
     }
   }
 }
+
+query DocumentCategories {
+  documentCategories {
+    data {
+      ...DocumentCategoryEntity
+    }
+  }
+}
+
+query NewsCategories {
+  articleNewsCategories {
+    data {
+      ...ArticleNewsCategoryEntity
+    }
+  }
+}
+
+query DocumentFiletypes {
+  documentFiletypes
+}
+

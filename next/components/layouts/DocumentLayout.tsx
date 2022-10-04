@@ -1,6 +1,5 @@
 import filesize from 'filesize'
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Fragment, ReactNode, useMemo, useState } from 'react'
 
@@ -9,7 +8,6 @@ import {
   GeneralEntityFragment,
   NavigationItemFragment,
 } from '../../graphql'
-import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
 import Button from '../atoms/Button'
 import FileIcon from '../atoms/FileIcon'
 import FormatDate from '../atoms/FormatDate'
@@ -25,13 +23,10 @@ type DocumentLayoutProps = {
 }
 
 const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) => {
-  const router = useRouter()
   const { t, i18n } = useTranslation()
 
   const { title, description, file, publishedAt, documentCategory, slug } =
     document.attributes ?? {}
-
-  const breadcrumbs = getBreadcrumbs(router.asPath, navigation, [{ label: title, link: slug }])
 
   const dlData = useMemo(() => {
     return [
@@ -70,7 +65,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
     <PageWrapper
       navigation={navigation}
       general={general}
-      header={<HeroSection breadcrumbs={breadcrumbs} />}
+      header={<HeroSection breadcrumbsMoreItems={[{ label: title, path: slug ?? '' }]} />}
     >
       <SectionsWrapper alternateBackground>
         <Section background="light">

@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next'
 
 import { CtaFragment } from '../../graphql'
 import Button from '../atoms/Button'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Slider from '../molecules/Slider'
 
 type HomepageSliderProps = {
@@ -12,6 +13,7 @@ type HomepageSliderProps = {
 
 const HomepageSlider = ({ slides }: HomepageSliderProps) => {
   const { t } = useTranslation()
+  const { getFullSlug } = useSlug()
 
   if (!slides) {
     return null
@@ -22,7 +24,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
       <Slider
         autoSwipeDuration={5000}
         pages={slides.map(({ title, description, button, image }) => {
-          const ctaSlug = button?.page?.data?.attributes?.slug
+          const ctaSlug = getFullSlug(button?.page?.data)
 
           const { url, alternativeText, width, height } = image?.data?.attributes ?? {}
 

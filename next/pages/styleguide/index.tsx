@@ -1,8 +1,9 @@
 import { RadioGroup } from '@headlessui/react'
 import cx from 'classnames'
 import { DataProp } from 'editorjs-blocks-react-renderer'
-import { GetStaticProps } from 'next'
+import { GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
+import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ReactNode, useMemo, useState } from 'react'
 
@@ -32,7 +33,6 @@ import SectionsWrapper, { SectionsWrapperProps } from '../../components/layouts/
 import AccordionGroup from '../../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
 import ArticleCard from '../../components/molecules/Cards/ArticleCard'
-import BranchCard from '../../components/molecules/Cards/BranchCard'
 import BundleCard from '../../components/molecules/Cards/BundleCard'
 import { CategoryCard, FaqThemeCard } from '../../components/molecules/Cards/CategoryFaqThemeCard'
 import PartnerCard from '../../components/molecules/Cards/PartnerCard'
@@ -317,31 +317,31 @@ const Showcase = () => {
     () => [
       {
         label: <DownloadIcon />,
-        link: '#home',
+        path: '#home',
       },
       {
         label: 'very',
-        link: '#very',
+        path: '#very',
       },
       {
         label: 'looong',
-        link: '#looong',
+        path: '#looong',
       },
       {
         label: 'path',
-        link: '#path',
+        path: '#path',
       },
       {
         label: 'to',
-        link: '#to',
+        path: '#to',
       },
       {
         label: 'some',
-        link: '#some',
+        path: '#some',
       },
       {
         label: 'page',
-        link: '#page',
+        path: '#page',
       },
     ],
     [],
@@ -404,31 +404,28 @@ const Showcase = () => {
 
           <Wrapper title="Breadcrumbs">
             <Stack width="full" bg="white">
-              <Breadcrumbs>
-                <div>One item</div>
-              </Breadcrumbs>
+              <Breadcrumbs crumbs={[{ label: 'One item', path: '#' }]} />
             </Stack>
             <Stack width="full" bg="dark">
-              <Breadcrumbs className="text-white opacity-72">
-                <div>First item</div>
-                <div>Second item</div>
-              </Breadcrumbs>
+              <Breadcrumbs
+                className="text-white opacity-72"
+                crumbs={[
+                  { label: 'First item', path: '#' },
+                  { label: 'Second item', path: '#' },
+                ]}
+              />
             </Stack>
             <Stack width="full" bg="white">
-              <Breadcrumbs>
-                <div>First item</div>
-                <div>Second item</div>
-                <div>Third item</div>
-              </Breadcrumbs>
+              <Breadcrumbs
+                crumbs={[
+                  { label: 'First item', path: '#' },
+                  { label: 'Second item', path: '#' },
+                  { label: 'Third item', path: '#' },
+                ]}
+              />
             </Stack>
             <Stack width="full" bg="dark">
-              <Breadcrumbs className="text-white opacity-72">
-                {dummyBreadcrumbLinks.map(({ label, link }) => (
-                  <MLink key={link} href={link} noStyles className="underline">
-                    {label}
-                  </MLink>
-                ))}
-              </Breadcrumbs>
+              <Breadcrumbs className="text-white opacity-72" crumbs={dummyBreadcrumbLinks} />
             </Stack>
           </Wrapper>
 
@@ -1322,12 +1319,6 @@ const Showcase = () => {
                 border={cardsBorder}
               />
               <FaqThemeCard border={cardsBorder} title="Faq card" subtitle="Subtitle" linkHref="" />
-              <BranchCard
-                branchName="Branch name"
-                address="Address"
-                openingHoursText="09:00 – 18:00"
-                linkHref="#"
-              />
               <PartnerCard title="Partner name" linkHref="#" image={image} border={cardsBorder} />
               <BundleCard
                 image={image}
@@ -1396,9 +1387,10 @@ const Showcase = () => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'sk' }) => {
-  const translations = await serverSideTranslations(locale, ['common']) // TODO: fix any
-
+export const getStaticProps: GetStaticProps = async ({
+  locale = 'sk',
+}): Promise<GetStaticPropsResult<SSRConfig>> => {
+  const translations = await serverSideTranslations(locale, ['common'])
   return {
     props: {
       ...translations,

@@ -2,6 +2,7 @@ import { Enum_Componentsectionsmanuallisting_Style, ManualListingFragment } from
 import { isDefined } from '../../utils/isDefined'
 import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
 import ServiceCard from '../molecules/Cards/ServiceCard'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Section, { SectionProps } from '../molecules/Section'
 
 type CardSectionProps = Pick<SectionProps, 'background'> & {
@@ -9,6 +10,8 @@ type CardSectionProps = Pick<SectionProps, 'background'> & {
 }
 
 const CardSection = ({ section, ...rest }: CardSectionProps) => {
+  const { getFullSlug } = useSlug()
+
   const { pages, title, style, showMoreButton } = section
 
   const filteredPages = pages
@@ -20,10 +23,12 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
     <Section title={title} {...rest} cardGrid="cards" button={showMoreButton}>
       {filteredPages?.map((page) => {
         const { id, attributes } = page ?? {}
-        const { title: cardTitle, slug, coverMedia, perex } = attributes ?? {}
+        const { title: cardTitle, coverMedia, perex } = attributes ?? {}
+
+        const fullPath = getFullSlug(page) ?? ''
 
         if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
-          return <CategoryCard key={id} title={cardTitle ?? ''} linkHref={slug ?? '#'} border />
+          return <CategoryCard key={id} title={cardTitle ?? ''} linkHref={fullPath} border />
         }
 
         if (style === Enum_Componentsectionsmanuallisting_Style.Service) {
@@ -31,7 +36,7 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
             <ServiceCard
               key={id}
               title={cardTitle ?? ''}
-              linkHref={slug ?? '#'}
+              linkHref={fullPath}
               border
               image={coverMedia?.data?.attributes}
               subtitle={perex}

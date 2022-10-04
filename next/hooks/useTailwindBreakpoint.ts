@@ -1,19 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
 
-// todo: take this from some single source of truth
-const screens = {
-  sm: 640,
-  md: 768,
-  lg: 1024,
-  xl: 1280,
-  '2xl': 1536,
-}
+import { screenBreakpoints } from '../screen-breakpoints.config'
 
 // this hook returns current tailwind breakpoint ("sm" | "md" | "lg" | "xl" | "2xl")
 // or null when screen is smaller then "sm" breakpoint
 export const useTailwindBreakpoint = () => {
   const [screenWidth, setScreenWidth] = useState(0)
-  const [breakpoint, setBreakpoint] = useState<keyof typeof screens | null>(null)
+  const [breakpoint, setBreakpoint] = useState<keyof typeof screenBreakpoints | null>(null)
 
   const onWindowResize = useCallback(() => {
     setScreenWidth(window.innerWidth)
@@ -28,12 +21,12 @@ export const useTailwindBreakpoint = () => {
   }, [onWindowResize])
 
   useEffect(() => {
-    let currentBreakpoint: keyof typeof screens | null = null
+    let currentBreakpoint: keyof typeof screenBreakpoints | null = null
     let biggestBreakpointValue = 0
 
     // find the biggest breakpoint
-    ;(Object.keys(screens) as (keyof typeof screens)[]).forEach((bp) => {
-      const breakpointValue = screens[bp]
+    ;(Object.keys(screenBreakpoints) as (keyof typeof screenBreakpoints)[]).forEach((bp) => {
+      const breakpointValue = screenBreakpoints[bp]
       if (breakpointValue > biggestBreakpointValue && screenWidth >= breakpointValue) {
         biggestBreakpointValue = breakpointValue
         currentBreakpoint = bp

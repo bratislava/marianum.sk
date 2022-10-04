@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 import { GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import Footer from '../molecules/Footer/Footer'
 import Navigation from '../molecules/Navigation/Navigation'
-import NavigationProvider from './NavigationProvider'
+import NavigationProvider from '../molecules/Navigation/NavigationProvider/NavigationProvider'
 
 type PageWrapperProps = {
   navigation: NavigationItemFragment[]
@@ -17,10 +17,7 @@ const PageWrapper = ({ navigation, header, children, general }: PageWrapperProps
     <NavigationProvider navigation={navigation} general={general}>
       <div className="h-full">
         <header>
-          <Navigation
-            faqSlug={general?.attributes?.header?.faqPage?.data?.attributes?.slug}
-            contact={general?.attributes?.header?.contact?.data}
-          />
+          <Navigation contact={general?.attributes?.header?.contact?.data} />
           {header}
         </header>
 

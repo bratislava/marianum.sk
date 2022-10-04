@@ -16,16 +16,10 @@ const AccordionItem = ({ title, additionalInfo, children }: AccordionItemProps) 
       {({ open }) => {
         return (
           <div className="flex w-full flex-col border border-border bg-white">
-            <Disclosure.Button className="flex w-full justify-between gap-4 p-4 text-left text-h5 sm:p-5 md:p-6">
-              <div
-                className={cx('grow overflow-hidden text-ellipsis py-[3px] font-bold', {
-                  truncate: !open,
-                })}
-              >
-                {title}
-              </div>
-              <div className="pr-6">{additionalInfo}</div>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-white">
+            <Disclosure.Button className="flex justify-between gap-4 p-4 text-left text-h5 sm:p-5 md:p-6">
+              <div className="py-[3px] font-bold">{title}</div>
+              {additionalInfo && <div className="pr-6">{additionalInfo}</div>}
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border bg-white">
                 <ChevronDown
                   className={cx('transform text-primary transition-transform', {
                     'rotate-180': open,

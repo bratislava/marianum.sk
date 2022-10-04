@@ -4,12 +4,13 @@ import Waves from '../../assets/waves.svg'
 
 type DividerProps = {
   color?: 'default' | 'primary'
+  className?: string
 }
 
-const Divider = ({ color = 'default' }: DividerProps) => {
+const Divider = ({ color = 'default', className }: DividerProps) => {
   return (
     <div
-      className={cx('flex items-center', {
+      className={cx('flex items-center', className, {
         'text-primary': color === 'primary',
         'text-border': color === 'default',
       })}

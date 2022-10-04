@@ -9,6 +9,7 @@ import { upcomingCeremoniesFetcher } from '../../utils/fetchers/upcomingCeremoni
 import { getBranchTitleInCeremoniesDebtors } from '../../utils/getBranchTitleInCeremoniesDebtors'
 import FormatDate from '../atoms/FormatDate'
 import MLink from '../atoms/MLink'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Section from '../molecules/Section'
 
 const Table = () => {
@@ -103,7 +104,10 @@ type CeremoniesListingProps = {
 }
 
 const UpcomingCeremoniesSection = ({ section }: CeremoniesListingProps) => {
-  const showMoreButtonSlug = section.showMoreButton?.page?.data?.attributes?.slug
+  const { getFullSlug } = useSlug()
+
+  const showMoreButtonSlug = getFullSlug(section.showMoreButton?.page?.data)
+
   const showMoreButton = section.showMoreButton && showMoreButtonSlug && (
     <MLink href={showMoreButtonSlug}>{section.showMoreButton.label}</MLink>
   )

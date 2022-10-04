@@ -8,6 +8,7 @@ import { appWithTranslation } from 'next-i18next'
 import { OverlayProvider } from 'react-aria'
 
 import MI18nProvider from '../components/atoms/MI18nProvider'
+import ThirdPartyScripts from '../components/atoms/ThirdPartyScripts'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
@@ -26,6 +27,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <MI18nProvider>
         <MotionConfig reducedMotion="user">
           <OverlayProvider>
+            <ThirdPartyScripts />
             <Component {...pageProps} />
           </OverlayProvider>
         </MotionConfig>
