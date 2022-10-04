@@ -252,3 +252,8 @@ fragment UpcomingCeremoniesSection on ComponentSectionsUpcomingCeremoniesSection
     ...CtaButton
   }
 }
+
+fragment ArticleListing on ComponentSectionsArticleListing {
+  id
+  type
+}
