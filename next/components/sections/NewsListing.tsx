@@ -41,7 +41,7 @@ const NewsListing = () => {
             title={title ?? ''}
             image={coverMedia?.data?.attributes}
             date={publishedAt}
-            linkHref={getFullSlug(article, 'news') ?? ''}
+            linkHref={getFullSlug(article) ?? ''}
             category={newsCategory?.data}
             border
           />

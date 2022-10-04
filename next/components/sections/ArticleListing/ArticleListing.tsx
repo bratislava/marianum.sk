@@ -18,11 +18,12 @@ import useGetSwrExtras from '../../../utils/useGetSwrExtras'
 import Pagination from '../../atoms/Pagination/Pagination'
 import TextField from '../../atoms/TextField'
 import ArticleCard from '../../molecules/Cards/ArticleCard'
+import { useSlugMeili } from '../../molecules/Navigation/NavigationProvider/useFullSlug'
 import Section from '../../molecules/Section'
 import ArticleNewsCategoriesSelect from './ArticleNewsCategoriesSelect'
 import ArticlePressCategoriesSelect from './ArticlePressCategoriesSelect'
 
-type ArticleMeili = Omit<Article, '__typename' | 'newsCategory' | 'pressCategory'> & {
+export type ArticleMeili = Omit<Article, '__typename' | 'newsCategory' | 'pressCategory'> & {
   newsCategory?: Omit<ArticleNewsCategory, '__typename' | 'articles'>
   pressCategory?: Omit<ArticlePressCategory, '__typename' | 'articles'>
 }
@@ -39,6 +40,7 @@ const Articles = ({ data }: { data: SearchResponse<ArticleMeili> }) => {
   const { t } = useTranslation('common', {
     keyPrefix: 'components.ArticleListing',
   })
+  const { getFullSlugMeili } = useSlugMeili()
 
   if (data.hits?.length > 0) {
     return (
@@ -52,7 +54,7 @@ const Articles = ({ data }: { data: SearchResponse<ArticleMeili> }) => {
               title={title}
               image={coverMedia?.data?.attributes}
               date={publishedAt}
-              linkHref={`${t('paths.news')}/${slug}`}
+              linkHref={getFullSlugMeili('article', article) ?? ''}
               category={{ attributes: newsCategory }}
               border
             />
