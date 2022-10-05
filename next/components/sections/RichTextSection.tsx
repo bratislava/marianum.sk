@@ -12,7 +12,7 @@ type RichTextSectionProps = Pick<SectionProps, 'background'> & {
 const RichTextSection = ({ content, ...rest }: RichTextSectionProps) => {
   return (
     <Section {...rest}>
-      <RichText data={content} />
+      <RichText content={content} />
     </Section>
   )
 }

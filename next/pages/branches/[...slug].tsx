@@ -61,10 +61,10 @@ const BranchSlug = ({ navigation, branch, general }: PageProps) => {
             </div>
           </SectionBoxed>
           <SectionBoxed title={type === 'cintorin' ? t('aboutCemetery') : t('aboutBranch')}>
-            <RichText data={description} coloredTable={false} />
+            <RichText content={description} coloredTable={false} />
           </SectionBoxed>
           <SectionBoxed title={t('openingHours')}>
-            <RichText data={openingHoursOverride || general?.attributes?.generalOpeningHours} />
+            <RichText content={openingHoursOverride || general?.attributes?.generalOpeningHours} />
           </SectionBoxed>
         </div>
       </BranchLayout>

@@ -57,7 +57,7 @@ const BundlePage = ({ navigation, bundle, general }: BundlePageProps) => {
 
           {description ? (
             <Section>
-              <RichText data={description} />
+              <RichText content={description} />
             </Section>
           ) : null}
 
@@ -80,7 +80,7 @@ const BundlePage = ({ navigation, bundle, general }: BundlePageProps) => {
                       ) : null
                     }
                   >
-                    <RichText data={service?.description} />
+                    <RichText content={service?.description} />
                   </AccordionItem>
                 ))}
               </AccordionGroup>
