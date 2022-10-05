@@ -8,8 +8,9 @@ import { cookieConsentContext } from './CookieConsent'
 const ThirdPartyScripts = () => {
   const router = useRouter()
 
-  const { areMarketingCookiesAllowed, areStatisticCookiesAllowed } =
-    useContext(cookieConsentContext)
+  const {
+    acceptance: { areMarketingCookiesAllowed, areStatisticCookiesAllowed },
+  } = useContext(cookieConsentContext)
 
   useEffect(() => {
     if (areMarketingCookiesAllowed && areStatisticCookiesAllowed) {
