@@ -1,8 +1,8 @@
-import last from 'lodash/last'
-import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
+import { GetStaticPaths, GetStaticProps, GetStaticPropsResult, NextPage } from 'next'
 import Head from 'next/head'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { ParsedUrlQuery } from 'node:querystring'
 
 import CheckIcon from '../../assets/check.svg'
 import FormatCurrency from '../../components/atoms/FormatCurrency'
@@ -23,7 +23,7 @@ type BundlePageProps = {
   bundle: BundleEntityFragment
 } & SSRConfig
 
-const BundlePage = ({ navigation, bundle, general }: BundlePageProps) => {
+const BundlePage: NextPage<BundlePageProps> = ({ navigation, bundle, general }) => {
   const { t } = useTranslation()
   const { seo, title, perex, additionalServices, bundleContent, description, documents } =
     bundle.attributes ?? {}
@@ -97,34 +97,41 @@ const BundlePage = ({ navigation, bundle, general }: BundlePageProps) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] }) => {
+interface StaticParams extends ParsedUrlQuery {
+  slug: string
+}
+
+export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk'] }) => {
   const pathArraysForLocales = await Promise.all(
     locales.map((locale) => client.BundlesStaticPaths({ locale })),
   )
   const bundles = pathArraysForLocales
     .flatMap(({ bundles: allBundles }) => allBundles?.data || [])
     .filter(isDefined)
-  if (bundles.length > 0) {
-    const paths = bundles
-      .filter((bundle) => bundle.attributes?.slug)
-      .map((bundle) => ({
-        params: {
-          slug: bundle?.attributes?.slug ? bundle.attributes?.slug.split('/') : [],
-          locale: bundle?.attributes?.locale || '',
+
+  const paths = bundles
+    .map(
+      (bundle) =>
+        bundle?.attributes && {
+          params: {
+            slug: bundle?.attributes.slug,
+            locale: bundle?.attributes.locale ?? '',
+          },
         },
-      }))
-    // eslint-disable-next-line no-console
-    console.log(`Bundles: Generated static paths for ${paths.length} slugs.`)
-    return { paths, fallback: 'blocking' }
-  }
-  return { paths: [], fallback: 'blocking' }
+    )
+    .filter(isDefined)
+
+  // eslint-disable-next-line no-console
+  console.log(`Bundles: Generated static paths for ${paths.length} slugs.`)
+
+  return { paths, fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps = async ({
+export const getStaticProps: GetStaticProps<BundlePageProps, StaticParams> = async ({
   locale = 'sk',
   params,
 }): Promise<GetStaticPropsResult<BundlePageProps>> => {
-  const slug = last(params?.slug) ?? ''
+  const slug = params?.slug ?? ''
 
   const [{ navigation, general }, { bundles }, translations] = await Promise.all([
     client.General({ locale }),
