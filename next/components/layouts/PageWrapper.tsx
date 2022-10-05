@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 import { GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import Footer from '../molecules/Footer/Footer'
 import Navigation from '../molecules/Navigation/Navigation'
-import NavigationProvider from './NavigationProvider'
+import NavigationProvider from '../molecules/Navigation/NavigationProvider/NavigationProvider'
 
 type PageWrapperProps = {
   navigation: NavigationItemFragment[]

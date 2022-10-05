@@ -1,20 +1,17 @@
-import { useContext } from 'react'
-
 import { CtaSectionFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
-import { getFullPath } from '../../utils/localPaths'
 import Button from '../atoms/Button'
-import { NavigationContext } from '../layouts/NavigationProvider'
+import { useSlug } from './Navigation/NavigationProvider/useFullSlug'
 
 const CtaGroup = ({ ctas }: CtaSectionFragment) => {
-  const { navMap } = useContext(NavigationContext)
+  const { getFullSlug } = useSlug()
 
   const filteredCtas = ctas?.filter(isDefined)
 
   return (
     <div className="grid auto-cols-fr gap-4 md:grid-flow-col">
       {filteredCtas?.map(({ title, description, button }) => {
-        const ctaSlug = getFullPath(button?.page?.data, navMap)
+        const ctaSlug = getFullSlug(button?.page?.data)
 
         return (
           <div className="flex flex-col bg-primary px-4 py-8 text-white md:p-12" key={title}>

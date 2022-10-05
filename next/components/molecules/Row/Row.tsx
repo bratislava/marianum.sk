@@ -132,6 +132,7 @@ const Row = ({
                 startIcon={<OpenInNewIcon />}
                 className="hidden md:flex"
               >
+                {/* TODO translations */}
                 Zobraziť web
               </Button>
               {/* mobile buttom */}

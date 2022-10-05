@@ -9,7 +9,7 @@ import MLink from './MLink'
 
 export type BreadcrumbItem = {
   label: string | ReactNode
-  linkHref: string
+  path: string
 }
 
 export type BreadcrumbsProps = {
@@ -34,7 +34,7 @@ const BreadcrumbChild = ({ crumb, noChevron = false, noLink = false }: Breadcrum
       {noLink ? (
         <div>{crumb.label}</div>
       ) : (
-        <MLink href={crumb.linkHref} noStyles className="whitespace-nowrap underline">
+        <MLink href={crumb.path} noStyles className="whitespace-nowrap underline">
           {crumb.label}
         </MLink>
       )}
@@ -93,7 +93,7 @@ const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
                 {/* first child */}
                 {breadcrumbedChildren[0]}
                 {/* dots, linkHref is ignored */}
-                <BreadcrumbChild crumb={{ label: '…', linkHref: '#' }} noLink />
+                <BreadcrumbChild crumb={{ label: '…', path: '#' }} noLink />
                 {/* last child */}
                 {last(breadcrumbedChildren)}
               </div>
