@@ -85,8 +85,8 @@
     },
     "SortSelect": { "byNewest": "Od najnovšieho", "byOldest": "Od najstaršieho" },
     "DocumentsSection": {
-      "allFileTypes":  "Všetky typy súborov",
-      "allCategories":  "Všetky kategórie",
+      "allFileTypes": "Všetky typy súborov",
+      "allCategories": "Všetky kategórie",
       "noDocuments": "Žiadne dokumenty na zobrazenie."
     },
     "NewsSection": {
@@ -184,6 +184,39 @@
         "document": "Dokument",
         "article": "Článok",
         "branch": "Cintorín / Pobočka"
+      }
+    }
+  },
+  "cookieConsent": {
+    "banner": {
+      "title": "Táto webová stránka používa súbory cookies",
+      "description": "Súbory cookie používame na prispôsobenie obsahu a reklám, poskytovanie funkcií sociálnych médií a analýzu návštevnosti. Informácie o vašom používaní stránky zdieľame aj s našimi sociálnymi médiami, reklamnými a analytickými partnermi, ktorí ich môžu skombinovať s inými informáciami, ktoré ste im poskytli alebo ktoré zhromaždili pri vašom používaní ich služieb.",
+      "acceptAll": "Prijať všetko",
+      "rejectAll": "Odmietnuť všetko",
+      "settings": "Nastavenia cookies"
+    },
+    "modal": {
+      "title": "Nastavenie súborov cookies",
+      "acceptAll": "Prijať všetko",
+      "rejectAll": "Odmietnuť všetko",
+      "saveSettings": "Uložiť nastavenia",
+      "types": {
+        "necessary": {
+          "title": "Nevyhnutné súbory cookies",
+          "description": "Nevyhnutné súbory cookie pomáhajú sprístupniť webové stránky tým, že umožňujú základné funkcie, ako je navigácia na stránke a prístup k zabezpečeným oblastiam webovej stránky. Bez týchto cookies nemôže webová stránka správne fungovať."
+        },
+        "preference": {
+          "title": "Preferenčné súbory cookies",
+          "description": "Preferenčné súbory cookie umožňujú webovej stránke zapamätať si informácie, ktoré menia spôsob, akým sa webová lokalita správa alebo vyzerá, ako napríklad preferovaný jazyk alebo región, v ktorom sa nachádzate."
+        },
+        "statistic": {
+          "title": "Štatistické súbory cookies",
+          "description": "Štatistické súbory cookie pomáhajú vlastníkom webových stránok pochopiť, ako návštevníci interagujú s webovými stránkami anonymným zhromažďovaním a oznamovaním informácií."
+        },
+        "marketing": {
+          "title": "Marketingové súbory cookies",
+          "description": "Marketingové súbory cookie sa používajú na sledovanie návštevníkov na rôznych webových stránkach. Zámerom je zobrazovať reklamy, ktoré sú relevantné a pútavé pre jednotlivých používateľov, a tým hodnotnejšie pre vydavateľov a inzerentov tretích strán."
+        }
       }
     }
   }
