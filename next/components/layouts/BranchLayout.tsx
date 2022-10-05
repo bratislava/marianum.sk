@@ -23,7 +23,7 @@ const BranchLayout = ({ branch, navigation, children, general }: BranchLayoutPro
       general={general}
       header={
         <HeroSection
-          breadcrumbsMoreItems={[{ label: title, linkHref: slug ?? '' }]}
+          breadcrumbsMoreItems={[{ label: title, path: slug ?? '' }]}
           moreContent={
             medias?.data?.length ? (
               <ImageGallery images={medias?.data} variant="aside" />

@@ -1,16 +1,15 @@
 import { isSameDay, parseAbsolute } from '@internationalized/date'
 import { useTranslation } from 'next-i18next'
-import { useContext, useMemo } from 'react'
+import { useMemo } from 'react'
 import useSWR from 'swr'
 
 import { UpcomingCeremoniesSectionFragment } from '../../graphql'
 import { bratislavaTimezone } from '../../utils/consts'
 import { upcomingCeremoniesFetcher } from '../../utils/fetchers/upcomingCeremoniesFetcher'
 import { getBranchTitleInCeremoniesDebtors } from '../../utils/getBranchTitleInCeremoniesDebtors'
-import { getFullPath } from '../../utils/localPaths'
 import FormatDate from '../atoms/FormatDate'
 import MLink from '../atoms/MLink'
-import { NavigationContext } from '../layouts/NavigationProvider'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Section from '../molecules/Section'
 
 const Table = () => {
@@ -105,9 +104,9 @@ type CeremoniesListingProps = {
 }
 
 const UpcomingCeremoniesSection = ({ section }: CeremoniesListingProps) => {
-  const { navMap } = useContext(NavigationContext)
+  const { getFullSlug } = useSlug()
 
-  const showMoreButtonSlug = getFullPath(section.showMoreButton?.page?.data, navMap)
+  const showMoreButtonSlug = getFullSlug(section.showMoreButton?.page?.data)
 
   const showMoreButton = section.showMoreButton && showMoreButtonSlug && (
     <MLink href={showMoreButtonSlug}>{section.showMoreButton.label}</MLink>

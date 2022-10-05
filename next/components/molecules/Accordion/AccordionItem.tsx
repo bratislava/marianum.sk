@@ -19,7 +19,7 @@ const AccordionItem = ({ title, additionalInfo, children }: AccordionItemProps) 
             <Disclosure.Button className="flex justify-between gap-4 p-4 text-left text-h5 sm:p-5 md:p-6">
               <div className="py-[3px] font-bold">{title}</div>
               {additionalInfo && <div className="pr-6">{additionalInfo}</div>}
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-white">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border bg-white">
                 <ChevronDown
                   className={cx('transform text-primary transition-transform', {
                     'rotate-180': open,
