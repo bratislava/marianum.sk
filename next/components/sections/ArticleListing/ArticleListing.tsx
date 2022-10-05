@@ -5,13 +5,8 @@ import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
 import SearchIcon from '../../../assets/search.svg'
-import {
-  Article,
-  ArticleListingFragment,
-  ArticleNewsCategory,
-  ArticlePressCategory,
-  Enum_Componentsectionsarticlelisting_Type,
-} from '../../../graphql'
+import { ArticleListingFragment, Enum_Componentsectionsarticlelisting_Type } from '../../../graphql'
+import { ArticleMeili } from '../../../types/meiliTypes'
 import { isDefined } from '../../../utils/isDefined'
 import { meiliClient } from '../../../utils/meilisearch'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
@@ -22,11 +17,6 @@ import { useSlugMeili } from '../../molecules/Navigation/NavigationProvider/useF
 import Section from '../../molecules/Section'
 import ArticleNewsCategoriesSelect from './ArticleNewsCategoriesSelect'
 import ArticlePressCategoriesSelect from './ArticlePressCategoriesSelect'
-
-export type ArticleMeili = Omit<Article, '__typename' | 'newsCategory' | 'pressCategory'> & {
-  newsCategory?: Omit<ArticleNewsCategory, '__typename' | 'articles'>
-  pressCategory?: Omit<ArticlePressCategory, '__typename' | 'articles'>
-}
 
 const pageSize = 24
 

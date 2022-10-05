@@ -6,7 +6,7 @@ import { useDebounce } from 'usehooks-ts'
 
 import DownloadIcon from '../../../assets/download.svg'
 import SearchIcon from '../../../assets/search.svg'
-import { Document, DocumentCategory, UploadFile } from '../../../graphql'
+import { DocumentMeili } from '../../../types/meiliTypes'
 import { isDefined } from '../../../utils/isDefined'
 import { meiliClient } from '../../../utils/meilisearch'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
@@ -18,11 +18,6 @@ import Section from '../../molecules/Section'
 import SortSelect, { Sort } from '../../molecules/SortSelect'
 import DocumentsSectionCategorySelect from './DocumentsSectionCategorySelect'
 import DocumentsSectionFiletypeSelect from './DocumentsSectionFiletypeSelect'
-
-type DocumentMeili = Omit<Document, '__typename' | 'documentCategory' | 'file'> & {
-  documentCategory: Omit<DocumentCategory, '__typename' | 'documents'>
-  file: Omit<UploadFile, '__typename'>
-}
 
 const pageSize = 24
 

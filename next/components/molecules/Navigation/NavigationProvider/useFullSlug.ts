@@ -5,8 +5,8 @@ import {
   DocumentSlugEntityFragment,
   PageSlugEntityFragment,
 } from '../../../../graphql'
+import { ArticleMeili } from '../../../../types/meiliTypes'
 import { isDefined } from '../../../../utils/isDefined'
-import { ArticleMeili } from '../../../sections/ArticleListing/ArticleListing'
 import { TNavigationContext } from './NavigationProvider'
 import { useNavigationContext } from './useNavigationContext'
 
