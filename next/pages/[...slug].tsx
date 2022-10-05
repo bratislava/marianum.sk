@@ -25,6 +25,7 @@ import ContactsSection from '../components/sections/ContactsSection'
 import DebtorsSection from '../components/sections/DebtorsSection'
 import DocumentsSection from '../components/sections/DocumentsSection/DocumentsSection'
 import ImageGallery from '../components/sections/ImageGallery'
+import MapSection from '../components/sections/MapSection'
 // import MapSection from '../components/sections/MapSection/MapSection'
 import MenuListingSection from '../components/sections/MenuListingSection'
 import NewsListing from '../components/sections/NewsSection'
@@ -158,14 +159,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               return <NewsListing key={`${section.__typename}-${section.id}`} section={section} />
             }
             if (section?.__typename === 'ComponentSectionsMapSection') {
-              return (
-                // <MapSection
-                //   key={`${section.__typename}-${section.id}`}
-                //   isContainer={isContainer}
-                //   {...section}
-                // />
-                <span>Map</span>
-              )
+              return <MapSection key={`${section.__typename}-${section.id}`} {...section} />
             }
             if (section?.__typename === 'ComponentSectionsPublicDisclosureSection') {
               return (
