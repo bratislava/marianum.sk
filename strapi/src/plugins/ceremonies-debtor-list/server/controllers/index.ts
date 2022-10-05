@@ -8,7 +8,7 @@ import "moment-timezone";
 export default {
   debtorsCeremoniesController: ({ strapi }: { strapi: Strapi }) => ({
     async updateDebtors(ctx) {
-      ctx.request.socket.setTimeout(60000);
+      ctx.request.socket.setTimeout(120000);
 
       const file = ctx.request.files?.file;
       if (!file) {
@@ -69,6 +69,8 @@ export default {
       }
     },
     async updateCeremonies(ctx) {
+      ctx.request.socket.setTimeout(120000);
+
       const file = ctx.request.files?.file;
       if (!file) {
         ctx.status = 400;
