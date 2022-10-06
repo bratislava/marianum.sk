@@ -52,6 +52,14 @@
       "type": "decimal",
       "required": true
     },
+    "discountText": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
     "coverMedia": {
       "type": "media",
       "multiple": false,
@@ -63,7 +71,18 @@
         }
       }
     },
-    "bundleContent": {
+    "bundleItems": {
+      "displayName": "bundle content item",
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "blocks.bundle-content-item"
+    },
+    "additionalItems": {
       "displayName": "bundle content item",
       "type": "component",
       "repeatable": true,

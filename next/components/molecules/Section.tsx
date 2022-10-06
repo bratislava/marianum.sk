@@ -66,7 +66,7 @@ const Section = ({
       <div
         className={cx(
           {
-            'container py-6 md:py-20': alternateBackground,
+            'container py-6 md:py-16': alternateBackground,
             'pb-20 md:pb-36': isLast,
           },
           innerClassName,

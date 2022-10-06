@@ -1330,6 +1330,7 @@ const Showcase = () => {
                   'Lorem ipsum dolor sit amet',
                   'Lorem ipsum dolor sit amet',
                 ]}
+                claimsPlus={['Lorem ipsum dolor sit amet']}
                 linkHref=""
                 border={cardsBorder}
               />

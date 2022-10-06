@@ -165,15 +165,25 @@ fragment BundleListing on ComponentSectionsBundleListing {
   id
   title
   description
-  bundles {
-    bundle {
-      data {
-        ...BundleCardEntity
+  atMedicalFacility {
+    title
+    bundles {
+      bundle {
+        data {
+          ...BundleCardEntity
+        }
       }
     }
   }
-  showMoreButton {
-    ...CtaButton
+  outsideMedicalFacility {
+    title
+    bundles {
+      bundle {
+        data {
+          ...BundleCardEntity
+        }
+      }
+    }
   }
 }
 
