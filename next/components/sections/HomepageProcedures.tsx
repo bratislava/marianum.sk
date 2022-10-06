@@ -44,8 +44,8 @@ const HomepageProcedures = ({
             <Tab key={procedure?.title} label={procedure?.title ?? ''}>
               <div
                 className={cx('flex', {
-                  'w-full gap-4 overflow-x-auto pt-4': isMobile,
-                  'flex-col gap-4 pt-8': !isMobile,
+                  'w-full gap-4 overflow-x-auto': isMobile,
+                  'flex-col gap-4': !isMobile,
                 })}
               >
                 {procedure.steps.map((step, index) =>
