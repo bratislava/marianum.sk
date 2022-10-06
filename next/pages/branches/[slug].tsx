@@ -1,8 +1,8 @@
-import last from 'lodash/last'
 import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { ParsedUrlQuery } from 'node:querystring'
 
 import NavigateToIcon from '../../assets/directions.svg'
 import PlaceIcon from '../../assets/place.svg'
@@ -72,34 +72,42 @@ const BranchSlug = ({ navigation, branch, general }: PageProps) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] }) => {
+interface StaticParams extends ParsedUrlQuery {
+  slug: string
+}
+
+export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk', 'en'] }) => {
   const pathArraysForLocales = await Promise.all(
     locales.map((locale) => client.BranchesStaticPaths({ locale })),
   )
+
   const branches = pathArraysForLocales
     .flatMap(({ branches: allBranches }) => allBranches?.data || [])
     .filter(isDefined)
-  if (branches.length > 0) {
-    const paths = branches
-      .filter((branch) => branch.attributes?.slug)
-      .map((branch) => ({
-        params: {
-          slug: branch?.attributes?.slug ? branch.attributes?.slug.split('/') : [],
-          locale: branch?.attributes?.locale || '',
+
+  const paths = branches
+    .map(
+      (branch) =>
+        branch.attributes && {
+          params: {
+            slug: branch?.attributes.slug,
+            locale: branch?.attributes.locale ?? '',
+          },
         },
-      }))
-    // eslint-disable-next-line no-console
-    console.log(`Branches: Generated static paths for ${paths.length} slugs.`)
-    return { paths, fallback: 'blocking' }
-  }
-  return { paths: [], fallback: 'blocking' }
+    )
+    .filter(isDefined)
+
+  // eslint-disable-next-line no-console
+  console.log(`Branches: Generated static paths for ${paths.length} slugs.`)
+
+  return { paths, fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps = async ({
+export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
   locale = 'sk',
   params,
 }): Promise<GetStaticPropsResult<PageProps>> => {
-  const slug = last(params?.slug) ?? ''
+  const slug = params?.slug ?? ''
 
   const [{ navigation, general }, { branches }, translations] = await Promise.all([
     client.General({ locale }),
