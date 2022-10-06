@@ -4,7 +4,7 @@ import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
-import CheckIcon from '../../assets/check.svg'
+import CheckIcon from '../../assets/check_noPadding.svg'
 import FormatCurrency from '../../components/atoms/FormatCurrency'
 import RichText from '../../components/atoms/RichText/RichText'
 import BundleLayout from '../../components/layouts/BundleLayout'
@@ -25,8 +25,19 @@ type BundlePageProps = {
 
 const BundlePage: NextPage<BundlePageProps> = ({ navigation, bundle, general }) => {
   const { t } = useTranslation()
-  const { seo, title, perex, additionalServices, bundleContent, description, documents } =
-    bundle.attributes ?? {}
+  const {
+    seo,
+    title,
+    perex,
+    discountText,
+    additionalServices,
+    bundleItems,
+    additionalItems,
+    description,
+    documents,
+  } = bundle.attributes ?? {}
+
+  const claims = [...(bundleItems ?? []), ...(additionalItems ?? [])].filter(isDefined)
 
   return (
     <>
@@ -38,11 +49,11 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, bundle, general }) 
       <BundleLayout navigation={navigation} general={general} bundle={bundle}>
         <div className="flex flex-col">
           {/* todo: display bundle data */}
-          {bundleContent?.length ? (
+          {claims?.length ? (
             <Section>
               <h3 className="pb-6 text-h4">{t('sections.HeroSection.bundleContent')}</h3>
               <ul>
-                {bundleContent.map((item, index) => (
+                {claims.map((item, index) => (
                   // eslint-disable-next-line react/no-array-index-key
                   <li key={index} className="mt-4 flex gap-4">
                     <span className="mt-1.5 text-primary">
@@ -52,6 +63,8 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, bundle, general }) 
                   </li>
                 ))}
               </ul>
+
+              {discountText && <div className="mt-8 font-semibold">{discountText}</div>}
             </Section>
           ) : null}
 

@@ -150,12 +150,16 @@ fragment BundleCardEntity on BundleEntity {
     slug
     perex
     price
+    discountText
     coverMedia {
       data {
         ...UploadImageEntity
       }
     }
-    bundleContent {
+    bundleItems {
+      description
+    }
+    additionalItems {
       description
     }
   }
