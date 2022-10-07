@@ -3,6 +3,7 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { ParsedUrlQuery } from 'node:querystring'
 
 import DocumentLayout from '../../components/layouts/DocumentLayout'
 import Seo from '../../components/molecules/Seo'
@@ -35,25 +36,32 @@ const DocumentPage = ({ navigation, document, general }: DocumentPageProps) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const { documents } = await client.DocumentsStaticPaths()
-  const filteredDocuments = documents?.data.filter(isDefined) ?? []
-  if (filteredDocuments.length > 0) {
-    const paths = filteredDocuments
-      .filter((document) => document.attributes?.slug)
-      .map((document) => ({
-        params: {
-          slug: document?.attributes?.slug ? document.attributes?.slug.split('/') : [],
-        },
-      }))
-    // eslint-disable-next-line no-console
-    console.log(`Documents: Generated static paths for ${paths.length} slugs.`)
-    return { paths, fallback: 'blocking' }
-  }
-  return { paths: [], fallback: 'blocking' }
+interface StaticParams extends ParsedUrlQuery {
+  slug: string
 }
 
-export const getStaticProps: GetStaticProps = async ({
+export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
+  const { documents } = await client.DocumentsStaticPaths()
+  const filteredDocuments = documents?.data.filter(isDefined) ?? []
+
+  const paths = filteredDocuments
+    .map(
+      (document) =>
+        document.attributes && {
+          params: {
+            slug: document?.attributes.slug,
+          },
+        },
+    )
+    .filter(isDefined)
+
+  // eslint-disable-next-line no-console
+  console.log(`Documents: Generated static paths for ${paths.length} slugs.`)
+
+  return { paths, fallback: 'blocking' }
+}
+
+export const getStaticProps: GetStaticProps<DocumentPageProps, StaticParams> = async ({
   locale = 'sk',
   params,
 }): Promise<GetStaticPropsResult<DocumentPageProps>> => {

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_blocks_bundle_groups",
+  "info": {
+    "displayName": "bundle group",
+    "icon": "gift"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "bundles": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.bundle-item"
+    }
+  }
+}

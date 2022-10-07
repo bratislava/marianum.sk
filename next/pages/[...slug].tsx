@@ -3,6 +3,7 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { ParsedUrlQuery } from 'node:querystring'
 
 import Divider from '../components/atoms/Divider'
 import RichText from '../components/atoms/RichText/RichText'
@@ -25,6 +26,7 @@ import ContactsSection from '../components/sections/ContactsSection'
 import DebtorsSection from '../components/sections/DebtorsSection'
 import DocumentsSection from '../components/sections/DocumentsSection/DocumentsSection'
 import ImageGallery from '../components/sections/ImageGallery'
+import MapSection from '../components/sections/MapSection'
 // import MapSection from '../components/sections/MapSection/MapSection'
 import MenuListingSection from '../components/sections/MenuListingSection'
 import NewsListing from '../components/sections/NewsSection'
@@ -38,6 +40,7 @@ import {
 } from '../graphql'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
+import { parseNavigation } from '../utils/parseNavigation'
 
 type PageProps = {
   navigation: NavigationItemFragment[]
@@ -158,14 +161,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
               return <NewsListing key={`${section.__typename}-${section.id}`} section={section} />
             }
             if (section?.__typename === 'ComponentSectionsMapSection') {
-              return (
-                // <MapSection
-                //   key={`${section.__typename}-${section.id}`}
-                //   isContainer={isContainer}
-                //   {...section}
-                // />
-                <span>Map</span>
-              )
+              return <MapSection key={`${section.__typename}-${section.id}`} {...section} />
             }
             if (section?.__typename === 'ComponentSectionsPublicDisclosureSection') {
               return (
@@ -206,34 +202,40 @@ const Slug = ({ navigation, page, general }: PageProps) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] }) => {
-  const pathArraysForLocales = await Promise.all(
-    locales.map((locale) => client.PagesStaticPaths({ locale })),
-  )
-  const pages = pathArraysForLocales
-    .flatMap(({ pages: allPages }) => allPages?.data || [])
-    .filter(isDefined)
-  if (pages.length > 0) {
-    const paths = pages
-      .filter((page) => page.attributes?.slug)
-      .map((page) => ({
-        params: {
-          slug: page?.attributes?.slug ? page.attributes?.slug.split('/') : [],
-          locale: page?.attributes?.locale || '',
-        },
-      }))
-    // eslint-disable-next-line no-console
-    console.log(`Pages: Generated static paths for ${paths.length} slugs.`)
-    return { paths, fallback: 'blocking' }
-  }
-  return { paths: [], fallback: 'blocking' }
+interface StaticParams extends ParsedUrlQuery {
+  slug: string[]
 }
 
-export const getStaticProps: GetStaticProps = async ({
+export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk', 'en'] }) => {
+  const navs = await Promise.all(locales.map((locale) => client.General({ locale })))
+  const navMaps = navs.map(({ navigation }) => parseNavigation(navigation.filter(isDefined)))
+
+  const navPaths = navMaps.map(({ navMap }, index) => ({
+    locale: locales[index],
+    paths: [...navMap.values()].map((path) => path.path),
+  }))
+
+  const paths = navPaths.flatMap(({ locale, paths: localPaths }) => {
+    return localPaths.map((localPath) => ({
+      params: {
+        slug: localPath.split('/').slice(1),
+        locale,
+      },
+    }))
+  })
+
+  // eslint-disable-next-line no-console
+  console.log(`Pages: Generated static paths for ${paths.length} slugs.`)
+
+  return { paths, fallback: 'blocking' }
+}
+
+export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
   locale = 'sk',
   params,
 }): Promise<GetStaticPropsResult<PageProps>> => {
   const slug = last(params?.slug) ?? ''
+  console.log(`Revalidating page "${slug}" on /${params?.slug.join('/') ?? ''}`)
 
   const [{ navigation, general }, { pages }, translations] = await Promise.all([
     client.General({ locale }),
@@ -243,7 +245,10 @@ export const getStaticProps: GetStaticProps = async ({
 
   const filteredNavigation = navigation.filter(isDefined)
 
-  if (!pages || pages.data.length === 0) {
+  const { navMap } = parseNavigation(filteredNavigation)
+  const page = pages?.data[0]
+
+  if (!page || !page.attributes?.slug || !navMap.get(page.attributes?.slug)?.path) {
     return {
       notFound: true,
     }

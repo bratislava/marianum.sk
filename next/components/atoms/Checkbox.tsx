@@ -4,7 +4,7 @@ import cx from 'classnames'
 import React, { useRef } from 'react'
 import { mergeProps, useCheckbox, useFocusRing, VisuallyHidden } from 'react-aria'
 
-import CheckIcon from '../../assets/check.svg'
+import CheckIcon from '../../assets/check_noPadding.svg'
 
 /* eslint-disable react/destructuring-assignment */
 /**
