@@ -4,8 +4,10 @@ import MarianumLogo from '../../../assets/marianum_logo.svg'
 import MenuIcon from '../../../assets/menu.svg'
 import PhoneIcon from '../../../assets/phone.svg'
 import { ContactEntityFragment } from '../../../graphql'
+import Button from '../../atoms/Button'
 import IconButton from '../../atoms/IconButton'
 import MLink from '../../atoms/MLink'
+import SkipToContentButton from '../../atoms/SkipToContentButton'
 import NavigationMenuDesktop from './NavigationMenuDesktop'
 import NavigationMenuMobile from './NavigationMenuMobile'
 import { NavigationContext } from './NavigationProvider/NavigationProvider'
@@ -22,8 +24,32 @@ const Navigation = ({ contact }: NavigationProps) => {
 
   const { title, phone1, phone2 } = contact?.attributes ?? {}
 
+  const TopContacts = (
+    <>
+      {title && <div className="opacity-72">{title}:</div>}
+      {phone1 && (
+        <Button href={`tel:${phone1}`} startIcon={<PhoneIcon />} variant="plain-white">
+          {phone1}
+        </Button>
+      )}
+      {phone2 && (
+        <Button href={`tel:${phone2}`} startIcon={<PhoneIcon />} variant="plain-white">
+          {phone2}
+        </Button>
+      )}
+    </>
+  )
+
   return (
     <div className="bg-primary text-white">
+      <SkipToContentButton />
+
+      <div className="relative border-b border-white/12 xl:hidden">
+        <div className="container flex items-center justify-center gap-3 py-2 md:gap-4">
+          {TopContacts}
+        </div>
+      </div>
+
       <div className="container relative flex h-[64px] flex-col md:h-[120px]">
         <div className="flex h-[64px] items-center justify-between md:h-[88px]">
           {/* left side of navigation */}
@@ -33,21 +59,7 @@ const Navigation = ({ contact }: NavigationProps) => {
           {/* right side of navigation */}
           <div className="flex items-center gap-4 xl:gap-8">
             {/* desktop faq and phone links */}
-            <div className="hidden items-center gap-8 xl:flex">
-              <span>{title}</span>
-              {phone1 && (
-                <MLink href={`tel:${phone1}`} className="flex items-center gap-2" noStyles>
-                  <PhoneIcon />
-                  <span>{phone1}</span>
-                </MLink>
-              )}
-              {phone2 && (
-                <MLink href={`tel:${phone2}`} className="flex items-center gap-2" noStyles>
-                  <PhoneIcon />
-                  <span>{phone1}</span>
-                </MLink>
-              )}
-            </div>
+            <div className="hidden items-center gap-4 xl:flex">{TopContacts}</div>
             {/* search (both mobile and desktop) */}
             <NavigationSearch />
             {/* mobile menu button */}

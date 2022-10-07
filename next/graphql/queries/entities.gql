@@ -242,6 +242,24 @@ fragment DocumentEntity on DocumentEntity {
   }
 }
 
+fragment GeneralEntity on GeneralEntity {
+  attributes {
+    header {
+      ...Header
+    }
+    socials {
+      ...SocialItem
+    }
+    contact {
+      ...Contact
+    }
+    footer {
+      ...Footer
+    }
+    generalOpeningHours
+  }
+}
+
 fragment PartnerEntity on PartnerEntity {
   id
   attributes {
