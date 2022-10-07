@@ -25,7 +25,7 @@ const CookieBanner = () => {
           exit={{ y: 'calc(100% + 200px)' }}
           className="fixed bottom-2 z-40 w-full sm:bottom-4"
         >
-          <div className="container mx-auto w-full px-2 sm:px-4 lg:px-8 xl:px-12">
+          <div className="container w-full px-2 sm:px-4 lg:px-8 xl:px-12">
             <div className="relative flex w-full flex-col justify-between gap-8 border border-border bg-white shadow">
               <div className="flex flex-col gap-4">
                 <div className="flex justify-between gap-2 pr-6 pt-6">
