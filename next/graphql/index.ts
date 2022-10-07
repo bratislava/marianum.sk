@@ -757,6 +757,30 @@ export type ComponentBlocksSimpleCtaItemFiltersInput = {
   title?: InputMaybe<StringFilterInput>;
 };
 
+export type ComponentBlocksSocialItem = {
+  __typename?: 'ComponentBlocksSocialItem';
+  icon?: Maybe<Enum_Componentblockssocialitem_Icon>;
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  url: Scalars['String'];
+};
+
+export type ComponentBlocksSocialItemFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentBlocksSocialItemFiltersInput>>>;
+  icon?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentBlocksSocialItemFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentBlocksSocialItemFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+  url?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentBlocksSocialItemInput = {
+  icon?: InputMaybe<Enum_Componentblockssocialitem_Icon>;
+  id?: InputMaybe<Scalars['ID']>;
+  title?: InputMaybe<Scalars['String']>;
+  url?: InputMaybe<Scalars['String']>;
+};
+
 export type ComponentGeneralContacts = {
   __typename?: 'ComponentGeneralContacts';
   address?: Maybe<Scalars['String']>;
@@ -782,6 +806,7 @@ export type ComponentGeneralContactsInput = {
 
 export type ComponentGeneralFooter = {
   __typename?: 'ComponentGeneralFooter';
+  bottomLinks?: Maybe<Array<Maybe<ComponentBlocksButtonLink>>>;
   id: Scalars['ID'];
   links1?: Maybe<Array<Maybe<ComponentGeneralLinkItem>>>;
   links2?: Maybe<Array<Maybe<ComponentGeneralLinkItem>>>;
@@ -791,6 +816,13 @@ export type ComponentGeneralFooter = {
   title2?: Maybe<Scalars['String']>;
   title3?: Maybe<Scalars['String']>;
   title4?: Maybe<Scalars['String']>;
+};
+
+
+export type ComponentGeneralFooterBottomLinksArgs = {
+  filters?: InputMaybe<ComponentBlocksButtonLinkFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 
@@ -822,6 +854,7 @@ export type ComponentGeneralFooterLinks4Args = {
 };
 
 export type ComponentGeneralFooterInput = {
+  bottomLinks?: InputMaybe<Array<InputMaybe<ComponentBlocksButtonLinkInput>>>;
   id?: InputMaybe<Scalars['ID']>;
   links1?: InputMaybe<Array<InputMaybe<ComponentGeneralLinkItemInput>>>;
   links2?: InputMaybe<Array<InputMaybe<ComponentGeneralLinkItemInput>>>;
@@ -948,15 +981,6 @@ export type ComponentGeneralSocial = {
   linkedin?: Maybe<Scalars['String']>;
   twitter?: Maybe<Scalars['String']>;
   youtube?: Maybe<Scalars['String']>;
-};
-
-export type ComponentGeneralSocialInput = {
-  facebook?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
-  instagram?: InputMaybe<Scalars['String']>;
-  linkedin?: InputMaybe<Scalars['String']>;
-  twitter?: InputMaybe<Scalars['String']>;
-  youtube?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentSectionsAccordionGroup = {
@@ -1454,6 +1478,14 @@ export enum Enum_Branch_Type {
   Pobocka = 'pobocka'
 }
 
+export enum Enum_Componentblockssocialitem_Icon {
+  Facebook = 'facebook',
+  Instagram = 'instagram',
+  Linkedin = 'linkedin',
+  Twitter = 'twitter',
+  Youtube = 'youtube'
+}
+
 export enum Enum_Componentsectionsarticlelisting_Type {
   News = 'news',
   Press = 'press'
@@ -1521,8 +1553,15 @@ export type General = {
   header?: Maybe<ComponentGeneralHeader>;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<GeneralRelationResponseCollection>;
-  social?: Maybe<ComponentGeneralSocial>;
+  socials?: Maybe<Array<Maybe<ComponentBlocksSocialItem>>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type GeneralSocialsArgs = {
+  filters?: InputMaybe<ComponentBlocksSocialItemFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type GeneralEntity = {
@@ -1541,7 +1580,7 @@ export type GeneralInput = {
   footer?: InputMaybe<ComponentGeneralFooterInput>;
   generalOpeningHours?: InputMaybe<Scalars['String']>;
   header?: InputMaybe<ComponentGeneralHeaderInput>;
-  social?: InputMaybe<ComponentGeneralSocialInput>;
+  socials?: InputMaybe<Array<InputMaybe<ComponentBlocksSocialItemInput>>>;
 };
 
 export type GeneralRelationResponseCollection = {
@@ -1549,7 +1588,7 @@ export type GeneralRelationResponseCollection = {
   data: Array<GeneralEntity>;
 };
 
-export type GenericMorph = Article | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewsSection | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Document | DocumentCategory | General | HomePage | I18NLocale | Page | Partner | Procedure | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Article | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewsSection | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Document | DocumentCategory | General | HomePage | I18NLocale | Page | Partner | Procedure | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -3130,6 +3169,10 @@ export type UsersPermissionsUserRelationResponseCollection = {
   data: Array<UsersPermissionsUserEntity>;
 };
 
+export type FlatNavigationItemFragment = { __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch' } | { __typename: 'Page', title: string, slug: string } | null } | null };
+
+export type NavigationItemFragment = { __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch' } | { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch' } | { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch' } | { __typename: 'Page', title: string, slug: string } | null } | null };
+
 export type CtaButtonFragment = { __typename?: 'ComponentBlocksButtonLink', label: string, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null };
 
 export type SidebarFragment = { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null };
@@ -3140,13 +3183,13 @@ export type CtaFragment = { __typename?: 'ComponentBlocksCta', title: string, de
 
 export type HeaderFragment = { __typename?: 'ComponentGeneralHeader', faqPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null };
 
-export type SocialFragment = { __typename?: 'ComponentGeneralSocial', facebook?: string | null, instagram?: string | null, youtube?: string | null, linkedin?: string | null, twitter?: string | null };
+export type SocialItemFragment = { __typename?: 'ComponentBlocksSocialItem', title: string, url: string, icon?: Enum_Componentblockssocialitem_Icon | null };
 
 export type ContactFragment = { __typename?: 'ComponentGeneralContacts', address?: string | null, latitude?: string | null, longitude?: string | null, navigateToLink?: string | null, openingHoursPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, contactsPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null };
 
 export type FooterLinkItemFragment = { __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null };
 
-export type FooterFragment = { __typename?: 'ComponentGeneralFooter', title1?: string | null, title2?: string | null, title3?: string | null, title4?: string | null, links1?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links2?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links3?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links4?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null };
+export type FooterFragment = { __typename?: 'ComponentGeneralFooter', title1?: string | null, title2?: string | null, title3?: string | null, title4?: string | null, links1?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links2?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links3?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links4?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, bottomLinks?: Array<{ __typename?: 'ComponentBlocksButtonLink', label: string, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null };
 
 export type ProcedureFragment = { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null } | null };
 
@@ -3212,6 +3255,8 @@ export type DocumentCardEntityFragment = { __typename: 'DocumentEntity', id?: st
 
 export type DocumentEntityFragment = { __typename: 'DocumentEntity', id?: string | null, attributes?: { __typename?: 'Document', description?: string | null, title: string, publishedAt?: any | null, slug: string, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, documentCategory?: { __typename?: 'DocumentCategoryEntityResponse', data?: { __typename?: 'DocumentCategoryEntity', id?: string | null, attributes?: { __typename?: 'DocumentCategory', title: string, slug: string } | null } | null } | null } | null };
 
+export type GeneralEntityFragment = { __typename?: 'GeneralEntity', attributes?: { __typename?: 'General', generalOpeningHours?: string | null, header?: { __typename?: 'ComponentGeneralHeader', faqPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, socials?: Array<{ __typename?: 'ComponentBlocksSocialItem', title: string, url: string, icon?: Enum_Componentblockssocialitem_Icon | null } | null> | null, contact?: { __typename?: 'ComponentGeneralContacts', address?: string | null, latitude?: string | null, longitude?: string | null, navigateToLink?: string | null, openingHoursPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, contactsPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null, footer?: { __typename?: 'ComponentGeneralFooter', title1?: string | null, title2?: string | null, title3?: string | null, title4?: string | null, links1?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links2?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links3?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links4?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, bottomLinks?: Array<{ __typename?: 'ComponentBlocksButtonLink', label: string, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null } | null } | null };
+
 export type PartnerEntityFragment = { __typename?: 'PartnerEntity', id?: string | null, attributes?: { __typename?: 'Partner', title: string, link?: string | null, featured?: boolean | null, priority?: number | null, logo: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } } | null };
 
 export type PageSlugEntityFragment = { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null };
@@ -3226,18 +3271,12 @@ export type CeremonyEntityFragment = { __typename?: 'CeremonyEntity', id?: strin
 
 export type HomepageCeremonyEntityFragment = { __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename?: 'BranchEntity', attributes?: { __typename?: 'Branch', slug: string, title: string, localizations?: { __typename?: 'BranchRelationResponseCollection', data: Array<{ __typename?: 'BranchEntity', attributes?: { __typename?: 'Branch', slug: string, title: string } | null }> } | null } | null } | null } | null } | null };
 
-export type FlatNavigationItemFragment = { __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch' } | { __typename: 'Page', title: string, slug: string } | null } | null };
-
-export type NavigationItemFragment = { __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch' } | { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch' } | { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch' } | { __typename: 'Page', title: string, slug: string } | null } | null };
-
-export type GeneralEntityFragment = { __typename?: 'GeneralEntity', attributes?: { __typename?: 'General', generalOpeningHours?: string | null, header?: { __typename?: 'ComponentGeneralHeader', faqPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, social?: { __typename?: 'ComponentGeneralSocial', facebook?: string | null, instagram?: string | null, youtube?: string | null, linkedin?: string | null, twitter?: string | null } | null, contact?: { __typename?: 'ComponentGeneralContacts', address?: string | null, latitude?: string | null, longitude?: string | null, navigateToLink?: string | null, openingHoursPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, contactsPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null, footer?: { __typename?: 'ComponentGeneralFooter', title1?: string | null, title2?: string | null, title3?: string | null, title4?: string | null, links1?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links2?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links3?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links4?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null } | null } | null };
-
 export type GeneralQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode'];
 }>;
 
 
-export type GeneralQuery = { __typename?: 'Query', navigation: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch' } | { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch' } | { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch' } | { __typename: 'Page', title: string, slug: string } | null } | null } | null>, general?: { __typename?: 'GeneralEntityResponse', data?: { __typename?: 'GeneralEntity', attributes?: { __typename?: 'General', generalOpeningHours?: string | null, header?: { __typename?: 'ComponentGeneralHeader', faqPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, social?: { __typename?: 'ComponentGeneralSocial', facebook?: string | null, instagram?: string | null, youtube?: string | null, linkedin?: string | null, twitter?: string | null } | null, contact?: { __typename?: 'ComponentGeneralContacts', address?: string | null, latitude?: string | null, longitude?: string | null, navigateToLink?: string | null, openingHoursPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, contactsPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null, footer?: { __typename?: 'ComponentGeneralFooter', title1?: string | null, title2?: string | null, title3?: string | null, title4?: string | null, links1?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links2?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links3?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links4?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null } | null } | null } | null } | null };
+export type GeneralQuery = { __typename?: 'Query', navigation: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch' } | { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch' } | { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Branch' } | { __typename: 'Page', title: string, slug: string } | null } | null } | null>, general?: { __typename?: 'GeneralEntityResponse', data?: { __typename?: 'GeneralEntity', attributes?: { __typename?: 'General', generalOpeningHours?: string | null, header?: { __typename?: 'ComponentGeneralHeader', faqPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, socials?: Array<{ __typename?: 'ComponentBlocksSocialItem', title: string, url: string, icon?: Enum_Componentblockssocialitem_Icon | null } | null> | null, contact?: { __typename?: 'ComponentGeneralContacts', address?: string | null, latitude?: string | null, longitude?: string | null, navigateToLink?: string | null, openingHoursPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, contactsPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null, footer?: { __typename?: 'ComponentGeneralFooter', title1?: string | null, title2?: string | null, title3?: string | null, title4?: string | null, links1?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links2?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links3?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, links4?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null, bottomLinks?: Array<{ __typename?: 'ComponentBlocksButtonLink', label: string, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null> | null } | null } | null } | null } | null };
 
 export type ProceduresQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode'];
@@ -3396,6 +3435,35 @@ export type DocumentFiletypesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type DocumentFiletypesQuery = { __typename?: 'Query', documentFiletypes?: Array<string | null> | null };
 
+export const FlatNavigationItemFragmentDoc = gql`
+    fragment FlatNavigationItem on NavigationItem {
+  id
+  title
+  path
+  type
+  related {
+    id
+    attributes {
+      __typename
+      ... on Page {
+        title
+        slug
+      }
+    }
+  }
+}
+    `;
+export const NavigationItemFragmentDoc = gql`
+    fragment NavigationItem on NavigationItem {
+  ...FlatNavigationItem
+  items {
+    ...FlatNavigationItem
+    items {
+      ...FlatNavigationItem
+    }
+  }
+}
+    ${FlatNavigationItemFragmentDoc}`;
 export const PageSlugEntityFragmentDoc = gql`
     fragment PageSlugEntity on PageEntity {
   __typename
@@ -3762,6 +3830,116 @@ export const DocumentEntityFragmentDoc = gql`
 }
     ${DocumentCardEntityFragmentDoc}
 ${SeoFragmentDoc}`;
+export const HeaderFragmentDoc = gql`
+    fragment Header on ComponentGeneralHeader {
+  faqPage {
+    data {
+      ...PageSlugEntity
+    }
+  }
+  contact {
+    data {
+      ...ContactEntity
+    }
+  }
+}
+    ${PageSlugEntityFragmentDoc}
+${ContactEntityFragmentDoc}`;
+export const SocialItemFragmentDoc = gql`
+    fragment SocialItem on ComponentBlocksSocialItem {
+  title
+  url
+  icon
+}
+    `;
+export const ContactFragmentDoc = gql`
+    fragment Contact on ComponentGeneralContacts {
+  address
+  openingHoursPage {
+    data {
+      ...PageSlugEntity
+    }
+  }
+  contact {
+    data {
+      ...ContactEntity
+    }
+  }
+  contactsPage {
+    data {
+      ...PageSlugEntity
+    }
+  }
+  latitude
+  longitude
+  navigateToLink
+}
+    ${PageSlugEntityFragmentDoc}
+${ContactEntityFragmentDoc}`;
+export const FooterLinkItemFragmentDoc = gql`
+    fragment FooterLinkItem on ComponentGeneralLinkItem {
+  id
+  label
+  page {
+    data {
+      ...PageSlugEntity
+    }
+  }
+  url
+  targetBlank
+}
+    ${PageSlugEntityFragmentDoc}`;
+export const FooterFragmentDoc = gql`
+    fragment Footer on ComponentGeneralFooter {
+  title1
+  links1 {
+    ...FooterLinkItem
+  }
+  title2
+  links2 {
+    ...FooterLinkItem
+  }
+  title3
+  links3 {
+    ...FooterLinkItem
+  }
+  title4
+  links4 {
+    ...FooterLinkItem
+  }
+  bottomLinks {
+    label
+    page {
+      data {
+        ...PageSlugEntity
+      }
+    }
+  }
+}
+    ${FooterLinkItemFragmentDoc}
+${PageSlugEntityFragmentDoc}`;
+export const GeneralEntityFragmentDoc = gql`
+    fragment GeneralEntity on GeneralEntity {
+  attributes {
+    header {
+      ...Header
+    }
+    socials {
+      ...SocialItem
+    }
+    contact {
+      ...Contact
+    }
+    footer {
+      ...Footer
+    }
+    generalOpeningHours
+  }
+}
+    ${HeaderFragmentDoc}
+${SocialItemFragmentDoc}
+${ContactFragmentDoc}
+${FooterFragmentDoc}`;
 export const PartnerEntityFragmentDoc = gql`
     fragment PartnerEntity on PartnerEntity {
   id
@@ -4123,138 +4301,6 @@ export const HomepageCeremonyEntityFragmentDoc = gql`
   }
 }
     `;
-export const FlatNavigationItemFragmentDoc = gql`
-    fragment FlatNavigationItem on NavigationItem {
-  id
-  title
-  path
-  type
-  related {
-    id
-    attributes {
-      __typename
-      ... on Page {
-        title
-        slug
-      }
-    }
-  }
-}
-    `;
-export const NavigationItemFragmentDoc = gql`
-    fragment NavigationItem on NavigationItem {
-  ...FlatNavigationItem
-  items {
-    ...FlatNavigationItem
-    items {
-      ...FlatNavigationItem
-    }
-  }
-}
-    ${FlatNavigationItemFragmentDoc}`;
-export const HeaderFragmentDoc = gql`
-    fragment Header on ComponentGeneralHeader {
-  faqPage {
-    data {
-      ...PageSlugEntity
-    }
-  }
-  contact {
-    data {
-      ...ContactEntity
-    }
-  }
-}
-    ${PageSlugEntityFragmentDoc}
-${ContactEntityFragmentDoc}`;
-export const SocialFragmentDoc = gql`
-    fragment Social on ComponentGeneralSocial {
-  facebook
-  instagram
-  youtube
-  linkedin
-  twitter
-}
-    `;
-export const ContactFragmentDoc = gql`
-    fragment Contact on ComponentGeneralContacts {
-  address
-  openingHoursPage {
-    data {
-      ...PageSlugEntity
-    }
-  }
-  contact {
-    data {
-      ...ContactEntity
-    }
-  }
-  contactsPage {
-    data {
-      ...PageSlugEntity
-    }
-  }
-  latitude
-  longitude
-  navigateToLink
-}
-    ${PageSlugEntityFragmentDoc}
-${ContactEntityFragmentDoc}`;
-export const FooterLinkItemFragmentDoc = gql`
-    fragment FooterLinkItem on ComponentGeneralLinkItem {
-  id
-  label
-  page {
-    data {
-      ...PageSlugEntity
-    }
-  }
-  url
-  targetBlank
-}
-    ${PageSlugEntityFragmentDoc}`;
-export const FooterFragmentDoc = gql`
-    fragment Footer on ComponentGeneralFooter {
-  title1
-  links1 {
-    ...FooterLinkItem
-  }
-  title2
-  links2 {
-    ...FooterLinkItem
-  }
-  title3
-  links3 {
-    ...FooterLinkItem
-  }
-  title4
-  links4 {
-    ...FooterLinkItem
-  }
-}
-    ${FooterLinkItemFragmentDoc}`;
-export const GeneralEntityFragmentDoc = gql`
-    fragment GeneralEntity on GeneralEntity {
-  attributes {
-    header {
-      ...Header
-    }
-    social {
-      ...Social
-    }
-    contact {
-      ...Contact
-    }
-    footer {
-      ...Footer
-    }
-    generalOpeningHours
-  }
-}
-    ${HeaderFragmentDoc}
-${SocialFragmentDoc}
-${ContactFragmentDoc}
-${FooterFragmentDoc}`;
 export const GeneralDocument = gql`
     query General($locale: I18NLocaleCode!) {
   navigation: renderNavigation(

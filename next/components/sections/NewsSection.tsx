@@ -11,16 +11,16 @@ type NewsSectionProps = Pick<SectionProps, 'background'> & {
 }
 
 const NewsSection = ({ section, ...rest }: NewsSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common', { keyPrefix: 'sections.NewsSection' })
   const { getFullSlug } = useSlug()
 
   return (
     <Section
       {...rest}
-      title={section?.title ?? t('layouts.ArticleLayout.moreNews')}
+      title={section?.title ?? t('moreNews')}
       buttonLink={{
         linkHref: getFullSlug(undefined, 'news'),
-        label: t(`layouts.ArticleLayout.allArticles`),
+        label: t(`allNews`),
       }}
     >
       <NewsListing />

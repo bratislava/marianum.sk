@@ -235,6 +235,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
   params,
 }): Promise<GetStaticPropsResult<PageProps>> => {
   const slug = last(params?.slug) ?? ''
+  // eslint-disable-next-line no-console
   console.log(`Revalidating page "${slug}" on /${params?.slug.join('/') ?? ''}`)
 
   const [{ navigation, general }, { pages }, translations] = await Promise.all([

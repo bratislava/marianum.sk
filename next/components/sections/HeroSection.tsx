@@ -48,7 +48,7 @@ const HeroSection = ({
 
         <div className="py-5 empty:hidden md:w-[648px] md:pb-14 md:pt-6">
           {title && <h1 className="text-white">{title}</h1>}
-          {perex && <p className="mt-3">{perex}</p>}
+          {perex && <p className="mt-3 text-lg">{perex}</p>}
           {ctaSlug && (
             <Button href={ctaSlug} className="mt-6">
               {ctaButton?.label}

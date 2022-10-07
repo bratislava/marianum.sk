@@ -7,7 +7,8 @@
     "disclosureOfInformation": "Zverejňovanie informácií",
     "openingHours": "Otváracie hodiny",
     "addToCart": "Pridať do košíka",
-    "searchPlaceholder": "Hľadať…"
+    "searchPlaceholder": "Hľadať…",
+    "skipToContent": "Prejsť na obsah"
   },
   "paths": {
     "contacts": "/o-nas/kontakty",
@@ -124,6 +125,10 @@
       "filterBy": "Filtrovať podľa",
       "privateFieldsDescription": "Objednávateľ obradu neudelil súhlas na zverejnenie osobných údajov a údajov o pohrebnom obrade zosnulého."
     },
+    "NewsSection": {
+      "moreNews": "Ďalšie novinky",
+      "allNews": "Všetky novinky"
+    },
     "MapSection": {
       "search": "Hladať…",
       "noResults": "Žiadne výsledky…",
@@ -149,10 +154,6 @@
     }
   },
   "layouts": {
-    "ArticleLayout": {
-      "moreNews": "Ďalšie novinky",
-      "allArticles": "Všetky články"
-    },
     "DocumentLayout": {
       "createdAt": "Vytvorené",
       "downloadFile": "Stiahnuť",

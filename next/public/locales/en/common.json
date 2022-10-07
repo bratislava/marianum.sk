@@ -6,7 +6,9 @@
     "goToSlide": "Go to slide {{number}}",
     "disclosureOfInformation": "Disclosure of information",
     "openingHours": "Opening hours",
-    "addToCart": "Add to cart"
+    "addToCart": "Add to cart",
+    "searchPlaceholder": "Search…",
+    "skipToContent": "Skip to content"
   },
   "components": {
     "atoms": {
@@ -85,6 +87,10 @@
         "openImageGallery": "Open image gallery"
       }
     },
+    "NewsSection": {
+      "moreNews": "More news",
+      "allNews": "All news"
+    },
     "MapSection": {
       "search": "Search...",
       "noResults": "No results...",
@@ -98,10 +104,6 @@
     }
   },
   "layouts": {
-    "ArticleLayout": {
-      "moreNews": "More news",
-      "allArticles": "All articles"
-    },
     "DocumentLayout": {
       "createdAt": "Created",
       "downloadFile": "Download",

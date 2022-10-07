@@ -169,12 +169,12 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
                 >
                   <ChecklistRadio className="sm:hidden" isOpen={false} isCompleted={isCompleted} />
                 </div>
-                <h4>{title}</h4>
+                <h4 className="text-left">{title}</h4>
               </button>
               <AnimateHeight isVisible={isOpen}>
                 <div className="flex w-full flex-col gap-6 px-6 pb-6">
                   {/* item description */}
-                  {description && <div className="mt-4">{description}</div>}
+                  {description && <div className="text-lg">{description}</div>}
                   {
                     // download buttons for last item
                     index + 1 === items.length ? (

@@ -27,17 +27,6 @@
       },
       "component": "general.header"
     },
-    "social": {
-      "displayName": "social",
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "component": "general.social"
-    },
     "contact": {
       "type": "component",
       "repeatable": false,
@@ -47,6 +36,16 @@
         }
       },
       "component": "general.contacts"
+    },
+    "socials": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "component": "blocks.social-item"
     },
     "footer": {
       "type": "component",
