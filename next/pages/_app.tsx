@@ -7,6 +7,9 @@ import Head from 'next/head'
 import { appWithTranslation } from 'next-i18next'
 import { OverlayProvider } from 'react-aria'
 
+import CookieBanner from '../components/atoms/CookieBanner'
+import CookieConsent from '../components/atoms/CookieConsent'
+import CookieSettingsModal from '../components/atoms/CookieSettingsModal'
 import MI18nProvider from '../components/atoms/MI18nProvider'
 import ThirdPartyScripts from '../components/atoms/ThirdPartyScripts'
 
@@ -27,8 +30,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <MI18nProvider>
         <MotionConfig reducedMotion="user">
           <OverlayProvider>
-            <ThirdPartyScripts />
-            <Component {...pageProps} />
+            <CookieConsent banner={CookieBanner} modal={CookieSettingsModal}>
+              <ThirdPartyScripts />
+              <Component {...pageProps} />
+            </CookieConsent>
           </OverlayProvider>
         </MotionConfig>
       </MI18nProvider>
