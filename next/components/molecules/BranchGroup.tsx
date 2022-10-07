@@ -27,7 +27,7 @@ const BranchGroup = ({ branches, showOpeningHours }: BranchGroupFragment) => {
             linkHref={getFullSlug(branch) ?? ''}
             moreContent={
               showOpeningHours ? (
-                <RichText data={openingHoursOverride || general?.generalOpeningHours} />
+                <RichText content={openingHoursOverride || general?.generalOpeningHours} />
               ) : undefined
             }
           />

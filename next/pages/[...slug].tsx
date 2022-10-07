@@ -89,7 +89,7 @@ const Slug = ({ navigation, page, general }: PageProps) => {
                   <AccordionGroup>
                     {section.accordions?.map((accordion) => (
                       <AccordionItem key={accordion?.id} title={accordion?.title}>
-                        <RichText data={accordion?.content} coloredTable={false} />
+                        <RichText content={accordion?.content} coloredTable={false} />
                       </AccordionItem>
                     ))}
                   </AccordionGroup>

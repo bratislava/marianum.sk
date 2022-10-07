@@ -1,6 +1,5 @@
 import { RadioGroup } from '@headlessui/react'
 import cx from 'classnames'
-import { DataProp } from 'editorjs-blocks-react-renderer'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
@@ -89,183 +88,7 @@ const image: UploadFile = {
     'data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUG/8QAIRAAAQQABwEBAAAAAAAAAAAAAQIDBAUABxESEyExBqH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AkZQSpl3UW1bDkphOQqlyZvSyklL7ShwuIV6DtJB1B8696yDWYP08NpEWPYOcLKQ2jV1QO1PQ/BhhgP/Z',
 }
 
-const richText: DataProp = {
-  time: 1_661_435_007_991,
-  blocks: [
-    { id: '8QXMEFDFIT', type: 'header', data: { text: 'Heading 1', level: 1 } },
-    { id: 'F43W2lcdg5', type: 'header', data: { text: 'Heading 2', level: 2 } },
-    { id: 'lbecFbfp6r', type: 'header', data: { text: 'Heading 3', level: 3 } },
-    { id: '9g4QGims7M', type: 'header', data: { text: 'Heading 4', level: 4 } },
-    { id: 'ct7ygqaNp1', type: 'header', data: { text: 'Heading 5', level: 5 } },
-    { id: 'uooZ-G7C4T', type: 'header', data: { text: 'Heading 6', level: 6 } },
-    {
-      id: 'y0mA6aqIWn',
-      type: 'paragraph',
-      data: {
-        text: '<b>Nezvyčajné </b><i>kŕdle </i><a href="http://google.com">šťastných </a>figliarskych ďatľov učia pri kótovanom ústí Váhu mĺkveho koňa Waldemara obžierať väčšie kusy exkluzívnej kôry.',
-      },
-    },
-    {
-      id: 'Vy-t_QsYUq',
-      type: 'table',
-      data: {
-        withHeadings: true,
-        content: [
-          ['First name', 'Last name', 'Test'],
-          ['<b>Abc</b>', '<i>Abc</i>', '<a href="http://google.com">Abc</a>'],
-          ['Abc', 'Abc', 'Abc'],
-        ],
-      },
-    },
-    { id: 'J49k_dgdA3', type: 'delimiter', data: {} },
-    {
-      id: 'lDHPtxwxi9',
-      type: 'table',
-      data: {
-        withHeadings: false,
-        content: [
-          ['<b>Abc</b>', '<i>Abc</i>', '<a href="http://google.com">Abc</a>'],
-          ['Abc', 'Abc', 'Abc'],
-        ],
-      },
-    },
-    {
-      id: 'Gdo7BsLUYb',
-      type: 'image',
-      data: {
-        file: {
-          url: '/uploads/adams_family_1681cf52bb.jpg',
-          mime: 'image/jpeg',
-          height: 422,
-          width: 663,
-          size: 59.67,
-          alt: "Adam's family alt",
-          formats: {
-            small: {
-              ext: '.jpg',
-              url: '/uploads/small_adams_family_1681cf52bb.jpg',
-              hash: 'small_adams_family_1681cf52bb',
-              mime: 'image/jpeg',
-              name: 'small_adams family',
-              path: null,
-              size: 35.67,
-              width: 500,
-              height: 318,
-            },
-            thumbnail: {
-              ext: '.jpg',
-              url: '/uploads/thumbnail_adams_family_1681cf52bb.jpg',
-              hash: 'thumbnail_adams_family_1681cf52bb',
-              mime: 'image/jpeg',
-              name: 'thumbnail_adams family',
-              path: null,
-              size: 10.75,
-              width: 245,
-              height: 156,
-            },
-          },
-          strapiImage: image,
-        },
-        caption: '',
-        withBorder: false,
-        stretched: false,
-        withBackground: false,
-      },
-    },
-    {
-      id: 'xPvMDIFqQb',
-      type: 'image',
-      data: {
-        file: {
-          url: '/uploads/adams_family_1681cf52bb.jpg',
-          mime: 'image/jpeg',
-          height: 422,
-          width: 663,
-          size: 59.67,
-          alt: "Adam's family alt",
-          formats: {
-            small: {
-              ext: '.jpg',
-              url: '/uploads/small_adams_family_1681cf52bb.jpg',
-              hash: 'small_adams_family_1681cf52bb',
-              mime: 'image/jpeg',
-              name: 'small_adams family',
-              path: null,
-              size: 35.67,
-              width: 500,
-              height: 318,
-            },
-            thumbnail: {
-              ext: '.jpg',
-              url: '/uploads/thumbnail_adams_family_1681cf52bb.jpg',
-              hash: 'thumbnail_adams_family_1681cf52bb',
-              mime: 'image/jpeg',
-              name: 'thumbnail_adams family',
-              path: null,
-              size: 10.75,
-              width: 245,
-              height: 156,
-            },
-          },
-          strapiImage: {
-            updatedAt: '2022-08-24T20:30:23.750Z',
-            id: 2,
-            name: 'adams family',
-            alternativeText: "Adam's family alt",
-            caption: "Adam's family caption",
-            width: 663,
-            height: 422,
-            formats: {
-              small: {
-                ext: '.jpg',
-                url: '/uploads/small_adams_family_1681cf52bb.jpg',
-                hash: 'small_adams_family_1681cf52bb',
-                mime: 'image/jpeg',
-                name: 'small_adams family',
-                path: null,
-                size: 35.67,
-                width: 500,
-                height: 318,
-              },
-              thumbnail: {
-                ext: '.jpg',
-                url: '/uploads/thumbnail_adams_family_1681cf52bb.jpg',
-                hash: 'thumbnail_adams_family_1681cf52bb',
-                mime: 'image/jpeg',
-                name: 'thumbnail_adams family',
-                path: null,
-                size: 10.75,
-                width: 245,
-                height: 156,
-              },
-            },
-            hash: 'adams_family_1681cf52bb',
-            ext: '.jpg',
-            mime: 'image/jpeg',
-            size: 59.67,
-            url: '/uploads/adams_family_1681cf52bb.jpg',
-            previewUrl: null,
-            provider: 'local',
-            provider_metadata: null,
-            folderPath: '/',
-            createdAt: '2022-08-24T20:30:23.750Z',
-            placeholder:
-              'data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUG/8QAIRAAAQQABwEBAAAAAAAAAAAAAQIDBAUABxESEyExBqH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AkZQSpl3UW1bDkphOQqlyZvSyklL7ShwuIV6DtJB1B8696yDWYP08NpEWPYOcLKQ2jV1QO1PQ/BhhgP/Z',
-            folder: null,
-            type: 'asset',
-          },
-        },
-        caption: '',
-        withBorder: false,
-        stretched: true,
-        withBackground: false,
-      },
-    },
-  ],
-  version: '2.23.2',
-}
-const richTextStringified = JSON.stringify(richText)
-/* eslint-enable */
+const richText = '# Heading 1'
 
 type WrapperProps = {
   title?: string
@@ -1325,7 +1148,6 @@ const Showcase = () => {
                 name="Package name"
                 priceFrom={1999}
                 claims={[
-                  // eslint-disable-next-line sonarjs/no-duplicate-string
                   'Lorem ipsum dolor sit amet',
                   'Lorem ipsum dolor sit amet',
                   'Lorem ipsum dolor sit amet',
@@ -1338,7 +1160,7 @@ const Showcase = () => {
           </Wrapper>
 
           <Wrapper title="Richtext">
-            <RichText data={richTextStringified} />
+            <RichText content={richText} />
           </Wrapper>
 
           <div className="h-64" />
