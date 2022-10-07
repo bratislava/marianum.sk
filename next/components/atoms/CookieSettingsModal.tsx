@@ -11,9 +11,9 @@ import {
   usePreventScroll,
 } from 'react-aria'
 
-import Check from '../../assets/check.svg'
-import Close from '../../assets/close.svg'
-import X from '../../assets/x-alt.svg'
+import CheckIcon from '../../assets/check.svg'
+import CloseIcon from '../../assets/close.svg'
+import XIcon from '../../assets/x-alt.svg'
 import Button from './Button'
 import Checkbox from './Checkbox'
 import { cookieConsentContext } from './CookieConsent'
@@ -124,7 +124,7 @@ const CookieSettingsModal = () => {
                           variant="white"
                           onPress={onCloseModal}
                         >
-                          <Close />
+                          <CloseIcon />
                         </IconButton>
                       </div>
                       <div className="flex flex-col gap-4">
@@ -163,7 +163,7 @@ const CookieSettingsModal = () => {
                             className="whitespace-nowrap"
                             variant="primary"
                             onPress={onAcceptAll}
-                            startIcon={<Check />}
+                            startIcon={<CheckIcon />}
                           >
                             {t('cookieConsent.modal.acceptAll')}
                           </Button>
@@ -171,7 +171,7 @@ const CookieSettingsModal = () => {
                             className="whitespace-nowrap"
                             variant="secondary"
                             onPress={onRejectAll}
-                            startIcon={<X />}
+                            startIcon={<XIcon />}
                           >
                             {t('cookieConsent.modal.rejectAll')}
                           </Button>

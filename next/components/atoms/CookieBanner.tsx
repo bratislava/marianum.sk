@@ -2,9 +2,9 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { useContext } from 'react'
 
-import Check from '../../assets/check.svg'
-import Info from '../../assets/info.svg'
-import X from '../../assets/x-alt.svg'
+import CheckIcon from '../../assets/check.svg'
+import InfoIcon from '../../assets/info.svg'
+import XIcon from '../../assets/x-alt.svg'
 import Button from './Button'
 import { cookieConsentContext } from './CookieConsent'
 import IconButton from './IconButton'
@@ -35,7 +35,7 @@ const CookieBanner = () => {
                     className="shrink-0"
                     onPress={onCloseBanner}
                   >
-                    <X />
+                    <XIcon />
                   </IconButton>
                 </div>
                 <p className="flex-1 px-8">{t('cookieConsent.banner.description')}</p>
@@ -45,7 +45,7 @@ const CookieBanner = () => {
                   className="w-full whitespace-nowrap"
                   variant="primary"
                   onPress={onAcceptAll}
-                  startIcon={<Check />}
+                  startIcon={<CheckIcon />}
                 >
                   {t('cookieConsent.banner.acceptAll')}
                 </Button>
@@ -53,7 +53,7 @@ const CookieBanner = () => {
                   className="w-full whitespace-nowrap"
                   variant="secondary"
                   onPress={onRejectAll}
-                  startIcon={<X />}
+                  startIcon={<XIcon />}
                 >
                   {t('cookieConsent.banner.rejectAll')}
                 </Button>
@@ -61,7 +61,7 @@ const CookieBanner = () => {
                   className="w-full whitespace-nowrap"
                   variant="secondary"
                   onPress={onOpenModal}
-                  startIcon={<Info />}
+                  startIcon={<InfoIcon />}
                 >
                   {t('cookieConsent.banner.settings')}
                 </Button>
