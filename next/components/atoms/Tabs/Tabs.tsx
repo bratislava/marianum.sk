@@ -72,7 +72,7 @@ const Tabs = ({ children, areWhite = false, areBig = false }: TabsProps) => {
   return (
     <tabsContext.Provider value={tabsContextValue}>
       <Tab.Group vertical={isVertical} manual as="div" className="flex flex-col">
-        <Tab.List className={cx('flex gap-4', { 'flex-col sm:flex-row': areBig })}>
+        <Tab.List className={cx('flex gap-6', { 'flex-col sm:flex-row': areBig })}>
           {tabLabels.map((label, index) => (
             <Tab
               // eslint-disable-next-line react/no-array-index-key
@@ -118,7 +118,7 @@ const Tabs = ({ children, areWhite = false, areBig = false }: TabsProps) => {
             </Tab>
           ))}
         </Tab.List>
-        <Tab.Panels className="outline-none">{children}</Tab.Panels>
+        <Tab.Panels className="mt-6 outline-none md:mt-11">{children}</Tab.Panels>
       </Tab.Group>
     </tabsContext.Provider>
   )

@@ -13,15 +13,17 @@
     "description": {
       "type": "text"
     },
-    "showMoreButton": {
+    "atMedicalFacility": {
+      "displayName": "bundle group",
       "type": "component",
       "repeatable": false,
-      "component": "blocks.button-link"
+      "component": "blocks.bundle-group"
     },
-    "bundles": {
+    "outsideMedicalFacility": {
+      "displayName": "bundle group",
       "type": "component",
-      "repeatable": true,
-      "component": "blocks.bundle-item"
+      "repeatable": false,
+      "component": "blocks.bundle-group"
     }
   }
 }

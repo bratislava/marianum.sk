@@ -1,4 +1,5 @@
-import { Branch, Maybe } from '../graphql'
+import { Maybe } from '../graphql'
+import { BranchMeili } from '../types/meiliTypes'
 
 /**
  * As the relation in ceremonies and debtors is always with the Slovak version, we always get the Slovak version as the
@@ -23,11 +24,6 @@ export const getBranchTitleInCeremoniesDebtors = (
   )?.attributes?.title
 
   return localeBranchTitle ?? skBranchTitle
-}
-
-export type BranchMeili = Omit<Branch, '__typename' | 'localizations'> & {
-  id: string
-  localizations: BranchMeili[]
 }
 
 /**
