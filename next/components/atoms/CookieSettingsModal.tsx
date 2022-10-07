@@ -119,7 +119,11 @@ const CookieSettingsModal = () => {
                     <div className="flex w-full flex-col gap-4 bg-white p-4 md:gap-8 md:p-8">
                       <div className="flex items-center justify-between">
                         <div className="text-h3 font-bold">{t('cookieConsent.modal.title')}</div>
-                        <IconButton variant="white" onPress={onCloseModal}>
+                        <IconButton
+                          aria-label={t('cookieConsent.modal.dismiss')}
+                          variant="white"
+                          onPress={onCloseModal}
+                        >
                           <Close />
                         </IconButton>
                       </div>

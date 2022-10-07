@@ -149,13 +149,15 @@
       "description": "We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners who may combine it with other information that you've provided to them or that they've collected from your use of their services.",
       "acceptAll": "Accept all",
       "rejectAll": "Reject all",
-      "settings": "Cookie settings"
+      "settings": "Cookie settings",
+      "dismiss": "Dismiss cookie banner"
     },
     "modal": {
       "title": "Cookie settings",
       "acceptAll": "Accept all",
       "rejectAll": "Reject all",
       "saveSettings": "Save settings",
+      "dismiss": "Dismiss cookie settings modal",
       "types": {
         "necessary": {
           "title": "Necessary cookies",

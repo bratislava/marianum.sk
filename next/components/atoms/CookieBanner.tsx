@@ -30,7 +30,11 @@ const CookieBanner = () => {
               <div className="flex flex-col gap-4">
                 <div className="flex justify-between gap-2 pr-6 pt-6">
                   <span className="pl-8 text-h3 font-bold">{t('cookieConsent.banner.title')}</span>
-                  <IconButton className="shrink-0" onPress={onCloseBanner}>
+                  <IconButton
+                    aria-label={t('cookieConsent.banner.dismiss')}
+                    className="shrink-0"
+                    onPress={onCloseBanner}
+                  >
                     <X />
                   </IconButton>
                 </div>
