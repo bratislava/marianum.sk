@@ -193,16 +193,22 @@
       "title": "Táto webová stránka používa súbory cookies",
       "description": "Súbory cookie používame na prispôsobenie obsahu a reklám, poskytovanie funkcií sociálnych médií a analýzu návštevnosti. Informácie o vašom používaní stránky zdieľame aj s našimi sociálnymi médiami, reklamnými a analytickými partnermi, ktorí ich môžu skombinovať s inými informáciami, ktoré ste im poskytli alebo ktoré zhromaždili pri vašom používaní ich služieb.",
       "acceptAll": "Prijať všetko",
+      "acceptAllCookies": "Prijať všetky súbory cookies",
       "rejectAll": "Odmietnuť všetko",
+      "rejectAllCookies": "Odmietnuť všetky súbory cookies",
       "settings": "Nastavenia cookies",
-      "dismiss": "Zavrieť cookie banner"
+      "dismiss": "Zavrieť cookie banner",
+      "openCookieSettings": "Otvoriť nastavenia cookies"
     },
     "modal": {
       "title": "Nastavenie súborov cookies",
       "acceptAll": "Prijať všetko",
+      "acceptAllCookies": "Prijať všetky súbory cookies",
       "rejectAll": "Odmietnuť všetko",
+      "rejectAllCookies": "Odmietnuť všetky súbory cookies",
       "saveSettings": "Uložiť nastavenia",
       "dismiss": "Zavrieť nastavenia cookies",
+      "saveCookieSettings": "Uložiť nastavenia cookies",
       "types": {
         "necessary": {
           "title": "Nevyhnutné súbory cookies",

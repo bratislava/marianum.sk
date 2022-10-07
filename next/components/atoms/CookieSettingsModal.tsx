@@ -160,6 +160,7 @@ const CookieSettingsModal = () => {
                       <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
                         <div className="flex flex-col gap-4 md:flex-row">
                           <Button
+                            aria-label={t('cookieConsent.modal.acceptAllCookies')}
                             className="whitespace-nowrap"
                             variant="primary"
                             onPress={onAcceptAll}
@@ -168,6 +169,7 @@ const CookieSettingsModal = () => {
                             {t('cookieConsent.modal.acceptAll')}
                           </Button>
                           <Button
+                            aria-label={t('cookieConsent.modal.rejectAllCookies')}
                             className="whitespace-nowrap"
                             variant="secondary"
                             onPress={onRejectAll}
@@ -177,6 +179,7 @@ const CookieSettingsModal = () => {
                           </Button>
                         </div>
                         <Button
+                          aria-label={t('cookieConsent.modal.saveCookieSettings')}
                           className="whitespace-nowrap"
                           variant="secondary"
                           onPress={handleCustomCookiesAcceptance}

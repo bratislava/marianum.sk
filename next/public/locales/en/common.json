@@ -148,16 +148,22 @@
       "title": "This website uses cookies",
       "description": "We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners who may combine it with other information that you've provided to them or that they've collected from your use of their services.",
       "acceptAll": "Accept all",
+      "acceptAllCookies": "Accept all cookies",
       "rejectAll": "Reject all",
+      "rejectAllCookies": "Reject all cookies",
       "settings": "Cookie settings",
-      "dismiss": "Dismiss cookie banner"
+      "dismiss": "Dismiss cookie banner",
+      "openCookieSettings": "Open cookie settings"
     },
     "modal": {
       "title": "Cookie settings",
       "acceptAll": "Accept all",
+      "acceptAllCookies": "Accept all cookies",
       "rejectAll": "Reject all",
+      "rejectAllCookies": "Reject all cookies",
       "saveSettings": "Save settings",
       "dismiss": "Dismiss cookie settings modal",
+      "saveCookieSettings": "Save cookie settings",
       "types": {
         "necessary": {
           "title": "Necessary cookies",

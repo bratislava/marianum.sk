@@ -42,6 +42,7 @@ const CookieBanner = () => {
               </div>
               <div className="flex w-full flex-col gap-4 px-8 pb-8 sm:flex-row md:w-fit">
                 <Button
+                  aria-label={t('cookieConsent.banner.acceptAllCookies')}
                   className="w-full whitespace-nowrap"
                   variant="primary"
                   onPress={onAcceptAll}
@@ -51,6 +52,7 @@ const CookieBanner = () => {
                 </Button>
                 <Button
                   className="w-full whitespace-nowrap"
+                  aria-label={t('cookieConsent.banner.rejectAllCookies')}
                   variant="secondary"
                   onPress={onRejectAll}
                   startIcon={<XIcon />}
@@ -59,6 +61,7 @@ const CookieBanner = () => {
                 </Button>
                 <Button
                   className="w-full whitespace-nowrap"
+                  aria-label={t('cookieConsent.banner.openCookieSettings')}
                   variant="secondary"
                   onPress={onOpenModal}
                   startIcon={<InfoIcon />}
