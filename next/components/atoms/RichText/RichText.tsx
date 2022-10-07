@@ -18,7 +18,7 @@ export type AdvancedListItemProps = LiProps & { depth?: number }
 const RichText = ({ className, content, coloredTable = true }: RichTextProps) => {
   return (
     <ReactMarkdown
-      className={cx('flex flex-col gap-8', className)}
+      className={cx('flex flex-col gap-8 text-lg', className)}
       components={{
         h1: ({ children }) => <h1 className="text-h1 font-bold">{children}</h1>,
         h2: ({ children }) => <h2 className="text-h2 font-bold">{children}</h2>,
@@ -28,22 +28,23 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
         h6: ({ children }) => <h6 className="text-h6 font-bold">{children}</h6>,
         // eslint-disable-next-line jsx-a11y/alt-text
         img: (props) => <img {...props} className="w-full" />,
-        p: (props) => <p className="whitespace-pre-wrap last:mb-0" {...props} />,
-        a: ({ href, children }) => (
-          <MLink
-            noStyles
-            className="font-semibold text-primary underline"
-            href={href ?? '#'}
-            target={href?.startsWith('http') ? '_blank' : '_self'}
-          >
-            {children[0]}
-          </MLink>
-        ),
+        p: (props) => <p className="whitespace-pre-wrap" {...props} />,
+        a: ({ href, children }) => {
+          const isExternal = href?.startsWith('http')
+          return (
+            <MLink
+              href={href ?? '#'}
+              target={isExternal ? '_blank' : '_self'}
+              noStyles
+              className="font-semibold text-primary underline hover:text-primary-dark"
+            >
+              {children[0]}
+              {isExternal && ' ↗'}
+            </MLink>
+          )
+        },
         blockquote: ({ children, ...props }) => (
-          <blockquote
-            {...props}
-            className="mb-4 border-l-4 border-primary bg-white p-6 last:mb-0 md:mb-6 md:p-8"
-          >
+          <blockquote {...props} className="border-l-4 border-primary bg-white p-6 md:p-8">
             {children}
           </blockquote>
         ),
@@ -61,12 +62,12 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
           </td>
         ),
         ol: ({ children, ordered, ...props }) => (
-          <ol className="list-decimal pl-4" {...props}>
+          <ol className="list-decimal pl-8 marker:text-primary" {...props}>
             {children}
           </ol>
         ),
         ul: ({ children, ordered, ...props }) => (
-          <ul className="list-disc pl-4" {...props}>
+          <ul className="list-disc pl-8 marker:text-primary" {...props}>
             {children}
           </ul>
         ),

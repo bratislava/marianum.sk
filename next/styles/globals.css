@@ -27,6 +27,14 @@
     src: local(''), url('/fonts/noto-sans-v27-latin-ext_latin-700.woff2') format('woff2'),
       url('/fonts/noto-sans-v27-latin-ext_latin-700.woff') format('woff');
   }
+  /* ABCArizonaFlare-Bold */
+  @font-face {
+    font-family: 'ABC Arizona Flare';
+    font-style: normal;
+    font-weight: 700;
+    src: local(''), url('/fonts/ABCArizonaFlare-Bold.woff2') format('woff2'),
+      url('/fonts/ABCArizonaFlare-Bold.woff') format('woff');
+  }
 
   html,
   body {
@@ -67,6 +75,7 @@
   h4,
   h5,
   h6 {
+    font-family: 'ABC Arizona Flare', sans-serif;
     @apply text-foreground-heading font-bold;
   }
 
