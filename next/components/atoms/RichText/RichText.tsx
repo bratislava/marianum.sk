@@ -54,8 +54,8 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
         ),
         thead: ({ children, ...props }) => <thead {...props}>{children}</thead>,
         tbody: ({ children, ...props }) => <tbody {...props}>{children}</tbody>,
-        tr: ({ children, ...props }) => <tr {...props}>{children}</tr>,
-        td: ({ children, ...props }) => (
+        tr: ({ children, isHeader, ...props }) => <tr {...props}>{children}</tr>,
+        td: ({ children, isHeader, ...props }) => (
           <td>
             <div {...props}>{children}</div>
           </td>
