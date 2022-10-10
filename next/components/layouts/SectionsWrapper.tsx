@@ -9,6 +9,7 @@ type SectionContextValue = {
   isDivider: boolean
   isFirst: boolean
   isLast: boolean
+  // TODO: Consider removing, as it's always `true` in our use cases.
   alternateBackground: boolean
 }
 
