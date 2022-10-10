@@ -1,3 +1,4 @@
+import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
@@ -5,6 +6,7 @@ import { ReactNode } from 'react'
 import HomeIcon from '../../assets/home.svg'
 import { CtaButtonFragment } from '../../graphql'
 import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
+import { useIsHeroSectionOverlaid } from '../../utils/heroSectionContentOverlay'
 import Breadcrumbs, { BreadcrumbItem } from '../atoms/Breadcrumbs'
 import Button from '../atoms/Button'
 import FormatCurrency from '../atoms/FormatCurrency'
@@ -41,12 +43,19 @@ const HeroSection = ({
     ...(breadcrumbsMoreItems ?? []),
   ]
 
+  const isOverlaid = useIsHeroSectionOverlaid()
+
   return (
     <div className="bg-primary-dark text-white/72">
       <div className="container relative">
         <Breadcrumbs crumbs={breadcrumbs} className="sm:pt-8" />
 
-        <div className="py-5 empty:hidden md:w-[648px] md:pb-14 md:pt-6">
+        <div
+          className={cx('py-5 empty:hidden md:w-[648px] md:pt-6', {
+            'md:pb-[104px]': isOverlaid,
+            'md:pb-14': !isOverlaid,
+          })}
+        >
           {title && <h1 className="text-white">{title}</h1>}
           {perex && <p className="mt-3 text-lg">{perex}</p>}
           {ctaSlug && (

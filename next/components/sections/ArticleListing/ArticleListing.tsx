@@ -161,7 +161,7 @@ const ArticleListing = ({ section }: ArticleListingProps) => {
   }
 
   return (
-    <Section>
+    <Section overlayWithHero>
       <div className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3 md:bg-white md:p-6">
         <div>
           {section.type === Enum_Componentsectionsarticlelisting_Type.Press ? (
