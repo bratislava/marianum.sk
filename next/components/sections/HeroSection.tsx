@@ -8,6 +8,7 @@ import { getBreadcrumbs } from '../../utils/getBreadcrumbs'
 import Breadcrumbs, { BreadcrumbItem } from '../atoms/Breadcrumbs'
 import Button from '../atoms/Button'
 import FormatCurrency from '../atoms/FormatCurrency'
+import NormalizeSkText from '../atoms/NormalizeSkText'
 import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import { useNavigationContext } from '../molecules/Navigation/NavigationProvider/useNavigationContext'
 
@@ -48,7 +49,11 @@ const HeroSection = ({
 
         <div className="py-5 empty:hidden md:w-[648px] md:pb-14 md:pt-6">
           {title && <h1 className="text-white">{title}</h1>}
-          {perex && <p className="mt-3 text-lg">{perex}</p>}
+          {perex && (
+            <p className="mt-3 text-lg">
+              <NormalizeSkText>{perex}</NormalizeSkText>
+            </p>
+          )}
           {ctaSlug && (
             <Button href={ctaSlug} className="mt-6">
               {ctaButton?.label}
