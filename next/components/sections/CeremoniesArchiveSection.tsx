@@ -11,9 +11,9 @@ import { isDefined } from '../../utils/isDefined'
 import { meiliClient } from '../../utils/meilisearch'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import FormatDate from '../atoms/FormatDate'
-import Pagination from '../atoms/Pagination/Pagination'
 import TextField from '../atoms/TextField'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
+import PaginationMeili from '../molecules/PaginationMeili'
 import Section from '../molecules/Section'
 
 const pageSize = 20
@@ -134,21 +134,19 @@ const DataWrapper = ({
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
-  const pageCount = dataToDisplay ? Math.ceil(dataToDisplay.estimatedTotalHits / pageSize) : 0
-
   return (
     <>
       {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
       <Table data={dataToDisplay!} />
 
-      {pageCount > 0 && (
-        <Pagination
-          className="flex justify-center pt-4 md:pt-6"
+      {dataToDisplay ? (
+        <PaginationMeili
+          data={dataToDisplay}
+          pageSize={pageSize}
           selectedPage={filters.page}
-          count={pageCount}
-          onChange={onPageChange}
+          onPageChange={onPageChange}
         />
-      )}
+      ) : null}
     </>
   )
 }

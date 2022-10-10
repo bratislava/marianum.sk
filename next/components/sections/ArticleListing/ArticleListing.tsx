@@ -10,10 +10,10 @@ import { ArticleMeili } from '../../../types/meiliTypes'
 import { isDefined } from '../../../utils/isDefined'
 import { meiliClient } from '../../../utils/meilisearch'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
-import Pagination from '../../atoms/Pagination/Pagination'
 import TextField from '../../atoms/TextField'
 import ArticleCard from '../../molecules/Cards/ArticleCard'
 import { useSlugMeili } from '../../molecules/Navigation/NavigationProvider/useFullSlug'
+import PaginationMeili from '../../molecules/PaginationMeili'
 import Section from '../../molecules/Section'
 import ArticleNewsCategoriesSelect from './ArticleNewsCategoriesSelect'
 import ArticlePressCategoriesSelect from './ArticlePressCategoriesSelect'
@@ -111,7 +111,6 @@ const DataWrapper = ({
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
-  const pageCount = dataToDisplay ? Math.ceil(dataToDisplay.estimatedTotalHits / pageSize) : 0
   return (
     <>
       {/* TODO: Use loading overlay with spinner */}
@@ -119,14 +118,14 @@ const DataWrapper = ({
       <Articles data={dataToDisplay!} />
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
-      {pageCount > 0 && (
-        <Pagination
-          className="flex justify-center pt-4 md:pt-6"
+      {dataToDisplay ? (
+        <PaginationMeili
+          data={dataToDisplay}
+          pageSize={pageSize}
           selectedPage={filters.page}
-          count={pageCount}
-          onChange={onPageChange}
+          onPageChange={onPageChange}
         />
-      )}
+      ) : null}
     </>
   )
 }

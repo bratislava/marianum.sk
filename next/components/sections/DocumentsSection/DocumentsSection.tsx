@@ -11,8 +11,8 @@ import { isDefined } from '../../../utils/isDefined'
 import { meiliClient } from '../../../utils/meilisearch'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
 import Button from '../../atoms/Button'
-import Pagination from '../../atoms/Pagination/Pagination'
 import TextField from '../../atoms/TextField'
+import PaginationMeili from '../../molecules/PaginationMeili'
 import Row from '../../molecules/Row/Row'
 import Section from '../../molecules/Section'
 import SortSelect, { Sort } from '../../molecules/SortSelect'
@@ -106,7 +106,6 @@ const DataWrapper = ({
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
-  const pageCount = dataToDisplay ? Math.ceil(dataToDisplay.estimatedTotalHits / pageSize) : 0
   return (
     <>
       {/* TODO: Use loading overlay with spinner */}
@@ -114,14 +113,14 @@ const DataWrapper = ({
       <Documents data={dataToDisplay!} />
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
-      {pageCount > 0 && (
-        <Pagination
-          className="flex justify-center pt-4 md:pt-6"
+      {dataToDisplay ? (
+        <PaginationMeili
+          data={dataToDisplay}
+          pageSize={pageSize}
           selectedPage={filters.page}
-          count={pageCount}
-          onChange={onPageChange}
+          onPageChange={onPageChange}
         />
-      )}
+      ) : null}
     </>
   )
 }
