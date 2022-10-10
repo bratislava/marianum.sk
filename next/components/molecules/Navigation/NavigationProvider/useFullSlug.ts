@@ -5,7 +5,7 @@ import {
   DocumentSlugEntityFragment,
   PageSlugEntityFragment,
 } from '../../../../graphql'
-import { ArticleMeili } from '../../../../types/meiliTypes'
+import { ArticleMeili, BranchMeili } from '../../../../types/meiliTypes'
 import { isDefined } from '../../../../utils/isDefined'
 import { TNavigationContext } from './NavigationProvider'
 import { useNavigationContext } from './useNavigationContext'
@@ -87,7 +87,9 @@ const getFullPath = (
 
 // https://stackoverflow.com/a/71469571
 type getFullPathMeiliFn = (
-  ...args: ['article', ArticleMeili] /* | ['another', AnotherMeili'] */
+  ...args:
+    | ['article', ArticleMeili]
+    | ['branch', Pick<BranchMeili, 'type' | 'slug'>] /* | ['another', AnotherMeili] */
 ) => string | null
 
 const getFullPathMeili: getFullPathMeiliFn = (entityType, entity) => {
@@ -101,6 +103,15 @@ const getFullPathMeili: getFullPathMeiliFn = (entityType, entity) => {
     // eslint-disable-next-line unicorn/consistent-destructuring
     if (isDefined(entity.newsCategory)) {
       return [localPaths.news, slug].join('/')
+    }
+  }
+
+  if (entityType === 'branch') {
+    if (entity.type === 'cintorin') {
+      return [localPaths.cemeteries, slug].join('/')
+    }
+    if (entity.type === 'pobocka') {
+      return [localPaths.contacts, slug].join('/')
     }
   }
 

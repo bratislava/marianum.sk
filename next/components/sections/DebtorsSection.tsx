@@ -6,10 +6,11 @@ import { useDebounce } from 'usehooks-ts'
 
 import SearchIcon from '../../assets/search.svg'
 import { DebtorMeili } from '../../types/meiliTypes'
-import { getBranchTitleInCeremoniesDebtorsMeili } from '../../utils/getBranchTitleInCeremoniesDebtors'
+import { getBranchInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfoInCeremoniesDebtors'
 import { meiliClient } from '../../utils/meilisearch'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import TextField from '../atoms/TextField'
+import BranchLink from '../molecules/BranchLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
 import PaginationMeili from '../molecules/PaginationMeili'
 import Section from '../molecules/Section'
@@ -26,7 +27,6 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
   const { t, i18n } = useTranslation('common', {
     keyPrefix: 'sections.DebtorsSection',
   })
-
   const debtors = useMemo(() => {
     const debtorsData = data.hits
     if (!debtorsData) {
@@ -38,9 +38,12 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
     }
 
     return debtorsData.map((debtor) => {
+      const { title, slug } = getBranchInfoInCeremoniesDebtorsMeili(debtor.branch, i18n.language)
+
+      const branch = slug ? <BranchLink slug={slug} title={title} /> : title
       return {
         ...debtor,
-        branchTitle: getBranchTitleInCeremoniesDebtorsMeili(debtor.branch, i18n.language),
+        branch,
       }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -66,8 +69,7 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
           {debtors?.map((debtor, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <tr key={index}>
-              {/* TODO: Branch link */}
-              <td>{debtor.branchTitle}</td>
+              <td>{debtor.branch}</td>
               <td>{debtor.graveSector}</td>
               <td>{debtor.graveNumber}</td>
               <td>{debtor.gravePreviousNumber}</td>

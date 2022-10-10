@@ -6,12 +6,13 @@ import { useDebounce } from 'usehooks-ts'
 
 import SearchIcon from '../../assets/search.svg'
 import { CeremonyMeili } from '../../types/meiliTypes'
-import { getBranchTitleInCeremoniesDebtorsMeili } from '../../utils/getBranchTitleInCeremoniesDebtors'
+import { getBranchInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfoInCeremoniesDebtors'
 import { isDefined } from '../../utils/isDefined'
 import { meiliClient } from '../../utils/meilisearch'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import FormatDate from '../atoms/FormatDate'
 import TextField from '../atoms/TextField'
+import BranchLink from '../molecules/BranchLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
 import PaginationMeili from '../molecules/PaginationMeili'
 import Section from '../molecules/Section'
@@ -43,11 +44,14 @@ const Table = ({ data }: { data: SearchResponse<CeremonyMeili> }) => {
 
     return ceremoniesData.map((ceremony) => {
       const dateTime = new Date(ceremony.dateTime)
+      const { title, slug } = getBranchInfoInCeremoniesDebtorsMeili(ceremony.branch, i18n.language)
+
+      const branch = slug ? <BranchLink slug={slug} title={title} /> : title
 
       return {
         ...ceremony,
         dateTime,
-        branchTitle: getBranchTitleInCeremoniesDebtorsMeili(ceremony.branch, i18n.language),
+        branch,
       }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,8 +84,7 @@ const Table = ({ data }: { data: SearchResponse<CeremonyMeili> }) => {
                 </td>
                 <td>{ceremony.consentForPrivateFields ? ceremony.name : <PrivateField />}</td>
                 <td>{ceremony.consentForPrivateFields ? ceremony.birthYear : <PrivateField />}</td>
-                {/* TODO: Branch link */}
-                <td>{ceremony.branchTitle}</td>
+                <td>{ceremony.branch}</td>
                 <td>{ceremony.consentForPrivateFields ? ceremony.type : <PrivateField />}</td>
                 <td>{ceremony.company}</td>
                 <td>{ceremony.officiantProvidedBy}</td>
