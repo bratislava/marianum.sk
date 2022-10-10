@@ -70,7 +70,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
       <SectionsWrapper alternateBackground>
         <Section background="light">
           <div className="flex flex-col items-center gap-5 md:flex-row md:items-start md:gap-8">
-            <div className="flex h-[96px] w-[96px] items-center justify-center bg-background-beige md:h-[186px] md:w-[186px]">
+            <div className="flex h-[96px] w-[96px] shrink-0 items-center justify-center bg-background-beige md:h-[186px] md:w-[186px]">
               <FileIcon extension={extension} />
             </div>
             <div className="flex flex-col items-center gap-2 text-sm md:items-start">
@@ -78,7 +78,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
                 {t('layouts.DocumentLayout.createdAt')}{' '}
                 <FormatDate value={new Date(publishedAt)} format="articlePage" />
               </div>
-              <h1 className="text-center">{title}</h1>
+              <h1>{title}</h1>
               <div className="flex items-center gap-2 text-sm">
                 <span>{size}</span>
                 <span>•</span>

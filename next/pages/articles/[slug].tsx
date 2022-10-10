@@ -1,4 +1,3 @@
-import last from 'lodash/last'
 import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -67,7 +66,7 @@ export const getStaticProps: GetStaticProps<ArticlePageProps, StaticParams> = as
   locale = 'sk',
   params,
 }): Promise<GetStaticPropsResult<ArticlePageProps>> => {
-  const slug = last(params?.slug) ?? ''
+  const slug = params?.slug ?? ''
 
   const [{ navigation, general }, { articles }, translations] = await Promise.all([
     client.General({ locale }),
