@@ -2,6 +2,7 @@ import cx from 'classnames'
 import { ReactNode, useContext, useMemo } from 'react'
 
 import { CtaButtonFragment } from '../../graphql'
+import { useActivateHeroSectionContentOverlay } from '../../utils/heroSectionContentOverlay'
 import MLink from '../atoms/MLink'
 import { BackgroundColor, sectionContext } from '../layouts/SectionsWrapper'
 import { useSlug } from './Navigation/NavigationProvider/useFullSlug'
@@ -19,6 +20,7 @@ export type SectionProps = {
   className?: string
   innerClassName?: string
   dividerClassName?: string
+  overlayWithHero?: boolean
 }
 
 const Section = ({
@@ -32,17 +34,22 @@ const Section = ({
   className,
   innerClassName,
   dividerClassName,
+  overlayWithHero = false,
 }: SectionProps) => {
   const { getFullSlug } = useSlug()
 
   const showMorePath = getFullSlug(button?.page?.data) ?? buttonLink?.linkHref
   const showMoreLabel = button?.label ?? buttonLink?.label
 
-  const { background, isDivider, isLast, alternateBackground } = useContext(sectionContext)
+  const { background, isDivider, isFirst, isLast, alternateBackground } = useContext(sectionContext)
 
   const resultBackground = useMemo(() => {
     return propBackground ?? background
   }, [propBackground, background])
+
+  // Overlay should work only if the section is first.
+  const shouldOverlayWithHero = overlayWithHero && isFirst
+  useActivateHeroSectionContentOverlay(shouldOverlayWithHero)
 
   return (
     <div
@@ -67,6 +74,7 @@ const Section = ({
         className={cx(
           {
             'container py-6 md:py-16': alternateBackground,
+            'md:-mt-12 md:pt-0': shouldOverlayWithHero && alternateBackground,
             'pb-20 md:pb-36': isLast,
           },
           innerClassName,
