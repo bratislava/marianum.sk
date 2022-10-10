@@ -27,7 +27,7 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
       general={general}
       header={
         <HeroSection
-          breadcrumbsMoreItems={[{ label: title, linkHref: slug ?? '' }]}
+          breadcrumbsMoreItems={[{ label: title, path: slug ?? '' }]}
           moreContent={
             coverImage ? (
               <div className="static h-[188px] sm:h-[238px] md:relative md:h-[287px] lg:h-[387px] xl:h-[440px]">

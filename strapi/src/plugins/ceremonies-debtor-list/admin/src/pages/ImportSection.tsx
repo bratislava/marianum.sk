@@ -50,7 +50,7 @@ const ImportSection = ({ type }: ImportSectionProps) => {
       .catch((error) => {
         toggleNotification({
           type: "warning",
-          message: { defaultMessage: error?.response?.data?.message ?? error },
+          message: error.toString(),
           blockTransition: true,
         });
       })

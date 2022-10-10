@@ -2,10 +2,9 @@ import cx from 'classnames'
 import { ReactNode, useContext, useMemo } from 'react'
 
 import { CtaButtonFragment } from '../../graphql'
-import { getFullPath } from '../../utils/localPaths'
 import MLink from '../atoms/MLink'
-import { NavigationContext } from '../layouts/NavigationProvider'
 import { BackgroundColor, sectionContext } from '../layouts/SectionsWrapper'
+import { useSlug } from './Navigation/NavigationProvider/useFullSlug'
 
 export type SectionProps = {
   children: ReactNode
@@ -34,9 +33,9 @@ const Section = ({
   innerClassName,
   dividerClassName,
 }: SectionProps) => {
-  const { navMap } = useContext(NavigationContext)
+  const { getFullSlug } = useSlug()
 
-  const showMorePath = getFullPath(button?.page?.data, navMap) ?? buttonLink?.linkHref
+  const showMorePath = getFullSlug(button?.page?.data) ?? buttonLink?.linkHref
   const showMoreLabel = button?.label ?? buttonLink?.label
 
   const { background, isDivider, isLast, alternateBackground } = useContext(sectionContext)
@@ -67,7 +66,7 @@ const Section = ({
       <div
         className={cx(
           {
-            'container py-6 md:py-20': alternateBackground,
+            'container py-6 md:py-16': alternateBackground,
             'pb-20 md:pb-36': isLast,
           },
           innerClassName,

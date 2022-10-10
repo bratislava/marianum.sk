@@ -1,27 +1,27 @@
 import { useTranslation } from 'next-i18next'
-import { useContext, useMemo } from 'react'
+import { useMemo } from 'react'
 
-import { ContactFragment, FooterFragment, SocialFragment } from '../../../graphql'
-import { getFullPath } from '../../../utils/localPaths'
+import { ContactFragment, FooterFragment, SocialItemFragment } from '../../../graphql'
+import { isDefined } from '../../../utils/isDefined'
 import MLink from '../../atoms/MLink'
-import { NavigationContext } from '../../layouts/NavigationProvider'
+import { useSlug } from '../Navigation/NavigationProvider/useFullSlug'
 import FooterCredentials from './FooterCredentials'
 import FooterMap from './FooterMap'
 import FooterSocials from './FooterSocials'
 
 export type FooterProps = {
-  contact?: ContactFragment | null
-  footer?: FooterFragment | null
-  social?: SocialFragment | null
+  contact: ContactFragment | null | undefined
+  footer: FooterFragment | null | undefined
+  socials: SocialItemFragment[] | null | undefined
 }
 
-const Footer = ({ contact, footer, social }: FooterProps) => {
+const Footer = ({ contact, footer, socials }: FooterProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'components.molecules.Footer' })
-  const { navMap } = useContext(NavigationContext)
+  const { getFullSlug } = useSlug()
 
   const { phone1, email } = contact?.contact?.data?.attributes ?? {}
-  const openingHoursPath = getFullPath(contact?.openingHoursPage?.data, navMap)
-  const contactsPath = getFullPath(contact?.contactsPage?.data, navMap)
+  const openingHoursPath = getFullSlug(contact?.openingHoursPage?.data)
+  const contactsPath = getFullSlug(contact?.contactsPage?.data)
 
   const footerColumns = useMemo(() => {
     return [
@@ -46,8 +46,8 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
 
   return (
     // negative top margin to make footer overflow last section
-    <footer className="sticky top-full -mt-14 flex flex-col gap-18">
-      <div className="container flex flex-col gap-14">
+    <footer className="sticky top-full -mt-14 flex flex-col gap-12">
+      <div className="container flex flex-col gap-12">
         <div className="grid bg-primary text-white md:grid-cols-3 lg:grid-cols-2">
           <div className="h-52 w-full md:h-full">
             <FooterMap
@@ -92,7 +92,6 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
                     {email}
                   </MLink>
                 )}
-                {social && <FooterSocials social={social} />}
               </div>
               <div className="top-1 right-0 flex md:absolute">
                 {contactsPath && (
@@ -104,6 +103,11 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
             </div>
           </div>
         </div>
+
+        {socials?.length ? <FooterSocials socials={socials} /> : null}
+
+        <div className="border-t border-border" />
+
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
           {footerColumns.map(({ title, links }, colIndex) => (
             // eslint-disable-next-line react/no-array-index-key
@@ -111,7 +115,7 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
               <h4>{title}</h4>
               <div className="flex flex-col gap-3">
                 {links?.map((link, linkIndex) => {
-                  const fullPath = getFullPath(link?.page?.data, navMap) || link?.url || ''
+                  const fullPath = getFullSlug(link?.page?.data) || link?.url || ''
 
                   return (
                     <MLink
@@ -131,7 +135,8 @@ const Footer = ({ contact, footer, social }: FooterProps) => {
           ))}
         </div>
       </div>
-      <FooterCredentials />
+
+      <FooterCredentials links={footer?.bottomLinks?.filter(isDefined)} />
     </footer>
   )
 }

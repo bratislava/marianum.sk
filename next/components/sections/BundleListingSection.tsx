@@ -1,7 +1,9 @@
 import { BundleListingFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
-import { getFullPath } from '../../utils/localPaths'
+import Tab from '../atoms/Tabs/Tab'
+import Tabs from '../atoms/Tabs/Tabs'
 import BundleCard from '../molecules/Cards/BundleCard'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Section, { SectionProps } from '../molecules/Section'
 
 type BundleListingSectionProps = Pick<SectionProps, 'background'> & {
@@ -9,41 +11,57 @@ type BundleListingSectionProps = Pick<SectionProps, 'background'> & {
 }
 
 const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) => {
-  const { title, description, bundles, showMoreButton } = section
+  const { getFullSlug } = useSlug()
 
-  const filteredBundles = bundles
-    ?.filter(isDefined)
-    .map((bundle) => bundle.bundle?.data)
-    .filter((bundle) => bundle?.attributes)
+  const { title, description, atMedicalFacility, outsideMedicalFacility } = section
 
   return (
-    <Section
-      title={title}
-      description={description}
-      {...rest}
-      cardGrid="bundles"
-      button={showMoreButton}
-    >
-      {filteredBundles?.map((bundle) => {
-        const { id, attributes } = bundle ?? {}
-        const { title: bundleTitle, coverMedia, price, bundleContent } = attributes ?? {}
-
-        return (
-          <BundleCard
-            key={id}
-            image={coverMedia?.data?.attributes}
-            name={bundleTitle ?? ''}
-            priceFrom={price ?? 0}
-            claims={
-              bundleContent
-                ?.map((bundleContentItem) => bundleContentItem?.description)
-                .filter(isDefined) ?? []
-            }
-            linkHref={getFullPath(bundle) ?? ''}
-            border
-          />
-        )
-      })}
+    <Section title={title} description={description} {...rest}>
+      <Tabs areBig>
+        {[atMedicalFacility, outsideMedicalFacility].map((bundleTab, indexTab) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Tab key={indexTab} label={bundleTab?.title ?? ''}>
+            <div className="grid gap-6 md:auto-cols-fr md:grid-flow-col">
+              {bundleTab?.bundles
+                ?.filter(isDefined)
+                .map((bundle) => bundle.bundle?.data)
+                .map((bundle) => {
+                  const { attributes } = bundle ?? {}
+                  const {
+                    title: bundleTitle,
+                    coverMedia,
+                    price,
+                    discountText,
+                    bundleItems,
+                    additionalItems,
+                    slug,
+                  } = attributes ?? {}
+                  return (
+                    <BundleCard
+                      key={slug}
+                      image={coverMedia?.data?.attributes}
+                      name={bundleTitle ?? ''}
+                      priceFrom={price ?? 0}
+                      discountText={discountText ?? undefined}
+                      claims={
+                        bundleItems
+                          ?.map((bundleItem) => bundleItem?.description)
+                          .filter(isDefined) ?? []
+                      }
+                      claimsPlus={
+                        additionalItems
+                          ?.map((bundleItem) => bundleItem?.description)
+                          .filter(isDefined) ?? []
+                      }
+                      linkHref={getFullSlug(bundle) ?? ''}
+                      border
+                    />
+                  )
+                })}
+            </div>
+          </Tab>
+        ))}
+      </Tabs>
     </Section>
   )
 }

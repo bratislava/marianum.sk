@@ -1,10 +1,10 @@
-import last from 'lodash/last'
-import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
+import { GetStaticPaths, GetStaticProps, GetStaticPropsResult, NextPage } from 'next'
 import Head from 'next/head'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { ParsedUrlQuery } from 'node:querystring'
 
-import CheckIcon from '../../assets/check.svg'
+import CheckIcon from '../../assets/check_noPadding.svg'
 import FormatCurrency from '../../components/atoms/FormatCurrency'
 import RichText from '../../components/atoms/RichText/RichText'
 import BundleLayout from '../../components/layouts/BundleLayout'
@@ -23,10 +23,21 @@ type BundlePageProps = {
   bundle: BundleEntityFragment
 } & SSRConfig
 
-const BundlePage = ({ navigation, bundle, general }: BundlePageProps) => {
+const BundlePage: NextPage<BundlePageProps> = ({ navigation, bundle, general }) => {
   const { t } = useTranslation()
-  const { seo, title, perex, additionalServices, bundleContent, description, documents } =
-    bundle.attributes ?? {}
+  const {
+    seo,
+    title,
+    perex,
+    discountText,
+    additionalServices,
+    bundleItems,
+    additionalItems,
+    description,
+    documents,
+  } = bundle.attributes ?? {}
+
+  const claims = [...(bundleItems ?? []), ...(additionalItems ?? [])].filter(isDefined)
 
   return (
     <>
@@ -38,11 +49,11 @@ const BundlePage = ({ navigation, bundle, general }: BundlePageProps) => {
       <BundleLayout navigation={navigation} general={general} bundle={bundle}>
         <div className="flex flex-col">
           {/* todo: display bundle data */}
-          {bundleContent?.length ? (
+          {claims?.length ? (
             <Section>
               <h3 className="pb-6 text-h4">{t('sections.HeroSection.bundleContent')}</h3>
               <ul>
-                {bundleContent.map((item, index) => (
+                {claims.map((item, index) => (
                   // eslint-disable-next-line react/no-array-index-key
                   <li key={index} className="mt-4 flex gap-4">
                     <span className="mt-1.5 text-primary">
@@ -52,12 +63,14 @@ const BundlePage = ({ navigation, bundle, general }: BundlePageProps) => {
                   </li>
                 ))}
               </ul>
+
+              {discountText && <div className="mt-8 font-semibold">{discountText}</div>}
             </Section>
           ) : null}
 
           {description ? (
             <Section>
-              <RichText data={description} />
+              <RichText content={description} />
             </Section>
           ) : null}
 
@@ -80,7 +93,7 @@ const BundlePage = ({ navigation, bundle, general }: BundlePageProps) => {
                       ) : null
                     }
                   >
-                    <RichText data={service?.description} />
+                    <RichText content={service?.description} />
                   </AccordionItem>
                 ))}
               </AccordionGroup>
@@ -97,34 +110,41 @@ const BundlePage = ({ navigation, bundle, general }: BundlePageProps) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] }) => {
+interface StaticParams extends ParsedUrlQuery {
+  slug: string
+}
+
+export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk'] }) => {
   const pathArraysForLocales = await Promise.all(
     locales.map((locale) => client.BundlesStaticPaths({ locale })),
   )
   const bundles = pathArraysForLocales
     .flatMap(({ bundles: allBundles }) => allBundles?.data || [])
     .filter(isDefined)
-  if (bundles.length > 0) {
-    const paths = bundles
-      .filter((bundle) => bundle.attributes?.slug)
-      .map((bundle) => ({
-        params: {
-          slug: bundle?.attributes?.slug ? bundle.attributes?.slug.split('/') : [],
-          locale: bundle?.attributes?.locale || '',
+
+  const paths = bundles
+    .map(
+      (bundle) =>
+        bundle?.attributes && {
+          params: {
+            slug: bundle?.attributes.slug,
+            locale: bundle?.attributes.locale ?? '',
+          },
         },
-      }))
-    // eslint-disable-next-line no-console
-    console.log(`Bundles: Generated static paths for ${paths.length} slugs.`)
-    return { paths, fallback: 'blocking' }
-  }
-  return { paths: [], fallback: 'blocking' }
+    )
+    .filter(isDefined)
+
+  // eslint-disable-next-line no-console
+  console.log(`Bundles: Generated static paths for ${paths.length} slugs.`)
+
+  return { paths, fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps = async ({
+export const getStaticProps: GetStaticProps<BundlePageProps, StaticParams> = async ({
   locale = 'sk',
   params,
 }): Promise<GetStaticPropsResult<BundlePageProps>> => {
-  const slug = last(params?.slug) ?? ''
+  const slug = params?.slug ?? ''
 
   const [{ navigation, general }, { bundles }, translations] = await Promise.all([
     client.General({ locale }),

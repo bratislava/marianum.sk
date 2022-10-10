@@ -5,8 +5,8 @@ import prntr from 'prntr'
 import { useCallback, useEffect, useMemo, useReducer } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 
-import CheckIcon from '../../../assets/check.svg'
 import CheckCircleIcon from '../../../assets/check_circle.svg'
+import CheckIcon from '../../../assets/check_noPadding.svg'
 import DownloadIcon from '../../../assets/download.svg'
 import PrintIcon from '../../../assets/print.svg'
 import XIcon from '../../../assets/x-alt.svg'
@@ -169,12 +169,12 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
                 >
                   <ChecklistRadio className="sm:hidden" isOpen={false} isCompleted={isCompleted} />
                 </div>
-                <h4>{title}</h4>
+                <h4 className="text-left">{title}</h4>
               </button>
               <AnimateHeight isVisible={isOpen}>
                 <div className="flex w-full flex-col gap-6 px-6 pb-6">
                   {/* item description */}
-                  {description && <div className="mt-4">{description}</div>}
+                  {description && <div className="text-lg">{description}</div>}
                   {
                     // download buttons for last item
                     index + 1 === items.length ? (

@@ -6,17 +6,17 @@ import Map, { MapRef, Marker } from 'react-map-gl'
 import slugify from 'slugify'
 import useSWR from 'swr'
 
-import MapMarkerIcon from '../../../assets/map-marker.svg'
-import PlaceIcon from '../../../assets/place.svg'
-import { BranchEntityFragment, Enum_Branch_Cemeterytype } from '../../../graphql'
-import { client } from '../../../utils/gql'
-import { isDefined } from '../../../utils/isDefined'
-import { getFullPath } from '../../../utils/localPaths'
-import Button from '../../atoms/Button'
-import MLink from '../../atoms/MLink'
-import TagToggle from '../../atoms/TagToggle'
-import Search from '../../molecules/Search'
-import Section, { SectionProps } from '../../molecules/Section'
+import MapMarkerIcon from '../../assets/map-marker.svg'
+import PlaceIcon from '../../assets/place.svg'
+import { BranchEntityFragment, Enum_Branch_Cemeterytype } from '../../graphql'
+import { client } from '../../utils/gql'
+import { isDefined } from '../../utils/isDefined'
+import Button from '../atoms/Button'
+import MLink from '../atoms/MLink'
+import TagToggle from '../atoms/TagToggle'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
+import Search from '../molecules/Search'
+import Section, { SectionProps } from '../molecules/Section'
 
 const slugifyText = (text: string) => {
   return slugify(text, { replacement: ' ', lower: true })
@@ -39,6 +39,7 @@ type MapSectionProps = Pick<SectionProps, 'background' | 'title'>
 
 const MapSection = ({ ...rest }: MapSectionProps) => {
   const { t, i18n } = useTranslation('common', { keyPrefix: 'sections.MapSection' })
+  const { getFullSlug } = useSlug()
 
   const { data, error } = useSWR(['Cemeteries', i18n.language], (_key, locale) =>
     client.Cemeteries({ locale }),
@@ -167,7 +168,7 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
                   <MLink
                     onMouseEnter={() => setHoveredBranchSlug(slug ?? '')}
                     noStyles
-                    href={getFullPath(branch) ?? ''}
+                    href={getFullSlug(branch) ?? ''}
                     className={cx('flex gap-2 px-5 py-3', {
                       'bg-primary/5': slug === hoveredBranchSlug,
                     })}
@@ -217,7 +218,7 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
                         onMouseEnter={() => setHoveredBranchSlug(slug ?? '')}
                         onMouseLeave={() => setHoveredBranchSlug(null)}
                         noStyles
-                        href={getFullPath(branch) ?? ''}
+                        href={getFullSlug(branch) ?? ''}
                       >
                         <MapMarkerIcon />
                       </MLink>

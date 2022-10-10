@@ -48,7 +48,7 @@ const ProcedureTabs = () => {
     <Tabs areBig>
       {procedures.map((procedure) => (
         <Tab key={procedure?.title} label={procedure?.title ?? ''}>
-          <div className="mt-9">
+          <div>
             <Checklist
               items={
                 procedure?.steps?.filter(isDefined).map((step, index) => ({

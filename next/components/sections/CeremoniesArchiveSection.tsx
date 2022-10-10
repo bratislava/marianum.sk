@@ -5,11 +5,8 @@ import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
 import SearchIcon from '../../assets/search.svg'
-import { Ceremony } from '../../graphql'
-import {
-  BranchMeili,
-  getBranchTitleInCeremoniesDebtorsMeili,
-} from '../../utils/getBranchTitleInCeremoniesDebtors'
+import { CeremonyMeili } from '../../types/meiliTypes'
+import { getBranchTitleInCeremoniesDebtorsMeili } from '../../utils/getBranchTitleInCeremoniesDebtors'
 import { isDefined } from '../../utils/isDefined'
 import { meiliClient } from '../../utils/meilisearch'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
@@ -18,10 +15,6 @@ import Pagination from '../atoms/Pagination/Pagination'
 import TextField from '../atoms/TextField'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
 import Section from '../molecules/Section'
-
-type CeremonyMeili = Omit<Ceremony, '__typename' | 'branch'> & {
-  branch: BranchMeili
-}
 
 const pageSize = 20
 

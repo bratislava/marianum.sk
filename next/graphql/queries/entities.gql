@@ -150,12 +150,16 @@ fragment BundleCardEntity on BundleEntity {
     slug
     perex
     price
+    discountText
     coverMedia {
       data {
         ...UploadImageEntity
       }
     }
-    bundleContent {
+    bundleItems {
+      description
+    }
+    additionalItems {
       description
     }
   }
@@ -235,6 +239,24 @@ fragment DocumentEntity on DocumentEntity {
     seo {
       ...Seo
     }
+  }
+}
+
+fragment GeneralEntity on GeneralEntity {
+  attributes {
+    header {
+      ...Header
+    }
+    socials {
+      ...SocialItem
+    }
+    contact {
+      ...Contact
+    }
+    footer {
+      ...Footer
+    }
+    generalOpeningHours
   }
 }
 
@@ -379,9 +401,9 @@ fragment PageEntity on PageEntity {
         __typename
         id
       }
-      ... on ComponentSectionsNewsSection {
+      ... on ComponentSectionsArticleListing {
         __typename
-        id
+        ...ArticleListing
       }
     }
   }

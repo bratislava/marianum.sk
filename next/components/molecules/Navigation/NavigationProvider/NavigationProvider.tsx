@@ -1,7 +1,7 @@
 import { createContext, PropsWithChildren, useMemo } from 'react'
 
-import { GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
-import { parseNavigation } from '../../utils/parseNavigation'
+import { GeneralEntityFragment, NavigationItemFragment } from '../../../../graphql'
+import { parseNavigation } from '../../../../utils/parseNavigation'
 
 type NavigationContextProps = {
   navigation: NavigationItemFragment[]
@@ -9,15 +9,13 @@ type NavigationContextProps = {
 }
 
 export type TNavigationContext = {
-  navMap: Map<string, string>
-  crumbsMap: Map<string, { label: string; linkHref: string }>
+  navMap: Map<string, { label: string; path: string }>
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment['attributes'] | null
 }
 
 export const NavigationContext = createContext<TNavigationContext>({
   navMap: new Map(),
-  crumbsMap: new Map(),
   navigation: [],
   general: null,
 })
@@ -27,13 +25,13 @@ const NavigationProvider = ({
   general,
   children,
 }: PropsWithChildren<NavigationContextProps>) => {
-  const { navMap, crumbsMap } = useMemo(() => {
+  const { navMap } = useMemo(() => {
     return parseNavigation(navigation)
   }, [navigation])
 
   return (
     <NavigationContext.Provider
-      value={{ navMap, crumbsMap, navigation, general: general?.attributes ?? null }}
+      value={{ navMap, navigation, general: general?.attributes ?? null }}
     >
       {children}
     </NavigationContext.Provider>

@@ -1,7 +1,7 @@
-import last from 'lodash/last'
 import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { ParsedUrlQuery } from 'node:querystring'
 
 import RichText from '../../components/atoms/RichText/RichText'
 import ArticleLayout from '../../components/layouts/ArticleLayout'
@@ -21,7 +21,7 @@ const ArticlePage = ({ navigation, article, general }: ArticlePageProps) => {
 
   return (
     <ArticleLayout article={article} navigation={navigation} general={general}>
-      <RichText data={article.attributes?.content} />
+      <RichText content={article.attributes?.content} />
       {medias?.length ? (
         <div className="mt-4 md:mt-6">
           <ImageGallery images={medias} />
@@ -31,34 +31,42 @@ const ArticlePage = ({ navigation, article, general }: ArticlePageProps) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async ({ locales = ['sk', 'en'] }) => {
+interface StaticParams extends ParsedUrlQuery {
+  slug: string
+}
+
+export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk', 'en'] }) => {
   const pathArraysForLocales = await Promise.all(
     locales.map((locale) => client.ArticlesStaticPaths({ locale })),
   )
+
   const articles = pathArraysForLocales
     .flatMap(({ articles: allArticles }) => allArticles?.data || [])
     .filter(isDefined)
-  if (articles.length > 0) {
-    const paths = articles
-      .filter((article) => article.attributes?.slug)
-      .map((article) => ({
-        params: {
-          slug: article?.attributes?.slug ? article.attributes?.slug.split('/') : [],
-          locale: article?.attributes?.locale || '',
+
+  const paths = articles
+    .map(
+      (article) =>
+        article.attributes && {
+          params: {
+            slug: article?.attributes.slug,
+            locale: article?.attributes.locale || '',
+          },
         },
-      }))
-    // eslint-disable-next-line no-console
-    console.log(`Articles: Generated static paths for ${paths.length} slugs.`)
-    return { paths, fallback: 'blocking' }
-  }
-  return { paths: [], fallback: 'blocking' }
+    )
+    .filter(isDefined)
+
+  // eslint-disable-next-line no-console
+  console.log(`Articles: Generated static paths for ${paths.length} slugs.`)
+
+  return { paths, fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps = async ({
+export const getStaticProps: GetStaticProps<ArticlePageProps, StaticParams> = async ({
   locale = 'sk',
   params,
 }): Promise<GetStaticPropsResult<ArticlePageProps>> => {
-  const slug = last(params?.slug) ?? ''
+  const slug = params?.slug ?? ''
 
   const [{ navigation, general }, { articles }, translations] = await Promise.all([
     client.General({ locale }),

@@ -1,9 +1,11 @@
 import { ReactNode } from 'react'
 
 import { GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
+import { isDefined } from '../../utils/isDefined'
+import ScrollToTopButton from '../atoms/ScrollToTopButton'
 import Footer from '../molecules/Footer/Footer'
 import Navigation from '../molecules/Navigation/Navigation'
-import NavigationProvider from './NavigationProvider'
+import NavigationProvider from '../molecules/Navigation/NavigationProvider/NavigationProvider'
 
 type PageWrapperProps = {
   navigation: NavigationItemFragment[]
@@ -26,8 +28,10 @@ const PageWrapper = ({ navigation, header, children, general }: PageWrapperProps
         <Footer
           contact={general?.attributes?.contact}
           footer={general?.attributes?.footer}
-          social={general?.attributes?.social}
+          socials={general?.attributes?.socials?.filter(isDefined)}
         />
+
+        <ScrollToTopButton />
       </div>
     </NavigationProvider>
   )

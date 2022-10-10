@@ -1,14 +1,13 @@
 import cx from 'classnames'
-import { useContext, useMemo } from 'react'
+import { useMemo } from 'react'
 
 import { CtaButtonFragment, ProcedureFragment } from '../../graphql'
 import { useTailwindBreakpoint } from '../../hooks/useTailwindBreakpoint'
 import { isDefined } from '../../utils/isDefined'
-import { getFullPath } from '../../utils/localPaths'
 import MLink from '../atoms/MLink'
 import Tab from '../atoms/Tabs/Tab'
 import Tabs from '../atoms/Tabs/Tabs'
-import { NavigationContext } from '../layouts/NavigationProvider'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Row from '../molecules/Row/Row'
 import Section, { SectionProps } from '../molecules/Section'
 
@@ -23,11 +22,11 @@ const HomepageProcedures = ({
   showMoreButton,
   ...rest
 }: HomepagePoceduresProps) => {
-  const { navMap } = useContext(NavigationContext)
+  const { getFullSlug } = useSlug()
   const breakpoint = useTailwindBreakpoint()
   const isMobile = useMemo(() => breakpoint === null, [breakpoint])
 
-  const showMoreSlug = getFullPath(showMoreButton?.page?.data, navMap)
+  const showMoreSlug = getFullSlug(showMoreButton?.page?.data)
 
   const slicedProcedures = useMemo(() => {
     return procedures.map((procedure) => ({
@@ -45,8 +44,8 @@ const HomepageProcedures = ({
             <Tab key={procedure?.title} label={procedure?.title ?? ''}>
               <div
                 className={cx('flex', {
-                  'w-full gap-4 overflow-x-auto pt-4': isMobile,
-                  'flex-col gap-4 pt-8': !isMobile,
+                  'w-full gap-4 overflow-x-auto': isMobile,
+                  'flex-col gap-4': !isMobile,
                 })}
               >
                 {procedure.steps.map((step, index) =>

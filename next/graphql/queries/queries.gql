@@ -256,10 +256,18 @@ query DocumentCategories {
   }
 }
 
-query NewsCategories {
+query ArticleNewsCategories {
   articleNewsCategories {
     data {
       ...ArticleNewsCategoryEntity
+    }
+  }
+}
+
+query ArticlePressCategories {
+  articlePressCategories {
+    data {
+      ...ArticlePressCategoryEntity
     }
   }
 }

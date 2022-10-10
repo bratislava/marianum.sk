@@ -23,7 +23,7 @@ const BundleLayout = ({ bundle, navigation, children, general }: BundleLayoutPro
         <HeroSection
           title={title}
           perex={perex}
-          breadcrumbsMoreItems={[{ label: title, linkHref: slug ?? '' }]}
+          breadcrumbsMoreItems={[{ label: title, path: slug ?? '' }]}
           price={price}
         />
       }

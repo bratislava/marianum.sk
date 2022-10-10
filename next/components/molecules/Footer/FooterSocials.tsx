@@ -3,47 +3,36 @@ import InstagramIcon from '../../../assets/instagram.svg'
 import LinkedInIcon from '../../../assets/linked_in.svg'
 import TwitterIcon from '../../../assets/twitter.svg'
 import YoutubeIcon from '../../../assets/youtube.svg'
-import { SocialFragment } from '../../../graphql'
+import { SocialItemFragment } from '../../../graphql'
 import MLink from '../../atoms/MLink'
 
 export type FooterSocialsProps = {
-  social: SocialFragment
+  socials: SocialItemFragment[]
 }
 
-const FooterSocials = ({ social }: FooterSocialsProps) => {
-  return social.facebook ||
-    social.instagram ||
-    social.youtube ||
-    social.twitter ||
-    social.linkedin ? (
-    <div className="hidden items-center gap-4 pt-3 md:flex">
-      {social.facebook && (
-        <MLink noStyles href={social.facebook}>
-          <FacebookIcon />
+const FooterSocials = ({ socials }: FooterSocialsProps) => {
+  return (
+    <div className="flex flex-col items-center justify-center gap-4 text-primary lg:flex-row lg:gap-8">
+      {socials.map((social, index) => (
+        <MLink
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
+          noArrow
+          href={social.url}
+          target="_blank"
+        >
+          <span className="inline-flex items-center gap-2.5">
+            {social.icon === 'facebook' && <FacebookIcon />}
+            {social.icon === 'instagram' && <InstagramIcon />}
+            {social.icon === 'linkedin' && <LinkedInIcon />}
+            {social.icon === 'twitter' && <TwitterIcon />}
+            {social.icon === 'youtube' && <YoutubeIcon />}
+            {social.title}
+          </span>
         </MLink>
-      )}
-      {social.instagram && (
-        <MLink noStyles href={social.instagram}>
-          <InstagramIcon />
-        </MLink>
-      )}
-      {social.linkedin && (
-        <MLink noStyles href={social.linkedin}>
-          <LinkedInIcon />
-        </MLink>
-      )}
-      {social.youtube && (
-        <MLink noStyles href={social.youtube}>
-          <YoutubeIcon />
-        </MLink>
-      )}
-      {social.twitter && (
-        <MLink noStyles href={social.twitter}>
-          <TwitterIcon />
-        </MLink>
-      )}
+      ))}
     </div>
-  ) : null
+  )
 }
 
 export default FooterSocials

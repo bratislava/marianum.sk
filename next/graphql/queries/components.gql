@@ -1,3 +1,30 @@
+fragment FlatNavigationItem on NavigationItem {
+  id
+  title
+  path
+  type
+  related {
+    id
+    attributes {
+      __typename
+      ... on Page {
+        title
+        slug
+      }
+    }
+  }
+}
+
+fragment NavigationItem on NavigationItem {
+  ...FlatNavigationItem
+  items {
+    ...FlatNavigationItem
+    items {
+      ...FlatNavigationItem
+    }
+  }
+}
+
 fragment CtaButton on ComponentBlocksButtonLink {
   label
   page {
@@ -52,12 +79,10 @@ fragment Header on ComponentGeneralHeader {
   }
 }
 
-fragment Social on ComponentGeneralSocial {
-  facebook
-  instagram
-  youtube
-  linkedin
-  twitter
+fragment SocialItem on ComponentBlocksSocialItem {
+  title
+  url
+  icon
 }
 
 fragment Contact on ComponentGeneralContacts {
@@ -110,6 +135,14 @@ fragment Footer on ComponentGeneralFooter {
   title4
   links4 {
     ...FooterLinkItem
+  }
+  bottomLinks {
+    label
+    page {
+      data {
+        ...PageSlugEntity
+      }
+    }
   }
 }
 
@@ -165,15 +198,25 @@ fragment BundleListing on ComponentSectionsBundleListing {
   id
   title
   description
-  bundles {
-    bundle {
-      data {
-        ...BundleCardEntity
+  atMedicalFacility {
+    title
+    bundles {
+      bundle {
+        data {
+          ...BundleCardEntity
+        }
       }
     }
   }
-  showMoreButton {
-    ...CtaButton
+  outsideMedicalFacility {
+    title
+    bundles {
+      bundle {
+        data {
+          ...BundleCardEntity
+        }
+      }
+    }
   }
 }
 
@@ -251,4 +294,9 @@ fragment UpcomingCeremoniesSection on ComponentSectionsUpcomingCeremoniesSection
   showMoreButton {
     ...CtaButton
   }
+}
+
+fragment ArticleListing on ComponentSectionsArticleListing {
+  id
+  type
 }

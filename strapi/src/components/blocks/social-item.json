@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_blocks_social_items",
+  "info": {
+    "displayName": "social item",
+    "icon": "globe-europe",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "icon": {
+      "type": "enumeration",
+      "enum": [
+        "facebook",
+        "instagram",
+        "youtube",
+        "linkedin",
+        "twitter"
+      ]
+    }
+  }
+}

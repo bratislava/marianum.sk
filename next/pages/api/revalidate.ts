@@ -23,7 +23,7 @@ const revalidate = async (req: NextApiRequest, res: NextApiResponse<Response>) =
       const { navigation } = await client.General({ locale: 'sk' })
       const { navMap } = parseNavigation(navigation.filter(isDefined))
 
-      const path = navMap.get(slug)
+      const path = navMap.get(slug)?.path
 
       await res.revalidate(path || `/${slug}`)
     }

@@ -4,11 +4,12 @@ import useSWR from 'swr'
 
 import { client } from '../../utils/gql'
 import { isDefined } from '../../utils/isDefined'
-import { getFullPath } from '../../utils/localPaths'
 import ArticleCard from '../molecules/Cards/ArticleCard'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 
 const NewsListing = () => {
   const { i18n } = useTranslation()
+  const { getFullSlug } = useSlug()
 
   const { data, error } = useSWR(['News', i18n.language], (_key, locale) => client.News({ locale }))
 
@@ -40,7 +41,7 @@ const NewsListing = () => {
             title={title ?? ''}
             image={coverMedia?.data?.attributes}
             date={publishedAt}
-            linkHref={getFullPath(article, undefined, 'news') ?? ''}
+            linkHref={getFullSlug(article) ?? ''}
             category={newsCategory?.data}
             border
           />
