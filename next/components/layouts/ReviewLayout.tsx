@@ -8,9 +8,10 @@ type ReviewLayoutProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   children?: ReactNode
+  sidebar?: ReactNode
 }
 
-const ReviewLayout = ({ navigation, children, general }: ReviewLayoutProps) => {
+const ReviewLayout = ({ navigation, children, sidebar, general }: ReviewLayoutProps) => {
   return (
     <PageWrapper
       navigation={navigation}
@@ -29,7 +30,7 @@ const ReviewLayout = ({ navigation, children, general }: ReviewLayoutProps) => {
         <div className="container relative grid h-auto gap-6 pt-24 pb-20 md:grid-flow-col md:grid-cols-[1fr_auto]">
           {children}
 
-          <div>sidebar</div>
+          <div>{sidebar}</div>
         </div>
       </div>
     </PageWrapper>
