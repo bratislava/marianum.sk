@@ -30,8 +30,8 @@ query Partners {
   }
 }
 
-query Reviews {
-  reviews {
+query Reviews($locale: I18NLocaleCode!) {
+  reviews(locale: $locale, sort: ["date:desc"], pagination: { limit: 10000 }) {
     data {
       ...ReviewEntity
     }

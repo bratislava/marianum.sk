@@ -27,9 +27,8 @@ const ReviewLayout = ({ navigation, children, sidebar, general }: ReviewLayoutPr
       }
     >
       <div className="h-full">
-        <div className="container relative grid h-auto gap-6 pt-24 pb-20 md:grid-flow-col md:grid-cols-[1fr_auto]">
-          {children}
-
+        <div className="container relative grid h-auto gap-20 pt-12 pb-32 lg:grid-flow-col lg:grid-cols-[1fr_1fr] lg:gap-6">
+          <div>{children}</div>
           <div>{sidebar}</div>
         </div>
       </div>

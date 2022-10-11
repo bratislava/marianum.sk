@@ -3426,7 +3426,9 @@ export type PartnersQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type PartnersQuery = { __typename?: 'Query', partners?: { __typename?: 'PartnerEntityResponseCollection', data: Array<{ __typename?: 'PartnerEntity', id?: string | null, attributes?: { __typename?: 'Partner', title: string, link?: string | null, featured?: boolean | null, priority?: number | null, logo: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } } | null }> } | null };
 
-export type ReviewsQueryVariables = Exact<{ [key: string]: never; }>;
+export type ReviewsQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+}>;
 
 
 export type ReviewsQuery = { __typename?: 'Query', reviews?: { __typename?: 'ReviewEntityResponseCollection', data: Array<{ __typename?: 'ReviewEntity', attributes?: { __typename?: 'Review', author: string, date: any, rating: number, description: string } | null }> } | null };
@@ -4489,8 +4491,8 @@ export const PartnersDocument = gql`
 }
     ${PartnerEntityFragmentDoc}`;
 export const ReviewsDocument = gql`
-    query Reviews {
-  reviews {
+    query Reviews($locale: I18NLocaleCode!) {
+  reviews(locale: $locale, sort: ["date:desc"], pagination: {limit: 10000}) {
     data {
       ...ReviewEntity
     }
@@ -4789,7 +4791,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     Partners(variables?: PartnersQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PartnersQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<PartnersQuery>(PartnersDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Partners', 'query');
     },
-    Reviews(variables?: ReviewsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ReviewsQuery> {
+    Reviews(variables: ReviewsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ReviewsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ReviewsQuery>(ReviewsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Reviews', 'query');
     },
     News(variables: NewsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<NewsQuery> {
