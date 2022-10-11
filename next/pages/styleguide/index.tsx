@@ -21,6 +21,7 @@ import QuantitySelect from '../../components/atoms/QuantitySelect'
 import RadioBox from '../../components/atoms/Radio/RadioBox'
 import RadioSimple from '../../components/atoms/Radio/RadioSimple'
 import RadioSimpleGroup from '../../components/atoms/Radio/RadioSimpleGroup'
+import ReviewStars from '../../components/atoms/ReviewStars'
 import RichText from '../../components/atoms/RichText/RichText'
 import Select from '../../components/atoms/Select'
 import Tab from '../../components/atoms/Tabs/Tab'
@@ -1161,6 +1162,14 @@ const Showcase = () => {
 
           <Wrapper title="Richtext">
             <RichText content={richText} />
+          </Wrapper>
+
+          <Wrapper title="ReviewStars">
+            <ReviewStars value={3.3} />
+            <ReviewStars value={5} />
+            <ReviewStars value={1} />
+            <ReviewStars value={2.8} />
+            <ReviewStars value={1.5} />
           </Wrapper>
 
           <div className="h-64" />
