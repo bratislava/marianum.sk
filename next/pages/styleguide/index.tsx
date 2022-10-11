@@ -11,6 +11,7 @@ import ArrowRightIcon from '../../assets/arrow_forward.svg'
 import DownloadIcon from '../../assets/download.svg'
 import SearchIcon from '../../assets/search.svg'
 import XIcon from '../../assets/x-alt.svg'
+import Avatar from '../../components/atoms/Avatar'
 import Breadcrumbs from '../../components/atoms/Breadcrumbs'
 import Button from '../../components/atoms/Button'
 import Checkbox from '../../components/atoms/Checkbox'
@@ -1170,6 +1171,12 @@ const Showcase = () => {
             <ReviewStars value={1} />
             <ReviewStars value={2.8} />
             <ReviewStars value={1.5} />
+          </Wrapper>
+
+          <Wrapper title="Avatar">
+            <Avatar name="John" />
+            <Avatar name="John Doe" />
+            <Avatar name="John Doe Moe" />
           </Wrapper>
 
           <div className="h-64" />
