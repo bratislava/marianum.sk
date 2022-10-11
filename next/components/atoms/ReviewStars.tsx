@@ -47,7 +47,7 @@ type ReviewStarsProps = {
 
 const ReviewStars = ({ value }: ReviewStarsProps) => {
   return (
-    <div className="flex">
+    <div className="flex gap-1">
       {Array.from({ length: 5 }, (_item, index) => (
         <ReviewStar key={index} value={value} index={index} />
       ))}
