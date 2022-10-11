@@ -420,6 +420,15 @@ fragment ProceduresEntity on ProcedureEntity {
   }
 }
 
+fragment ReviewEntity on ReviewEntity {
+  attributes {
+    author
+    date
+    rating
+    description
+  }
+}
+
 fragment CeremonyEntity on CeremonyEntity {
   id
   attributes {
