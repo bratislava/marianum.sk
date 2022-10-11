@@ -40,6 +40,7 @@ import PartnerCard from '../../components/molecules/Cards/PartnerCard'
 import ProductCard from '../../components/molecules/Cards/ProductCard'
 import ServiceCard from '../../components/molecules/Cards/ServiceCard'
 import Checklist from '../../components/molecules/Checklist/Checklist'
+import Review from '../../components/molecules/Review'
 import Row from '../../components/molecules/Row/Row'
 import Search from '../../components/molecules/Search'
 import Section from '../../components/molecules/Section'
@@ -1177,6 +1178,27 @@ const Showcase = () => {
             <Avatar name="John" />
             <Avatar name="John Doe" />
             <Avatar name="John Doe Moe" />
+          </Wrapper>
+
+          <Wrapper title="Review">
+            <Review
+              author="John"
+              rating={2}
+              date={new Date()}
+              description="Pekne nové priestory, pani čo s nami riešila potrebné veci bola veľmi milá (aj keď ju popri nás stále niekto z kolegou vyrušoval)Vybavia všetky potrebnosti, samozrejme si za to zaplatíte. A nie málo."
+            />
+            <Review
+              author="John Doe"
+              rating={3}
+              date={new Date()}
+              description="Pekne nové priestory, pani čo s nami riešila potrebné veci bola veľmi milá (aj keď ju popri nás stále niekto z kolegou vyrušoval)Vybavia všetky potrebnosti, samozrejme si za to zaplatíte. A nie málo."
+            />
+            <Review
+              author="John Doe Doe"
+              rating={4}
+              date={new Date()}
+              description="Pekne nové priestory, pani čo s nami riešila potrebné veci bola veľmi milá (aj keď ju popri nás stále niekto z kolegou vyrušoval)Vybavia všetky potrebnosti, samozrejme si za to zaplatíte. A nie málo."
+            />
           </Wrapper>
 
           <div className="h-64" />
