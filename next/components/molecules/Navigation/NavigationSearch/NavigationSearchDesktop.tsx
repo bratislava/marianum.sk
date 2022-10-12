@@ -1,6 +1,6 @@
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useOnClickOutside } from 'usehooks-ts'
 
 import { MeilisearchResultType } from '../../../../utils/types'
@@ -14,6 +14,8 @@ type NavigationSearchDesktopProps = {
   results: MeilisearchResultType<string>[]
   isLoading: boolean
   onSearch: () => void
+  onOpen: () => void
+  onClose: () => void
 }
 
 const NavigationSearchDesktop = ({
@@ -22,6 +24,8 @@ const NavigationSearchDesktop = ({
   results,
   isLoading,
   onSearch,
+  onOpen,
+  onClose,
 }: NavigationSearchDesktopProps) => {
   const [isOpen, setOpen] = useState(false)
 
@@ -30,6 +34,11 @@ const NavigationSearchDesktop = ({
   const { t } = useTranslation('common', {
     keyPrefix: 'components.molecules.Navigation.NavigationSearch',
   })
+
+  useEffect(() => {
+    if (isOpen) onOpen()
+    if (!isOpen) onClose()
+  }, [isOpen, onClose, onOpen])
 
   useOnClickOutside(ref, () => setOpen(false))
 
