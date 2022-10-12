@@ -405,6 +405,10 @@ fragment PageEntity on PageEntity {
         __typename
         ...ArticleListing
       }
+      ... on ComponentSectionsReviewListing {
+        __typename
+        ...ReviewListing
+      }
     }
   }
 }

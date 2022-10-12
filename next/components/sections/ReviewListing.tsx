@@ -1,25 +1,23 @@
+import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
-import { GeneralEntityFragment, NavigationItemFragment, ReviewEntityFragment } from '../../graphql'
+import { ReviewEntityFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
 import { AnimateHeight } from '../atoms/AnimateHeight'
 import Pagination from '../atoms/Pagination/Pagination'
+import Review from '../molecules/Review'
 import ReviewsFiltering, { ReviewStat } from '../molecules/ReviewsFiltering'
-import HeroSection from '../sections/HeroSection'
-import ReviewsSection from '../sections/ReviewsSection'
-import PageWrapper from './PageWrapper'
+import Section from '../molecules/Section'
 
 const REVIEWS_PER_PAGE = 10
 
-type ReviewLayoutProps = {
-  navigation: NavigationItemFragment[]
-  general: GeneralEntityFragment | null
+type ReviewListingProps = {
   reviews: ReviewEntityFragment[] | null
 }
 
-const ReviewLayout = ({ navigation, general, reviews }: ReviewLayoutProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'layouts.ReviewsLayout' })
+const ReviewListing = ({ reviews }: ReviewListingProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'sections.ReviewListing' })
 
   const validReviews = useMemo(() => {
     return reviews?.filter(isDefined).filter((review) => review.attributes) ?? []
@@ -67,6 +65,7 @@ const ReviewLayout = ({ navigation, general, reviews }: ReviewLayoutProps) => {
 
   const averageRating = useMemo(() => {
     return (
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       validReviews.map((review) => review.attributes?.rating ?? 5).reduce((a, b) => a + b, 0) /
       (validReviews?.length ?? 0)
     )
@@ -119,21 +118,33 @@ const ReviewLayout = ({ navigation, general, reviews }: ReviewLayoutProps) => {
   }, [filtersState, percentageOfReviewsWithRating, t])
 
   return (
-    <PageWrapper
-      navigation={navigation}
-      general={general}
-      header={
-        <HeroSection
-          title={t('title')}
-          breadcrumbsMoreItems={[{ label: t('title'), path: '/o-nas/reviews' }]}
-        />
-      }
-    >
+    <Section>
       <div className="h-full">
-        <div className="container relative grid h-auto gap-20 pt-12 pb-32 lg:grid-flow-col lg:grid-cols-[1fr_1fr] lg:gap-6">
+        <div className="relative grid h-auto gap-20 lg:grid-flow-col lg:grid-cols-[1fr_1fr] lg:gap-6">
           <div className="flex flex-col gap-6">
             <AnimateHeight isVisible>
-              <ReviewsSection reviews={visibleReviews} />
+              <div className="flex flex-col justify-start gap-6">
+                <LayoutGroup id="reviews">
+                  {visibleReviews?.map((review) => (
+                    <AnimatePresence key={review.id}>
+                      <motion.div
+                        layout="position"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                      >
+                        <Review
+                          author={review.attributes?.author ?? ''}
+                          description={review.attributes?.description ?? ''}
+                          rating={review.attributes?.rating ?? 5}
+                          date={new Date(review.attributes?.date)}
+                        />
+                      </motion.div>
+                    </AnimatePresence>
+                  ))}
+                  {visibleReviews.length === 0 ? t('noReviews') : null}
+                </LayoutGroup>
+              </div>
             </AnimateHeight>
             {pageCount > 0 ? (
               <div className="flex justify-center">
@@ -154,8 +165,8 @@ const ReviewLayout = ({ navigation, general, reviews }: ReviewLayoutProps) => {
           </div>
         </div>
       </div>
-    </PageWrapper>
+    </Section>
   )
 }
 
-export default ReviewLayout
+export default ReviewListing

@@ -111,6 +111,16 @@
         "historical": "Historical",
         "war": "War"
       }
+    },
+    "ReviewListing": {
+      "ratings": {
+        "five": "Excellent",
+        "four": "Great",
+        "three": "Well",
+        "two": "Poor",
+        "one": "Bad"
+      },
+      "noReviews": "No reviews to show."
     }
   },
   "layouts": {
@@ -121,21 +131,6 @@
       "category": "Category",
       "description": "Description",
       "details": "Details"
-    },
-    "ReviewsLayout": {
-      "title": "Reviews",
-      "ratings": {
-        "five": "Excellent",
-        "four": "Great",
-        "three": "Well",
-        "two": "Poor",
-        "one": "Bad"
-      },
-      "reviews": "Recenzie",
-      "reviewCount_zero": "Žiadne recenzie",
-      "reviewCount_one": "{{count}} recenzia",
-      "reviewCount_few": "{{count}} recenzie",
-      "reviewCount_other": "{{count}} recenzií"
     }
   },
   "BranchLayout": {

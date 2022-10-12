@@ -162,6 +162,16 @@
       "deathDate": "Dátum úmrtia",
       "branchTitle": "Cintorín",
       "noRecords": "Žiadne záznamy"
+    },
+    "ReviewListing": {
+      "ratings": {
+        "five": "Skvelé",
+        "four": "Výborné",
+        "three": "Dobré",
+        "two": "Nedostatočné",
+        "one": "Zlé"
+      },
+      "noReviews": "Žiadne recenzie na zobrazenie."
     }
   },
   "layouts": {
@@ -180,17 +190,6 @@
       "aboutBranch": "O pobočke",
       "contacts": "Kontakty",
       "writeMessage": "Napísať správu"
-    },
-    "ReviewsLayout": {
-      "title": "Recenzie",
-      "ratings": {
-        "five": "Skvelé",
-        "four": "Výborné",
-        "three": "Dobré",
-        "two": "Nedostatočné",
-        "one": "Zlé"
-      },
-      "noReviews": "Žiadne recenzie na zobrazenie."
     }
   },
   "pages": {
