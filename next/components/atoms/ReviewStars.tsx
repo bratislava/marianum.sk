@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next'
 import { useId } from 'react'
 
 const calculateStarClipPathWidth = (value: number, index: number) => {
@@ -46,8 +47,14 @@ type ReviewStarsProps = {
 }
 
 const ReviewStars = ({ value }: ReviewStarsProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'components.atoms.ReviewStars' })
+
   return (
-    <div className="flex gap-1">
+    <div
+      aria-label={t('aria.rating', { rating: value.toFixed(1) })}
+      title={t('aria.rating', { rating: value.toFixed(1) })}
+      className="flex gap-1"
+    >
       {Array.from({ length: 5 }, (_item, index) => (
         <ReviewStar key={index} value={value} index={index} />
       ))}

@@ -1,3 +1,5 @@
+import { useTranslation } from 'next-i18next'
+
 import Checkbox from '../atoms/Checkbox'
 import ReviewStars from '../atoms/ReviewStars'
 
@@ -19,6 +21,8 @@ const ReviewsFiltering = ({
   totalReviewCount,
   reviewStats,
 }: ReviewsFilteringProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'components.molecules.ReviewsFiltering' })
+
   return (
     <div className="flex w-full flex-col bg-white lg:ml-auto lg:w-[448px]">
       <div className="flex items-center justify-between border-b border-border p-5">
@@ -26,7 +30,7 @@ const ReviewsFiltering = ({
           <ReviewStars value={averageRating} />
           <span className="font-bold">{averageRating.toFixed(1)} / 5</span>
         </div>
-        <div>{totalReviewCount} reviews</div>
+        <div>{t('reviewCount', { count: totalReviewCount })}</div>
       </div>
 
       <div className="flex flex-col gap-3 p-5">
