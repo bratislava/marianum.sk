@@ -4,16 +4,15 @@ import { useEffect, useMemo, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
-import SearchIcon from '../../assets/search.svg'
 import { CeremonyMeili } from '../../types/meiliTypes'
 import { getBranchInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfoInCeremoniesDebtors'
 import { isDefined } from '../../utils/isDefined'
 import { meiliClient } from '../../utils/meilisearch'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import FormatDate from '../atoms/FormatDate'
-import TextField from '../atoms/TextField'
 import BranchLink from '../molecules/BranchLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
+import FilteringSearchInput from '../molecules/FilteringSearchInput'
 import PaginationMeili from '../molecules/PaginationMeili'
 import Section from '../molecules/Section'
 
@@ -155,10 +154,6 @@ const DataWrapper = ({
 }
 
 const CeremoniesArchiveSection = () => {
-  const { t } = useTranslation('common', {
-    keyPrefix: 'sections.CeremoniesSection',
-  })
-
   const [filters, setFilters] = useState<Filters>({
     search: '',
     page: 1,
@@ -190,16 +185,9 @@ const CeremoniesArchiveSection = () => {
           <CeremoniesDebtorsBranchSelect type="ceremonies" onBranchChange={handleBranchChange} />
         </div>
         <div className="md:col-span-2">
-          <TextField
-            id="with-text-left-icon"
-            defaultValue={searchInputValue}
-            leftSlot={
-              <button type="button" className="p-2">
-                <SearchIcon />
-              </button>
-            }
-            placeholder={t('searchPlaceholder')}
-            onChange={(e) => setSearchInputValue(e.target.value)}
+          <FilteringSearchInput
+            value={searchInputValue}
+            onChange={(value) => setSearchInputValue(value)}
           />
         </div>
       </div>

@@ -5,13 +5,12 @@ import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
 import DownloadIcon from '../../../assets/download.svg'
-import SearchIcon from '../../../assets/search.svg'
 import { DocumentMeili } from '../../../types/meiliTypes'
 import { isDefined } from '../../../utils/isDefined'
 import { meiliClient } from '../../../utils/meilisearch'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
 import Button from '../../atoms/Button'
-import TextField from '../../atoms/TextField'
+import FilteringSearchInput from '../../molecules/FilteringSearchInput'
 import PaginationMeili from '../../molecules/PaginationMeili'
 import Row from '../../molecules/Row/Row'
 import Section from '../../molecules/Section'
@@ -131,8 +130,6 @@ type DocumentsSectionProps = {
 
 // TODO: Overlap with header
 const DocumentsSection = ({ description }: DocumentsSectionProps) => {
-  const { t } = useTranslation()
-
   const [filters, setFilters] = useState<Filters>({
     search: '',
     page: 1,
@@ -168,16 +165,9 @@ const DocumentsSection = ({ description }: DocumentsSectionProps) => {
     <Section>
       <div className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-2 md:bg-white md:p-6">
         <div className="md:col-span-2">
-          <TextField
-            id="with-text-left-icon"
-            defaultValue={searchInputValue}
-            leftSlot={
-              <button type="button" className="p-2">
-                <SearchIcon />
-              </button>
-            }
-            placeholder={t('general.searchPlaceholder')}
-            onChange={(e) => setSearchInputValue(e.target.value)}
+          <FilteringSearchInput
+            value={searchInputValue}
+            onChange={(value) => setSearchInputValue(value)}
           />
         </div>
         <DocumentsSectionCategorySelect onCategoryChange={handleCategoryChange} />

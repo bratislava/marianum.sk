@@ -149,8 +149,7 @@
       "birthDate": "Dátum narodenia",
       "deathDate": "Dátum úmrtia",
       "branchTitle": "Cintorín",
-      "noRecords": "Žiadne záznamy",
-      "searchPlaceholder": "Hľadať…"
+      "noRecords": "Žiadne záznamy"
     }
   },
   "layouts": {

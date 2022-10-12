@@ -4,14 +4,13 @@ import { useEffect, useMemo, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
-import SearchIcon from '../../assets/search.svg'
 import { DebtorMeili } from '../../types/meiliTypes'
 import { getBranchInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfoInCeremoniesDebtors'
 import { meiliClient } from '../../utils/meilisearch'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
-import TextField from '../atoms/TextField'
 import BranchLink from '../molecules/BranchLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
+import FilteringSearchInput from '../molecules/FilteringSearchInput'
 import PaginationMeili from '../molecules/PaginationMeili'
 import Section from '../molecules/Section'
 
@@ -81,7 +80,7 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
           ))}
           {debtors?.length === 0 && (
             <tr>
-              <td colSpan={7}>{t('noRecords')}</td>
+              <td colSpan={8}>{t('noRecords')}</td>
             </tr>
           )}
         </tbody>
@@ -146,10 +145,6 @@ type DebtorsSectionProps = {
 
 // TODO: Overlap with header
 const DebtorsSection = ({ description }: DebtorsSectionProps) => {
-  const { t } = useTranslation('common', {
-    keyPrefix: 'sections.DebtorsSection',
-  })
-
   const [filters, setFilters] = useState<Filters>({ search: '', page: 1, branchId: null })
   const [searchInputValue, setSearchInputValue] = useState<string>('')
   const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
@@ -174,16 +169,9 @@ const DebtorsSection = ({ description }: DebtorsSectionProps) => {
           <CeremoniesDebtorsBranchSelect type="debtors" onBranchChange={handleBranchChange} />
         </div>
         <div className="md:col-span-2">
-          <TextField
-            id="with-text-left-icon"
-            defaultValue={searchInputValue}
-            leftSlot={
-              <button type="button" className="p-2">
-                <SearchIcon />
-              </button>
-            }
-            placeholder={t('searchPlaceholder')}
-            onChange={(e) => setSearchInputValue(e.target.value)}
+          <FilteringSearchInput
+            value={searchInputValue}
+            onChange={(value) => setSearchInputValue(value)}
           />
         </div>
       </div>

@@ -4,14 +4,13 @@ import { useEffect, useMemo, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
-import SearchIcon from '../../../assets/search.svg'
 import { ArticleListingFragment, Enum_Componentsectionsarticlelisting_Type } from '../../../graphql'
 import { ArticleMeili } from '../../../types/meiliTypes'
 import { isDefined } from '../../../utils/isDefined'
 import { meiliClient } from '../../../utils/meilisearch'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
-import TextField from '../../atoms/TextField'
 import ArticleCard from '../../molecules/Cards/ArticleCard'
+import FilteringSearchInput from '../../molecules/FilteringSearchInput'
 import { useSlugMeili } from '../../molecules/Navigation/NavigationProvider/useFullSlug'
 import PaginationMeili from '../../molecules/PaginationMeili'
 import Section from '../../molecules/Section'
@@ -136,8 +135,6 @@ type ArticleListingProps = {
 
 // TODO: Overlap with header
 const ArticleListing = ({ section }: ArticleListingProps) => {
-  const { t } = useTranslation()
-
   const [filters, setFilters] = useState<Filters>({
     search: '',
     page: 1,
@@ -171,16 +168,9 @@ const ArticleListing = ({ section }: ArticleListingProps) => {
           ) : null}
         </div>
         <div className="md:col-span-2">
-          <TextField
-            id="with-text-left-icon"
-            defaultValue={searchInputValue}
-            leftSlot={
-              <button type="button" className="p-2">
-                <SearchIcon />
-              </button>
-            }
-            placeholder={t('general.searchPlaceholder')}
-            onChange={(e) => setSearchInputValue(e.target.value)}
+          <FilteringSearchInput
+            value={searchInputValue}
+            onChange={(value) => setSearchInputValue(value)}
           />
         </div>
       </div>
