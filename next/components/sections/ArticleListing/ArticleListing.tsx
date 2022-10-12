@@ -41,7 +41,7 @@ const Articles = ({ data }: { data: SearchResponse<ArticleMeili> }) => {
             <ArticleCard
               key={slug}
               title={title}
-              image={coverMedia?.data?.attributes}
+              image={coverMedia}
               date={publishedAt}
               linkHref={getFullSlugMeili('article', article) ?? ''}
               category={{ attributes: newsCategory }}

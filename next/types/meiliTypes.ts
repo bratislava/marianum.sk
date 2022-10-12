@@ -10,9 +10,16 @@ import {
   UploadFile,
 } from '../graphql'
 
-export type ArticleMeili = Omit<Article, '__typename' | 'newsCategory' | 'pressCategory'> & {
+// Meilisearch doesn't nest entities in `data.attributes`, therefore in order to use Strapi types we need to `Omit` those
+// attributes that are nested and replace them with their direct representations.
+
+export type ArticleMeili = Omit<
+  Article,
+  '__typename' | 'newsCategory' | 'pressCategory' | 'coverMedia'
+> & {
   newsCategory?: Omit<ArticleNewsCategory, '__typename' | 'articles'>
   pressCategory?: Omit<ArticlePressCategory, '__typename' | 'articles'>
+  coverMedia?: UploadFile
 }
 
 export type BranchMeili = Omit<Branch, '__typename' | 'localizations'> & {
