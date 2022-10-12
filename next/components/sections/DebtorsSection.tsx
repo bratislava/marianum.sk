@@ -4,14 +4,14 @@ import { useEffect, useMemo, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
-import SearchIcon from '../../assets/search.svg'
 import { DebtorMeili } from '../../types/meiliTypes'
-import { getBranchTitleInCeremoniesDebtorsMeili } from '../../utils/getBranchTitleInCeremoniesDebtors'
+import { getBranchInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfoInCeremoniesDebtors'
 import { meiliClient } from '../../utils/meilisearch'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
-import Pagination from '../atoms/Pagination/Pagination'
-import TextField from '../atoms/TextField'
+import BranchLink from '../molecules/BranchLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
+import FilteringSearchInput from '../molecules/FilteringSearchInput'
+import PaginationMeili from '../molecules/PaginationMeili'
 import Section from '../molecules/Section'
 
 const pageSize = 20
@@ -26,7 +26,6 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
   const { t, i18n } = useTranslation('common', {
     keyPrefix: 'sections.DebtorsSection',
   })
-
   const debtors = useMemo(() => {
     const debtorsData = data.hits
     if (!debtorsData) {
@@ -38,9 +37,12 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
     }
 
     return debtorsData.map((debtor) => {
+      const { title, slug } = getBranchInfoInCeremoniesDebtorsMeili(debtor.branch, i18n.language)
+
+      const branch = slug ? <BranchLink slug={slug} title={title} /> : title
       return {
         ...debtor,
-        branchTitle: getBranchTitleInCeremoniesDebtorsMeili(debtor.branch, i18n.language),
+        branch,
       }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -66,8 +68,7 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
           {debtors?.map((debtor, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <tr key={index}>
-              {/* TODO: Branch link */}
-              <td>{debtor.branchTitle}</td>
+              <td>{debtor.branch}</td>
               <td>{debtor.graveSector}</td>
               <td>{debtor.graveNumber}</td>
               <td>{debtor.gravePreviousNumber}</td>
@@ -79,7 +80,7 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
           ))}
           {debtors?.length === 0 && (
             <tr>
-              <td colSpan={7}>{t('noRecords')}</td>
+              <td colSpan={8}>{t('noRecords')}</td>
             </tr>
           )}
         </tbody>
@@ -119,7 +120,6 @@ const DataWrapper = ({
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
-  const pageCount = dataToDisplay ? Math.ceil(dataToDisplay.estimatedTotalHits / pageSize) : 0
   return (
     <>
       {/* TODO: Use loading overlay with spinner */}
@@ -127,14 +127,14 @@ const DataWrapper = ({
       <Table data={dataToDisplay!} />
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
-      {pageCount > 0 && (
-        <Pagination
-          className="flex justify-center pt-4 md:pt-6"
+      {dataToDisplay ? (
+        <PaginationMeili
+          data={dataToDisplay}
+          pageSize={pageSize}
           selectedPage={filters.page}
-          count={pageCount}
-          onChange={onPageChange}
+          onPageChange={onPageChange}
         />
-      )}
+      ) : null}
     </>
   )
 }
@@ -145,10 +145,6 @@ type DebtorsSectionProps = {
 
 // TODO: Overlap with header
 const DebtorsSection = ({ description }: DebtorsSectionProps) => {
-  const { t } = useTranslation('common', {
-    keyPrefix: 'sections.DebtorsSection',
-  })
-
   const [filters, setFilters] = useState<Filters>({ search: '', page: 1, branchId: null })
   const [searchInputValue, setSearchInputValue] = useState<string>('')
   const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
@@ -173,16 +169,9 @@ const DebtorsSection = ({ description }: DebtorsSectionProps) => {
           <CeremoniesDebtorsBranchSelect type="debtors" onBranchChange={handleBranchChange} />
         </div>
         <div className="md:col-span-2">
-          <TextField
-            id="with-text-left-icon"
-            defaultValue={searchInputValue}
-            leftSlot={
-              <button type="button" className="p-2">
-                <SearchIcon />
-              </button>
-            }
-            placeholder={t('searchPlaceholder')}
-            onChange={(e) => setSearchInputValue(e.target.value)}
+          <FilteringSearchInput
+            value={searchInputValue}
+            onChange={(value) => setSearchInputValue(value)}
           />
         </div>
       </div>

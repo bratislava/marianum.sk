@@ -4,16 +4,15 @@ import { useEffect, useMemo, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
-import SearchIcon from '../../../assets/search.svg'
 import { ArticleListingFragment, Enum_Componentsectionsarticlelisting_Type } from '../../../graphql'
 import { ArticleMeili } from '../../../types/meiliTypes'
 import { isDefined } from '../../../utils/isDefined'
 import { meiliClient } from '../../../utils/meilisearch'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
-import Pagination from '../../atoms/Pagination/Pagination'
-import TextField from '../../atoms/TextField'
 import ArticleCard from '../../molecules/Cards/ArticleCard'
+import FilteringSearchInput from '../../molecules/FilteringSearchInput'
 import { useSlugMeili } from '../../molecules/Navigation/NavigationProvider/useFullSlug'
+import PaginationMeili from '../../molecules/PaginationMeili'
 import Section from '../../molecules/Section'
 import ArticleNewsCategoriesSelect from './ArticleNewsCategoriesSelect'
 import ArticlePressCategoriesSelect from './ArticlePressCategoriesSelect'
@@ -42,7 +41,7 @@ const Articles = ({ data }: { data: SearchResponse<ArticleMeili> }) => {
             <ArticleCard
               key={slug}
               title={title}
-              image={coverMedia?.data?.attributes}
+              image={coverMedia}
               date={publishedAt}
               linkHref={getFullSlugMeili('article', article) ?? ''}
               category={{ attributes: newsCategory }}
@@ -93,7 +92,7 @@ const DataWrapper = ({
       limit: pageSize,
       offset: (filters.page - 1) * pageSize,
       filter: [sectionFilter, i18n.language ? `locale = ${i18n.language}` : null].filter(isDefined),
-      sort: ['updatedAtTimestamp:desc'],
+      sort: ['publishedAtTimestamp:desc'],
     })
   })
 
@@ -111,7 +110,6 @@ const DataWrapper = ({
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
-  const pageCount = dataToDisplay ? Math.ceil(dataToDisplay.estimatedTotalHits / pageSize) : 0
   return (
     <>
       {/* TODO: Use loading overlay with spinner */}
@@ -119,14 +117,14 @@ const DataWrapper = ({
       <Articles data={dataToDisplay!} />
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
-      {pageCount > 0 && (
-        <Pagination
-          className="flex justify-center pt-4 md:pt-6"
+      {dataToDisplay ? (
+        <PaginationMeili
+          data={dataToDisplay}
+          pageSize={pageSize}
           selectedPage={filters.page}
-          count={pageCount}
-          onChange={onPageChange}
+          onPageChange={onPageChange}
         />
-      )}
+      ) : null}
     </>
   )
 }
@@ -137,8 +135,6 @@ type ArticleListingProps = {
 
 // TODO: Overlap with header
 const ArticleListing = ({ section }: ArticleListingProps) => {
-  const { t } = useTranslation()
-
   const [filters, setFilters] = useState<Filters>({
     search: '',
     page: 1,
@@ -172,16 +168,9 @@ const ArticleListing = ({ section }: ArticleListingProps) => {
           ) : null}
         </div>
         <div className="md:col-span-2">
-          <TextField
-            id="with-text-left-icon"
-            defaultValue={searchInputValue}
-            leftSlot={
-              <button type="button" className="p-2">
-                <SearchIcon />
-              </button>
-            }
-            placeholder={t('general.searchPlaceholder')}
-            onChange={(e) => setSearchInputValue(e.target.value)}
+          <FilteringSearchInput
+            value={searchInputValue}
+            onChange={(value) => setSearchInputValue(value)}
           />
         </div>
       </div>

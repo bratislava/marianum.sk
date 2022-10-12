@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { getBranchTitleInCeremoniesDebtors } from '../../../utils/getBranchTitleInCeremoniesDebtors'
+import { getBranchInfoInCeremoniesDebtors } from '../../../utils/getBranchInfoInCeremoniesDebtors'
 import { client } from '../../../utils/gql'
 import SelectWithFetcher from '../SelectWithFetcher'
 
@@ -45,7 +45,7 @@ const CeremoniesDebtorsBranchSelect = ({
       return (
         data?.branches?.data?.map((branch) => {
           return {
-            label: getBranchTitleInCeremoniesDebtors(branch, i18n.language) ?? '',
+            label: getBranchInfoInCeremoniesDebtors(branch, i18n.language).title ?? '',
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             key: branch.id!,
           }
