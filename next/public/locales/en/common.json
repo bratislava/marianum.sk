@@ -24,6 +24,11 @@
           "goToPreviousPage": "Go to previous page",
           "goToNextPage": "Go to next page"
         }
+      },
+      "ReviewStars": {
+        "aria": {
+          "rating": "{{rating}} out of 5 stars"
+        }
       }
     },
     "molecules": {
@@ -70,6 +75,11 @@
           "search": "Search",
           "allResults": "All results"
         }
+      },
+      "ReviewsFiltering": {
+        "reviewCount_zero": "No reviews",
+        "reviewCount_one": "{{count}} review",
+        "reviewCount_other": "{{count}} reviews"
       }
     }
   },
@@ -111,6 +121,21 @@
       "category": "Category",
       "description": "Description",
       "details": "Details"
+    },
+    "ReviewsLayout": {
+      "title": "Reviews",
+      "ratings": {
+        "five": "Excellent",
+        "four": "Great",
+        "three": "Well",
+        "two": "Poor",
+        "one": "Bad"
+      },
+      "reviews": "Recenzie",
+      "reviewCount_zero": "Žiadne recenzie",
+      "reviewCount_one": "{{count}} recenzia",
+      "reviewCount_few": "{{count}} recenzie",
+      "reviewCount_other": "{{count}} recenzií"
     }
   },
   "BranchLayout": {

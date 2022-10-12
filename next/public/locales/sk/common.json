@@ -18,7 +18,8 @@
     "cemeteries": "/o-nas/cintoriny-v-sprave",
     "documents": "/o-nas/dokumenty",
     "legislative": "/o-nas/dokumenty/legislativa",
-    "search": "/vyhladavanie"
+    "search": "/vyhladavanie",
+    "reviews": "/o-nas/referencie"
   },
   "components": {
     "atoms": {
@@ -33,6 +34,11 @@
           "goToPage": "Ísť na stranu {{page}}",
           "goToPreviousPage": "Ísť na predchádzajúcu stranu",
           "goToNextPage": "Ísť na ďalšiu stranu"
+        }
+      },
+      "ReviewStars": {
+        "aria": {
+          "rating": "{{rating}} z 5 hviezdičiek"
         }
       }
     },
@@ -83,6 +89,12 @@
       },
       "CeremoniesDebtorsBranchSelect": {
         "allCemeteries": "Všetky cintoríny"
+      },
+      "ReviewsFiltering": {
+        "reviewCount_zero": "Žiadne recenzie",
+        "reviewCount_one": "{{count}} recenzia",
+        "reviewCount_few": "{{count}} recenzie",
+        "reviewCount_other": "{{count}} recenzií"
       }
     },
     "SortSelect": { "byNewest": "Od najnovšieho", "byOldest": "Od najstaršieho" },
@@ -169,6 +181,16 @@
       "aboutBranch": "O pobočke",
       "contacts": "Kontakty",
       "writeMessage": "Napísať správu"
+    },
+    "ReviewsLayout": {
+      "title": "Recenzie",
+      "ratings": {
+        "five": "Skvelé",
+        "four": "Výborné",
+        "three": "Dobré",
+        "two": "Nedostatočné",
+        "one": "Zlé"
+      }
     }
   },
   "pages": {
