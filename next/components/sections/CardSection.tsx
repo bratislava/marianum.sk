@@ -1,4 +1,8 @@
+import cx from 'classnames'
+import { useMemo } from 'react'
+
 import { Enum_Componentsectionsmanuallisting_Style, ManualListingFragment } from '../../graphql'
+import { useTailwindBreakpoint } from '../../hooks/useTailwindBreakpoint'
 import { isDefined } from '../../utils/isDefined'
 import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
 import ServiceCard from '../molecules/Cards/ServiceCard'
@@ -19,35 +23,51 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
     .map((page) => page.page?.data)
     .filter((page) => page?.attributes)
 
-  return (
+  const breakpoint = useTailwindBreakpoint()
+  const isMobile = useMemo(() => breakpoint === null || breakpoint === 'sm', [breakpoint])
+
+  return style === Enum_Componentsectionsmanuallisting_Style.Simple ? (
     <Section title={title} {...rest} cardGrid="cards" button={showMoreButton}>
+      {filteredPages?.map((page) => {
+        const { id, attributes } = page ?? {}
+        const { title: cardTitle } = attributes ?? {}
+        const fullPath = getFullSlug(page) ?? ''
+
+        return <CategoryCard key={id} title={cardTitle ?? ''} linkHref={fullPath} border />
+      })}
+    </Section>
+  ) : style === Enum_Componentsectionsmanuallisting_Style.Service ? (
+    <Section
+      title={title}
+      childrenWrapperClassName={cx({
+        'flex w-full gap-4 overflow-x-auto': isMobile,
+      })}
+      cardGrid={isMobile ? undefined : 'cards'}
+      {...rest}
+      button={showMoreButton}
+    >
       {filteredPages?.map((page) => {
         const { id, attributes } = page ?? {}
         const { title: cardTitle, coverMedia, perex } = attributes ?? {}
 
         const fullPath = getFullSlug(page) ?? ''
 
-        if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
-          return <CategoryCard key={id} title={cardTitle ?? ''} linkHref={fullPath} border />
-        }
-
-        if (style === Enum_Componentsectionsmanuallisting_Style.Service) {
-          return (
-            <ServiceCard
-              key={id}
-              title={cardTitle ?? ''}
-              linkHref={fullPath}
-              border
-              image={coverMedia?.data?.attributes}
-              subtitle={perex}
-            />
-          )
-        }
-
-        return null
+        return (
+          <ServiceCard
+            className={cx({
+              'w-[calc(100vw-6rem)] shrink-0 sm:w-[calc(100vw-16rem)]': isMobile,
+            })}
+            key={id}
+            title={cardTitle ?? ''}
+            linkHref={fullPath}
+            border
+            image={coverMedia?.data?.attributes}
+            subtitle={perex}
+          />
+        )
       })}
     </Section>
-  )
+  ) : null
 }
 
 export default CardSection
