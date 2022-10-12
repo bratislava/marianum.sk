@@ -421,6 +421,7 @@ fragment ProceduresEntity on ProcedureEntity {
 }
 
 fragment ReviewEntity on ReviewEntity {
+  id
   attributes {
     author
     date
