@@ -12,6 +12,7 @@ import CookieConsent from '../components/atoms/CookieConsent'
 import CookieSettingsModal from '../components/atoms/CookieSettingsModal'
 import MI18nProvider from '../components/atoms/MI18nProvider'
 import ThirdPartyScripts from '../components/atoms/ThirdPartyScripts'
+import { HeroSectionOverlayProvider } from '../utils/heroSectionContentOverlay'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
@@ -27,16 +28,18 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
         <meta name="theme-color" content="#446650" />
       </Head>
-      <MI18nProvider>
-        <MotionConfig reducedMotion="user">
-          <OverlayProvider>
-            <CookieConsent banner={CookieBanner} modal={CookieSettingsModal}>
+      <HeroSectionOverlayProvider>
+        <MI18nProvider>
+          <MotionConfig reducedMotion="user">
+            <OverlayProvider>
+              <CookieConsent banner={CookieBanner} modal={CookieSettingsModal}>
               <ThirdPartyScripts />
               <Component {...pageProps} />
             </CookieConsent>
-          </OverlayProvider>
-        </MotionConfig>
-      </MI18nProvider>
+            </OverlayProvider>
+          </MotionConfig>
+        </MI18nProvider>
+      </HeroSectionOverlayProvider>
     </>
   )
 }

@@ -10,6 +10,7 @@ import {
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
 import FormatDate from '../../atoms/FormatDate'
+import ImagePlaceholder from '../../atoms/ImagePlaceholder'
 import MImage, { MImageImage } from '../../atoms/MImage'
 import MLink from '../../atoms/MLink'
 
@@ -39,13 +40,11 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
 
   return (
     <CardBox {...rest} hover={!isCategoryHovered} onClick={handleCardClick}>
-      {image && (
-        <div className="aspect-w-[264] aspect-h-[148] w-full bg-gray">
-          <MLink href={linkHref} tabIndex={-1} noStyles>
-            <MImage image={image} layout="fill" objectFit="cover" />
-          </MLink>
-        </div>
-      )}
+      <div className="aspect-w-[264] aspect-h-[148] w-full bg-gray">
+        <MLink href={linkHref} tabIndex={-1} noStyles>
+          {image ? <MImage image={image} layout="fill" objectFit="cover" /> : <ImagePlaceholder />}
+        </MLink>
+      </div>
       <CardContent className="gap-y-3">
         <span className="text-sm line-clamp-1">
           <span>

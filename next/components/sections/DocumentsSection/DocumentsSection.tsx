@@ -5,14 +5,13 @@ import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
 import DownloadIcon from '../../../assets/download.svg'
-import SearchIcon from '../../../assets/search.svg'
 import { DocumentMeili } from '../../../types/meiliTypes'
 import { isDefined } from '../../../utils/isDefined'
 import { meiliClient } from '../../../utils/meilisearch'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
 import Button from '../../atoms/Button'
-import Pagination from '../../atoms/Pagination/Pagination'
-import TextField from '../../atoms/TextField'
+import FilteringSearchInput from '../../molecules/FilteringSearchInput'
+import PaginationMeili from '../../molecules/PaginationMeili'
 import Row from '../../molecules/Row/Row'
 import Section from '../../molecules/Section'
 import SortSelect, { Sort } from '../../molecules/SortSelect'
@@ -86,8 +85,8 @@ const DataWrapper = ({
         isDefined(filters.filetype) ? `file.ext = ${filters.filetype}` : null,
       ].filter(Boolean) as string[],
       sort: [
-        filters.sort === 'newest' ? 'updatedAtTimestamp:asc' : null,
-        filters.sort === 'oldest' ? 'updatedAtTimestamp:desc' : null,
+        filters.sort === 'newest' ? 'publishedAtTimestamp:asc' : null,
+        filters.sort === 'oldest' ? 'publishedAtTimestamp:desc' : null,
       ].filter(Boolean) as string[],
     })
   })
@@ -106,7 +105,6 @@ const DataWrapper = ({
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
-  const pageCount = dataToDisplay ? Math.ceil(dataToDisplay.estimatedTotalHits / pageSize) : 0
   return (
     <>
       {/* TODO: Use loading overlay with spinner */}
@@ -114,14 +112,14 @@ const DataWrapper = ({
       <Documents data={dataToDisplay!} />
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
-      {pageCount > 0 && (
-        <Pagination
-          className="flex justify-center pt-4 md:pt-6"
+      {dataToDisplay ? (
+        <PaginationMeili
+          data={dataToDisplay}
+          pageSize={pageSize}
           selectedPage={filters.page}
-          count={pageCount}
-          onChange={onPageChange}
+          onPageChange={onPageChange}
         />
-      )}
+      ) : null}
     </>
   )
 }
@@ -132,8 +130,6 @@ type DocumentsSectionProps = {
 
 // TODO: Overlap with header
 const DocumentsSection = ({ description }: DocumentsSectionProps) => {
-  const { t } = useTranslation()
-
   const [filters, setFilters] = useState<Filters>({
     search: '',
     page: 1,
@@ -166,19 +162,12 @@ const DocumentsSection = ({ description }: DocumentsSectionProps) => {
   }
 
   return (
-    <Section>
+    <Section overlayWithHero>
       <div className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-2 md:bg-white md:p-6">
         <div className="md:col-span-2">
-          <TextField
-            id="with-text-left-icon"
-            defaultValue={searchInputValue}
-            leftSlot={
-              <button type="button" className="p-2">
-                <SearchIcon />
-              </button>
-            }
-            placeholder={t('general.searchPlaceholder')}
-            onChange={(e) => setSearchInputValue(e.target.value)}
+          <FilteringSearchInput
+            value={searchInputValue}
+            onChange={(value) => setSearchInputValue(value)}
           />
         </div>
         <DocumentsSectionCategorySelect onCategoryChange={handleCategoryChange} />

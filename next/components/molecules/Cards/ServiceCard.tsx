@@ -4,6 +4,7 @@ import React from 'react'
 
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
+import ImagePlaceholder from '../../atoms/ImagePlaceholder'
 import MImage, { MImageImage } from '../../atoms/MImage'
 import MLink from '../../atoms/MLink'
 
@@ -25,13 +26,11 @@ const ServiceCard = ({ image, title, subtitle, linkHref, ...rest }: ServiceCardP
 
   return (
     <CardBox {...rest} onClick={handleCardClick}>
-      {image && (
-        <div className="aspect-w-1 aspect-h-1 w-full bg-gray">
-          <MLink href={linkHref} tabIndex={-1} noStyles>
-            <MImage image={image} layout="fill" objectFit="cover" />
-          </MLink>
-        </div>
-      )}
+      <div className="aspect-w-1 aspect-h-1 w-full bg-gray">
+        <MLink href={linkHref} tabIndex={-1} noStyles>
+          {image ? <MImage image={image} layout="fill" objectFit="cover" /> : <ImagePlaceholder />}
+        </MLink>
+      </div>
       <CardContent className="justify-between">
         <div>
           <h5 className="line-clamp-3 group-hover:underline">

@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import FormatDate from '../atoms/FormatDate'
 import MImage from '../atoms/MImage'
+import NormalizeSkText from '../atoms/NormalizeSkText'
 import HeroSection from '../sections/HeroSection'
 import NewsSection from '../sections/NewsSection'
 import PageWrapper from './PageWrapper'
@@ -51,7 +52,11 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
 
           <div className="pb-6 sm:pb-10">
             <h1 className="text-center">{title}</h1>
-            {perex && <p className="mt-6 sm:mt-8">{perex}</p>}
+            {perex && (
+              <p className="mt-6 sm:mt-8">
+                <NormalizeSkText>{perex}</NormalizeSkText>
+              </p>
+            )}
           </div>
 
           {children}

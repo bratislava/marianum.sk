@@ -6,9 +6,10 @@ import useSWR from 'swr'
 import { UpcomingCeremoniesSectionFragment } from '../../graphql'
 import { bratislavaTimezone } from '../../utils/consts'
 import { upcomingCeremoniesFetcher } from '../../utils/fetchers/upcomingCeremoniesFetcher'
-import { getBranchTitleInCeremoniesDebtors } from '../../utils/getBranchTitleInCeremoniesDebtors'
+import { getBranchInfoInCeremoniesDebtors } from '../../utils/getBranchInfoInCeremoniesDebtors'
 import FormatDate from '../atoms/FormatDate'
 import MLink from '../atoms/MLink'
+import BranchLink from '../molecules/BranchLink'
 import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Section from '../molecules/Section'
 
@@ -43,11 +44,19 @@ const Table = () => {
     return {
       day: firstCeremonyDayDateTimeZoned.toDate(),
       ceremonies: filteredCeremonies.map((ceremony) => {
+        const branchInfo = ceremony?.attributes?.branch?.data
+          ? getBranchInfoInCeremoniesDebtors(ceremony.attributes.branch.data, i18n.language)
+          : null
+
+        const branch = branchInfo?.slug ? (
+          <BranchLink slug={branchInfo?.slug} title={branchInfo?.title ?? ''} />
+        ) : (
+          branchInfo?.title
+        )
+
         return {
           name: ceremony.attributes?.name,
-          branchTitle:
-            ceremony?.attributes?.branch?.data &&
-            getBranchTitleInCeremoniesDebtors(ceremony.attributes.branch.data, i18n.language),
+          branch,
           time: new Date(ceremony.attributes?.dateTime),
         }
       }),
@@ -87,8 +96,7 @@ const Table = () => {
           // eslint-disable-next-line react/no-array-index-key
           <tr className="group border-t border-border first:border-t-0" key={index}>
             <td className="py-4 group-last:pb-0">{ceremony.name}</td>
-            {/* TODO: Branch link */}
-            <td className="py-4 group-last:pb-0">{ceremony.branchTitle}</td>
+            <td className="py-4 group-last:pb-0">{ceremony.branch}</td>
             <td className="py-4 group-last:pb-0">
               <FormatDate value={ceremony.time} format="ceremoniesTime" />
             </td>

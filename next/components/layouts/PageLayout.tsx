@@ -7,6 +7,7 @@ import {
   NavigationItemFragment,
   PageEntityFragment,
 } from '../../graphql'
+import NormalizeSkText from '../atoms/NormalizeSkText'
 import SideBar from '../molecules/SideBar'
 import HeroSection from '../sections/HeroSection'
 import PageWrapper from './PageWrapper'
@@ -55,7 +56,11 @@ const PageLayout = ({ page, navigation, children, general }: PageLayoutProps) =>
           {page.attributes?.layout === Enum_Page_Layout.Centered && (
             <div className="pb-6 sm:pb-10">
               <h1 className="text-center">{page.attributes?.title}</h1>
-              {page.attributes?.perex && <p className="mt-6 sm:mt-8">{page.attributes?.perex}</p>}
+              {page.attributes?.perex && (
+                <p className="mt-6 sm:mt-8">
+                  <NormalizeSkText>{page.attributes?.perex}</NormalizeSkText>
+                </p>
+              )}
             </div>
           )}
 
