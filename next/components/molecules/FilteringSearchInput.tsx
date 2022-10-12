@@ -19,11 +19,7 @@ const FilteringSearchInput = ({ value, onChange }: FilteringSearchInputProps) =>
     <TextField
       id="with-text-left-icon"
       value={value}
-      leftSlot={
-        <button type="button" className="p-2">
-          <SearchIcon />
-        </button>
-      }
+      leftSlot={<SearchIcon className="p-2" />}
       rightSlot={
         value ? (
           <button type="button" className="p-2" onClick={handleCancelClick}>
