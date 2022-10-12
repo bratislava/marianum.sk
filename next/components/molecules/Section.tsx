@@ -19,6 +19,7 @@ export type SectionProps = {
   description?: string | null | undefined
   className?: string
   innerClassName?: string
+  childrenWrapperClassName?: string
   dividerClassName?: string
   overlayWithHero?: boolean
 }
@@ -33,6 +34,7 @@ const Section = ({
   description,
   className,
   innerClassName,
+  childrenWrapperClassName,
   dividerClassName,
   overlayWithHero = false,
 }: SectionProps) => {
@@ -82,7 +84,7 @@ const Section = ({
       >
         {(title || showMorePath) && (
           <div className="flex">
-            <h2 className="grow">{title}</h2>
+            <h2 className="grow text-center md:text-left">{title}</h2>
             {showMorePath && (
               <MLink href={showMorePath} className="hidden md:inline-flex">
                 {showMoreLabel}
@@ -94,10 +96,14 @@ const Section = ({
           <div className="max-w-[744px] not-first:mt-3 not-first:md:mt-4">{description}</div>
         )}
         <div
-          className={cx('not-first:mt-3 not-first:md:mt-10', {
-            'grid gap-6 md:grid-cols-2 lg:grid-cols-4': cardGrid === 'cards',
-            'grid gap-6 md:grid-cols-2 lg:grid-cols-3': cardGrid === 'bundles',
-          })}
+          className={cx(
+            'not-first:mt-3 not-first:md:mt-10',
+            {
+              'grid gap-6 md:grid-cols-2 lg:grid-cols-4': cardGrid === 'cards',
+              'grid gap-6 md:grid-cols-2 lg:grid-cols-3': cardGrid === 'bundles',
+            },
+            childrenWrapperClassName,
+          )}
         >
           {children}
         </div>
