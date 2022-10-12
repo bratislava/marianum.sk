@@ -162,7 +162,7 @@ const DocumentsSection = ({ description }: DocumentsSectionProps) => {
   }
 
   return (
-    <Section>
+    <Section overlayWithHero>
       <div className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-2 md:bg-white md:p-6">
         <div className="md:col-span-2">
           <FilteringSearchInput
