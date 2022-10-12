@@ -92,7 +92,7 @@ const DataWrapper = ({
       limit: pageSize,
       offset: (filters.page - 1) * pageSize,
       filter: [sectionFilter, i18n.language ? `locale = ${i18n.language}` : null].filter(isDefined),
-      sort: ['updatedAtTimestamp:desc'],
+      sort: ['publishedAtTimestamp:desc'],
     })
   })
 

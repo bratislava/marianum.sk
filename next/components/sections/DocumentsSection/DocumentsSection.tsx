@@ -85,8 +85,8 @@ const DataWrapper = ({
         isDefined(filters.filetype) ? `file.ext = ${filters.filetype}` : null,
       ].filter(Boolean) as string[],
       sort: [
-        filters.sort === 'newest' ? 'updatedAtTimestamp:asc' : null,
-        filters.sort === 'oldest' ? 'updatedAtTimestamp:desc' : null,
+        filters.sort === 'newest' ? 'publishedAtTimestamp:asc' : null,
+        filters.sort === 'oldest' ? 'publishedAtTimestamp:desc' : null,
       ].filter(Boolean) as string[],
     })
   })
