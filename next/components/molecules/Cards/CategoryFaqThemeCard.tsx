@@ -22,6 +22,11 @@ const CategoryFaqThemeCard = ({
   const router = useRouter()
   const { t } = useTranslation()
 
+  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    // Don't trigger the `handleCardClick` function when link clicked.
+    event.stopPropagation()
+  }
+
   const handleCardClick = () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     router.push(linkHref)
@@ -34,13 +39,19 @@ const CategoryFaqThemeCard = ({
         className={cx('justify-between', subtitle ? 'md:min-h-[264px]' : 'md:min-h-[240px]')}
       >
         <div className={cx('flex grow', subtitle ? 'mb-[54px]' : 'mb-5')}>
-          <MLink href={linkHref} noStyles>
+          <MLink href={linkHref} noStyles onClick={handleLinkClick}>
             <h5 className="flex grow line-clamp-3 group-hover:underline">{title}</h5>
           </MLink>
           {subtitle && <div className="mt-2 block line-clamp-3">{subtitle}</div>}
         </div>
         <div>
-          <MLink href={linkHref} tabIndex={-1} noArrow className="inline-block">
+          <MLink
+            href={linkHref}
+            tabIndex={-1}
+            noArrow
+            className="inline-block"
+            onClick={handleLinkClick}
+          >
             {t('general.showMore')}
           </MLink>
         </div>

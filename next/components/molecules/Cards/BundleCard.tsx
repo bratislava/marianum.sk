@@ -33,6 +33,11 @@ const BundleCard = ({
   const router = useRouter()
   const { t } = useTranslation()
 
+  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    // Don't trigger the `handleCardClick` function when link clicked.
+    event.stopPropagation()
+  }
+
   const handleCardClick = () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     router.push(linkHref)
@@ -42,7 +47,7 @@ const BundleCard = ({
     <CardBox {...props} onClick={handleCardClick}>
       <CardContent largePadding className="grow gap-6">
         <div className="relative h-[56px] w-[56px] bg-gray">
-          <MLink href={linkHref} tabIndex={-1} noStyles>
+          <MLink href={linkHref} tabIndex={-1} noStyles onClick={handleLinkClick}>
             {image ? (
               <MImage image={image} layout="fill" objectFit="cover" />
             ) : (
@@ -53,7 +58,7 @@ const BundleCard = ({
 
         <div>
           <h5 className="line-clamp-3 group-hover:underline">
-            <MLink href={linkHref} noStyles>
+            <MLink href={linkHref} noStyles onClick={handleLinkClick}>
               {name}
             </MLink>
           </h5>
@@ -98,7 +103,13 @@ const BundleCard = ({
           )}
         </div>
         <div>
-          <MLink href={linkHref} tabIndex={-1} noArrow className="inline-block">
+          <MLink
+            href={linkHref}
+            tabIndex={-1}
+            noArrow
+            className="inline-block"
+            onClick={handleLinkClick}
+          >
             {t('general.showMore')}
           </MLink>
         </div>

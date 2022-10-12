@@ -33,6 +33,11 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
 
   const formattedDate = useMemo(() => new Date(date), [date])
 
+  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    // Don't trigger the `handleCardClick` function when link clicked.
+    event.stopPropagation()
+  }
+
   const handleCardClick = () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     router.push(linkHref)
@@ -41,7 +46,7 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
   return (
     <CardBox {...rest} hover={!isCategoryHovered} onClick={handleCardClick}>
       <div className="aspect-w-[264] aspect-h-[148] w-full bg-gray">
-        <MLink href={linkHref} tabIndex={-1} noStyles>
+        <MLink href={linkHref} tabIndex={-1} onClick={handleLinkClick} noStyles>
           {image ? <MImage image={image} layout="fill" objectFit="cover" /> : <ImagePlaceholder />}
         </MLink>
       </div>
@@ -58,7 +63,7 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
                 noStyles // TODO link to filtered articles
                 href={category.attributes.slug}
                 className="underline"
-                ref={categoryHoverRef}
+                onClick={handleLinkClick}
               >
                 {category.attributes.title}
               </MLink>
@@ -71,7 +76,7 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
             'group-hover:underline': !isCategoryHovered,
           })}
         >
-          <MLink href={linkHref} noStyles>
+          <MLink href={linkHref} onClick={handleLinkClick} noStyles>
             {title}
           </MLink>
         </h5>
