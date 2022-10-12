@@ -71,6 +71,10 @@ const nextConfig = {
           source: '/o-nas/dokumenty/legislativa/:slug',
           destination: '/documents/:slug',
         },
+        {
+          source: '/o-nas/referencie',
+          destination: '/reviews',
+        },
       ],
     }
   },
