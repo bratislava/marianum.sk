@@ -1,4 +1,5 @@
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
+import { useTranslation } from 'next-i18next'
 
 import { ReviewEntityFragment } from '../../graphql'
 import Review from '../molecules/Review'
@@ -12,6 +13,8 @@ const ReviewsSection = ({
   reviews,
   ...rest
 }: Pick<SectionProps, 'background'> & ReviewsSectionProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'layouts.ReviewsLayout' })
+
   return (
     <Section {...rest}>
       <div className="flex flex-col justify-start gap-6">
@@ -33,6 +36,7 @@ const ReviewsSection = ({
               </motion.div>
             </AnimatePresence>
           ))}
+          {reviews.length === 0 ? t('noReviews') : null}
         </LayoutGroup>
       </div>
     </Section>

@@ -190,7 +190,8 @@
         "three": "Dobré",
         "two": "Nedostatočné",
         "one": "Zlé"
-      }
+      },
+      "noReviews": "Žiadne recenzie na zobrazenie."
     }
   },
   "pages": {

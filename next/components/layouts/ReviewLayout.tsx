@@ -135,9 +135,15 @@ const ReviewLayout = ({ navigation, general, reviews }: ReviewLayoutProps) => {
             <AnimateHeight isVisible>
               <ReviewsSection reviews={visibleReviews} />
             </AnimateHeight>
-            <div className="flex justify-center">
-              <Pagination onChange={setCurrentPage} count={pageCount} selectedPage={currentPage} />
-            </div>
+            {pageCount > 0 ? (
+              <div className="flex justify-center">
+                <Pagination
+                  onChange={setCurrentPage}
+                  count={pageCount}
+                  selectedPage={currentPage}
+                />
+              </div>
+            ) : null}
           </div>
           <div>
             <ReviewsFiltering
