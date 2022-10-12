@@ -44,7 +44,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                   </Button>
                 )}
               </div>
-              <div className="relative h-[228px] w-full lg:h-full lg:w-[450px] lg:pr-4 xl:w-[612px]">
+              <div className="pointer-events-none relative h-[228px] w-full select-none lg:h-full lg:w-[450px] lg:pr-4 xl:w-[612px]">
                 {url && (
                   <Image
                     src={url}
