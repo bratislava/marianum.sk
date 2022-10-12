@@ -9,6 +9,7 @@ import Button from '../../atoms/Button'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
 import FormatCurrency from '../../atoms/FormatCurrency'
+import ImagePlaceholder from '../../atoms/ImagePlaceholder'
 import MImage, { MImageImage } from '../../atoms/MImage'
 import MLink from '../../atoms/MLink'
 
@@ -42,11 +43,9 @@ const ProductCard = ({
 
   return (
     <CardBox {...rest} hover={!isButtonHovered} onClick={handleCardClick}>
-      {image && (
-        <div className="aspect-w-1 aspect-h-1 w-full bg-gray">
-          <MImage image={image} layout="fill" objectFit="contain" />
-        </div>
-      )}
+      <div className="aspect-w-1 aspect-h-1 w-full bg-gray">
+        {image ? <MImage image={image} layout="fill" objectFit="contain" /> : <ImagePlaceholder />}
+      </div>
       <CardContent className="gap-y-2">
         <MLink href={linkHref} noStyles>
           <h5
