@@ -6,6 +6,7 @@ import CheckIcon from '../../../assets/check.svg'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
 import FormatCurrency from '../../atoms/FormatCurrency'
+import ImagePlaceholder from '../../atoms/ImagePlaceholder'
 import MImage, { MImageImage } from '../../atoms/MImage'
 import MLink from '../../atoms/MLink'
 
@@ -42,7 +43,11 @@ const BundleCard = ({
       <CardContent largePadding className="grow gap-6">
         <div className="relative h-[56px] w-[56px] bg-gray">
           <MLink href={linkHref} tabIndex={-1} noStyles>
-            {image && <MImage image={image} layout="fill" objectFit="cover" />}
+            {image ? (
+              <MImage image={image} layout="fill" objectFit="cover" />
+            ) : (
+              <ImagePlaceholder />
+            )}
           </MLink>
         </div>
 

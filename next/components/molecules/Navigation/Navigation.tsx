@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 
-import MarianumLogo from '../../../assets/marianum_logo.svg'
+import MarianumLogoWithText from '../../../assets/marianum_logo_with_text.svg'
 import MenuIcon from '../../../assets/menu.svg'
 import PhoneIcon from '../../../assets/phone.svg'
 import { ContactEntityFragment } from '../../../graphql'
@@ -54,7 +54,7 @@ const Navigation = ({ contact }: NavigationProps) => {
         <div className="flex h-[64px] items-center justify-between md:h-[88px]">
           {/* left side of navigation */}
           <MLink className="w-[108px] lg:w-[142px]" href="/" noStyles noArrow>
-            <MarianumLogo className="h-full w-full" />
+            <MarianumLogoWithText className="h-full w-full" />
           </MLink>
           {/* right side of navigation */}
           <div className="flex items-center gap-4 xl:gap-8">
