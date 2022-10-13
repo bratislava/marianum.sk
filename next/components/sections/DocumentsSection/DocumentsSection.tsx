@@ -1,6 +1,6 @@
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
@@ -9,6 +9,7 @@ import { DocumentMeili } from '../../../types/meiliTypes'
 import { isDefined } from '../../../utils/isDefined'
 import { meiliClient } from '../../../utils/meilisearch'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '../../../utils/useScrollToViewIfDataChange'
 import Button from '../../atoms/Button'
 import FilteringSearchInput from '../../molecules/FilteringSearchInput'
 import FiltersBackgroundWrapper from '../../molecules/FiltersBackgroundWrapper'
@@ -31,10 +32,12 @@ type Filters = {
 
 const Documents = ({ data }: { data: SearchResponse<DocumentMeili> }) => {
   const { t } = useTranslation()
+  const documentsRef = useRef<HTMLDivElement>(null)
+  useScrollToViewIfDataChange(data, documentsRef)
 
   if (data.hits.length > 0) {
     return (
-      <div className="grid space-y-3">
+      <div className="grid space-y-3" ref={documentsRef}>
         {data.hits.map((document) => (
           <Row
             title={document.title}

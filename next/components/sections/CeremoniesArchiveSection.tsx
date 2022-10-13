@@ -1,6 +1,6 @@
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
@@ -9,6 +9,7 @@ import { getBranchInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfo
 import { isDefined } from '../../utils/isDefined'
 import { meiliClient } from '../../utils/meilisearch'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import FormatDate from '../atoms/FormatDate'
 import BranchLink from '../molecules/BranchLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
@@ -31,6 +32,8 @@ const Table = ({ data }: { data: SearchResponse<CeremonyMeili> }) => {
   const { t, i18n } = useTranslation('common', {
     keyPrefix: 'sections.CeremoniesSection',
   })
+  const theadRef = useRef<HTMLTableSectionElement>(null)
+  useScrollToViewIfDataChange(data, theadRef)
 
   const ceremonies = useMemo(() => {
     const ceremoniesData = data.hits
@@ -62,7 +65,7 @@ const Table = ({ data }: { data: SearchResponse<CeremonyMeili> }) => {
       <div className="mb-6 overflow-x-auto md:mb-10">
         {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
         <table className="m-table colored">
-          <thead>
+          <thead ref={theadRef}>
             <tr>
               <th>{t('dateTime')}</th>
               <th>{t('name')}</th>

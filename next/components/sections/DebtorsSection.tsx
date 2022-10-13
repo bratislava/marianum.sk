@@ -1,6 +1,6 @@
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
@@ -8,6 +8,7 @@ import { DebtorMeili } from '../../types/meiliTypes'
 import { getBranchInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfoInCeremoniesDebtors'
 import { meiliClient } from '../../utils/meilisearch'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import BranchLink from '../molecules/BranchLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
 import FilteringSearchInput from '../molecules/FilteringSearchInput'
@@ -27,6 +28,9 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
   const { t, i18n } = useTranslation('common', {
     keyPrefix: 'sections.DebtorsSection',
   })
+  const theadRef = useRef<HTMLTableSectionElement>(null)
+  useScrollToViewIfDataChange(data, theadRef)
+
   const debtors = useMemo(() => {
     const debtorsData = data.hits
     if (!debtorsData) {
@@ -53,7 +57,7 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
     <div className="overflow-x-auto">
       {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
       <table className="m-table colored">
-        <thead>
+        <thead ref={theadRef}>
           <tr>
             <th>{t('branchTitle')}</th>
             <th>{t('graveSector')}</th>

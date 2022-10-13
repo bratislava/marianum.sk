@@ -1,6 +1,6 @@
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
@@ -9,6 +9,7 @@ import { ArticleMeili } from '../../../types/meiliTypes'
 import { isDefined } from '../../../utils/isDefined'
 import { meiliClient } from '../../../utils/meilisearch'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '../../../utils/useScrollToViewIfDataChange'
 import ArticleCard from '../../molecules/Cards/ArticleCard'
 import FilteringSearchInput from '../../molecules/FilteringSearchInput'
 import FiltersBackgroundWrapper from '../../molecules/FiltersBackgroundWrapper'
@@ -31,10 +32,12 @@ const Articles = ({ data }: { data: SearchResponse<ArticleMeili> }) => {
     keyPrefix: 'components.ArticleListing',
   })
   const { getFullSlugMeili } = useSlugMeili()
+  const cardsRef = useRef<HTMLDivElement>(null)
+  useScrollToViewIfDataChange(data, cardsRef)
 
   if (data.hits?.length > 0) {
     return (
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4" ref={cardsRef}>
         {data.hits.map((article) => {
           const { title, publishedAt, coverMedia, slug, newsCategory } = article
 

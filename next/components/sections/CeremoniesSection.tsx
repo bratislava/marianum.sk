@@ -1,13 +1,14 @@
 import { parseAbsolute, parseDate, toCalendarDate } from '@internationalized/date'
 import groupBy from 'lodash/groupBy'
 import { useTranslation } from 'next-i18next'
-import { Fragment, useMemo, useState } from 'react'
+import { Fragment, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 
 import { CeremoniesQuery, CeremoniesSectionFragment } from '../../graphql'
 import { bratislavaTimezone } from '../../utils/consts'
 import { client } from '../../utils/gql'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import FormatDate from '../atoms/FormatDate'
 import MLink from '../atoms/MLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
@@ -24,6 +25,8 @@ const Table = ({ data }: { data: CeremoniesQuery }) => {
   const { t, i18n } = useTranslation('common', {
     keyPrefix: 'sections.CeremoniesSection',
   })
+  const theadRef = useRef<HTMLTableSectionElement>(null)
+  useScrollToViewIfDataChange(data, theadRef)
 
   const ceremonies = useMemo(() => {
     const ceremoniesData = data?.ceremonies?.data
@@ -75,7 +78,7 @@ const Table = ({ data }: { data: CeremoniesQuery }) => {
           <div className="mb-6 overflow-x-auto md:mb-10">
             {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
             <table className="m-table">
-              <thead>
+              <thead ref={theadRef}>
                 <tr>
                   <th>{t('time')}</th>
                   <th>{t('name')}</th>
