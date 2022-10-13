@@ -64,7 +64,11 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, bundle, general }) 
                 ))}
               </ul>
 
-              {discountText && <div className="mt-8 font-semibold">{discountText}</div>}
+              {discountText && (
+                <div className="mt-8 w-fit rounded-2xl bg-primary/12 py-1.5 px-3 text-sm font-semibold leading-4 text-primary">
+                  {discountText}
+                </div>
+              )}
             </Section>
           ) : null}
 
