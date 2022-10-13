@@ -70,6 +70,13 @@ const Section = ({
           <div className={cx('h-px bg-border', dividerClassName)} />
         </div>
       )}
+      {/*
+        For some unknown reason, the negative margin of the next <div> only works when its preceded with another div
+        with non-zero height.
+        TODO: Investigate and remove.
+      */}
+      {shouldOverlayWithHero && <div className="h-px" />}
+
       <div
         className={cx(
           {
