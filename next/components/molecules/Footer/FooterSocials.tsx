@@ -12,7 +12,7 @@ export type FooterSocialsProps = {
 
 const FooterSocials = ({ socials }: FooterSocialsProps) => {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 text-primary lg:flex-row lg:gap-8">
+    <div className="flex flex-col items-center justify-center gap-6 text-primary lg:flex-row lg:gap-8">
       {socials.map((social, index) => (
         <MLink
           // eslint-disable-next-line react/no-array-index-key
@@ -21,14 +21,16 @@ const FooterSocials = ({ socials }: FooterSocialsProps) => {
           href={social.url}
           target="_blank"
         >
-          <span className="inline-flex items-center gap-2.5">
-            {social.icon === 'facebook' && <FacebookIcon />}
-            {social.icon === 'instagram' && <InstagramIcon />}
-            {social.icon === 'linkedin' && <LinkedInIcon />}
-            {social.icon === 'twitter' && <TwitterIcon />}
-            {social.icon === 'youtube' && <YoutubeIcon />}
-            {social.title}
-          </span>
+          <div className="inline-flex max-w-[200px] flex-col items-center gap-1 md:gap-2.5 lg:max-w-none lg:flex-row">
+            <div>
+              {social.icon === 'facebook' && <FacebookIcon />}
+              {social.icon === 'instagram' && <InstagramIcon />}
+              {social.icon === 'linkedin' && <LinkedInIcon />}
+              {social.icon === 'twitter' && <TwitterIcon />}
+              {social.icon === 'youtube' && <YoutubeIcon />}
+            </div>
+            <div>{social.title}</div>
+          </div>
         </MLink>
       ))}
     </div>
