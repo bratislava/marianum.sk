@@ -19,6 +19,11 @@ const ServiceCard = ({ image, title, subtitle, linkHref, ...rest }: ServiceCardP
   const { t } = useTranslation()
   const router = useRouter()
 
+  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    // Don't trigger the `handleCardClick` function when link clicked.
+    event.stopPropagation()
+  }
+
   const handleCardClick = () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     router.push(linkHref)
@@ -27,21 +32,27 @@ const ServiceCard = ({ image, title, subtitle, linkHref, ...rest }: ServiceCardP
   return (
     <CardBox {...rest} onClick={handleCardClick}>
       <div className="aspect-w-1 aspect-h-1 w-full bg-gray">
-        <MLink href={linkHref} tabIndex={-1} noStyles>
+        <MLink href={linkHref} tabIndex={-1} noStyles onClick={handleLinkClick}>
           {image ? <MImage image={image} layout="fill" objectFit="cover" /> : <ImagePlaceholder />}
         </MLink>
       </div>
       <CardContent className="justify-between">
         <div>
           <h5 className="line-clamp-3 group-hover:underline">
-            <MLink href={linkHref} noStyles>
+            <MLink href={linkHref} noStyles onClick={handleLinkClick}>
               {title}
             </MLink>
           </h5>
           {subtitle && <div className="mt-2">{subtitle}</div>}
         </div>
         <div className="mt-4">
-          <MLink href={linkHref} tabIndex={-1} noArrow className="inline-block">
+          <MLink
+            href={linkHref}
+            tabIndex={-1}
+            noArrow
+            className="inline-block"
+            onClick={handleLinkClick}
+          >
             {t('general.showMore')}
           </MLink>
         </div>
