@@ -11,6 +11,7 @@ import { meiliClient } from '../../../utils/meilisearch'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
 import ArticleCard from '../../molecules/Cards/ArticleCard'
 import FilteringSearchInput from '../../molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '../../molecules/FiltersBackgroundWrapper'
 import { useSlugMeili } from '../../molecules/Navigation/NavigationProvider/useFullSlug'
 import PaginationMeili from '../../molecules/PaginationMeili'
 import Section from '../../molecules/Section'
@@ -158,7 +159,7 @@ const ArticleListing = ({ section }: ArticleListingProps) => {
 
   return (
     <Section overlayWithHero>
-      <div className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3 md:bg-white md:p-6">
+      <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3">
         <div>
           {section.type === Enum_Componentsectionsarticlelisting_Type.Press ? (
             <ArticlePressCategoriesSelect onCategoryChange={handleCategoryChange} />
@@ -173,7 +174,7 @@ const ArticleListing = ({ section }: ArticleListingProps) => {
             onChange={(value) => setSearchInputValue(value)}
           />
         </div>
-      </div>
+      </FiltersBackgroundWrapper>
 
       <div>
         <DataWrapper filters={filters} onPageChange={handlePageChange} section={section} />

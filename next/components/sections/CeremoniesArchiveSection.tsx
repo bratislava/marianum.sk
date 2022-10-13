@@ -13,6 +13,7 @@ import FormatDate from '../atoms/FormatDate'
 import BranchLink from '../molecules/BranchLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
 import FilteringSearchInput from '../molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '../molecules/FiltersBackgroundWrapper'
 import PaginationMeili from '../molecules/PaginationMeili'
 import Section from '../molecules/Section'
 
@@ -180,7 +181,7 @@ const CeremoniesArchiveSection = () => {
 
   return (
     <Section overlayWithHero>
-      <div className="mb-4 grid grid-cols-1 gap-4 bg-white md:mb-6 md:grid-cols-3 md:p-6">
+      <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 bg-white md:mb-6 md:grid-cols-3">
         <div>
           <CeremoniesDebtorsBranchSelect type="ceremonies" onBranchChange={handleBranchChange} />
         </div>
@@ -190,7 +191,7 @@ const CeremoniesArchiveSection = () => {
             onChange={(value) => setSearchInputValue(value)}
           />
         </div>
-      </div>
+      </FiltersBackgroundWrapper>
 
       <div>
         <DataWrapper filters={filters} onPageChange={handlePageChange} />
