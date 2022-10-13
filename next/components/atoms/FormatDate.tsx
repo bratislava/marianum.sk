@@ -25,14 +25,15 @@ const formats = {
     month: 'numeric',
     day: 'numeric',
   } as DateFormatterOptions,
+  default: { year: 'numeric', month: 'short', day: 'numeric' } as DateFormatterOptions,
 }
 
 type FormatDateProps = {
   value: Date // TODO: add number?
-  format: keyof typeof formats
+  format?: keyof typeof formats
 }
 
-const FormatDate = ({ value, format }: FormatDateProps) => {
+const FormatDate = ({ value, format = 'default' }: FormatDateProps) => {
   const formatter = useDateFormatter({ ...formats[format], timeZone: bratislavaTimezone })
 
   return <>{formatter.format(value)}</>
