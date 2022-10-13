@@ -58,15 +58,16 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
           {category?.attributes && (
             <>
               {' '}
-              •{' '}
-              <MLink
-                noStyles // TODO link to filtered articles
-                href={category.attributes.slug}
-                className="underline"
-                onClick={handleLinkClick}
-              >
-                {category.attributes.title}
-              </MLink>
+              • {/* TODO link to filtered articles */}
+              {category.attributes.title}
+              {/* <MLink */}
+              {/*  noStyles}
+              {/*  href={category.attributes.slug} */}
+              {/*  className="underline" */}
+              {/*  onClick={handleLinkClick} */}
+              {/* > */}
+              {/*  {category.attributes.title} */}
+              {/* </MLink> */}
             </>
           )}
         </span>
