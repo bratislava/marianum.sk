@@ -27,6 +27,8 @@ interface Section<SectionsType extends string> {
  * @param sections List of the sections of page, etc.
  * @param sectionFetchersList List of which sections to fetch, what's the data and what's the identifying key.
  * @param swr Whether the results are used as fallback for SWR.
+ *
+ * TODO: Improve types to correctly match key with it's respective data type instead of merging all the keys and data types.
  */
 // SWR version, accepts Key as `key`
 export async function prefetchSections<
