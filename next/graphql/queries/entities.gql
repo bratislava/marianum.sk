@@ -376,8 +376,7 @@ fragment PageEntity on PageEntity {
       }
       ... on ComponentSectionsRichtext {
         __typename
-        id
-        content
+        ...RichtextSection
       }
       ... on ComponentSectionsProceduresSection {
         __typename

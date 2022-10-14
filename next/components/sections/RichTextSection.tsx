@@ -1,18 +1,27 @@
-import { ComponentSectionsRichtext } from '../../graphql'
+import { RichtextSectionFragment } from '../../graphql'
+import Button from '../atoms/Button'
 import RichText from '../atoms/RichText/RichText'
-import Section, { SectionProps } from '../molecules/Section'
+import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
+import Section from '../molecules/Section'
 
-type RichTextSectionProps = Pick<SectionProps, 'background'> & {
-  content: ComponentSectionsRichtext['content']
+type RichTextSectionProps = {
+  section: RichtextSectionFragment
 }
 
-/*
-  TODO: Richtext contains button option, how to implement it?
- */
-const RichTextSection = ({ content, ...rest }: RichTextSectionProps) => {
+const RichTextSection = ({ section }: RichTextSectionProps) => {
+  const { getFullSlug } = useSlug()
+
   return (
-    <Section {...rest}>
-      <RichText content={content} />
+    <Section>
+      <RichText content={section.content} />
+      {section.button ? (
+        <Button
+          href={getFullSlug(section.button.page?.data) ?? ''}
+          className="mt-5 w-full md:mt-4 md:w-auto"
+        >
+          {section.button.label}
+        </Button>
+      ) : null}
     </Section>
   )
 }
