@@ -4568,6 +4568,7 @@ export const CemeteriesDocument = gql`
     locale: $locale
     filters: {type: {eq: "cintorin"}}
     sort: ["title:asc"]
+    pagination: {limit: 10000}
   ) {
     data {
       ...BranchEntity
