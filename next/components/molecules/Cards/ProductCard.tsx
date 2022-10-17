@@ -36,6 +36,12 @@ const ProductCard = ({
   const buttonHoverRef = useRef<HTMLButtonElement>(null)
   const isButtonHovered = useHover(buttonHoverRef)
 
+  // eslint-disable-next-line unicorn/consistent-function-scoping
+  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    // Don't trigger the `handleCardClick` function when link clicked.
+    event.stopPropagation()
+  }
+
   const handleCardClick = () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     router.push(linkHref)
@@ -47,7 +53,7 @@ const ProductCard = ({
         {image ? <MImage image={image} layout="fill" objectFit="contain" /> : <ImagePlaceholder />}
       </div>
       <CardContent className="gap-y-2">
-        <MLink href={linkHref} noStyles>
+        <MLink href={linkHref} noStyles onClick={handleLinkClick}>
           <h5
             className={cx('line-clamp-3', {
               'group-hover:underline': !isButtonHovered,

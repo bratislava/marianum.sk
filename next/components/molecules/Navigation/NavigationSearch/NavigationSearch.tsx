@@ -20,7 +20,12 @@ const indexes = [
   articleIndexConfig,
 ]
 
-const NavigationSearch = () => {
+type NavigationSearchProps = {
+  onDesktopSearchOpen: () => void
+  onDesktopSearchClose: () => void
+}
+
+const NavigationSearch = ({ onDesktopSearchOpen, onDesktopSearchClose }: NavigationSearchProps) => {
   const { searchQuery, setSearchQuery, results, isLoading } = useMeilisearch({
     indexes,
     countPerPage: 5,
@@ -54,6 +59,8 @@ const NavigationSearch = () => {
           results={results}
           isLoading={isLoading}
           onSearch={handleSearch}
+          onOpen={onDesktopSearchOpen}
+          onClose={onDesktopSearchClose}
         />
       </div>
     </>

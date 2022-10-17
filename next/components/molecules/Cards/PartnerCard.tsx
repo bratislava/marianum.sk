@@ -18,6 +18,12 @@ const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
   const router = useRouter()
   const { t } = useTranslation()
 
+  // eslint-disable-next-line unicorn/consistent-function-scoping
+  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    // Don't trigger the `handleCardClick` function when link clicked.
+    event.stopPropagation()
+  }
+
   const handleCardClick = () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     router.push(linkHref)
@@ -33,7 +39,7 @@ const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
         )}
         <div className="flex flex-col items-center gap-y-2">
           <h5 className="line-clamp-3 group-hover:underline">
-            <MLink href={linkHref} noStyles>
+            <MLink href={linkHref} noStyles onClick={handleLinkClick}>
               {title}
             </MLink>
           </h5>

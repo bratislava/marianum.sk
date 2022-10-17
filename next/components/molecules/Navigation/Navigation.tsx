@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { useContext, useState } from 'react'
 
 import MarianumLogoWithText from '../../../assets/marianum_logo_with_text.svg'
@@ -19,6 +20,7 @@ type NavigationProps = {
 
 const Navigation = ({ contact }: NavigationProps) => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
+  const [isDesktopSearchOpen, setDesktopSearchOpen] = useState(false)
 
   const { navigation } = useContext(NavigationContext)
 
@@ -27,16 +29,18 @@ const Navigation = ({ contact }: NavigationProps) => {
   const TopContacts = (
     <>
       {title && <div className="opacity-72">{title}:</div>}
-      {phone1 && (
-        <Button href={`tel:${phone1}`} startIcon={<PhoneIcon />} variant="plain-white">
-          {phone1}
-        </Button>
-      )}
-      {phone2 && (
-        <Button href={`tel:${phone2}`} startIcon={<PhoneIcon />} variant="plain-white">
-          {phone2}
-        </Button>
-      )}
+      <div className="flex gap-3">
+        {phone1 && (
+          <Button href={`tel:${phone1}`} startIcon={<PhoneIcon />} variant="plain-white">
+            {phone1}
+          </Button>
+        )}
+        {phone2 && (
+          <Button href={`tel:${phone2}`} startIcon={<PhoneIcon />} variant="plain-white">
+            {phone2}
+          </Button>
+        )}
+      </div>
     </>
   )
 
@@ -45,7 +49,7 @@ const Navigation = ({ contact }: NavigationProps) => {
       <SkipToContentButton />
 
       <div className="relative border-b border-white/12 xl:hidden">
-        <div className="container flex items-center justify-center gap-3 py-2 md:gap-4">
+        <div className="container flex flex-col items-center justify-center gap-3 py-2 md:flex-row md:gap-4">
           {TopContacts}
         </div>
       </div>
@@ -59,9 +63,21 @@ const Navigation = ({ contact }: NavigationProps) => {
           {/* right side of navigation */}
           <div className="flex items-center gap-4 xl:gap-8">
             {/* desktop faq and phone links */}
-            <div className="hidden items-center gap-4 xl:flex">{TopContacts}</div>
+            {!isDesktopSearchOpen && (
+              <motion.div
+                className="hidden items-center gap-4 xl:flex"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                {TopContacts}
+              </motion.div>
+            )}
             {/* search (both mobile and desktop) */}
-            <NavigationSearch />
+            <NavigationSearch
+              onDesktopSearchOpen={() => setDesktopSearchOpen(true)}
+              onDesktopSearchClose={() => setDesktopSearchOpen(false)}
+            />
             {/* mobile menu button */}
             <IconButton
               aria-label="navigačné menu"

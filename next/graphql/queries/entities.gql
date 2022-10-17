@@ -405,6 +405,10 @@ fragment PageEntity on PageEntity {
         __typename
         ...ArticleListing
       }
+      ... on ComponentSectionsReviewListing {
+        __typename
+        ...ReviewListing
+      }
     }
   }
 }
@@ -417,6 +421,16 @@ fragment ProceduresEntity on ProcedureEntity {
     atMedicalFacility {
       ...Procedure
     }
+  }
+}
+
+fragment ReviewEntity on ReviewEntity {
+  id
+  attributes {
+    author
+    date
+    rating
+    description
   }
 }
 

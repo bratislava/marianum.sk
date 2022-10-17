@@ -300,3 +300,7 @@ fragment ArticleListing on ComponentSectionsArticleListing {
   id
   type
 }
+
+fragment ReviewListing on ComponentSectionsReviewListing {
+  id
+}

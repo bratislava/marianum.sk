@@ -30,6 +30,14 @@ query Partners {
   }
 }
 
+query Reviews($locale: I18NLocaleCode!) {
+  reviews(locale: $locale, sort: ["date:desc"], pagination: { limit: 10000 }) {
+    data {
+      ...ReviewEntity
+    }
+  }
+}
+
 query News($locale: I18NLocaleCode!) {
   articles(locale: $locale, sort: ["publishedAt:desc"], pagination: { limit: 4 }) {
     data {
@@ -275,4 +283,3 @@ query ArticlePressCategories {
 query DocumentFiletypes {
   documentFiletypes
 }
-

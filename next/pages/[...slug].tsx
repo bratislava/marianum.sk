@@ -27,16 +27,17 @@ import DebtorsSection from '../components/sections/DebtorsSection'
 import DocumentsSection from '../components/sections/DocumentsSection/DocumentsSection'
 import ImageGallery from '../components/sections/ImageGallery'
 import MapSection from '../components/sections/MapSection'
-// import MapSection from '../components/sections/MapSection/MapSection'
 import MenuListingSection from '../components/sections/MenuListingSection'
 import NewsListing from '../components/sections/NewsSection'
 import PartnersSection from '../components/sections/PartnersSection'
+import ReviewListing from '../components/sections/ReviewListing'
 import RichTextSection from '../components/sections/RichTextSection'
 import {
   Enum_Page_Layout,
   GeneralEntityFragment,
   NavigationItemFragment,
   PageEntityFragment,
+  ReviewEntityFragment,
 } from '../graphql'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
@@ -46,9 +47,10 @@ type PageProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   page: PageEntityFragment
+  reviews: ReviewEntityFragment[] | null
 } & SSRConfig
 
-const Slug = ({ navigation, page, general }: PageProps) => {
+const Slug = ({ navigation, page, general, reviews }: PageProps) => {
   const { seo, title, perex, layout, sections } = page.attributes ?? {}
 
   const isContainer = layout === Enum_Page_Layout.Fullwidth
@@ -194,6 +196,9 @@ const Slug = ({ navigation, page, general }: PageProps) => {
                 <ArticleListing key={`${section.__typename}-${section.id}`} section={section} />
               )
             }
+            if (section?.__typename === 'ComponentSectionsReviewListing') {
+              return <ReviewListing key={`${section.__typename}-${section.id}`} reviews={reviews} />
+            }
             return null
           })}
         </SectionsWrapper>
@@ -249,6 +254,15 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
   const { navMap } = parseNavigation(filteredNavigation)
   const page = pages?.data[0]
 
+  const doesContainReviewListing =
+    (page?.attributes?.sections?.findIndex(
+      (s) => s?.__typename === 'ComponentSectionsReviewListing',
+    ) ?? -1) >= 0
+
+  const { reviews } = doesContainReviewListing
+    ? await client.Reviews({ locale })
+    : { reviews: null }
+
   if (!page || !page.attributes?.slug || !navMap.get(page.attributes?.slug)?.path) {
     return {
       notFound: true,
@@ -260,6 +274,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
       navigation: filteredNavigation,
       general: general?.data ?? null,
       page: pages.data[0],
+      reviews: reviews?.data ?? null,
       ...translations,
     },
     revalidate: 10,
