@@ -6,6 +6,7 @@ import remarkGfm from 'remark-gfm'
 
 import Divider from '../Divider'
 import MLink from '../MLink'
+import NormalizeSkText from '../NormalizeSkText'
 
 export interface RichTextProps {
   className?: string
@@ -28,7 +29,14 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
         h6: ({ children }) => <h6 className="text-h6 font-bold">{children}</h6>,
         // eslint-disable-next-line jsx-a11y/alt-text
         img: (props) => <img {...props} className="w-full" />,
-        p: (props) => <p className="whitespace-pre-wrap" {...props} />,
+        p: ({ children, ...props }) => (
+          <p className="whitespace-pre-wrap" {...props}>
+            {children.map((child, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <NormalizeSkText key={index}>{child}</NormalizeSkText>
+            ))}
+          </p>
+        ),
         a: ({ href, children }) => {
           const isExternal = href?.startsWith('http')
           return (
@@ -58,7 +66,12 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
         tr: ({ children, isHeader, ...props }) => <tr {...props}>{children}</tr>,
         td: ({ children, isHeader, ...props }) => (
           <td>
-            <div {...props}>{children}</div>
+            <div {...props}>
+              {children.map((child, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <NormalizeSkText key={index}>{child}</NormalizeSkText>
+              ))}
+            </div>
           </td>
         ),
         ol: ({ children, ordered, ...props }) => (
