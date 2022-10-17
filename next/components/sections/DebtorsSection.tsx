@@ -5,8 +5,13 @@ import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
 import { DebtorMeili } from '../../types/meiliTypes'
+import {
+  debtorsSectionDefaultFilters,
+  debtorsSectionFetcher,
+  DebtorsSectionFilters,
+  getDebtorsSectionSwrKey,
+} from '../../utils/fetchers/debtorsSectionFetcher'
 import { getBranchInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfoInCeremoniesDebtors'
-import { meiliClient } from '../../utils/meilisearch'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import BranchLink from '../molecules/BranchLink'
@@ -15,14 +20,6 @@ import FilteringSearchInput from '../molecules/FilteringSearchInput'
 import FiltersBackgroundWrapper from '../molecules/FiltersBackgroundWrapper'
 import PaginationMeili from '../molecules/PaginationMeili'
 import Section from '../molecules/Section'
-
-const pageSize = 20
-
-type Filters = {
-  search: string
-  branchId: string | null
-  page: number
-}
 
 const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
   const { t, i18n } = useTranslation('common', {
@@ -99,17 +96,11 @@ const DataWrapper = ({
   description,
   onPageChange,
 }: {
-  filters: Filters
+  filters: DebtorsSectionFilters
   description?: string | null
   onPageChange: (page: number) => void
 }) => {
-  const { data, error } = useSwr(['Debtors', filters], () => {
-    return meiliClient.index('debtor').search<DebtorMeili>(filters.search, {
-      limit: pageSize,
-      offset: (filters.page - 1) * pageSize,
-      filter: filters.branchId ? [`branch.id = ${filters.branchId}`] : [],
-    })
-  })
+  const { data, error } = useSwr(getDebtorsSectionSwrKey(filters), debtorsSectionFetcher(filters))
 
   const { dataToDisplay, loadingAndNoDataToDisplay } = useGetSwrExtras({
     data,
@@ -135,7 +126,7 @@ const DataWrapper = ({
       {dataToDisplay ? (
         <PaginationMeili
           data={dataToDisplay}
-          pageSize={pageSize}
+          pageSize={filters.pageSize}
           selectedPage={filters.page}
           onPageChange={onPageChange}
         />
@@ -148,9 +139,8 @@ type DebtorsSectionProps = {
   description?: string | null
 }
 
-// TODO: Overlap with header
 const DebtorsSection = ({ description }: DebtorsSectionProps) => {
-  const [filters, setFilters] = useState<Filters>({ search: '', page: 1, branchId: null })
+  const [filters, setFilters] = useState<DebtorsSectionFilters>(debtorsSectionDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')
   const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
 
