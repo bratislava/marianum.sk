@@ -21,20 +21,29 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
 
   return (
     <Section title={title} {...rest} cardGrid="cards" button={showMoreButton}>
-      {filteredPages?.map((page) => {
+      {filteredPages?.map((page, index) => {
         const { id, attributes } = page ?? {}
         const { title: cardTitle, coverMedia, perex } = attributes ?? {}
 
         const fullPath = getFullSlug(page) ?? ''
 
         if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
-          return <CategoryCard key={id} title={cardTitle ?? ''} linkHref={fullPath} border />
+          return (
+            <CategoryCard
+              // eslint-disable-next-line react/no-array-index-key, @typescript-eslint/restrict-template-expressions
+              key={`${id}-${index}`}
+              title={cardTitle ?? ''}
+              linkHref={fullPath}
+              border
+            />
+          )
         }
 
         if (style === Enum_Componentsectionsmanuallisting_Style.Service) {
           return (
             <ServiceCard
-              key={id}
+              // eslint-disable-next-line react/no-array-index-key, @typescript-eslint/restrict-template-expressions
+              key={`${id}-${index}`}
               title={cardTitle ?? ''}
               linkHref={fullPath}
               border

@@ -13,6 +13,7 @@ import CardSection from '../components/sections/CardSection'
 import HomepageProcedures from '../components/sections/HomepageProcedures'
 import HomepageSlider from '../components/sections/HomepageSlider'
 import NewsSection from '../components/sections/NewsSection'
+import ReviewSection from '../components/sections/ReviewsSection'
 import UpcomingCeremoniesSection from '../components/sections/UpcomingCeremoniesSection'
 import {
   GeneralEntityFragment,
@@ -86,10 +87,12 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
             }
             if (section?.__typename === 'ComponentSectionsReviewsSection') {
               return (
-                <Section key={`${section.__typename}-${section.id}`}>
-                  {/* TODO */}
-                  reviews section
-                </Section>
+                <ReviewSection
+                  key={`${section.__typename}-${section.id}`}
+                  title={section.title}
+                  button={section.showMoreButton}
+                  reviews={section.reviews?.data}
+                />
               )
             }
 
