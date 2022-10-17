@@ -9,7 +9,7 @@ import useSWR from 'swr'
 import MapMarkerIcon from '../../assets/map-marker.svg'
 import PlaceIcon from '../../assets/place.svg'
 import { BranchEntityFragment, Enum_Branch_Cemeterytype } from '../../graphql'
-import { client } from '../../utils/gql'
+import { cemeteriesFetcher, getCemeteriesSwrKey } from '../../utils/fetchers/cemeteriesFetcher'
 import { isDefined } from '../../utils/isDefined'
 import Button from '../atoms/Button'
 import MLink from '../atoms/MLink'
@@ -41,9 +41,8 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
   const { t, i18n } = useTranslation('common', { keyPrefix: 'sections.MapSection' })
   const { getFullSlug } = useSlug()
 
-  const { data, error } = useSWR(['Cemeteries', i18n.language], (_key, locale) =>
-    client.Cemeteries({ locale }),
-  )
+  const fetcher = cemeteriesFetcher(i18n.language)
+  const { data, error } = useSWR(getCemeteriesSwrKey(i18n.language), fetcher)
 
   const validBranches = useMemo(() => {
     return (
