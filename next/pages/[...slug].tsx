@@ -267,12 +267,14 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
     documentsSectionPrefetch,
     debtorsSectionPrefetch,
     partnersSectionPrefetch,
-  ] as any // TODO: fix type
+  ]
 
   const [{ navigation, general }, prefetchedSections, fallback, translations] = await Promise.all([
     client.General({ locale }),
     prefetchSections(page?.attributes?.sections, sectionFetcherMap, false),
-    prefetchSections(page?.attributes?.sections, sectionFetcherMapSwr, true),
+    // TODO fix types
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    prefetchSections(page?.attributes?.sections, sectionFetcherMapSwr as any, true),
     serverSideTranslations(locale, ['common']),
   ])
 
