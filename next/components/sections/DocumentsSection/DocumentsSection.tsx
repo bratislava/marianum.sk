@@ -1,6 +1,6 @@
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
@@ -9,8 +9,10 @@ import { DocumentMeili } from '../../../types/meiliTypes'
 import { isDefined } from '../../../utils/isDefined'
 import { meiliClient } from '../../../utils/meilisearch'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '../../../utils/useScrollToViewIfDataChange'
 import Button from '../../atoms/Button'
 import FilteringSearchInput from '../../molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '../../molecules/FiltersBackgroundWrapper'
 import PaginationMeili from '../../molecules/PaginationMeili'
 import Row from '../../molecules/Row/Row'
 import Section from '../../molecules/Section'
@@ -30,10 +32,12 @@ type Filters = {
 
 const Documents = ({ data }: { data: SearchResponse<DocumentMeili> }) => {
   const { t } = useTranslation()
+  const documentsRef = useRef<HTMLDivElement>(null)
+  useScrollToViewIfDataChange(data, documentsRef)
 
   if (data.hits.length > 0) {
     return (
-      <div className="grid space-y-3">
+      <div className="grid space-y-3" ref={documentsRef}>
         {data.hits.map((document) => (
           <Row
             title={document.title}
@@ -163,7 +167,7 @@ const DocumentsSection = ({ description }: DocumentsSectionProps) => {
 
   return (
     <Section overlayWithHero>
-      <div className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-2 md:bg-white md:p-6">
+      <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-2">
         <div className="md:col-span-2">
           <FilteringSearchInput
             value={searchInputValue}
@@ -172,7 +176,7 @@ const DocumentsSection = ({ description }: DocumentsSectionProps) => {
         </div>
         <DocumentsSectionCategorySelect onCategoryChange={handleCategoryChange} />
         <DocumentsSectionFiletypeSelect onFiletypeChange={handleFiletypeChange} />
-      </div>
+      </FiltersBackgroundWrapper>
       <div className="mb-6 md:w-[192px]">
         <SortSelect onChange={handleSortChange} defaultSelected={filters.sort} />
       </div>

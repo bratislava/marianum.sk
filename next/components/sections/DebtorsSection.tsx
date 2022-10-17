@@ -1,6 +1,6 @@
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
@@ -8,9 +8,11 @@ import { DebtorMeili } from '../../types/meiliTypes'
 import { getBranchInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfoInCeremoniesDebtors'
 import { meiliClient } from '../../utils/meilisearch'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import BranchLink from '../molecules/BranchLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
 import FilteringSearchInput from '../molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '../molecules/FiltersBackgroundWrapper'
 import PaginationMeili from '../molecules/PaginationMeili'
 import Section from '../molecules/Section'
 
@@ -26,6 +28,9 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
   const { t, i18n } = useTranslation('common', {
     keyPrefix: 'sections.DebtorsSection',
   })
+  const theadRef = useRef<HTMLTableSectionElement>(null)
+  useScrollToViewIfDataChange(data, theadRef)
+
   const debtors = useMemo(() => {
     const debtorsData = data.hits
     if (!debtorsData) {
@@ -52,7 +57,7 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
     <div className="overflow-x-auto">
       {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
       <table className="m-table colored">
-        <thead>
+        <thead ref={theadRef}>
           <tr>
             <th>{t('branchTitle')}</th>
             <th>{t('graveSector')}</th>
@@ -164,7 +169,7 @@ const DebtorsSection = ({ description }: DebtorsSectionProps) => {
 
   return (
     <Section overlayWithHero>
-      <div className="mb-4 grid grid-cols-1 gap-4 bg-white md:mb-6 md:grid-cols-3 md:p-6">
+      <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3">
         <div>
           <CeremoniesDebtorsBranchSelect type="debtors" onBranchChange={handleBranchChange} />
         </div>
@@ -174,7 +179,7 @@ const DebtorsSection = ({ description }: DebtorsSectionProps) => {
             onChange={(value) => setSearchInputValue(value)}
           />
         </div>
-      </div>
+      </FiltersBackgroundWrapper>
 
       <div>
         <DataWrapper filters={filters} description={description} onPageChange={handlePageChange} />
