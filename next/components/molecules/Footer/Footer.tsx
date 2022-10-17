@@ -46,7 +46,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
 
   return (
     // negative top margin to make footer overflow last section
-    <footer className="sticky top-full -mt-14 flex flex-col gap-12">
+    <footer className="sticky top-full flex flex-col gap-12 md:-mt-14">
       <div className="container flex flex-col gap-12">
         <div className="grid bg-primary text-white md:grid-cols-3 lg:grid-cols-2">
           <div className="h-52 w-full md:h-full">
