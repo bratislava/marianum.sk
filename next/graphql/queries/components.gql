@@ -288,6 +288,14 @@ fragment CeremoniesSection on ComponentSectionsCeremoniesSection {
   }
 }
 
+fragment RichtextSection on ComponentSectionsRichtext {
+  id
+  content
+  button {
+    ...CtaButton
+  }
+}
+
 fragment UpcomingCeremoniesSection on ComponentSectionsUpcomingCeremoniesSection {
   id
   title

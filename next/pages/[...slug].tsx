@@ -79,10 +79,7 @@ const Slug = ({ navigation, page, general, reviews }: PageProps) => {
             }
             if (section?.__typename === 'ComponentSectionsRichtext') {
               return (
-                <RichTextSection
-                  key={`${section.__typename}-${section.id}`}
-                  content={section.content}
-                />
+                <RichTextSection key={`${section.__typename}-${section.id}`} section={section} />
               )
             }
             if (section?.__typename === 'ComponentSectionsAccordionGroup') {
