@@ -1,6 +1,8 @@
+import { Key } from 'swr'
+
 import { client } from '../gql'
 
-export const getCemeteriesSwrKey = (locale: string) => ['Cemeteries', locale]
+export const getCemeteriesSwrKey = (locale: string) => ['Cemeteries', locale] as Key
 
 export const cemeteriesFetcher = (locale: string) => () => client.Cemeteries({ locale })
 

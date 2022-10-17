@@ -1,4 +1,5 @@
 import { parseAbsolute } from '@internationalized/date'
+import { Key } from 'swr'
 
 import { bratislavaTimezone } from '../consts'
 import { client } from '../gql'
@@ -11,10 +12,8 @@ export const ceremoniesSectionDefaultFilters: CeremoniesSectionFilters = {
   branchId: null,
 }
 
-export const getCeremoniesSectionSwrKey = (filters: CeremoniesSectionFilters) => [
-  'CeremoniesSection',
-  filters,
-]
+export const getCeremoniesSectionSwrKey = (filters: CeremoniesSectionFilters) =>
+  ['CeremoniesSection', filters] as Key
 
 export const ceremoniesSectionFetcher = (filters: CeremoniesSectionFilters) => () => {
   const currentDate = parseAbsolute(new Date().toISOString(), bratislavaTimezone)

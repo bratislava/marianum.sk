@@ -1,6 +1,8 @@
+import { Key } from 'swr'
+
 import { client } from '../gql'
 
-export const getNewsListingSwrKey = (locale: string) => ['News', locale]
+export const getNewsListingSwrKey = (locale: string) => ['News', locale] as Key
 
 export const newsListingFetcher = (locale: string) => () => client.News({ locale })
 
