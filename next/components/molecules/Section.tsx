@@ -77,7 +77,7 @@ const Section = ({
           {
             'container py-6 md:py-16': alternateBackground,
             'md:-mt-12 md:pt-0': shouldOverlayWithHero && alternateBackground,
-            'pb-20 md:pb-36': isLast,
+            'pb-6 md:pb-20': isLast,
           },
           innerClassName,
         )}
