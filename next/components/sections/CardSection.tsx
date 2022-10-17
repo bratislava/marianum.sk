@@ -23,8 +23,8 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
     .map((page) => page.page?.data)
     .filter((page) => page?.attributes)
 
-  const breakpoint = useTailwindBreakpoint()
-  const isMobile = useMemo(() => breakpoint === null || breakpoint === 'sm', [breakpoint])
+  const { isMD } = useTailwindBreakpoint()
+  const isMobile = useMemo(() => !isMD, [isMD])
 
   if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
     return (

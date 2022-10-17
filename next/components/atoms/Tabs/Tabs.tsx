@@ -63,11 +63,11 @@ const Tabs = ({ children, areWhite = false, areBig = false }: TabsProps) => {
     return { mountTab, unmountTab, areWhite }
   }, [mountTab, unmountTab, areWhite])
 
-  const breakpoint = useTailwindBreakpoint()
+  const { isNull: isBreakpointNull } = useTailwindBreakpoint()
 
   const isVertical = useMemo(() => {
-    return breakpoint === null
-  }, [breakpoint])
+    return isBreakpointNull
+  }, [isBreakpointNull])
 
   return (
     <tabsContext.Provider value={tabsContextValue}>
