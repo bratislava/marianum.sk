@@ -1,7 +1,10 @@
 import { useMemo } from 'react'
 import useSWR from 'swr'
 
-import { client } from '../../utils/gql'
+import {
+  partnersSectionFetcher,
+  partnersSectionSwrKey,
+} from '../../utils/fetchers/partnersSectionFetcher'
 import { isDefined } from '../../utils/isDefined'
 import PartnerCard from '../molecules/Cards/PartnerCard'
 import Row from '../molecules/Row/Row'
@@ -17,7 +20,7 @@ const PartnersSection = ({
   otherTitle,
   ...rest
 }: Pick<SectionProps, 'background'> & PartnersSectionProps) => {
-  const { data, error } = useSWR('Partners', () => client.Partners())
+  const { data, error } = useSWR(partnersSectionSwrKey, partnersSectionFetcher)
 
   const filteredPartners = useMemo(() => {
     return (
