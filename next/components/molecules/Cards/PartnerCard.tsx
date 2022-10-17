@@ -18,6 +18,7 @@ const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
   const router = useRouter()
   const { t } = useTranslation()
 
+  // eslint-disable-next-line unicorn/consistent-function-scoping
   const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     // Don't trigger the `handleCardClick` function when link clicked.
     event.stopPropagation()

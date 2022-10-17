@@ -109,7 +109,8 @@
         "sections.public-disclosure-section",
         "sections.divider",
         "sections.documents-section",
-        "sections.article-listing"
+        "sections.article-listing",
+        "sections.review-listing"
       ]
     },
     "sidebar": {

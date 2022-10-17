@@ -11,6 +11,7 @@ import ArrowRightIcon from '../../assets/arrow_forward.svg'
 import DownloadIcon from '../../assets/download.svg'
 import SearchIcon from '../../assets/search.svg'
 import XIcon from '../../assets/x-alt.svg'
+import Avatar from '../../components/atoms/Avatar'
 import Breadcrumbs from '../../components/atoms/Breadcrumbs'
 import Button from '../../components/atoms/Button'
 import Checkbox from '../../components/atoms/Checkbox'
@@ -21,6 +22,7 @@ import QuantitySelect from '../../components/atoms/QuantitySelect'
 import RadioBox from '../../components/atoms/Radio/RadioBox'
 import RadioSimple from '../../components/atoms/Radio/RadioSimple'
 import RadioSimpleGroup from '../../components/atoms/Radio/RadioSimpleGroup'
+import ReviewStars from '../../components/atoms/ReviewStars'
 import RichText from '../../components/atoms/RichText/RichText'
 import Select from '../../components/atoms/Select'
 import Tab from '../../components/atoms/Tabs/Tab'
@@ -38,6 +40,7 @@ import PartnerCard from '../../components/molecules/Cards/PartnerCard'
 import ProductCard from '../../components/molecules/Cards/ProductCard'
 import ServiceCard from '../../components/molecules/Cards/ServiceCard'
 import Checklist from '../../components/molecules/Checklist/Checklist'
+import Review from '../../components/molecules/Review'
 import Row from '../../components/molecules/Row/Row'
 import Search from '../../components/molecules/Search'
 import Section from '../../components/molecules/Section'
@@ -1161,6 +1164,41 @@ const Showcase = () => {
 
           <Wrapper title="Richtext">
             <RichText content={richText} />
+          </Wrapper>
+
+          <Wrapper title="ReviewStars">
+            <ReviewStars value={3.3} />
+            <ReviewStars value={5} />
+            <ReviewStars value={1} />
+            <ReviewStars value={2.8} />
+            <ReviewStars value={1.5} />
+          </Wrapper>
+
+          <Wrapper title="Avatar">
+            <Avatar name="John" />
+            <Avatar name="John Doe" />
+            <Avatar name="John Doe Moe" />
+          </Wrapper>
+
+          <Wrapper title="Review">
+            <Review
+              author="John"
+              rating={2}
+              date={new Date()}
+              description="Pekne nové priestory, pani čo s nami riešila potrebné veci bola veľmi milá (aj keď ju popri nás stále niekto z kolegou vyrušoval)Vybavia všetky potrebnosti, samozrejme si za to zaplatíte. A nie málo."
+            />
+            <Review
+              author="John Doe"
+              rating={3}
+              date={new Date()}
+              description="Pekne nové priestory, pani čo s nami riešila potrebné veci bola veľmi milá (aj keď ju popri nás stále niekto z kolegou vyrušoval)Vybavia všetky potrebnosti, samozrejme si za to zaplatíte. A nie málo."
+            />
+            <Review
+              author="John Doe Doe"
+              rating={4}
+              date={new Date()}
+              description="Pekne nové priestory, pani čo s nami riešila potrebné veci bola veľmi milá (aj keď ju popri nás stále niekto z kolegou vyrušoval)Vybavia všetky potrebnosti, samozrejme si za to zaplatíte. A nie málo."
+            />
           </Wrapper>
 
           <div className="h-64" />

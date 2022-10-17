@@ -61,7 +61,7 @@ const getFullPath = (
 
   if (entity.__typename === 'PageEntity') {
     const path = navMap?.get(slug)?.path
-    return path || null
+    return path ?? slug
   }
 
   if (entity.__typename === 'BranchEntity') {
