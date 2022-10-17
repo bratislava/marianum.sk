@@ -25,7 +25,13 @@ type Filters = {
   page: number
 }
 
-const Articles = ({ data }: { data: SearchResponse<ArticleMeili> }) => {
+const Articles = ({
+  data,
+  section,
+}: {
+  data: SearchResponse<ArticleMeili>
+  section: ArticleListingFragment
+}) => {
   const { t } = useTranslation('common', {
     keyPrefix: 'components.ArticleListing',
   })
@@ -35,7 +41,19 @@ const Articles = ({ data }: { data: SearchResponse<ArticleMeili> }) => {
     return (
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {data.hits.map((article) => {
-          const { title, publishedAt, coverMedia, slug, newsCategory } = article
+          const { title, publishedAt, coverMedia, slug, newsCategory, pressCategory } = article
+          const category = (() => {
+            switch (section.type) {
+              case Enum_Componentsectionsarticlelisting_Type.News:
+                return { attributes: newsCategory }
+
+              case Enum_Componentsectionsarticlelisting_Type.Press:
+                return { attributes: pressCategory }
+
+              default:
+                return null
+            }
+          })()
 
           return (
             <ArticleCard
@@ -44,7 +62,7 @@ const Articles = ({ data }: { data: SearchResponse<ArticleMeili> }) => {
               image={coverMedia}
               date={publishedAt}
               linkHref={getFullSlugMeili('article', article) ?? ''}
-              category={{ attributes: newsCategory }}
+              category={category}
               border
             />
           )
@@ -114,7 +132,7 @@ const DataWrapper = ({
     <>
       {/* TODO: Use loading overlay with spinner */}
       {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-      <Articles data={dataToDisplay!} />
+      <Articles data={dataToDisplay!} section={section} />
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
       {dataToDisplay ? (
