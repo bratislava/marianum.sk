@@ -12,8 +12,10 @@ import ChecklistSkeleton from './Checklist/ChecklistSkeleton'
 const ProcedureTabs = () => {
   const { i18n } = useTranslation()
 
-  const fetcher = proceduresFetcher(i18n.language)
-  const { data, error } = useSWR(getProceduresSwrKey(i18n.language), fetcher)
+  const { data, error } = useSWR(
+    getProceduresSwrKey(i18n.language),
+    proceduresFetcher(i18n.language),
+  )
 
   const { outsideMedicalFacility, atMedicalFacility } = data?.procedures?.data?.attributes ?? {}
   const procedures = [outsideMedicalFacility, atMedicalFacility].filter(isDefined)

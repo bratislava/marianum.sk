@@ -128,8 +128,10 @@ const Table = ({ data }: { data: CeremoniesQuery }) => {
 }
 
 const DataWrapper = ({ filters }: { filters: CeremoniesSectionFilters }) => {
-  const fetcher = ceremoniesSectionFetcher(filters)
-  const { data, error } = useSwr(getCeremoniesSectionSwrKey(filters), fetcher)
+  const { data, error } = useSwr(
+    getCeremoniesSectionSwrKey(filters),
+    ceremoniesSectionFetcher(filters),
+  )
 
   const { dataToDisplay, loadingAndNoDataToDisplay } = useGetSwrExtras({
     data,

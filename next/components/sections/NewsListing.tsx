@@ -11,8 +11,10 @@ const NewsListing = () => {
   const { i18n } = useTranslation()
   const { getFullSlug } = useSlug()
 
-  const fetcher = newsListingFetcher(i18n.language)
-  const { data, error } = useSWR(getNewsListingSwrKey(i18n.language), fetcher)
+  const { data, error } = useSWR(
+    getNewsListingSwrKey(i18n.language),
+    newsListingFetcher(i18n.language),
+  )
 
   const filteredNews = useMemo(() => {
     return data?.articles?.data?.filter(isDefined)

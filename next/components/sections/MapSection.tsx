@@ -41,8 +41,10 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
   const { t, i18n } = useTranslation('common', { keyPrefix: 'sections.MapSection' })
   const { getFullSlug } = useSlug()
 
-  const fetcher = cemeteriesFetcher(i18n.language)
-  const { data, error } = useSWR(getCemeteriesSwrKey(i18n.language), fetcher)
+  const { data, error } = useSWR(
+    getCemeteriesSwrKey(i18n.language),
+    cemeteriesFetcher(i18n.language),
+  )
 
   const validBranches = useMemo(() => {
     return (

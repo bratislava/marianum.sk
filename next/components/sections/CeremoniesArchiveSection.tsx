@@ -113,8 +113,10 @@ const DataWrapper = ({
   filters: CeremoniesArchiveSectionFilters
   onPageChange: (page: number) => void
 }) => {
-  const fetcher = ceremoniesArchiveSectionFetcher(filters)
-  const { data, error } = useSwr(getCeremoniesArchiveSectionSwrKey(filters), fetcher)
+  const { data, error } = useSwr(
+    getCeremoniesArchiveSectionSwrKey(filters),
+    ceremoniesArchiveSectionFetcher(filters),
+  )
 
   const { dataToDisplay, loadingAndNoDataToDisplay } = useGetSwrExtras({
     data,
