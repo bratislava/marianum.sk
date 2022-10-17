@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import slugify from 'slugify'
 import useSWR from 'swr'
 
-import { client } from '../../utils/gql'
+import { getProceduresSwrKey, proceduresFetcher } from '../../utils/fetchers/proceduresFetcher'
 import { isDefined } from '../../utils/isDefined'
 import Tab from '../atoms/Tabs/Tab'
 import Tabs from '../atoms/Tabs/Tabs'
@@ -12,9 +12,9 @@ import ChecklistSkeleton from './Checklist/ChecklistSkeleton'
 const ProcedureTabs = () => {
   const { i18n } = useTranslation()
 
-  const { data, error } = useSWR(['Procedures', i18n.language], (_key, locale) =>
-    client.Procedures({ locale }),
-  )
+  const fetcher = proceduresFetcher(i18n.language)
+  const { data, error } = useSWR(getProceduresSwrKey(i18n.language), fetcher)
+
   const { outsideMedicalFacility, atMedicalFacility } = data?.procedures?.data?.attributes ?? {}
   const procedures = [outsideMedicalFacility, atMedicalFacility].filter(isDefined)
 
