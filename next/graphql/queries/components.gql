@@ -304,3 +304,13 @@ fragment ArticleListing on ComponentSectionsArticleListing {
 fragment ReviewListing on ComponentSectionsReviewListing {
   id
 }
+
+fragment ReviewsSection on ComponentSectionsReviewsSection {
+  id
+  title
+  reviews {
+    data {
+      ...ReviewEntity
+    }
+  }
+}

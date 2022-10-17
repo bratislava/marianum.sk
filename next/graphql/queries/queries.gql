@@ -201,9 +201,7 @@ query HomePage($locale: I18NLocaleCode) {
           }
           ... on ComponentSectionsReviewsSection {
             __typename
-            id
-            title
-            # TODO
+            ...ReviewsSection
           }
         }
       }
