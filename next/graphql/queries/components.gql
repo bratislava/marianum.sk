@@ -308,6 +308,9 @@ fragment ReviewListing on ComponentSectionsReviewListing {
 fragment ReviewsSection on ComponentSectionsReviewsSection {
   id
   title
+  showMoreButton {
+    ...CtaButton
+  }
   reviews {
     data {
       ...ReviewEntity
