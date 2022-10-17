@@ -38,10 +38,13 @@ import {
   NavigationItemFragment,
   PageEntityFragment,
   ReviewEntityFragment,
+  ReviewsQuery,
 } from '../graphql'
+import { getReviewsFetcher } from '../utils/fetchers/getReviewsFetcher'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
 import { parseNavigation } from '../utils/parseNavigation'
+import { prefetchSections } from '../utils/prefetchSections'
 
 type PageProps = {
   navigation: NavigationItemFragment[]
@@ -240,25 +243,26 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
   // eslint-disable-next-line no-console
   console.log(`Revalidating page "${slug}" on /${params?.slug.join('/') ?? ''}`)
 
-  const [{ navigation, general }, { pages }, translations] = await Promise.all([
+  const { pages } = await client.PageBySlug({ locale, slug })
+  const page = pages?.data[0]
+
+  const sectionFetcherMap = [
+    {
+      sectionTypename: 'ComponentSectionsReviewListing',
+      key: 'reviews',
+      fetcher: getReviewsFetcher(locale),
+    } as const,
+  ]
+
+  const [{ navigation, general }, prefetchedSections, translations] = await Promise.all([
     client.General({ locale }),
-    client.PageBySlug({ locale, slug }),
+    prefetchSections(page?.attributes?.sections, sectionFetcherMap, false),
     serverSideTranslations(locale, ['common']),
   ])
 
   const filteredNavigation = navigation.filter(isDefined)
 
   const { navMap } = parseNavigation(filteredNavigation)
-  const page = pages?.data[0]
-
-  const doesContainReviewListing =
-    (page?.attributes?.sections?.findIndex(
-      (s) => s?.__typename === 'ComponentSectionsReviewListing',
-    ) ?? -1) >= 0
-
-  const { reviews } = doesContainReviewListing
-    ? await client.Reviews({ locale })
-    : { reviews: null }
 
   if (!page || !page.attributes?.slug || !navMap.get(page.attributes?.slug)?.path) {
     return {
@@ -271,7 +275,9 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
       navigation: filteredNavigation,
       general: general?.data ?? null,
       page: pages.data[0],
-      reviews: reviews?.data ?? null,
+      // TODO: Fix when types improved in prefetchSections util.
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+      reviews: (prefetchedSections?.reviews as ReviewsQuery)?.reviews?.data ?? null,
       ...translations,
     },
     revalidate: 10,
