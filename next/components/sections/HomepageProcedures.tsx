@@ -23,8 +23,8 @@ const HomepageProcedures = ({
   ...rest
 }: HomepagePoceduresProps) => {
   const { getFullSlug } = useSlug()
-  const breakpoint = useTailwindBreakpoint()
-  const isMobile = useMemo(() => breakpoint === null, [breakpoint])
+  const { isNull } = useTailwindBreakpoint()
+  const isMobile = useMemo(() => isNull, [isNull])
 
   const showMoreSlug = getFullSlug(showMoreButton?.page?.data)
 
