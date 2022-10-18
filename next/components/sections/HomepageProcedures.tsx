@@ -11,7 +11,7 @@ import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Row from '../molecules/Row/Row'
 import Section, { SectionProps } from '../molecules/Section'
 
-type HomepagePoceduresProps = Pick<SectionProps, 'title' | 'background'> & {
+type HomepageProceduresProps = Pick<SectionProps, 'title' | 'background'> & {
   procedures: ProcedureFragment[]
   showMoreButton: CtaButtonFragment | null | undefined
 }
@@ -21,10 +21,10 @@ const HomepageProcedures = ({
   procedures,
   showMoreButton,
   ...rest
-}: HomepagePoceduresProps) => {
+}: HomepageProceduresProps) => {
   const { getFullSlug } = useSlug()
-  const breakpoint = useTailwindBreakpoint()
-  const isMobile = useMemo(() => breakpoint === null, [breakpoint])
+  const { isNull } = useTailwindBreakpoint()
+  const isMobile = useMemo(() => isNull, [isNull])
 
   const showMoreSlug = getFullSlug(showMoreButton?.page?.data)
 

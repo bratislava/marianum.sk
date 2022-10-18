@@ -68,7 +68,10 @@ const SectionsWrapper = ({
     (index: number) => {
       // is alternating && is last && previous is dark => then divider is displayed
       return (
-        alternateBackground && sectionCount === index + 1 && getBackground(index - 1) === 'dark'
+        alternateBackground &&
+        sectionCount === index + 1 &&
+        getBackground(index - 1) === 'dark' &&
+        index !== 0
       )
     },
     [sectionCount, alternateBackground, getBackground],

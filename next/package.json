@@ -49,6 +49,7 @@
     "remark-gfm": "^3.0.1",
     "slugify": "^1.6.5",
     "swiper": "^8.4.4",
+    "smooth-scroll-into-view-if-needed": "^1.1.33",
     "swr": "^1.3.0",
     "tailwindcss-radix": "^2.4.0",
     "usehooks-ts": "^2.6.0"

@@ -6,6 +6,7 @@ import { normalizeSkText } from '../../utils/normalizeSkText'
 // eslint-disable-next-line @typescript-eslint/ban-types
 const NormalizeSkText = ({ children }: PropsWithChildren<{}>) => {
   const { i18n } = useTranslation()
+
   return useMemo(() => {
     if (i18n?.language === 'sk' && typeof children === 'string') {
       return <>{normalizeSkText(children)}</>

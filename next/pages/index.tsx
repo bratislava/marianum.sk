@@ -21,16 +21,17 @@ import {
   HomePageQuery,
   NavigationItemFragment,
 } from '../graphql'
-import { upcomingCeremoniesFetcher } from '../utils/fetchers/upcomingCeremoniesFetcher'
+import { upcomingCeremoniesPrefetch } from '../utils/fetchers/upcomingCeremoniesFetcher'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
+import { prefetchSections } from '../utils/prefetchSections'
 
 type HomeProps = {
   navigation: NavigationItemFragment[]
   page: NonNullable<NonNullable<HomePageQuery['homePage']>['data']>
   procedures: NonNullable<HomePageQuery['procedures']>['data']
   general: GeneralEntityFragment | null
-  fallback: { UpcomingCeremonies: HomepageCeremoniesQuery }
+  fallback: { UpcomingCeremonies?: HomepageCeremoniesQuery }
 }
 
 const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) => {
@@ -107,13 +108,15 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
 export const getStaticProps: GetStaticProps = async ({
   locale = 'sk',
 }): Promise<GetStaticPropsResult<HomeProps>> => {
-  const [{ navigation, general }, { homePage, procedures }, translations, upcomingCeremonies] =
-    await Promise.all([
-      client.General({ locale }),
-      client.HomePage({ locale }),
-      serverSideTranslations(locale, ['common']),
-      upcomingCeremoniesFetcher(),
-    ])
+  const { homePage, procedures } = await client.HomePage({ locale })
+
+  const sectionFetcherMapSwr = [upcomingCeremoniesPrefetch]
+
+  const [{ navigation, general }, translations, fallback] = await Promise.all([
+    client.General({ locale }),
+    serverSideTranslations(locale, ['common']),
+    prefetchSections(homePage?.data?.attributes?.sections, sectionFetcherMapSwr, true),
+  ])
 
   const filteredNavigation = navigation.filter(isDefined)
 
@@ -129,9 +132,7 @@ export const getStaticProps: GetStaticProps = async ({
       general: general?.data ?? null,
       page: homePage?.data ?? null,
       procedures: procedures?.data ?? null,
-      fallback: {
-        UpcomingCeremonies: upcomingCeremonies,
-      },
+      fallback: fallback as { UpcomingCeremonies?: HomepageCeremoniesQuery },
       ...translations,
     },
     revalidate: 10,

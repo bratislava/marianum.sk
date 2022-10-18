@@ -1,28 +1,28 @@
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
 import { CeremonyMeili } from '../../types/meiliTypes'
+import {
+  ceremoniesArchiveSectionDefaultFilters,
+  ceremoniesArchiveSectionFetcher,
+  CeremoniesArchiveSectionFilters,
+  getCeremoniesArchiveSectionSwrKey,
+} from '../../utils/fetchers/ceremoniesArchiveSectionFetcher'
 import { getBranchInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfoInCeremoniesDebtors'
-import { isDefined } from '../../utils/isDefined'
-import { meiliClient } from '../../utils/meilisearch'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import FormatDate from '../atoms/FormatDate'
 import BranchLink from '../molecules/BranchLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
 import FilteringSearchInput from '../molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '../molecules/FiltersBackgroundWrapper'
 import PaginationMeili from '../molecules/PaginationMeili'
 import Section from '../molecules/Section'
 
 const pageSize = 20
-
-type Filters = {
-  search: string
-  branchId: string | null
-  page: number
-}
 
 const PrivateField = () => <span className="opacity-50">**</span>
 
@@ -30,6 +30,8 @@ const Table = ({ data }: { data: SearchResponse<CeremonyMeili> }) => {
   const { t, i18n } = useTranslation('common', {
     keyPrefix: 'sections.CeremoniesSection',
   })
+  const theadRef = useRef<HTMLTableSectionElement>(null)
+  useScrollToViewIfDataChange(data, theadRef)
 
   const ceremonies = useMemo(() => {
     const ceremoniesData = data.hits
@@ -61,7 +63,7 @@ const Table = ({ data }: { data: SearchResponse<CeremonyMeili> }) => {
       <div className="mb-6 overflow-x-auto md:mb-10">
         {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
         <table className="m-table colored">
-          <thead>
+          <thead ref={theadRef}>
             <tr>
               <th>{t('dateTime')}</th>
               <th>{t('name')}</th>
@@ -108,19 +110,13 @@ const DataWrapper = ({
   filters,
   onPageChange,
 }: {
-  filters: Filters
+  filters: CeremoniesArchiveSectionFilters
   onPageChange: (page: number) => void
 }) => {
-  const { data, error } = useSwr(['CeremoniesArchive', filters], () => {
-    return meiliClient.index('ceremony').search<CeremonyMeili>(filters.search, {
-      limit: pageSize,
-      offset: (filters.page - 1) * pageSize,
-      filter: [
-        `dateTimeTimestamp < ${Date.now()}`,
-        filters.branchId && `branch.id = ${filters.branchId}`,
-      ].filter(isDefined),
-    })
-  })
+  const { data, error } = useSwr(
+    getCeremoniesArchiveSectionSwrKey(filters),
+    ceremoniesArchiveSectionFetcher(filters),
+  )
 
   const { dataToDisplay, loadingAndNoDataToDisplay } = useGetSwrExtras({
     data,
@@ -154,11 +150,9 @@ const DataWrapper = ({
 }
 
 const CeremoniesArchiveSection = () => {
-  const [filters, setFilters] = useState<Filters>({
-    search: '',
-    page: 1,
-    branchId: null,
-  })
+  const [filters, setFilters] = useState<CeremoniesArchiveSectionFilters>(
+    ceremoniesArchiveSectionDefaultFilters,
+  )
   const [searchInputValue, setSearchInputValue] = useState<string>('')
   const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
 
@@ -180,7 +174,7 @@ const CeremoniesArchiveSection = () => {
 
   return (
     <Section overlayWithHero>
-      <div className="mb-4 grid grid-cols-1 gap-4 bg-white md:mb-6 md:grid-cols-3 md:p-6">
+      <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 bg-white md:mb-6 md:grid-cols-3">
         <div>
           <CeremoniesDebtorsBranchSelect type="ceremonies" onBranchChange={handleBranchChange} />
         </div>
@@ -190,7 +184,7 @@ const CeremoniesArchiveSection = () => {
             onChange={(value) => setSearchInputValue(value)}
           />
         </div>
-      </div>
+      </FiltersBackgroundWrapper>
 
       <div>
         <DataWrapper filters={filters} onPageChange={handlePageChange} />

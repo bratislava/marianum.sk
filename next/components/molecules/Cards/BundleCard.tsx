@@ -68,7 +68,7 @@ const BundleCard = ({
               {t('general.from')} <FormatCurrency value={priceFrom} />
             </div>
             {discountText && (
-              <div className="whitespace-nowrap rounded-full bg-primary/12 py-1.5 px-3 text-sm font-semibold leading-4 text-primary">
+              <div className="rounded-2xl bg-primary/12 py-1.5 px-3 text-sm font-semibold leading-4 text-primary">
                 {discountText}
               </div>
             )}

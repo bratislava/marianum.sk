@@ -79,7 +79,12 @@ query Branches($locale: I18NLocaleCode!) {
 }
 
 query Cemeteries($locale: I18NLocaleCode!) {
-  branches(locale: $locale, filters: { type: { eq: "cintorin" } }, sort: ["title:asc"]) {
+  branches(
+    locale: $locale
+    filters: { type: { eq: "cintorin" } }
+    sort: ["title:asc"]
+    pagination: { limit: 10000 }
+  ) {
     data {
       ...BranchEntity
     }

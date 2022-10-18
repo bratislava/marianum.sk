@@ -31,7 +31,7 @@ const Pagination = ({ count, selectedPage, className, onChange = () => {} }: Pag
   })
   return (
     <nav className={className}>
-      <ul className="flex items-center gap-x-1">
+      <ul className="flex flex-wrap items-center gap-1">
         {items.map(
           ({ page, type, selected, disabled, onPress, 'aria-current': ariaCurrent }, index) => {
             let children: ReactNode = null

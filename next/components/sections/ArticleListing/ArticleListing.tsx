@@ -1,6 +1,6 @@
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
@@ -9,8 +9,10 @@ import { ArticleMeili } from '../../../types/meiliTypes'
 import { isDefined } from '../../../utils/isDefined'
 import { meiliClient } from '../../../utils/meilisearch'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '../../../utils/useScrollToViewIfDataChange'
 import ArticleCard from '../../molecules/Cards/ArticleCard'
 import FilteringSearchInput from '../../molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '../../molecules/FiltersBackgroundWrapper'
 import { useSlugMeili } from '../../molecules/Navigation/NavigationProvider/useFullSlug'
 import PaginationMeili from '../../molecules/PaginationMeili'
 import Section from '../../molecules/Section'
@@ -25,17 +27,37 @@ type Filters = {
   page: number
 }
 
-const Articles = ({ data }: { data: SearchResponse<ArticleMeili> }) => {
+const Articles = ({
+  data,
+  section,
+}: {
+  data: SearchResponse<ArticleMeili>
+  section: ArticleListingFragment
+}) => {
   const { t } = useTranslation('common', {
     keyPrefix: 'components.ArticleListing',
   })
   const { getFullSlugMeili } = useSlugMeili()
+  const cardsRef = useRef<HTMLDivElement>(null)
+  useScrollToViewIfDataChange(data, cardsRef)
 
   if (data.hits?.length > 0) {
     return (
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4" ref={cardsRef}>
         {data.hits.map((article) => {
-          const { title, publishedAt, coverMedia, slug, newsCategory } = article
+          const { title, publishedAt, coverMedia, slug, newsCategory, pressCategory } = article
+          const category = (() => {
+            switch (section.type) {
+              case Enum_Componentsectionsarticlelisting_Type.News:
+                return { attributes: newsCategory }
+
+              case Enum_Componentsectionsarticlelisting_Type.Press:
+                return { attributes: pressCategory }
+
+              default:
+                return null
+            }
+          })()
 
           return (
             <ArticleCard
@@ -44,7 +66,7 @@ const Articles = ({ data }: { data: SearchResponse<ArticleMeili> }) => {
               image={coverMedia}
               date={publishedAt}
               linkHref={getFullSlugMeili('article', article) ?? ''}
-              category={{ attributes: newsCategory }}
+              category={category}
               border
             />
           )
@@ -114,7 +136,7 @@ const DataWrapper = ({
     <>
       {/* TODO: Use loading overlay with spinner */}
       {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-      <Articles data={dataToDisplay!} />
+      <Articles data={dataToDisplay!} section={section} />
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
       {dataToDisplay ? (
@@ -158,7 +180,7 @@ const ArticleListing = ({ section }: ArticleListingProps) => {
 
   return (
     <Section overlayWithHero>
-      <div className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3 md:bg-white md:p-6">
+      <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3">
         <div>
           {section.type === Enum_Componentsectionsarticlelisting_Type.Press ? (
             <ArticlePressCategoriesSelect onCategoryChange={handleCategoryChange} />
@@ -173,7 +195,7 @@ const ArticleListing = ({ section }: ArticleListingProps) => {
             onChange={(value) => setSearchInputValue(value)}
           />
         </div>
-      </div>
+      </FiltersBackgroundWrapper>
 
       <div>
         <DataWrapper filters={filters} onPageChange={handlePageChange} section={section} />

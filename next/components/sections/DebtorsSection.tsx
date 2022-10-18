@@ -1,31 +1,33 @@
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
 import { DebtorMeili } from '../../types/meiliTypes'
+import {
+  debtorsSectionDefaultFilters,
+  debtorsSectionFetcher,
+  DebtorsSectionFilters,
+  getDebtorsSectionSwrKey,
+} from '../../utils/fetchers/debtorsSectionFetcher'
 import { getBranchInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfoInCeremoniesDebtors'
-import { meiliClient } from '../../utils/meilisearch'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import BranchLink from '../molecules/BranchLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
 import FilteringSearchInput from '../molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '../molecules/FiltersBackgroundWrapper'
 import PaginationMeili from '../molecules/PaginationMeili'
 import Section from '../molecules/Section'
-
-const pageSize = 20
-
-type Filters = {
-  search: string
-  branchId: string | null
-  page: number
-}
 
 const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
   const { t, i18n } = useTranslation('common', {
     keyPrefix: 'sections.DebtorsSection',
   })
+  const theadRef = useRef<HTMLTableSectionElement>(null)
+  useScrollToViewIfDataChange(data, theadRef)
+
   const debtors = useMemo(() => {
     const debtorsData = data.hits
     if (!debtorsData) {
@@ -52,7 +54,7 @@ const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
     <div className="overflow-x-auto">
       {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
       <table className="m-table colored">
-        <thead>
+        <thead ref={theadRef}>
           <tr>
             <th>{t('branchTitle')}</th>
             <th>{t('graveSector')}</th>
@@ -94,17 +96,11 @@ const DataWrapper = ({
   description,
   onPageChange,
 }: {
-  filters: Filters
+  filters: DebtorsSectionFilters
   description?: string | null
   onPageChange: (page: number) => void
 }) => {
-  const { data, error } = useSwr(['Debtors', filters], () => {
-    return meiliClient.index('debtor').search<DebtorMeili>(filters.search, {
-      limit: pageSize,
-      offset: (filters.page - 1) * pageSize,
-      filter: filters.branchId ? [`branch.id = ${filters.branchId}`] : [],
-    })
-  })
+  const { data, error } = useSwr(getDebtorsSectionSwrKey(filters), debtorsSectionFetcher(filters))
 
   const { dataToDisplay, loadingAndNoDataToDisplay } = useGetSwrExtras({
     data,
@@ -130,7 +126,7 @@ const DataWrapper = ({
       {dataToDisplay ? (
         <PaginationMeili
           data={dataToDisplay}
-          pageSize={pageSize}
+          pageSize={filters.pageSize}
           selectedPage={filters.page}
           onPageChange={onPageChange}
         />
@@ -143,9 +139,8 @@ type DebtorsSectionProps = {
   description?: string | null
 }
 
-// TODO: Overlap with header
 const DebtorsSection = ({ description }: DebtorsSectionProps) => {
-  const [filters, setFilters] = useState<Filters>({ search: '', page: 1, branchId: null })
+  const [filters, setFilters] = useState<DebtorsSectionFilters>(debtorsSectionDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')
   const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
 
@@ -164,7 +159,7 @@ const DebtorsSection = ({ description }: DebtorsSectionProps) => {
 
   return (
     <Section overlayWithHero>
-      <div className="mb-4 grid grid-cols-1 gap-4 bg-white md:mb-6 md:grid-cols-3 md:p-6">
+      <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3">
         <div>
           <CeremoniesDebtorsBranchSelect type="debtors" onBranchChange={handleBranchChange} />
         </div>
@@ -174,7 +169,7 @@ const DebtorsSection = ({ description }: DebtorsSectionProps) => {
             onChange={(value) => setSearchInputValue(value)}
           />
         </div>
-      </div>
+      </FiltersBackgroundWrapper>
 
       <div>
         <DataWrapper filters={filters} description={description} onPageChange={handlePageChange} />
