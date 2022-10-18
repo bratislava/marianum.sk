@@ -13,7 +13,7 @@ type ReviewCardProps = {
 }
 const ReviewCard = ({ rating, author, date, description, border = false }: ReviewCardProps) => {
   return (
-    <CardBox border={border} className="h-[228px]">
+    <CardBox hover={false} border={border} className="h-[228px]">
       <CardContent>
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between gap-4">
