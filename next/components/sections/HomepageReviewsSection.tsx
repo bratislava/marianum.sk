@@ -5,11 +5,11 @@ import { ReviewEntityFragment } from '../../graphql'
 import ReviewCard from '../molecules/Cards/ReviewCard'
 import Section, { SectionProps } from '../molecules/Section'
 
-type ReviewSectionProps = {
+type HomepageReviewsSectionProps = {
   reviews: ReviewEntityFragment[] | undefined | null
 } & Pick<SectionProps, 'title' | 'button'>
 
-const ReviewSection = ({ reviews, ...rest }: ReviewSectionProps) => {
+const HomepageReviewsSection = ({ reviews, ...rest }: HomepageReviewsSectionProps) => {
   const [isBrowser, setBrowser] = useState(false)
   useEffect(() => {
     setBrowser(true)
@@ -54,4 +54,4 @@ const ReviewSection = ({ reviews, ...rest }: ReviewSectionProps) => {
   )
 }
 
-export default ReviewSection
+export default HomepageReviewsSection

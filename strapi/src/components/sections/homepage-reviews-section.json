@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_sections_reviews_sections",
+  "collectionName": "components_sections_homepage_reviews_sections",
   "info": {
-    "displayName": "reviews section",
+    "displayName": "Homepage reviews section",
     "icon": "star-half-alt",
     "description": ""
   },

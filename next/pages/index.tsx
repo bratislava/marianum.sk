@@ -11,9 +11,9 @@ import Section from '../components/molecules/Section'
 import Seo from '../components/molecules/Seo'
 import CardSection from '../components/sections/CardSection'
 import HomepageProcedures from '../components/sections/HomepageProcedures'
+import HomepageReviewsSection from '../components/sections/HomepageReviewsSection'
 import HomepageSlider from '../components/sections/HomepageSlider'
 import NewsSection from '../components/sections/NewsSection'
-import ReviewSection from '../components/sections/ReviewsSection'
 import UpcomingCeremoniesSection from '../components/sections/UpcomingCeremoniesSection'
 import {
   GeneralEntityFragment,
@@ -86,9 +86,10 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
                 </Section>
               )
             }
-            if (section?.__typename === 'ComponentSectionsReviewsSection') {
+            if (section?.__typename === 'ComponentSectionsHomepageReviewsSection') {
               return (
-                <ReviewSection
+                <HomepageReviewsSection
+                  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                   key={`${section.__typename}-${section.id}`}
                   title={section.title}
                   button={section.showMoreButton}

@@ -313,7 +313,7 @@ fragment ReviewListing on ComponentSectionsReviewListing {
   id
 }
 
-fragment ReviewsSection on ComponentSectionsReviewsSection {
+fragment HomepageReviewsSection on ComponentSectionsHomepageReviewsSection {
   id
   title
   showMoreButton {
