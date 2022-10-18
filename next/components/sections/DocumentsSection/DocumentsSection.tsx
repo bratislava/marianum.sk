@@ -6,8 +6,12 @@ import { useDebounce } from 'usehooks-ts'
 
 import DownloadIcon from '../../../assets/download.svg'
 import { DocumentMeili } from '../../../types/meiliTypes'
-import { isDefined } from '../../../utils/isDefined'
-import { meiliClient } from '../../../utils/meilisearch'
+import {
+  documentsSectionDefaultFilters,
+  documentsSectionFetcher,
+  DocumentsSectionFilters,
+  getDocumentsSectionSwrKey,
+} from '../../../utils/fetchers/documentsSectionFetcher'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '../../../utils/useScrollToViewIfDataChange'
 import Button from '../../atoms/Button'
@@ -20,16 +24,6 @@ import SortSelect, { Sort } from '../../molecules/SortSelect'
 import DocumentsSectionCategorySelect from './DocumentsSectionCategorySelect'
 import DocumentsSectionFiletypeSelect from './DocumentsSectionFiletypeSelect'
 
-const pageSize = 24
-
-type Filters = {
-  search: string
-  categoryId: string | null
-  page: number
-  sort: Sort
-  filetype: string | null
-}
-
 const Documents = ({ data }: { data: SearchResponse<DocumentMeili> }) => {
   const { t } = useTranslation()
   const documentsRef = useRef<HTMLDivElement>(null)
@@ -38,8 +32,10 @@ const Documents = ({ data }: { data: SearchResponse<DocumentMeili> }) => {
   if (data.hits.length > 0) {
     return (
       <div className="grid space-y-3" ref={documentsRef}>
-        {data.hits.map((document) => (
+        {data.hits.map((document, index) => (
           <Row
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
             title={document.title}
             category={
               document?.documentCategory
@@ -76,24 +72,14 @@ const DataWrapper = ({
   description,
   onPageChange,
 }: {
-  filters: Filters
+  filters: DocumentsSectionFilters
   description?: string | null
   onPageChange: (page: number) => void
 }) => {
-  const { data, error } = useSwr(['Documents', filters], () => {
-    return meiliClient.index('document').search<DocumentMeili>(filters.search, {
-      limit: pageSize,
-      offset: (filters.page - 1) * pageSize,
-      filter: [
-        isDefined(filters.categoryId) ? `documentCategory.id = ${filters.categoryId}` : null,
-        isDefined(filters.filetype) ? `file.ext = ${filters.filetype}` : null,
-      ].filter(Boolean) as string[],
-      sort: [
-        filters.sort === 'newest' ? 'publishedAtTimestamp:asc' : null,
-        filters.sort === 'oldest' ? 'publishedAtTimestamp:desc' : null,
-      ].filter(Boolean) as string[],
-    })
-  })
+  const { data, error } = useSwr(
+    getDocumentsSectionSwrKey(filters),
+    documentsSectionFetcher(filters),
+  )
 
   const { dataToDisplay, loadingAndNoDataToDisplay } = useGetSwrExtras({
     data,
@@ -119,7 +105,7 @@ const DataWrapper = ({
       {dataToDisplay ? (
         <PaginationMeili
           data={dataToDisplay}
-          pageSize={pageSize}
+          pageSize={filters.pageSize}
           selectedPage={filters.page}
           onPageChange={onPageChange}
         />
@@ -134,13 +120,7 @@ type DocumentsSectionProps = {
 
 // TODO: Overlap with header
 const DocumentsSection = ({ description }: DocumentsSectionProps) => {
-  const [filters, setFilters] = useState<Filters>({
-    search: '',
-    page: 1,
-    categoryId: null,
-    sort: 'newest',
-    filetype: null,
-  })
+  const [filters, setFilters] = useState<DocumentsSectionFilters>(documentsSectionDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')
   const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
 

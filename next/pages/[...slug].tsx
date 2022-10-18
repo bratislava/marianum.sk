@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
+import { SWRConfig } from 'swr'
 
 import Divider from '../components/atoms/Divider'
 import RichText from '../components/atoms/RichText/RichText'
@@ -40,7 +41,15 @@ import {
   ReviewEntityFragment,
   ReviewsQuery,
 } from '../graphql'
-import { getReviewsFetcher } from '../utils/fetchers/getReviewsFetcher'
+import { getMapSectionPrefetch } from '../utils/fetchers/cemeteriesFetcher'
+import { ceremoniesArchiveSectionPrefetch } from '../utils/fetchers/ceremoniesArchiveSectionFetcher'
+import { ceremoniesSectionPrefetch } from '../utils/fetchers/ceremoniesSectionFetcher'
+import { debtorsSectionPrefetch } from '../utils/fetchers/debtorsSectionFetcher'
+import { documentsSectionPrefetch } from '../utils/fetchers/documentsSectionFetcher'
+import { getNewsListingPrefetch } from '../utils/fetchers/newsListingFetcher'
+import { partnersSectionPrefetch } from '../utils/fetchers/partnersSectionFetcher'
+import { getProceduresPrefetch } from '../utils/fetchers/proceduresFetcher'
+import { getReviewPrefetch } from '../utils/fetchers/reviewsFetcher'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
 import { parseNavigation } from '../utils/parseNavigation'
@@ -51,15 +60,16 @@ type PageProps = {
   general: GeneralEntityFragment | null
   page: PageEntityFragment
   reviews: ReviewEntityFragment[] | null
+  fallback: Record<string, object>
 } & SSRConfig
 
-const Slug = ({ navigation, page, general, reviews }: PageProps) => {
+const Slug = ({ navigation, page, general, reviews, fallback }: PageProps) => {
   const { seo, title, perex, layout, sections } = page.attributes ?? {}
 
   const isContainer = layout === Enum_Page_Layout.Fullwidth
 
   return (
-    <>
+    <SWRConfig value={{ fallback }}>
       <Seo seo={seo} title={title} description={perex} />
       <Head>
         <title>{title}</title>
@@ -203,7 +213,7 @@ const Slug = ({ navigation, page, general, reviews }: PageProps) => {
           })}
         </SectionsWrapper>
       </PageLayout>
-    </>
+    </SWRConfig>
   )
 }
 
@@ -246,17 +256,25 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
   const { pages } = await client.PageBySlug({ locale, slug })
   const page = pages?.data[0]
 
-  const sectionFetcherMap = [
-    {
-      sectionTypename: 'ComponentSectionsReviewListing',
-      key: 'reviews',
-      fetcher: getReviewsFetcher(locale),
-    } as const,
+  const sectionFetcherMap = [getReviewPrefetch(locale)]
+
+  const sectionFetcherMapSwr = [
+    getProceduresPrefetch(locale),
+    getNewsListingPrefetch(locale),
+    getMapSectionPrefetch(locale),
+    ceremoniesSectionPrefetch,
+    ceremoniesArchiveSectionPrefetch,
+    documentsSectionPrefetch,
+    debtorsSectionPrefetch,
+    partnersSectionPrefetch,
   ]
 
-  const [{ navigation, general }, prefetchedSections, translations] = await Promise.all([
+  const [{ navigation, general }, prefetchedSections, fallback, translations] = await Promise.all([
     client.General({ locale }),
     prefetchSections(page?.attributes?.sections, sectionFetcherMap, false),
+    // TODO fix types
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    prefetchSections(page?.attributes?.sections, sectionFetcherMapSwr as any, true),
     serverSideTranslations(locale, ['common']),
   ])
 
@@ -278,6 +296,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
       // TODO: Fix when types improved in prefetchSections util.
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       reviews: (prefetchedSections?.reviews as ReviewsQuery)?.reviews?.data ?? null,
+      fallback,
       ...translations,
     },
     revalidate: 10,
