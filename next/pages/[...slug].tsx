@@ -41,6 +41,10 @@ import {
   ReviewEntityFragment,
   ReviewsQuery,
 } from '../graphql'
+import {
+  ArticleListingType,
+  getArticleListingNewsPrefetches,
+} from '../utils/fetchers/articleListingFetcher'
 import { getMapSectionPrefetch } from '../utils/fetchers/cemeteriesFetcher'
 import { ceremoniesArchiveSectionPrefetch } from '../utils/fetchers/ceremoniesArchiveSectionFetcher'
 import { ceremoniesSectionPrefetch } from '../utils/fetchers/ceremoniesSectionFetcher'
@@ -201,9 +205,20 @@ const Slug = ({ navigation, page, general, reviews, fallback }: PageProps) => {
             if (section?.__typename === 'ComponentSectionsDocumentsSection') {
               return <DocumentsSection key={`${section.__typename}-${section.id}`} />
             }
-            if (section?.__typename === 'ComponentSectionsArticleListing') {
+            if (section?.__typename === 'ComponentSectionsArticleNewsListing') {
               return (
-                <ArticleListing key={`${section.__typename}-${section.id}`} section={section} />
+                <ArticleListing
+                  key={`${section.__typename}-${section.id}`}
+                  type={ArticleListingType.News}
+                />
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsArticlePressListing') {
+              return (
+                <ArticleListing
+                  key={`${section.__typename}-${section.id}`}
+                  type={ArticleListingType.Press}
+                />
               )
             }
             if (section?.__typename === 'ComponentSectionsReviewListing') {
@@ -262,6 +277,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
     getProceduresPrefetch(locale),
     getNewsListingPrefetch(locale),
     getMapSectionPrefetch(locale),
+    ...getArticleListingNewsPrefetches(locale),
     ceremoniesSectionPrefetch,
     ceremoniesArchiveSectionPrefetch,
     documentsSectionPrefetch,
