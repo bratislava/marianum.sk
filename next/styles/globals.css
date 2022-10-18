@@ -148,3 +148,54 @@
     --line-height-button: 24px;
   }
 }
+
+/* React menu width fix */
+.szh-menu {
+  width: 100% !important;
+}
+
+/* React menu anumations */
+
+@keyframes szh-menu-show-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(0.75rem);
+  }
+}
+
+@keyframes szh-menu-show-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(-0.75rem);
+  }
+}
+
+@keyframes szh-menu-show-slide-top {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
+
+@keyframes szh-menu-show-slide-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(-0.75rem);
+  }
+}
+
+.szh-menu--state-open.szh-menu--dir-left {
+  animation: szh-menu-show-slide-left 0.15s ease-out;
+}
+
+.szh-menu--state-open.szh-menu--dir-right {
+  animation: szh-menu-show-slide-right 0.15s ease-out;
+}
+
+.szh-menu--state-open.szh-menu--dir-top {
+  animation: szh-menu-show-slide-top 0.15s ease-out;
+}
+
+.szh-menu--state-open.szh-menu--dir-bottom {
+  animation: szh-menu-show-slide-bottom 0.15s ease-out;
+}
