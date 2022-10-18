@@ -1,6 +1,7 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { useSsr } from 'usehooks-ts'
 
 import { ReviewEntityFragment } from '../../graphql'
 import { sectionContext } from '../layouts/SectionsWrapper'
@@ -12,15 +13,13 @@ type HomepageReviewsSectionProps = {
 } & Pick<SectionProps, 'title' | 'button'>
 
 const HomepageReviewsSection = ({ reviews, ...rest }: HomepageReviewsSectionProps) => {
-  const [isBrowser, setBrowser] = useState(false)
-  useEffect(() => {
-    setBrowser(true)
-  }, [])
-
   const { background } = useContext(sectionContext)
+
+  const { isBrowser } = useSsr()
 
   return (
     <Section {...rest}>
+      {/* display swiper on client only due to hydration error */}
       {isBrowser && (
         <Swiper
           spaceBetween={16}
