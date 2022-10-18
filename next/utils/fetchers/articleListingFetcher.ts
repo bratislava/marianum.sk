@@ -1,6 +1,8 @@
 import { Key } from 'swr'
 
+import { Option } from '../../components/atoms/Select'
 import { ArticleMeili } from '../../types/meiliTypes'
+import { client } from '../gql'
 import { isDefined } from '../isDefined'
 import { meiliClient } from '../meilisearch'
 
@@ -58,6 +60,27 @@ export const getArticleListingFetcher =
     })
   }
 
+const mapSelectFn = (category: {
+  attributes?: { title?: string | null } | null
+  id?: string | null
+}) =>
+  ({
+    label: category.attributes?.title,
+    key: category.id,
+  } as Option)
+
+export const articleNewsCategoriesSelectSwrKey = 'ArticleNewsCategoriesSelect'
+export const articleNewsCategoriesSelectFetcher = () =>
+  client
+    .ArticleNewsCategories()
+    .then((data) => data.articleNewsCategories?.data.map(mapSelectFn) ?? [])
+
+export const articlePressCategoriesSelectSwrKey = 'ArticlePressCategoriesSelect'
+export const articlePressCategoriesSelectFetcher = () =>
+  client
+    .ArticlePressCategories()
+    .then((data) => data.articlePressCategories?.data.map(mapSelectFn) ?? [])
+
 export const getArticleListingNewsPrefetches = (locale: string) => {
   const argsNews = [articleListingDefaultFilters, ArticleListingType.News, locale] as const
   const argsPress = [articleListingDefaultFilters, ArticleListingType.Press, locale] as const
@@ -69,9 +92,19 @@ export const getArticleListingNewsPrefetches = (locale: string) => {
       fetcher: getArticleListingFetcher(...argsNews),
     } as const,
     {
+      sectionTypename: 'ComponentSectionsArticleNewsListing',
+      key: articleNewsCategoriesSelectSwrKey,
+      fetcher: articleNewsCategoriesSelectFetcher,
+    } as const,
+    {
       sectionTypename: 'ComponentSectionsArticlePressListing',
       key: getArticleListingSwrKey(...argsPress),
       fetcher: getArticleListingFetcher(...argsPress),
+    } as const,
+    {
+      sectionTypename: 'ComponentSectionsArticlePressListing',
+      key: articlePressCategoriesSelectSwrKey,
+      fetcher: articlePressCategoriesSelectFetcher,
     } as const,
   ]
 }

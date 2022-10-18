@@ -1,21 +1,15 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { client } from '../../../utils/gql'
+import {
+  articlePressCategoriesSelectFetcher,
+  articlePressCategoriesSelectSwrKey,
+} from '../../../utils/fetchers/articleListingFetcher'
 import SelectWithFetcher from '../../molecules/SelectWithFetcher'
 
 type ArticlePressCategoriesSelectProps = {
   onCategoryChange: (id: string | null) => void
 }
-
-const mappedFetcher = client.ArticlePressCategories().then(
-  (data) =>
-    data.articlePressCategories?.data.map((category) => ({
-      label: category.attributes?.title,
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      key: category.id!,
-    })) ?? [],
-)
 
 const ArticlePressCategoriesSelect = ({
   onCategoryChange = () => {},
@@ -28,9 +22,9 @@ const ArticlePressCategoriesSelect = ({
 
   return (
     <SelectWithFetcher
-      swrKey="ArticlePressCategoriesSelect"
+      swrKey={articlePressCategoriesSelectSwrKey}
       defaultOption={defaultOption}
-      fetcher={() => mappedFetcher}
+      fetcher={articlePressCategoriesSelectFetcher}
       onSelectionChange={(selection: string) => {
         onCategoryChange(selection === '' ? null : selection)
       }}
