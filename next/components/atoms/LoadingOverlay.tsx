@@ -26,7 +26,8 @@ const LoadingOverlay = ({ loading, children }: PropsWithChildren<LoadingOverlayP
             animate={{ opacity: 1 }}
           >
             <ShrinkablePadding />
-            <Loading className="shrink-0 text-white" />
+            {/* For some reason it displays behind aspect-w-* elements, so z-index is added. */}
+            <Loading className="z-10 shrink-0 text-white" />
             <ShrinkablePadding />
           </motion.div>
         </AnimatePresence>
