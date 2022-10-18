@@ -30,7 +30,7 @@ const ArticlePressCategoriesSelect = ({
     <SelectWithFetcher
       swrKey="ArticlePressCategoriesSelect"
       defaultOption={defaultOption}
-      fetcher={mappedFetcher}
+      fetcher={() => mappedFetcher}
       onSelectionChange={(selection: string) => {
         onCategoryChange(selection === '' ? null : selection)
       }}

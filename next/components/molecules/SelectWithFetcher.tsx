@@ -6,7 +6,7 @@ import Select, { Option, SelectProps, SingleSelect } from '../atoms/Select'
 
 type SelectWithFetcherProps = {
   swrKey: Key
-  fetcher: Promise<Option[]>
+  fetcher: () => Promise<Option[]>
   defaultOption: Option
 } & Pick<SelectProps, 'id' | 'placeholder' | 'label' | 'disabled'> &
   Pick<SingleSelect, 'onSelectionChange'>
@@ -19,7 +19,7 @@ const SelectWithFetcher = ({
   onSelectionChange,
   ...rest
 }: SelectWithFetcherProps) => {
-  const { data, error } = useSwr(swrKey, () => fetcher)
+  const { data, error } = useSwr(swrKey, fetcher)
 
   const { loading } = useGetSwrExtras({ data, error })
 
