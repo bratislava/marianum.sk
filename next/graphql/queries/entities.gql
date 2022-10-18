@@ -400,9 +400,13 @@ fragment PageEntity on PageEntity {
         __typename
         id
       }
-      ... on ComponentSectionsArticleListing {
+      ... on ComponentSectionsArticleNewsListing {
         __typename
-        ...ArticleListing
+        id
+      }
+      ... on ComponentSectionsArticlePressListing {
+        __typename
+        id
       }
       ... on ComponentSectionsReviewListing {
         __typename

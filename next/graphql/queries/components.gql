@@ -304,11 +304,6 @@ fragment UpcomingCeremoniesSection on ComponentSectionsUpcomingCeremoniesSection
   }
 }
 
-fragment ArticleListing on ComponentSectionsArticleListing {
-  id
-  type
-}
-
 fragment ReviewListing on ComponentSectionsReviewListing {
   id
 }

@@ -109,8 +109,9 @@
         "sections.public-disclosure-section",
         "sections.divider",
         "sections.documents-section",
-        "sections.article-listing",
-        "sections.review-listing"
+        "sections.review-listing",
+        "sections.article-news-listing",
+        "sections.article-press-listing"
       ]
     },
     "sidebar": {
