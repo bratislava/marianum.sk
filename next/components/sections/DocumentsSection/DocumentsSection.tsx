@@ -15,6 +15,8 @@ import {
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '../../../utils/useScrollToViewIfDataChange'
 import Button from '../../atoms/Button'
+import Loading from '../../atoms/Loading'
+import LoadingOverlay from '../../atoms/LoadingOverlay'
 import FilteringSearchInput from '../../molecules/FilteringSearchInput'
 import FiltersBackgroundWrapper from '../../molecules/FiltersBackgroundWrapper'
 import PaginationMeili from '../../molecules/PaginationMeili'
@@ -81,14 +83,14 @@ const DataWrapper = ({
     documentsSectionFetcher(filters),
   )
 
-  const { dataToDisplay, loadingAndNoDataToDisplay } = useGetSwrExtras({
+  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useGetSwrExtras({
     data,
     error,
   })
 
   // TODO replace by proper loading and error
   if (loadingAndNoDataToDisplay) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   if (error) {
@@ -97,9 +99,10 @@ const DataWrapper = ({
 
   return (
     <>
-      {/* TODO: Use loading overlay with spinner */}
-      {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-      <Documents data={dataToDisplay!} />
+      <LoadingOverlay loading={delayedLoading}>
+        {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
+        <Documents data={dataToDisplay!} />
+      </LoadingOverlay>
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
       {dataToDisplay ? (
@@ -118,7 +121,6 @@ type DocumentsSectionProps = {
   description?: string | null
 }
 
-// TODO: Overlap with header
 const DocumentsSection = ({ description }: DocumentsSectionProps) => {
   const [filters, setFilters] = useState<DocumentsSectionFilters>(documentsSectionDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')

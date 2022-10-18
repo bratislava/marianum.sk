@@ -15,6 +15,8 @@ import {
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import FormatDate from '../atoms/FormatDate'
+import Loading from '../atoms/Loading'
+import LoadingOverlay from '../atoms/LoadingOverlay'
 import MLink from '../atoms/MLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
 import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
@@ -133,14 +135,14 @@ const DataWrapper = ({ filters }: { filters: CeremoniesSectionFilters }) => {
     ceremoniesSectionFetcher(filters),
   )
 
-  const { dataToDisplay, loadingAndNoDataToDisplay } = useGetSwrExtras({
+  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useGetSwrExtras({
     data,
     error,
   })
 
   // TODO replace by proper loading and error
   if (loadingAndNoDataToDisplay) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   if (error) {
@@ -148,8 +150,10 @@ const DataWrapper = ({ filters }: { filters: CeremoniesSectionFilters }) => {
   }
 
   return (
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    <Table data={dataToDisplay!} />
+    <LoadingOverlay loading={delayedLoading}>
+      {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
+      <Table data={dataToDisplay!} />
+    </LoadingOverlay>
   )
 }
 
