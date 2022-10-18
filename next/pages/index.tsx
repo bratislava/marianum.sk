@@ -20,6 +20,7 @@ import {
   HomePageQuery,
   NavigationItemFragment,
 } from '../graphql'
+import { getNewsListingPrefetch } from '../utils/fetchers/newsListingFetcher'
 import { upcomingCeremoniesPrefetch } from '../utils/fetchers/upcomingCeremoniesFetcher'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
@@ -107,7 +108,7 @@ export const getStaticProps: GetStaticProps = async ({
 }): Promise<GetStaticPropsResult<HomeProps>> => {
   const { homePage, procedures } = await client.HomePage({ locale })
 
-  const sectionFetcherMapSwr = [upcomingCeremoniesPrefetch]
+  const sectionFetcherMapSwr = [upcomingCeremoniesPrefetch, getNewsListingPrefetch(locale)]
 
   const [{ navigation, general }, translations, fallback] = await Promise.all([
     client.General({ locale }),
