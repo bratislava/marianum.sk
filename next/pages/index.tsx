@@ -91,9 +91,7 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
                 <HomepageReviewsSection
                   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                   key={`${section.__typename}-${section.id}`}
-                  title={section.title}
-                  button={section.showMoreButton}
-                  reviews={section.reviews?.data}
+                  section={section}
                 />
               )
             }

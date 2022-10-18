@@ -1,24 +1,24 @@
 import { useContext } from 'react'
 import { Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { useSsr } from 'usehooks-ts'
+import { useIsClient } from 'usehooks-ts'
 
-import { ReviewEntityFragment } from '../../graphql'
+import { HomepageReviewsSectionFragment } from '../../graphql'
 import { sectionContext } from '../layouts/SectionsWrapper'
 import ReviewCard from '../molecules/Cards/ReviewCard'
-import Section, { SectionProps } from '../molecules/Section'
+import Section from '../molecules/Section'
 
 type HomepageReviewsSectionProps = {
-  reviews: ReviewEntityFragment[] | undefined | null
-} & Pick<SectionProps, 'title' | 'button'>
+  section?: HomepageReviewsSectionFragment
+}
 
-const HomepageReviewsSection = ({ reviews, ...rest }: HomepageReviewsSectionProps) => {
+const HomepageReviewsSection = ({ section }: HomepageReviewsSectionProps) => {
   const { background } = useContext(sectionContext)
 
-  const { isBrowser } = useSsr()
+  const isBrowser = useIsClient()
 
   return (
-    <Section {...rest}>
+    <Section title={section?.title} button={section?.showMoreButton}>
       {/* display swiper on client only due to hydration error */}
       {isBrowser && (
         <Swiper
@@ -28,7 +28,7 @@ const HomepageReviewsSection = ({ reviews, ...rest }: HomepageReviewsSectionProp
             delay: 3000,
             disableOnInteraction: false,
           }}
-          allowTouchMove={(reviews?.length ?? 0) > 4}
+          allowTouchMove={(section?.reviews?.data?.length ?? 0) > 4}
           breakpoints={{
             640: {
               slidesPerView: 2,
@@ -42,7 +42,7 @@ const HomepageReviewsSection = ({ reviews, ...rest }: HomepageReviewsSectionProp
           }}
           modules={[Autoplay]}
         >
-          {reviews?.map((review, index) => (
+          {section?.reviews?.data?.map((review, index) => (
             // eslint-disable-next-line react/no-array-index-key, @typescript-eslint/restrict-template-expressions
             <SwiperSlide key={`${review.id}-${index}`}>
               <ReviewCard
