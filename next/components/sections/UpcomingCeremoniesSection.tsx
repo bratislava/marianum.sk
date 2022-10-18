@@ -5,7 +5,10 @@ import useSWR from 'swr'
 
 import { UpcomingCeremoniesSectionFragment } from '../../graphql'
 import { bratislavaTimezone } from '../../utils/consts'
-import { upcomingCeremoniesFetcher } from '../../utils/fetchers/upcomingCeremoniesFetcher'
+import {
+  upcomingCeremoniesFetcher,
+  upcomingCeremoniesSwrKey,
+} from '../../utils/fetchers/upcomingCeremoniesFetcher'
 import { getBranchInfoInCeremoniesDebtors } from '../../utils/getBranchInfoInCeremoniesDebtors'
 import FormatDate from '../atoms/FormatDate'
 import MLink from '../atoms/MLink'
@@ -16,7 +19,7 @@ import Section from '../molecules/Section'
 const Table = () => {
   const { t, i18n } = useTranslation()
 
-  const { data, error } = useSWR('UpcomingCeremonies', upcomingCeremoniesFetcher)
+  const { data, error } = useSWR(upcomingCeremoniesSwrKey, upcomingCeremoniesFetcher)
 
   const ceremonies = useMemo(() => {
     const ceremoniesData = data?.ceremonies?.data

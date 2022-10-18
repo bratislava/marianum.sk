@@ -24,6 +24,8 @@ interface Section<SectionsType extends string> {
  *
  * See usages.
  *
+ * For SWR prefetch see: https://swr.vercel.app/docs/prefetching
+ *
  * @param sections List of the sections of page, etc.
  * @param sectionFetchersList List of which sections to fetch, what's the data and what's the identifying key.
  * @param swr Whether the results are used as fallback for SWR.

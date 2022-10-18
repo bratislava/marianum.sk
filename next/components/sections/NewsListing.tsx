@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 import useSWR from 'swr'
 
-import { client } from '../../utils/gql'
+import { getNewsListingSwrKey, newsListingFetcher } from '../../utils/fetchers/newsListingFetcher'
 import { isDefined } from '../../utils/isDefined'
 import ArticleCard from '../molecules/Cards/ArticleCard'
 import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
@@ -11,7 +11,10 @@ const NewsListing = () => {
   const { i18n } = useTranslation()
   const { getFullSlug } = useSlug()
 
-  const { data, error } = useSWR(['News', i18n.language], (_key, locale) => client.News({ locale }))
+  const { data, error } = useSWR(
+    getNewsListingSwrKey(i18n.language),
+    newsListingFetcher(i18n.language),
+  )
 
   const filteredNews = useMemo(() => {
     return data?.articles?.data?.filter(isDefined)

@@ -6,7 +6,12 @@ import useSwr from 'swr'
 
 import { CeremoniesQuery, CeremoniesSectionFragment } from '../../graphql'
 import { bratislavaTimezone } from '../../utils/consts'
-import { client } from '../../utils/gql'
+import {
+  ceremoniesSectionDefaultFilters,
+  ceremoniesSectionFetcher,
+  CeremoniesSectionFilters,
+  getCeremoniesSectionSwrKey,
+} from '../../utils/fetchers/ceremoniesSectionFetcher'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import FormatDate from '../atoms/FormatDate'
@@ -14,10 +19,6 @@ import MLink from '../atoms/MLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
 import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Section from '../molecules/Section'
-
-type Filters = {
-  branchId: string | null
-}
 
 const PrivateField = () => <span className="opacity-50">**</span>
 
@@ -126,17 +127,11 @@ const Table = ({ data }: { data: CeremoniesQuery }) => {
   )
 }
 
-const DataWrapper = ({ filters }: { filters: Filters }) => {
-  const { data, error } = useSwr(['Ceremonies', filters], () => {
-    const currentDate = parseAbsolute(new Date().toISOString(), bratislavaTimezone)
-    const startOfDay = currentDate.set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
-    const startOfDayString = startOfDay.toAbsoluteString()
-
-    return client.Ceremonies({
-      dateTime: startOfDayString,
-      branchIdFilter: filters.branchId ? { eq: filters.branchId } : undefined,
-    })
-  })
+const DataWrapper = ({ filters }: { filters: CeremoniesSectionFilters }) => {
+  const { data, error } = useSwr(
+    getCeremoniesSectionSwrKey(filters),
+    ceremoniesSectionFetcher(filters),
+  )
 
   const { dataToDisplay, loadingAndNoDataToDisplay } = useGetSwrExtras({
     data,
@@ -166,9 +161,7 @@ const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'sections.CeremoniesSection' })
   const { getFullSlug } = useSlug()
 
-  const [filters, setFilters] = useState<Filters>({
-    branchId: null,
-  })
+  const [filters, setFilters] = useState<CeremoniesSectionFilters>(ceremoniesSectionDefaultFilters)
 
   const handleBranchChange = (branchId: string) => {
     setFilters({ ...filters, branchId })
