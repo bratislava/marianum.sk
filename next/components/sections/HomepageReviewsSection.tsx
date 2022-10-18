@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { ReviewEntityFragment } from '../../graphql'
+import { sectionContext } from '../layouts/SectionsWrapper'
 import ReviewCard from '../molecules/Cards/ReviewCard'
 import Section, { SectionProps } from '../molecules/Section'
 
@@ -15,6 +16,8 @@ const HomepageReviewsSection = ({ reviews, ...rest }: HomepageReviewsSectionProp
   useEffect(() => {
     setBrowser(true)
   }, [])
+
+  const { background } = useContext(sectionContext)
 
   return (
     <Section {...rest}>
@@ -47,6 +50,7 @@ const HomepageReviewsSection = ({ reviews, ...rest }: HomepageReviewsSectionProp
                 date={new Date(review.attributes?.date)}
                 rating={review.attributes?.rating ?? 5}
                 description={review.attributes?.description ?? ''}
+                border={background === 'light'}
               />
             </SwiperSlide>
           ))}

@@ -9,10 +9,11 @@ type ReviewCardProps = {
   author: string
   date: Date
   description: string
+  border?: boolean
 }
-const ReviewCard = ({ rating, author, date, description }: ReviewCardProps) => {
+const ReviewCard = ({ rating, author, date, description, border = false }: ReviewCardProps) => {
   return (
-    <CardBox className="h-[228px]">
+    <CardBox border={border} className="h-[228px]">
       <CardContent>
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between gap-4">
