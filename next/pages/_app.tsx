@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import '../styles/table.scss'
+import 'swiper/css'
 
 import { MotionConfig } from 'framer-motion'
 import type { AppProps } from 'next/app'
@@ -33,9 +34,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           <MotionConfig reducedMotion="user">
             <OverlayProvider>
               <CookieConsent banner={CookieBanner} modal={CookieSettingsModal}>
-              <ThirdPartyScripts />
-              <Component {...pageProps} />
-            </CookieConsent>
+                <ThirdPartyScripts />
+                <Component {...pageProps} />
+              </CookieConsent>
             </OverlayProvider>
           </MotionConfig>
         </MI18nProvider>

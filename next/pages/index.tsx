@@ -11,6 +11,7 @@ import Section from '../components/molecules/Section'
 import Seo from '../components/molecules/Seo'
 import CardSection from '../components/sections/CardSection'
 import HomepageProcedures from '../components/sections/HomepageProcedures'
+import HomepageReviewsSection from '../components/sections/HomepageReviewsSection'
 import HomepageSlider from '../components/sections/HomepageSlider'
 import NewsSection from '../components/sections/NewsSection'
 import UpcomingCeremoniesSection from '../components/sections/UpcomingCeremoniesSection'
@@ -85,12 +86,13 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
                 </Section>
               )
             }
-            if (section?.__typename === 'ComponentSectionsReviewsSection') {
+            if (section?.__typename === 'ComponentSectionsHomepageReviewsSection') {
               return (
-                <Section key={`${section.__typename}-${section.id}`}>
-                  {/* TODO */}
-                  reviews section
-                </Section>
+                <HomepageReviewsSection
+                  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                  key={`${section.__typename}-${section.id}`}
+                  section={section}
+                />
               )
             }
 
