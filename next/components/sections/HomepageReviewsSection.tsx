@@ -29,6 +29,7 @@ const HomepageReviewsSection = ({ reviews, ...rest }: HomepageReviewsSectionProp
             delay: 3000,
             disableOnInteraction: false,
           }}
+          allowTouchMove={(reviews?.length ?? 0) > 4}
           breakpoints={{
             640: {
               slidesPerView: 2,
