@@ -41,12 +41,13 @@ const NewsListing = () => {
   }
 
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+    <div className="flex grid-cols-2 gap-4 overflow-x-auto md:grid md:gap-6 lg:grid-cols-4">
       {filteredNews?.map((article) => {
         const { title, publishedAt, coverMedia, slug, newsCategory } = article.attributes ?? {}
 
         return (
           <ArticleCard
+            className="w-[calc(100vw-6rem)] shrink-0 sm:w-[calc(100vw-16rem)] md:w-full"
             key={slug}
             title={title ?? ''}
             image={coverMedia?.data?.attributes}
