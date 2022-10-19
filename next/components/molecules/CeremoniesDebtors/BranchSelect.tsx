@@ -60,7 +60,7 @@ const CeremoniesDebtorsBranchSelect = ({
     <SelectWithFetcher
       swrKey={swrKey}
       defaultOption={defaultOption}
-      fetcher={mappedFetcher}
+      fetcher={() => mappedFetcher}
       label={label}
       onSelectionChange={(selection: string) => {
         onBranchChange(selection)

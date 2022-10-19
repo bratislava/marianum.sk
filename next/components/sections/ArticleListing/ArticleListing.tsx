@@ -1,13 +1,17 @@
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
-import { ArticleListingFragment, Enum_Componentsectionsarticlelisting_Type } from '../../../graphql'
 import { ArticleMeili } from '../../../types/meiliTypes'
-import { isDefined } from '../../../utils/isDefined'
-import { meiliClient } from '../../../utils/meilisearch'
+import {
+  articleListingDefaultFilters,
+  ArticleListingFilters,
+  ArticleListingType,
+  getArticleListingFetcher,
+  getArticleListingSwrKey,
+} from '../../../utils/fetchers/articleListingFetcher'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '../../../utils/useScrollToViewIfDataChange'
 import Loading from '../../atoms/Loading'
@@ -21,20 +25,12 @@ import Section from '../../molecules/Section'
 import ArticleNewsCategoriesSelect from './ArticleNewsCategoriesSelect'
 import ArticlePressCategoriesSelect from './ArticlePressCategoriesSelect'
 
-const pageSize = 24
-
-type Filters = {
-  search: string
-  categoryId: string | null
-  page: number
-}
-
 const Articles = ({
   data,
-  section,
+  type,
 }: {
   data: SearchResponse<ArticleMeili>
-  section: ArticleListingFragment
+  type: ArticleListingType
 }) => {
   const { t } = useTranslation('common', {
     keyPrefix: 'components.ArticleListing',
@@ -49,11 +45,11 @@ const Articles = ({
         {data.hits.map((article) => {
           const { title, publishedAt, coverMedia, slug, newsCategory, pressCategory } = article
           const category = (() => {
-            switch (section.type) {
-              case Enum_Componentsectionsarticlelisting_Type.News:
+            switch (type) {
+              case ArticleListingType.News:
                 return { attributes: newsCategory }
 
-              case Enum_Componentsectionsarticlelisting_Type.Press:
+              case ArticleListingType.Press:
                 return { attributes: pressCategory }
 
               default:
@@ -83,42 +79,19 @@ const DataWrapper = ({
   filters,
   description,
   onPageChange,
-  section,
+  type,
 }: {
-  filters: Filters
+  filters: ArticleListingFilters
   description?: string | null
   onPageChange: (page: number) => void
-  section: ArticleListingFragment
+  type: ArticleListingType
 }) => {
   const { i18n } = useTranslation()
 
-  const sectionFilter = useMemo(() => {
-    switch (section.type) {
-      case Enum_Componentsectionsarticlelisting_Type.Press:
-        return filters.categoryId
-          ? `pressCategory.id = ${filters.categoryId}`
-          : // TODO: hacky solution, after update to Meilisearch 0.29 use "pressCategory EXISTS"
-            'pressCategory.id > 0'
-
-      case Enum_Componentsectionsarticlelisting_Type.News:
-        return filters.categoryId
-          ? `newsCategory.id = ${filters.categoryId}`
-          : // TODO: hacky solution, after update to Meilisearch 0.29 use "newsCategory EXISTS"
-            'newsCategory.id > 0'
-
-      default:
-        return null
-    }
-  }, [section.type, filters.categoryId])
-
-  const { data, error } = useSwr(['ArticleListing', filters, section.type], () => {
-    return meiliClient.index('article').search<ArticleMeili>(filters.search, {
-      limit: pageSize,
-      offset: (filters.page - 1) * pageSize,
-      filter: [sectionFilter, i18n.language ? `locale = ${i18n.language}` : null].filter(isDefined),
-      sort: ['publishedAtTimestamp:desc'],
-    })
-  })
+  const { data, error } = useSwr(
+    getArticleListingSwrKey(filters, type, i18n.language),
+    getArticleListingFetcher(filters, type, i18n.language),
+  )
 
   const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useGetSwrExtras({
     data,
@@ -138,14 +111,14 @@ const DataWrapper = ({
     <>
       <LoadingOverlay loading={delayedLoading}>
         {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-        <Articles data={dataToDisplay!} section={section} />
+        <Articles data={dataToDisplay!} type={type} />
       </LoadingOverlay>
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
       {dataToDisplay ? (
         <PaginationMeili
           data={dataToDisplay}
-          pageSize={pageSize}
+          pageSize={filters.pageSize}
           selectedPage={filters.page}
           onPageChange={onPageChange}
         />
@@ -155,15 +128,11 @@ const DataWrapper = ({
 }
 
 type ArticleListingProps = {
-  section: ArticleListingFragment
+  type: ArticleListingType
 }
 
-const ArticleListing = ({ section }: ArticleListingProps) => {
-  const [filters, setFilters] = useState<Filters>({
-    search: '',
-    page: 1,
-    categoryId: null,
-  })
+const ArticleListing = ({ type }: ArticleListingProps) => {
+  const [filters, setFilters] = useState<ArticleListingFilters>(articleListingDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')
   const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
 
@@ -184,10 +153,10 @@ const ArticleListing = ({ section }: ArticleListingProps) => {
     <Section overlayWithHero>
       <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3">
         <div>
-          {section.type === Enum_Componentsectionsarticlelisting_Type.Press ? (
+          {type === ArticleListingType.Press ? (
             <ArticlePressCategoriesSelect onCategoryChange={handleCategoryChange} />
           ) : null}
-          {section.type === Enum_Componentsectionsarticlelisting_Type.News ? (
+          {type === ArticleListingType.News ? (
             <ArticleNewsCategoriesSelect onCategoryChange={handleCategoryChange} />
           ) : null}
         </div>
@@ -200,7 +169,7 @@ const ArticleListing = ({ section }: ArticleListingProps) => {
       </FiltersBackgroundWrapper>
 
       <div>
-        <DataWrapper filters={filters} onPageChange={handlePageChange} section={section} />
+        <DataWrapper filters={filters} onPageChange={handlePageChange} type={type} />
       </div>
     </Section>
   )

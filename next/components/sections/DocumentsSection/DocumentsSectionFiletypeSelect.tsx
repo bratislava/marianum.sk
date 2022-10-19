@@ -30,7 +30,7 @@ const DocumentsSectionFiletypeSelect = ({
     <SelectWithFetcher
       swrKey="DocumentsSectionFiletypeSelect"
       defaultOption={defaultOption}
-      fetcher={mappedFetcher}
+      fetcher={() => mappedFetcher}
       onSelectionChange={(selection: string) => {
         onFiletypeChange(selection === '' ? null : selection)
       }}

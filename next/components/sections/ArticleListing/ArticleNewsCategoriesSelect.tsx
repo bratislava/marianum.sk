@@ -1,21 +1,15 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { client } from '../../../utils/gql'
+import {
+  articleNewsCategoriesSelectFetcher,
+  articleNewsCategoriesSelectSwrKey,
+} from '../../../utils/fetchers/articleListingFetcher'
 import SelectWithFetcher from '../../molecules/SelectWithFetcher'
 
 type ArticleNewsCategoriesSelectProps = {
   onCategoryChange: (id: string | null) => void
 }
-
-const mappedFetcher = client.ArticleNewsCategories().then(
-  (data) =>
-    data.articleNewsCategories?.data.map((category) => ({
-      label: category.attributes?.title,
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      key: category.id!,
-    })) ?? [],
-)
 
 const ArticleNewsCategoriesSelect = ({
   onCategoryChange = () => {},
@@ -28,9 +22,9 @@ const ArticleNewsCategoriesSelect = ({
 
   return (
     <SelectWithFetcher
-      swrKey="ArticleNewsCategoriesSelect"
+      swrKey={articleNewsCategoriesSelectSwrKey}
       defaultOption={defaultOption}
-      fetcher={mappedFetcher}
+      fetcher={articleNewsCategoriesSelectFetcher}
       onSelectionChange={(selection: string) => {
         onCategoryChange(selection === '' ? null : selection)
       }}
