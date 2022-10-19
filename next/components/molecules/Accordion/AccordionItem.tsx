@@ -3,6 +3,7 @@ import cx from 'classnames'
 import { ReactNode } from 'react'
 
 import ChevronDown from '../../../assets/chevron_down.svg'
+import { AnimateHeight } from '../../atoms/AnimateHeight'
 
 export type AccordionItemProps = {
   title: string | null | undefined
@@ -27,9 +28,11 @@ const AccordionItem = ({ title, additionalInfo, children }: AccordionItemProps) 
                 />
               </div>
             </Disclosure.Button>
-            <Disclosure.Panel className="w-full px-4 pb-4 sm:px-5 sm:pb-5 md:px-6 md:pb-6">
-              {children}
-            </Disclosure.Panel>
+            <AnimateHeight isVisible={open}>
+              <Disclosure.Panel static className="w-full px-4 pb-4 sm:px-5 sm:pb-5 md:px-6 md:pb-6">
+                {children}
+              </Disclosure.Panel>
+            </AnimateHeight>
           </div>
         )
       }}
