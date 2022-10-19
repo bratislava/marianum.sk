@@ -40,6 +40,9 @@
         "aria": {
           "rating": "{{rating}} z 5 hviezdičiek"
         }
+      },
+      "LoadingOverlay": {
+        "loading": "Načítavam…"
       }
     },
     "molecules": {

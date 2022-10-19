@@ -29,40 +29,30 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
   if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
     return (
       <Section title={title} {...rest} cardGrid="cards" button={showMoreButton}>
-        {filteredPages?.map((page) => {
-          const { id, attributes } = page ?? {}
-          const { title: cardTitle } = attributes ?? {}
-          const fullPath = getFullSlug(page) ?? ''
-
-          return <CategoryCard key={id} title={cardTitle ?? ''} linkHref={fullPath} border />
-        })}
-      </Section>
-    )
-  }
-
-  if (style === Enum_Componentsectionsmanuallisting_Style.Service) {
-    return (
-      <Section
-        title={title}
-        childrenWrapperClassName={cx({
-          'flex w-full gap-4 overflow-x-auto': isMobile,
-        })}
-        cardGrid={isMobile ? undefined : 'cards'}
-        {...rest}
-        button={showMoreButton}
-      >
-        {filteredPages?.map((page) => {
+        {filteredPages?.map((page, index) => {
           const { id, attributes } = page ?? {}
           const { title: cardTitle, coverMedia, perex } = attributes ?? {}
-
           const fullPath = getFullSlug(page) ?? ''
+
+          if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
+            return (
+              <CategoryCard
+                // eslint-disable-next-line react/no-array-index-key, @typescript-eslint/restrict-template-expressions
+                key={`${id}-${index}`}
+                title={cardTitle ?? ''}
+                linkHref={fullPath}
+                border
+              />
+            )
+          }
 
           return (
             <ServiceCard
+              // eslint-disable-next-line react/no-array-index-key, @typescript-eslint/restrict-template-expressions
+              key={`${id}-${index}`}
               className={cx({
                 'w-[calc(100vw-6rem)] shrink-0 sm:w-[calc(100vw-16rem)]': isMobile,
               })}
-              key={id}
               title={cardTitle ?? ''}
               linkHref={fullPath}
               border

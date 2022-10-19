@@ -10,7 +10,9 @@ import {
   upcomingCeremoniesSwrKey,
 } from '../../utils/fetchers/upcomingCeremoniesFetcher'
 import { getBranchInfoInCeremoniesDebtors } from '../../utils/getBranchInfoInCeremoniesDebtors'
+import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import FormatDate from '../atoms/FormatDate'
+import Loading from '../atoms/Loading'
 import MLink from '../atoms/MLink'
 import BranchLink from '../molecules/BranchLink'
 import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
@@ -21,8 +23,13 @@ const Table = () => {
 
   const { data, error } = useSWR(upcomingCeremoniesSwrKey, upcomingCeremoniesFetcher)
 
+  const { loadingAndNoDataToDisplay, dataToDisplay } = useGetSwrExtras({
+    data,
+    error,
+  })
+
   const ceremonies = useMemo(() => {
-    const ceremoniesData = data?.ceremonies?.data
+    const ceremoniesData = dataToDisplay?.ceremonies?.data
     if (!ceremoniesData) {
       // eslint-disable-next-line unicorn/no-useless-undefined
       return undefined
@@ -65,11 +72,11 @@ const Table = () => {
       }),
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.ceremonies])
+  }, [dataToDisplay?.ceremonies])
 
   // TODO replace by proper loading and error
-  if (!data && !error) {
-    return <div>Loading...</div>
+  if (loadingAndNoDataToDisplay) {
+    return <Loading />
   }
 
   if (error) {

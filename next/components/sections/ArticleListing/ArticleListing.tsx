@@ -14,6 +14,8 @@ import {
 } from '../../../utils/fetchers/articleListingFetcher'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '../../../utils/useScrollToViewIfDataChange'
+import Loading from '../../atoms/Loading'
+import LoadingOverlay from '../../atoms/LoadingOverlay'
 import ArticleCard from '../../molecules/Cards/ArticleCard'
 import FilteringSearchInput from '../../molecules/FilteringSearchInput'
 import FiltersBackgroundWrapper from '../../molecules/FiltersBackgroundWrapper'
@@ -91,14 +93,14 @@ const DataWrapper = ({
     getArticleListingFetcher(filters, type, i18n.language),
   )
 
-  const { dataToDisplay, loadingAndNoDataToDisplay } = useGetSwrExtras({
+  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useGetSwrExtras({
     data,
     error,
   })
 
   // TODO replace by proper loading and error
   if (loadingAndNoDataToDisplay) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   if (error) {
@@ -107,9 +109,10 @@ const DataWrapper = ({
 
   return (
     <>
-      {/* TODO: Use loading overlay with spinner */}
-      {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-      <Articles data={dataToDisplay!} type={type} />
+      <LoadingOverlay loading={delayedLoading}>
+        {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
+        <Articles data={dataToDisplay!} type={type} />
+      </LoadingOverlay>
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
       {dataToDisplay ? (
@@ -128,7 +131,6 @@ type ArticleListingProps = {
   type: ArticleListingType
 }
 
-// TODO: Overlap with header
 const ArticleListing = ({ type }: ArticleListingProps) => {
   const [filters, setFilters] = useState<ArticleListingFilters>(articleListingDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')

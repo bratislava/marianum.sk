@@ -307,3 +307,16 @@ fragment UpcomingCeremoniesSection on ComponentSectionsUpcomingCeremoniesSection
 fragment ReviewListing on ComponentSectionsReviewListing {
   id
 }
+
+fragment HomepageReviewsSection on ComponentSectionsHomepageReviewsSection {
+  id
+  title
+  showMoreButton {
+    ...CtaButton
+  }
+  reviews {
+    data {
+      ...ReviewEntity
+    }
+  }
+}

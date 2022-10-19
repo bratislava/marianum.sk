@@ -4,6 +4,7 @@ import useSWR from 'swr'
 
 import { getProceduresSwrKey, proceduresFetcher } from '../../utils/fetchers/proceduresFetcher'
 import { isDefined } from '../../utils/isDefined'
+import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import Tab from '../atoms/Tabs/Tab'
 import Tabs from '../atoms/Tabs/Tabs'
 import Checklist from './Checklist/Checklist'
@@ -17,14 +18,20 @@ const ProcedureTabs = () => {
     proceduresFetcher(i18n.language),
   )
 
-  const { outsideMedicalFacility, atMedicalFacility } = data?.procedures?.data?.attributes ?? {}
+  const { dataToDisplay, loadingAndNoDataToDisplay } = useGetSwrExtras({
+    data,
+    error,
+  })
+
+  const { outsideMedicalFacility, atMedicalFacility } =
+    dataToDisplay?.procedures?.data?.attributes ?? {}
   const procedures = [outsideMedicalFacility, atMedicalFacility].filter(isDefined)
 
   if (error) {
     return <div>Error: {error}</div>
   }
 
-  if (!data && !error) {
+  if (loadingAndNoDataToDisplay) {
     return (
       <div className="flex flex-1 animate-pulse flex-col gap-9">
         <div className="flex flex-col items-stretch gap-4 sm:flex-row">

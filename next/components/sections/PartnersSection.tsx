@@ -6,6 +6,8 @@ import {
   partnersSectionSwrKey,
 } from '../../utils/fetchers/partnersSectionFetcher'
 import { isDefined } from '../../utils/isDefined'
+import useGetSwrExtras from '../../utils/useGetSwrExtras'
+import Loading from '../atoms/Loading'
 import PartnerCard from '../molecules/Cards/PartnerCard'
 import Row from '../molecules/Row/Row'
 import Section, { SectionProps } from '../molecules/Section'
@@ -21,15 +23,19 @@ const PartnersSection = ({
   ...rest
 }: Pick<SectionProps, 'background'> & PartnersSectionProps) => {
   const { data, error } = useSWR(partnersSectionSwrKey, partnersSectionFetcher)
+  const { loadingAndNoDataToDisplay, dataToDisplay } = useGetSwrExtras({
+    data,
+    error,
+  })
 
   const filteredPartners = useMemo(() => {
     return (
-      data?.partners?.data
+      dataToDisplay?.partners?.data
         ?.map((partner) => partner.attributes)
         .filter(isDefined)
         .sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0)) ?? []
     )
-  }, [data?.partners])
+  }, [dataToDisplay?.partners])
 
   const mainPartners = useMemo(() => {
     return filteredPartners.filter((partner) => !!partner.featured)
@@ -40,8 +46,8 @@ const PartnersSection = ({
   }, [filteredPartners])
 
   // TODO replace by proper loading and error
-  if (!data && !error) {
-    return <div>Loading...</div>
+  if (loadingAndNoDataToDisplay) {
+    return <Loading />
   }
 
   if (error) {

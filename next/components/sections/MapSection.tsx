@@ -11,7 +11,9 @@ import PlaceIcon from '../../assets/place.svg'
 import { BranchEntityFragment, Enum_Branch_Cemeterytype } from '../../graphql'
 import { cemeteriesFetcher, getCemeteriesSwrKey } from '../../utils/fetchers/cemeteriesFetcher'
 import { isDefined } from '../../utils/isDefined'
+import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import Button from '../atoms/Button'
+import Loading from '../atoms/Loading'
 import MLink from '../atoms/MLink'
 import TagToggle from '../atoms/TagToggle'
 import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
@@ -46,9 +48,14 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
     cemeteriesFetcher(i18n.language),
   )
 
+  const { loadingAndNoDataToDisplay, dataToDisplay } = useGetSwrExtras({
+    data,
+    error,
+  })
+
   const validBranches = useMemo(() => {
     return (
-      data?.branches?.data
+      dataToDisplay?.branches?.data
         ?.map((branch) => {
           const { address, title, slug, latitude, longitude } = branch.attributes ?? {}
           if (address && title && slug && latitude && longitude) {
@@ -58,7 +65,7 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
         })
         .filter(isDefined) ?? []
     )
-  }, [data?.branches])
+  }, [dataToDisplay?.branches])
 
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -120,8 +127,8 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
   const [isMapOrFiltersDisplayed, setMapOrFiltersDisplayed] = useState(false)
 
   // TODO replace by proper loading and error
-  if (!data && !error) {
-    return <div>Loading...</div>
+  if (loadingAndNoDataToDisplay) {
+    return <Loading />
   }
 
   if (error) {
