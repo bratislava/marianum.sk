@@ -15,6 +15,8 @@ import { getBranchInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfo
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import FormatDate from '../atoms/FormatDate'
+import Loading from '../atoms/Loading'
+import LoadingOverlay from '../atoms/LoadingOverlay'
 import BranchLink from '../molecules/BranchLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
 import FilteringSearchInput from '../molecules/FilteringSearchInput'
@@ -118,14 +120,14 @@ const DataWrapper = ({
     ceremoniesArchiveSectionFetcher(filters),
   )
 
-  const { dataToDisplay, loadingAndNoDataToDisplay } = useGetSwrExtras({
+  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useGetSwrExtras({
     data,
     error,
   })
 
   // TODO replace by proper loading and error
   if (loadingAndNoDataToDisplay) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   if (error) {
@@ -134,8 +136,10 @@ const DataWrapper = ({
 
   return (
     <>
-      {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-      <Table data={dataToDisplay!} />
+      <LoadingOverlay loading={delayedLoading}>
+        {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
+        <Table data={dataToDisplay!} />
+      </LoadingOverlay>
 
       {dataToDisplay ? (
         <PaginationMeili

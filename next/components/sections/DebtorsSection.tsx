@@ -14,6 +14,8 @@ import {
 import { getBranchInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfoInCeremoniesDebtors'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
+import Loading from '../atoms/Loading'
+import LoadingOverlay from '../atoms/LoadingOverlay'
 import BranchLink from '../molecules/BranchLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
 import FilteringSearchInput from '../molecules/FilteringSearchInput'
@@ -102,14 +104,14 @@ const DataWrapper = ({
 }) => {
   const { data, error } = useSwr(getDebtorsSectionSwrKey(filters), debtorsSectionFetcher(filters))
 
-  const { dataToDisplay, loadingAndNoDataToDisplay } = useGetSwrExtras({
+  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useGetSwrExtras({
     data,
     error,
   })
 
   // TODO replace by proper loading and error
   if (loadingAndNoDataToDisplay) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   if (error) {
@@ -118,9 +120,10 @@ const DataWrapper = ({
 
   return (
     <>
-      {/* TODO: Use loading overlay with spinner */}
-      {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-      <Table data={dataToDisplay!} />
+      <LoadingOverlay loading={delayedLoading}>
+        {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
+        <Table data={dataToDisplay!} />
+      </LoadingOverlay>
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
       {dataToDisplay ? (

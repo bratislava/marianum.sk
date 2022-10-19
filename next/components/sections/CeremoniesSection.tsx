@@ -12,10 +12,14 @@ import {
   CeremoniesSectionFilters,
   getCeremoniesSectionSwrKey,
 } from '../../utils/fetchers/ceremoniesSectionFetcher'
+import { getBranchInfoInCeremoniesDebtors } from '../../utils/getBranchInfoInCeremoniesDebtors'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import FormatDate from '../atoms/FormatDate'
+import Loading from '../atoms/Loading'
+import LoadingOverlay from '../atoms/LoadingOverlay'
 import MLink from '../atoms/MLink'
+import BranchLink from '../molecules/BranchLink'
 import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
 import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Section from '../molecules/Section'
@@ -40,20 +44,20 @@ const Table = ({ data }: { data: CeremoniesQuery }) => {
     }
 
     const mappedCeremonies = ceremoniesData.map((ceremony) => {
-      // Ceremonies are not localized, and they return their Slovak relation as the main and the English version
-      // as the first localization.
-      const skBranchTitle = ceremony.attributes?.branch?.data?.attributes?.title
-      const localeBranchTitle =
-        ceremony.attributes?.branch?.data?.attributes?.localizations?.data?.find(
-          (branch) => branch?.attributes?.locale === i18n.language,
-        )?.attributes?.title
+      const branchInfo = ceremony?.attributes?.branch?.data
+        ? getBranchInfoInCeremoniesDebtors(ceremony.attributes.branch.data, i18n.language)
+        : null
 
-      const branchTitle = localeBranchTitle ?? skBranchTitle
+      const branch = branchInfo?.slug ? (
+        <BranchLink slug={branchInfo?.slug} title={branchInfo?.title ?? ''} />
+      ) : (
+        branchInfo?.title
+      )
 
       const dateTimeZoned = parseAbsolute(ceremony.attributes?.dateTime, bratislavaTimezone)
       const calendarDate = toCalendarDate(dateTimeZoned)
 
-      return { ...ceremony.attributes, calendarDate, dateTime: dateTimeZoned.toDate(), branchTitle }
+      return { ...ceremony.attributes, calendarDate, dateTime: dateTimeZoned.toDate(), branch }
     })
 
     // eslint-disable-next-line lodash/prop-shorthand
@@ -103,8 +107,7 @@ const Table = ({ data }: { data: CeremoniesQuery }) => {
                     <td>
                       {ceremony.consentForPrivateFields ? ceremony.birthYear : <PrivateField />}
                     </td>
-                    {/* TODO: Branch link */}
-                    <td>{ceremony.branchTitle}</td>
+                    <td>{ceremony.branch}</td>
                     <td>{ceremony.consentForPrivateFields ? ceremony.type : <PrivateField />}</td>
                     <td>{ceremony.company}</td>
                     <td>{ceremony.officiantProvidedBy}</td>
@@ -133,14 +136,14 @@ const DataWrapper = ({ filters }: { filters: CeremoniesSectionFilters }) => {
     ceremoniesSectionFetcher(filters),
   )
 
-  const { dataToDisplay, loadingAndNoDataToDisplay } = useGetSwrExtras({
+  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useGetSwrExtras({
     data,
     error,
   })
 
   // TODO replace by proper loading and error
   if (loadingAndNoDataToDisplay) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   if (error) {
@@ -148,8 +151,10 @@ const DataWrapper = ({ filters }: { filters: CeremoniesSectionFilters }) => {
   }
 
   return (
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    <Table data={dataToDisplay!} />
+    <LoadingOverlay loading={delayedLoading}>
+      {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
+      <Table data={dataToDisplay!} />
+    </LoadingOverlay>
   )
 }
 

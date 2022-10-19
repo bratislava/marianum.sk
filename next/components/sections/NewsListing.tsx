@@ -4,6 +4,8 @@ import useSWR from 'swr'
 
 import { getNewsListingSwrKey, newsListingFetcher } from '../../utils/fetchers/newsListingFetcher'
 import { isDefined } from '../../utils/isDefined'
+import useGetSwrExtras from '../../utils/useGetSwrExtras'
+import Loading from '../atoms/Loading'
 import ArticleCard from '../molecules/Cards/ArticleCard'
 import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 
@@ -16,13 +18,18 @@ const NewsListing = () => {
     newsListingFetcher(i18n.language),
   )
 
+  const { loadingAndNoDataToDisplay, dataToDisplay } = useGetSwrExtras({
+    data,
+    error,
+  })
+
   const filteredNews = useMemo(() => {
-    return data?.articles?.data?.filter(isDefined)
-  }, [data?.articles])
+    return dataToDisplay?.articles?.data?.filter(isDefined)
+  }, [dataToDisplay?.articles])
 
   // // TODO replace by proper loading and error
-  if (!data && !error) {
-    return <div>Loading...</div>
+  if (loadingAndNoDataToDisplay) {
+    return <Loading />
   }
 
   if (error) {

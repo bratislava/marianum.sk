@@ -10,6 +10,8 @@ import { isDefined } from '../../../utils/isDefined'
 import { meiliClient } from '../../../utils/meilisearch'
 import useGetSwrExtras from '../../../utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '../../../utils/useScrollToViewIfDataChange'
+import Loading from '../../atoms/Loading'
+import LoadingOverlay from '../../atoms/LoadingOverlay'
 import ArticleCard from '../../molecules/Cards/ArticleCard'
 import FilteringSearchInput from '../../molecules/FilteringSearchInput'
 import FiltersBackgroundWrapper from '../../molecules/FiltersBackgroundWrapper'
@@ -118,14 +120,14 @@ const DataWrapper = ({
     })
   })
 
-  const { dataToDisplay, loadingAndNoDataToDisplay } = useGetSwrExtras({
+  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useGetSwrExtras({
     data,
     error,
   })
 
   // TODO replace by proper loading and error
   if (loadingAndNoDataToDisplay) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   if (error) {
@@ -134,9 +136,10 @@ const DataWrapper = ({
 
   return (
     <>
-      {/* TODO: Use loading overlay with spinner */}
-      {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-      <Articles data={dataToDisplay!} section={section} />
+      <LoadingOverlay loading={delayedLoading}>
+        {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
+        <Articles data={dataToDisplay!} section={section} />
+      </LoadingOverlay>
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
       {dataToDisplay ? (
@@ -155,7 +158,6 @@ type ArticleListingProps = {
   section: ArticleListingFragment
 }
 
-// TODO: Overlap with header
 const ArticleListing = ({ section }: ArticleListingProps) => {
   const [filters, setFilters] = useState<Filters>({
     search: '',
