@@ -61,14 +61,14 @@ const Select = ({
     : []
   const [selectedOptions, setSelectedOptions] = useState<Option[]>(defaultSelectedOptions)
 
-  const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null)
+  const [referenceElement, setReferenceElement] = useState<HTMLButtonElement | null>(null)
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null)
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement: 'bottom',
     modifiers: [
       {
         name: 'offset',
-        options: { offset: [18, 8] },
+        options: { offset: [0, 8] },
       },
     ],
   })
@@ -99,7 +99,11 @@ const Select = ({
       multiple={multiple}
       disabled={disabled}
     >
-      <Listbox.Button as="button" className="group flex w-full outline-none">
+      <Listbox.Button
+        ref={setReferenceElement}
+        as="button"
+        className="group flex w-full outline-none"
+      >
         {({ open }) => (
           <FieldWrapper
             error={error}
@@ -109,10 +113,7 @@ const Select = ({
             id={generatedOrProvidedId}
             hasRightSlot
           >
-            <div
-              ref={setReferenceElement}
-              className="flex h-10 w-full min-w-0 cursor-pointer select-none items-center overflow-hidden pl-4"
-            >
+            <div className="flex h-10 w-full min-w-0 cursor-pointer select-none items-center overflow-hidden pl-4">
               {selectedOptions.length > 0 ? (
                 selectedOptions.map((option, index) => (
                   <div key={option.key} className="flex whitespace-nowrap">
@@ -130,14 +131,13 @@ const Select = ({
           </FieldWrapper>
         )}
       </Listbox.Button>
+
       <Listbox.Options
         as="div"
         ref={setPopperElement}
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        className="z-20 w-full flex-col border border-border bg-white outline-none"
         style={styles.popper}
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         {...attributes.popper}
-        className={cx('z-20 w-full flex-col border border-border bg-white outline-none')}
       >
         {options.map((option) => (
           <Listbox.Option as="div" key={option.key} value={option}>
