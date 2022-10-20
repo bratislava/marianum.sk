@@ -33,7 +33,7 @@ const ServiceCard = ({ image, title, subtitle, linkHref, ...rest }: ServiceCardP
   return (
     <CardBox {...rest} onClick={handleCardClick}>
       <div className="aspect-w-1 aspect-h-1 w-full bg-gray">
-        <MLink href={linkHref} tabIndex={-1} noStyles onClick={handleLinkClick}>
+        <MLink href={linkHref} tabIndex={-1} noStyles onClick={handleLinkClick} aria-label={title}>
           {image ? <MImage image={image} layout="fill" objectFit="cover" /> : <ImagePlaceholder />}
         </MLink>
       </div>

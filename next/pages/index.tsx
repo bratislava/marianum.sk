@@ -46,6 +46,9 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
       </Head>
 
       <PageWrapper navigation={navigation} general={general}>
+        {/* TODO translation */}
+        <h1 className="sr-only">Marianum - Pohrebníctvo mesta Bratislavy</h1>
+
         <HomepageSlider slides={page.attributes?.featured?.filter(isDefined)} />
 
         <SectionsWrapper alternateBackground startBackground="dark">
