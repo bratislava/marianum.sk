@@ -1,7 +1,8 @@
 {
   "collectionName": "components_sections_article_press_listings",
   "info": {
-    "displayName": "article press listing"
+    "displayName": "article press listing",
+    "icon": "newspaper"
   },
   "options": {},
   "attributes": {}
