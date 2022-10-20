@@ -109,7 +109,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
           variant === 'white',
         'focus:bg-primary/8 focus:text-primary-light': variant === 'plain-primary',
         'focus:bg-foreground/8 focus:text-foreground': variant === 'plain-secondary',
-        'hover:bg-white/12 focus:bg-white/8': variant === 'plain-white',
+        // 'hover:bg-white/12 focus:bg-white/8': variant === 'plain-white',
 
         // hover
         'hover:border-primary-dark hover:bg-primary-dark': variant === 'primary' && !disabled,
