@@ -52,7 +52,7 @@ const HomepageProcedures = ({
                   isMobile ? (
                     <div
                       key={step.title}
-                      className="flex w-[calc(100vw-6rem)] shrink-0 flex-col items-center gap-2 bg-white"
+                      className="flex w-[calc(100vw-6rem)] shrink-0 flex-col items-center gap-2 bg-white px-6 pt-4 pb-8"
                     >
                       <div className="text-[40px] font-bold text-primary">{index + 1}</div>
                       <div className="flex flex-col items-center gap-4">

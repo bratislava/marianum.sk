@@ -33,10 +33,10 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
               key={ctaSlug}
               className="container flex h-full flex-col-reverse content-center lg:flex-row"
             >
-              <div className="flex flex-1 flex-col items-center justify-center pb-12 lg:items-start lg:pb-4 lg:pr-40">
+              <div className="flex flex-1 flex-col items-center justify-center pb-12 lg:items-start lg:pb-4 lg:pr-8">
                 <div className="mb-3 text-h1 font-bold">{title}</div>
                 {description && (
-                  <div className="mb-6 hidden opacity-72 lg:block">{description}</div>
+                  <div className="mb-6 hidden opacity-72 lg:block lg:pr-40">{description}</div>
                 )}
                 {ctaSlug && (
                   <Button variant="white" href={ctaSlug}>
@@ -44,7 +44,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                   </Button>
                 )}
               </div>
-              <div className="pointer-events-none relative h-[228px] w-full select-none lg:h-full lg:w-[450px] lg:pr-4 xl:w-[612px]">
+              <div className="pointer-events-none relative h-[228px] w-full select-none bg-black/20 lg:h-full lg:w-[450px] lg:pr-4 xl:w-[612px]">
                 {url && (
                   <Image
                     src={url}

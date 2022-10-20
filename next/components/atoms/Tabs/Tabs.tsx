@@ -3,6 +3,7 @@ import cx from 'classnames'
 import { createContext, ReactNode, useCallback, useMemo, useState } from 'react'
 
 import { useTailwindBreakpoint } from '../../../hooks/useTailwindBreakpoint'
+import { AnimateHeight } from '../AnimateHeight'
 
 // Why context for this?
 // If you look at HeadlessUI docs for Tabs component (https://headlessui.com/react/tabs)
@@ -71,7 +72,7 @@ const Tabs = ({ children, areWhite = false, areBig = false }: TabsProps) => {
 
   return (
     <tabsContext.Provider value={tabsContextValue}>
-      <Tab.Group vertical={isVertical} manual as="div" className="flex flex-col">
+      <Tab.Group vertical={isVertical} manual as="div" className="flex flex-col gap-6 md:gap-11">
         <Tab.List className={cx('flex gap-6', { 'flex-col sm:flex-row': areBig })}>
           {tabLabels.map((label, index) => (
             <Tab
@@ -118,7 +119,9 @@ const Tabs = ({ children, areWhite = false, areBig = false }: TabsProps) => {
             </Tab>
           ))}
         </Tab.List>
-        <Tab.Panels className="mt-6 outline-none md:mt-11">{children}</Tab.Panels>
+        <AnimateHeight isVisible>
+          <Tab.Panels className="outline-none">{children}</Tab.Panels>
+        </AnimateHeight>
       </Tab.Group>
     </tabsContext.Provider>
   )

@@ -3,23 +3,41 @@ import cx from 'classnames'
 import { ReactNode } from 'react'
 
 import ChevronDown from '../../../assets/chevron_down.svg'
+import { AnimateHeight } from '../../atoms/AnimateHeight'
 
 export type AccordionItemProps = {
   title: string | null | undefined
   additionalInfo?: ReactNode
   children?: ReactNode
+  noBorder?: boolean
 }
 
-const AccordionItem = ({ title, additionalInfo, children }: AccordionItemProps) => {
+const AccordionItem = ({
+  title,
+  additionalInfo,
+  children,
+  noBorder = false,
+}: AccordionItemProps) => {
   return (
     <Disclosure>
       {({ open }) => {
         return (
-          <div className="flex w-full flex-col border border-border bg-white">
-            <Disclosure.Button className="flex justify-between gap-4 p-4 text-left text-h5 sm:p-5 md:p-6">
+          <div
+            className={cx('flex w-full flex-col bg-white', { 'border border-border': !noBorder })}
+          >
+            <Disclosure.Button
+              className={cx('flex justify-between gap-4 text-left text-h5 ', {
+                'p-4 sm:p-5 md:p-6': !noBorder,
+              })}
+            >
               <div className="py-[3px] font-bold">{title}</div>
               {additionalInfo && <div className="pr-6">{additionalInfo}</div>}
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border bg-white">
+              <div
+                className={cx(
+                  'flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white',
+                  { 'border border-border': !noBorder },
+                )}
+              >
                 <ChevronDown
                   className={cx('transform text-primary transition-transform', {
                     'rotate-180': open,
@@ -27,9 +45,17 @@ const AccordionItem = ({ title, additionalInfo, children }: AccordionItemProps) 
                 />
               </div>
             </Disclosure.Button>
-            <Disclosure.Panel className="w-full px-4 pb-4 sm:px-5 sm:pb-5 md:px-6 md:pb-6">
-              {children}
-            </Disclosure.Panel>
+            <AnimateHeight isVisible={open}>
+              <Disclosure.Panel
+                static
+                className={cx('w-full ', {
+                  'px-4 pb-4 sm:px-5 sm:pb-5 md:px-6 md:pb-6': !noBorder,
+                  'pt-4 sm:pt-5 md:pt-6': noBorder,
+                })}
+              >
+                {children}
+              </Disclosure.Panel>
+            </AnimateHeight>
           </div>
         )
       }}

@@ -148,7 +148,7 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
                 />
               </div>
               <div className="flex flex-col-reverse justify-between gap-3 md:flex-row md:items-center">
-                <div className="flex w-full items-center gap-3 overflow-auto">
+                <div className="flex w-full items-center gap-3 overflow-auto pb-3 sm:pb-0">
                   <TagToggle isSelected={isNothingSelected} onChange={deselectAll}>
                     {t('tags.allResults')}
                   </TagToggle>
