@@ -28,12 +28,18 @@ const pageSize = 20
 
 const PrivateField = () => <span className="opacity-50">**</span>
 
-const Table = ({ data }: { data: SearchResponse<CeremonyMeili> }) => {
+const Table = ({
+  data,
+  filters,
+}: {
+  data: SearchResponse<CeremonyMeili>
+  filters: CeremoniesArchiveSectionFilters
+}) => {
   const { t, i18n } = useTranslation('common', {
     keyPrefix: 'sections.CeremoniesSection',
   })
   const theadRef = useRef<HTMLTableSectionElement>(null)
-  useScrollToViewIfDataChange(data, theadRef)
+  useScrollToViewIfDataChange(data, filters, theadRef)
 
   const ceremonies = useMemo(() => {
     const ceremoniesData = data.hits
@@ -138,7 +144,7 @@ const DataWrapper = ({
     <>
       <LoadingOverlay loading={delayedLoading}>
         {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-        <Table data={dataToDisplay!} />
+        <Table data={dataToDisplay!} filters={filters} />
       </LoadingOverlay>
 
       {dataToDisplay ? (
@@ -161,10 +167,12 @@ const CeremoniesArchiveSection = () => {
   const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
 
   useEffect(() => {
-    setFilters({
-      ...filters,
-      search: debouncedSearchInputValue,
-    })
+    if (filters.search !== debouncedSearchInputValue) {
+      setFilters({
+        ...filters,
+        search: debouncedSearchInputValue,
+      })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchInputValue])
 

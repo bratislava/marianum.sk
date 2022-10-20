@@ -23,12 +23,18 @@ import FiltersBackgroundWrapper from '../molecules/FiltersBackgroundWrapper'
 import PaginationMeili from '../molecules/PaginationMeili'
 import Section from '../molecules/Section'
 
-const Table = ({ data }: { data: SearchResponse<DebtorMeili> }) => {
+const Table = ({
+  data,
+  filters,
+}: {
+  data: SearchResponse<DebtorMeili>
+  filters: DebtorsSectionFilters
+}) => {
   const { t, i18n } = useTranslation('common', {
     keyPrefix: 'sections.DebtorsSection',
   })
   const theadRef = useRef<HTMLTableSectionElement>(null)
-  useScrollToViewIfDataChange(data, theadRef)
+  useScrollToViewIfDataChange(data, filters, theadRef)
 
   const debtors = useMemo(() => {
     const debtorsData = data.hits
@@ -122,7 +128,7 @@ const DataWrapper = ({
     <>
       <LoadingOverlay loading={delayedLoading}>
         {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-        <Table data={dataToDisplay!} />
+        <Table data={dataToDisplay!} filters={filters} />
       </LoadingOverlay>
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
@@ -148,7 +154,9 @@ const DebtorsSection = ({ description }: DebtorsSectionProps) => {
   const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
 
   useEffect(() => {
-    setFilters({ ...filters, search: debouncedSearchInputValue, page: 1 })
+    if (filters.search !== debouncedSearchInputValue) {
+      setFilters({ ...filters, search: debouncedSearchInputValue, page: 1 })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchInputValue])
 

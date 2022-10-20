@@ -26,12 +26,12 @@ import Section from '../molecules/Section'
 
 const PrivateField = () => <span className="opacity-50">**</span>
 
-const Table = ({ data }: { data: CeremoniesQuery }) => {
+const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSectionFilters }) => {
   const { t, i18n } = useTranslation('common', {
     keyPrefix: 'sections.CeremoniesSection',
   })
   const theadRef = useRef<HTMLTableSectionElement>(null)
-  useScrollToViewIfDataChange(data, theadRef)
+  useScrollToViewIfDataChange(data, filters, theadRef)
 
   const ceremonies = useMemo(() => {
     const ceremoniesData = data?.ceremonies?.data
@@ -153,7 +153,7 @@ const DataWrapper = ({ filters }: { filters: CeremoniesSectionFilters }) => {
   return (
     <LoadingOverlay loading={delayedLoading}>
       {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-      <Table data={dataToDisplay!} />
+      <Table data={dataToDisplay!} filters={filters} />
     </LoadingOverlay>
   )
 }
