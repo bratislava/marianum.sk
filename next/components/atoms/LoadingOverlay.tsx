@@ -20,7 +20,7 @@ const LoadingOverlay = ({ loading, children }: PropsWithChildren<LoadingOverlayP
       {loading ? (
         <AnimatePresence>
           <motion.div
-            className="absolute top-0 left-0 flex h-full w-full flex-col items-center bg-primary-dark/50"
+            className="absolute top-0 left-0 flex h-full w-full flex-col items-center bg-primary-dark/80"
             transition={{ duration: 0.2 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
