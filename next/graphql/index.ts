@@ -1001,12 +1001,6 @@ export type ComponentSectionsAccordionGroupAccordionsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-export type ComponentSectionsArticleListing = {
-  __typename?: 'ComponentSectionsArticleListing';
-  id: Scalars['ID'];
-  type: Enum_Componentsectionsarticlelisting_Type;
-};
-
 export type ComponentSectionsArticleNewsListing = {
   __typename?: 'ComponentSectionsArticleNewsListing';
   id: Scalars['ID'];
@@ -1537,11 +1531,6 @@ export enum Enum_Componentblockssocialitem_Icon {
   Youtube = 'youtube'
 }
 
-export enum Enum_Componentsectionsarticlelisting_Type {
-  News = 'news',
-  Press = 'press'
-}
-
 export enum Enum_Componentsectionsdivider_Color {
   Default = 'default',
   Primary = 'primary'
@@ -1639,7 +1628,7 @@ export type GeneralRelationResponseCollection = {
   data: Array<GeneralEntity>;
 };
 
-export type GenericMorph = Article | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Document | DocumentCategory | General | HomePage | I18NLocale | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Article | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Document | DocumentCategory | General | HomePage | I18NLocale | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
