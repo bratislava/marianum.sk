@@ -31,7 +31,7 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
                     title: bundleTitle,
                     coverMedia,
                     price,
-                    discountText,
+                    discountTextShort,
                     bundleItems,
                     additionalItems,
                     slug,
@@ -42,7 +42,7 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
                       image={coverMedia?.data?.attributes}
                       name={bundleTitle ?? ''}
                       priceFrom={price ?? 0}
-                      discountText={discountText ?? undefined}
+                      discountText={discountTextShort ?? undefined}
                       claims={
                         bundleItems
                           ?.map((bundleItem) => bundleItem?.description)
