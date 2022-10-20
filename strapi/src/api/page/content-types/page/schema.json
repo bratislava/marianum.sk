@@ -111,7 +111,8 @@
         "sections.documents-section",
         "sections.review-listing",
         "sections.article-news-listing",
-        "sections.article-press-listing"
+        "sections.article-press-listing",
+        "sections.article-listing"
       ]
     },
     "sidebar": {
