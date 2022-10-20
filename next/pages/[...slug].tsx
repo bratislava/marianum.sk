@@ -101,7 +101,10 @@ const Slug = ({ navigation, page, general, reviews, fallback }: PageProps) => {
             }
             if (section?.__typename === 'ComponentSectionsAccordionGroup') {
               return (
-                <Section key={`${section.__typename}-${section.id}`} title={section.title}>
+                <Section key={`${section.__typename}-${section.id}`}>
+                  <h2 className="mb-4 grow text-center text-h3 md:mb-6 md:text-left">
+                    {section.title}
+                  </h2>
                   <AccordionGroup>
                     {section.accordions?.map((accordion) => (
                       <AccordionItem key={accordion?.id} title={accordion?.title}>
@@ -139,7 +142,10 @@ const Slug = ({ navigation, page, general, reviews, fallback }: PageProps) => {
             }
             if (section?.__typename === 'ComponentSectionsDocumentGroup') {
               return (
-                <Section key={`${section.__typename}-${section.id}`} title={section.title}>
+                <Section key={`${section.__typename}-${section.id}`}>
+                  <h2 className="mb-4 grow text-center text-h3 md:mb-6 md:text-left">
+                    {section.title}
+                  </h2>
                   <DocumentGroup {...section} />
                 </Section>
               )
