@@ -26,10 +26,16 @@ import SortSelect, { Sort } from '../../molecules/SortSelect'
 import DocumentsSectionCategorySelect from './DocumentsSectionCategorySelect'
 import DocumentsSectionFiletypeSelect from './DocumentsSectionFiletypeSelect'
 
-const Documents = ({ data }: { data: SearchResponse<DocumentMeili> }) => {
+const Documents = ({
+  data,
+  filters,
+}: {
+  data: SearchResponse<DocumentMeili>
+  filters: DocumentsSectionFilters
+}) => {
   const { t } = useTranslation()
   const documentsRef = useRef<HTMLDivElement>(null)
-  useScrollToViewIfDataChange(data, documentsRef)
+  useScrollToViewIfDataChange(data, filters, documentsRef)
 
   if (data.hits.length > 0) {
     return (
@@ -101,7 +107,7 @@ const DataWrapper = ({
     <>
       <LoadingOverlay loading={delayedLoading}>
         {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-        <Documents data={dataToDisplay!} />
+        <Documents data={dataToDisplay!} filters={filters} />
       </LoadingOverlay>
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
@@ -127,7 +133,9 @@ const DocumentsSection = ({ description }: DocumentsSectionProps) => {
   const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
 
   useEffect(() => {
-    setFilters({ ...filters, search: debouncedSearchInputValue, page: 1 })
+    if (filters.search !== debouncedSearchInputValue) {
+      setFilters({ ...filters, search: debouncedSearchInputValue, page: 1 })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchInputValue])
 

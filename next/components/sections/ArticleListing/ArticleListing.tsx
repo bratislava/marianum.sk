@@ -27,9 +27,11 @@ import ArticlePressCategoriesSelect from './ArticlePressCategoriesSelect'
 
 const Articles = ({
   data,
+  filters,
   type,
 }: {
   data: SearchResponse<ArticleMeili>
+  filters: ArticleListingFilters
   type: ArticleListingType
 }) => {
   const { t } = useTranslation('common', {
@@ -37,7 +39,7 @@ const Articles = ({
   })
   const { getFullSlugMeili } = useSlugMeili()
   const cardsRef = useRef<HTMLDivElement>(null)
-  useScrollToViewIfDataChange(data, cardsRef)
+  useScrollToViewIfDataChange(data, filters, cardsRef)
 
   if (data.hits?.length > 0) {
     return (
@@ -111,7 +113,7 @@ const DataWrapper = ({
     <>
       <LoadingOverlay loading={delayedLoading}>
         {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-        <Articles data={dataToDisplay!} type={type} />
+        <Articles data={dataToDisplay!} filters={filters} type={type} />
       </LoadingOverlay>
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
@@ -137,7 +139,9 @@ const ArticleListing = ({ type }: ArticleListingProps) => {
   const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
 
   useEffect(() => {
-    setFilters({ ...filters, search: debouncedSearchInputValue, page: 1 })
+    if (filters.search !== debouncedSearchInputValue) {
+      setFilters({ ...filters, search: debouncedSearchInputValue, page: 1 })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchInputValue])
 
