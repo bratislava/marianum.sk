@@ -39,6 +39,15 @@ module.exports = {
       DEFAULT: '0px 4px 12px 0px #00000014',
       card: '0px 4px 16px #00000014',
     },
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '3rem',
+        xl: '4.75rem',
+      },
+    },
     screens: require('./screen-breakpoints.config').tailwindScreenBreakpoints,
     colors: {
       transparent: 'transparent',
@@ -105,7 +114,7 @@ module.exports = {
     },
   },
   corePlugins: {
-    container: false,
+    // container: false,
     aspectRatio: false, // See: https://tailwindcss.com/docs/aspect-ratio#browser-support
   },
   plugins: [

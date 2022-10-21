@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  .container {
-    @apply w-full m-auto max-w-[1280px] px-[1rem] md:px-[2rem] lg:px-[3rem] xl:px-[4.75rem];
-  }
-
   /* noto-sans-regular - latin-ext_latin */
   @font-face {
     font-family: 'Noto Sans';
