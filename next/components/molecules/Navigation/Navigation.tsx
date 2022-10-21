@@ -52,13 +52,13 @@ const Navigation = ({ contact }: NavigationProps) => {
       <SkipToContentButton />
 
       <div className="relative border-b border-white/12 xl:hidden">
-        <div className="container flex flex-col items-center justify-center gap-3 py-2 md:flex-row md:gap-4">
+        <div className="container flex flex-col items-center justify-center gap-3 py-2 sm:flex-row md:gap-4">
           <TopContacts />
         </div>
       </div>
 
-      <div className="container relative flex h-[64px] flex-col md:h-[120px]">
-        <div className="flex h-[64px] items-center justify-between md:h-[88px]">
+      <div className="container relative flex h-[64px] flex-col lg:h-[120px]">
+        <div className="flex h-[64px] items-center justify-between lg:h-[88px]">
           {/* left side of navigation */}
           <MLink
             className="w-[108px] lg:w-[142px]"
@@ -92,7 +92,7 @@ const Navigation = ({ contact }: NavigationProps) => {
               aria-label="navigačné menu"
               onPress={() => setMobileNavOpen(true)}
               variant="primary"
-              className="md:hidden"
+              className="lg:hidden"
             >
               <MenuIcon width={24} height={24} />
             </IconButton>
