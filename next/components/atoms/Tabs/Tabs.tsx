@@ -5,39 +5,23 @@ import { createContext, ReactNode, useCallback, useMemo, useState } from 'react'
 import { useTailwindBreakpoint } from '../../../hooks/useTailwindBreakpoint'
 import { AnimateHeight } from '../AnimateHeight'
 
-// Why context for this?
-// If you look at HeadlessUI docs for Tabs component (https://headlessui.com/react/tabs)
-// at basic example, you can see that each tab is separated into List and Panel.
-// I just don't like it that way so the whole context and mount/unmount concept
-// is here to make us able to write it prettier :)
+// Context provide us ability to write tab in one component instead of separating it to tab and panel
 
 export type TabsContext = {
   mountTab: (tabLabel: string) => void
   unmountTab: (tabLabel: string) => void
-  areWhite: boolean
 }
 
 export const tabsContext = createContext<TabsContext>({
   mountTab: () => {},
   unmountTab: () => {},
-  areWhite: false,
 })
 
-type WhiteOrBigConditionalProps =
-  | {
-      areWhite?: boolean
-      areBig?: never
-    }
-  | {
-      areWhite?: never
-      areBig?: boolean
-    }
-
-export type TabsProps = WhiteOrBigConditionalProps & {
+export type TabsProps = {
   children: ReactNode
 }
 
-const Tabs = ({ children, areWhite = false, areBig = false }: TabsProps) => {
+const Tabs = ({ children }: TabsProps) => {
   const [tabLabels, setTabLabels] = useState<string[]>([])
 
   const mountTab = useCallback((tabLabel: string) => {
@@ -61,57 +45,42 @@ const Tabs = ({ children, areWhite = false, areBig = false }: TabsProps) => {
   }, [])
 
   const tabsContextValue: TabsContext = useMemo(() => {
-    return { mountTab, unmountTab, areWhite }
-  }, [mountTab, unmountTab, areWhite])
+    return { mountTab, unmountTab }
+  }, [mountTab, unmountTab])
 
   const { isNull: isBreakpointNull } = useTailwindBreakpoint()
 
-  const isVertical = useMemo(() => {
-    return isBreakpointNull
-  }, [isBreakpointNull])
-
   return (
     <tabsContext.Provider value={tabsContextValue}>
-      <Tab.Group vertical={isVertical} manual as="div" className="flex flex-col gap-6 md:gap-11">
-        <Tab.List className={cx('flex gap-6', { 'flex-col sm:flex-row': areBig })}>
+      <Tab.Group
+        vertical={isBreakpointNull}
+        manual
+        as="div"
+        className="flex flex-col gap-6 md:gap-11"
+      >
+        <Tab.List className="flex flex-col gap-6 sm:flex-row">
           {tabLabels.map((label, index) => (
             <Tab
               // eslint-disable-next-line react/no-array-index-key
               key={index}
-              className={cx('flex-1 outline-none', {
-                'focus:bg-primary focus:bg-opacity-10': !areWhite && !areBig,
-                'focus:bg-white focus:bg-opacity-10': areWhite && !areBig,
-                'focus:outline-2 focus:outline-primary': areBig && !areWhite,
-              })}
+              className="flex-1 outline-none focus:outline-2 focus:outline-primary"
             >
               {({ selected }) => (
                 <div
                   className={cx(
                     'relative flex h-full items-center justify-center px-8 pt-4 pb-[14px]',
                     {
-                      // unselected white
-                      'border-b-2 border-white border-opacity-0 font-semibold text-white text-opacity-72 hover:text-opacity-100':
-                        !selected && areWhite,
-                      // selected white
-                      'border-b-2 border-white border-opacity-100 font-semibold text-white text-opacity-100':
-                        selected && areWhite,
                       // unselected big
                       'border border-border bg-background-beige px-6 py-5 text-[18px] font-bold':
-                        !selected && areBig && !areWhite,
+                        !selected,
                       // selected big
                       'border border-primary bg-primary px-6 py-5 text-[18px] font-bold text-white':
-                        selected && areBig && !areWhite,
-                      // unselected default
-                      'border-b-2 border-border font-semibold hover:text-primary':
-                        !selected && !areWhite && !areBig,
-                      // selected default
-                      'border-b-2 border-primary font-semibold text-primary':
-                        selected && !areWhite && !areBig,
+                        selected,
                     },
                   )}
                 >
-                  {label}
-                  {selected && areBig && (
+                  <h3 className="text-h6 text-current">{label}</h3>
+                  {selected && (
                     <div className="absolute -bottom-3 hidden h-6 w-6 rotate-[-39deg] skew-x-12 bg-primary sm:block" />
                   )}
                 </div>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next'
 import {
   DetailedHTMLProps,
   InputHTMLAttributes,
@@ -32,6 +33,8 @@ const Search = ({
   isLarge = false,
   ...rest
 }: SearchProps) => {
+  const { t } = useTranslation()
+
   const [realValue, setRealValue] = useState(value)
 
   useEffect(() => {
@@ -75,6 +78,7 @@ const Search = ({
       value={realValue}
       onChange={(e) => handleChange(e.target.value)}
       placeholder={placeholder}
+      aria-label={t('general.searchField')}
       onKeyUp={onKeyUpHandler}
       className={className}
       isLarge={isLarge}

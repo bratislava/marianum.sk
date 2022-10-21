@@ -7,8 +7,10 @@
     "disclosureOfInformation": "Zverejňovanie informácií",
     "openingHours": "Otváracie hodiny",
     "addToCart": "Pridať do košíka",
+    "searchField": "Vyhľadávanie",
     "searchPlaceholder": "Hľadať…",
-    "skipToContent": "Prejsť na obsah"
+    "skipToContent": "Prejsť na obsah",
+    "home": "Domov"
   },
   "paths": {
     "contacts": "/o-nas/kontakty",
