@@ -50,15 +50,14 @@ const ReviewStars = ({ value }: ReviewStarsProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'components.atoms.ReviewStars' })
 
   return (
-    <div
-      aria-label={t('aria.rating', { rating: value.toFixed(1) })}
-      title={t('aria.rating', { rating: value.toFixed(1) })}
-      className="flex gap-1"
-    >
-      {Array.from({ length: 5 }, (_item, index) => (
-        <ReviewStar key={index} value={value} index={index} />
-      ))}
-    </div>
+    <>
+      <div className="sr-only">{t('aria.rating', { rating: value.toFixed(1) })}</div>
+      <div className="flex gap-1">
+        {Array.from({ length: 5 }, (_item, index) => (
+          <ReviewStar key={index} value={value} index={index} />
+        ))}
+      </div>
+    </>
   )
 }
 

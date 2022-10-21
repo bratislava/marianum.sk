@@ -29,7 +29,7 @@ const ScrollToTopButton = () => {
       id="scrollToTopButton"
       onPress={handleScrollToTop}
       variant="secondary"
-      className={`fixed bottom-5 right-5 md:bottom-7 md:right-7 ${
+      className={`fixed bottom-5 right-5 z-[2] bg-white md:bottom-7 md:right-7 ${
         visible ? 'visible' : 'invisible'
       }`}
     >

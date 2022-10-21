@@ -17,7 +17,7 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
 
   return (
     <Section title={title} description={description} {...rest}>
-      <Tabs areBig>
+      <Tabs>
         {[atMedicalFacility, outsideMedicalFacility].map((bundleTab, indexTab) => (
           // eslint-disable-next-line react/no-array-index-key
           <Tab key={indexTab} label={bundleTab?.title ?? ''}>

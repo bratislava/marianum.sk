@@ -1,5 +1,4 @@
 import { Tab as HeadlessTab } from '@headlessui/react'
-import cx from 'classnames'
 import { ReactNode, useContext, useEffect } from 'react'
 
 import { tabsContext } from './Tabs'
@@ -10,18 +9,14 @@ export type TabProps = {
 }
 
 const Tab = ({ label, children }: TabProps) => {
-  const { mountTab, unmountTab, areWhite: isWhite } = useContext(tabsContext)
+  const { mountTab, unmountTab } = useContext(tabsContext)
 
   useEffect(() => {
     mountTab(label)
     return () => unmountTab(label)
   }, [label, mountTab, unmountTab])
 
-  return (
-    <HeadlessTab.Panel className={cx('outline-none', { 'text-white': isWhite })}>
-      {children}
-    </HeadlessTab.Panel>
-  )
+  return <HeadlessTab.Panel className="outline-none">{children}</HeadlessTab.Panel>
 }
 
 export default Tab
