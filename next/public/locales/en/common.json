@@ -7,8 +7,10 @@
     "disclosureOfInformation": "Disclosure of information",
     "openingHours": "Opening hours",
     "addToCart": "Add to cart",
+    "searchField": "Search",
     "searchPlaceholder": "Search…",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "home": "Home"
   },
   "components": {
     "atoms": {

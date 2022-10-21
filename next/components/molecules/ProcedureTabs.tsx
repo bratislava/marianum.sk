@@ -54,7 +54,7 @@ const ProcedureTabs = () => {
   }
 
   return (
-    <Tabs areBig>
+    <Tabs>
       {procedures.map((procedure) => (
         <Tab key={procedure?.title} label={procedure?.title ?? ''}>
           <div>

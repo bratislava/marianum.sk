@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useTranslation } from 'next-i18next'
 import { useContext, useState } from 'react'
 
 import MarianumLogoWithText from '../../../assets/marianum_logo_with_text.svg'
@@ -19,6 +20,8 @@ type NavigationProps = {
 }
 
 const Navigation = ({ contact }: NavigationProps) => {
+  const { t } = useTranslation()
+
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
   const [isDesktopSearchOpen, setDesktopSearchOpen] = useState(false)
 
@@ -26,7 +29,7 @@ const Navigation = ({ contact }: NavigationProps) => {
 
   const { title, phone1, phone2 } = contact?.attributes ?? {}
 
-  const TopContacts = (
+  const TopContacts = () => (
     <>
       {title && <div className="opacity-72">{title}:</div>}
       <div className="flex gap-3">
@@ -50,14 +53,20 @@ const Navigation = ({ contact }: NavigationProps) => {
 
       <div className="relative border-b border-white/12 xl:hidden">
         <div className="container flex flex-col items-center justify-center gap-3 py-2 md:flex-row md:gap-4">
-          {TopContacts}
+          <TopContacts />
         </div>
       </div>
 
       <div className="container relative flex h-[64px] flex-col md:h-[120px]">
         <div className="flex h-[64px] items-center justify-between md:h-[88px]">
           {/* left side of navigation */}
-          <MLink className="w-[108px] lg:w-[142px]" href="/" noStyles noArrow>
+          <MLink
+            className="w-[108px] lg:w-[142px]"
+            href="/"
+            noStyles
+            noArrow
+            aria-label={t('general.home')}
+          >
             <MarianumLogoWithText className="h-full w-full" />
           </MLink>
           {/* right side of navigation */}
@@ -70,7 +79,7 @@ const Navigation = ({ contact }: NavigationProps) => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
               >
-                {TopContacts}
+                <TopContacts />
               </motion.div>
             )}
             {/* search (both mobile and desktop) */}

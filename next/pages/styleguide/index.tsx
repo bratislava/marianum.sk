@@ -819,47 +819,12 @@ const Showcase = () => {
                 }
                 border={cardsBorder}
               />
-              <Row
-                title="Volať záchrannú zdravotnú službu 112"
-                number={1}
-                moreContent="Ak Váš blízky umrie mimo zdravotníckeho zariadenia, neodkladne kontaktujte tiesňovú linku 112, ktorá na miesto vyšle obhliadajúceho lekára."
-                border={cardsBorder}
-              />
             </Stack>
           </Wrapper>
 
           <Wrapper title="Tabs">
             <Stack width="full">
               <Tabs>
-                <Tab label="Recent">
-                  <div className="p-4">Recent</div>
-                </Tab>
-                <Tab label="Popular">
-                  <div className="p-4">Popular</div>
-                </Tab>
-                <Tab label="Trending">
-                  <div className="p-4">Trending</div>
-                </Tab>
-              </Tabs>
-            </Stack>
-            <Stack width="full" bg="dark">
-              <Tabs areWhite>
-                <Tab label="Recent">
-                  <div className="p-4">Recent</div>
-                </Tab>
-                <Tab label="Popular">
-                  <div className="p-4">Popular</div>
-                </Tab>
-                <Tab label="Trending">
-                  <div className="p-4">Trending</div>
-                </Tab>
-              </Tabs>
-            </Stack>
-          </Wrapper>
-
-          <Wrapper title="Tabs (big)">
-            <Stack width="full">
-              <Tabs areBig>
                 <Tab label="Mimo zdravotníckeho zariadenia (domov, DSS)">
                   <div className="p-4">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat velit, incidunt

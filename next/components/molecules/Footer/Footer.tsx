@@ -4,6 +4,8 @@ import { useMemo } from 'react'
 import { ContactFragment, FooterFragment, SocialItemFragment } from '../../../graphql'
 import { isDefined } from '../../../utils/isDefined'
 import MLink from '../../atoms/MLink'
+import AccordionGroup from '../Accordion/AccordionGroup'
+import AccordionItem from '../Accordion/AccordionItem'
 import { useSlug } from '../Navigation/NavigationProvider/useFullSlug'
 import FooterCredentials from './FooterCredentials'
 import FooterMap from './FooterMap'
@@ -46,7 +48,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
 
   return (
     // negative top margin to make footer overflow last section
-    <footer className="sticky top-full flex flex-col gap-12 md:-mt-14">
+    <footer className="sticky top-full -mt-14 flex flex-col gap-12">
       <div className="container flex flex-col gap-12">
         <div className="grid bg-primary text-white md:grid-cols-3 lg:grid-cols-2">
           <div className="h-52 w-full md:h-full">
@@ -65,7 +67,12 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
               <div className="text-lg font-bold">{t('address')}</div>
               <div className="flex flex-col gap-2 whitespace-pre-wrap text-sm font-regular">
                 {contact?.address && (
-                  <MLink noStyles href={contact?.navigateToLink ?? ''} className="opacity-72">
+                  <MLink
+                    noStyles
+                    href={contact?.navigateToLink ?? ''}
+                    target="_blank"
+                    className="w-fit opacity-72"
+                  >
                     {contact.address}
                   </MLink>
                 )}
@@ -83,12 +90,12 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
               <div className="text-lg font-bold">{t('contacts')}</div>
               <div className="flex flex-col gap-2 text-sm font-regular">
                 {phone1 && (
-                  <MLink noStyles href={`tel:${phone1}`} className="opacity-72">
+                  <MLink noStyles href={`tel:${phone1}`} className="w-fit opacity-72">
                     {phone1}
                   </MLink>
                 )}
                 {email && (
-                  <MLink noStyles href={`mailto:${email}`} className="opacity-72">
+                  <MLink noStyles href={`mailto:${email}`} className="w-fit opacity-72">
                     {email}
                   </MLink>
                 )}
@@ -108,7 +115,37 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
 
         <div className="border-t border-border" />
 
-        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
+        {/* Mobile */}
+        <div className="flex flex-col gap-4 md:hidden">
+          <AccordionGroup>
+            {footerColumns.map(({ title, links }, colIndex) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <AccordionItem key={colIndex} noBorder title={title}>
+                <div className="flex flex-col gap-4">
+                  {links?.map((link, linkIndex) => {
+                    const fullPath = getFullSlug(link?.page?.data) || link?.url || ''
+
+                    return (
+                      <MLink
+                        // eslint-disable-next-line react/no-array-index-key
+                        key={linkIndex}
+                        noStyles
+                        href={fullPath}
+                        target={link?.targetBlank ? '_blank' : '_self'}
+                        className="w-fit"
+                      >
+                        {link?.label}
+                      </MLink>
+                    )
+                  })}
+                </div>
+              </AccordionItem>
+            ))}
+          </AccordionGroup>
+        </div>
+
+        {/* Desktop */}
+        <div className="hidden grid-cols-4 gap-8 md:grid">
           {footerColumns.map(({ title, links }, colIndex) => (
             // eslint-disable-next-line react/no-array-index-key
             <div key={colIndex} className="flex flex-col gap-4">

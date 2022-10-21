@@ -51,7 +51,7 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, bundle, general }) 
           {/* todo: display bundle data */}
           {claims?.length ? (
             <Section>
-              <h3 className="pb-6 text-h4">{t('sections.HeroSection.bundleContent')}</h3>
+              <h2 className="pb-6 text-h3">{t('sections.HeroSection.bundleContent')}</h2>
               <ul>
                 {claims.map((item, index) => (
                   // eslint-disable-next-line react/no-array-index-key
@@ -80,7 +80,7 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, bundle, general }) 
 
           {additionalServices?.length ? (
             <Section>
-              <h3 className="pb-4 text-h4">{t('sections.HeroSection.additionalServices')}</h3>
+              <h3 className="pb-4">{t('sections.HeroSection.additionalServices')}</h3>
               <AccordionGroup>
                 {additionalServices.map((service) => (
                   <AccordionItem
@@ -104,7 +104,8 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, bundle, general }) 
             </Section>
           ) : null}
           {documents && (
-            <Section title={documents?.title}>
+            <Section>
+              {documents.title && <h2 className="pb-6 text-h3">{documents.title}</h2>}
               <DocumentGroup {...documents} />
             </Section>
           )}

@@ -42,12 +42,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "fullwidth",
-        "sidebar",
-        "centered",
-        "article"
-      ],
+      "enum": ["fullwidth", "sidebar", "centered", "article"],
       "required": true,
       "default": "fullwidth"
     },
@@ -63,9 +58,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": false

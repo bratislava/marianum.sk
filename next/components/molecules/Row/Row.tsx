@@ -24,7 +24,6 @@ interface IRowProps {
   moreContent?: ReactNode
   button?: ReactNode
   arrowInCorner?: boolean
-  number?: number
   border?: boolean
 }
 
@@ -40,7 +39,6 @@ const Row = ({
   moreContent,
   button = null,
   arrowInCorner = false,
-  number,
   border = true,
 }: IRowProps) => {
   const router = useRouter()
@@ -63,7 +61,6 @@ const Row = ({
         'border border-border': border,
       })}
     >
-      {number && <div className="pr-8 pl-1 text-h1 font-bold text-primary">{number}</div>}
       <div className="grow space-y-1.5">
         {category?.attributes && (
           <MLink

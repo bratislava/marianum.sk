@@ -17,7 +17,7 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
 
   return (
     <Section title={title} description={description} {...rest}>
-      <Tabs areBig>
+      <Tabs>
         {[atMedicalFacility, outsideMedicalFacility].map((bundleTab, indexTab) => (
           // eslint-disable-next-line react/no-array-index-key
           <Tab key={indexTab} label={bundleTab?.title ?? ''}>
@@ -31,7 +31,7 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
                     title: bundleTitle,
                     coverMedia,
                     price,
-                    discountText,
+                    discountTextShort,
                     bundleItems,
                     additionalItems,
                     slug,
@@ -42,7 +42,7 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
                       image={coverMedia?.data?.attributes}
                       name={bundleTitle ?? ''}
                       priceFrom={price ?? 0}
-                      discountText={discountText ?? undefined}
+                      discountText={discountTextShort ?? undefined}
                       claims={
                         bundleItems
                           ?.map((bundleItem) => bundleItem?.description)

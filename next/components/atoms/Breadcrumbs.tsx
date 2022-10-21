@@ -1,5 +1,6 @@
 import cx from 'classnames'
 import last from 'lodash/last'
+import { useTranslation } from 'next-i18next'
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 
@@ -21,9 +22,15 @@ export type BreadcrumbChildProps = {
   crumb: BreadcrumbItem
   noChevron?: boolean
   noLink?: boolean
+  ariaLabel?: string
 }
 
-const BreadcrumbChild = ({ crumb, noChevron = false, noLink = false }: BreadcrumbChildProps) => {
+const BreadcrumbChild = ({
+  crumb,
+  noChevron = false,
+  noLink = false,
+  ariaLabel,
+}: BreadcrumbChildProps) => {
   return (
     <div className="flex gap-1">
       {!noChevron && (
@@ -34,7 +41,12 @@ const BreadcrumbChild = ({ crumb, noChevron = false, noLink = false }: Breadcrum
       {noLink ? (
         <div>{crumb.label}</div>
       ) : (
-        <MLink href={crumb.path} noStyles className="whitespace-nowrap underline">
+        <MLink
+          href={crumb.path}
+          noStyles
+          aria-label={ariaLabel}
+          className="whitespace-nowrap underline"
+        >
           {crumb.label}
         </MLink>
       )}
@@ -43,6 +55,8 @@ const BreadcrumbChild = ({ crumb, noChevron = false, noLink = false }: Breadcrum
 }
 
 const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
+  const { t } = useTranslation()
+
   const { height, ref: breadcrumbsExpandedRef } = useResizeDetector()
   const { height: fullHeight, ref: breadcrumbsExpandedWrappingRef } = useResizeDetector()
 
@@ -71,11 +85,12 @@ const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
         key={index}
         crumb={crumb}
         noChevron={index === 0}
+        ariaLabel={index === 0 ? t('general.home') : undefined}
         noLink={index === crumbs.length - 1}
       />
       /* eslint-enable react/no-array-index-key */
     ))
-  }, [crumbs])
+  }, [crumbs, t])
 
   const isCollapsing = useMemo(() => breadcrumbedChildren.length > 2, [breadcrumbedChildren])
 
