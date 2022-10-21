@@ -3,7 +3,6 @@
     "from": "from",
     "siteName": "Marianum",
     "showMore": "Show more",
-    "goToSlide": "Go to slide {{number}}",
     "disclosureOfInformation": "Disclosure of information",
     "openingHours": "Opening hours",
     "addToCart": "Add to cart",
@@ -86,6 +85,12 @@
     }
   },
   "sections": {
+    "HomepageSlider": {
+      "aria": {
+        "heading": "Homepage slider",
+        "goToSlide": "Go to slide {{number}}"
+      }
+    },
     "HeroSection": {
       "priceFrom": "Price from",
       "bundleContent": "Package content",
