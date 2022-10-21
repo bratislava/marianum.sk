@@ -22,7 +22,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
   return (
     <section className="h-[412px] bg-primary-dark text-white xl:h-[436px]">
       <Slider
-        autoSwipeDuration={5000}
+        autoSwipeDuration={5500}
         pages={slides.map(({ title, description, button, image }) => {
           const ctaSlug = getFullSlug(button?.page?.data)
 
