@@ -359,6 +359,7 @@ export type Bundle = {
   sidebar?: Maybe<ComponentBlocksSidebar>;
   slug: Scalars['String'];
   title: Scalars['String'];
+  type?: Maybe<Enum_Bundle_Type>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -430,6 +431,7 @@ export type BundleFiltersInput = {
   sidebar?: InputMaybe<ComponentBlocksSidebarFiltersInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
+  type?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
@@ -449,6 +451,7 @@ export type BundleInput = {
   sidebar?: InputMaybe<ComponentBlocksSidebarInput>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Enum_Bundle_Type>;
 };
 
 export type BundleRelationResponseCollection = {
@@ -1521,6 +1524,11 @@ export enum Enum_Branch_Cemeterytype {
 export enum Enum_Branch_Type {
   Cintorin = 'cintorin',
   Pobocka = 'pobocka'
+}
+
+export enum Enum_Bundle_Type {
+  Kremacia = 'kremacia',
+  Pochovanie = 'pochovanie'
 }
 
 export enum Enum_Componentblockssocialitem_Icon {
