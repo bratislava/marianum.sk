@@ -132,6 +132,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
       (bundle) =>
         bundle?.attributes && {
           params: {
+            // TODO use proper full slug
             slug: bundle?.attributes.slug,
             locale: bundle?.attributes.locale ?? '',
           },
@@ -150,6 +151,8 @@ export const getStaticProps: GetStaticProps<BundlePageProps, StaticParams> = asy
   params,
 }): Promise<GetStaticPropsResult<BundlePageProps>> => {
   const slug = params?.slug ?? ''
+  // eslint-disable-next-line no-console
+  console.log(`Revalidating bundle on "${slug}"`)
 
   const [{ navigation, general }, { bundles }, translations] = await Promise.all([
     client.General({ locale }),

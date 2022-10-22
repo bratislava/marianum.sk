@@ -71,7 +71,7 @@
       },
       "type": "enumeration",
       "enum": ["pochovanie", "kremacia"],
-      "required": false,
+      "required": true,
       "default": "pochovanie"
     },
     "discountTextShort": {
