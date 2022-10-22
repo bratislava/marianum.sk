@@ -43,6 +43,17 @@
       },
       "type": "text"
     },
+    "coverMedia": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
     "price": {
       "pluginOptions": {
         "i18n": {
@@ -51,6 +62,17 @@
       },
       "type": "decimal",
       "required": true
+    },
+    "type": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "enumeration",
+      "enum": ["pochovanie", "kremacia"],
+      "required": false,
+      "default": "pochovanie"
     },
     "discountTextShort": {
       "pluginOptions": {
@@ -67,17 +89,6 @@
         }
       },
       "type": "string"
-    },
-    "coverMedia": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": ["images"],
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
     },
     "bundleItems": {
       "displayName": "bundle content item",
