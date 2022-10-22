@@ -90,6 +90,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
       (branch) =>
         branch.attributes && {
           params: {
+            // TODO use proper full slug
             slug: branch?.attributes.slug,
             locale: branch?.attributes.locale ?? '',
           },

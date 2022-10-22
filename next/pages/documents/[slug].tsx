@@ -48,6 +48,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
       (document) =>
         document.attributes && {
           params: {
+            // TODO use proper full slug
             slug: document?.attributes.slug,
           },
         },

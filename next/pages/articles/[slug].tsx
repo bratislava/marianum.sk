@@ -49,6 +49,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
       (article) =>
         article.attributes && {
           params: {
+            // TODO use proper full slug
             slug: article?.attributes.slug,
             locale: article?.attributes.locale || '',
           },

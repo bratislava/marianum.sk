@@ -150,6 +150,7 @@ fragment BundleCardEntity on BundleEntity {
     slug
     perex
     price
+    type
     discountTextShort
     discountText
     coverMedia {
