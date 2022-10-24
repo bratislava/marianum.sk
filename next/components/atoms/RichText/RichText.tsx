@@ -28,7 +28,18 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
         h5: ({ children }) => <h5 className="text-h5 font-bold">{children}</h5>,
         h6: ({ children }) => <h6 className="text-h6 font-bold">{children}</h6>,
         // eslint-disable-next-line jsx-a11y/alt-text
-        img: (props) => <img {...props} className="w-full" />,
+        img: (props) => {
+          const { alt: altAndCaption = '||' } = props
+          const [alt, caption] = altAndCaption.includes('||')
+            ? altAndCaption.split('||')
+            : [altAndCaption, altAndCaption]
+          return (
+            <figure className="flex flex-col gap-4">
+              <img {...props} className="w-full" alt={alt} />
+              <figcaption className="text-center text-sm">{caption}</figcaption>
+            </figure>
+          )
+        },
         p: ({ children, ...props }) => (
           <p className="whitespace-pre-wrap" {...props}>
             {children.map((child, index) => (
