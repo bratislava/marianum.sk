@@ -5,6 +5,7 @@ import { ArticleMeili } from '../../types/meiliTypes'
 import { client } from '../gql'
 import { isDefined } from '../isDefined'
 import { meiliClient } from '../meilisearch'
+import { SearchIndexWrapped, unwrapFromSearchIndex } from './searchIndexWrapped'
 
 export enum ArticleListingType {
   News,
@@ -39,25 +40,28 @@ export const getArticleListingFetcher =
     switch (type) {
       case ArticleListingType.Press:
         sectionFilter = filters.categoryId
-          ? `pressCategory.id = ${filters.categoryId}`
-          : // TODO: hacky solution, after update to Meilisearch 0.29 use "pressCategory EXISTS"
-            'pressCategory.id > 0'
+          ? `article.pressCategory.id = ${filters.categoryId}`
+          : 'article.pressCategory EXISTS'
         break
 
       case ArticleListingType.News:
         sectionFilter = filters.categoryId
-          ? `newsCategory.id = ${filters.categoryId}`
-          : // TODO: hacky solution, after update to Meilisearch 0.29 use "newsCategory EXISTS"
-            'newsCategory.id > 0'
+          ? `article.newsCategory.id = ${filters.categoryId}`
+          : 'article.newsCategory EXISTS'
         break
     }
 
-    return meiliClient.index('article').search<ArticleMeili>(filters.search, {
-      limit: filters.pageSize,
-      offset: (filters.page - 1) * filters.pageSize,
-      filter: [sectionFilter, locale ? `locale = ${locale}` : null].filter(isDefined),
-      sort: ['publishedAtTimestamp:desc'],
-    })
+    return meiliClient
+      .index('search_index')
+      .search<SearchIndexWrapped<'article', ArticleMeili>>(filters.search, {
+        limit: filters.pageSize,
+        offset: (filters.page - 1) * filters.pageSize,
+        filter: ['type = "article"', sectionFilter, locale ? `locale = ${locale}` : null].filter(
+          isDefined,
+        ),
+        sort: ['article.publishedAtTimestamp:desc'],
+      })
+      .then(unwrapFromSearchIndex('article'))
   }
 
 const mapSelectFn = (category: {
