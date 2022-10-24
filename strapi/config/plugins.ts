@@ -1,3 +1,22 @@
+/**
+ * The indexes that are used in search are stored in one shared index. This wraps them to have a unified way for search
+ * and easily unwrappable structure to be used separately.
+ */
+const wrapSearchIndexEntry = (type: string, data: any) => {
+  // Remove when https://github.com/meilisearch/strapi-plugin-meilisearch/pull/554 merged
+  const newData = { ...data };
+  delete newData.createdBy;
+  delete newData.updatedBy;
+
+  return {
+    type,
+    id: data.id, // must be present to work correctly
+    locale: data.locale,
+    // [type] is used instead of "data", to avoid  naming clashes of filterable / sortable / searchable attributes
+    [type]: newData,
+  };
+};
+
 export default {
   // It's important to enable Navigation plugin first, before GraphQL
   navigation: {
@@ -31,44 +50,56 @@ export default {
       host: process.env.MEILISEARCH_HOST,
       apiKey: process.env.MEILISEARCH_ADMIN_API_KEY,
       page: {
+        indexName: "search_index",
         settings: {
-          filterableAttributes: ["locale"],
+          searchableAttributes: ["page.title"],
+          filterableAttributes: ["type", "locale"],
         },
+        transformEntry: ({ entry }) => wrapSearchIndexEntry("page", entry),
       },
       branch: {
+        indexName: "search_index",
         settings: {
-          filterableAttributes: ["locale"],
+          searchableAttributes: ["branch.title"],
+          filterableAttributes: ["type", "locale"],
         },
+        transformEntry: ({ entry }) => wrapSearchIndexEntry("branch", entry),
       },
       article: {
+        indexName: "search_index",
         settings: {
           filterableAttributes: [
-            "pressCategory.id",
-            "newsCategory.id",
+            "type",
             "locale",
+            "article.pressCategory",
+            "article.pressCategory.id",
+            "article.newsCategory",
+            "article.newsCategory.id",
           ],
-          searchableAttributes: ["title"],
-          sortableAttributes: ["publishedAtTimestamp"],
+          searchableAttributes: ["article.title"],
+          sortableAttributes: ["article.publishedAtTimestamp"],
           pagination: {
             // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
             maxTotalHits: 10000,
           },
         },
-        transformEntry({ entry }) {
-          return {
+        transformEntry: ({ entry }) =>
+          wrapSearchIndexEntry("article", {
             ...entry,
             // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
             // use (number) filters.
             publishedAtTimestamp: entry.publishedAt
               ? new Date(entry.publishedAt).getTime()
               : undefined,
-          };
-        },
+          }),
       },
       bundle: {
+        indexName: "search_index",
         settings: {
-          filterableAttributes: ["locale"],
+          searchableAttributes: ["bundle.title"],
+          filterableAttributes: ["type", "locale"],
         },
+        transformEntry: ({ entry }) => wrapSearchIndexEntry("bundle", entry),
       },
       debtor: {
         settings: {
@@ -103,25 +134,29 @@ export default {
         },
       },
       document: {
+        indexName: "search_index",
         settings: {
-          filterableAttributes: ["documentCategory.id", "file.ext"],
-          searchableAttributes: ["title"],
-          sortableAttributes: ["publishedAtTimestamp"],
+          filterableAttributes: [
+            "type",
+            "document.documentCategory.id",
+            "document.file.ext",
+          ],
+          searchableAttributes: ["document.title"],
+          sortableAttributes: ["document.publishedAtTimestamp"],
           pagination: {
             // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
             maxTotalHits: 10000,
           },
         },
-        transformEntry({ entry }) {
-          return {
+        transformEntry: ({ entry }) =>
+          wrapSearchIndexEntry("document", {
             ...entry,
             // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
             // use (number) filters.
             publishedAtTimestamp: entry.publishedAt
               ? new Date(entry.publishedAt).getTime()
               : undefined,
-          };
-        },
+          }),
       },
     },
   },
