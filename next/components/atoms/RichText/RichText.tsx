@@ -27,8 +27,11 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
         h4: ({ children }) => <h4 className="text-h4 font-bold">{children}</h4>,
         h5: ({ children }) => <h5 className="text-h5 font-bold">{children}</h5>,
         h6: ({ children }) => <h6 className="text-h6 font-bold">{children}</h6>,
-        // eslint-disable-next-line jsx-a11y/alt-text
         img: (props) => {
+          // Strapi inserts image in markdown like this: ![alt||caption](url)
+          // thank to patch located in patches/@strapi+admin+4.3.8.patch
+          // So here we are extracting alt and caption.
+          // If there is no || symbols then whole alt is used for both properties.
           const { alt: altAndCaption = '||' } = props
           const [alt, caption] = altAndCaption.includes('||')
             ? altAndCaption.split('||')
