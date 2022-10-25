@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+
 import {
   ArticleSlugEntityFragment,
   BranchSlugEntityFragment,
@@ -5,7 +7,7 @@ import {
   DocumentSlugEntityFragment,
   PageSlugEntityFragment,
 } from '../../../../graphql'
-import { ArticleMeili, BranchMeili } from '../../../../types/meiliTypes'
+import { ArticleMeili, BranchMeili, DocumentMeili } from '../../../../types/meiliTypes'
 import { isDefined } from '../../../../utils/isDefined'
 import { TNavigationContext } from './NavigationProvider'
 import { useNavigationContext } from './useNavigationContext'
@@ -33,6 +35,9 @@ type UnionEntityType =
   | null
   | undefined
 
+/**
+ * Returns the URL for Strapi returned entity.
+ */
 const getFullPath = (
   entity: UnionEntityType,
   navMap?: TNavigationContext['navMap'],
@@ -89,45 +94,82 @@ const getFullPath = (
 type getFullPathMeiliFn = (
   ...args:
     | ['article', ArticleMeili]
-    | ['branch', Pick<BranchMeili, 'type' | 'slug'>] /* | ['another', AnotherMeili] */
+    | ['branch', Pick<BranchMeili, 'type' | 'slug'>]
+    | ['document', Pick<DocumentMeili, 'slug'>]
+    | ['page', { slug: string }] // TODO: Specify type
+    | ['bundle', { slug: string }] // TODO: Specify type
 ) => string | null
 
-const getFullPathMeili: getFullPathMeiliFn = (entityType, entity) => {
-  const { slug } = entity
+/**
+ * Returns the URL for Meilisearch returned entity.
+ *
+ * There are three differences between entities returned by Strapi and Meilisearch:
+ * 1. In Meilisearch, `__typename` is missing.
+ * 2. In Meilisearch, entities are not nested in `attributes`..
+ * 3. In Meiliserach, the nested entities are nested directly, `article` vs `attributes.article.data.attributes`.
+ *
+ * Therefore, it's easier to duplicate the logic in a new function.
+ *
+ * @param navMap
+ */
+const getFullSlugMeiliFn = (navMap: TNavigationContext['navMap']) => {
+  return ((entityType, entity) => {
+    const { slug } = entity
 
-  if (entityType === 'article') {
-    // eslint-disable-next-line unicorn/consistent-destructuring
-    if (isDefined(entity.pressCategory)) {
-      return [localPaths.press, slug].join('/')
+    if (entityType === 'article') {
+      // eslint-disable-next-line unicorn/consistent-destructuring
+      if (isDefined(entity.pressCategory)) {
+        return [localPaths.press, slug].join('/')
+      }
+      // eslint-disable-next-line unicorn/consistent-destructuring
+      if (isDefined(entity.newsCategory)) {
+        return [localPaths.news, slug].join('/')
+      }
     }
-    // eslint-disable-next-line unicorn/consistent-destructuring
-    if (isDefined(entity.newsCategory)) {
-      return [localPaths.news, slug].join('/')
-    }
-  }
 
-  if (entityType === 'branch') {
-    if (entity.type === 'cintorin') {
-      return [localPaths.cemeteries, slug].join('/')
+    if (entityType === 'page') {
+      const path = navMap?.get(slug)?.path
+      return path ?? slug
     }
-    if (entity.type === 'pobocka') {
-      return [localPaths.contacts, slug].join('/')
-    }
-  }
 
-  return null
+    if (entityType === 'branch') {
+      if (entity.type === 'cintorin') {
+        return [localPaths.cemeteries, slug].join('/')
+      }
+      if (entity.type === 'pobocka') {
+        return [localPaths.contacts, slug].join('/')
+      }
+    }
+
+    if (entityType === 'bundle') {
+      return [localPaths.bundles, slug].join('/')
+    }
+
+    if (entityType === 'document') {
+      // TODO add .../dokumenty/legislativa depending on document category
+      return [localPaths.documents, slug].join('/')
+    }
+
+    return null
+  }) as getFullPathMeiliFn
 }
 
 export const useSlug = () => {
   const { navMap } = useNavigationContext()
 
-  const getFullSlug = (entity: UnionEntityType, explicitPathPrefix?: LocalRouteType) => {
-    return getFullPath(entity, navMap, explicitPathPrefix)
-  }
+  const getFullSlug = useMemo(
+    () => (entity: UnionEntityType, explicitPathPrefix?: LocalRouteType) =>
+      getFullPath(entity, navMap, explicitPathPrefix),
+    [navMap],
+  )
 
   return { getFullSlug }
 }
 
 export const useSlugMeili = () => {
-  return { getFullSlugMeili: getFullPathMeili }
+  const { navMap } = useNavigationContext()
+
+  const getFullSlugMeili = useMemo(() => getFullSlugMeiliFn(navMap), [navMap])
+
+  return { getFullSlugMeili }
 }
