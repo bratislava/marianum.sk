@@ -3,8 +3,10 @@ import { useMemo } from 'react'
 import {
   ArticleSlugEntityFragment,
   BranchSlugEntityFragment,
+  Bundle,
   BundleCardEntityFragment,
   DocumentSlugEntityFragment,
+  Page,
   PageSlugEntityFragment,
 } from '../../../../graphql'
 import { ArticleMeili, BranchMeili, DocumentMeili } from '../../../../types/meiliTypes'
@@ -103,8 +105,8 @@ type getFullPathMeiliFn = (
     | ['article', ArticleMeili]
     | ['branch', Pick<BranchMeili, 'type' | 'slug'>]
     | ['document', Pick<DocumentMeili, 'slug'>]
-    | ['page', { slug: string }] // TODO: Specify type
-    | ['bundle', { slug: string }] // TODO: Specify type
+    | ['page', Pick<Page, 'slug'>]
+    | ['bundle', Pick<Bundle, 'type' | 'slug'>]
 ) => string | null
 
 /**
@@ -120,6 +122,7 @@ type getFullPathMeiliFn = (
  * @param navMap
  */
 const getFullSlugMeiliFn = (navMap: TNavigationContext['navMap']) => {
+  // eslint-disable-next-line sonarjs/cognitive-complexity
   return ((entityType, entity) => {
     const { slug } = entity
 
@@ -149,7 +152,12 @@ const getFullSlugMeiliFn = (navMap: TNavigationContext['navMap']) => {
     }
 
     if (entityType === 'bundle') {
-      return [localPaths.bundles, slug].join('/')
+      if (entity.type === 'pochovanie') {
+        return [localPaths.bundlesBurial, slug].join('/')
+      }
+      if (entity.type === 'kremacia') {
+        return [localPaths.bundlesCremation, slug].join('/')
+      }
     }
 
     if (entityType === 'document') {
