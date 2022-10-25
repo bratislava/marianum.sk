@@ -17,6 +17,47 @@ const wrapSearchIndexEntry = (type: string, data: any) => {
   };
 };
 
+// Because a bug in Meilisearch shared index, only the last added entity's settings are used and the old ones are overwritten
+// instead of merging. Therefore, for all entities we must provide shared settings.
+const searchIndexSettings = {
+  searchableAttributes: [
+    // Page
+    "page.title",
+    // Branch
+    "branch.title",
+    // Article
+    "article.title",
+    // Bundle
+    "bundle.title",
+    // Document
+    "document.title",
+  ],
+  filterableAttributes: [
+    // All
+    "type",
+    // Page + branch + article + bundle
+    "locale",
+    // Article
+    "article.pressCategory",
+    "article.pressCategory.id",
+    "article.newsCategory",
+    "article.newsCategory.id",
+    // Document
+    "document.documentCategory.id",
+    "document.file.ext",
+  ],
+  sortableAttributes: [
+    // Article
+    "article.publishedAtTimestamp",
+    // Document
+    "document.publishedAtTimestamp",
+  ],
+  pagination: {
+    // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
+    maxTotalHits: 100000,
+  },
+};
+
 export default {
   // It's important to enable Navigation plugin first, before GraphQL
   navigation: {
@@ -54,10 +95,7 @@ export default {
         entriesQuery: {
           locale: "all",
         },
-        settings: {
-          searchableAttributes: ["page.title"],
-          filterableAttributes: ["type", "locale"],
-        },
+        settings: searchIndexSettings,
         transformEntry: ({ entry }) => wrapSearchIndexEntry("page", entry),
       },
       branch: {
@@ -65,10 +103,7 @@ export default {
         entriesQuery: {
           locale: "all",
         },
-        settings: {
-          searchableAttributes: ["branch.title"],
-          filterableAttributes: ["type", "locale"],
-        },
+        settings: searchIndexSettings,
         transformEntry: ({ entry }) => wrapSearchIndexEntry("branch", entry),
       },
       article: {
@@ -76,22 +111,7 @@ export default {
         entriesQuery: {
           locale: "all",
         },
-        settings: {
-          filterableAttributes: [
-            "type",
-            "locale",
-            "article.pressCategory",
-            "article.pressCategory.id",
-            "article.newsCategory",
-            "article.newsCategory.id",
-          ],
-          searchableAttributes: ["article.title"],
-          sortableAttributes: ["article.publishedAtTimestamp"],
-          pagination: {
-            // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
-            maxTotalHits: 10000,
-          },
-        },
+        settings: searchIndexSettings,
         transformEntry: ({ entry }) =>
           wrapSearchIndexEntry("article", {
             ...entry,
@@ -107,10 +127,7 @@ export default {
         entriesQuery: {
           locale: "all",
         },
-        settings: {
-          searchableAttributes: ["bundle.title"],
-          filterableAttributes: ["type", "locale"],
-        },
+        settings: searchIndexSettings,
         transformEntry: ({ entry }) => wrapSearchIndexEntry("bundle", entry),
       },
       debtor: {
@@ -150,19 +167,7 @@ export default {
         entriesQuery: {
           locale: "all",
         },
-        settings: {
-          filterableAttributes: [
-            "type",
-            "document.documentCategory.id",
-            "document.file.ext",
-          ],
-          searchableAttributes: ["document.title"],
-          sortableAttributes: ["document.publishedAtTimestamp"],
-          pagination: {
-            // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
-            maxTotalHits: 10000,
-          },
-        },
+        settings: searchIndexSettings,
         transformEntry: ({ entry }) =>
           wrapSearchIndexEntry("document", {
             ...entry,
