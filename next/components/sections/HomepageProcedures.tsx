@@ -1,11 +1,11 @@
 import cx from 'classnames'
 import { useMemo } from 'react'
+import { Item } from 'react-stately'
 
 import { CtaButtonFragment, ProcedureFragment } from '../../graphql'
 import { useTailwindBreakpoint } from '../../hooks/useTailwindBreakpoint'
 import { isDefined } from '../../utils/isDefined'
 import MLink from '../atoms/MLink'
-import Tab from '../atoms/Tabs/Tab'
 import Tabs from '../atoms/Tabs/Tabs'
 import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Section, { SectionProps } from '../molecules/Section'
@@ -40,7 +40,7 @@ const HomepageProcedures = ({
         <h2 className="pb-5 md:pb-10">{title}</h2>
         <Tabs>
           {slicedProcedures.map((procedure) => (
-            <Tab key={procedure?.title} label={procedure?.title ?? ''}>
+            <Item key={procedure?.title} title={procedure?.title ?? ''}>
               <div
                 className={cx('flex', {
                   'w-full gap-4 overflow-x-auto': isMobile,
@@ -72,7 +72,7 @@ const HomepageProcedures = ({
                   ),
                 )}
               </div>
-            </Tab>
+            </Item>
           ))}
         </Tabs>
         {showMoreSlug && (

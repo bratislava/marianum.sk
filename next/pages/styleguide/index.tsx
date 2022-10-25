@@ -5,6 +5,7 @@ import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ReactNode, useMemo, useState } from 'react'
+import { Item } from 'react-stately'
 
 import AddIcon from '../../assets/add.svg'
 import ArrowRightIcon from '../../assets/arrow_forward.svg'
@@ -25,7 +26,6 @@ import RadioSimpleGroup from '../../components/atoms/Radio/RadioSimpleGroup'
 import ReviewStars from '../../components/atoms/ReviewStars'
 import RichText from '../../components/atoms/RichText/RichText'
 import Select from '../../components/atoms/Select'
-import Tab from '../../components/atoms/Tabs/Tab'
 import Tabs from '../../components/atoms/Tabs/Tabs'
 import Tag from '../../components/atoms/Tag'
 import TagToggle from '../../components/atoms/TagToggle'
@@ -825,20 +825,20 @@ const Showcase = () => {
           <Wrapper title="Tabs">
             <Stack width="full">
               <Tabs>
-                <Tab label="Mimo zdravotníckeho zariadenia (domov, DSS)">
+                <Item key="1" title="Mimo zdravotníckeho zariadenia (domov, DSS)">
                   <div className="p-4">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat velit, incidunt
                     iste excepturi, minus blanditiis saepe repellendus, adipisci eveniet explicabo
                     temporibus repellat minima nemo ipsam maxime tenetur reprehenderit et quae.
                   </div>
-                </Tab>
-                <Tab label="V zdravotníckom zariadení">
+                </Item>
+                <Item key="2" title="V zdravotníckom zariadení">
                   <div className="p-4">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure voluptatum
                     inventore at optio reiciendis quasi laborum sed nemo quos! Vel distinctio
                     incidunt blanditiis repellat reiciendis ut impedit optio cupiditate ex.
                   </div>
-                </Tab>
+                </Item>
               </Tabs>
             </Stack>
           </Wrapper>
@@ -1171,8 +1171,9 @@ const Showcase = () => {
           <Wrapper title="Section coloring">
             <Stack direction="row">
               {dummySectionWrappers.map(
-                ({ alternateBackground, startBackground, background, count }) => (
-                  <div className="p-4">
+                ({ alternateBackground, startBackground, background, count }, i) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <div key={i} className="p-4">
                     <div className="p-4">
                       <div className="flex w-full justify-between gap-4">
                         <div className="font-semibold">alternateBackground</div>
@@ -1196,9 +1197,9 @@ const Showcase = () => {
                       startBackground={startBackground}
                       background={background}
                     >
-                      {Array.from({ length: count }, (item, index) => (
-                        <Section key={index}>
-                          <div className="p-4">Section {index + 1}</div>
+                      {Array.from({ length: count }, (item, j) => (
+                        <Section key={j}>
+                          <div className="p-4">Section {j + 1}</div>
                         </Section>
                       ))}
                     </SectionsWrapper>

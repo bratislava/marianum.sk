@@ -1,11 +1,11 @@
 import { useTranslation } from 'next-i18next'
+import { Item } from 'react-stately'
 import slugify from 'slugify'
 import useSWR from 'swr'
 
 import { getProceduresSwrKey, proceduresFetcher } from '../../utils/fetchers/proceduresFetcher'
 import { isDefined } from '../../utils/isDefined'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
-import Tab from '../atoms/Tabs/Tab'
 import Tabs from '../atoms/Tabs/Tabs'
 import Checklist from './Checklist/Checklist'
 import ChecklistSkeleton from './Checklist/ChecklistSkeleton'
@@ -56,7 +56,7 @@ const ProcedureTabs = () => {
   return (
     <Tabs>
       {procedures.map((procedure) => (
-        <Tab key={procedure?.title} label={procedure?.title ?? ''}>
+        <Item key={procedure?.title} title={procedure?.title ?? ''}>
           <div>
             <Checklist
               items={
@@ -69,7 +69,7 @@ const ProcedureTabs = () => {
               downloadFile={procedure?.downloadFile?.data}
             />
           </div>
-        </Tab>
+        </Item>
       ))}
     </Tabs>
   )
