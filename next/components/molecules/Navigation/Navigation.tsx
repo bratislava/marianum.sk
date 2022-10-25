@@ -90,7 +90,7 @@ const Navigation = ({ contact }: NavigationProps) => {
             {/* mobile menu button */}
             <IconButton
               aria-label="navigačné menu"
-              onPress={() => setMobileNavOpen(true)}
+              onPressEnd={() => setMobileNavOpen(true)}
               variant="primary"
               className="lg:hidden"
             >
