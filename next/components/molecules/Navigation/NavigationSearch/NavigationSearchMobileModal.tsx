@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'
 import { AriaOverlayProps, FocusScope, OverlayContainer, useModal, useOverlay } from 'react-aria'
 
-import { MeilisearchResultType } from '../../../../utils/types'
+import { SearchData } from '../../../../hooks/useSearch'
 import { AnimateHeight } from '../../../atoms/AnimateHeight'
 import Button from '../../../atoms/Button'
 import Search from '../../Search'
@@ -12,13 +12,23 @@ import NavigationSearchResults from './NavigationSearchResults'
 type NavigationSearchMobileModalProps = {
   searchQuery: string
   onSearchQueryChange: (query: string) => void
-  results: MeilisearchResultType<string>[]
+  data: SearchData | undefined | null
+  emptySearchQuery: boolean
   isLoading: boolean
   onSearch: () => void
 } & AriaOverlayProps
 
 const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) => {
-  const { isOpen, onClose, searchQuery, onSearchQueryChange, results, isLoading, onSearch } = props
+  const {
+    isOpen,
+    onClose,
+    searchQuery,
+    onSearchQueryChange,
+    data,
+    isLoading,
+    emptySearchQuery,
+    onSearch,
+  } = props
   const { t } = useTranslation('common', {
     keyPrefix: 'components.molecules.Navigation.NavigationSearch',
   })
@@ -64,11 +74,14 @@ const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) =>
                   </Button>
                 </div>
                 <AnimateHeight className="bg-white" isVisible>
-                  <NavigationSearchResults
-                    results={results}
-                    isLoading={isLoading}
-                    searchQuery={searchQuery}
-                  />
+                  {emptySearchQuery ? null : (
+                    <NavigationSearchResults
+                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                      data={data!}
+                      isLoading={isLoading}
+                      searchQuery={searchQuery}
+                    />
+                  )}
                 </AnimateHeight>
               </div>
             </FocusScope>
