@@ -95,7 +95,11 @@ const SearchSection = () => {
               {t('tags.allResults')}
             </TagToggle>
             {allSearchTypes.map((type) => (
-              <TagToggle isSelected={isTypeSelected(type)} onChange={changeTypeSelected(type)}>
+              <TagToggle
+                isSelected={isTypeSelected(type)}
+                onChange={changeTypeSelected(type)}
+                key={type}
+              >
                 {/* TODO */}
                 {t(`tags.${type}`)}
               </TagToggle>
