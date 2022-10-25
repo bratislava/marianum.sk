@@ -33,7 +33,8 @@ const Documents = ({
   data: SearchResponse<DocumentMeili>
   filters: DocumentsSectionFilters
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common', { keyPrefix: 'DocumentsSection' })
+
   const documentsRef = useRef<HTMLDivElement>(null)
   useScrollToViewIfDataChange(data, filters, documentsRef)
 
@@ -63,7 +64,7 @@ const Documents = ({
                 target="_blank"
                 href={document.file?.url ?? ''}
               >
-                {t('layouts.DocumentLayout.downloadFile')}
+                {t('download')}
               </Button>
             }
             border={false}
@@ -72,7 +73,7 @@ const Documents = ({
       </div>
     )
   }
-  return <strong>{t('components.DocumentsSection.noDocuments')}</strong>
+  return <strong>{t('noDocuments')}</strong>
 }
 
 const DataWrapper = ({

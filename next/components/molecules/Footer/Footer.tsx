@@ -18,7 +18,7 @@ export type FooterProps = {
 }
 
 const Footer = ({ contact, footer, socials }: FooterProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'components.molecules.Footer' })
+  const { t } = useTranslation('common', { keyPrefix: 'Footer' })
   const { getFullSlug } = useSlug()
 
   const { phone1, email } = contact?.contact?.data?.attributes ?? {}

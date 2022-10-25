@@ -31,10 +31,11 @@ const HeroSection = ({
   price,
   moreContent,
 }: HeroSectionProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common', { keyPrefix: 'HeroSection' })
+  const router = useRouter()
+
   const { navMap } = useNavigationContext()
   const { getFullSlug } = useSlug()
-  const router = useRouter()
 
   const ctaSlug = getFullSlug(ctaButton?.page?.data)
 
@@ -70,7 +71,7 @@ const HeroSection = ({
           )}
           {price && (
             <div className="mt-6">
-              <div>{t('sections.HeroSection.priceFrom')}</div>
+              <div>{t('priceFrom')}</div>
               <div className="mt-1 text-h4 font-bold text-white">
                 <FormatCurrency value={price} />
               </div>

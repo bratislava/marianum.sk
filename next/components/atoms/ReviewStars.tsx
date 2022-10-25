@@ -47,7 +47,7 @@ type ReviewStarsProps = {
 }
 
 const ReviewStars = ({ value }: ReviewStarsProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'components.atoms.ReviewStars' })
+  const { t } = useTranslation('common', { keyPrefix: 'ReviewStars' })
 
   return (
     <>

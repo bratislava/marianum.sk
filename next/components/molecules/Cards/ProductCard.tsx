@@ -33,6 +33,7 @@ const ProductCard = ({
 }: ProductCardProps) => {
   const router = useRouter()
   const { t } = useTranslation()
+
   const buttonHoverRef = useRef<HTMLButtonElement>(null)
   const isButtonHovered = useHover(buttonHoverRef)
 
@@ -72,7 +73,7 @@ const ProductCard = ({
             onPress={() => onAddToCartPress()}
             ref={buttonHoverRef}
           >
-            {t('general.addToCart')}
+            {t('ProductCard.addToCart')}
           </Button>
         )}
       </CardContent>

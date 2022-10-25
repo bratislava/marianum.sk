@@ -54,7 +54,7 @@ const ServiceCard = ({ image, title, subtitle, linkHref, ...rest }: ServiceCardP
             className="inline-block"
             onClick={handleLinkClick}
           >
-            {t('general.showMore')}
+            {t('Cards.showMore')}
           </MLink>
         </div>
       </CardContent>

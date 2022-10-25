@@ -50,7 +50,7 @@ const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
             className="inline-block"
             startIcon={<OpenInNewIcon />}
           >
-            {t('general.showMore')}
+            {t('Cards.showMore')}
           </Button>
         </div>
       </CardContent>

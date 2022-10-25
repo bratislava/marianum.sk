@@ -19,7 +19,8 @@ type PaginationProps = {
  * as implemented in @mui/material.
  */
 const Pagination = ({ count, selectedPage, className, onChange = () => {} }: PaginationProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'components.atoms.Pagination' })
+  const { t } = useTranslation('common', { keyPrefix: 'Pagination' })
+
   const { items } = usePagination({
     count,
     page: selectedPage,
@@ -29,6 +30,7 @@ const Pagination = ({ count, selectedPage, className, onChange = () => {} }: Pag
       onChange(value)
     },
   })
+
   return (
     <nav className={className}>
       <ul className="flex flex-wrap items-center gap-1">
@@ -46,7 +48,7 @@ const Pagination = ({ count, selectedPage, className, onChange = () => {} }: Pag
                   disabled={disabled}
                   onPress={onPress}
                   aria-current={ariaCurrent}
-                  aria-label={t('goToPage', { page })}
+                  aria-label={t('aria.goToPage', { page })}
                 >
                   {page}
                 </IconButton>
@@ -56,11 +58,11 @@ const Pagination = ({ count, selectedPage, className, onChange = () => {} }: Pag
               let ariaLabel = ''
               if (type === 'previous') {
                 icon = <ArrowLeftIcon />
-                ariaLabel = t('goToPreviousPage', { page })
+                ariaLabel = t('aria.goToPreviousPage', { page })
               }
               if (type === 'next') {
                 icon = <ArrowRightIcon />
-                ariaLabel = t('goToNextPage', { page })
+                ariaLabel = t('aria.goToNextPage', { page })
               }
 
               children = (

@@ -10,7 +10,7 @@ import { cookieConsentContext } from './CookieConsent'
 import IconButton from './IconButton'
 
 const CookieBanner = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common', { keyPrefix: 'CookieConsent' })
 
   const { onOpenModal, isBannerOpen, isModalOpen, onAcceptAll, onRejectAll, onCloseBanner } =
     useContext(cookieConsentContext)
@@ -29,44 +29,44 @@ const CookieBanner = () => {
             <div className="relative flex w-full flex-col justify-between gap-8 border border-border bg-white shadow">
               <div className="flex flex-col gap-4">
                 <div className="flex justify-between gap-2 pr-6 pt-6">
-                  <span className="pl-8 text-h3 font-bold">{t('cookieConsent.banner.title')}</span>
+                  <span className="pl-8 text-h3 font-bold">{t('banner.title')}</span>
                   <IconButton
-                    aria-label={t('cookieConsent.banner.dismiss')}
+                    aria-label={t('aria.dismissCookieBanner')}
                     className="shrink-0"
                     onPress={onCloseBanner}
                   >
                     <XIcon />
                   </IconButton>
                 </div>
-                <p className="flex-1 px-8">{t('cookieConsent.banner.description')}</p>
+                <p className="flex-1 px-8">{t('banner.description')}</p>
               </div>
               <div className="flex w-full flex-col gap-4 px-8 pb-8 sm:flex-row md:w-fit">
                 <Button
-                  aria-label={t('cookieConsent.banner.acceptAllCookies')}
+                  aria-label={t('aria.acceptAllCookies')}
                   className="w-full whitespace-nowrap"
                   variant="primary"
                   onPress={onAcceptAll}
                   startIcon={<CheckIcon />}
                 >
-                  {t('cookieConsent.banner.acceptAll')}
+                  {t('acceptAll')}
                 </Button>
                 <Button
                   className="w-full whitespace-nowrap"
-                  aria-label={t('cookieConsent.banner.rejectAllCookies')}
+                  aria-label={t('aria.rejectAllCookies')}
                   variant="secondary"
                   onPress={onRejectAll}
                   startIcon={<XIcon />}
                 >
-                  {t('cookieConsent.banner.rejectAll')}
+                  {t('rejectAll')}
                 </Button>
                 <Button
                   className="w-full whitespace-nowrap"
-                  aria-label={t('cookieConsent.banner.openCookieSettings')}
+                  aria-label={t('aria.openCookieSettings')}
                   variant="secondary"
                   onPress={onOpenModal}
                   startIcon={<InfoIcon />}
                 >
-                  {t('cookieConsent.banner.settings')}
+                  {t('settings')}
                 </Button>
               </div>
             </div>

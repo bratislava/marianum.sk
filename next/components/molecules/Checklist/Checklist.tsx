@@ -85,7 +85,7 @@ export type ChecklistProps = {
 }
 
 const Checklist = ({ items, downloadFile }: ChecklistProps) => {
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation('common', { keyPrefix: 'Checklist' })
 
   // generate id from titles
   const checklistId = useMemo(() => {
@@ -184,14 +184,15 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
                             startIcon={<DownloadIcon />}
                             target="_blank"
                             href={downloadFile.attributes.url}
-                            aria-label={`${t('components.molecules.Checklist.download')} ${
+                            // TODO use hook for filesize
+                            aria-label={`${t('aria.download')} ${
                               downloadFile.attributes.name
                             } ${filesize(downloadFile.attributes.size * 1000, {
                               round: 1,
                               locale: i18n.language,
                             })}`}
                           >
-                            {t('components.molecules.Checklist.download')}
+                            {t('download')}
                           </Button>
                           {/* we can only print pdf files */}
                           {downloadFile.attributes.ext === '.pdf' && (
@@ -200,7 +201,7 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
                               variant="secondary"
                               onPress={handlePrint}
                             >
-                              {t('components.molecules.Checklist.print')}
+                              {t('print')}
                             </Button>
                           )}
                         </div>
@@ -212,9 +213,9 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
                           onPress={() => uncompleteItemHandler(key)}
                           variant="secondary"
                           startIcon={<XIcon />}
-                          aria-label={t('components.molecules.Checklist.aria.markAsUncomplete')}
+                          aria-label={t('aria.markAsUncomplete')}
                         >
-                          {t('components.molecules.Checklist.markAsUncomplete')}
+                          {t('markAsUncomplete')}
                         </Button>
                       </div>
                     ) : (
@@ -223,16 +224,16 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
                         <Button
                           onPress={() => completeItemHandler(key)}
                           startIcon={<CheckCircleIcon />}
-                          aria-label={t('components.molecules.Checklist.aria.markAsComplete')}
+                          aria-label={t('aria.markAsComplete')}
                         >
-                          {t('components.molecules.Checklist.markAsComplete')}
+                          {t('markAsComplete')}
                         </Button>
                         <Button
                           onPress={() => openNextItemHandler(key)}
                           variant="secondary"
-                          aria-label={t('components.molecules.Checklist.aria.skip')}
+                          aria-label={t('aria.skip')}
                         >
-                          {t('components.molecules.Checklist.skip')}
+                          {t('skip')}
                         </Button>
                       </div>
                     )
