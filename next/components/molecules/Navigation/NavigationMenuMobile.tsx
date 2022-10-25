@@ -113,7 +113,12 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
   }, [rootItem, onClose])
 
   return (
-    <Modal showCloseButton={false} isOpen={isOpen} onClose={closeHandler}>
+    <Modal
+      overlayClassName="!w-full"
+      showCloseButton={false}
+      isOpen={isOpen}
+      onClose={closeHandler}
+    >
       <div className="fixed top-0 h-full w-full bg-white">
         {/* header */}
         <div className="flex h-16 items-center justify-between border-b border-border px-4">

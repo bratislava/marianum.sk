@@ -1,7 +1,6 @@
 import cx from 'classnames'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Document, Page, pdfjs } from 'react-pdf'
-import { useResizeDetector } from 'react-resize-detector'
 
 import Spinner from './Spinner'
 
@@ -19,30 +18,18 @@ const PDFViewer = ({ url, className }: PDFViewerProps) => {
     setNumPages(nextNumPages)
   }
 
-  const { ref: containerRef, width: containerWidth } = useResizeDetector()
-
-  const width = useMemo(() => {
-    return Math.min(containerWidth ?? 0, 600)
-  }, [containerWidth])
-
   return (
-    <div ref={containerRef} className="h-full w-full overflow-y-auto overflow-x-hidden">
+    <div className="w-full">
       <Document
-        className={cx(
-          'flex min-h-full w-full flex-col items-center justify-center gap-10',
-          className,
-        )}
+        className={cx('flex flex-col items-center justify-center gap-10', className)}
         file={url}
         onLoadSuccess={onDocumentLoadSuccess}
-        loading={() => (
-          <div className="flex h-full w-full items-center justify-center">
-            <Spinner className="h-8 w-8" />
-          </div>
-        )}
+        loading={() => <Spinner className="h-8 w-8" />}
       >
         {Array.from({ length: numPages }, (_, index) => (
           <Page
-            width={width}
+            className="full-width-canvas-page"
+            width={600}
             key={`page_${index + 1}`}
             pageNumber={index + 1}
             renderAnnotationLayer={false}

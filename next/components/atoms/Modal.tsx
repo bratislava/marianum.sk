@@ -1,3 +1,4 @@
+import cx from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ReactNode, useRef } from 'react'
 import {
@@ -13,12 +14,30 @@ import { useIsClient } from 'usehooks-ts'
 import Close from '../../assets/close.svg'
 import IconButton from './IconButton'
 
-export type ModalProps = { children: ReactNode; showCloseButton?: boolean } & AriaOverlayProps
+export type ModalProps = {
+  children: ReactNode
+  showCloseButton?: boolean
+  underlayClassName?: string
+  overlayClassName?: string
+  centerVertically?: boolean
+} & AriaOverlayProps
 
 const Modal = (props: ModalProps) => {
-  const { isOpen, onClose, children, showCloseButton = true } = props
+  const {
+    isOpen,
+    onClose,
+    children,
+    isDismissable,
+    underlayClassName,
+    overlayClassName,
+    showCloseButton = true,
+    centerVertically = true,
+  } = props
   const ref = useRef<HTMLDivElement | null>(null)
-  const { overlayProps, underlayProps } = useOverlay(props, ref)
+  const { overlayProps, underlayProps } = useOverlay(
+    { ...props, isDismissable: isDismissable === undefined ? true : isDismissable },
+    ref,
+  )
   usePreventScroll({ isDisabled: !isOpen })
   const { modalProps } = useModal()
 
@@ -29,30 +48,39 @@ const Modal = (props: ModalProps) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            className="relative z-50"
             transition={{ duration: 0.2 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            <div {...underlayProps} className="fixed inset-0 z-50 flex bg-black/40">
-              <div
-                className="pointer-events-none flex w-full items-center"
-                {...overlayProps}
-                {...modalProps}
-                ref={ref}
-              >
-                <FocusScope contain restoreFocus autoFocus>
-                  {showCloseButton && (
-                    <IconButton
-                      variant="white"
-                      className="pointer-events-auto fixed top-6 right-6 z-30"
-                      onPress={onClose}
-                    >
-                      <Close />
-                    </IconButton>
-                  )}
-                  <div className="pointer-events-auto h-full w-full">{children}</div>
-                </FocusScope>
-              </div>
+            <div
+              {...underlayProps}
+              className={cx(
+                'fixed inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black/40',
+                underlayClassName,
+              )}
+            >
+              <FocusScope contain restoreFocus autoFocus>
+                <div className={cx({ 'flex min-h-full items-center': centerVertically })}>
+                  <div
+                    className={cx('mx-auto flex w-fit items-center', overlayClassName)}
+                    {...overlayProps}
+                    {...modalProps}
+                    ref={ref}
+                  >
+                    {showCloseButton && (
+                      <IconButton
+                        variant="white"
+                        className="fixed top-6 right-6 z-30"
+                        onPress={onClose}
+                      >
+                        <Close />
+                      </IconButton>
+                    )}
+                    {children}
+                  </div>
+                </div>
+              </FocusScope>
             </div>
           </motion.div>
         )}

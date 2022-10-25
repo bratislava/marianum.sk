@@ -7,8 +7,8 @@ type PDFModalViewerProps = {
 
 const PDFModalViewer = ({ url, ...rest }: PDFModalViewerProps) => {
   return (
-    <Modal {...rest}>
-      <PDFViewer className="py-16 px-8" url={url} />
+    <Modal overlayClassName="max-w-[600px]" underlayClassName="py-16" {...rest}>
+      <PDFViewer url={url} />
     </Modal>
   )
 }
