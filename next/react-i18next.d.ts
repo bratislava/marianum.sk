@@ -1,4 +1,3 @@
-// Static typing is h
 import skCommonNamespace from './public/locales/sk/common.json'
 
 declare module 'react-i18next' {
