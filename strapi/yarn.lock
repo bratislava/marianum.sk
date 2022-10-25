@@ -2314,7 +2314,7 @@
     prettier "2.7.1"
     typescript "4.6.2"
 
-"@strapi/utils@4.3.8", "@strapi/utils@^4.2.3":
+"@strapi/utils@4.3.8":
   version "4.3.8"
   resolved "https://registry.yarnpkg.com/@strapi/utils/-/utils-4.3.8.tgz#10212a2deba66be85aabc3214f9ed5eb945cfed5"
   integrity sha512-Ckgd3B+gOLRXyuAt2hFiXQQ7nay5UtsqAcy8On25gvsidz+5LK70k+afXG9A02Hg6pNeNU3goU/Ah3gpRho7fg==
@@ -2332,6 +2332,17 @@
   dependencies:
     "@sindresorhus/slugify" "1.1.0"
     date-fns "2.28.0"
+    http-errors "1.8.1"
+    lodash "4.17.21"
+    yup "0.32.9"
+
+"@strapi/utils@^4.4.3":
+  version "4.4.5"
+  resolved "https://registry.yarnpkg.com/@strapi/utils/-/utils-4.4.5.tgz#3ca8f7c49b9f96a72f12011e63206886db4819e0"
+  integrity sha512-JloHkrDJgn0ddIwI3HSMFxgDe/fD6m+khq8XIrN8ixOxJSYS5jlWysGQleSdbjzp4s3ADHIL+ovAeBuIiwd3Rw==
+  dependencies:
+    "@sindresorhus/slugify" "1.1.0"
+    date-fns "2.29.2"
     http-errors "1.8.1"
     lodash "4.17.21"
     yup "0.32.9"
@@ -7835,10 +7846,10 @@ media-typer@0.3.0:
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
   integrity sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==
 
-meilisearch@^0.27.0:
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.27.0.tgz#8bd57ddb77b975f93e054cb977b951c488ece297"
-  integrity sha512-kZOZFIuSO7c6xRf+Y2/9/h6A9pl0sCl/G44X4KuaSwxGbruOZPhmxbeVEgLHBv4pUFvQ56rNVTA/2d/5GCU1YA==
+meilisearch@^0.28.0:
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/meilisearch/-/meilisearch-0.28.0.tgz#650f08a56ef0a989a41d13233f7a744cfa7f54df"
+  integrity sha512-zC50xLyPWBtfAIZiFTSJyYJp/a5bO+dSSigBKUEoShFkuv9+/KC4J3T3ZejNVHXG2DU0ohOMf8TZ3HAHXNd3EA==
   dependencies:
     cross-fetch "^3.1.5"
 
@@ -10452,12 +10463,13 @@ std-env@^3.0.1:
   resolved "https://registry.yarnpkg.com/std-env/-/std-env-3.1.1.tgz#1f19c4d3f6278c52efd08a94574a2a8d32b7d092"
   integrity sha512-/c645XdExBypL01TpFKiG/3RAa/Qmu+zRi0MwAmrdEkwHNuN0ebo8ccAXBBDa5Z0QOJgBskUIbuCK91x0sCVEw==
 
-"strapi-plugin-meilisearch@https://github.com/bratislava/strapi-plugin-meilisearch.git":
-  version "0.7.1"
-  resolved "https://github.com/bratislava/strapi-plugin-meilisearch.git#6ca8a2a8542a9d50c3c1762861bd91bfb6726f00"
+strapi-plugin-meilisearch@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-meilisearch/-/strapi-plugin-meilisearch-0.8.0.tgz#7cd252b77ffed1ccbe95e9028b1ff3765d4f03e9"
+  integrity sha512-UeCPMmhU1zPe3YxW5+eYhgPNXvnGXB+i8MdWFh5oM5uTL4LsqPGb+vbXVEJWofeRgXv1CE19ZogsgXil+goexw==
   dependencies:
-    "@strapi/utils" "^4.2.3"
-    meilisearch "^0.27.0"
+    "@strapi/utils" "^4.4.3"
+    meilisearch "^0.28.0"
 
 strapi-plugin-navigation@^2.2.1:
   version "2.2.1"

@@ -51,6 +51,9 @@ export default {
       apiKey: process.env.MEILISEARCH_ADMIN_API_KEY,
       page: {
         indexName: "search_index",
+        entriesQuery: {
+          locale: "all",
+        },
         settings: {
           searchableAttributes: ["page.title"],
           filterableAttributes: ["type", "locale"],
@@ -59,6 +62,9 @@ export default {
       },
       branch: {
         indexName: "search_index",
+        entriesQuery: {
+          locale: "all",
+        },
         settings: {
           searchableAttributes: ["branch.title"],
           filterableAttributes: ["type", "locale"],
@@ -67,6 +73,9 @@ export default {
       },
       article: {
         indexName: "search_index",
+        entriesQuery: {
+          locale: "all",
+        },
         settings: {
           filterableAttributes: [
             "type",
@@ -95,6 +104,9 @@ export default {
       },
       bundle: {
         indexName: "search_index",
+        entriesQuery: {
+          locale: "all",
+        },
         settings: {
           searchableAttributes: ["bundle.title"],
           filterableAttributes: ["type", "locale"],
@@ -135,6 +147,9 @@ export default {
       },
       document: {
         indexName: "search_index",
+        entriesQuery: {
+          locale: "all",
+        },
         settings: {
           filterableAttributes: [
             "type",
