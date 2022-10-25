@@ -26,26 +26,26 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
   const { isMD } = useTailwindBreakpoint()
   const isMobile = useMemo(() => !isMD, [isMD])
 
-  if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
-    return (
-      <Section title={title} {...rest} cardGrid="cards" button={showMoreButton}>
-        {filteredPages?.map((page, index) => {
-          const { id, attributes } = page ?? {}
-          const { title: cardTitle, coverMedia, perex } = attributes ?? {}
-          const fullPath = getFullSlug(page) ?? ''
+  return (
+    <Section title={title} {...rest} cardGrid="cards" button={showMoreButton}>
+      {filteredPages?.map((page, index) => {
+        const { id, attributes } = page ?? {}
+        const { title: cardTitle, coverMedia, perex } = attributes ?? {}
+        const fullPath = getFullSlug(page) ?? ''
 
-          if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
-            return (
-              <CategoryCard
-                // eslint-disable-next-line react/no-array-index-key, @typescript-eslint/restrict-template-expressions
-                key={`${id}-${index}`}
-                title={cardTitle ?? ''}
-                linkHref={fullPath}
-                border
-              />
-            )
-          }
+        if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
+          return (
+            <CategoryCard
+              // eslint-disable-next-line react/no-array-index-key, @typescript-eslint/restrict-template-expressions
+              key={`${id}-${index}`}
+              title={cardTitle ?? ''}
+              linkHref={fullPath}
+              border
+            />
+          )
+        }
 
+        if (style === Enum_Componentsectionsmanuallisting_Style.Service) {
           return (
             <ServiceCard
               // eslint-disable-next-line react/no-array-index-key, @typescript-eslint/restrict-template-expressions
@@ -60,10 +60,12 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
               subtitle={perex}
             />
           )
-        })}
-      </Section>
-    )
-  }
+        }
+
+        return null
+      })}
+    </Section>
+  )
 
   return null
 }

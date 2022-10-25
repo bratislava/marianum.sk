@@ -13,11 +13,13 @@ import { TNavigationContext } from './NavigationProvider'
 import { useNavigationContext } from './useNavigationContext'
 
 // TODO move this to separate file and add translation logic
+// IMPORTANT: Keep this in sync with next config rewrites
 const localPaths = {
   contacts: '/o-nas/kontakty',
   news: '/aktuality/novinky',
   press: '/o-nas/pre-media',
-  bundles: '/sluzby/pohrebna-sluzba/balicky-pohrebov',
+  bundlesBurial: '/sluzby/balicky-pohrebov/pochovanie-do-zeme',
+  bundlesCremation: '/sluzby/balicky-pohrebov/kremacia',
   cemeteries: '/o-nas/cintoriny-v-sprave',
   documents: '/o-nas/dokumenty',
   legislative: '/o-nas/dokumenty/legislativa',
@@ -79,7 +81,12 @@ const getFullPath = (
   }
 
   if (entity.__typename === 'BundleEntity') {
-    return [localPaths.bundles, slug].join('/')
+    if (entity.attributes.type === 'pochovanie') {
+      return [localPaths.bundlesBurial, slug].join('/')
+    }
+    if (entity.attributes.type === 'kremacia') {
+      return [localPaths.bundlesCremation, slug].join('/')
+    }
   }
 
   if (entity.__typename === 'DocumentEntity') {

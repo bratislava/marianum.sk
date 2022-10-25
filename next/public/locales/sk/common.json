@@ -3,7 +3,6 @@
     "from": "od",
     "siteName": "Marianum - Pohrebníctvo mesta Bratislavy",
     "showMore": "Zobraziť viac",
-    "goToSlide": "Ísť na slide {{number}}",
     "disclosureOfInformation": "Zverejňovanie informácií",
     "openingHours": "Otváracie hodiny",
     "addToCart": "Pridať do košíka",
@@ -114,6 +113,12 @@
     }
   },
   "sections": {
+    "HomepageSlider": {
+      "aria": {
+        "heading": "Posúvač na úvodnej stránke",
+        "goToSlide": "Ísť na slide {{number}}"
+      }
+    },
     "HeroSection": {
       "priceFrom": "Cena od",
       "bundleContent": "Obsah balíčka",

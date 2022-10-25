@@ -35,12 +35,22 @@ const SideBar = ({ sidebar }: SideBarProps) => {
             <div className="flex flex-col items-center">
               <div className="mt-4">{t('or')}</div>
               {phone1 && (
-                <Button variant="plain-primary" startIcon={<PhoneIcon />} className="mt-4">
+                <Button
+                  variant="plain-primary"
+                  href={`tel:${phone1}`}
+                  startIcon={<PhoneIcon />}
+                  className="mt-4"
+                >
                   {phone1}
                 </Button>
               )}
               {email && (
-                <Button variant="plain-primary" startIcon={<MailIcon />} className="mt-2">
+                <Button
+                  variant="plain-primary"
+                  href={`mailto:${email}`}
+                  startIcon={<MailIcon />}
+                  className="mt-2"
+                >
                   {email}
                 </Button>
               )}
@@ -51,19 +61,34 @@ const SideBar = ({ sidebar }: SideBarProps) => {
         contact?.data?.attributes && (
           <>
             {phone1 && (
-              <Button variant="primary" startIcon={<PhoneIcon />} className="mt-6">
+              <Button
+                variant="primary"
+                href={`tel:${phone1}`}
+                startIcon={<PhoneIcon />}
+                className="mt-6"
+              >
                 {phone1}
               </Button>
             )}
             {phone2 && (
-              <Button variant="tertiary" startIcon={<PhoneIcon />} className="mt-3">
+              <Button
+                variant="tertiary"
+                href={`tel:${phone2}`}
+                startIcon={<PhoneIcon />}
+                className="mt-3"
+              >
                 {phone2}
               </Button>
             )}
             {email && (
               <div className="flex flex-col items-center">
                 {(phone1 || phone2) && <div className="mt-4">{t('orContactUsByEmail')}</div>}
-                <Button variant="plain-primary" startIcon={<MailIcon />} className="mt-4">
+                <Button
+                  variant="plain-primary"
+                  href={`mailto:${email}`}
+                  startIcon={<MailIcon />}
+                  className="mt-4"
+                >
                   {email}
                 </Button>
               </div>

@@ -52,7 +52,11 @@ const nextConfig = {
           destination: '/articles/:slug',
         },
         {
-          source: '/sluzby/pohrebna-sluzba/balicky-pohrebov/:slug',
+          source: '/sluzby/balicky-pohrebov/pochovanie-do-zeme/:slug',
+          destination: '/bundles/:slug',
+        },
+        {
+          source: '/sluzby/balicky-pohrebov/kremacia/:slug',
           destination: '/bundles/:slug',
         },
         {
