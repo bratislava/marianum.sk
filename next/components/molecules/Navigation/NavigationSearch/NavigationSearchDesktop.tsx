@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'
 import { useOnClickOutside } from 'usehooks-ts'
 
-import { MeilisearchResultType } from '../../../../utils/types'
+import { SearchData } from '../../../../hooks/useSearch'
 import { AnimateHeight } from '../../../atoms/AnimateHeight'
 import Search from '../../Search'
 import NavigationSearchResults from './NavigationSearchResults'
@@ -11,8 +11,9 @@ import NavigationSearchResults from './NavigationSearchResults'
 type NavigationSearchDesktopProps = {
   searchQuery: string
   onSearchQueryChange: (query: string) => void
-  results: MeilisearchResultType<string>[]
+  data: SearchData | undefined | null
   isLoading: boolean
+  emptySearchQuery: boolean
   onSearch: () => void
   onOpen: () => void
   onClose: () => void
@@ -21,8 +22,9 @@ type NavigationSearchDesktopProps = {
 const NavigationSearchDesktop = ({
   searchQuery,
   onSearchQueryChange,
-  results,
+  data,
   isLoading,
+  emptySearchQuery,
   onSearch,
   onOpen,
   onClose,
@@ -65,11 +67,10 @@ const NavigationSearchDesktop = ({
         isVisible={isOpen}
         className="absolute top-full z-50 mt-2 w-full bg-white shadow"
       >
-        <NavigationSearchResults
-          results={results}
-          isLoading={isLoading}
-          searchQuery={searchQuery}
-        />
+        {!emptySearchQuery ? (
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          <NavigationSearchResults data={data!} isLoading={isLoading} searchQuery={searchQuery} />
+        ) : null}
       </AnimateHeight>
     </div>
   )

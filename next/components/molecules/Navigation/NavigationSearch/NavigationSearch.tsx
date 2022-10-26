@@ -2,23 +2,9 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useCallback } from 'react'
 
-import { IndexConfig, useMeilisearch } from '../../../../hooks/useMeilisearch'
+import { useSearch } from '../../../../hooks/useSearch'
 import NavigationSearchDesktop from './NavigationSearchDesktop'
 import NavigationSearchMobile from './NavigationSearchMobile'
-
-const branchIndexConfig: IndexConfig = { name: 'branch', localized: true }
-const documentIndexConfig: IndexConfig = { name: 'document', localized: false }
-const pageIndexConfig: IndexConfig = { name: 'page', localized: true }
-const bundleIndexConfig: IndexConfig = { name: 'bundle', localized: true }
-const articleIndexConfig: IndexConfig = { name: 'article', localized: true }
-
-const indexes = [
-  branchIndexConfig,
-  documentIndexConfig,
-  pageIndexConfig,
-  bundleIndexConfig,
-  articleIndexConfig,
-]
 
 type NavigationSearchProps = {
   onDesktopSearchOpen: () => void
@@ -26,9 +12,14 @@ type NavigationSearchProps = {
 }
 
 const NavigationSearch = ({ onDesktopSearchOpen, onDesktopSearchClose }: NavigationSearchProps) => {
-  const { searchQuery, setSearchQuery, results, isLoading } = useMeilisearch({
-    indexes,
-    countPerPage: 5,
+  const {
+    dataToDisplay,
+    emptySearchQuery,
+    searchQuery,
+    setSearchQuery,
+    loadingAndNoDataToDisplay,
+  } = useSearch({
+    filters: { pageSize: 5, page: 1, selectedTypes: [] },
   })
 
   const router = useRouter()
@@ -46,8 +37,9 @@ const NavigationSearch = ({ onDesktopSearchOpen, onDesktopSearchClose }: Navigat
         <NavigationSearchMobile
           searchQuery={searchQuery ?? ''}
           onSearchQueryChange={setSearchQuery}
-          results={results}
-          isLoading={isLoading}
+          data={dataToDisplay}
+          emptySearchQuery={emptySearchQuery}
+          isLoading={loadingAndNoDataToDisplay}
           onSearch={handleSearch}
         />
       </div>
@@ -56,8 +48,9 @@ const NavigationSearch = ({ onDesktopSearchOpen, onDesktopSearchClose }: Navigat
         <NavigationSearchDesktop
           searchQuery={searchQuery ?? ''}
           onSearchQueryChange={setSearchQuery}
-          results={results}
-          isLoading={isLoading}
+          data={dataToDisplay}
+          emptySearchQuery={emptySearchQuery}
+          isLoading={loadingAndNoDataToDisplay}
           onSearch={handleSearch}
           onOpen={onDesktopSearchOpen}
           onClose={onDesktopSearchClose}

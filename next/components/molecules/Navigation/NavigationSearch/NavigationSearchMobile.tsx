@@ -1,13 +1,14 @@
 import { useState } from 'react'
 
-import { MeilisearchResultType } from '../../../../utils/types'
+import { SearchData } from '../../../../hooks/useSearch'
 import NavigationSearchMobileModal from './NavigationSearchMobileModal'
 import NavigationSearchMobileTrigger from './NavigationSearchMobileTrigger'
 
 type NavigationSearchMobileProps = {
   searchQuery: string
   onSearchQueryChange: (query: string) => void
-  results: MeilisearchResultType<string>[]
+  data: SearchData | undefined | null
+  emptySearchQuery: boolean
   isLoading: boolean
   onSearch: () => void
 }
@@ -15,7 +16,8 @@ type NavigationSearchMobileProps = {
 const NavigationSearchMobile = ({
   searchQuery,
   onSearchQueryChange,
-  results,
+  data,
+  emptySearchQuery,
   isLoading,
   onSearch,
 }: NavigationSearchMobileProps) => {
@@ -29,7 +31,8 @@ const NavigationSearchMobile = ({
         onSearchQueryChange={onSearchQueryChange}
         isOpen={isOpen}
         onClose={() => setOpen(false)}
-        results={results}
+        emptySearchQuery={emptySearchQuery}
+        data={data}
         isLoading={isLoading}
         onSearch={onSearch}
       />
