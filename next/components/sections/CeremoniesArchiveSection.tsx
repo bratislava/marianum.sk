@@ -35,9 +35,8 @@ const Table = ({
   data: SearchResponse<CeremonyMeili>
   filters: CeremoniesArchiveSectionFilters
 }) => {
-  const { t, i18n } = useTranslation('common', {
-    keyPrefix: 'sections.CeremoniesSection',
-  })
+  const { t, i18n } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })
+
   const theadRef = useRef<HTMLTableSectionElement>(null)
   useScrollToViewIfDataChange(data, filters, theadRef)
 
@@ -73,13 +72,13 @@ const Table = ({
         <table className="m-table colored">
           <thead ref={theadRef}>
             <tr>
-              <th>{t('dateTime')}</th>
-              <th>{t('name')}</th>
-              <th>{t('birthYear')}</th>
-              <th>{t('branchTitle')}</th>
-              <th>{t('type')}</th>
-              <th>{t('company')}</th>
-              <th>{t('officiantProvidedBy')}</th>
+              <th>{t('th.dateTime')}</th>
+              <th>{t('th.name')}</th>
+              <th>{t('th.birthYear')}</th>
+              <th>{t('th.branchTitle')}</th>
+              <th>{t('th.type')}</th>
+              <th>{t('th.company')}</th>
+              <th>{t('th.officiantProvidedBy')}</th>
             </tr>
           </thead>
           <tbody>

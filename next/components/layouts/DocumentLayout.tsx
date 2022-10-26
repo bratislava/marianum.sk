@@ -23,7 +23,7 @@ type DocumentLayoutProps = {
 }
 
 const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) => {
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation('common', { keyPrefix: 'DocumentLayout' })
 
   const { title, description, file, publishedAt, documentCategory, slug } =
     document.attributes ?? {}
@@ -34,14 +34,14 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
         ? [
             {
               key: 'category',
-              title: t('layouts.DocumentLayout.category'),
+              title: t('category'),
               description: documentCategory.data.attributes.title,
             },
           ]
         : []),
       {
         key: 'createdAt',
-        title: t('layouts.DocumentLayout.createdAt'),
+        title: t('createdAt'),
         description: <FormatDate value={new Date(publishedAt)} format="articlePage" />,
       },
     ] as { key: string; title: string; description: ReactNode }[]
@@ -75,8 +75,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
             </div>
             <div className="flex flex-col items-center gap-2 text-sm md:items-start">
               <div>
-                {t('layouts.DocumentLayout.createdAt')}{' '}
-                <FormatDate value={new Date(publishedAt)} format="articlePage" />
+                {t('createdAt')} <FormatDate value={new Date(publishedAt)} format="articlePage" />
               </div>
               <h1>{title}</h1>
               <div className="flex items-center gap-2 text-sm">
@@ -90,7 +89,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
                   href={file?.data?.attributes?.url ?? ''}
                   className="md:w-fit"
                 >
-                  {t('layouts.DocumentLayout.downloadFile')}
+                  {t('downloadFile')}
                 </Button>
                 {file?.data?.attributes?.url && extension === 'pdf' && (
                   <Button
@@ -98,7 +97,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
                     className="md:w-fit"
                     onPress={() => setPdfModalOpen(true)}
                   >
-                    {t('layouts.DocumentLayout.showFile')}
+                    {t('showFile')}
                   </Button>
                 )}
               </div>
@@ -118,7 +117,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
         {description ? (
           <Section
             innerClassName="md:pl-[250px] lg:pl-[266px] xl:pl-[294px]"
-            title={t('layouts.DocumentLayout.description')}
+            title={t('description')}
             centerTitleOnMobile={false}
           >
             <div className="whitespace-pre-wrap">{description}</div>
@@ -128,7 +127,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
         <Section
           innerClassName="md:pl-[250px] lg:pl-[266px] xl:pl-[294px]"
           dividerClassName="md:ml-[218px]"
-          title={t('layouts.DocumentLayout.details')}
+          title={t('details')}
           centerTitleOnMobile={false}
         >
           <dl>

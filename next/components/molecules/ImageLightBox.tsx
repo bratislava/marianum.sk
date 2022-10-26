@@ -24,16 +24,12 @@ export type ImageLightBoxProps = {
 
 const ImageLightBox = (props: ImageLightBoxProps) => {
   const { images, isOpen, initialImageIndex, onClose } = props
-
-  const { t } = useTranslation('common', { keyPrefix: 'components.molecules.ImageLightBox' })
+  const { t } = useTranslation('common', { keyPrefix: 'ImageLightBox' })
 
   const ref = useRef<HTMLDivElement | null>(null)
-
   const { overlayProps, underlayProps } = useOverlay(props, ref)
-
   usePreventScroll({ isDisabled: !isOpen })
   const { modalProps } = useModal()
-
   const [isBrowser, setBrowser] = useState(false)
 
   useEffect(() => {

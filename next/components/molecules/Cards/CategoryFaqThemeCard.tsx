@@ -53,7 +53,7 @@ const CategoryFaqThemeCard = ({
             className="inline-block"
             onClick={handleLinkClick}
           >
-            {t('general.showMore')}
+            {t('Cards.showMore')}
           </MLink>
         </div>
       </CardContent>

@@ -21,7 +21,7 @@ const ReviewsFiltering = ({
   totalReviewCount,
   reviewStats,
 }: ReviewsFilteringProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'components.molecules.ReviewsFiltering' })
+  const { t } = useTranslation('common', { keyPrefix: 'ReviewsFiltering' })
 
   return (
     <div className="flex w-full flex-col bg-white lg:ml-auto lg:w-[448px]">

@@ -15,14 +15,14 @@ import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } f
 import { client } from '../../utils/gql'
 import { isDefined } from '../../utils/isDefined'
 
-type PageProps = {
+type BranchPageProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   branch: BranchEntityFragment
 } & SSRConfig
 
-const BranchSlug = ({ navigation, branch, general }: PageProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'layouts.BranchLayout' })
+const BranchPage = ({ navigation, branch, general }: BranchPageProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'BranchPage' })
 
   const { seo, title, type, address, navigateToLink, description, openingHoursOverride } =
     branch.attributes ?? {}
@@ -104,10 +104,10 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
   return { paths, fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
+export const getStaticProps: GetStaticProps<BranchPageProps, StaticParams> = async ({
   locale = 'sk',
   params,
-}): Promise<GetStaticPropsResult<PageProps>> => {
+}): Promise<GetStaticPropsResult<BranchPageProps>> => {
   const slug = params?.slug ?? ''
 
   const [{ navigation, general }, { branches }, translations] = await Promise.all([
@@ -135,4 +135,4 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
   }
 }
 
-export default BranchSlug
+export default BranchPage

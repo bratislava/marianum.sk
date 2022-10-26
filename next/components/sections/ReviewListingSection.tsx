@@ -16,8 +16,8 @@ type ReviewListingProps = {
   reviews: ReviewEntityFragment[] | null
 }
 
-const ReviewListing = ({ reviews }: ReviewListingProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'sections.ReviewListing' })
+const ReviewListingSection = ({ reviews }: ReviewListingProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'ReviewListingSection' })
 
   const filteredReviews = useMemo(() => {
     return reviews?.filter(isDefined).filter((review) => review.attributes) ?? []
@@ -75,4 +75,4 @@ const ReviewListing = ({ reviews }: ReviewListingProps) => {
   )
 }
 
-export default ReviewListing
+export default ReviewListingSection

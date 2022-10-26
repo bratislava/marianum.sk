@@ -16,9 +16,7 @@ const NavigationSearchResults = ({
   data,
   isLoading,
 }: NavigationSearchResultsProps) => {
-  const { t } = useTranslation('common', {
-    keyPrefix: 'components.molecules.Navigation.NavigationSearch',
-  })
+  const { t } = useTranslation('common', { keyPrefix: 'NavigationSearch' })
 
   return isLoading ? (
     <div className="flex flex-col items-center justify-center py-4 text-primary">

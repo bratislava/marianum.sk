@@ -20,7 +20,7 @@ const QuantitySelect = ({
   maxValue,
   onChange = () => {},
 }: QuantitySelectProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'components.atoms.QuantitySelect' })
+  const { t } = useTranslation('common', { keyPrefix: 'QuantitySelect' })
   const generatedId = useId()
   const generatedOrProvidedId = id ?? generatedId
 
