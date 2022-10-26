@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import { ComponentProps } from 'react'
 
 import { UploadFile } from '../../graphql'
@@ -17,6 +17,7 @@ type MImageProps = Omit<
 }
 
 // TODO: Placeholder doesn't respect objectFit when used with layout="fill".
+// TODO: Update to 'next/image'
 const MImage = ({ image, disableBlurPlaceholder = false, ...rest }: MImageProps) => (
   <Image
     src={image.url}

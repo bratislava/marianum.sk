@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 
 import { CtaFragment } from '../../graphql'
