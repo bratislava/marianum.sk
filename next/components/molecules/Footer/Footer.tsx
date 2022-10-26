@@ -65,7 +65,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
           <div className="flex w-full flex-col gap-4 px-4 py-6 md:col-span-2 md:px-8 lg:col-span-1 lg:gap-8 lg:px-12 lg:py-8">
             <div className="relative flex flex-col gap-3">
               <div className="text-lg font-bold">{t('address')}</div>
-              <div className="flex flex-col gap-2 whitespace-pre-wrap text-sm font-regular">
+              <div className="flex flex-col gap-2 whitespace-pre-wrap font-regular">
                 {contact?.address && (
                   <MLink
                     noStyles
@@ -88,7 +88,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
             <div className="h-[1px] bg-white/12" />
             <div className="relative flex flex-col gap-3">
               <div className="text-lg font-bold">{t('contacts')}</div>
-              <div className="flex flex-col gap-2 text-sm font-regular">
+              <div className="flex flex-col gap-2 font-regular">
                 {phone1 && (
                   <MLink noStyles href={`tel:${phone1}`} className="w-fit opacity-72">
                     {phone1}
