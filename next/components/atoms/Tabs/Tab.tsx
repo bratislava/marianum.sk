@@ -1,22 +1,12 @@
-import { Tab as HeadlessTab } from '@headlessui/react'
-import { ReactNode, useContext, useEffect } from 'react'
-
-import { tabsContext } from './Tabs'
+import { ReactNode } from 'react'
+import { Item } from 'react-stately'
 
 export type TabProps = {
-  label: string
-  children?: ReactNode
+  key: string | number
+  title: string
+  children: ReactNode
 }
 
-const Tab = ({ label, children }: TabProps) => {
-  const { mountTab, unmountTab } = useContext(tabsContext)
-
-  useEffect(() => {
-    mountTab(label)
-    return () => unmountTab(label)
-  }, [label, mountTab, unmountTab])
-
-  return <HeadlessTab.Panel className="outline-none">{children}</HeadlessTab.Panel>
-}
+const Tab = Item
 
 export default Tab

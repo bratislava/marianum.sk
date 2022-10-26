@@ -6,7 +6,7 @@ import { MotionConfig } from 'framer-motion'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { appWithTranslation } from 'next-i18next'
-import { OverlayProvider } from 'react-aria'
+import { OverlayProvider, SSRProvider } from 'react-aria'
 
 import CookieBanner from '../components/atoms/CookieBanner'
 import CookieConsent from '../components/atoms/CookieConsent'
@@ -29,18 +29,20 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
         <meta name="theme-color" content="#446650" />
       </Head>
-      <HeroSectionOverlayProvider>
-        <MI18nProvider>
-          <MotionConfig reducedMotion="user">
-            <OverlayProvider>
-              <CookieConsent banner={CookieBanner} modal={CookieSettingsModal}>
-                <ThirdPartyScripts />
-                <Component {...pageProps} />
-              </CookieConsent>
-            </OverlayProvider>
-          </MotionConfig>
-        </MI18nProvider>
-      </HeroSectionOverlayProvider>
+      <SSRProvider>
+        <HeroSectionOverlayProvider>
+          <MI18nProvider>
+            <MotionConfig reducedMotion="user">
+              <OverlayProvider>
+                <CookieConsent banner={CookieBanner} modal={CookieSettingsModal}>
+                  <ThirdPartyScripts />
+                  <Component {...pageProps} />
+                </CookieConsent>
+              </OverlayProvider>
+            </MotionConfig>
+          </MI18nProvider>
+        </HeroSectionOverlayProvider>
+      </SSRProvider>
     </>
   )
 }
