@@ -3,7 +3,7 @@ import PDFViewer from './PDFViewer'
 
 type PDFModalViewerProps = {
   url: string
-} & ModalProps
+} & Omit<ModalProps, 'children'>
 
 const PDFModalViewer = ({ url, ...rest }: PDFModalViewerProps) => {
   return (
