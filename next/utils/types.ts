@@ -15,8 +15,5 @@ export type TBreadcrumbListItem = {
   link?: string | null | undefined
 }
 
-export type MeilisearchResultType<T> = {
-  slug: string
-  title: string
-  index: T
-}
+// https://stackoverflow.com/a/52331580
+export type Unpacked<T> = T extends (infer U)[] ? U : T

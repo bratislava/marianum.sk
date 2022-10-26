@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useContext, useState } from 'react'
 
@@ -72,16 +72,14 @@ const Navigation = ({ contact }: NavigationProps) => {
           {/* right side of navigation */}
           <div className="flex items-center gap-4 xl:gap-8">
             {/* desktop faq and phone links */}
-            {!isDesktopSearchOpen && (
-              <motion.div
-                className="hidden items-center gap-4 xl:flex"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-              >
-                <TopContacts />
-              </motion.div>
-            )}
+            <div
+              className={cx('items-center gap-4 opacity-0 xl:flex', {
+                'opacity-100 transition-opacity delay-500': !isDesktopSearchOpen,
+                hidden: isDesktopSearchOpen,
+              })}
+            >
+              <TopContacts />
+            </div>
             {/* search (both mobile and desktop) */}
             <NavigationSearch
               onDesktopSearchOpen={() => setDesktopSearchOpen(true)}
