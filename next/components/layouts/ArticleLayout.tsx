@@ -38,28 +38,29 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
         />
       }
     >
-      <SectionsWrapper
-        alternateBackground
-        className={cx('h-full bg-white', {
-          // Compensate image overlap
-          'pt-18': coverImage,
-        })}
-      >
-        <div className="container relative h-auto py-6 sm:px-20 sm:pb-12 sm:pt-10 md:px-28 lg:px-40">
-          <div className="pb-1 text-center text-sm">
-            <FormatDate value={new Date(publishedAt as string)} format="articlePage" />
-          </div>
+      <SectionsWrapper alternateBackground className="h-full bg-background-beige pb-20">
+        <div
+          className={cx('bg-white', {
+            // Compensate image overlap
+            'pt-18': coverImage,
+          })}
+        >
+          <div className="container relative h-auto py-6 sm:px-20 sm:pt-10 md:px-28 md:pb-32 lg:px-40">
+            <div className="pb-1 text-center text-sm">
+              <FormatDate value={new Date(publishedAt as string)} format="articlePage" />
+            </div>
 
-          <div className="pb-6 sm:pb-10">
-            <h1 className="text-center">{title}</h1>
-            {perex && (
-              <p className="mt-6 sm:mt-8">
-                <NormalizeSkText>{perex}</NormalizeSkText>
-              </p>
-            )}
-          </div>
+            <div className="pb-6 sm:pb-10">
+              <h1 className="text-center">{title}</h1>
+              {perex && (
+                <p className="mt-6 sm:mt-8">
+                  <NormalizeSkText>{perex}</NormalizeSkText>
+                </p>
+              )}
+            </div>
 
-          {children}
+            {children}
+          </div>
         </div>
 
         <NewsSection />

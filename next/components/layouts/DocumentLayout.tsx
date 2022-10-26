@@ -67,7 +67,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
       general={general}
       header={<HeroSection breadcrumbsMoreItems={[{ label: title, path: slug ?? '' }]} />}
     >
-      <SectionsWrapper alternateBackground>
+      <SectionsWrapper alternateBackground className="pb-20">
         <Section background="light">
           <div className="flex flex-col items-center gap-5 md:flex-row md:items-start md:gap-8">
             <div className="flex h-[96px] w-[96px] shrink-0 items-center justify-center bg-background-beige md:h-[186px] md:w-[186px]">
@@ -116,15 +116,20 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
         </Section>
 
         {description ? (
-          <Section innerClassName="md:pl-[234px]" title={t('layouts.DocumentLayout.description')}>
+          <Section
+            innerClassName="md:pl-[250px] lg:pl-[266px] xl:pl-[294px]"
+            title={t('layouts.DocumentLayout.description')}
+            centerTitleOnMobile={false}
+          >
             <div className="whitespace-pre-wrap">{description}</div>
           </Section>
         ) : undefined}
 
         <Section
-          innerClassName="md:pl-[234px]"
+          innerClassName="md:pl-[250px] lg:pl-[266px] xl:pl-[294px]"
           dividerClassName="md:ml-[218px]"
           title={t('layouts.DocumentLayout.details')}
+          centerTitleOnMobile={false}
         >
           <dl>
             {dlData.map((dItem) => (
