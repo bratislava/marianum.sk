@@ -51,7 +51,7 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
 
         <HomepageSlider slides={page.attributes?.featured?.filter(isDefined)} />
 
-        <SectionsWrapper alternateBackground startBackground="dark">
+        <SectionsWrapper alternateBackground startBackground="dark" className="pb-14">
           {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
           {page.attributes?.sections?.map((section) => {
             if (section?.__typename === 'ComponentSectionsManualListing') {

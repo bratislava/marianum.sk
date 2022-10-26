@@ -38,14 +38,14 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
         />
       }
     >
-      <SectionsWrapper alternateBackground className="h-full bg-background-beige pb-20">
+      <SectionsWrapper alternateBackground className="h-full pb-14">
         <div
           className={cx('bg-white', {
             // Compensate image overlap
             'pt-18': coverImage,
           })}
         >
-          <div className="container relative h-auto py-6 sm:px-20 sm:pt-10 md:px-28 md:pb-32 lg:px-40">
+          <div className="container relative h-auto py-6 sm:px-20 sm:pt-10 md:px-28 md:pb-20 lg:px-40">
             <div className="pb-1 text-center text-sm">
               <FormatDate value={new Date(publishedAt as string)} format="articlePage" />
             </div>
