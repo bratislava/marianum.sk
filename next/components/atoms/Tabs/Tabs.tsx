@@ -1,17 +1,15 @@
-import { ReactNode, useRef } from 'react'
+import { useRef } from 'react'
 import { useTabList } from 'react-aria'
 import { TabListProps, useTabListState } from 'react-stately'
 
 import { useTailwindBreakpoint } from '../../../hooks/useTailwindBreakpoint'
 import { AnimateHeight } from '../AnimateHeight'
-import Tab from './Tab'
+import Tab from './TabListItem'
 import TabPanel from './TabPanel'
 
-type TabItem = { title: string; content: ReactNode }
-
-const Tabs = (props: TabListProps<TabItem>) => {
+const Tabs = <T extends object>(props: TabListProps<T>) => {
   const ref = useRef<HTMLDivElement | null>(null)
-  const state = useTabListState(props)
+  const state = useTabListState<T>(props)
   const { isNull: isBreakpointNull } = useTailwindBreakpoint()
   const { tabListProps } = useTabList(
     { ...props, orientation: isBreakpointNull ? 'vertical' : 'horizontal' },
