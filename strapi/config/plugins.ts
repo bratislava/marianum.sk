@@ -131,6 +131,9 @@ export default {
         transformEntry: ({ entry }) => wrapSearchIndexEntry("bundle", entry),
       },
       debtor: {
+        entriesQuery: {
+          populate: ["branch", "branch.localizations"],
+        },
         settings: {
           filterableAttributes: ["branch.id"],
           searchableAttributes: ["firstName", "lastName"],
@@ -139,9 +142,11 @@ export default {
             maxTotalHits: 10000,
           },
         },
-        populateEntryRule: ["branch", "branch.localizations"],
       },
       ceremony: {
+        entriesQuery: {
+          populate: ["branch", "branch.localizations"],
+        },
         settings: {
           filterableAttributes: ["branch.id", "dateTimeTimestamp"],
           searchableAttributes: ["name"],
@@ -150,7 +155,6 @@ export default {
             maxTotalHits: 100000,
           },
         },
-        populateEntryRule: ["branch", "branch.localizations"],
         transformEntry({ entry }) {
           return {
             ...entry,
