@@ -82,6 +82,7 @@ module.exports = {
     },
     fontFamily: {
       sans: ['Noto Sans', 'sans-serif'],
+      serif: ['ABC Arizona Flare', 'serif'],
     },
     fontSize: {
       lg: ['var(--font-size-large)', 'var(--line-height-large)'],
