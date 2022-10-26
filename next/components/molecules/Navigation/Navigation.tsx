@@ -73,7 +73,7 @@ const Navigation = ({ contact }: NavigationProps) => {
           <div className="flex items-center gap-4 xl:gap-8">
             {/* desktop faq and phone links */}
             <div
-              className={cx('items-center gap-4 opacity-0 xl:flex', {
+              className={cx('hidden items-center gap-4 opacity-0 xl:flex', {
                 'opacity-100 transition-opacity delay-500': !isDesktopSearchOpen,
                 hidden: isDesktopSearchOpen,
               })}
