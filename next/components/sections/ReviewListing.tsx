@@ -19,20 +19,23 @@ type ReviewListingProps = {
 const ReviewListing = ({ reviews }: ReviewListingProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'sections.ReviewListing' })
 
-  const validReviews = useMemo(() => {
+  const filteredReviews = useMemo(() => {
     return reviews?.filter(isDefined).filter((review) => review.attributes) ?? []
   }, [reviews])
 
   const [currentPage, setCurrentPage] = useState(1)
 
   const pageCount = useMemo(() => {
-    return Math.ceil((validReviews.length ?? 0) / REVIEWS_PER_PAGE)
-  }, [validReviews])
+    return Math.ceil((filteredReviews.length ?? 0) / REVIEWS_PER_PAGE)
+  }, [filteredReviews])
 
   // Currently visible reviews based on current page
   const visibleReviews = useMemo(() => {
-    return validReviews.slice((currentPage - 1) * REVIEWS_PER_PAGE, currentPage * REVIEWS_PER_PAGE)
-  }, [currentPage, validReviews])
+    return filteredReviews.slice(
+      (currentPage - 1) * REVIEWS_PER_PAGE,
+      currentPage * REVIEWS_PER_PAGE,
+    )
+  }, [currentPage, filteredReviews])
 
   return (
     <Section>
