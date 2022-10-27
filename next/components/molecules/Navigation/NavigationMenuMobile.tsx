@@ -1,4 +1,3 @@
-import { Dialog } from '@headlessui/react'
 import { motion } from 'framer-motion'
 import { useCallback, useMemo, useState } from 'react'
 
@@ -10,6 +9,7 @@ import { usePrevious } from '../../../utils/hooks'
 import { isDefined } from '../../../utils/isDefined'
 import IconButton from '../../atoms/IconButton'
 import MLink from '../../atoms/MLink'
+import Modal from '../../atoms/Modal'
 
 export type NavigationMenuMobileProps = {
   items: NavigationItemFragment[]
@@ -32,6 +32,7 @@ const RenderItems = ({
 }: RenderItemsProps) => {
   const ButtonComponent = disableFocusAndScreenReader ? 'div' : 'button'
   const LinkComponent = disableFocusAndScreenReader ? 'div' : MLink
+
   return (
     <div aria-hidden={disableFocusAndScreenReader} className="flex flex-col py-3">
       {items.map(({ id, title, path, items: subItems }) =>
@@ -39,8 +40,7 @@ const RenderItems = ({
           <ButtonComponent
             tabIndex={disableFocusAndScreenReader ? -1 : 0}
             key={id}
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-            onClick={() => onOpenItem && onOpenItem(id)}
+            onMouseUp={() => onOpenItem && onOpenItem(id)}
             type="button"
             className="flex w-full justify-between px-4 py-3 focus:bg-primary/10"
           >
@@ -113,8 +113,13 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
   }, [rootItem, onClose])
 
   return (
-    <Dialog className="relative z-50" open={isOpen} onClose={closeHandler}>
-      <Dialog.Panel className="fixed top-0 h-full w-full bg-white">
+    <Modal
+      overlayClassName="!w-full"
+      showCloseButton={false}
+      isOpen={isOpen}
+      onClose={closeHandler}
+    >
+      <div className="fixed top-0 h-full w-full bg-white">
         {/* header */}
         <div className="flex h-16 items-center justify-between border-b border-border px-4">
           {currentItem.id === rootItem.id ? (
@@ -170,8 +175,8 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
             />
           </motion.div>
         </nav>
-      </Dialog.Panel>
-    </Dialog>
+      </div>
+    </Modal>
   )
 }
 

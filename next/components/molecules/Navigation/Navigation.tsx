@@ -88,7 +88,7 @@ const Navigation = ({ contact }: NavigationProps) => {
             {/* mobile menu button */}
             <IconButton
               aria-label={t('menu')}
-              onPress={() => setMobileNavOpen(true)}
+              onPressEnd={() => setMobileNavOpen(true)}
               variant="primary"
               className="lg:hidden"
             >

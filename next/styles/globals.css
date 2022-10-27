@@ -198,3 +198,8 @@
 .szh-menu--state-open.szh-menu--dir-bottom {
   animation: szh-menu-show-slide-bottom 0.15s ease-out;
 }
+
+.full-width-canvas-page canvas {
+  width: 100% !important;
+  height: auto !important;
+}
