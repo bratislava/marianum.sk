@@ -28,8 +28,6 @@ const localPaths = {
   search: '/vyhladavanie',
 }
 
-type LocalRouteType = keyof typeof localPaths
-
 type UnionEntityType =
   | PageSlugEntityFragment
   | ArticleSlugEntityFragment
@@ -45,15 +43,9 @@ type UnionEntityType =
 const getFullPathFn = (
   entity: UnionEntityType,
   navMap: TNavigationContext['navMap'],
-  explicitPathPrefix?: LocalRouteType,
   // eslint-disable-next-line sonarjs/cognitive-complexity
 ) => {
   const { slug } = entity?.attributes ?? {}
-
-  // Use explicitPathPrefix for Articles and whenever you need to specify a path prefix manually
-  if (explicitPathPrefix) {
-    return [localPaths[explicitPathPrefix], slug].join('/')
-  }
 
   if (!slug || !entity || !entity.attributes) {
     return null
@@ -173,8 +165,7 @@ export const useGetFullPath = () => {
   const { navMap } = useNavigationContext()
 
   const getFullPath = useMemo(
-    () => (entity: UnionEntityType, explicitPathPrefix?: LocalRouteType) =>
-      getFullPathFn(entity, navMap, explicitPathPrefix),
+    () => (entity: UnionEntityType) => getFullPathFn(entity, navMap),
     [navMap],
   )
 
