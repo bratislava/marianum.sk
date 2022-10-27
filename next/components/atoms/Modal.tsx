@@ -44,23 +44,23 @@ const Modal = (props: ModalProps) => {
   const isClient = useIsClient()
 
   return isClient ? (
-    <OverlayContainer>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="relative z-50"
-            transition={{ duration: 0.2 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            <div
-              {...underlayProps}
-              className={cx(
-                'fixed inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black/40',
-                underlayClassName,
-              )}
+    <FocusScope contain>
+      <OverlayContainer>
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              className="relative z-50"
+              transition={{ duration: 0.2 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
             >
-              <FocusScope contain restoreFocus autoFocus>
+              <div
+                {...underlayProps}
+                className={cx(
+                  'fixed inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black/40',
+                  underlayClassName,
+                )}
+              >
                 <div className={cx({ 'flex min-h-full items-center': centerVertically })}>
                   <div
                     className={cx('mx-auto flex w-fit items-center', overlayClassName)}
@@ -80,12 +80,12 @@ const Modal = (props: ModalProps) => {
                     {children}
                   </div>
                 </div>
-              </FocusScope>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </OverlayContainer>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </OverlayContainer>
+    </FocusScope>
   ) : null
 }
 
