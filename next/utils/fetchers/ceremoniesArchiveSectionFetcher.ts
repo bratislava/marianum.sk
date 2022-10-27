@@ -1,6 +1,7 @@
 import { Key } from 'swr'
 
 import { CeremonyMeili } from '../../types/meiliTypes'
+import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
 import { isDefined } from '../isDefined'
 import { meiliClient } from '../meilisearch'
 
@@ -23,8 +24,7 @@ export const getCeremoniesArchiveSectionSwrKey = (filters: CeremoniesArchiveSect
 
 export const ceremoniesArchiveSectionFetcher = (filters: CeremoniesArchiveSectionFilters) => () =>
   meiliClient.index('ceremony').search<CeremonyMeili>(filters.search, {
-    limit: filters.pageSize,
-    offset: (filters.page - 1) * filters.pageSize,
+    ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
     filter: [
       `dateTimeTimestamp < ${Date.now()}`,
       filters.branchId && `branch.id = ${filters.branchId}`,
