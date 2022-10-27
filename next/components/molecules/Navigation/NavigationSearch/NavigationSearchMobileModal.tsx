@@ -14,7 +14,7 @@ type NavigationSearchMobileModalProps = {
   emptySearchQuery: boolean
   isLoading: boolean
   onSearch: () => void
-} & ModalProps
+} & Omit<ModalProps, 'children'>
 
 const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) => {
   const {
