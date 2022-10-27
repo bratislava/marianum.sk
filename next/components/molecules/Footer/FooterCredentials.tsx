@@ -4,7 +4,7 @@ import { useContext, useMemo } from 'react'
 import { CtaButtonFragment } from '../../../graphql'
 import { cookieConsentContext } from '../../atoms/CookieConsent'
 import MLink from '../../atoms/MLink'
-import { useSlug } from '../Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPath } from '../Navigation/NavigationProvider/useGetFullPath'
 
 type FooterCredentialsProps = {
   links: CtaButtonFragment[] | null | undefined
@@ -12,7 +12,7 @@ type FooterCredentialsProps = {
 
 const FooterCredentials = ({ links }: FooterCredentialsProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'components.molecules.Footer' })
-  const { getFullSlug } = useSlug()
+  const { getFullPath } = useGetFullPath()
 
   const currentYear = useMemo(() => {
     return new Date().getFullYear()
@@ -50,7 +50,7 @@ const FooterCredentials = ({ links }: FooterCredentialsProps) => {
             <MLink
               // eslint-disable-next-line react/no-array-index-key
               key={index}
-              href={getFullSlug(link.page?.data) ?? ''}
+              href={getFullPath(link.page?.data) ?? ''}
               noStyles
               className="hover:underline"
             >

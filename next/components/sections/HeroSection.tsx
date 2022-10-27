@@ -11,7 +11,7 @@ import Breadcrumbs, { BreadcrumbItem } from '../atoms/Breadcrumbs'
 import Button from '../atoms/Button'
 import FormatCurrency from '../atoms/FormatCurrency'
 import NormalizeSkText from '../atoms/NormalizeSkText'
-import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
 import { useNavigationContext } from '../molecules/Navigation/NavigationProvider/useNavigationContext'
 
 type HeroSectionProps = {
@@ -33,10 +33,10 @@ const HeroSection = ({
 }: HeroSectionProps) => {
   const { t } = useTranslation()
   const { navMap } = useNavigationContext()
-  const { getFullSlug } = useSlug()
+  const { getFullPath } = useGetFullPath()
   const router = useRouter()
 
-  const ctaSlug = getFullSlug(ctaButton?.page?.data)
+  const ctaSlug = getFullPath(ctaButton?.page?.data)
 
   const breadcrumbs = [
     { label: <HomeIcon />, path: '/' },

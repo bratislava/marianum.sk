@@ -5,7 +5,7 @@ import { CtaButtonFragment } from '../../graphql'
 import { useActivateHeroSectionContentOverlay } from '../../utils/heroSectionContentOverlay'
 import MLink from '../atoms/MLink'
 import { BackgroundColor, sectionContext } from '../layouts/SectionsWrapper'
-import { useSlug } from './Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPath } from './Navigation/NavigationProvider/useGetFullPath'
 
 export type SectionProps = {
   children: ReactNode
@@ -38,9 +38,9 @@ const Section = ({
   dividerClassName,
   overlayWithHero = false,
 }: SectionProps) => {
-  const { getFullSlug } = useSlug()
+  const { getFullPath } = useGetFullPath()
 
-  const showMorePath = getFullSlug(button?.page?.data) ?? buttonLink?.linkHref
+  const showMorePath = getFullPath(button?.page?.data) ?? buttonLink?.linkHref
   const showMoreLabel = button?.label ?? buttonLink?.label
 
   const { background, isDivider, isFirst, isLast, alternateBackground } = useContext(sectionContext)

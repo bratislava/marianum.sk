@@ -19,7 +19,7 @@ import LoadingOverlay from '../../atoms/LoadingOverlay'
 import ArticleCard from '../../molecules/Cards/ArticleCard'
 import FilteringSearchInput from '../../molecules/FilteringSearchInput'
 import FiltersBackgroundWrapper from '../../molecules/FiltersBackgroundWrapper'
-import { useSlugMeili } from '../../molecules/Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPathMeili } from '../../molecules/Navigation/NavigationProvider/useGetFullPath'
 import PaginationMeili from '../../molecules/PaginationMeili'
 import Section from '../../molecules/Section'
 import ArticleNewsCategoriesSelect from './ArticleNewsCategoriesSelect'
@@ -37,7 +37,7 @@ const Articles = ({
   const { t } = useTranslation('common', {
     keyPrefix: 'components.ArticleListing',
   })
-  const { getFullSlugMeili } = useSlugMeili()
+  const { getFullPathMeili } = useGetFullPathMeili()
   const cardsRef = useRef<HTMLDivElement>(null)
   useScrollToViewIfDataChange(data, filters, cardsRef)
 
@@ -65,7 +65,7 @@ const Articles = ({
               title={title}
               image={coverMedia}
               date={publishedAt}
-              linkHref={getFullSlugMeili('article', article) ?? ''}
+              linkHref={getFullPathMeili('article', article) ?? ''}
               category={category}
               border
             />

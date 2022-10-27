@@ -5,12 +5,12 @@ import DownloadIcon from '../../assets/download.svg'
 import { DocumentGroupFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
 import Button from '../atoms/Button'
-import { useSlug } from './Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPath } from './Navigation/NavigationProvider/useGetFullPath'
 import Row from './Row/Row'
 
 const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
   const { t } = useTranslation()
-  const { getFullSlug } = useSlug()
+  const { getFullPath } = useGetFullPath()
 
   const filteredDocuments = useMemo(() => {
     return (documents ?? []).map((document) => document?.document?.data).filter(isDefined)
@@ -25,7 +25,7 @@ const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
           <Row
             key={slug}
             title={title ?? ''}
-            linkHref={getFullSlug(doc) ?? ''}
+            linkHref={getFullPath(doc) ?? ''}
             button={
               file?.data?.attributes?.url ? (
                 <Button

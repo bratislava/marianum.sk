@@ -42,9 +42,9 @@ type UnionEntityType =
 /**
  * Returns the URL for Strapi returned entity.
  */
-const getFullPath = (
+const getFullPathFn = (
   entity: UnionEntityType,
-  navMap?: TNavigationContext['navMap'],
+  navMap: TNavigationContext['navMap'],
   explicitPathPrefix?: LocalRouteType,
   // eslint-disable-next-line sonarjs/cognitive-complexity
 ) => {
@@ -100,7 +100,7 @@ const getFullPath = (
 }
 
 // https://stackoverflow.com/a/71469571
-type getFullPathMeiliFn = (
+type GetFullPathMeiliFn = (
   ...args:
     | ['article', ArticleMeili]
     | ['branch', Pick<BranchMeili, 'type' | 'slug'>]
@@ -121,7 +121,7 @@ type getFullPathMeiliFn = (
  *
  * @param navMap
  */
-const getFullSlugMeiliFn = (navMap: TNavigationContext['navMap']) => {
+const getFullPathMeiliFn = (navMap: TNavigationContext['navMap']) => {
   // eslint-disable-next-line sonarjs/cognitive-complexity
   return ((entityType, entity) => {
     const { slug } = entity
@@ -166,25 +166,25 @@ const getFullSlugMeiliFn = (navMap: TNavigationContext['navMap']) => {
     }
 
     return null
-  }) as getFullPathMeiliFn
+  }) as GetFullPathMeiliFn
 }
 
-export const useSlug = () => {
+export const useGetFullPath = () => {
   const { navMap } = useNavigationContext()
 
-  const getFullSlug = useMemo(
+  const getFullPath = useMemo(
     () => (entity: UnionEntityType, explicitPathPrefix?: LocalRouteType) =>
-      getFullPath(entity, navMap, explicitPathPrefix),
+      getFullPathFn(entity, navMap, explicitPathPrefix),
     [navMap],
   )
 
-  return { getFullSlug }
+  return { getFullPath }
 }
 
-export const useSlugMeili = () => {
+export const useGetFullPathMeili = () => {
   const { navMap } = useNavigationContext()
 
-  const getFullSlugMeili = useMemo(() => getFullSlugMeiliFn(navMap), [navMap])
+  const getFullPathMeili = useMemo(() => getFullPathMeiliFn(navMap), [navMap])
 
-  return { getFullSlugMeili }
+  return { getFullPathMeili }
 }

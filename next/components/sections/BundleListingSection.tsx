@@ -3,7 +3,7 @@ import { isDefined } from '../../utils/isDefined'
 import Tab from '../atoms/Tabs/Tab'
 import Tabs from '../atoms/Tabs/Tabs'
 import BundleCard from '../molecules/Cards/BundleCard'
-import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section, { SectionProps } from '../molecules/Section'
 
 type BundleListingSectionProps = Pick<SectionProps, 'background'> & {
@@ -11,7 +11,7 @@ type BundleListingSectionProps = Pick<SectionProps, 'background'> & {
 }
 
 const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) => {
-  const { getFullSlug } = useSlug()
+  const { getFullPath } = useGetFullPath()
 
   const { title, description, atMedicalFacility, outsideMedicalFacility } = section
 
@@ -53,7 +53,7 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
                           ?.map((bundleItem) => bundleItem?.description)
                           .filter(isDefined) ?? []
                       }
-                      linkHref={getFullSlug(bundle) ?? ''}
+                      linkHref={getFullPath(bundle) ?? ''}
                       border
                     />
                   )
