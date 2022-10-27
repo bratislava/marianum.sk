@@ -1,11 +1,12 @@
 import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
 import slugify from 'slugify'
 import useSWR from 'swr'
 
 import { getProceduresSwrKey, proceduresFetcher } from '../../utils/fetchers/proceduresFetcher'
 import { isDefined } from '../../utils/isDefined'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
-import Tab from '../atoms/Tabs/Tab'
+import TabItem from '../atoms/Tabs/TabItem'
 import Tabs from '../atoms/Tabs/Tabs'
 import Checklist from './Checklist/Checklist'
 import ChecklistSkeleton from './Checklist/ChecklistSkeleton'
@@ -18,14 +19,17 @@ const ProcedureTabs = () => {
     proceduresFetcher(i18n.language),
   )
 
-  const { dataToDisplay, loadingAndNoDataToDisplay } = useGetSwrExtras({
-    data,
-    error,
-  })
+  const { dataToDisplay, loadingAndNoDataToDisplay } = useGetSwrExtras({ data, error })
 
   const { outsideMedicalFacility, atMedicalFacility } =
     dataToDisplay?.procedures?.data?.attributes ?? {}
-  const procedures = [outsideMedicalFacility, atMedicalFacility].filter(isDefined)
+
+  const proceduresWithKeys = useMemo(() => {
+    return [
+      { key: 'outsideMedicalFacility', ...outsideMedicalFacility },
+      { key: 'atMedicalFacility', ...atMedicalFacility },
+    ]
+  }, [outsideMedicalFacility, atMedicalFacility])
 
   if (error) {
     return <div>Error: {error}</div>
@@ -55,21 +59,21 @@ const ProcedureTabs = () => {
 
   return (
     <Tabs>
-      {procedures.map((procedure) => (
-        <Tab key={procedure?.title} title={procedure?.title ?? ''}>
+      {proceduresWithKeys.filter(isDefined).map((procedure) => (
+        <TabItem key={procedure.key} title={procedure.title}>
           <div>
             <Checklist
               items={
-                procedure?.steps?.filter(isDefined).map((step, index) => ({
+                procedure.steps?.filter(isDefined).map((step, index) => ({
                   ...step,
                   key: slugify(step.title),
                   isOpen: index === 0,
                 })) ?? []
               }
-              downloadFile={procedure?.downloadFile?.data}
+              downloadFile={procedure.downloadFile?.data}
             />
           </div>
-        </Tab>
+        </TabItem>
       ))}
     </Tabs>
   )

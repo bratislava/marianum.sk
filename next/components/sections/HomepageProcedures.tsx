@@ -5,19 +5,21 @@ import { CtaButtonFragment, ProcedureFragment } from '../../graphql'
 import { useTailwindBreakpoint } from '../../hooks/useTailwindBreakpoint'
 import { isDefined } from '../../utils/isDefined'
 import MLink from '../atoms/MLink'
-import Tab from '../atoms/Tabs/Tab'
+import TabItem from '../atoms/Tabs/TabItem'
 import Tabs from '../atoms/Tabs/Tabs'
 import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
 import Section, { SectionProps } from '../molecules/Section'
 
 type HomepageProceduresProps = Pick<SectionProps, 'title' | 'background'> & {
-  procedures: ProcedureFragment[]
+  outsideMedicalFacility: ProcedureFragment | null | undefined
+  atMedicalFacility: ProcedureFragment | null | undefined
   showMoreButton: CtaButtonFragment | null | undefined
 }
 
 const HomepageProcedures = ({
   title,
-  procedures,
+  outsideMedicalFacility: outMF,
+  atMedicalFacility: atMF,
   showMoreButton,
   ...rest
 }: HomepageProceduresProps) => {
@@ -27,20 +29,28 @@ const HomepageProcedures = ({
 
   const showMoreSlug = getFullSlug(showMoreButton?.page?.data)
 
-  const slicedProcedures = useMemo(() => {
-    return procedures.map((procedure) => ({
-      ...procedure,
-      steps: procedure?.steps?.filter(isDefined).slice(0, 3) ?? [],
-    }))
-  }, [procedures])
+  const slicedProceduresWithKeys = useMemo(() => {
+    return [
+      {
+        key: 'outsideMedicalFacility',
+        ...outMF,
+        steps: outMF?.steps?.filter(isDefined).slice(0, 3) ?? [],
+      },
+      {
+        key: 'atMedicalFacility',
+        ...atMF,
+        steps: atMF?.steps?.filter(isDefined).slice(0, 3) ?? [],
+      },
+    ]
+  }, [outMF, atMF])
 
   return (
     <Section {...rest}>
       <div className="text-center lg:mx-32">
         <h2 className="pb-5 md:pb-10">{title}</h2>
         <Tabs>
-          {slicedProcedures.map((procedure) => (
-            <Tab key={procedure?.title} title={procedure?.title ?? ''}>
+          {slicedProceduresWithKeys.map((procedure) => (
+            <TabItem key={procedure.key} title={procedure.title}>
               <div
                 className={cx('flex', {
                   'w-full gap-4 overflow-x-auto': isMobile,
@@ -72,7 +82,7 @@ const HomepageProcedures = ({
                   ),
                 )}
               </div>
-            </Tab>
+            </TabItem>
           ))}
         </Tabs>
         {showMoreSlug && (

@@ -9,6 +9,7 @@ export interface TabPanelProps extends AriaTabPanelProps {
 const TabPanel = ({ state, ...props }: TabPanelProps) => {
   const ref = useRef<HTMLDivElement | null>(null)
   const { tabPanelProps } = useTabPanel(props, state, ref)
+
   return (
     <div className="outline-none" {...tabPanelProps} ref={ref}>
       {state.selectedItem?.props.children}
