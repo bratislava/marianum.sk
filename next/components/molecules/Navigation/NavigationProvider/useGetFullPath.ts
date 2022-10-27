@@ -11,7 +11,7 @@ import {
 } from '../../../../graphql'
 import { ArticleMeili, BranchMeili, DocumentMeili } from '../../../../types/meiliTypes'
 import { isDefined } from '../../../../utils/isDefined'
-import { TNavigationContext } from './NavigationProvider'
+import { NavMap } from '../../../../utils/parseNavigation'
 import { useNavigationContext } from './useNavigationContext'
 
 // TODO move this to separate file and add translation logic
@@ -40,9 +40,9 @@ type UnionEntityType =
 /**
  * Returns the URL for Strapi returned entity.
  */
-const getFullPathFn = (
+export const getFullPathFn = (
   entity: UnionEntityType,
-  navMap: TNavigationContext['navMap'],
+  navMap: NavMap,
   // eslint-disable-next-line sonarjs/cognitive-complexity
 ) => {
   const { slug } = entity?.attributes ?? {}
@@ -113,7 +113,7 @@ type GetFullPathMeiliFn = (
  *
  * @param navMap
  */
-const getFullPathMeiliFn = (navMap: TNavigationContext['navMap']) => {
+const getFullPathMeiliFn = (navMap: NavMap) => {
   // eslint-disable-next-line sonarjs/cognitive-complexity
   return ((entityType, entity) => {
     const { slug } = entity
