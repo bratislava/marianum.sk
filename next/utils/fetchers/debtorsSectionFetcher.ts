@@ -1,6 +1,7 @@
 import { Key } from 'swr'
 
 import { DebtorMeili } from '../../types/meiliTypes'
+import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
 import { meiliClient } from '../meilisearch'
 
 export type DebtorsSectionFilters = {
@@ -22,8 +23,7 @@ export const getDebtorsSectionSwrKey = (filters: DebtorsSectionFilters) =>
 
 export const debtorsSectionFetcher = (filters: DebtorsSectionFilters) => () =>
   meiliClient.index('debtor').search<DebtorMeili>(filters.search, {
-    limit: filters.pageSize,
-    offset: (filters.page - 1) * filters.pageSize,
+    ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
     filter: filters.branchId ? [`branch.id = ${filters.branchId}`] : [],
   })
 
