@@ -10,7 +10,7 @@ import Slider from './Slider'
 export type ImageLightBoxProps = {
   images: UploadImageEntityFragment[]
   initialImageIndex: number
-} & ModalProps
+} & Omit<ModalProps, 'children'>
 
 const ImageLightBox = (props: ImageLightBoxProps) => {
   const { images, initialImageIndex, ...rest } = props
