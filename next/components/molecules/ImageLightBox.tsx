@@ -15,7 +15,7 @@ export type ImageLightBoxProps = {
 const ImageLightBox = (props: ImageLightBoxProps) => {
   const { images, initialImageIndex, ...rest } = props
 
-  const { t } = useTranslation('common', { keyPrefix: 'components.molecules.ImageLightBox' })
+  const { t } = useTranslation('common', { keyPrefix: 'ImageLightBox' })
 
   return (
     <Modal overlayClassName="!w-full h-screen pointer-events-none" {...rest}>

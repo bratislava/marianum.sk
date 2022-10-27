@@ -30,9 +30,8 @@ const Table = ({
   data: SearchResponse<DebtorMeili>
   filters: DebtorsSectionFilters
 }) => {
-  const { t, i18n } = useTranslation('common', {
-    keyPrefix: 'sections.DebtorsSection',
-  })
+  const { t, i18n } = useTranslation('common', { keyPrefix: 'DebtorsSection' })
+
   const theadRef = useRef<HTMLTableSectionElement>(null)
   useScrollToViewIfDataChange(data, filters, theadRef)
 
@@ -64,14 +63,14 @@ const Table = ({
       <table className="m-table colored">
         <thead ref={theadRef}>
           <tr>
-            <th>{t('branchTitle')}</th>
-            <th>{t('graveSector')}</th>
-            <th>{t('graveNumber')}</th>
-            <th>{t('gravePreviousNumber')}</th>
-            <th>{t('firstName')}</th>
-            <th>{t('lastName')}</th>
-            <th>{t('birthDate')}</th>
-            <th>{t('deathDate')}</th>
+            <th>{t('th.branchTitle')}</th>
+            <th>{t('th.graveSector')}</th>
+            <th>{t('th.graveNumber')}</th>
+            <th>{t('th.gravePreviousNumber')}</th>
+            <th>{t('th.firstName')}</th>
+            <th>{t('th.lastName')}</th>
+            <th>{t('th.birthDate')}</th>
+            <th>{t('th.deathDate')}</th>
           </tr>
         </thead>
         <tbody>

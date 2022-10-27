@@ -66,8 +66,20 @@ export async function prefetchSections<
   )
 
   const promises = filteredSections.map(async ({ key, fetcher }) => {
+    if (swr) {
+      // SWR prefetches are allowed to fail, in that case they are not prefetched as fallback and are loaded during the
+      // client load. This is useful for e.g. when Meilisearch doesn't work / is missing data, it won't break the build
+      // unnecessarily.
+      try {
+        const data = await fetcher()
+        return { [unstable_serialize(key)]: data }
+      } catch {
+        return {}
+      }
+    }
+
     const data = await fetcher()
-    return swr ? { [unstable_serialize(key)]: data } : { [key as string]: data }
+    return { [key as string]: data }
   })
 
   // Merge all the fallback objects into a one.

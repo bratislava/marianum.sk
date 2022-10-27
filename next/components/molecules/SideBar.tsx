@@ -11,7 +11,7 @@ type SideBarProps = {
 }
 
 const SideBar = ({ sidebar }: SideBarProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'components.molecules.SideBar' })
+  const { t } = useTranslation('common', { keyPrefix: 'SideBar' })
   const { getFullSlug } = useSlug()
 
   if (!sidebar) {

@@ -1,198 +1,268 @@
 {
-  "general": {
-    "from": "from",
-    "siteName": "Marianum",
-    "showMore": "Show more",
-    "disclosureOfInformation": "Disclosure of information",
+  "paths": {
+    "contacts": "/o-nas/kontakty",
+    "news": "/aktuality/novinky",
+    "press": "/o-nas/pre-media",
+    "bundles": "/sluzby/pohrebna-sluzba/balicky-pohrebov",
+    "cemeteries": "/o-nas/cintoriny-v-sprave",
+    "documents": "/o-nas/dokumenty",
+    "legislative": "/o-nas/dokumenty/legislativa",
+    "search": "/vyhladavanie",
+    "reviews": "/o-nas/referencie"
+  },
+  "Seo": {
+    "siteName": "Marianum - Pohrebníctvo mesta Bratislavy"
+  },
+  "Cards": {
+    "showMore": "Show more"
+  },
+  "BundleCard": {
+    "from": "from"
+  },
+  "ProductCard": {
+    "addToCart": "Add to cart"
+  },
+  "SearchField": {
+    "aria": {
+      "searchField": "Search"
+    },
+    "searchPlaceholder": "Search…"
+  },
+  "DisclosureIframe": {
+    "disclosureOfInformation": "Disclosure of information"
+  },
+  "SkipToContentButton": {
+    "skipToContent": "Skip to content"
+  },
+  "ScrollToTopButton": {
+    "aria": {
+      "scrollToTop": "Scroll to top"
+    }
+  },
+  "QuantitySelect": {
+    "aria": {
+      "increaseAmount": "Increase amount",
+      "decreaseAmount": "Decrease amount"
+    }
+  },
+  "Pagination": {
+    "aria": {
+      "goToPage": "Go to page {{page}}",
+      "goToPreviousPage": "Go to previous page",
+      "goToNextPage": "Go to next page"
+    }
+  },
+  "ReviewStars": {
+    "aria": {
+      "rating": "{{rating}} out of 5 stars"
+    }
+  },
+  "Loading": {
+    "loading": "Loading…"
+  },
+  "Slider": {
+    "aria": {
+      "description": "Slider"
+    }
+  },
+  "SideBar": {
+    "or": "or",
+    "orContactUsByEmail": "or contact us by email"
+  },
+  "ImageLightBox": {
+    "aria": {
+      "description": "Image gallery. Press left arrow key to go to previous image. Press right arrow key to go to next image. Press Escape key to close image gallery."
+    }
+  },
+  "Footer": {
+    "address": "Address",
     "openingHours": "Opening hours",
-    "addToCart": "Add to cart",
-    "searchField": "Search",
-    "searchPlaceholder": "Search…",
-    "skipToContent": "Skip to content",
-    "home": "Home"
+    "contacts": "Contacts",
+    "allContacts": "All contacts",
+    "open": "Open"
   },
-  "components": {
-    "atoms": {
-      "QuantitySelect": {
-        "aria": {
-          "increaseAmount": "Increase amount",
-          "decreaseAmount": "Decrease amount"
-        }
-      },
-      "Pagination": {
-        "aria": {
-          "goToPage": "Go to page {{page}}",
-          "goToPreviousPage": "Go to previous page",
-          "goToNextPage": "Go to next page"
-        }
-      },
-      "ReviewStars": {
-        "aria": {
-          "rating": "{{rating}} out of 5 stars"
-        }
-      }
+  "FooterCredentials": {
+    "founder": "Founder",
+    "cityBratislava": "City of Bratislava",
+    "allRightsReserved": "All rights reserved",
+    "cookieSettings": "Cookie settings"
+  },
+  "Checklist": {
+    "aria": {
+      "markAsComplete": "Mark the step as complete",
+      "markAsUncomplete": "Mark the step as uncomplete",
+      "skip": "Skip the step",
+      "download": "Download file"
     },
-    "molecules": {
-      "Slider": {
-        "aria": {
-          "description": "Slider"
-        }
-      },
-      "SideBar": {
-        "or": "or",
-        "orContactUsByEmail": "or contact us by email"
-      },
-      "ImageLightBox": {
-        "aria": {
-          "description": "Image gallery. Press left arrow key to go to previous image. Press right arrow key to go to next image. Press Escape key to close image gallery."
-        }
-      },
-      "Footer": {
-        "address": "Address",
-        "contacts": "Contacts",
-        "allContacts": "All contacts",
-        "openingHours": "Opening hours",
-        "open": "Open",
-        "founder": "Founder",
-        "cityBratislava": "City of Bratislava",
-        "allRightsReserved": "All rights reserved",
-        "cookieSettings": "Cookie settings"
-      },
-      "Checklist": {
-        "aria": {
-          "markAsComplete": "Mark the step as complete",
-          "markAsUncomplete": "Mark the step as uncomplete",
-          "skip": "Skip the step"
-        },
-        "markAsComplete": "Mark as complete",
-        "markAsUncomplete": "Mark as uncomplete",
-        "skip": "Skip",
-        "print": "Print the steps",
-        "download": "Download the steps"
-      },
-      "Navigation": {
-        "NavigationSearch": {
-          "close": "Close",
-          "search": "Search",
-          "allResults": "All results"
-        }
-      },
-      "ReviewsFiltering": {
-        "reviewCount_zero": "No reviews",
-        "reviewCount_one": "{{count}} review",
-        "reviewCount_other": "{{count}} reviews"
-      }
+    "markAsComplete": "Mark as complete",
+    "markAsUncomplete": "Mark as uncomplete",
+    "skip": "Skip",
+    "print": "Print the guidelines",
+    "download": "Download the guidelines"
+  },
+  "Navigation": {
+    "home": "Home",
+    "menu": "Navigation menu"
+  },
+  "NavigationSearch": {
+    "close": "Close",
+    "allResults": "All results"
+  },
+  "BranchSelect": {
+    "allCemeteries": "All cemeteries"
+  },
+  "ReviewsFiltering": {
+    "reviewCount_zero": "No reviews",
+    "reviewCount_one": "{{count}} review",
+    "reviewCount_few": "{{count}} reviews",
+    "reviewCount_other": "{{count}} reviews"
+  },
+  "SortSelect": {
+    "byNewest": "From newest",
+    "byOldest": "From oldest"
+  },
+  "DocumentsSection": {
+    "allFileTypes": "All file types",
+    "allCategories": "All categories",
+    "noDocuments": "No documents to show.",
+    "download": "Download"
+  },
+  "ArticleListing": {
+    "allCategories": "All categories",
+    "noNews": "No news to show."
+  },
+  "HomepageSlider": {
+    "aria": {
+      "heading": "Homepage slider",
+      "goToSlide": "Go to slide {{number}}"
     }
   },
-  "sections": {
-    "HomepageSlider": {
-      "aria": {
-        "heading": "Homepage slider",
-        "goToSlide": "Go to slide {{number}}"
-      }
-    },
-    "HeroSection": {
-      "priceFrom": "Price from",
-      "bundleContent": "Package content",
-      "additionalServices": "Additional Services"
-    },
-    "ImageGallerySection": {
-      "morePhotos_one": "+{{count}} photo",
-      "morePhotos_other": "+{{count}} photos",
-      "showAllPhotos": "Show all photos",
-      "aria": {
-        "openImageGallery": "Open image gallery"
-      }
-    },
-    "NewsSection": {
-      "moreNews": "More news",
-      "allNews": "All news"
-    },
-    "MapSection": {
-      "search": "Search...",
-      "noResults": "No results...",
-      "map": "Map",
-      "filtering": "Filtering",
-      "filters": {
-        "civil": "Civil",
-        "historical": "Historical",
-        "war": "War"
-      }
-    },
-    "ReviewListing": {
-      "ratings": {
-        "five": "Excellent",
-        "four": "Great",
-        "three": "Well",
-        "two": "Poor",
-        "one": "Bad"
-      },
-      "noReviews": "No reviews to show."
+  "HeroSection": {
+    "priceFrom": "Price from"
+  },
+  "BundlePage": {
+    "priceFrom": "Price from",
+    "bundleContent": "Package content",
+    "additionalServices": "Additional Services"
+  },
+  "ImageGallery": {
+    "morePhotos_one": "+{{count}} photo",
+    "morePhotos_few": "+{{count}} photos",
+    "morePhotos_other": "+{{count}} photos",
+    "showAllPhotos": "Show all photos",
+    "aria": {
+      "openImageGallery": "Open image gallery"
     }
   },
-  "layouts": {
-    "DocumentLayout": {
-      "createdAt": "Created",
-      "downloadFile": "Download",
-      "showFile": "Show",
-      "category": "Category",
-      "description": "Description",
-      "details": "Details"
+  "CeremoniesSection": {
+    "th": {
+      "time": "",
+      "dateTime": "Date and time",
+      "name": "Name and surname",
+      "birthYear": "Date of birth",
+      "branchTitle": "Cemetery",
+      "type": "Type of ceremony",
+      "company": "Company",
+      "officiantProvidedBy": "Officiant provided by"
+    },
+    "filterBy": "Filter by",
+    "noCeremonies": "No ceremonies to show.",
+    "privateFieldsDescription": "Objednávateľ obradu neudelil súhlas na zverejnenie osobných údajov a údajov o pohrebnom obrade zosnulého."
+  },
+  "NewsSection": {
+    "moreNews": "More news",
+    "allNews": "All news"
+  },
+  "MapSection": {
+    "noResults": "No results...",
+    "map": "Map",
+    "filtering": "Filtering",
+    "filters": {
+      "civil": "Civil",
+      "historical": "Historical",
+      "war": "War"
     }
   },
-  "BranchLayout": {
-    "navigate": "Navigate",
-    "openingHours": "Opening hours",
-    "aboutCemetery": "About cemetery",
-    "aboutBranch": "About branch",
+  "DebtorsSection": {
+    "th": {
+      "branchTitle": "Cemetery",
+      "graveSector": "Gr. place sector",
+      "graveNumber": "Gr. place number",
+      "gravePreviousNumber": "Gr. place old no.",
+      "firstName": "Name",
+      "lastName": "Surname",
+      "birthDate": "Date of birth",
+      "deathDate": "Date of death"
+    },
+    "noRecords": "No records"
+  },
+  "ReviewListingSection": {
+    "ratings": {
+      "five": "Excellent",
+      "four": "Great",
+      "three": "Good",
+      "two": "Poor",
+      "one": "Bad"
+    },
+    "noReviews": "No reviews to show."
+  },
+  "DocumentGroup": {
+    "download": "Download",
+    "downloadFile": "Download file"
+  },
+  "DocumentLayout": {
+    "createdAt": "Created",
+    "downloadFile": "Download",
+    "showFile": "Show",
+    "category": "Category",
+    "description": "Description",
+    "details": "Details"
+  },
+  "SideBarContact": {
     "contacts": "Contacts",
     "writeMessage": "Write a message"
   },
-  "pages": {
-    "search": {
-      "searchResults": "Search results",
-      "search": "Search",
-      "resultsFound_zero": "No results found",
-      "resultsFound_one": "{{count}} result found",
-      "resultsFound_other": "{{count}} results found",
-      "tags": {
-        "allResults": "All results",
-        "page": "Page",
-        "bundle": "Package",
-        "document": "Document",
-        "article": "Article",
-        "branch": "Branch"
-      },
-      "paths": {
-        "document": "/documents",
-        "page": "",
-        "bundle": "/bundles",
-        "article": "/articles",
-        "branch": "/branches"
-      }
+  "BranchPage": {
+    "navigate": "Navigate",
+    "openingHours": "Opening hours",
+    "aboutCemetery": "About cemetery",
+    "aboutBranch": "About branch"
+  },
+  "SearchPage": {
+    "searchResults": "Search results",
+    "searchPlaceholder": "Search",
+    "resultsFound_zero": "No results found",
+    "resultsFound_one": "{{count}} result found",
+    "resultsFound_few": "{{count}} results found",
+    "resultsFound_other": "{{count}} results found",
+    "allResults": "All results",
+    "tags": {
+      "page": "Page",
+      "bundle": "Package",
+      "document": "Document",
+      "article": "Article",
+      "branch": "Branch"
     }
   },
-  "cookieConsent": {
+  "CookieConsent": {
+    "aria": {
+      "acceptAllCookies": "Accept all cookies",
+      "rejectAllCookies": "Reject all cookies",
+      "saveCookieSettings": "Save cookie settings",
+      "openCookieSettings": "Open cookie settings",
+      "dismissCookieSettings": "Dismiss cookie settings modal",
+      "dismissCookieBanner": "Dismiss cookie banner"
+    },
+    "settings": "Cookie settings",
+    "acceptAll": "Accept all",
+    "rejectAll": "Reject all",
+    "saveSettings": "Save settings",
     "banner": {
       "title": "This website uses cookies",
-      "description": "We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners who may combine it with other information that you've provided to them or that they've collected from your use of their services.",
-      "acceptAll": "Accept all",
-      "acceptAllCookies": "Accept all cookies",
-      "rejectAll": "Reject all",
-      "rejectAllCookies": "Reject all cookies",
-      "settings": "Cookie settings",
-      "dismiss": "Dismiss cookie banner",
-      "openCookieSettings": "Open cookie settings"
+      "description": "We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners who may combine it with other information that you've provided to them or that they've collected from your use of their services."
     },
     "modal": {
       "title": "Cookie settings",
-      "acceptAll": "Accept all",
-      "acceptAllCookies": "Accept all cookies",
-      "rejectAll": "Reject all",
-      "rejectAllCookies": "Reject all cookies",
-      "saveSettings": "Save settings",
-      "dismiss": "Dismiss cookie settings modal",
-      "saveCookieSettings": "Save cookie settings",
       "types": {
         "necessary": {
           "title": "Necessary cookies",

@@ -1,16 +1,4 @@
 {
-  "general": {
-    "from": "od",
-    "siteName": "Marianum - Pohrebníctvo mesta Bratislavy",
-    "showMore": "Zobraziť viac",
-    "disclosureOfInformation": "Zverejňovanie informácií",
-    "openingHours": "Otváracie hodiny",
-    "addToCart": "Pridať do košíka",
-    "searchField": "Vyhľadávanie",
-    "searchPlaceholder": "Hľadať…",
-    "skipToContent": "Prejsť na obsah",
-    "home": "Domov"
-  },
   "paths": {
     "contacts": "/o-nas/kontakty",
     "news": "/aktuality/novinky",
@@ -22,119 +10,152 @@
     "search": "/vyhladavanie",
     "reviews": "/o-nas/referencie"
   },
-  "components": {
-    "atoms": {
-      "QuantitySelect": {
-        "aria": {
-          "increaseAmount": "Zvýšiť množstvo",
-          "decreaseAmount": "Znížiť množstvo"
-        }
-      },
-      "Pagination": {
-        "aria": {
-          "goToPage": "Ísť na stranu {{page}}",
-          "goToPreviousPage": "Ísť na predchádzajúcu stranu",
-          "goToNextPage": "Ísť na ďalšiu stranu"
-        }
-      },
-      "ReviewStars": {
-        "aria": {
-          "rating": "{{rating}} z 5 hviezdičiek"
-        }
-      },
-      "LoadingOverlay": {
-        "loading": "Načítavam…"
-      }
+  "Seo": {
+    "siteName": "Marianum - Pohrebníctvo mesta Bratislavy"
+  },
+  "Cards": {
+    "showMore": "Zobraziť viac"
+  },
+  "BundleCard": {
+    "from": "od"
+  },
+  "ProductCard": {
+    "addToCart": "Pridať do košíka"
+  },
+  "SearchField": {
+    "aria": {
+      "searchField": "Vyhľadávanie"
     },
-    "molecules": {
-      "Slider": {
-        "aria": {
-          "description": "Posúvač"
-        }
-      },
-      "SideBar": {
-        "or": "alebo",
-        "orContactUsByEmail": "alebo nás kontaktujte emailom"
-      },
-      "ImageLightBox": {
-        "aria": {
-          "description": "Galéria obrázkov. Stlačte šípku vľavo pre zobrazenie predchádzajúceho obrázku. Stlačte šípku vpravo pre zobrazenie nasledujúceho obrázku. Zatvorte stlačením klávesu Escape."
-        }
-      },
-      "Footer": {
-        "address": "Adresa",
-        "contacts": "Kontakty",
-        "allContacts": "Všetky kontakty",
-        "openingHours": "Otváracie hodiny",
-        "open": "Otvorené",
-        "founder": "Zriaďovateľ",
-        "cityBratislava": "Mesto Bratislava",
-        "allRightsReserved": "Všetky práva vyhradené",
-        "cookieSettings": "Nastavenia cookies"
-      },
-      "Checklist": {
-        "aria": {
-          "markAsComplete": "Označiť krok ako vybavený",
-          "markAsUncomplete": "Označiť krok ako nevybavený",
-          "skip": "Preskočiť krok"
-        },
-        "markAsComplete": "Vybavené",
-        "markAsUncomplete": "Označiť ako nevybavené",
-        "skip": "Preskočiť",
-        "print": "Vytlačiť postup",
-        "download": "Stiahnuť postup"
-      },
-      "Navigation": {
-        "NavigationSearch": {
-          "close": "Zavrieť",
-          "search": "Hľadať",
-          "allResults": "Všetky výsledky"
-        }
-      },
-      "CeremoniesDebtorsBranchSelect": {
-        "allCemeteries": "Všetky cintoríny"
-      },
-      "ReviewsFiltering": {
-        "reviewCount_zero": "Žiadne recenzie",
-        "reviewCount_one": "{{count}} recenzia",
-        "reviewCount_few": "{{count}} recenzie",
-        "reviewCount_other": "{{count}} recenzií"
-      }
-    },
-    "SortSelect": { "byNewest": "Od najnovšieho", "byOldest": "Od najstaršieho" },
-    "DocumentsSection": {
-      "allFileTypes": "Všetky typy súborov",
-      "allCategories": "Všetky kategórie",
-      "noDocuments": "Žiadne dokumenty na zobrazenie."
-    },
-    "ArticleListing": {
-      "allCategories": "Všetky kategórie",
-      "noNews": "Žiadne novinky na zobrazenie."
+    "searchPlaceholder": "Hľadať…"
+  },
+  "DisclosureIframe": {
+    "disclosureOfInformation": "Zverejňovanie informácií"
+  },
+  "SkipToContentButton": {
+    "skipToContent": "Prejsť na obsah"
+  },
+  "ScrollToTopButton": {
+    "aria": {
+      "scrollToTop": "Prejsť na začiatok"
     }
   },
-  "sections": {
-    "HomepageSlider": {
-      "aria": {
-        "heading": "Posúvač na úvodnej stránke",
-        "goToSlide": "Ísť na slide {{number}}"
-      }
+  "QuantitySelect": {
+    "aria": {
+      "increaseAmount": "Zvýšiť množstvo",
+      "decreaseAmount": "Znížiť množstvo"
+    }
+  },
+  "Pagination": {
+    "aria": {
+      "goToPage": "Ísť na stranu {{page}}",
+      "goToPreviousPage": "Ísť na predchádzajúcu stranu",
+      "goToNextPage": "Ísť na ďalšiu stranu"
+    }
+  },
+  "ReviewStars": {
+    "aria": {
+      "rating": "{{rating}} z 5 hviezdičiek"
+    }
+  },
+  "Loading": {
+    "loading": "Načítavam…"
+  },
+  "Slider": {
+    "aria": {
+      "description": "Posúvač"
+    }
+  },
+  "SideBar": {
+    "or": "alebo",
+    "orContactUsByEmail": "alebo nás kontaktujte emailom"
+  },
+  "ImageLightBox": {
+    "aria": {
+      "description": "Galéria obrázkov. Stlačte šípku vľavo pre zobrazenie predchádzajúceho obrázku. Stlačte šípku vpravo pre zobrazenie nasledujúceho obrázku. Zatvorte stlačením klávesu Escape."
+    }
+  },
+  "Footer": {
+    "address": "Adresa",
+    "openingHours": "Otváracie hodiny",
+    "contacts": "Kontakty",
+    "allContacts": "Všetky kontakty",
+    "open": "Otvorené"
+  },
+  "FooterCredentials": {
+    "founder": "Zriaďovateľ",
+    "cityBratislava": "Mesto Bratislava",
+    "allRightsReserved": "Všetky práva vyhradené",
+    "cookieSettings": "Nastavenia cookies"
+  },
+  "Checklist": {
+    "aria": {
+      "markAsComplete": "Označiť krok ako vybavený",
+      "markAsUncomplete": "Označiť krok ako nevybavený",
+      "skip": "Preskočiť krok",
+      "download": "Stiahnuť súbor"
     },
-    "HeroSection": {
-      "priceFrom": "Cena od",
-      "bundleContent": "Obsah balíčka",
-      "additionalServices": "Doplnkové služby"
-    },
-    "ImageGallerySection": {
-      "morePhotos_one": "+{{count}} fotka",
-      "morePhotos_few": "+{{count}} fotky",
-      "morePhotos_other": "+{{count}} fotiek",
-      "showAllPhotos": "Zobraziť všetky fotky",
-      "aria": {
-        "openImageGallery": "Otvoriť galériu obrázkov"
-      }
-    },
-    "CeremoniesSection": {
-      "noCeremonies": "Žiadne obrady na zobrazenie.",
+    "markAsComplete": "Vybavené",
+    "markAsUncomplete": "Označiť ako nevybavené",
+    "skip": "Preskočiť",
+    "print": "Vytlačiť postup",
+    "download": "Stiahnuť postup"
+  },
+  "Navigation": {
+    "home": "Domov",
+    "menu": "Menu"
+  },
+  "NavigationSearch": {
+    "close": "Zavrieť",
+    "allResults": "Všetky výsledky"
+  },
+  "BranchSelect": {
+    "allCemeteries": "Všetky cintoríny"
+  },
+  "ReviewsFiltering": {
+    "reviewCount_zero": "Žiadne recenzie",
+    "reviewCount_one": "{{count}} recenzia",
+    "reviewCount_few": "{{count}} recenzie",
+    "reviewCount_other": "{{count}} recenzií"
+  },
+  "SortSelect": {
+    "byNewest": "Od najnovšieho",
+    "byOldest": "Od najstaršieho"
+  },
+  "DocumentsSection": {
+    "allFileTypes": "Všetky typy súborov",
+    "allCategories": "Všetky kategórie",
+    "noDocuments": "Žiadne dokumenty na zobrazenie.",
+    "download": "Stiahnuť"
+  },
+  "ArticleListing": {
+    "allCategories": "Všetky kategórie",
+    "noNews": "Žiadne novinky na zobrazenie."
+  },
+  "HomepageSlider": {
+    "aria": {
+      "heading": "Posúvač na úvodnej stránke",
+      "goToSlide": "Ísť na slide {{number}}"
+    }
+  },
+  "HeroSection": {
+    "priceFrom": "Cena od"
+  },
+  "BundlePage": {
+    "priceFrom": "Cena od",
+    "bundleContent": "Obsah balíčka",
+    "additionalServices": "Doplnkové služby"
+  },
+  "ImageGallery": {
+    "morePhotos_one": "+{{count}} fotka",
+    "morePhotos_few": "+{{count}} fotky",
+    "morePhotos_other": "+{{count}} fotiek",
+    "showAllPhotos": "Zobraziť všetky fotky",
+    "aria": {
+      "openImageGallery": "Otvoriť galériu obrázkov"
+    }
+  },
+  "CeremoniesSection": {
+    "th": {
       "time": "",
       "dateTime": "Dátum a čas",
       "name": "Meno a priezvisko",
@@ -142,105 +163,106 @@
       "branchTitle": "Cintorín",
       "type": "Typ obradu",
       "company": "Pohrebná služba",
-      "officiantProvidedBy": "Obradníka zabezpečuje",
-      "searchPlaceholder": "Hľadať…",
-      "filterBy": "Filtrovať podľa",
-      "privateFieldsDescription": "Objednávateľ obradu neudelil súhlas na zverejnenie osobných údajov a údajov o pohrebnom obrade zosnulého."
+      "officiantProvidedBy": "Obradníka zabezpečuje"
     },
-    "NewsSection": {
-      "moreNews": "Ďalšie novinky",
-      "allNews": "Všetky novinky"
-    },
-    "MapSection": {
-      "search": "Hladať…",
-      "noResults": "Žiadne výsledky…",
-      "map": "Mapa",
-      "filtering": "Filtrácia",
-      "filters": {
-        "civil": "Civilné",
-        "historical": "Historické",
-        "war": "Vojnové"
-      }
-    },
-    "DebtorsSection": {
+    "filterBy": "Filtrovať podľa",
+    "noCeremonies": "Žiadne obrady na zobrazenie.",
+    "privateFieldsDescription": "Objednávateľ obradu neudelil súhlas na zverejnenie osobných údajov a údajov o pohrebnom obrade zosnulého."
+  },
+  "NewsSection": {
+    "moreNews": "Ďalšie novinky",
+    "allNews": "Všetky novinky"
+  },
+  "MapSection": {
+    "noResults": "Žiadne výsledky",
+    "map": "Mapa",
+    "filtering": "Filtrácia",
+    "filters": {
+      "civil": "Civilné",
+      "historical": "Historické",
+      "war": "Vojnové"
+    }
+  },
+  "DebtorsSection": {
+    "th": {
+      "branchTitle": "Cintorín",
       "graveSector": "Hr. miesto sektor",
       "graveNumber": "Hr. miesto číslo",
       "gravePreviousNumber": "Hr. miesto predošlé č.",
       "firstName": "Meno zosnulého",
       "lastName": "Priezvisko zosnulého",
       "birthDate": "Dátum narodenia",
-      "deathDate": "Dátum úmrtia",
-      "branchTitle": "Cintorín",
-      "noRecords": "Žiadne záznamy"
+      "deathDate": "Dátum úmrtia"
     },
-    "ReviewListing": {
-      "ratings": {
-        "five": "Skvelé",
-        "four": "Výborné",
-        "three": "Dobré",
-        "two": "Nedostatočné",
-        "one": "Zlé"
-      },
-      "noReviews": "Žiadne recenzie na zobrazenie."
-    }
+    "noRecords": "Žiadne záznamy"
   },
-  "layouts": {
-    "DocumentLayout": {
-      "createdAt": "Vytvorené",
-      "downloadFile": "Stiahnuť",
-      "showFile": "Zobraziť",
-      "category": "Kategória",
-      "description": "Popis",
-      "details": "Detaily"
+  "ReviewListingSection": {
+    "ratings": {
+      "five": "Skvelé",
+      "four": "Výborné",
+      "three": "Dobré",
+      "two": "Nedostatočné",
+      "one": "Zlé"
     },
-    "BranchLayout": {
-      "navigate": "Navigovať",
-      "openingHours": "Otváracie hodiny",
-      "aboutCemetery": "O cintoríne",
-      "aboutBranch": "O pobočke",
-      "contacts": "Kontakty",
-      "writeMessage": "Napísať správu"
+    "noReviews": "Žiadne recenzie na zobrazenie."
+  },
+  "DocumentGroup": {
+    "download": "Stiahnuť",
+    "downloadFile": "Stiahnuť súbor"
+  },
+  "DocumentLayout": {
+    "createdAt": "Vytvorené",
+    "downloadFile": "Stiahnuť",
+    "showFile": "Zobraziť",
+    "category": "Kategória",
+    "description": "Popis",
+    "details": "Detaily"
+  },
+  "SideBarContact": {
+    "contacts": "Kontakty",
+    "writeMessage": "Napísať správu"
+  },
+  "BranchPage": {
+    "navigate": "Navigovať",
+    "openingHours": "Otváracie hodiny",
+    "aboutCemetery": "O cintoríne",
+    "aboutBranch": "O pobočke"
+  },
+  "SearchPage": {
+    "searchResults": "Výsledky vyhľadávania",
+    "searchPlaceholder": "Hľadať",
+    "resultsFound_zero": "Nebol nájdený žiaden výsledok",
+    "resultsFound_one": "Bol nájdený {{count}} výsledok",
+    "resultsFound_few": "Boli nájdené {{count}} výsledky",
+    "resultsFound_other": "Bolo nájdených {{count}} výsledkov",
+    "allResults": "Všetky výsledky",
+    "tags": {
+      "page": "Stránky",
+      "bundle": "Balíčky pohrebov",
+      "document": "Dokumenty",
+      "article": "Články",
+      "branch": "Pobočky a cintoríny"
     }
   },
-  "pages": {
-    "search": {
-      "searchResults": "Výsledky vyhľadávania",
-      "search": "Hľadať",
-      "resultsFound_zero": "Nebol nájdený žiaden výsledok",
-      "resultsFound_one": "Bol nájdený {{count}} výsledok",
-      "resultsFound_few": "Boli nájdené {{count}} výsledky",
-      "resultsFound_other": "Bolo nájdených {{count}} výsledkov",
-      "tags": {
-        "allResults": "Všetky výsledky",
-        "page": "Stránka",
-        "bundle": "Balíček",
-        "document": "Dokument",
-        "article": "Článok",
-        "branch": "Cintorín / Pobočka"
-      }
-    }
-  },
-  "cookieConsent": {
+  "CookieConsent": {
+    "aria": {
+      "acceptAllCookies": "Prijať všetky súbory cookies",
+      "rejectAllCookies": "Odmietnuť všetky súbory cookies",
+      "saveCookieSettings": "Uložiť nastavenia cookies",
+      "openCookieSettings": "Otvoriť nastavenia cookies",
+      "dismissCookieSettings": "Zavrieť nastavenia cookies",
+      "dismissCookieBanner": "Zavrieť cookie banner"
+    },
+    "settings": "Nastavenia cookies",
+    "acceptAll": "Prijať všetko",
+    "rejectAll": "Odmietnuť všetko",
+    "saveSettings": "Uložiť nastavenia",
     "banner": {
       "title": "Táto webová stránka používa súbory cookies",
-      "description": "Súbory cookie používame na prispôsobenie obsahu a reklám, poskytovanie funkcií sociálnych médií a analýzu návštevnosti. Informácie o vašom používaní stránky zdieľame aj s našimi sociálnymi médiami, reklamnými a analytickými partnermi, ktorí ich môžu skombinovať s inými informáciami, ktoré ste im poskytli alebo ktoré zhromaždili pri vašom používaní ich služieb.",
-      "acceptAll": "Prijať všetko",
-      "acceptAllCookies": "Prijať všetky súbory cookies",
-      "rejectAll": "Odmietnuť všetko",
-      "rejectAllCookies": "Odmietnuť všetky súbory cookies",
-      "settings": "Nastavenia cookies",
-      "dismiss": "Zavrieť cookie banner",
-      "openCookieSettings": "Otvoriť nastavenia cookies"
+      "description": "Súbory cookie používame na prispôsobenie obsahu a reklám, poskytovanie funkcií sociálnych médií a analýzu návštevnosti. Informácie o vašom používaní stránky zdieľame aj s našimi sociálnymi médiami, reklamnými a analytickými partnermi, ktorí ich môžu skombinovať s inými informáciami, ktoré ste im poskytli alebo ktoré zhromaždili pri vašom používaní ich služieb."
     },
     "modal": {
       "title": "Nastavenie súborov cookies",
-      "acceptAll": "Prijať všetko",
-      "acceptAllCookies": "Prijať všetky súbory cookies",
-      "rejectAll": "Odmietnuť všetko",
-      "rejectAllCookies": "Odmietnuť všetky súbory cookies",
-      "saveSettings": "Uložiť nastavenia",
-      "dismiss": "Zavrieť nastavenia cookies",
-      "saveCookieSettings": "Uložiť nastavenia cookies",
       "types": {
         "necessary": {
           "title": "Nevyhnutné súbory cookies",

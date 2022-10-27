@@ -19,7 +19,7 @@ export type AdvancedListItemProps = LiProps & { depth?: number }
 const RichText = ({ className, content, coloredTable = true }: RichTextProps) => {
   return (
     <ReactMarkdown
-      className={cx('flex flex-col gap-8 text-lg', className)}
+      className={cx('flex flex-col gap-8', className)}
       components={{
         h1: ({ children }) => <h1 className="text-h1 font-bold">{children}</h1>,
         h2: ({ children }) => <h2 className="text-h2 font-bold">{children}</h2>,

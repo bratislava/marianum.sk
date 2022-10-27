@@ -20,9 +20,7 @@ const mappedFetcher = client.DocumentCategories().then(
 const DocumentsSectionCategorySelect = ({
   onCategoryChange = () => {},
 }: DocumentsSectionCategorySelectProps) => {
-  const { t } = useTranslation('common', {
-    keyPrefix: 'components.DocumentsSection',
-  })
+  const { t } = useTranslation('common', { keyPrefix: 'DocumentsSection' })
 
   const defaultOption = useMemo(() => ({ label: t('allCategories'), key: '' }), [t])
 

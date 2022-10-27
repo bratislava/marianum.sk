@@ -27,9 +27,8 @@ const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) =>
     emptySearchQuery,
     onSearch,
   } = props
-  const { t } = useTranslation('common', {
-    keyPrefix: 'components.molecules.Navigation.NavigationSearch',
-  })
+
+  const { t } = useTranslation('common', { keyPrefix: 'NavigationSearch' })
 
   return (
     <Modal
@@ -43,7 +42,6 @@ const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) =>
         <div className="z-50 flex w-full bg-primary py-3 pl-4">
           <Search
             value={searchQuery}
-            placeholder={t('search')}
             onSearchQueryChange={onSearchQueryChange}
             className="flex-1"
             onSearch={onSearch}

@@ -34,9 +34,8 @@ const Articles = ({
   filters: ArticleListingFilters
   type: ArticleListingType
 }) => {
-  const { t } = useTranslation('common', {
-    keyPrefix: 'components.ArticleListing',
-  })
+  const { t } = useTranslation('common', { keyPrefix: 'ArticleListing' })
+
   const { getFullSlugMeili } = useSlugMeili()
   const cardsRef = useRef<HTMLDivElement>(null)
   useScrollToViewIfDataChange(data, filters, cardsRef)
