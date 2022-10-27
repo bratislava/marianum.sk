@@ -66,8 +66,6 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
       })}
     </Section>
   )
-
-  return null
 }
 
 export default CardSection
