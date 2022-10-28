@@ -36,6 +36,13 @@
       url('/fonts/ABCArizonaFlare-Bold.woff') format('woff');
   }
 
+  @supports (-webkit-text-stroke: 4px #446650) {
+    .status-code {
+      -webkit-text-stroke: 4px #446650;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
   html,
   body {
     padding: 0;

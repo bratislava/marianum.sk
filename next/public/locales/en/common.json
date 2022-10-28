@@ -244,6 +244,14 @@
       "branch": "Branch"
     }
   },
+  "ErrorPage": {
+    "title404": "Page not found",
+    "message404": "We are sorry but this page does not exist. You can follow to home page or to previous page.",
+    "titleGeneralError": "An error occurred",
+    "messageGeneralError": "We are sorry, some unexpected error occurred. Please visit the page later. If the problem persists, please contact the administrator.",
+    "home": "Home page",
+    "previousPage": "Previous page"
+  },
   "CookieConsent": {
     "aria": {
       "acceptAllCookies": "Accept all cookies",

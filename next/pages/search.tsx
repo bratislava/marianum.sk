@@ -23,7 +23,7 @@ const SearchSection = () => {
   const { t } = useTranslation('common', { keyPrefix: 'SearchPage' })
 
   const [filters, setFilters] = useState<SearchFilters>({
-    pageSize: 24,
+    pageSize: 10,
     page: 1,
     selectedTypes: [],
   })
@@ -138,7 +138,7 @@ const SearchSection = () => {
               )}
             </AnimateHeight>
             {dataToDisplay?.estimatedTotalHits !== 0 && (
-              <div className="flex justify-center md:justify-end">
+              <div className="flex justify-center">
                 <PaginationMeili
                   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                   data={dataToDisplay!}
@@ -169,7 +169,7 @@ const SearchPage = ({ navigation, general }: SearchPageProps) => {
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <PageWrapper navigation={navigation} general={general}>
-        <SectionsWrapper alternateBackground>
+        <SectionsWrapper alternateBackground className="pb-14">
           <SearchSection />
         </SectionsWrapper>
       </PageWrapper>
