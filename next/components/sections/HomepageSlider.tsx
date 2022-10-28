@@ -21,7 +21,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
   }
 
   return (
-    <section className="relative h-[412px] bg-primary-dark text-white lg:h-[436px]">
+    <div className="relative h-[412px] bg-primary-dark text-white lg:h-[436px]">
       <Slider
         autoSwipeDuration={5000}
         pages={slides.map(({ title, description, button, image }) => {
@@ -32,7 +32,8 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
           return (
             <div className="flex h-full justify-center">
               <h2 className="sr-only">{t('aria.heading')}</h2>
-              <div className="container absolute flex h-full flex-col items-center justify-center lg:items-start">
+              <div className="container absolute flex h-full flex-row items-center justify-center lg:justify-start">
+                {/* 60% of container width is not the same as 60% of window (image offset from left), but this setting works fine */}
                 <div className="flex h-full w-full flex-col items-center pb-16 lg:w-[60%] lg:items-start lg:justify-end lg:pb-[104px]">
                   {/* Mobile image */}
                   <div className="pointer-events-none relative mb-6 h-[228px] w-full select-none bg-black/20 lg:hidden">
@@ -64,9 +65,16 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
               {/* Desktop image */}
               <div key={ctaSlug} className="hidden h-full flex-1 lg:flex">
                 <div className="w-[60%]" />
+                {/* gradient overlay */}
+                <div className="absolute left-[60%] z-[1] h-full w-[10%] bg-gradient-to-r from-primary-dark" />
                 <div className="pointer-events-none relative h-[228px] w-full select-none bg-black/20 lg:h-full lg:w-[40%]">
                   {url && (
-                    <Image src={url} alt={alternativeText ?? ''} fill className="object-cover" />
+                    <Image
+                      src={url}
+                      alt={alternativeText ?? ''}
+                      fill
+                      className="object-cover mix-blend-multiply"
+                    />
                   )}
                 </div>
               </div>
@@ -93,7 +101,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
           </div>
         )}
       />
-    </section>
+    </div>
   )
 }
 
