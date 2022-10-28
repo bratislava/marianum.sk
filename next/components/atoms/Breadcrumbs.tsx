@@ -85,7 +85,7 @@ const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
         key={index}
         crumb={crumb}
         noChevron={index === 0}
-        ariaLabel={index === 0 ? t('general.home') : undefined}
+        ariaLabel={index === 0 ? t('Navigation.home') : undefined}
         noLink={index === crumbs.length - 1}
       />
       /* eslint-enable react/no-array-index-key */

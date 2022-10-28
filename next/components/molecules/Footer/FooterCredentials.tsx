@@ -11,7 +11,7 @@ type FooterCredentialsProps = {
 }
 
 const FooterCredentials = ({ links }: FooterCredentialsProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'components.molecules.Footer' })
+  const { t } = useTranslation('common', { keyPrefix: 'FooterCredentials' })
   const { getFullSlug } = useSlug()
 
   const currentYear = useMemo(() => {

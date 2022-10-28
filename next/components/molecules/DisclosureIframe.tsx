@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import LoadingOverlay from '../atoms/LoadingOverlay'
 
 const DisclosureIframe = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common', { keyPrefix: 'DisclosureIframe' })
   const [loading, setLoading] = useState(true)
 
   return (

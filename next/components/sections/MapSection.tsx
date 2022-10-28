@@ -6,6 +6,7 @@ import Map, { MapRef, Marker } from 'react-map-gl'
 import slugify from 'slugify'
 import useSWR from 'swr'
 
+import ArrowBackIcon from '../../assets/arrow_back.svg'
 import MapMarkerIcon from '../../assets/map-marker.svg'
 import PlaceIcon from '../../assets/place.svg'
 import { BranchEntityFragment, Enum_Branch_Cemeterytype } from '../../graphql'
@@ -40,7 +41,8 @@ const getBoundsForBranches = (branches: BranchEntityFragment[]) => {
 type MapSectionProps = Pick<SectionProps, 'background' | 'title'>
 
 const MapSection = ({ ...rest }: MapSectionProps) => {
-  const { t, i18n } = useTranslation('common', { keyPrefix: 'sections.MapSection' })
+  const { t, i18n } = useTranslation('common', { keyPrefix: 'MapSection' })
+
   const { getFullSlug } = useSlug()
 
   const { data, error } = useSWR(
@@ -148,11 +150,7 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
         >
           {/* filtering */}
           <div className="flex flex-col gap-3 border-b border-border  p-5">
-            <Search
-              value={searchQuery}
-              onSearchQueryChange={setSearchQuery}
-              placeholder={t('search')}
-            />
+            <Search value={searchQuery} onSearchQueryChange={setSearchQuery} />
             <div className="flex gap-2">
               <TagToggle isSelected={isCivilChecked} onChange={setCivilChecked}>
                 {t('filters.civil')}
@@ -243,7 +241,7 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
           <Button
             className="rounded-full shadow"
             onPress={() => setMapOrFiltersDisplayed((m) => !m)}
-            startIcon={<PlaceIcon />}
+            startIcon={isMapOrFiltersDisplayed ? <ArrowBackIcon /> : <PlaceIcon />}
           >
             {isMapOrFiltersDisplayed ? t('filtering') : t('map')}
           </Button>

@@ -31,7 +31,7 @@ import MapSection from '../components/sections/MapSection'
 import MenuListingSection from '../components/sections/MenuListingSection'
 import NewsListing from '../components/sections/NewsSection'
 import PartnersSection from '../components/sections/PartnersSection'
-import ReviewListing from '../components/sections/ReviewListing'
+import ReviewListingSection from '../components/sections/ReviewListingSection'
 import RichTextSection from '../components/sections/RichTextSection'
 import {
   Enum_Page_Layout,
@@ -228,7 +228,12 @@ const Slug = ({ navigation, page, general, reviews, fallback }: PageProps) => {
               )
             }
             if (section?.__typename === 'ComponentSectionsReviewListing') {
-              return <ReviewListing key={`${section.__typename}-${section.id}`} reviews={reviews} />
+              return (
+                <ReviewListingSection
+                  key={`${section.__typename}-${section.id}`}
+                  reviews={reviews}
+                />
+              )
             }
             return null
           })}

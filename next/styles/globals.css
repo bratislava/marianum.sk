@@ -75,8 +75,7 @@
   h4,
   h5,
   h6 {
-    font-family: 'ABC Arizona Flare', sans-serif;
-    @apply text-foreground-heading font-bold;
+    @apply font-serif text-foreground-heading font-bold;
   }
 
   h1 {
@@ -198,4 +197,9 @@
 
 .szh-menu--state-open.szh-menu--dir-bottom {
   animation: szh-menu-show-slide-bottom 0.15s ease-out;
+}
+
+.full-width-canvas-page canvas {
+  width: 100% !important;
+  height: auto !important;
 }

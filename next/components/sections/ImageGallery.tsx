@@ -18,7 +18,7 @@ export type ImageGalleryProps = {
 }
 
 const ImageGallery = ({ images = [], variant = 'bellow' }: ImageGalleryProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'sections.ImageGallerySection' })
+  const { t } = useTranslation('common', { keyPrefix: 'ImageGallery' })
 
   // all images count
   const imageCount = useMemo(() => {
