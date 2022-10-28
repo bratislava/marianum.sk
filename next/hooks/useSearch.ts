@@ -7,6 +7,7 @@ import { useDebounce } from 'usehooks-ts'
 import { useSlugMeili } from '../components/molecules/Navigation/NavigationProvider/useFullSlug'
 import { ArticleMeili, BranchMeili, DocumentMeili } from '../types/meiliTypes'
 import { SearchIndexWrapped } from '../utils/fetchers/searchIndexWrapped'
+import { getMeilisearchPageOptions } from '../utils/getMeilisearchPageOptions'
 import { meiliClient } from '../utils/meilisearch'
 import { Unpacked } from '../utils/types'
 import useGetSwrExtras from '../utils/useGetSwrExtras'
@@ -97,8 +98,7 @@ export const useSearch = ({ filters, isSyncedWithUrlQuery = false }: UseSearchOp
     return meiliClient
       .index('search_index')
       .search<Results>(debouncedSearchQuery, {
-        limit: filters.pageSize,
-        offset: (filters.page - 1) * filters.pageSize,
+        ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
         filter: [`locale = ${i18n.language ?? 'sk'} OR locale NOT EXISTS`, selectedTypesFilter],
       })
       .then((response) => {
