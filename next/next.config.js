@@ -2,6 +2,9 @@ const { i18n } = require('./next-i18next.config')
 const { withSentryConfig } = require('@sentry/nextjs')
 const CopyPlugin = require('copy-webpack-plugin')
 const path = require('path')
+const {
+  generateRedirects,
+} = require('./components/molecules/Navigation/NavigationProvider/generateRedirects')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -33,48 +36,52 @@ const nextConfig = {
           source: '/uploads/:file',
           destination: `${process.env.STRAPI_URL}/uploads/:file`,
         },
+      ],
+      afterFiles: [
         /**
-         * Rewrites to make the the URLs and translation of URLs work. Based on an approached outlined here:
+         * Rewrites to make the URLs and translation of URLs work. Based on an approached outlined here:
          * https://stackoverflow.com/questions/68723485/how-to-setup-i18n-translated-url-routes-in-next-js/68731057#68731057
          */
-
         // TODO add english equivalents
         {
           source: '/vyhladavanie',
           destination: '/search',
         },
-        {
-          source: '/aktuality/novinky/:slug',
-          destination: '/articles/:slug',
-        },
-        {
-          source: '/o-nas/pre-media/:slug',
-          destination: '/articles/:slug',
-        },
-        {
-          source: '/sluzby/balicky-pohrebov/pochovanie-do-zeme/:slug',
-          destination: '/bundles/:slug',
-        },
-        {
-          source: '/sluzby/balicky-pohrebov/kremacia/:slug',
-          destination: '/bundles/:slug',
-        },
-        {
-          source: '/o-nas/kontakty/:slug',
-          destination: '/branches/:slug',
-        },
-        {
-          source: '/o-nas/cintoriny-v-sprave/:slug',
-          destination: '/branches/:slug',
-        },
-        {
-          source: '/o-nas/dokumenty/:slug',
-          destination: '/documents/:slug',
-        },
-        {
-          source: '/o-nas/dokumenty/legislativa/:slug',
-          destination: '/documents/:slug',
-        },
+        ...generateRedirects([
+          { fullPath: '/aktuality/novinky/:slug', nextRoute: '/articles' },
+          {
+            fullPath: '/o-nas/pre-media/:slug',
+            nextRoute: '/articles',
+          },
+          {
+            fullPath: '/sluzby/balicky-pohrebov/pochovanie-do-zeme/:slug',
+            nextRoute: '/bundles',
+          },
+          {
+            fullPath: '/sluzby/balicky-pohrebov/kremacia/:slug',
+            nextRoute: '/bundles',
+          },
+          {
+            fullPath: '/o-nas/kontakty/:slug',
+            nextRoute: '/branches',
+          },
+          {
+            fullPath: '/o-nas/cintoriny-v-sprave/:slug',
+            nextRoute: '/branches',
+          },
+          {
+            fullPath: '/o-nas/dokumenty/:slug',
+            nextRoute: '/documents',
+          },
+          {
+            fullPath: '/o-nas/dokumenty/legislativa/:slug',
+            nextRoute: '/documents',
+          },
+          {
+            fullPath: '/:fullPath*',
+            nextRoute: '/pages',
+          },
+        ]),
       ],
     }
   },
