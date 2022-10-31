@@ -4,14 +4,15 @@ import {
   ArticleSlugEntityFragment,
   BranchSlugEntityFragment,
   Bundle,
-  BundleCardEntityFragment,
+  BundleSlugEntityFragment,
   DocumentSlugEntityFragment,
+  NavigationItemFragment,
   Page,
   PageSlugEntityFragment,
 } from '../../../../graphql'
 import { ArticleMeili, BranchMeili, DocumentMeili } from '../../../../types/meiliTypes'
 import { isDefined } from '../../../../utils/isDefined'
-import { NavMap } from '../../../../utils/parseNavigation'
+import { NavMap, parseNavigation } from '../../../../utils/parseNavigation'
 import { useNavigationContext } from './useNavigationContext'
 
 // TODO move this to separate file and add translation logic
@@ -28,11 +29,11 @@ const localPaths = {
   search: '/vyhladavanie',
 }
 
-type UnionEntityType =
+export type UnionSlugEntityType =
   | PageSlugEntityFragment
   | ArticleSlugEntityFragment
   | BranchSlugEntityFragment
-  | BundleCardEntityFragment
+  | BundleSlugEntityFragment
   | DocumentSlugEntityFragment
   | null
   | undefined
@@ -41,7 +42,7 @@ type UnionEntityType =
  * Returns the URL for Strapi returned entity.
  */
 export const getFullPathFn = (
-  entity: UnionEntityType,
+  entity: UnionSlugEntityType,
   navMap: NavMap,
   // eslint-disable-next-line sonarjs/cognitive-complexity
 ) => {
@@ -62,7 +63,7 @@ export const getFullPathFn = (
 
   if (entity.__typename === 'PageEntity') {
     const path = navMap?.get(slug)?.path
-    return path ?? slug
+    return path ?? `/${slug}`
   }
 
   if (entity.__typename === 'BranchEntity') {
@@ -131,7 +132,7 @@ const getFullPathMeiliFn = (navMap: NavMap) => {
 
     if (entityType === 'page') {
       const path = navMap?.get(slug)?.path
-      return path ?? slug
+      return path ?? `/${slug}`
     }
 
     if (entityType === 'branch') {
@@ -165,7 +166,7 @@ export const useGetFullPath = () => {
   const { navMap } = useNavigationContext()
 
   const getFullPath = useMemo(
-    () => (entity: UnionEntityType) => getFullPathFn(entity, navMap),
+    () => (entity: UnionSlugEntityType) => getFullPathFn(entity, navMap),
     [navMap],
   )
 
@@ -178,4 +179,21 @@ export const useGetFullPathMeili = () => {
   const getFullPathMeili = useMemo(() => getFullPathMeiliFn(navMap), [navMap])
 
   return { getFullPathMeili }
+}
+
+/**
+ * Returns whether the provided path matches the correct path for provided entity.
+ *
+ * @param path
+ * @param entity
+ * @param navigation
+ */
+export const isCurrentPathValid = (
+  path: string,
+  entity: UnionSlugEntityType,
+  navigation: NavigationItemFragment[],
+) => {
+  const { navMap } = parseNavigation(navigation)
+
+  return getFullPathFn(entity, navMap) === path
 }
