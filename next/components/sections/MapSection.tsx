@@ -139,7 +139,7 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
       <div className="relative flex h-[624px] flex-col items-center overflow-hidden md:flex-row md:items-stretch">
         <div
           className={cx(
-            'absolute z-20 flex h-full w-full flex-col bg-white transition-transform duration-500 md:relative md:w-[360px]',
+            'absolute z-[2] flex h-full w-full flex-col bg-white transition-transform duration-500 md:relative md:w-[360px]',
             {
               '-translate-x-full md:translate-x-0': isMapOrFiltersDisplayed,
             },
@@ -234,7 +234,7 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
           </Map>
         </div>
         {/* mobile bottom button */}
-        <div className="absolute bottom-6 z-20 md:hidden">
+        <div className="absolute bottom-6 z-[2] md:hidden">
           <Button
             className="rounded-full shadow"
             onPress={() => setMapOrFiltersDisplayed((m) => !m)}

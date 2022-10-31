@@ -10,7 +10,7 @@ import { useGetFullPath } from './Navigation/NavigationProvider/useGetFullPath'
 export type SectionProps = {
   children: ReactNode
   background?: BackgroundColor
-  cardGrid?: 'cards' | 'bundles'
+  cardGrid?: 'cards' | 'bundles' | 'serviceCards'
   title?: string | null | undefined
   /* use `button` for strapi sections with link to more content */
   button?: CtaButtonFragment | null | undefined
@@ -111,6 +111,8 @@ const Section = ({
             {
               'grid gap-6 md:grid-cols-2 lg:grid-cols-4': cardGrid === 'cards',
               'grid gap-6 md:grid-cols-2 lg:grid-cols-3': cardGrid === 'bundles',
+              'flex grid-cols-2 gap-6 overflow-x-auto md:grid lg:grid-cols-4':
+                cardGrid === 'serviceCards',
             },
             childrenWrapperClassName,
           )}

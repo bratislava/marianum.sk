@@ -1102,13 +1102,7 @@ const Showcase = () => {
                 border={cardsBorder}
               />
               <CategoryCard border={cardsBorder} title="Category card" linkHref="" />
-              <ServiceCard
-                title="Headline"
-                subtitle="Subtitle"
-                linkHref="#"
-                image={image}
-                border={cardsBorder}
-              />
+              <ServiceCard title="Headline" linkHref="#" image={image} border={cardsBorder} />
               <FaqThemeCard border={cardsBorder} title="Faq card" subtitle="Subtitle" linkHref="" />
               <PartnerCard title="Partner name" linkHref="#" image={image} border={cardsBorder} />
               <BundleCard

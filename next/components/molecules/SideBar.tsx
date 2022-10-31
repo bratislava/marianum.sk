@@ -15,7 +15,7 @@ const SideBar = ({ sidebar }: SideBarProps) => {
   const { getFullPath } = useGetFullPath()
 
   if (!sidebar) {
-    return <aside className="md:w-[360px]" />
+    return <aside className="lg:w-[360px]" />
   }
 
   const { title, text, ctaButton, contact } = sidebar
@@ -23,7 +23,7 @@ const SideBar = ({ sidebar }: SideBarProps) => {
   const { phone1, phone2, email } = contact?.data?.attributes ?? {}
 
   return (
-    <aside className="flex h-fit flex-col bg-white p-6 md:w-[360px]">
+    <aside className="flex h-fit flex-col bg-white p-6 lg:w-[360px]">
       {title && <h5 className="whitespace-pre-wrap">{title}</h5>}
       {text && <p className="mt-2 whitespace-pre-wrap">{text}</p>}
       {ctaSlug ? (
