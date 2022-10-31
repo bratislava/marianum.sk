@@ -13,7 +13,7 @@ const RichTextSection = ({ section }: RichTextSectionProps) => {
 
   return (
     <Section>
-      <RichText content={section.content} />
+      <RichText className="lg:text-lg" content={section.content} />
       {section.button ? (
         <Button
           href={getFullPath(section.button.page?.data) ?? ''}

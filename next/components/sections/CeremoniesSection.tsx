@@ -27,9 +27,8 @@ import Section from '../molecules/Section'
 const PrivateField = () => <span className="opacity-50">**</span>
 
 const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSectionFilters }) => {
-  const { t, i18n } = useTranslation('common', {
-    keyPrefix: 'sections.CeremoniesSection',
-  })
+  const { t, i18n } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })
+
   const theadRef = useRef<HTMLTableSectionElement>(null)
   useScrollToViewIfDataChange(data, filters, theadRef)
 
@@ -85,13 +84,13 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
             <table className="m-table">
               <thead ref={theadRef}>
                 <tr>
-                  <th>{t('time')}</th>
-                  <th>{t('name')}</th>
-                  <th>{t('birthYear')}</th>
-                  <th>{t('branchTitle')}</th>
-                  <th>{t('type')}</th>
-                  <th>{t('company')}</th>
-                  <th>{t('officiantProvidedBy')}</th>
+                  <th>{t('th.time')}</th>
+                  <th>{t('th.name')}</th>
+                  <th>{t('th.birthYear')}</th>
+                  <th>{t('th.branchTitle')}</th>
+                  <th>{t('th.type')}</th>
+                  <th>{t('th.company')}</th>
+                  <th>{t('th.officiantProvidedBy')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -163,9 +162,9 @@ type CeremoniesSectionProps = {
 }
 
 const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'sections.CeremoniesSection' })
-  const { getFullPath } = useGetFullPath()
+  const { t } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })
 
+  const { getFullPath } = useGetFullPath()
   const [filters, setFilters] = useState<CeremoniesSectionFilters>(ceremoniesSectionDefaultFilters)
 
   const handleBranchChange = (branchId: string) => {

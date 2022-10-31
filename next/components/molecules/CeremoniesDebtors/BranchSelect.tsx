@@ -16,9 +16,7 @@ const CeremoniesDebtorsBranchSelect = ({
   type,
   onBranchChange = () => {},
 }: CeremoniesDebtorsBranchSelectProps) => {
-  const { t, i18n } = useTranslation('common', {
-    keyPrefix: 'components.molecules.CeremoniesDebtorsBranchSelect',
-  })
+  const { t, i18n } = useTranslation('common', { keyPrefix: 'BranchSelect' })
 
   // eslint-disable-next-line consistent-return
   const fetcher = useMemo(() => {

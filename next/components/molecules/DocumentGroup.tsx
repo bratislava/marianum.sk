@@ -9,7 +9,7 @@ import { useGetFullPath } from './Navigation/NavigationProvider/useGetFullPath'
 import Row from './Row/Row'
 
 const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common', { keyPrefix: 'DocumentGroup' })
   const { getFullPath } = useGetFullPath()
 
   const filteredDocuments = useMemo(() => {
@@ -31,9 +31,11 @@ const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
                 <Button
                   href={file.data?.attributes?.url}
                   variant="tertiary"
+                  // TODO add file size and format
+                  aria-label={t('downloadFile')}
                   startIcon={<DownloadIcon />}
                 >
-                  {t('layouts.DocumentLayout.downloadFile')}
+                  {t('download')}
                 </Button>
               ) : null
             }

@@ -27,7 +27,7 @@ type BundlePageProps = {
 } & SSRConfig
 
 const BundlePage: NextPage<BundlePageProps> = ({ navigation, entity, general }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common', { keyPrefix: 'BundlePage' })
   const {
     seo,
     title,
@@ -54,7 +54,7 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, entity, general }) 
           {/* todo: display bundle data */}
           {claims?.length ? (
             <Section>
-              <h2 className="pb-6 text-h3">{t('sections.HeroSection.bundleContent')}</h2>
+              <h2 className="pb-6 text-h3">{t('bundleContent')}</h2>
               <ul>
                 {claims.map((item, index) => (
                   // eslint-disable-next-line react/no-array-index-key
@@ -83,7 +83,7 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, entity, general }) 
 
           {additionalServices?.length ? (
             <Section>
-              <h3 className="pb-4">{t('sections.HeroSection.additionalServices')}</h3>
+              <h3 className="pb-4">{t('additionalServices')}</h3>
               <AccordionGroup>
                 {additionalServices.map((service) => (
                   <AccordionItem
@@ -92,7 +92,7 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, entity, general }) 
                     additionalInfo={
                       service?.price ? (
                         <div>
-                          {t('sections.HeroSection.priceFrom')}{' '}
+                          {t('priceFrom')}{' '}
                           <span className="font-bold">
                             <FormatCurrency value={service.price} />
                           </span>

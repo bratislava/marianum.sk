@@ -17,14 +17,14 @@ import Seo from '../../components/molecules/Seo'
 import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import { client } from '../../utils/gql'
 
-type PageProps = {
+type BranchPageProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   entity: BranchEntityFragment
 } & SSRConfig
 
-const BranchSlug = ({ navigation, entity, general }: PageProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'layouts.BranchLayout' })
+const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'BranchPage' })
 
   const { seo, title, type, address, navigateToLink, description, openingHoursOverride } =
     entity.attributes ?? {}
@@ -90,7 +90,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   return { paths, fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
+export const getStaticProps: GetStaticProps<BranchPageProps, StaticParams> = async ({
   locale = 'sk',
   params,
 }) =>
@@ -104,4 +104,4 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
         .then((response) => response.branches?.data[0]),
   })
 
-export default BranchSlug
+export default BranchPage

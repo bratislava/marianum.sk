@@ -33,7 +33,8 @@ const Documents = ({
   data: SearchResponse<DocumentMeili>
   filters: DocumentsSectionFilters
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common', { keyPrefix: 'DocumentsSection' })
+
   const documentsRef = useRef<HTMLDivElement>(null)
   useScrollToViewIfDataChange(data, filters, documentsRef)
 
@@ -63,7 +64,7 @@ const Documents = ({
                 target="_blank"
                 href={document.file?.url ?? ''}
               >
-                {t('layouts.DocumentLayout.downloadFile')}
+                {t('download')}
               </Button>
             }
             border={false}
@@ -72,7 +73,7 @@ const Documents = ({
       </div>
     )
   }
-  return <strong>{t('components.DocumentsSection.noDocuments')}</strong>
+  return <strong>{t('noDocuments')}</strong>
 }
 
 const DataWrapper = ({
@@ -157,8 +158,8 @@ const DocumentsSection = ({ description }: DocumentsSectionProps) => {
 
   return (
     <Section overlayWithHero>
-      <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-2">
-        <div className="md:col-span-2">
+      <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3">
+        <div className="md:col-span-3">
           <FilteringSearchInput
             value={searchInputValue}
             onChange={(value) => setSearchInputValue(value)}
@@ -166,10 +167,8 @@ const DocumentsSection = ({ description }: DocumentsSectionProps) => {
         </div>
         <DocumentsSectionCategorySelect onCategoryChange={handleCategoryChange} />
         <DocumentsSectionFiletypeSelect onFiletypeChange={handleFiletypeChange} />
-      </FiltersBackgroundWrapper>
-      <div className="mb-6 md:w-[192px]">
         <SortSelect onChange={handleSortChange} defaultSelected={filters.sort} />
-      </div>
+      </FiltersBackgroundWrapper>
 
       <div>
         <DataWrapper filters={filters} description={description} onPageChange={handlePageChange} />

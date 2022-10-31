@@ -12,7 +12,8 @@ type HomepageSliderProps = {
 }
 
 const HomepageSlider = ({ slides }: HomepageSliderProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'sections.HomepageSlider' })
+  const { t } = useTranslation('common', { keyPrefix: 'HomepageSlider' })
+
   const { getFullPath } = useGetFullPath()
 
   if (!slides) {

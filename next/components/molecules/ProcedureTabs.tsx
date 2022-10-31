@@ -56,7 +56,7 @@ const ProcedureTabs = () => {
   return (
     <Tabs>
       {procedures.map((procedure) => (
-        <Tab key={procedure?.title} label={procedure?.title ?? ''}>
+        <Tab key={procedure?.title} title={procedure?.title ?? ''}>
           <div>
             <Checklist
               items={

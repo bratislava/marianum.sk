@@ -22,6 +22,7 @@ export type SectionProps = {
   childrenWrapperClassName?: string
   dividerClassName?: string
   overlayWithHero?: boolean
+  centerTitleOnMobile?: boolean
 }
 
 const Section = ({
@@ -37,13 +38,14 @@ const Section = ({
   childrenWrapperClassName,
   dividerClassName,
   overlayWithHero = false,
+  centerTitleOnMobile = true,
 }: SectionProps) => {
   const { getFullPath } = useGetFullPath()
 
   const showMorePath = getFullPath(button?.page?.data) ?? buttonLink?.linkHref
   const showMoreLabel = button?.label ?? buttonLink?.label
 
-  const { background, isDivider, isFirst, isLast, alternateBackground } = useContext(sectionContext)
+  const { background, isDivider, isFirst, alternateBackground } = useContext(sectionContext)
 
   const resultBackground = useMemo(() => {
     return propBackground ?? background
@@ -84,14 +86,15 @@ const Section = ({
           {
             'container py-6 md:py-16': alternateBackground,
             'md:-mt-12 md:pt-0': shouldOverlayWithHero && alternateBackground,
-            'pb-20 md:pb-[120px]': isLast,
           },
           innerClassName,
         )}
       >
         {(title || showMorePath) && (
           <div className="flex">
-            <h2 className="grow text-center md:text-left">{title}</h2>
+            <h2 className={cx('grow md:text-left', { 'text-center': centerTitleOnMobile })}>
+              {title}
+            </h2>
             {showMorePath && (
               <MLink href={showMorePath} className="hidden md:inline-flex">
                 {showMoreLabel}

@@ -1,15 +1,6 @@
 import cx from 'classnames'
-import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
-import { useCallback, useContext, useEffect, useRef, useState } from 'react'
-import {
-  AriaOverlayProps,
-  FocusScope,
-  OverlayContainer,
-  useModal,
-  useOverlay,
-  usePreventScroll,
-} from 'react-aria'
+import { useCallback, useContext, useState } from 'react'
 
 import CheckIcon from '../../assets/check.svg'
 import CloseIcon from '../../assets/close.svg'
@@ -18,6 +9,7 @@ import Button from './Button'
 import Checkbox from './Checkbox'
 import { cookieConsentContext } from './CookieConsent'
 import IconButton from './IconButton'
+import Modal from './Modal'
 
 const CookieTypeCheckbox = ({
   isChecked,
@@ -50,7 +42,7 @@ const CookieTypeCheckbox = ({
 }
 
 const CookieSettingsModal = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common', { keyPrefix: 'CookieConsent' })
 
   const {
     isModalOpen,
@@ -60,18 +52,6 @@ const CookieSettingsModal = () => {
     onCustomCookiesAcceptance,
     acceptance,
   } = useContext(cookieConsentContext)
-
-  const overlayHookProps: AriaOverlayProps = { isOpen: isModalOpen, onClose: onCloseModal }
-
-  const ref = useRef<HTMLDivElement | null>(null)
-  const { overlayProps, underlayProps } = useOverlay(overlayHookProps, ref)
-  usePreventScroll({ isDisabled: !isModalOpen })
-  const { modalProps } = useModal()
-  const [isBrowser, setBrowser] = useState(false)
-
-  useEffect(() => {
-    setBrowser(true)
-  }, [])
 
   const [arePreferenceCookiesAllowed, setPreferenceCookiesAllowed] = useState(
     acceptance.arePreferenceCookiesAllowed,
@@ -98,105 +78,89 @@ const CookieSettingsModal = () => {
     onCloseModal,
   ])
 
-  return isBrowser ? (
-    <OverlayContainer>
-      <AnimatePresence>
-        {isModalOpen && (
-          <motion.div
-            transition={{ duration: 0.2 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            <div {...underlayProps} className="fixed inset-0 z-50 flex bg-black/40">
-              <div
-                className="flex h-full w-full items-center"
-                {...overlayProps}
-                {...modalProps}
-                ref={ref}
+  return (
+    <Modal
+      showCloseButton={false}
+      isOpen={isModalOpen}
+      onClose={onCloseModal}
+      underlayClassName="p-4 md:p-8"
+    >
+      <div className="mx-auto max-h-full w-full max-w-4xl overflow-y-auto p-4 md:p-8">
+        <div className="flex w-full flex-col gap-4 bg-white p-4 md:gap-8 md:p-8">
+          <div className="flex items-center justify-between">
+            <div className="text-h3 font-bold">{t('modal.title')}</div>
+            <IconButton
+              aria-label={t('aria.dismissCookieSettings')}
+              variant="white"
+              onPress={onCloseModal}
+            >
+              <CloseIcon />
+            </IconButton>
+          </div>
+          <div className="flex flex-col gap-4">
+            <CookieTypeCheckbox
+              title={t('modal.types.necessary.title')}
+              description={t('modal.types.necessary.description')}
+              isChecked
+              isDisabled
+            />
+
+            <CookieTypeCheckbox
+              title={t('modal.types.preference.title')}
+              description={t('modal.types.preference.description')}
+              isChecked={arePreferenceCookiesAllowed}
+              onChange={setPreferenceCookiesAllowed}
+            />
+
+            <CookieTypeCheckbox
+              title={t('modal.types.statistic.title')}
+              description={t('modal.types.statistic.description')}
+              isChecked={areStatisticCookiesAllowed}
+              onChange={setStatisticCookiesAllowed}
+            />
+
+            <CookieTypeCheckbox
+              title={t('modal.types.marketing.title')}
+              description={t('modal.types.marketing.description')}
+              isChecked={areMarketingCookiesAllowed}
+              onChange={setMarketingCookiesAllowed}
+            />
+          </div>
+
+          <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
+            <div className="flex flex-col gap-4 md:flex-row">
+              <Button
+                aria-label={t('aria.acceptAllCookies')}
+                className="whitespace-nowrap"
+                variant="primary"
+                onPress={onAcceptAll}
+                startIcon={<CheckIcon />}
               >
-                <FocusScope contain restoreFocus autoFocus>
-                  <div className="mx-auto max-h-full w-full max-w-4xl overflow-y-auto p-4 md:p-8">
-                    <div className="flex w-full flex-col gap-4 bg-white p-4 md:gap-8 md:p-8">
-                      <div className="flex items-center justify-between">
-                        <div className="text-h3 font-bold">{t('cookieConsent.modal.title')}</div>
-                        <IconButton
-                          aria-label={t('cookieConsent.modal.dismiss')}
-                          variant="white"
-                          onPress={onCloseModal}
-                        >
-                          <CloseIcon />
-                        </IconButton>
-                      </div>
-                      <div className="flex flex-col gap-4">
-                        <CookieTypeCheckbox
-                          title={t('cookieConsent.modal.types.necessary.title')}
-                          description={t('cookieConsent.modal.types.necessary.description')}
-                          isChecked
-                          isDisabled
-                        />
-
-                        <CookieTypeCheckbox
-                          title={t('cookieConsent.modal.types.preference.title')}
-                          description={t('cookieConsent.modal.types.preference.description')}
-                          isChecked={arePreferenceCookiesAllowed}
-                          onChange={setPreferenceCookiesAllowed}
-                        />
-
-                        <CookieTypeCheckbox
-                          title={t('cookieConsent.modal.types.statistic.title')}
-                          description={t('cookieConsent.modal.types.statistic.description')}
-                          isChecked={areStatisticCookiesAllowed}
-                          onChange={setStatisticCookiesAllowed}
-                        />
-
-                        <CookieTypeCheckbox
-                          title={t('cookieConsent.modal.types.marketing.title')}
-                          description={t('cookieConsent.modal.types.marketing.description')}
-                          isChecked={areMarketingCookiesAllowed}
-                          onChange={setMarketingCookiesAllowed}
-                        />
-                      </div>
-
-                      <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
-                        <div className="flex flex-col gap-4 md:flex-row">
-                          <Button
-                            aria-label={t('cookieConsent.modal.acceptAllCookies')}
-                            className="whitespace-nowrap"
-                            variant="primary"
-                            onPress={onAcceptAll}
-                            startIcon={<CheckIcon />}
-                          >
-                            {t('cookieConsent.modal.acceptAll')}
-                          </Button>
-                          <Button
-                            aria-label={t('cookieConsent.modal.rejectAllCookies')}
-                            className="whitespace-nowrap"
-                            variant="secondary"
-                            onPress={onRejectAll}
-                            startIcon={<XIcon />}
-                          >
-                            {t('cookieConsent.modal.rejectAll')}
-                          </Button>
-                        </div>
-                        <Button
-                          aria-label={t('cookieConsent.modal.saveCookieSettings')}
-                          className="whitespace-nowrap"
-                          variant="secondary"
-                          onPress={handleCustomCookiesAcceptance}
-                        >
-                          {t('cookieConsent.modal.saveSettings')}
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </FocusScope>
-              </div>
+                {t('acceptAll')}
+              </Button>
+              <Button
+                aria-label={t('aria.rejectAllCookies')}
+                className="whitespace-nowrap"
+                variant="secondary"
+                onPress={onRejectAll}
+                startIcon={<XIcon />}
+              >
+                {t('rejectAll')}
+              </Button>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </OverlayContainer>
-  ) : null
+            <Button
+              aria-label={t('aria.saveCookieSettings')}
+              className="whitespace-nowrap"
+              variant="secondary"
+              onPress={handleCustomCookiesAcceptance}
+            >
+              {t('saveSettings')}
+            </Button>
+          </div>
+        </div>
+      </div>
+    </Modal>
+  )
 }
 
 export default CookieSettingsModal

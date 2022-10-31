@@ -20,7 +20,7 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
       <Tabs>
         {[atMedicalFacility, outsideMedicalFacility].map((bundleTab, indexTab) => (
           // eslint-disable-next-line react/no-array-index-key
-          <Tab key={indexTab} label={bundleTab?.title ?? ''}>
+          <Tab key={indexTab} title={bundleTab?.title ?? ''}>
             <div className="grid gap-6 md:auto-cols-fr md:grid-flow-col">
               {bundleTab?.bundles
                 ?.filter(isDefined)

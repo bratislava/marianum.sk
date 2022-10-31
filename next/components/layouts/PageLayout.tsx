@@ -38,18 +38,17 @@ const PageLayout = ({ page, navigation, children, general }: PageLayoutProps) =>
       }
       general={general}
     >
-      <div className="h-full">
+      <div className="h-full pb-14">
         <div
           className={cx('h-auto', {
             // Add container for all layouts except 'fullwidth'
-            'container relative': page.attributes?.layout !== Enum_Page_Layout.Fullwidth,
+            'container relative py-6 md:pt-12 md:pb-20':
+              page.attributes?.layout !== Enum_Page_Layout.Fullwidth,
             // Set grid for Sidebar layout
-            'grid gap-6 py-6 md:grid-flow-col md:grid-cols-[1fr_auto] md:pt-16 md:pb-14':
+            'grid gap-6 md:grid-flow-col md:grid-cols-[1fr_auto]':
               page.attributes?.layout === Enum_Page_Layout.Sidebar,
             // Center content for Centered layout
-            'pb-6 sm:px-20 sm:pb-12 md:px-28 lg:px-40':
-              page.attributes?.layout === Enum_Page_Layout.Centered,
-            'pt-6 sm:pt-12': page.attributes?.layout === Enum_Page_Layout.Centered,
+            'sm:px-20 md:px-28 lg:px-40': page.attributes?.layout === Enum_Page_Layout.Centered,
           })}
         >
           {/* Show title and perex for Centered layout */}

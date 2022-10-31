@@ -11,7 +11,8 @@ type NewsSectionProps = Pick<SectionProps, 'background'> & {
 }
 
 const NewsSection = ({ section, ...rest }: NewsSectionProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'sections.NewsSection' })
+  const { t } = useTranslation('common', { keyPrefix: 'NewsSection' })
+
   const { getFullPath } = useGetFullPath()
 
   return (
@@ -20,7 +21,7 @@ const NewsSection = ({ section, ...rest }: NewsSectionProps) => {
       title={section?.title ?? t('moreNews')}
       buttonLink={{
         linkHref: getFullPath(undefined, 'news'),
-        label: t(`allNews`),
+        label: t('allNews'),
       }}
     >
       <NewsListing />

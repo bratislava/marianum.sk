@@ -53,10 +53,11 @@ const Slider = ({
   allowKeboardNavigation = false,
   description,
 }: SliderProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'Slider' })
+
   const [[page, direction], setPage] = useState([initialPage ?? 0, 0])
   const [isDragging, setDragging] = useState(false)
   const index = wrap(0, pages.length, page)
-  const { t } = useTranslation('common', { keyPrefix: 'components.molecules.Slider' })
 
   const paginate = useCallback((newDirection: number) => {
     setPage(([currentPage]) => [currentPage + newDirection, newDirection])

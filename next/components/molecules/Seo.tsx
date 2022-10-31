@@ -13,8 +13,8 @@ interface SeoProps {
 }
 
 const Seo = ({ seo, ogType = 'website', title, description, image }: SeoProps) => {
-  const { t } = useTranslation()
   const router = useRouter()
+  const { t } = useTranslation('common', { keyPrefix: 'Seo' })
 
   const fullPath = `https://marianum.sk${router.asPath}`
 
@@ -37,7 +37,7 @@ const Seo = ({ seo, ogType = 'website', title, description, image }: SeoProps) =
       {/* Comments from: https://css-tricks.com/essential-meta-tags-social-media/ */}
       {/* Non-Essential, But Recommended */}
       <meta property="og:description" content={seo?.metaDescription || description || ''} />
-      <meta property="og:site_name" content={t('general.siteName')} />
+      <meta property="og:site_name" content={t('siteName')} />
       <meta name="twitter:image:alt" content={image?.attributes?.alternativeText ?? ''} />
 
       {/* Non-Essential, But Required for Analytics */}

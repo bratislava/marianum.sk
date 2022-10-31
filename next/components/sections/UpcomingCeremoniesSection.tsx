@@ -19,7 +19,7 @@ import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGe
 import Section from '../molecules/Section'
 
 const Table = () => {
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })
 
   const { data, error } = useSWR(upcomingCeremoniesSwrKey, upcomingCeremoniesFetcher)
 
@@ -86,7 +86,7 @@ const Table = () => {
   if (ceremonies?.ceremonies.length === 0) {
     return (
       <div>
-        <strong>{t('sections.CeremoniesSection.noCeremonies')}</strong>
+        <strong>{t('noCeremonies')}</strong>
       </div>
     )
   }

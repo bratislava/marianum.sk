@@ -40,7 +40,7 @@ const HomepageProcedures = ({
         <h2 className="pb-5 md:pb-10">{title}</h2>
         <Tabs>
           {slicedProcedures.map((procedure) => (
-            <Tab key={procedure?.title} label={procedure?.title ?? ''}>
+            <Tab key={procedure?.title} title={procedure?.title ?? ''}>
               <div
                 className={cx('flex', {
                   'w-full gap-4 overflow-x-auto': isMobile,

@@ -65,7 +65,7 @@ const BundleCard = ({
           </h5>
           <div className="flex flex-wrap items-center gap-3">
             <div className="whitespace-nowrap font-semibold">
-              {t('general.from')} <FormatCurrency value={priceFrom} />
+              {t('BundleCard.from')} <FormatCurrency value={priceFrom} />
             </div>
             {discountText && (
               <div className="rounded-2xl bg-primary/12 py-1.5 px-3 text-sm font-semibold leading-4 text-primary">
@@ -111,7 +111,7 @@ const BundleCard = ({
             className="inline-block"
             onClick={handleLinkClick}
           >
-            {t('general.showMore')}
+            {t('Cards.showMore')}
           </MLink>
         </div>
       </CardContent>

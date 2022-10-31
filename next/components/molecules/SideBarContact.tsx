@@ -5,15 +5,15 @@ import MailIcon from '../../assets/mail.svg'
 import PhoneIcon from '../../assets/phone.svg'
 import Button from '../atoms/Button'
 
-type SideBarProps = {
+type SideBarContactProps = {
   title: string | null | undefined
   phone1: string | null | undefined
   phone2: string | null | undefined
   email: string | null | undefined
 }
 
-const SideBar = ({ title, phone1, phone2, email }: SideBarProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'layouts.BranchLayout' })
+const SideBarContact = ({ title, phone1, phone2, email }: SideBarContactProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'SideBarContact' })
 
   if (!title && !phone1 && !phone2 && !email) {
     return <aside className="md:w-[360px]" />
@@ -47,4 +47,4 @@ const SideBar = ({ title, phone1, phone2, email }: SideBarProps) => {
   )
 }
 
-export default SideBar
+export default SideBarContact

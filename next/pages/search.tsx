@@ -20,7 +20,7 @@ import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
 
 const SearchSection = () => {
-  const { t } = useTranslation('common', { keyPrefix: 'pages.search' })
+  const { t } = useTranslation('common', { keyPrefix: 'SearchPage' })
 
   const [filters, setFilters] = useState<SearchFilters>({
     pageSize: 24,
@@ -75,35 +75,27 @@ const SearchSection = () => {
       <div className="flex flex-col gap-3 md:gap-6">
         <h1>{t('searchResults')}</h1>
         <div className="hidden md:block">
-          <Search
-            placeholder={t('search')}
-            isLarge
-            value={searchQuery ?? ''}
-            onSearchQueryChange={setSearchQuery}
-          />
+          <Search isLarge value={searchQuery ?? ''} onSearchQueryChange={setSearchQuery} />
         </div>
         <div className="md:hidden">
-          <Search
-            placeholder={t('search')}
-            value={searchQuery ?? ''}
-            onSearchQueryChange={setSearchQuery}
-          />
+          <Search value={searchQuery ?? ''} onSearchQueryChange={setSearchQuery} />
         </div>
         <div className="flex flex-col-reverse justify-between gap-3 md:flex-row md:items-center">
           <div className="flex w-full items-center gap-3 overflow-auto pb-3 sm:pb-0">
             <TagToggle isSelected={isNothingSelected} onChange={deselectAll}>
-              {t('tags.allResults')}
+              {t('allResults')}
             </TagToggle>
-            {allSearchTypes.map((type) => (
-              <TagToggle
-                isSelected={isTypeSelected(type)}
-                onChange={changeTypeSelected(type)}
-                key={type}
-              >
-                {/* TODO */}
-                {t(`tags.${type}`)}
-              </TagToggle>
-            ))}
+            {allSearchTypes.map((type) => {
+              return (
+                <TagToggle
+                  isSelected={isTypeSelected(type)}
+                  onChange={changeTypeSelected(type)}
+                  key={type}
+                >
+                  {t(`tags.${type}`)}
+                </TagToggle>
+              )
+            })}
           </div>
           {!loadingAndNoDataToDisplay && !emptySearchQuery && (
             <div className="whitespace-nowrap">
@@ -163,15 +155,16 @@ const SearchSection = () => {
   )
 }
 
-type SearchResultsProps = {
+type SearchPageProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
 }
 
-const SearchResults = ({ navigation, general }: SearchResultsProps) => {
+const SearchPage = ({ navigation, general }: SearchPageProps) => {
   return (
     <>
       <Head>
+        {/* TODO translations */}
         <title>Vyhľadávanie - marianum.sk</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
@@ -186,7 +179,7 @@ const SearchResults = ({ navigation, general }: SearchResultsProps) => {
 
 export const getStaticProps: GetStaticProps = async ({
   locale = 'sk',
-}): Promise<GetStaticPropsResult<SearchResultsProps>> => {
+}): Promise<GetStaticPropsResult<SearchPageProps>> => {
   const [{ navigation, general }, translations] = await Promise.all([
     client.General({ locale }),
     serverSideTranslations(locale, ['common']),
@@ -204,4 +197,4 @@ export const getStaticProps: GetStaticProps = async ({
   }
 }
 
-export default SearchResults
+export default SearchPage
