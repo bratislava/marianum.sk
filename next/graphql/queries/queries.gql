@@ -79,14 +79,9 @@ query Branches($locale: I18NLocaleCode!) {
 }
 
 query Cemeteries($locale: I18NLocaleCode!) {
-  branches(
-    locale: $locale
-    filters: { type: { eq: "cintorin" } }
-    sort: ["title:asc"]
-    pagination: { limit: 10000 }
-  ) {
+  cemeteries(locale: $locale, sort: ["title:asc"], pagination: { limit: 10000 }) {
     data {
-      ...BranchEntity
+      ...CemeteryEntity
     }
   }
 }
@@ -212,10 +207,10 @@ query HomepageCeremonies($dateTime: DateTime!) {
   }
 }
 
-query Ceremonies($dateTime: DateTime!, $branchIdFilter: IDFilterInput = {}) {
+query Ceremonies($dateTime: DateTime!, $cemeteryIdFilter: IDFilterInput = {}) {
   ceremonies(
     pagination: { limit: -1 }
-    filters: { dateTime: { gte: $dateTime }, branch: { id: $branchIdFilter } }
+    filters: { dateTime: { gte: $dateTime }, cemetery: { id: $cemeteryIdFilter } }
     sort: ["dateTime:asc"]
   ) {
     data {
@@ -224,18 +219,18 @@ query Ceremonies($dateTime: DateTime!, $branchIdFilter: IDFilterInput = {}) {
   }
 }
 
-query BranchesInCeremonies {
-  branches(filters: { allowInCeremonies: { eq: true } }) {
+query CemeteriesInCeremonies {
+  cemeteries(filters: { allowInCeremonies: { eq: true } }) {
     data {
-      ...BranchInCeremoniesDebtorsEntity
+      ...CemeteryInCeremoniesDebtorsEntity
     }
   }
 }
 
-query BranchesInDebtors {
-  branches(filters: { allowInDebtors: { eq: true } }) {
+query CemeteriesInDebtors {
+  cemeteries(filters: { allowInDebtors: { eq: true } }) {
     data {
-      ...BranchInCeremoniesDebtorsEntity
+      ...CemeteryInCeremoniesDebtorsEntity
     }
   }
 }
