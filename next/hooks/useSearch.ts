@@ -1,7 +1,8 @@
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import useSWR from 'swr'
+import { StringParam, useQueryParam, withDefault } from 'use-query-params'
 import { useDebounce } from 'usehooks-ts'
 
 import { useGetFullPathMeili } from '../components/molecules/Navigation/NavigationProvider/useGetFullPath'
@@ -58,34 +59,18 @@ export const useSearch = ({ filters, isSyncedWithUrlQuery = false }: UseSearchOp
   const { getFullPathMeili } = useGetFullPathMeili()
 
   const [searchQuery, setSearchQuery] = useState<string>('')
-  const debouncedSearchQuery = useDebounce(searchQuery, 300)
+  const [routerSearchQuery, setRouterSearchQuery] = useQueryParam(
+    'query',
+    withDefault(StringParam, ''),
+    {
+      removeDefaultsFromUrl: true,
+    },
+  )
 
-  // on first render set searchQuery according to urlQuery
-  useEffect(() => {
-    if (isSyncedWithUrlQuery) {
-      const urlSearchQuery = new URLSearchParams(window.location.search).get('query')
-      if (urlSearchQuery) {
-        setSearchQuery(urlSearchQuery)
-      }
-    }
-  }, [isSyncedWithUrlQuery])
-
-  // set urlQuery according to searchQuery to keep them in sync
-  useEffect(() => {
-    if (isSyncedWithUrlQuery) {
-      const queryParams = new URLSearchParams(window.location.search)
-      if (searchQuery) {
-        queryParams.set('query', searchQuery)
-      } else if (searchQuery !== null) {
-        queryParams.delete('query')
-      }
-
-      let stringParams = queryParams.toString()
-      stringParams = stringParams ? `?${stringParams}` : ''
-
-      window.history.replaceState({}, '', `${window.location.pathname}${stringParams}`)
-    }
-  }, [searchQuery, isSyncedWithUrlQuery])
+  const debouncedSearchQuery = useDebounce(
+    isSyncedWithUrlQuery ? routerSearchQuery : searchQuery,
+    300,
+  )
 
   const emptySearchQuery = !debouncedSearchQuery || debouncedSearchQuery.trim() === ''
 
@@ -123,8 +108,8 @@ export const useSearch = ({ filters, isSyncedWithUrlQuery = false }: UseSearchOp
   })
 
   return {
-    searchQuery,
-    setSearchQuery,
+    searchQuery: isSyncedWithUrlQuery ? routerSearchQuery : searchQuery,
+    setSearchQuery: isSyncedWithUrlQuery ? setRouterSearchQuery : setSearchQuery,
     emptySearchQuery,
     data,
     error,

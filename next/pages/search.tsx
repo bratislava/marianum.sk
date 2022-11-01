@@ -3,7 +3,7 @@ import { GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
 import { AnimateHeight } from '../components/atoms/AnimateHeight'
 import TagToggle from '../components/atoms/TagToggle'
@@ -18,6 +18,7 @@ import { GeneralEntityFragment, NavigationItemFragment } from '../graphql'
 import { allSearchTypes, SearchFilters, SearchType, useSearch } from '../hooks/useSearch'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
+import { useScrollToViewIfDataChange } from '../utils/useScrollToViewIfDataChange'
 
 const SearchSection = () => {
   const { t } = useTranslation('common', { keyPrefix: 'SearchPage' })
@@ -70,10 +71,13 @@ const SearchSection = () => {
     setFilters({ ...filters, page })
   }
 
+  const h1Ref = useRef<HTMLHeadingElement>(null)
+  useScrollToViewIfDataChange(dataToDisplay, filters, h1Ref)
+
   return (
     <Section>
       <div className="flex flex-col gap-3 md:gap-6">
-        <h1>{t('searchResults')}</h1>
+        <h1 ref={h1Ref}>{t('searchResults')}</h1>
         <div className="hidden md:block">
           <Search isLarge value={searchQuery ?? ''} onSearchQueryChange={setSearchQuery} />
         </div>
