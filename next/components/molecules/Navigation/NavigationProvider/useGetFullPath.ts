@@ -5,6 +5,8 @@ import {
   BranchSlugEntityFragment,
   Bundle,
   BundleSlugEntityFragment,
+  Cemetery,
+  CemeterySlugEntityFragment,
   DocumentSlugEntityFragment,
   NavigationItemFragment,
   Page,
@@ -34,6 +36,7 @@ export type UnionSlugEntityType =
   | ArticleSlugEntityFragment
   | BranchSlugEntityFragment
   | BundleSlugEntityFragment
+  | CemeterySlugEntityFragment
   | DocumentSlugEntityFragment
   | null
   | undefined
@@ -67,12 +70,7 @@ export const getFullPathFn = (
   }
 
   if (entity.__typename === 'BranchEntity') {
-    if (entity.attributes.type === 'cintorin') {
-      return [localPaths.cemeteries, slug].join('/')
-    }
-    if (entity.attributes.type === 'pobocka') {
-      return [localPaths.contacts, slug].join('/')
-    }
+    return [localPaths.contacts, slug].join('/')
   }
 
   if (entity.__typename === 'BundleEntity') {
@@ -82,6 +80,10 @@ export const getFullPathFn = (
     if (entity.attributes.type === 'kremacia') {
       return [localPaths.bundlesCremation, slug].join('/')
     }
+  }
+
+  if (entity.__typename === 'CemeteryEntity') {
+    return [localPaths.cemeteries, slug].join('/')
   }
 
   if (entity.__typename === 'DocumentEntity') {
@@ -95,11 +97,12 @@ export const getFullPathFn = (
 // https://stackoverflow.com/a/71469571
 type GetFullPathMeiliFn = (
   ...args:
-    | ['article', ArticleMeili]
-    | ['branch', Pick<BranchMeili, 'type' | 'slug'>]
-    | ['document', Pick<DocumentMeili, 'slug'>]
     | ['page', Pick<Page, 'slug'>]
+    | ['article', ArticleMeili]
+    | ['branch', Pick<BranchMeili, 'slug'>]
     | ['bundle', Pick<Bundle, 'type' | 'slug'>]
+    | ['cemetery', Pick<Cemetery, 'slug'>]
+    | ['document', Pick<DocumentMeili, 'slug'>]
 ) => string | null
 
 /**
@@ -136,12 +139,7 @@ const getFullPathMeiliFn = (navMap: NavMap) => {
     }
 
     if (entityType === 'branch') {
-      if (entity.type === 'cintorin') {
-        return [localPaths.cemeteries, slug].join('/')
-      }
-      if (entity.type === 'pobocka') {
-        return [localPaths.contacts, slug].join('/')
-      }
+      return [localPaths.contacts, slug].join('/')
     }
 
     if (entityType === 'bundle') {
@@ -151,6 +149,10 @@ const getFullPathMeiliFn = (navMap: NavMap) => {
       if (entity.type === 'kremacia') {
         return [localPaths.bundlesCremation, slug].join('/')
       }
+    }
+
+    if (entityType === 'cemetery') {
+      return [localPaths.cemeteries, slug].join('/')
     }
 
     if (entityType === 'document') {

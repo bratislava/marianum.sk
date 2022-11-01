@@ -26,8 +26,7 @@ type BranchPageProps = {
 const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'BranchPage' })
 
-  const { seo, title, type, address, navigateToLink, description, openingHoursOverride } =
-    entity.attributes ?? {}
+  const { seo, title, address, navigateToLink, description } = entity.attributes ?? {}
 
   return (
     <>
@@ -62,11 +61,11 @@ const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
               )}
             </div>
           </SectionBoxed>
-          <SectionBoxed title={type === 'cintorin' ? t('aboutCemetery') : t('aboutBranch')}>
+          <SectionBoxed title={t('aboutBranch')}>
             <RichText content={description} coloredTable={false} />
           </SectionBoxed>
           <SectionBoxed title={t('openingHours')}>
-            <RichText content={openingHoursOverride || general?.attributes?.generalOpeningHours} />
+            <RichText content={general?.attributes?.generalOpeningHours} />
           </SectionBoxed>
         </div>
       </BranchLayout>

@@ -9,12 +9,12 @@ import {
   upcomingCeremoniesFetcher,
   upcomingCeremoniesSwrKey,
 } from '../../utils/fetchers/upcomingCeremoniesFetcher'
-import { getBranchInfoInCeremoniesDebtors } from '../../utils/getBranchInfoInCeremoniesDebtors'
+import { getCemeteryInfoInCeremoniesDebtors } from '../../utils/getBranchInfoInCeremoniesDebtors'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import FormatDate from '../atoms/FormatDate'
 import Loading from '../atoms/Loading'
 import MLink from '../atoms/MLink'
-import BranchLink from '../molecules/BranchLink'
+import CemeteryLink from '../molecules/CemeteryLink'
 import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section from '../molecules/Section'
 
@@ -54,12 +54,12 @@ const Table = () => {
     return {
       day: firstCeremonyDayDateTimeZoned.toDate(),
       ceremonies: filteredCeremonies.map((ceremony) => {
-        const branchInfo = ceremony?.attributes?.branch?.data
-          ? getBranchInfoInCeremoniesDebtors(ceremony.attributes.branch.data, i18n.language)
+        const branchInfo = ceremony?.attributes?.cemetery?.data
+          ? getCemeteryInfoInCeremoniesDebtors(ceremony.attributes.cemetery.data, i18n.language)
           : null
 
         const branch = branchInfo?.slug ? (
-          <BranchLink slug={branchInfo?.slug} title={branchInfo?.title ?? ''} />
+          <CemeteryLink slug={branchInfo?.slug} title={branchInfo?.title ?? ''} />
         ) : (
           branchInfo?.title
         )

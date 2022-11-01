@@ -3,6 +3,7 @@ import {
   ArticleNewsCategory,
   ArticlePressCategory,
   Branch,
+  Cemetery,
   Ceremony,
   Debtor,
   Document,
@@ -27,13 +28,18 @@ export type BranchMeili = Omit<Branch, '__typename' | 'localizations'> & {
   localizations: BranchMeili[]
 }
 
-export type CeremonyMeili = Omit<Ceremony, '__typename' | 'branch'> & {
-  branch: BranchMeili
+export type CemeteryMeili = Omit<Cemetery, '__typename' | 'localizations'> & {
+  id: string
+  localizations: BranchMeili[]
 }
 
-export type DebtorMeili = Omit<Debtor, '__typename' | 'branch'> & {
-  branch: BranchMeili & {
-    localizations: BranchMeili[]
+export type CeremonyMeili = Omit<Ceremony, '__typename' | 'cemetery'> & {
+  cemetery: CemeteryMeili
+}
+
+export type DebtorMeili = Omit<Debtor, '__typename' | 'cemetery'> & {
+  cemetery: CemeteryMeili & {
+    localizations: CemeteryMeili[]
   }
 }
 

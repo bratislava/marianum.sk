@@ -18,7 +18,7 @@ const BranchGroup = ({ branches, showOpeningHours }: BranchGroupFragment) => {
   return (
     <div className="flex flex-col gap-4">
       {filteredBranches?.map((branch) => {
-        const { title, slug, address, openingHoursOverride } = branch.attributes ?? {}
+        const { title, slug, address } = branch.attributes ?? {}
         return (
           <Row
             key={slug}
@@ -26,9 +26,7 @@ const BranchGroup = ({ branches, showOpeningHours }: BranchGroupFragment) => {
             address={address}
             linkHref={getFullPath(branch) ?? ''}
             moreContent={
-              showOpeningHours ? (
-                <RichText content={openingHoursOverride || general?.generalOpeningHours} />
-              ) : undefined
+              showOpeningHours ? <RichText content={general?.generalOpeningHours} /> : undefined
             }
           />
         )
