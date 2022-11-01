@@ -1,17 +1,17 @@
 import { CtaSectionFragment } from '../../graphql'
 import { isDefined } from '../../utils/isDefined'
 import Button from '../atoms/Button'
-import { useSlug } from './Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPath } from './Navigation/NavigationProvider/useGetFullPath'
 
 const CtaGroup = ({ ctas }: CtaSectionFragment) => {
-  const { getFullSlug } = useSlug()
+  const { getFullPath } = useGetFullPath()
 
   const filteredCtas = ctas?.filter(isDefined)
 
   return (
     <div className="grid auto-cols-fr gap-6 md:grid-flow-col">
       {filteredCtas?.map(({ title, description, button }) => {
-        const ctaSlug = getFullSlug(button?.page?.data)
+        const ctaSlug = getFullPath(button?.page?.data)
 
         return (
           <div className="flex flex-col bg-primary px-4 py-8 text-white md:p-12" key={title}>

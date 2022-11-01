@@ -2,6 +2,7 @@ import { Key } from 'swr'
 
 import { Sort } from '../../components/molecules/SortSelect'
 import { DocumentMeili } from '../../types/meiliTypes'
+import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
 import { isDefined } from '../isDefined'
 import { meiliClient } from '../meilisearch'
 import { SearchIndexWrapped, unwrapFromSearchIndex } from './searchIndexWrapped'
@@ -31,8 +32,7 @@ export const documentsSectionFetcher = (filters: DocumentsSectionFilters) => () 
   return meiliClient
     .index('search_index')
     .search<SearchIndexWrapped<'document', DocumentMeili>>(filters.search, {
-      limit: filters.pageSize,
-      offset: (filters.page - 1) * filters.pageSize,
+      ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
       filter: [
         'type = "document"',
         isDefined(filters.categoryId)

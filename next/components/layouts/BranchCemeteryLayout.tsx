@@ -1,21 +1,34 @@
+import cx from 'classnames'
 import { ReactNode } from 'react'
 
-import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
+import {
+  BranchEntityFragment,
+  CemeteryEntityFragment,
+  GeneralEntityFragment,
+  NavigationItemFragment,
+} from '../../graphql'
 import SideBarContact from '../molecules/SideBarContact'
 import HeroSection from '../sections/HeroSection'
 import ImageGallery from '../sections/ImageGallery'
 import PageWrapper from './PageWrapper'
 
-type BranchLayoutProps = {
-  branch: BranchEntityFragment
+type BranchCemeteryLayoutProps = {
+  entity: BranchEntityFragment | CemeteryEntityFragment
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   children?: ReactNode
 }
 
-const BranchLayout = ({ branch, navigation, children, general }: BranchLayoutProps) => {
-  const { title, slug, contact, medias } = branch.attributes ?? {}
+const BranchCemeteryLayout = ({
+  entity,
+  navigation,
+  children,
+  general,
+}: BranchCemeteryLayoutProps) => {
+  const { title, slug, contact, medias } = entity.attributes ?? {}
   const { title: contactTitle, phone1, phone2, email } = contact?.data?.attributes ?? {}
+
+  const hasMedias = !!medias?.data?.length
 
   return (
     <PageWrapper
@@ -25,15 +38,21 @@ const BranchLayout = ({ branch, navigation, children, general }: BranchLayoutPro
         <HeroSection
           breadcrumbsMoreItems={[{ label: title, path: slug ?? '' }]}
           moreContent={
-            medias?.data?.length ? (
-              <ImageGallery images={medias?.data} variant="aside" />
-            ) : undefined
+            hasMedias ? <ImageGallery images={medias?.data} variant="aside" /> : undefined
           }
         />
       }
     >
       <div className="h-full">
-        <div className="container relative grid h-auto gap-6 pt-24 pb-20 md:grid-flow-col md:grid-cols-[1fr_auto]">
+        <div
+          className={cx(
+            'container relative grid h-auto gap-6 pb-20 lg:grid-flow-col lg:grid-cols-[1fr_auto]',
+            {
+              'pt-24': hasMedias,
+              'pt-6': !hasMedias,
+            },
+          )}
+        >
           {children}
 
           <SideBarContact title={contactTitle} phone1={phone1} phone2={phone2} email={email} />
@@ -43,4 +62,4 @@ const BranchLayout = ({ branch, navigation, children, general }: BranchLayoutPro
   )
 }
 
-export default BranchLayout
+export default BranchCemeteryLayout

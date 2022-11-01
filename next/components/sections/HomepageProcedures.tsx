@@ -7,7 +7,7 @@ import { isDefined } from '../../utils/isDefined'
 import MLink from '../atoms/MLink'
 import TabItem from '../atoms/Tabs/TabItem'
 import Tabs from '../atoms/Tabs/Tabs'
-import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section, { SectionProps } from '../molecules/Section'
 
 type HomepageProceduresProps = Pick<SectionProps, 'title' | 'background'> & {
@@ -23,11 +23,11 @@ const HomepageProcedures = ({
   showMoreButton,
   ...rest
 }: HomepageProceduresProps) => {
-  const { getFullSlug } = useSlug()
+  const { getFullPath } = useGetFullPath()
   const { isNull } = useTailwindBreakpoint()
   const isMobile = useMemo(() => isNull, [isNull])
 
-  const showMoreSlug = getFullSlug(showMoreButton?.page?.data)
+  const showMoreSlug = getFullPath(showMoreButton?.page?.data)
 
   const slicedProceduresWithKeys = useMemo(() => {
     return [

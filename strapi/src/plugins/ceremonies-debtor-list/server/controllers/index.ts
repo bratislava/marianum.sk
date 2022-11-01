@@ -1,6 +1,6 @@
 import { Strapi } from "@strapi/strapi";
 import { parseDebtorsXlsx } from "../helpers/parse-debtors-xlsx";
-import { getBranchesSlugIdMap } from "../helpers/get-branches-slug-id-map";
+import { getCemeteriesSlugIdMap } from "../helpers/get-cemeteries-slug-id-map";
 import { parseCeremoniesXlsx } from "../helpers/parse-ceremonies-xlsx";
 import moment from "moment/moment";
 import "moment-timezone";
@@ -22,9 +22,12 @@ export default {
       const meilisearch = strapi.plugin("meilisearch").service("meilisearch");
 
       try {
-        const branchesSlugIdMap = await getBranchesSlugIdMap(strapi, "debtors");
+        const cemeteriesSlugIdMap = await getCemeteriesSlugIdMap(
+          strapi,
+          "debtors"
+        );
 
-        const parsedDebtors = parseDebtorsXlsx(file.path, branchesSlugIdMap);
+        const parsedDebtors = parseDebtorsXlsx(file.path, cemeteriesSlugIdMap);
 
         // All the debtors are replaced when a new XLSX is uploaded.
         const deleteDebtors = async () => {
@@ -83,14 +86,14 @@ export default {
       const meilisearch = strapi.plugin("meilisearch").service("meilisearch");
 
       try {
-        const branchesSlugIdMap = await getBranchesSlugIdMap(
+        const cemeteriesSlugIdMap = await getCemeteriesSlugIdMap(
           strapi,
           "ceremonies"
         );
 
         const parsedCeremonies = parseCeremoniesXlsx(
           file.path,
-          branchesSlugIdMap
+          cemeteriesSlugIdMap
         );
 
         // Only ceremonies in the days that are present in XLSX are deleted and replaced by new one. All the others are

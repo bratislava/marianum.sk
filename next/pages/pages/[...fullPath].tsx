@@ -1,38 +1,40 @@
-import last from 'lodash/last'
-import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 import { SWRConfig } from 'swr'
 
-import Divider from '../components/atoms/Divider'
-import RichText from '../components/atoms/RichText/RichText'
-import PageLayout from '../components/layouts/PageLayout'
-import SectionsWrapper from '../components/layouts/SectionsWrapper'
-import AccordionGroup from '../components/molecules/Accordion/AccordionGroup'
-import AccordionItem from '../components/molecules/Accordion/AccordionItem'
-import BranchGroup from '../components/molecules/BranchGroup'
-import DisclosureIframe from '../components/molecules/DisclosureIframe'
-import DocumentGroup from '../components/molecules/DocumentGroup'
-import ProcedureTabs from '../components/molecules/ProcedureTabs'
-import Section from '../components/molecules/Section'
-import Seo from '../components/molecules/Seo'
-import ArticleListing from '../components/sections/ArticleListing/ArticleListing'
-import BundleListingSection from '../components/sections/BundleListingSection'
-import CardSection from '../components/sections/CardSection'
-import CeremoniesArchiveSection from '../components/sections/CeremoniesArchiveSection'
-import CeremoniesSection from '../components/sections/CeremoniesSection'
-import ContactsSection from '../components/sections/ContactsSection'
-import DebtorsSection from '../components/sections/DebtorsSection'
-import DocumentsSection from '../components/sections/DocumentsSection/DocumentsSection'
-import ImageGallery from '../components/sections/ImageGallery'
-import MapSection from '../components/sections/MapSection'
-import MenuListingSection from '../components/sections/MenuListingSection'
-import NewsListing from '../components/sections/NewsSection'
-import PartnersSection from '../components/sections/PartnersSection'
-import ReviewListingSection from '../components/sections/ReviewListingSection'
-import RichTextSection from '../components/sections/RichTextSection'
+import Divider from '../../components/atoms/Divider'
+import RichText from '../../components/atoms/RichText/RichText'
+import PageLayout from '../../components/layouts/PageLayout'
+import SectionsWrapper from '../../components/layouts/SectionsWrapper'
+import AccordionGroup from '../../components/molecules/Accordion/AccordionGroup'
+import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
+import BranchGroup from '../../components/molecules/BranchGroup'
+import DisclosureIframe from '../../components/molecules/DisclosureIframe'
+import DocumentGroup from '../../components/molecules/DocumentGroup'
+import {
+  generateStaticPaths,
+  generateStaticProps,
+} from '../../components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import ProcedureTabs from '../../components/molecules/ProcedureTabs'
+import Section from '../../components/molecules/Section'
+import Seo from '../../components/molecules/Seo'
+import ArticleListing from '../../components/sections/ArticleListing/ArticleListing'
+import BundleListingSection from '../../components/sections/BundleListingSection'
+import CardSection from '../../components/sections/CardSection'
+import CeremoniesArchiveSection from '../../components/sections/CeremoniesArchiveSection'
+import CeremoniesSection from '../../components/sections/CeremoniesSection'
+import ContactsSection from '../../components/sections/ContactsSection'
+import DebtorsSection from '../../components/sections/DebtorsSection'
+import DocumentsSection from '../../components/sections/DocumentsSection/DocumentsSection'
+import ImageGallery from '../../components/sections/ImageGallery'
+import MapSection from '../../components/sections/MapSection'
+import MenuListingSection from '../../components/sections/MenuListingSection'
+import NewsListing from '../../components/sections/NewsSection'
+import PartnersSection from '../../components/sections/PartnersSection'
+import ReviewListingSection from '../../components/sections/ReviewListingSection'
+import RichTextSection from '../../components/sections/RichTextSection'
 import {
   Enum_Page_Layout,
   GeneralEntityFragment,
@@ -40,35 +42,33 @@ import {
   PageEntityFragment,
   ReviewEntityFragment,
   ReviewsQuery,
-} from '../graphql'
+} from '../../graphql'
 import {
   ArticleListingType,
   getArticleListingNewsPrefetches,
-} from '../utils/fetchers/articleListingFetcher'
-import { getMapSectionPrefetch } from '../utils/fetchers/cemeteriesFetcher'
-import { ceremoniesArchiveSectionPrefetch } from '../utils/fetchers/ceremoniesArchiveSectionFetcher'
-import { ceremoniesSectionPrefetch } from '../utils/fetchers/ceremoniesSectionFetcher'
-import { debtorsSectionPrefetch } from '../utils/fetchers/debtorsSectionFetcher'
-import { documentsSectionPrefetch } from '../utils/fetchers/documentsSectionFetcher'
-import { getNewsListingPrefetch } from '../utils/fetchers/newsListingFetcher'
-import { partnersSectionPrefetch } from '../utils/fetchers/partnersSectionFetcher'
-import { getProceduresPrefetch } from '../utils/fetchers/proceduresFetcher'
-import { getReviewPrefetch } from '../utils/fetchers/reviewsFetcher'
-import { client } from '../utils/gql'
-import { isDefined } from '../utils/isDefined'
-import { parseNavigation } from '../utils/parseNavigation'
-import { prefetchSections } from '../utils/prefetchSections'
+} from '../../utils/fetchers/articleListingFetcher'
+import { getMapSectionPrefetch } from '../../utils/fetchers/cemeteriesFetcher'
+import { ceremoniesArchiveSectionPrefetch } from '../../utils/fetchers/ceremoniesArchiveSectionFetcher'
+import { ceremoniesSectionPrefetch } from '../../utils/fetchers/ceremoniesSectionFetcher'
+import { debtorsSectionPrefetch } from '../../utils/fetchers/debtorsSectionFetcher'
+import { documentsSectionPrefetch } from '../../utils/fetchers/documentsSectionFetcher'
+import { getNewsListingPrefetch } from '../../utils/fetchers/newsListingFetcher'
+import { partnersSectionPrefetch } from '../../utils/fetchers/partnersSectionFetcher'
+import { getProceduresPrefetch } from '../../utils/fetchers/proceduresFetcher'
+import { getReviewPrefetch } from '../../utils/fetchers/reviewsFetcher'
+import { client } from '../../utils/gql'
+import { prefetchSections } from '../../utils/prefetchSections'
 
 type PageProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
-  page: PageEntityFragment
+  entity: PageEntityFragment
   reviews: ReviewEntityFragment[] | null
   fallback: Record<string, object>
 } & SSRConfig
 
-const Slug = ({ navigation, page, general, reviews, fallback }: PageProps) => {
-  const { seo, title, perex, layout, sections } = page.attributes ?? {}
+const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => {
+  const { seo, title, perex, layout, sections } = entity.attributes ?? {}
 
   const isContainer = layout === Enum_Page_Layout.Fullwidth
 
@@ -79,7 +79,7 @@ const Slug = ({ navigation, page, general, reviews, fallback }: PageProps) => {
         <title>{title}</title>
       </Head>
 
-      <PageLayout page={page} navigation={navigation} general={general}>
+      <PageLayout page={entity} navigation={navigation} general={general}>
         <SectionsWrapper
           alternateBackground={isContainer}
           startBackground="light"
@@ -244,26 +244,14 @@ const Slug = ({ navigation, page, general, reviews, fallback }: PageProps) => {
 }
 
 interface StaticParams extends ParsedUrlQuery {
-  slug: string[]
+  fullPath: string[]
 }
 
-export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk', 'en'] }) => {
-  const navs = await Promise.all(locales.map((locale) => client.General({ locale })))
-  const navMaps = navs.map(({ navigation }) => parseNavigation(navigation.filter(isDefined)))
-
-  const navPaths = navMaps.map(({ navMap }, index) => ({
-    locale: locales[index],
-    paths: [...navMap.values()].map((path) => path.path),
-  }))
-
-  const paths = navPaths.flatMap(({ locale, paths: localPaths }) => {
-    return localPaths.map((localPath) => ({
-      params: {
-        slug: localPath.split('/').slice(1),
-        locale,
-      },
-    }))
-  })
+export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
+  // TODO: Locales
+  const paths = await generateStaticPaths('sk', (locale) =>
+    client.PagesStaticPaths({ locale }).then((response) => response.pages?.data),
+  )
 
   // eslint-disable-next-line no-console
   console.log(`Pages: Generated static paths for ${paths.length} slugs.`)
@@ -274,13 +262,9 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
 export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
   locale = 'sk',
   params,
-}): Promise<GetStaticPropsResult<PageProps>> => {
-  const slug = last(params?.slug) ?? ''
+}) => {
   // eslint-disable-next-line no-console
-  console.log(`Revalidating page "${slug}" on /${params?.slug.join('/') ?? ''}`)
-
-  const { pages } = await client.PageBySlug({ locale, slug })
-  const page = pages?.data[0]
+  console.log(`Revalidating page ${params?.fullPath.join('/') ?? ''}`)
 
   const sectionFetcherMap = [getReviewPrefetch(locale)]
 
@@ -296,38 +280,28 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
     partnersSectionPrefetch,
   ]
 
-  const [{ navigation, general }, prefetchedSections, fallback, translations] = await Promise.all([
-    client.General({ locale }),
-    prefetchSections(page?.attributes?.sections, sectionFetcherMap, false),
-    // TODO fix types
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    prefetchSections(page?.attributes?.sections, sectionFetcherMapSwr as any, true),
-    serverSideTranslations(locale, ['common']),
-  ])
+  return generateStaticProps({
+    // TODO: Locales
+    locale,
+    params,
+    entityPromiseGetter: ({ slug, locale: localeInner }) =>
+      client.PageBySlug({ slug, locale: localeInner }).then((response) => response.pages?.data[0]),
+    getAdditionalProps: async (page) => {
+      const [prefetchedSections, fallback] = await Promise.all([
+        prefetchSections(page.attributes?.sections, sectionFetcherMap, false),
+        // TODO fix types
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        prefetchSections(page.attributes?.sections, sectionFetcherMapSwr as any, true),
+      ])
 
-  const filteredNavigation = navigation.filter(isDefined)
-
-  const { navMap } = parseNavigation(filteredNavigation)
-
-  if (!page || !page.attributes?.slug || !navMap.get(page.attributes?.slug)?.path) {
-    return {
-      notFound: true,
-    }
-  }
-
-  return {
-    props: {
-      navigation: filteredNavigation,
-      general: general?.data ?? null,
-      page: pages.data[0],
-      // TODO: Fix when types improved in prefetchSections util.
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-      reviews: (prefetchedSections?.reviews as ReviewsQuery)?.reviews?.data ?? null,
-      fallback,
-      ...translations,
+      return {
+        // TODO: Fix when types improved in prefetchSections util.
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+        reviews: (prefetchedSections?.reviews as ReviewsQuery)?.reviews?.data ?? null,
+        fallback,
+      }
     },
-    revalidate: 10,
-  }
+  })
 }
 
 export default Slug

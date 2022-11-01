@@ -4,7 +4,7 @@ import MailIcon from '../../assets/mail.svg'
 import PhoneIcon from '../../assets/phone.svg'
 import { SidebarFragment } from '../../graphql'
 import Button from '../atoms/Button'
-import { useSlug } from './Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPath } from './Navigation/NavigationProvider/useGetFullPath'
 
 type SideBarProps = {
   sidebar: SidebarFragment | null | undefined
@@ -12,14 +12,14 @@ type SideBarProps = {
 
 const SideBar = ({ sidebar }: SideBarProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'SideBar' })
-  const { getFullSlug } = useSlug()
+  const { getFullPath } = useGetFullPath()
 
   if (!sidebar) {
     return <aside className="md:w-[360px]" />
   }
 
   const { title, text, ctaButton, contact } = sidebar
-  const ctaSlug = getFullSlug(ctaButton?.page?.data)
+  const ctaSlug = getFullPath(ctaButton?.page?.data)
   const { phone1, phone2, email } = contact?.data?.attributes ?? {}
 
   return (
