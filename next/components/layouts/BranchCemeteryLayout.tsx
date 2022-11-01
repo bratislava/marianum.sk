@@ -1,3 +1,4 @@
+import cx from 'classnames'
 import { ReactNode } from 'react'
 
 import {
@@ -27,6 +28,8 @@ const BranchCemeteryLayout = ({
   const { title, slug, contact, medias } = entity.attributes ?? {}
   const { title: contactTitle, phone1, phone2, email } = contact?.data?.attributes ?? {}
 
+  const hasMedias = !!medias?.data?.length
+
   return (
     <PageWrapper
       navigation={navigation}
@@ -35,15 +38,21 @@ const BranchCemeteryLayout = ({
         <HeroSection
           breadcrumbsMoreItems={[{ label: title, path: slug ?? '' }]}
           moreContent={
-            medias?.data?.length ? (
-              <ImageGallery images={medias?.data} variant="aside" />
-            ) : undefined
+            hasMedias ? <ImageGallery images={medias?.data} variant="aside" /> : undefined
           }
         />
       }
     >
       <div className="h-full">
-        <div className="container relative grid h-auto gap-6 pt-24 pb-20 md:grid-flow-col md:grid-cols-[1fr_auto]">
+        <div
+          className={cx(
+            'container relative grid h-auto gap-6 pb-20 lg:grid-flow-col lg:grid-cols-[1fr_auto]',
+            {
+              'pt-24': hasMedias,
+              'pt-6': !hasMedias,
+            },
+          )}
+        >
           {children}
 
           <SideBarContact title={contactTitle} phone1={phone1} phone2={phone2} email={email} />

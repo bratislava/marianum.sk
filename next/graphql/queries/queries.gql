@@ -144,6 +144,14 @@ query BundlesStaticPaths($locale: I18NLocaleCode) {
   }
 }
 
+query CemeteriesStaticPaths($locale: I18NLocaleCode) {
+  cemeteries(locale: $locale, pagination: { limit: 10000 }) {
+    data {
+      ...CemeterySlugEntity
+    }
+  }
+}
+
 query DocumentsStaticPaths {
   documents(pagination: { limit: 10000 }) {
     data {

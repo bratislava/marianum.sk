@@ -30,7 +30,8 @@ type CemeteryPageProps = {
 const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'BranchCemeteryPage' })
 
-  const { seo, title, address, navigateToLink, description } = entity.attributes ?? {}
+  const { seo, title, address, navigateToLink, description, openingHoursOverride } =
+    entity.attributes ?? {}
 
   return (
     <>
@@ -71,7 +72,7 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
             </SectionBoxed>
           )}
           <SectionBoxed title={t('openingHours')}>
-            <RichText content={general?.attributes?.generalOpeningHours} />
+            <RichText content={openingHoursOverride || general?.attributes?.generalOpeningHours} />
           </SectionBoxed>
         </div>
       </BranchCemeteryLayout>
@@ -86,11 +87,11 @@ interface StaticParams extends ParsedUrlQuery {
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   // TODO: Locales
   const paths = await generateStaticPaths('sk', (locale) =>
-    client.BranchesStaticPaths({ locale }).then((response) => response.branches?.data),
+    client.CemeteriesStaticPaths({ locale }).then((response) => response.cemeteries?.data),
   )
 
   // eslint-disable-next-line no-console
-  console.log(`Branches: Generated static paths for ${paths.length} slugs.`)
+  console.log(`Cemeteries: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }
 }

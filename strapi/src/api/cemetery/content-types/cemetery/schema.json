@@ -4,7 +4,8 @@
   "info": {
     "singularName": "cemetery",
     "pluralName": "cemeteries",
-    "displayName": "cemetery"
+    "displayName": "Cemeteries",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -41,13 +42,19 @@
         }
       },
       "type": "enumeration",
-      "enum": ["civilny", "historicky", "vojensky"]
+      "enum": [
+        "civilny",
+        "historicky",
+        "vojensky"
+      ]
     },
     "medias": {
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": ["images"],
+      "allowedTypes": [
+        "images"
+      ],
       "pluginOptions": {
         "i18n": {
           "localized": false
