@@ -14,7 +14,7 @@ type SliderProps = {
     goToNext: () => void
   }>
   initialPage?: number
-  allowKeboardNavigation?: boolean
+  allowKeyboardNavigation?: boolean
   description?: string
 }
 
@@ -50,7 +50,7 @@ const Slider = ({
   autoSwipeDuration = 0,
   pagination: Pagination,
   initialPage,
-  allowKeboardNavigation = false,
+  allowKeyboardNavigation = false,
   description,
 }: SliderProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'Slider' })
@@ -109,7 +109,7 @@ const Slider = ({
 
   const keyUpHandler = useCallback(
     (e: KeyboardEvent) => {
-      if (!allowKeboardNavigation) return
+      if (!allowKeyboardNavigation) return
       if (e.code === 'ArrowLeft') {
         e.preventDefault()
         e.stopPropagation()
@@ -123,7 +123,7 @@ const Slider = ({
         goToNext()
       }
     },
-    [goToNext, goToPrevious, allowKeboardNavigation],
+    [goToNext, goToPrevious, allowKeyboardNavigation],
   )
 
   return (
