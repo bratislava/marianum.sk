@@ -1,7 +1,7 @@
 import { createContext, PropsWithChildren, useMemo } from 'react'
 
 import { GeneralEntityFragment, NavigationItemFragment } from '../../../../graphql'
-import { parseNavigation } from '../../../../utils/parseNavigation'
+import { NavMap, parseNavigation } from '../../../../utils/parseNavigation'
 
 type NavigationContextProps = {
   navigation: NavigationItemFragment[]
@@ -9,7 +9,7 @@ type NavigationContextProps = {
 }
 
 export type TNavigationContext = {
-  navMap: Map<string, { label: string; path: string }>
+  navMap: NavMap
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment['attributes'] | null
 }

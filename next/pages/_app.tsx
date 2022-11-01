@@ -6,8 +6,10 @@ import { MotionConfig } from 'framer-motion'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { appWithTranslation } from 'next-i18next'
+import { NextAdapter } from 'next-query-params'
 import { OverlayProvider, SSRProvider } from 'react-aria'
 import { assert, Equals } from 'tsafe'
+import { QueryParamProvider } from 'use-query-params'
 
 import CookieBanner from '../components/atoms/CookieBanner'
 import CookieConsent from '../components/atoms/CookieConsent'
@@ -36,20 +38,22 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
         <meta name="theme-color" content="#446650" />
       </Head>
-      <SSRProvider>
-        <HeroSectionOverlayProvider>
-          <MI18nProvider>
-            <MotionConfig reducedMotion="user">
-              <OverlayProvider>
-                <CookieConsent banner={CookieBanner} modal={CookieSettingsModal}>
-                  <ThirdPartyScripts />
-                  <Component {...pageProps} />
-                </CookieConsent>
-              </OverlayProvider>
-            </MotionConfig>
-          </MI18nProvider>
-        </HeroSectionOverlayProvider>
-      </SSRProvider>
+      <QueryParamProvider adapter={NextAdapter}>
+        <SSRProvider>
+          <HeroSectionOverlayProvider>
+            <MI18nProvider>
+              <MotionConfig reducedMotion="user">
+                <OverlayProvider>
+                  <CookieConsent banner={CookieBanner} modal={CookieSettingsModal}>
+                    <ThirdPartyScripts />
+                    <Component {...pageProps} />
+                  </CookieConsent>
+                </OverlayProvider>
+              </MotionConfig>
+            </MI18nProvider>
+          </HeroSectionOverlayProvider>
+        </SSRProvider>
+      </QueryParamProvider>
     </>
   )
 }

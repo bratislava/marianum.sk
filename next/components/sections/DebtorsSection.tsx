@@ -11,13 +11,13 @@ import {
   DebtorsSectionFilters,
   getDebtorsSectionSwrKey,
 } from '../../utils/fetchers/debtorsSectionFetcher'
-import { getBranchInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfoInCeremoniesDebtors'
+import { getCemeteryInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfoInCeremoniesDebtors'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import Loading from '../atoms/Loading'
 import LoadingOverlay from '../atoms/LoadingOverlay'
-import BranchLink from '../molecules/BranchLink'
-import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
+import CemeteryLink from '../molecules/CemeteryLink'
+import CeremoniesDebtorsCemeterySelect from '../molecules/CeremoniesDebtors/CemeterySelect'
 import FilteringSearchInput from '../molecules/FilteringSearchInput'
 import FiltersBackgroundWrapper from '../molecules/FiltersBackgroundWrapper'
 import PaginationMeili from '../molecules/PaginationMeili'
@@ -46,9 +46,12 @@ const Table = ({
     }
 
     return debtorsData.map((debtor) => {
-      const { title, slug } = getBranchInfoInCeremoniesDebtorsMeili(debtor.branch, i18n.language)
+      const { title, slug } = getCemeteryInfoInCeremoniesDebtorsMeili(
+        debtor.cemetery,
+        i18n.language,
+      )
 
-      const branch = slug ? <BranchLink slug={slug} title={title} /> : title
+      const branch = slug ? <CemeteryLink slug={slug} title={title} /> : title
       return {
         ...debtor,
         branch,
@@ -163,15 +166,15 @@ const DebtorsSection = ({ description }: DebtorsSectionProps) => {
     setFilters({ ...filters, page })
   }
 
-  const handleBranchChange = (branchId: string) => {
-    setFilters({ ...filters, page: 1, branchId })
+  const handleCemeteryChange = (cemeteryId: string) => {
+    setFilters({ ...filters, page: 1, cemeteryId })
   }
 
   return (
     <Section overlayWithHero>
       <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3">
         <div>
-          <CeremoniesDebtorsBranchSelect type="debtors" onBranchChange={handleBranchChange} />
+          <CeremoniesDebtorsCemeterySelect type="debtors" onCemeteryChange={handleCemeteryChange} />
         </div>
         <div className="md:col-span-2">
           <FilteringSearchInput
