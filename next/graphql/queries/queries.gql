@@ -78,6 +78,14 @@ query Branches($locale: I18NLocaleCode!) {
   }
 }
 
+query CemeteryBySlug($locale: I18NLocaleCode!, $slug: String!) {
+  cemeteries(locale: $locale, filters: { slug: { eq: $slug } }) {
+    data {
+      ...CemeteryEntity
+    }
+  }
+}
+
 query Cemeteries($locale: I18NLocaleCode!) {
   cemeteries(locale: $locale, sort: ["title:asc"], pagination: { limit: 10000 }) {
     data {

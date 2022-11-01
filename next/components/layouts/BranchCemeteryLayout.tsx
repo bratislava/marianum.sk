@@ -1,20 +1,30 @@
 import { ReactNode } from 'react'
 
-import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
+import {
+  BranchEntityFragment,
+  CemeteryEntityFragment,
+  GeneralEntityFragment,
+  NavigationItemFragment,
+} from '../../graphql'
 import SideBarContact from '../molecules/SideBarContact'
 import HeroSection from '../sections/HeroSection'
 import ImageGallery from '../sections/ImageGallery'
 import PageWrapper from './PageWrapper'
 
-type BranchLayoutProps = {
-  branch: BranchEntityFragment
+type BranchCemeteryLayoutProps = {
+  entity: BranchEntityFragment | CemeteryEntityFragment
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   children?: ReactNode
 }
 
-const BranchLayout = ({ branch, navigation, children, general }: BranchLayoutProps) => {
-  const { title, slug, contact, medias } = branch.attributes ?? {}
+const BranchCemeteryLayout = ({
+  entity,
+  navigation,
+  children,
+  general,
+}: BranchCemeteryLayoutProps) => {
+  const { title, slug, contact, medias } = entity.attributes ?? {}
   const { title: contactTitle, phone1, phone2, email } = contact?.data?.attributes ?? {}
 
   return (
@@ -43,4 +53,4 @@ const BranchLayout = ({ branch, navigation, children, general }: BranchLayoutPro
   )
 }
 
-export default BranchLayout
+export default BranchCemeteryLayout

@@ -20,7 +20,7 @@ import { useNavigationContext } from './useNavigationContext'
 // TODO move this to separate file and add translation logic
 // IMPORTANT: Keep this in sync with next config rewrites
 const localPaths = {
-  contacts: '/o-nas/kontakty',
+  branches: '/o-nas/kontakty',
   news: '/aktuality/novinky',
   press: '/o-nas/pre-media',
   bundlesBurial: '/sluzby/balicky-pohrebov/pochovanie-do-zeme',
@@ -70,7 +70,7 @@ export const getFullPathFn = (
   }
 
   if (entity.__typename === 'BranchEntity') {
-    return [localPaths.contacts, slug].join('/')
+    return [localPaths.branches, slug].join('/')
   }
 
   if (entity.__typename === 'BundleEntity') {
@@ -139,7 +139,7 @@ const getFullPathMeiliFn = (navMap: NavMap) => {
     }
 
     if (entityType === 'branch') {
-      return [localPaths.contacts, slug].join('/')
+      return [localPaths.branches, slug].join('/')
     }
 
     if (entityType === 'bundle') {
