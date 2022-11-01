@@ -5,6 +5,8 @@ import { isDefined } from './isDefined'
 
 const navMap = new Map<string, { label: string; path: string }>()
 
+export type NavMap = typeof navMap
+
 export const parseNavigation = (navItems: NavigationItemFragment[]) => {
   navItems.forEach(({ path, items, title }) => {
     if (path) {

@@ -5,7 +5,7 @@ import useSWR from 'swr'
 import { StringParam, useQueryParam, withDefault } from 'use-query-params'
 import { useDebounce } from 'usehooks-ts'
 
-import { useSlugMeili } from '../components/molecules/Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPathMeili } from '../components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { ArticleMeili, BranchMeili, DocumentMeili } from '../types/meiliTypes'
 import { SearchIndexWrapped } from '../utils/fetchers/searchIndexWrapped'
 import { getMeilisearchPageOptions } from '../utils/getMeilisearchPageOptions'
@@ -54,7 +54,7 @@ export type SearchResult = {
 
 export const useSearch = ({ filters, isSyncedWithUrlQuery = false }: UseSearchOptions) => {
   const { i18n } = useTranslation()
-  const { getFullSlugMeili } = useSlugMeili()
+  const { getFullPathMeili } = useGetFullPathMeili()
 
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [routerSearchQuery, setRouterSearchQuery] = useQueryParam(
@@ -92,7 +92,7 @@ export const useSearch = ({ filters, isSyncedWithUrlQuery = false }: UseSearchOp
           // TODO: Fix types, but not worth it.
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const dataInner = (hit as any)[type]
-          const link = getFullSlugMeili(type, dataInner)
+          const link = getFullPathMeili(type, dataInner)
           return { type, title: dataInner.title, link, data: dataInner } as SearchResult
         })
 

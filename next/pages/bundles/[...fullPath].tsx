@@ -1,7 +1,6 @@
-import { GetStaticPaths, GetStaticProps, GetStaticPropsResult, NextPage } from 'next'
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import { SSRConfig, useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
 import CheckIcon from '../../assets/check_noPadding.svg'
@@ -11,6 +10,10 @@ import BundleLayout from '../../components/layouts/BundleLayout'
 import AccordionGroup from '../../components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
 import DocumentGroup from '../../components/molecules/DocumentGroup'
+import {
+  generateStaticPaths,
+  generateStaticProps,
+} from '../../components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
 import Section from '../../components/molecules/Section'
 import Seo from '../../components/molecules/Seo'
 import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
@@ -20,12 +23,11 @@ import { isDefined } from '../../utils/isDefined'
 type BundlePageProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
-  bundle: BundleEntityFragment
+  entity: BundleEntityFragment
 } & SSRConfig
 
-const BundlePage: NextPage<BundlePageProps> = ({ navigation, bundle, general }) => {
+const BundlePage: NextPage<BundlePageProps> = ({ navigation, entity, general }) => {
   const { t } = useTranslation('common', { keyPrefix: 'BundlePage' })
-
   const {
     seo,
     title,
@@ -36,7 +38,7 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, bundle, general }) 
     additionalItems,
     description,
     documents,
-  } = bundle.attributes ?? {}
+  } = entity.attributes ?? {}
 
   const claims = [...(bundleItems ?? []), ...(additionalItems ?? [])].filter(isDefined)
 
@@ -47,7 +49,7 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, bundle, general }) 
         <title>{title}</title>
       </Head>
 
-      <BundleLayout navigation={navigation} general={general} bundle={bundle}>
+      <BundleLayout navigation={navigation} general={general} bundle={entity}>
         <div className="flex flex-col">
           {/* todo: display bundle data */}
           {claims?.length ? (
@@ -117,29 +119,13 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, bundle, general }) 
 }
 
 interface StaticParams extends ParsedUrlQuery {
-  slug: string
+  fullPath: string[]
 }
 
-export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk'] }) => {
-  const pathArraysForLocales = await Promise.all(
-    locales.map((locale) => client.BundlesStaticPaths({ locale })),
+export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
+  const paths = await generateStaticPaths('sk', (locale) =>
+    client.BundlesStaticPaths({ locale }).then((response) => response.bundles?.data),
   )
-  const bundles = pathArraysForLocales
-    .flatMap(({ bundles: allBundles }) => allBundles?.data || [])
-    .filter(isDefined)
-
-  const paths = bundles
-    .map(
-      (bundle) =>
-        bundle?.attributes && {
-          params: {
-            // TODO use proper full slug
-            slug: bundle?.attributes.slug,
-            locale: bundle?.attributes.locale ?? '',
-          },
-        },
-    )
-    .filter(isDefined)
 
   // eslint-disable-next-line no-console
   console.log(`Bundles: Generated static paths for ${paths.length} slugs.`)
@@ -150,34 +136,18 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
 export const getStaticProps: GetStaticProps<BundlePageProps, StaticParams> = async ({
   locale = 'sk',
   params,
-}): Promise<GetStaticPropsResult<BundlePageProps>> => {
-  const slug = params?.slug ?? ''
+}) => {
   // eslint-disable-next-line no-console
-  console.log(`Revalidating bundle on "${slug}"`)
+  console.log(`Revalidating bundle ${params?.fullPath.join('/') ?? ''}`)
 
-  const [{ navigation, general }, { bundles }, translations] = await Promise.all([
-    client.General({ locale }),
-    client.BundleBySlug({ locale, slug }),
-    serverSideTranslations(locale, ['common']),
-  ])
-
-  const filteredNavigation = navigation.filter(isDefined)
-
-  if (!bundles || bundles.data.length === 0) {
-    return {
-      notFound: true,
-    }
-  }
-
-  return {
-    props: {
-      navigation: filteredNavigation,
-      general: general?.data ?? null,
-      bundle: bundles.data[0],
-      ...translations,
-    },
-    revalidate: 10,
-  }
+  return generateStaticProps({
+    locale,
+    params,
+    entityPromiseGetter: ({ locale: localeInner, slug }) =>
+      client
+        .BundleBySlug({ locale: localeInner, slug })
+        .then((response) => response.bundles?.data[0]),
+  })
 }
 
 export default BundlePage

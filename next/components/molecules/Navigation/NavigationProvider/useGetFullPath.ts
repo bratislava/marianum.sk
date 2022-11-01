@@ -4,14 +4,15 @@ import {
   ArticleSlugEntityFragment,
   BranchSlugEntityFragment,
   Bundle,
-  BundleCardEntityFragment,
+  BundleSlugEntityFragment,
   DocumentSlugEntityFragment,
+  NavigationItemFragment,
   Page,
   PageSlugEntityFragment,
 } from '../../../../graphql'
 import { ArticleMeili, BranchMeili, DocumentMeili } from '../../../../types/meiliTypes'
 import { isDefined } from '../../../../utils/isDefined'
-import { TNavigationContext } from './NavigationProvider'
+import { NavMap, parseNavigation } from '../../../../utils/parseNavigation'
 import { useNavigationContext } from './useNavigationContext'
 
 // TODO move this to separate file and add translation logic
@@ -28,13 +29,11 @@ const localPaths = {
   search: '/vyhladavanie',
 }
 
-type LocalRouteType = keyof typeof localPaths
-
-type UnionEntityType =
+export type UnionSlugEntityType =
   | PageSlugEntityFragment
   | ArticleSlugEntityFragment
   | BranchSlugEntityFragment
-  | BundleCardEntityFragment
+  | BundleSlugEntityFragment
   | DocumentSlugEntityFragment
   | null
   | undefined
@@ -42,18 +41,12 @@ type UnionEntityType =
 /**
  * Returns the URL for Strapi returned entity.
  */
-const getFullPath = (
-  entity: UnionEntityType,
-  navMap?: TNavigationContext['navMap'],
-  explicitPathPrefix?: LocalRouteType,
+export const getFullPathFn = (
+  entity: UnionSlugEntityType,
+  navMap: NavMap,
   // eslint-disable-next-line sonarjs/cognitive-complexity
 ) => {
   const { slug } = entity?.attributes ?? {}
-
-  // Use explicitPathPrefix for Articles and whenever you need to specify a path prefix manually
-  if (explicitPathPrefix) {
-    return [localPaths[explicitPathPrefix], slug].join('/')
-  }
 
   if (!slug || !entity || !entity.attributes) {
     return null
@@ -70,7 +63,7 @@ const getFullPath = (
 
   if (entity.__typename === 'PageEntity') {
     const path = navMap?.get(slug)?.path
-    return path ?? slug
+    return path ?? `/${slug}`
   }
 
   if (entity.__typename === 'BranchEntity') {
@@ -100,7 +93,7 @@ const getFullPath = (
 }
 
 // https://stackoverflow.com/a/71469571
-type getFullPathMeiliFn = (
+type GetFullPathMeiliFn = (
   ...args:
     | ['article', ArticleMeili]
     | ['branch', Pick<BranchMeili, 'type' | 'slug'>]
@@ -121,7 +114,7 @@ type getFullPathMeiliFn = (
  *
  * @param navMap
  */
-const getFullSlugMeiliFn = (navMap: TNavigationContext['navMap']) => {
+const getFullPathMeiliFn = (navMap: NavMap) => {
   // eslint-disable-next-line sonarjs/cognitive-complexity
   return ((entityType, entity) => {
     const { slug } = entity
@@ -139,7 +132,7 @@ const getFullSlugMeiliFn = (navMap: TNavigationContext['navMap']) => {
 
     if (entityType === 'page') {
       const path = navMap?.get(slug)?.path
-      return path ?? slug
+      return path ?? `/${slug}`
     }
 
     if (entityType === 'branch') {
@@ -166,25 +159,41 @@ const getFullSlugMeiliFn = (navMap: TNavigationContext['navMap']) => {
     }
 
     return null
-  }) as getFullPathMeiliFn
+  }) as GetFullPathMeiliFn
 }
 
-export const useSlug = () => {
+export const useGetFullPath = () => {
   const { navMap } = useNavigationContext()
 
-  const getFullSlug = useMemo(
-    () => (entity: UnionEntityType, explicitPathPrefix?: LocalRouteType) =>
-      getFullPath(entity, navMap, explicitPathPrefix),
+  const getFullPath = useMemo(
+    () => (entity: UnionSlugEntityType) => getFullPathFn(entity, navMap),
     [navMap],
   )
 
-  return { getFullSlug }
+  return { getFullPath }
 }
 
-export const useSlugMeili = () => {
+export const useGetFullPathMeili = () => {
   const { navMap } = useNavigationContext()
 
-  const getFullSlugMeili = useMemo(() => getFullSlugMeiliFn(navMap), [navMap])
+  const getFullPathMeili = useMemo(() => getFullPathMeiliFn(navMap), [navMap])
 
-  return { getFullSlugMeili }
+  return { getFullPathMeili }
+}
+
+/**
+ * Returns whether the provided path matches the correct path for provided entity.
+ *
+ * @param path
+ * @param entity
+ * @param navigation
+ */
+export const isCurrentPathValid = (
+  path: string,
+  entity: UnionSlugEntityType,
+  navigation: NavigationItemFragment[],
+) => {
+  const { navMap } = parseNavigation(navigation)
+
+  return getFullPathFn(entity, navMap) === path
 }

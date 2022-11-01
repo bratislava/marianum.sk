@@ -1,7 +1,7 @@
 import { RichtextSectionFragment } from '../../graphql'
 import Button from '../atoms/Button'
 import RichText from '../atoms/RichText/RichText'
-import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section from '../molecules/Section'
 
 type RichTextSectionProps = {
@@ -9,14 +9,14 @@ type RichTextSectionProps = {
 }
 
 const RichTextSection = ({ section }: RichTextSectionProps) => {
-  const { getFullSlug } = useSlug()
+  const { getFullPath } = useGetFullPath()
 
   return (
     <Section>
       <RichText className="lg:text-lg" content={section.content} />
       {section.button ? (
         <Button
-          href={getFullSlug(section.button.page?.data) ?? ''}
+          href={getFullPath(section.button.page?.data) ?? ''}
           className="mt-5 w-full md:mt-4 md:w-auto"
         >
           {section.button.label}

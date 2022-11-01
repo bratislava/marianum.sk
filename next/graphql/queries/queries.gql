@@ -112,11 +112,7 @@ query DocumentBySlug($slug: String!) {
 query ArticlesStaticPaths($locale: I18NLocaleCode) {
   articles(locale: $locale, pagination: { limit: 10000 }) {
     data {
-      id
-      attributes {
-        slug
-        locale
-      }
+      ...ArticleSlugEntity
     }
   }
 }
@@ -124,11 +120,7 @@ query ArticlesStaticPaths($locale: I18NLocaleCode) {
 query PagesStaticPaths($locale: I18NLocaleCode) {
   pages(locale: $locale, pagination: { limit: 10000 }) {
     data {
-      id
-      attributes {
-        slug
-        locale
-      }
+      ...PageSlugEntity
     }
   }
 }
@@ -136,11 +128,7 @@ query PagesStaticPaths($locale: I18NLocaleCode) {
 query BranchesStaticPaths($locale: I18NLocaleCode) {
   branches(locale: $locale, pagination: { limit: 10000 }) {
     data {
-      id
-      attributes {
-        slug
-        locale
-      }
+      ...BranchSlugEntity
     }
   }
 }
@@ -148,11 +136,7 @@ query BranchesStaticPaths($locale: I18NLocaleCode) {
 query BundlesStaticPaths($locale: I18NLocaleCode) {
   bundles(locale: $locale, pagination: { limit: 10000 }) {
     data {
-      id
-      attributes {
-        slug
-        locale
-      }
+      ...BundleSlugEntity
     }
   }
 }
@@ -160,10 +144,7 @@ query BundlesStaticPaths($locale: I18NLocaleCode) {
 query DocumentsStaticPaths {
   documents(pagination: { limit: 10000 }) {
     data {
-      id
-      attributes {
-        slug
-      }
+      ...DocumentSlugEntity
     }
   }
 }

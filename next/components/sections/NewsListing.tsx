@@ -7,11 +7,11 @@ import { isDefined } from '../../utils/isDefined'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import Loading from '../atoms/Loading'
 import ArticleCard from '../molecules/Cards/ArticleCard'
-import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
 
 const NewsListing = () => {
   const { i18n } = useTranslation()
-  const { getFullSlug } = useSlug()
+  const { getFullPath } = useGetFullPath()
 
   const { data, error } = useSWR(
     getNewsListingSwrKey(i18n.language),
@@ -52,7 +52,7 @@ const NewsListing = () => {
             title={title ?? ''}
             image={coverMedia?.data?.attributes}
             date={publishedAt}
-            linkHref={getFullSlug(article) ?? ''}
+            linkHref={getFullPath(article) ?? ''}
             category={newsCategory?.data}
             border
           />
