@@ -14,16 +14,20 @@ import {
 } from '../../components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
 import SectionBoxed from '../../components/molecules/SectionBoxed'
 import Seo from '../../components/molecules/Seo'
-import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
+import {
+  CemeteryEntityFragment,
+  GeneralEntityFragment,
+  NavigationItemFragment,
+} from '../../graphql'
 import { client } from '../../utils/gql'
 
-type BranchPageProps = {
+type CemeteryPageProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
-  entity: BranchEntityFragment
+  entity: CemeteryEntityFragment
 } & SSRConfig
 
-const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
+const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'BranchCemeteryPage' })
 
   const { seo, title, address, navigateToLink, description, openingHoursOverride } =
@@ -63,7 +67,7 @@ const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
             </div>
           </SectionBoxed>
           {description && (
-            <SectionBoxed title={t('aboutBranch')}>
+            <SectionBoxed title={t('aboutCemetery')}>
               <RichText content={description} coloredTable={false} />
             </SectionBoxed>
           )}
@@ -83,21 +87,21 @@ interface StaticParams extends ParsedUrlQuery {
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   // TODO: Locales
   const paths = await generateStaticPaths('sk', (locale) =>
-    client.BranchesStaticPaths({ locale }).then((response) => response.branches?.data),
+    client.CemeteriesStaticPaths({ locale }).then((response) => response.cemeteries?.data),
   )
 
   // eslint-disable-next-line no-console
-  console.log(`Branches: Generated static paths for ${paths.length} slugs.`)
+  console.log(`Cemeteries: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps<BranchPageProps, StaticParams> = async ({
+export const getStaticProps: GetStaticProps<CemeteryPageProps, StaticParams> = async ({
   locale = 'sk',
   params,
 }) => {
   // eslint-disable-next-line no-console
-  console.log(`Revalidating branch ${params?.fullPath.join('/') ?? ''}`)
+  console.log(`Revalidating cemetery ${params?.fullPath.join('/') ?? ''}`)
 
   return (
     // TODO: Locales
@@ -106,10 +110,10 @@ export const getStaticProps: GetStaticProps<BranchPageProps, StaticParams> = asy
       params,
       entityPromiseGetter: ({ locale: localeInner, slug }) =>
         client
-          .BranchBySlug({ locale: localeInner, slug })
-          .then((response) => response.branches?.data[0]),
+          .CemeteryBySlug({ locale: localeInner, slug })
+          .then((response) => response.cemeteries?.data[0]),
     })
   )
 }
 
-export default BranchPage
+export default CemeteryPage

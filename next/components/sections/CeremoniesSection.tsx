@@ -12,15 +12,15 @@ import {
   CeremoniesSectionFilters,
   getCeremoniesSectionSwrKey,
 } from '../../utils/fetchers/ceremoniesSectionFetcher'
-import { getBranchInfoInCeremoniesDebtors } from '../../utils/getBranchInfoInCeremoniesDebtors'
+import { getCemeteryInfoInCeremoniesDebtors } from '../../utils/getBranchInfoInCeremoniesDebtors'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import FormatDate from '../atoms/FormatDate'
 import Loading from '../atoms/Loading'
 import LoadingOverlay from '../atoms/LoadingOverlay'
 import MLink from '../atoms/MLink'
-import BranchLink from '../molecules/BranchLink'
-import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
+import CemeteryLink from '../molecules/CemeteryLink'
+import CeremoniesDebtorsCemeterySelect from '../molecules/CeremoniesDebtors/CemeterySelect'
 import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section from '../molecules/Section'
 
@@ -43,12 +43,12 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
     }
 
     const mappedCeremonies = ceremoniesData.map((ceremony) => {
-      const branchInfo = ceremony?.attributes?.branch?.data
-        ? getBranchInfoInCeremoniesDebtors(ceremony.attributes.branch.data, i18n.language)
+      const branchInfo = ceremony?.attributes?.cemetery?.data
+        ? getCemeteryInfoInCeremoniesDebtors(ceremony.attributes.cemetery.data, i18n.language)
         : null
 
       const branch = branchInfo?.slug ? (
-        <BranchLink slug={branchInfo?.slug} title={branchInfo?.title ?? ''} />
+        <CemeteryLink slug={branchInfo?.slug} title={branchInfo?.title ?? ''} />
       ) : (
         branchInfo?.title
       )
@@ -167,17 +167,17 @@ const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
   const { getFullPath } = useGetFullPath()
   const [filters, setFilters] = useState<CeremoniesSectionFilters>(ceremoniesSectionDefaultFilters)
 
-  const handleBranchChange = (branchId: string) => {
-    setFilters({ ...filters, branchId })
+  const handleCemeteryChange = (cemeteryId: string) => {
+    setFilters({ ...filters, cemeteryId })
   }
 
   return (
     <Section>
       <div className="mb-6 md:mb-8 md:w-[360px]">
-        <CeremoniesDebtorsBranchSelect
+        <CeremoniesDebtorsCemeterySelect
           label={t('filterBy')}
           type="ceremonies"
-          onBranchChange={handleBranchChange}
+          onCemeteryChange={handleCemeteryChange}
         />
       </div>
 

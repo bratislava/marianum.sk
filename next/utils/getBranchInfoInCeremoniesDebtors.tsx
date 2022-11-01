@@ -1,14 +1,14 @@
 import { Maybe } from '../graphql'
-import { BranchMeili } from '../types/meiliTypes'
+import { CemeteryMeili } from '../types/meiliTypes'
 
 /**
  * As the relation in ceremonies and debtors is always with the Slovak version, we always get the Slovak version as the
  * main one, so we fetch it with all the localizations, then we return the correct title based on user's locale
  * either from the Slovak or the localized version.
  */
-export const getBranchInfoInCeremoniesDebtors = (
-  // Minimal schema for branch to for this to work with all variants
-  branch: {
+export const getCemeteryInfoInCeremoniesDebtors = (
+  // Minimal schema for cemetery to for this to work with all variants
+  cemetery: {
     attributes?: Maybe<{
       title?: Maybe<string>
       slug?: Maybe<string>
@@ -27,19 +27,19 @@ export const getBranchInfoInCeremoniesDebtors = (
   },
   locale: string,
 ) => {
-  const skBranchTitle = branch?.attributes?.title
-  const skBranchSlug = branch?.attributes?.slug
+  const skCemeteryTitle = cemetery?.attributes?.title
+  const skCemeterySlug = cemetery?.attributes?.slug
 
-  const localeBranch = branch?.attributes?.localizations?.data?.find(
-    (innerBranch) => innerBranch?.attributes?.locale === locale,
+  const localeCemetery = cemetery?.attributes?.localizations?.data?.find(
+    (innerCemetery) => innerCemetery?.attributes?.locale === locale,
   )?.attributes
 
-  const localeBranchTitle = localeBranch?.title
-  const localeBranchSlug = localeBranch?.slug
+  const localeCemeteryTitle = localeCemetery?.title
+  const localeCemeterySlug = localeCemetery?.slug
 
   return {
-    title: localeBranchTitle ?? skBranchTitle,
-    slug: locale === 'sk' ? skBranchSlug : localeBranchSlug, // For the title we can fallback for SK version, but not for slug - the link wouldn't work.
+    title: localeCemeteryTitle ?? skCemeteryTitle,
+    slug: locale === 'sk' ? skCemeterySlug : localeCemeterySlug, // For the title we can fallback for SK version, but not for slug - the link wouldn't work.
   }
 }
 
@@ -50,15 +50,20 @@ export const getBranchInfoInCeremoniesDebtors = (
  *
  * Differs from the Strapi version as the structure is flatter.
  */
-export const getBranchInfoInCeremoniesDebtorsMeili = (branch: BranchMeili, locale: string) => {
-  const skBranchTitle = branch?.title
-  const skBranchSlug = branch?.slug
+export const getCemeteryInfoInCeremoniesDebtorsMeili = (
+  cemetery: CemeteryMeili,
+  locale: string,
+) => {
+  const skCemeteryTitle = cemetery?.title
+  const skCemeterySlug = cemetery?.slug
 
-  const localeBranch = branch?.localizations.find((branchInner) => branchInner.locale === locale)
-  const localeBranchTitle = localeBranch?.title
-  const localeBranchSlug = localeBranch?.slug
+  const localeCemetery = cemetery?.localizations.find(
+    (cemeteryInner) => cemeteryInner.locale === locale,
+  )
+  const localeCemeteryTitle = localeCemetery?.title
+  const localeCemeterySlug = localeCemetery?.slug
   return {
-    title: localeBranchTitle ?? skBranchTitle,
-    slug: locale === 'sk' ? skBranchSlug : localeBranchSlug, // For the title we can fallback for SK version, but not for slug - the link wouldn't work.
+    title: localeCemeteryTitle ?? skCemeteryTitle,
+    slug: locale === 'sk' ? skCemeterySlug : localeCemeterySlug, // For the title we can fallback for SK version, but not for slug - the link wouldn't work.
   }
 }

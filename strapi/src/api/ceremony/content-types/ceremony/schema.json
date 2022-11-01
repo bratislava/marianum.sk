@@ -37,10 +37,10 @@
     "officiantProvidedBy": {
       "type": "string"
     },
-    "branch": {
+    "cemetery": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::branch.branch"
+      "target": "api::cemetery.cemetery"
     },
     "consentForPrivateFields": {
       "type": "boolean"

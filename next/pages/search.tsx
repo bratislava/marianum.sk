@@ -165,11 +165,12 @@ type SearchPageProps = {
 }
 
 const SearchPage = ({ navigation, general }: SearchPageProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'SearchPage' })
+
   return (
     <>
       <Head>
-        {/* TODO translations */}
-        <title>Vyhľadávanie - marianum.sk</title>
+        <title>{t('pageTitle')}</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <PageWrapper navigation={navigation} general={general}>

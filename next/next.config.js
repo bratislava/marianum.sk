@@ -67,7 +67,7 @@ const nextConfig = {
           },
           {
             fullPath: '/o-nas/cintoriny-v-sprave/:slug',
-            nextRoute: '/branches',
+            nextRoute: '/cemeteries',
           },
           {
             fullPath: '/o-nas/dokumenty/:slug',
