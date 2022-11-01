@@ -1,13 +1,13 @@
 import { Enum_Branch_Type } from '../../graphql'
 import MLink from '../atoms/MLink'
-import { useSlugMeili } from './Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPathMeili } from './Navigation/NavigationProvider/useGetFullPath'
 
 const BranchLink = ({ slug, title }: { slug: string; title: string | undefined }) => {
-  const { getFullSlugMeili } = useSlugMeili()
+  const { getFullPathMeili } = useGetFullPathMeili()
 
   return (
     <MLink
-      href={getFullSlugMeili('branch', { type: Enum_Branch_Type.Cintorin, slug }) ?? ''}
+      href={getFullPathMeili('branch', { type: Enum_Branch_Type.Cintorin, slug }) ?? ''}
       noStyles
       className="underline"
     >

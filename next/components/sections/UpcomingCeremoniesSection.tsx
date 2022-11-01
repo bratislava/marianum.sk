@@ -15,7 +15,7 @@ import FormatDate from '../atoms/FormatDate'
 import Loading from '../atoms/Loading'
 import MLink from '../atoms/MLink'
 import BranchLink from '../molecules/BranchLink'
-import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section from '../molecules/Section'
 
 const Table = () => {
@@ -122,9 +122,9 @@ type CeremoniesListingProps = {
 }
 
 const UpcomingCeremoniesSection = ({ section }: CeremoniesListingProps) => {
-  const { getFullSlug } = useSlug()
+  const { getFullPath } = useGetFullPath()
 
-  const showMoreButtonSlug = getFullSlug(section.showMoreButton?.page?.data)
+  const showMoreButtonSlug = getFullPath(section.showMoreButton?.page?.data)
 
   const showMoreButton = section.showMoreButton && showMoreButtonSlug && (
     <MLink href={showMoreButtonSlug}>{section.showMoreButton.label}</MLink>

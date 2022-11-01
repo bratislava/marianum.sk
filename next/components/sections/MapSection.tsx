@@ -17,7 +17,7 @@ import Button from '../atoms/Button'
 import Loading from '../atoms/Loading'
 import MLink from '../atoms/MLink'
 import TagToggle from '../atoms/TagToggle'
-import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
 import Search from '../molecules/Search'
 import Section, { SectionProps } from '../molecules/Section'
 
@@ -43,7 +43,7 @@ type MapSectionProps = Pick<SectionProps, 'background' | 'title'>
 const MapSection = ({ ...rest }: MapSectionProps) => {
   const { t, i18n } = useTranslation('common', { keyPrefix: 'MapSection' })
 
-  const { getFullSlug } = useSlug()
+  const { getFullPath } = useGetFullPath()
 
   const { data, error } = useSWR(
     getCemeteriesSwrKey(i18n.language),
@@ -174,7 +174,7 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
                   <MLink
                     onMouseEnter={() => setHoveredBranchSlug(slug ?? '')}
                     noStyles
-                    href={getFullSlug(branch) ?? ''}
+                    href={getFullPath(branch) ?? ''}
                     className={cx('flex gap-2 px-5 py-3', {
                       'bg-primary/5': slug === hoveredBranchSlug,
                     })}
@@ -224,7 +224,7 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
                         onMouseEnter={() => setHoveredBranchSlug(slug ?? '')}
                         onMouseLeave={() => setHoveredBranchSlug(null)}
                         noStyles
-                        href={getFullSlug(branch) ?? ''}
+                        href={getFullPath(branch) ?? ''}
                       >
                         <MapMarkerIcon />
                       </MLink>

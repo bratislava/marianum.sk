@@ -90,6 +90,7 @@ fragment BranchSlugEntity on BranchEntity {
   attributes {
     slug
     type
+    locale
   }
 }
 
@@ -186,6 +187,16 @@ fragment BundleEntity on BundleEntity {
     seo {
       ...Seo
     }
+  }
+}
+
+fragment BundleSlugEntity on BundleEntity {
+  __typename
+  id
+  attributes {
+    slug
+    type
+    locale
   }
 }
 
