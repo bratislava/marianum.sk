@@ -9,9 +9,10 @@ import {
   useOverlay,
   usePreventScroll,
 } from 'react-aria'
+import { twMerge } from 'tailwind-merge'
 import { useIsClient } from 'usehooks-ts'
 
-import Close from '../../assets/close.svg'
+import CloseIcon from '../../assets/close.svg'
 import IconButton from './IconButton'
 
 export type ModalProps = {
@@ -56,14 +57,14 @@ const Modal = (props: ModalProps) => {
             >
               <div
                 {...underlayProps}
-                className={cx(
+                className={twMerge(
                   'fixed inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black/40',
                   underlayClassName,
                 )}
               >
                 <div className={cx({ 'flex min-h-full items-center': centerVertically })}>
                   <div
-                    className={cx('mx-auto flex w-fit items-center', overlayClassName)}
+                    className={twMerge('mx-auto flex w-fit items-center', overlayClassName)}
                     {...overlayProps}
                     {...modalProps}
                     ref={ref}
@@ -74,7 +75,7 @@ const Modal = (props: ModalProps) => {
                         className="fixed top-6 right-6 z-30"
                         onPress={onClose}
                       >
-                        <Close />
+                        <CloseIcon />
                       </IconButton>
                     )}
                     {children}
