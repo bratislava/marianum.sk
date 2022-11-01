@@ -15,32 +15,46 @@
 
 import * as Sentry from '@sentry/nextjs'
 import { GetServerSideProps, GetServerSidePropsResult } from 'next'
-import NextErrorComponent from 'next/error'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-interface ErrorProps {
+import SectionsWrapper from '../components/layouts/SectionsWrapper'
+import ErrorSection from '../components/sections/ErrorSection'
+
+interface ErrorPageProps {
   statusCode: number
+  statusMessage: string | null
 }
 
-const ErrorComponent = ({ statusCode }: ErrorProps) => {
-  return <NextErrorComponent statusCode={statusCode} />
+const ErrorPage = ({ statusCode, statusMessage }: ErrorPageProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'ErrorPage' })
+
+  return (
+    <SectionsWrapper alternateBackground className="pb-14">
+      <ErrorSection
+        code={statusCode}
+        title={t('titleGeneralError')}
+        message={statusMessage ?? t('messageGeneralError')}
+      />
+    </SectionsWrapper>
+  )
 }
 
 export const getServerSideProps: GetServerSideProps = async (
   ctx,
-): Promise<GetServerSidePropsResult<ErrorProps>> => {
+): Promise<GetServerSidePropsResult<ErrorPageProps>> => {
   const { locale = 'sk', res } = ctx
 
   const [translations] = await Promise.all([serverSideTranslations(locale, ['common'])])
-
   await Sentry.captureUnderscoreErrorException(ctx)
 
   return {
     props: {
       statusCode: res.statusCode,
+      statusMessage: res.statusMessage ?? null,
       ...translations,
     },
   }
 }
 
-export default ErrorComponent
+export default ErrorPage
