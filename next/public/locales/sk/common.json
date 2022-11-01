@@ -229,6 +229,7 @@
     "aboutBranch": "O pobočke"
   },
   "SearchPage": {
+    "pageTitle": "Vyhľadávanie - marianum.sk",
     "searchResults": "Výsledky vyhľadávania",
     "searchPlaceholder": "Hľadať",
     "resultsFound_zero": "Nebol nájdený žiaden výsledok",
@@ -238,10 +239,11 @@
     "allResults": "Všetky výsledky",
     "tags": {
       "page": "Stránky",
-      "bundle": "Balíčky pohrebov",
-      "document": "Dokumenty",
       "article": "Články",
-      "branch": "Pobočky a cintoríny"
+      "branch": "Pobočky",
+      "bundle": "Balíčky pohrebov",
+      "cemetery": "Cintoríny",
+      "document": "Dokumenty"
     }
   },
   "CookieConsent": {

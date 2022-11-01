@@ -2,7 +2,6 @@ import {
   Article,
   ArticleNewsCategory,
   ArticlePressCategory,
-  Branch,
   Cemetery,
   Ceremony,
   Debtor,
@@ -23,14 +22,9 @@ export type ArticleMeili = Omit<
   coverMedia?: UploadFile
 }
 
-export type BranchMeili = Omit<Branch, '__typename' | 'localizations'> & {
-  id: string
-  localizations: BranchMeili[]
-}
-
 export type CemeteryMeili = Omit<Cemetery, '__typename' | 'localizations'> & {
   id: string
-  localizations: BranchMeili[]
+  localizations: CemeteryMeili[]
 }
 
 export type CeremonyMeili = Omit<Ceremony, '__typename' | 'cemetery'> & {

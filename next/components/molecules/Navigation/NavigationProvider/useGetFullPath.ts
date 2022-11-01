@@ -2,17 +2,17 @@ import { useMemo } from 'react'
 
 import {
   ArticleSlugEntityFragment,
+  Branch,
   BranchSlugEntityFragment,
   Bundle,
   BundleSlugEntityFragment,
-  Cemetery,
   CemeterySlugEntityFragment,
   DocumentSlugEntityFragment,
   NavigationItemFragment,
   Page,
   PageSlugEntityFragment,
 } from '../../../../graphql'
-import { ArticleMeili, BranchMeili, DocumentMeili } from '../../../../types/meiliTypes'
+import { ArticleMeili, CemeteryMeili, DocumentMeili } from '../../../../types/meiliTypes'
 import { isDefined } from '../../../../utils/isDefined'
 import { NavMap, parseNavigation } from '../../../../utils/parseNavigation'
 import { useNavigationContext } from './useNavigationContext'
@@ -99,9 +99,9 @@ type GetFullPathMeiliFn = (
   ...args:
     | ['page', Pick<Page, 'slug'>]
     | ['article', ArticleMeili]
-    | ['branch', Pick<BranchMeili, 'slug'>]
+    | ['branch', Pick<Branch, 'slug'>]
     | ['bundle', Pick<Bundle, 'type' | 'slug'>]
-    | ['cemetery', Pick<Cemetery, 'slug'>]
+    | ['cemetery', Pick<CemeteryMeili, 'slug'>]
     | ['document', Pick<DocumentMeili, 'slug'>]
 ) => string | null
 

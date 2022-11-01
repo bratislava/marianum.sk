@@ -5,7 +5,7 @@ import useSWR from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
 import { useGetFullPathMeili } from '../components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { ArticleMeili, BranchMeili, DocumentMeili } from '../types/meiliTypes'
+import { ArticleMeili, CemeteryMeili, DocumentMeili } from '../types/meiliTypes'
 import { SearchIndexWrapped } from '../utils/fetchers/searchIndexWrapped'
 import { getMeilisearchPageOptions } from '../utils/getMeilisearchPageOptions'
 import { meiliClient } from '../utils/meilisearch'
@@ -13,19 +13,21 @@ import { Unpacked } from '../utils/types'
 import useGetSwrExtras from '../utils/useGetSwrExtras'
 
 export const allSearchTypes = [
-  'branch' as const,
-  'document' as const,
   'page' as const,
-  'bundle' as const,
   'article' as const,
+  'bundle' as const,
+  'document' as const,
+  'branch' as const,
+  'cemetery' as const,
 ]
 
 type Results =
-  | SearchIndexWrapped<'branch', BranchMeili>
-  | SearchIndexWrapped<'document', DocumentMeili>
   | SearchIndexWrapped<'page', { slug: string }> // TODO: Specify type if needed.
-  | SearchIndexWrapped<'bundle', { slug: string }> // TODO: Specify type if needed.
   | SearchIndexWrapped<'article', ArticleMeili>
+  | SearchIndexWrapped<'branch', { slug: string }> // TODO: Specify type if needed.
+  | SearchIndexWrapped<'bundle', { slug: string }> // TODO: Specify type if needed.
+  | SearchIndexWrapped<'cemetery', CemeteryMeili>
+  | SearchIndexWrapped<'document', DocumentMeili>
 
 export type SearchType = Unpacked<typeof allSearchTypes>
 

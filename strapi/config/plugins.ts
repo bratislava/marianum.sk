@@ -29,13 +29,15 @@ const searchIndexSettings = {
     "article.title",
     // Bundle
     "bundle.title",
+    // Cemetery
+    "cemetery.title",
     // Document
     "document.title",
   ],
   filterableAttributes: [
     // All
     "type",
-    // Page + branch + article + bundle
+    // Page + branch + article + bundle + cemetery
     "locale",
     // Article
     "article.pressCategory",
@@ -64,13 +66,12 @@ export default {
     enabled: true,
     config: {
       additionalFields: [],
-      contentTypes: ["api::page.page", "api::branch.branch"],
+      contentTypes: ["api::page.page"],
       contentTypesNameFields: {
         "api::page.page": ["title"],
-        "api::branch.branch": ["title"],
       },
       allowedLevels: 2,
-      gql: { navigationItemRelated: ["Page", "Branch"] },
+      gql: { navigationItemRelated: ["Page"] },
     },
   },
   graphql: {
@@ -130,12 +131,20 @@ export default {
         settings: searchIndexSettings,
         transformEntry: ({ entry }) => wrapSearchIndexEntry("bundle", entry),
       },
+      cemetery: {
+        indexName: "search_index",
+        entriesQuery: {
+          locale: "all",
+        },
+        settings: searchIndexSettings,
+        transformEntry: ({ entry }) => wrapSearchIndexEntry("cemetery", entry),
+      },
       debtor: {
         entriesQuery: {
-          populate: ["branch", "branch.localizations"],
+          populate: ["cemetery", "cemetery.localizations"],
         },
         settings: {
-          filterableAttributes: ["branch.id"],
+          filterableAttributes: ["cemetery.id"],
           searchableAttributes: ["firstName", "lastName"],
           pagination: {
             // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
@@ -145,10 +154,10 @@ export default {
       },
       ceremony: {
         entriesQuery: {
-          populate: ["branch", "branch.localizations"],
+          populate: ["cemetery", "cemetery.localizations"],
         },
         settings: {
-          filterableAttributes: ["branch.id", "dateTimeTimestamp"],
+          filterableAttributes: ["cemetery.id", "dateTimeTimestamp"],
           searchableAttributes: ["name"],
           pagination: {
             // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
