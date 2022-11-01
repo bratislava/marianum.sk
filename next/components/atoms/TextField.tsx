@@ -97,7 +97,9 @@ const TextField = (props: TextFieldProps) => {
       error={error}
       required={required}
     >
-      {leftSlot && <div className={cx('shrink-0 grow-0', { 'p-3': isLarge })}>{leftSlot}</div>}
+      {leftSlot && (
+        <div className={cx('shrink-0 grow-0', { 'p-3': isLarge, 'p-2': !isLarge })}>{leftSlot}</div>
+      )}
       <input
         {...rest}
         disabled={disabled}

@@ -11,11 +11,10 @@ import MLink from '../../atoms/MLink'
 type ServiceCardProps = {
   image?: MImageImage | null
   title: string
-  subtitle: string | null | undefined
   linkHref: string
 } & CardBoxProps
 
-const ServiceCard = ({ image, title, subtitle, linkHref, ...rest }: ServiceCardProps) => {
+const ServiceCard = ({ image, title, linkHref, ...rest }: ServiceCardProps) => {
   const { t } = useTranslation()
   const router = useRouter()
 
@@ -44,7 +43,6 @@ const ServiceCard = ({ image, title, subtitle, linkHref, ...rest }: ServiceCardP
               {title}
             </MLink>
           </h5>
-          {subtitle && <div className="mt-2">{subtitle}</div>}
         </div>
         <div className="mt-4">
           <MLink

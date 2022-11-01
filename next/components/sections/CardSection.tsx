@@ -27,10 +27,17 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
   const isMobile = useMemo(() => !isMD, [isMD])
 
   return (
-    <Section title={title} {...rest} cardGrid="cards" button={showMoreButton}>
+    <Section
+      title={title}
+      {...rest}
+      cardGrid={
+        style === Enum_Componentsectionsmanuallisting_Style.Service ? 'serviceCards' : 'cards'
+      }
+      button={showMoreButton}
+    >
       {filteredPages?.map((page, index) => {
         const { id, attributes } = page ?? {}
-        const { title: cardTitle, coverMedia, perex } = attributes ?? {}
+        const { title: cardTitle, coverMedia } = attributes ?? {}
         const fullPath = getFullPath(page) ?? ''
 
         if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
@@ -57,7 +64,6 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
               linkHref={fullPath}
               border
               image={coverMedia?.data?.attributes}
-              subtitle={perex}
             />
           )
         }
