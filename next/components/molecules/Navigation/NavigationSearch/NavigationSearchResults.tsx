@@ -32,12 +32,15 @@ const NavigationSearchResults = ({
           href={link}
           // eslint-disable-next-line react/no-array-index-key
           key={index}
-          className="px-4 py-2 text-[14px]"
+          className="px-4 py-2 text-[14px] hover:bg-primary/12 focus:bg-primary/12"
         >
           {title}
         </MLink>
       ))}
-      <MLink className="!justify-start px-4 py-2" href={`/search?query=${searchQuery}`}>
+      <MLink
+        className="!justify-start px-4 py-2 hover:bg-primary/12 focus:bg-primary/12"
+        href={`/search?query=${searchQuery}`}
+      >
         {t('allResults')}
       </MLink>
     </div>

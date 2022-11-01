@@ -1,31 +1,33 @@
-import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { SSRConfig, useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'node:querystring'
 
 import NavigateToIcon from '../../assets/directions.svg'
 import PlaceIcon from '../../assets/place.svg'
 import Button from '../../components/atoms/Button'
 import RichText from '../../components/atoms/RichText/RichText'
-import BranchLayout from '../../components/layouts/BranchLayout'
+import BranchCemeteryLayout from '../../components/layouts/BranchCemeteryLayout'
+import {
+  generateStaticPaths,
+  generateStaticProps,
+} from '../../components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
 import SectionBoxed from '../../components/molecules/SectionBoxed'
 import Seo from '../../components/molecules/Seo'
 import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import { client } from '../../utils/gql'
-import { isDefined } from '../../utils/isDefined'
 
 type BranchPageProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
-  branch: BranchEntityFragment
+  entity: BranchEntityFragment
 } & SSRConfig
 
-const BranchPage = ({ navigation, branch, general }: BranchPageProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'BranchPage' })
+const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'BranchCemeteryPage' })
 
-  const { seo, title, type, address, navigateToLink, description, openingHoursOverride } =
-    branch.attributes ?? {}
+  const { seo, title, address, navigateToLink, description, openingHoursOverride } =
+    entity.attributes ?? {}
 
   return (
     <>
@@ -34,7 +36,7 @@ const BranchPage = ({ navigation, branch, general }: BranchPageProps) => {
         <title>{title}</title>
       </Head>
 
-      <BranchLayout branch={branch} navigation={navigation} general={general}>
+      <BranchCemeteryLayout entity={entity} navigation={navigation} general={general}>
         <div className="flex flex-col gap-3 md:gap-4">
           <SectionBoxed>
             <h1 className="pb-1 md:pb-3">{title}</h1>
@@ -60,43 +62,29 @@ const BranchPage = ({ navigation, branch, general }: BranchPageProps) => {
               )}
             </div>
           </SectionBoxed>
-          <SectionBoxed title={type === 'cintorin' ? t('aboutCemetery') : t('aboutBranch')}>
-            <RichText content={description} coloredTable={false} />
-          </SectionBoxed>
+          {description && (
+            <SectionBoxed title={t('aboutBranch')}>
+              <RichText content={description} coloredTable={false} />
+            </SectionBoxed>
+          )}
           <SectionBoxed title={t('openingHours')}>
             <RichText content={openingHoursOverride || general?.attributes?.generalOpeningHours} />
           </SectionBoxed>
         </div>
-      </BranchLayout>
+      </BranchCemeteryLayout>
     </>
   )
 }
 
 interface StaticParams extends ParsedUrlQuery {
-  slug: string
+  fullPath: string[]
 }
 
-export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = ['sk', 'en'] }) => {
-  const pathArraysForLocales = await Promise.all(
-    locales.map((locale) => client.BranchesStaticPaths({ locale })),
+export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
+  // TODO: Locales
+  const paths = await generateStaticPaths('sk', (locale) =>
+    client.BranchesStaticPaths({ locale }).then((response) => response.branches?.data),
   )
-
-  const branches = pathArraysForLocales
-    .flatMap(({ branches: allBranches }) => allBranches?.data || [])
-    .filter(isDefined)
-
-  const paths = branches
-    .map(
-      (branch) =>
-        branch.attributes && {
-          params: {
-            // TODO use proper full slug
-            slug: branch?.attributes.slug,
-            locale: branch?.attributes.locale ?? '',
-          },
-        },
-    )
-    .filter(isDefined)
 
   // eslint-disable-next-line no-console
   console.log(`Branches: Generated static paths for ${paths.length} slugs.`)
@@ -107,32 +95,21 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async ({ locales = [
 export const getStaticProps: GetStaticProps<BranchPageProps, StaticParams> = async ({
   locale = 'sk',
   params,
-}): Promise<GetStaticPropsResult<BranchPageProps>> => {
-  const slug = params?.slug ?? ''
+}) => {
+  // eslint-disable-next-line no-console
+  console.log(`Revalidating branch ${params?.fullPath.join('/') ?? ''}`)
 
-  const [{ navigation, general }, { branches }, translations] = await Promise.all([
-    client.General({ locale }),
-    client.BranchBySlug({ locale, slug }),
-    serverSideTranslations(locale, ['common']),
-  ])
-
-  const filteredNavigation = navigation.filter(isDefined)
-
-  if (!branches || branches.data.length === 0) {
-    return {
-      notFound: true,
-    }
-  }
-
-  return {
-    props: {
-      navigation: filteredNavigation,
-      general: general?.data ?? null,
-      branch: branches.data[0],
-      ...translations,
-    },
-    revalidate: 10,
-  }
+  return (
+    // TODO: Locales
+    generateStaticProps({
+      locale,
+      params,
+      entityPromiseGetter: ({ locale: localeInner, slug }) =>
+        client
+          .BranchBySlug({ locale: localeInner, slug })
+          .then((response) => response.branches?.data[0]),
+    })
+  )
 }
 
 export default BranchPage

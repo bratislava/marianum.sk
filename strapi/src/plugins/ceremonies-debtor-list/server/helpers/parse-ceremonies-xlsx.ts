@@ -1,12 +1,12 @@
 import { readFile, utils } from "xlsx";
-import { getBranchIdBySlug } from "./get-branch-id-by-slug";
+import { getCemeteryIdBySlug } from "./get-cemetery-id-by-slug";
 import moment from "moment/moment";
 import "moment-timezone";
 import assert from "assert";
 
 export const parseCeremoniesXlsx = (
   filePath: string,
-  branchesSlugIdMap: Record<string, number>
+  cemeteriesSlugIdMap: Record<string, number>
 ) => {
   const workBook = readFile(filePath);
 
@@ -71,7 +71,7 @@ export const parseCeremoniesXlsx = (
           type,
           name,
           birthYear,
-          branchSlug,
+          cemeterySlug,
           company,
           officiantProvidedBy,
           ,
@@ -94,12 +94,12 @@ export const parseCeremoniesXlsx = (
         }
 
         const dateTime = parsedDateTime.toISOString();
-        const branchId = getBranchIdBySlug(
-          branchSlug,
-          branchesSlugIdMap,
-          `Pobočka na riadku ${
+        const cemeteryId = getCemeteryIdBySlug(
+          cemeterySlug,
+          cemeteriesSlugIdMap,
+          `Cintorín na riadku ${
             index + 3
-          } v zošite "${sheetName}" s "slug" "${branchSlug}" neexistuje alebo jej hodnota "allowInCeremonies" nie je nastavená na "true".`
+          } v zošite "${sheetName}" s "slug" "${cemeterySlug}" neexistuje alebo jeho hodnota "allowInCeremonies" nie je nastavená na "true".`
         );
         const consentForPrivateFields = consentForPrivateFieldsRaw === "A";
 
@@ -110,7 +110,7 @@ export const parseCeremoniesXlsx = (
           type: consentForPrivateFields ? type : undefined,
           company,
           officiantProvidedBy,
-          branch: branchId,
+          cemetery: cemeteryId,
           consentForPrivateFields,
         };
       });

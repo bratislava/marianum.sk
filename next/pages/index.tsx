@@ -70,7 +70,6 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
             }
             if (section?.__typename === 'ComponentSectionsProceduresShortSection') {
               const { outsideMedicalFacility, atMedicalFacility } = procedures?.attributes ?? {}
-              const proceduresArr = [outsideMedicalFacility, atMedicalFacility].filter(isDefined)
 
               const { showMoreButton, title, __typename, id } = section
 
@@ -78,7 +77,8 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
                 <HomepageProcedures
                   key={`${__typename}-${id}`}
                   title={title}
-                  procedures={proceduresArr}
+                  outsideMedicalFacility={outsideMedicalFacility}
+                  atMedicalFacility={atMedicalFacility}
                   showMoreButton={showMoreButton}
                 />
               )
