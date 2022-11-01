@@ -35,26 +35,6 @@
       "targetField": "title",
       "required": true
     },
-    "type": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "type": "enumeration",
-      "enum": ["cintorin", "pobocka"],
-      "required": true,
-      "default": "cintorin"
-    },
-    "cemeteryType": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "type": "enumeration",
-      "enum": ["civilny", "historicky", "vojensky"]
-    },
     "medias": {
       "type": "media",
       "multiple": true,

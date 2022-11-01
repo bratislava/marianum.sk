@@ -1,9 +1,9 @@
 import { RefObject, useEffect, useState } from 'react'
 import scrollIntoView from 'smooth-scroll-into-view-if-needed'
-import { useIsFirstRender } from 'usehooks-ts'
+import { useIsFirstRender, useIsomorphicLayoutEffect } from 'usehooks-ts'
 
-export const useScrollToViewIfDataChange = <T extends object, K extends object>(
-  data: T,
+export const useScrollToViewIfDataChange = <T extends object | null, K extends object>(
+  data: T | undefined,
   filters: K,
   elementRef: RefObject<HTMLElement>,
 ) => {
@@ -24,18 +24,23 @@ export const useScrollToViewIfDataChange = <T extends object, K extends object>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters])
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!elementRef?.current || isFirst || !filtersChanged) {
       return
     }
 
     setFiltersChanged(false)
+
+    // scrollMode: 'if-needed' doesn't work as expected
+    const topIsNotVisible = elementRef.current.getBoundingClientRect().top < 0
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    scrollIntoView(elementRef.current, {
-      scrollMode: 'if-needed',
-      block: 'start',
-      inline: 'nearest',
-    })
+    if (topIsNotVisible) {
+      scrollIntoView(elementRef.current, {
+        scrollMode: 'if-needed',
+        block: 'start',
+        inline: 'nearest',
+      })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 }

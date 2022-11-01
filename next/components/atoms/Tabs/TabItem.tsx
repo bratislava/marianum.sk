@@ -7,6 +7,6 @@ export type TabProps = {
   children: ReactNode
 }
 
-const Tab = Item
+const TabItem = Item
 
-export default Tab
+export default TabItem

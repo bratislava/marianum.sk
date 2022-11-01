@@ -108,7 +108,7 @@
     "close": "Close",
     "allResults": "All results"
   },
-  "BranchSelect": {
+  "CemeterySelect": {
     "allCemeteries": "All cemeteries"
   },
   "ReviewsFiltering": {
@@ -222,13 +222,14 @@
     "contacts": "Contacts",
     "writeMessage": "Write a message"
   },
-  "BranchPage": {
+  "BranchCemeteryPage": {
     "navigate": "Navigate",
     "openingHours": "Opening hours",
     "aboutCemetery": "About cemetery",
     "aboutBranch": "About branch"
   },
   "SearchPage": {
+    "pageTitle": "Search - marianum.sk",
     "searchResults": "Search results",
     "searchPlaceholder": "Search",
     "resultsFound_zero": "No results found",
@@ -237,11 +238,12 @@
     "resultsFound_other": "{{count}} results found",
     "allResults": "All results",
     "tags": {
-      "page": "Page",
-      "bundle": "Package",
-      "document": "Document",
-      "article": "Article",
-      "branch": "Branch"
+      "page": "Pages",
+      "article": "Articles",
+      "branch": "Branches",
+      "bundle": "Packages",
+      "cemetery": "Cemeteries",
+      "document": "Documents"
     }
   },
   "CookieConsent": {

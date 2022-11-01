@@ -78,15 +78,18 @@ query Branches($locale: I18NLocaleCode!) {
   }
 }
 
-query Cemeteries($locale: I18NLocaleCode!) {
-  branches(
-    locale: $locale
-    filters: { type: { eq: "cintorin" } }
-    sort: ["title:asc"]
-    pagination: { limit: 10000 }
-  ) {
+query CemeteryBySlug($locale: I18NLocaleCode!, $slug: String!) {
+  cemeteries(locale: $locale, filters: { slug: { eq: $slug } }) {
     data {
-      ...BranchEntity
+      ...CemeteryEntity
+    }
+  }
+}
+
+query Cemeteries($locale: I18NLocaleCode!) {
+  cemeteries(locale: $locale, sort: ["title:asc"], pagination: { limit: 10000 }) {
+    data {
+      ...CemeteryEntity
     }
   }
 }
@@ -112,11 +115,7 @@ query DocumentBySlug($slug: String!) {
 query ArticlesStaticPaths($locale: I18NLocaleCode) {
   articles(locale: $locale, pagination: { limit: 10000 }) {
     data {
-      id
-      attributes {
-        slug
-        locale
-      }
+      ...ArticleSlugEntity
     }
   }
 }
@@ -124,11 +123,7 @@ query ArticlesStaticPaths($locale: I18NLocaleCode) {
 query PagesStaticPaths($locale: I18NLocaleCode) {
   pages(locale: $locale, pagination: { limit: 10000 }) {
     data {
-      id
-      attributes {
-        slug
-        locale
-      }
+      ...PageSlugEntity
     }
   }
 }
@@ -136,11 +131,7 @@ query PagesStaticPaths($locale: I18NLocaleCode) {
 query BranchesStaticPaths($locale: I18NLocaleCode) {
   branches(locale: $locale, pagination: { limit: 10000 }) {
     data {
-      id
-      attributes {
-        slug
-        locale
-      }
+      ...BranchSlugEntity
     }
   }
 }
@@ -148,11 +139,15 @@ query BranchesStaticPaths($locale: I18NLocaleCode) {
 query BundlesStaticPaths($locale: I18NLocaleCode) {
   bundles(locale: $locale, pagination: { limit: 10000 }) {
     data {
-      id
-      attributes {
-        slug
-        locale
-      }
+      ...BundleSlugEntity
+    }
+  }
+}
+
+query CemeteriesStaticPaths($locale: I18NLocaleCode) {
+  cemeteries(locale: $locale, pagination: { limit: 10000 }) {
+    data {
+      ...CemeterySlugEntity
     }
   }
 }
@@ -160,10 +155,7 @@ query BundlesStaticPaths($locale: I18NLocaleCode) {
 query DocumentsStaticPaths {
   documents(pagination: { limit: 10000 }) {
     data {
-      id
-      attributes {
-        slug
-      }
+      ...DocumentSlugEntity
     }
   }
 }
@@ -231,10 +223,10 @@ query HomepageCeremonies($dateTime: DateTime!) {
   }
 }
 
-query Ceremonies($dateTime: DateTime!, $branchIdFilter: IDFilterInput = {}) {
+query Ceremonies($dateTime: DateTime!, $cemeteryIdFilter: IDFilterInput = {}) {
   ceremonies(
     pagination: { limit: -1 }
-    filters: { dateTime: { gte: $dateTime }, branch: { id: $branchIdFilter } }
+    filters: { dateTime: { gte: $dateTime }, cemetery: { id: $cemeteryIdFilter } }
     sort: ["dateTime:asc"]
   ) {
     data {
@@ -243,18 +235,18 @@ query Ceremonies($dateTime: DateTime!, $branchIdFilter: IDFilterInput = {}) {
   }
 }
 
-query BranchesInCeremonies {
-  branches(filters: { allowInCeremonies: { eq: true } }) {
+query CemeteriesInCeremonies {
+  cemeteries(filters: { allowInCeremonies: { eq: true } }) {
     data {
-      ...BranchInCeremoniesDebtorsEntity
+      ...CemeteryInCeremoniesDebtorsEntity
     }
   }
 }
 
-query BranchesInDebtors {
-  branches(filters: { allowInDebtors: { eq: true } }) {
+query CemeteriesInDebtors {
+  cemeteries(filters: { allowInDebtors: { eq: true } }) {
     data {
-      ...BranchInCeremoniesDebtorsEntity
+      ...CemeteryInCeremoniesDebtorsEntity
     }
   }
 }
