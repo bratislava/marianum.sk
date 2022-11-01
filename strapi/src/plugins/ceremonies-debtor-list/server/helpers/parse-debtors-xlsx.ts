@@ -1,10 +1,10 @@
 import { readFile, utils } from "xlsx";
-import { getBranchIdBySlug } from "./get-branch-id-by-slug";
+import { getCemeteryIdBySlug } from "./get-cemetery-id-by-slug";
 import * as assert from "assert";
 
 export const parseDebtorsXlsx = (
   filePath: string,
-  branchesSlugIdMap: Record<string, number>
+  cemeteriesSlugIdMap: Record<string, number>
 ) => {
   const workBook = readFile(filePath);
   // Only the first sheet is used.
@@ -42,7 +42,7 @@ export const parseDebtorsXlsx = (
     .filter((row) => row.length !== 0 /* Filter empty rows */)
     .map((row, index) => {
       const [
-        branchSlug,
+        cemeterySlug,
         graveSector,
         graveNumber,
         gravePreviousNumber,
@@ -52,12 +52,12 @@ export const parseDebtorsXlsx = (
         deathDate,
       ] = row.map(String);
 
-      const branchId = getBranchIdBySlug(
-        branchSlug,
-        branchesSlugIdMap,
-        `Pobočka na riadku ${
+      const cemeteryId = getCemeteryIdBySlug(
+        cemeterySlug,
+        cemeteriesSlugIdMap,
+        `Cintorín na riadku ${
           index + 3
-        } s "slug" "${branchSlug}" neexistuje alebo jej hodnota "allowInDebtors" nie je nastavená na "true".`
+        } s "slug" "${cemeterySlug}" neexistuje alebo jeho hodnota "allowInDebtors" nie je nastavená na "true".`
       );
       return {
         graveSector,
@@ -67,7 +67,7 @@ export const parseDebtorsXlsx = (
         lastName,
         birthDate,
         deathDate,
-        branch: branchId,
+        cemetery: cemeteryId,
       };
     });
 };
