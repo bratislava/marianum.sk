@@ -46,13 +46,13 @@ type CookieConsentProps = {
 const CookieConsent = ({ children, banner: Banner, modal: Modal }: CookieConsentProps) => {
   // help variable to know if settings are saved
   const [areCookieSettingsSaved, setCookieSettingsSaved] = useLocalStorage(
-    'are-cookie-settings-saved',
+    'marianum-are-cookie-settings-saved',
     false,
   )
 
   // actual value of saved settings
   const [localStorageCookieAcceptance, setLocalStorageCookieAcceptance] =
-    useLocalStorage<CookieConsentSettings>('cookie-settings', {
+    useLocalStorage<CookieConsentSettings>('marianum-cookie-settings', {
       arePreferenceCookiesAllowed: false,
       areStatisticCookiesAllowed: false,
       areMarketingCookiesAllowed: false,

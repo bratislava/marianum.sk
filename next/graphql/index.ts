@@ -1638,7 +1638,6 @@ export enum Enum_Componentsectionsmanuallisting_Style {
 }
 
 export enum Enum_Page_Layout {
-  Article = 'article',
   Centered = 'centered',
   Fullwidth = 'fullwidth',
   Sidebar = 'sidebar'

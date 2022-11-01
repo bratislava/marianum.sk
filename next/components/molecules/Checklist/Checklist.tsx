@@ -89,7 +89,7 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
 
   // generate id from titles
   const checklistId = useMemo(() => {
-    return items.map((item) => item.title).join('-')
+    return `marianum-${items.map((item) => item.title).join('-')}`
   }, [items])
 
   const [localChecklistState, setLocalChecklistState] = useLocalStorage(checklistId, { items })
