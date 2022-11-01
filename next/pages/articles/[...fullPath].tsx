@@ -53,15 +53,21 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
 export const getStaticProps: GetStaticProps<ArticlePageProps, StaticParams> = async ({
   locale = 'sk',
   params,
-}) =>
-  // TODO: Locales
-  generateStaticProps({
-    locale,
-    params,
-    entityPromiseGetter: ({ locale: localeInner, slug }) =>
-      client
-        .ArticleBySlug({ locale: localeInner, slug })
-        .then((response) => response.articles?.data[0]),
-  })
+}) => {
+  // eslint-disable-next-line no-console
+  console.log(`Revalidating article ${params?.fullPath.join('/') ?? ''}`)
+
+  return (
+    // TODO: Locales
+    generateStaticProps({
+      locale,
+      params,
+      entityPromiseGetter: ({ locale: localeInner, slug }) =>
+        client
+          .ArticleBySlug({ locale: localeInner, slug })
+          .then((response) => response.articles?.data[0]),
+    })
+  )
+}
 
 export default ArticlePage

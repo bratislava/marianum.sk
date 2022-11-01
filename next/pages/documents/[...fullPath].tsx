@@ -56,13 +56,19 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
 export const getStaticProps: GetStaticProps<DocumentPageProps, StaticParams> = async ({
   locale = 'sk',
   params,
-}) =>
-  // TODO: Locales
-  generateStaticProps({
-    locale,
-    params,
-    entityPromiseGetter: ({ slug }) =>
-      client.DocumentBySlug({ slug }).then((response) => response.documents?.data[0]),
-  })
+}) => {
+  // eslint-disable-next-line no-console
+  console.log(`Revalidating document ${params?.fullPath.join('/') ?? ''}`)
+
+  return (
+    // TODO: Locales
+    generateStaticProps({
+      locale,
+      params,
+      entityPromiseGetter: ({ slug }) =>
+        client.DocumentBySlug({ slug }).then((response) => response.documents?.data[0]),
+    })
+  )
+}
 
 export default DocumentPage

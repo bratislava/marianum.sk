@@ -263,6 +263,9 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
   locale = 'sk',
   params,
 }) => {
+  // eslint-disable-next-line no-console
+  console.log(`Revalidating page ${params?.fullPath.join('/') ?? ''}`)
+
   const sectionFetcherMap = [getReviewPrefetch(locale)]
 
   const sectionFetcherMapSwr = [

@@ -136,8 +136,11 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
 export const getStaticProps: GetStaticProps<BundlePageProps, StaticParams> = async ({
   locale = 'sk',
   params,
-}) =>
-  generateStaticProps({
+}) => {
+  // eslint-disable-next-line no-console
+  console.log(`Revalidating bundle ${params?.fullPath.join('/') ?? ''}`)
+
+  return generateStaticProps({
     locale,
     params,
     entityPromiseGetter: ({ locale: localeInner, slug }) =>
@@ -145,5 +148,6 @@ export const getStaticProps: GetStaticProps<BundlePageProps, StaticParams> = asy
         .BundleBySlug({ locale: localeInner, slug })
         .then((response) => response.bundles?.data[0]),
   })
+}
 
 export default BundlePage
