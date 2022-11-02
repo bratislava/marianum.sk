@@ -192,7 +192,7 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
               return <NewsListing key={`${section.__typename}-${section.id}`} section={section} />
             }
             if (section?.__typename === 'ComponentSectionsMapSection') {
-              return <MapSection key={`${section.__typename}-${section.id}`} {...section} />
+              return <MapSection key={`${section.__typename}-${section.id}`} section={section} />
             }
             if (section?.__typename === 'ComponentSectionsPublicDisclosureSection') {
               return (
