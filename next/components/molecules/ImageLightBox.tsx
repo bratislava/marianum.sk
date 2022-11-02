@@ -1,4 +1,5 @@
 import { useTranslation } from 'next-i18next'
+import { useEffect, useRef } from 'react'
 
 import ArrowBack from '../../assets/arrow_back.svg'
 import ArrowForward from '../../assets/arrow_forward.svg'
@@ -15,11 +16,22 @@ export type ImageLightBoxProps = {
 const ImageLightBox = (props: ImageLightBoxProps) => {
   const { images, initialImageIndex, ...rest } = props
 
+  const { isOpen } = rest
+
   const { t } = useTranslation('common', { keyPrefix: 'ImageLightBox' })
+
+  const sliderRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (isOpen) {
+      sliderRef.current?.focus()
+    }
+  }, [isOpen])
 
   return (
     <Modal overlayClassName="w-full h-screen pointer-events-none" {...rest}>
       <Slider
+        ref={sliderRef}
         description={t('aria.description')}
         allowKeyboardNavigation={images.length > 1}
         initialPage={initialImageIndex}
