@@ -9,7 +9,7 @@ import useSWR from 'swr'
 import ArrowBackIcon from '../../assets/arrow_back.svg'
 import MapMarkerIcon from '../../assets/map-marker.svg'
 import PlaceIcon from '../../assets/place.svg'
-import { CemeteryEntityFragment, Enum_Cemetery_Type } from '../../graphql'
+import { CemeteryEntityFragment, Enum_Cemetery_Type, MapSectionFragment } from '../../graphql'
 import { cemeteriesFetcher, getCemeteriesSwrKey } from '../../utils/fetchers/cemeteriesFetcher'
 import { isDefined } from '../../utils/isDefined'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
@@ -19,7 +19,7 @@ import MLink from '../atoms/MLink'
 import TagToggle from '../atoms/TagToggle'
 import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
 import Search from '../molecules/Search'
-import Section, { SectionProps } from '../molecules/Section'
+import Section from '../molecules/Section'
 
 const slugifyText = (text: string) => {
   return slugify(text, { replacement: ' ', lower: true })
@@ -38,9 +38,9 @@ const getBoundsForCemeteries = (cemeteries: CemeteryEntityFragment[]) => {
   ] as [[number, number], [number, number]]
 }
 
-type MapSectionProps = Pick<SectionProps, 'background' | 'title'>
+type MapSectionProps = { section: MapSectionFragment }
 
-const MapSection = ({ ...rest }: MapSectionProps) => {
+const MapSection = ({ section }: MapSectionProps) => {
   const { t, i18n } = useTranslation('common', { keyPrefix: 'MapSection' })
 
   const { getFullPath } = useGetFullPath()
@@ -131,11 +131,11 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
   }
 
   if (error) {
-    return <div>Error: {error}</div>
+    return <div>Error: {JSON.stringify(error)}</div>
   }
 
   return (
-    <Section {...rest}>
+    <Section {...section}>
       <div className="relative flex h-[624px] flex-col items-center overflow-hidden md:flex-row md:items-stretch">
         <div
           className={cx(
