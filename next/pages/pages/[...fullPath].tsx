@@ -32,6 +32,7 @@ import ImageGallery from '../../components/sections/ImageGallery'
 import MapSection from '../../components/sections/MapSection'
 import MenuListingSection from '../../components/sections/MenuListingSection'
 import NewsListing from '../../components/sections/NewsSection'
+import OpeningHoursSection from '../../components/sections/OpeningHoursSection'
 import PartnersSection from '../../components/sections/PartnersSection'
 import ReviewListingSection from '../../components/sections/ReviewListingSection'
 import RichTextSection from '../../components/sections/RichTextSection'
@@ -148,6 +149,14 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
                   </h2>
                   <DocumentGroup {...section} />
                 </Section>
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsOpeningHoursSection') {
+              return (
+                <OpeningHoursSection
+                  key={`${section.__typename}-${section.id}`}
+                  section={section}
+                />
               )
             }
             if (section?.__typename === 'ComponentSectionsPartnersSection') {

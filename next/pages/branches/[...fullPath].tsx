@@ -16,6 +16,7 @@ import SectionBoxed from '../../components/molecules/SectionBoxed'
 import Seo from '../../components/molecules/Seo'
 import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import { client } from '../../utils/gql'
+import { isDefined } from '../../utils/isDefined'
 
 type BranchPageProps = {
   navigation: NavigationItemFragment[]
@@ -26,8 +27,9 @@ type BranchPageProps = {
 const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'BranchCemeteryPage' })
 
-  const { seo, title, address, navigateToLink, description, openingHoursOverride } =
-    entity.attributes ?? {}
+  const { seo, title, address, navigateToLink, description, offices } = entity.attributes ?? {}
+
+  const filteredOffices = offices?.data?.filter(isDefined)
 
   return (
     <>
@@ -67,9 +69,17 @@ const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
               <RichText content={description} coloredTable={false} />
             </SectionBoxed>
           )}
-          <SectionBoxed title={t('openingHours')}>
-            <RichText content={openingHoursOverride || general?.attributes?.generalOpeningHours} />
-          </SectionBoxed>
+          {filteredOffices?.map((office) => (
+            <SectionBoxed title={office.attributes?.title ?? ''}>
+              {office.attributes?.openingHours?.days?.map((record, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <div key={index} className="flex max-w-[400px]">
+                  <div className="grow">{record?.label}</div>
+                  <div className="font-semibold">{record?.time}</div>
+                </div>
+              ))}
+            </SectionBoxed>
+          ))}
         </div>
       </BranchCemeteryLayout>
     </>
