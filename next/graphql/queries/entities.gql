@@ -93,12 +93,27 @@ fragment BranchSlugEntity on BranchEntity {
   }
 }
 
+fragment BranchOfficeEntity on BranchEntity {
+  __typename
+  id
+  attributes {
+    slug
+    locale
+    title
+    address
+  }
+}
+
 fragment BranchCardEntity on BranchEntity {
   ...BranchSlugEntity
   attributes {
     title
     address
-    openingHoursOverride
+    offices {
+      data {
+        ...OfficeEntity
+      }
+    }
   }
 }
 
@@ -314,6 +329,24 @@ fragment GeneralEntity on GeneralEntity {
   }
 }
 
+fragment OfficeEntity on OfficeEntity {
+  id
+  attributes {
+    title
+    branch {
+      data {
+        ...BranchOfficeEntity
+      }
+    }
+    openingHours {
+      days {
+        label
+        time
+      }
+    }
+  }
+}
+
 fragment PartnerEntity on PartnerEntity {
   id
   attributes {
@@ -423,6 +456,10 @@ fragment PageEntity on PageEntity {
       ... on ComponentSectionsMapSection {
         __typename
         ...MapSection
+      }
+      ... on ComponentSectionsOpeningHoursSection {
+        __typename
+        ...OpeningHoursSection
       }
       ... on ComponentSectionsPublicDisclosureSection {
         __typename

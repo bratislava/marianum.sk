@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_blocks_office_items",
+  "info": {
+    "displayName": "office item",
+    "icon": "house-damage"
+  },
+  "options": {},
+  "attributes": {
+    "office": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::office.office"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_blocks_opening_hours_universals",
+  "info": {
+    "displayName": "opening hours universal",
+    "icon": "clock"
+  },
+  "options": {},
+  "attributes": {
+    "days": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.opening-hours-item"
+    }
+  }
+}

@@ -10,10 +10,6 @@
     "title": {
       "type": "string"
     },
-    "showOpeningHours": {
-      "type": "boolean",
-      "default": false
-    },
     "branches": {
       "displayName": "branch item",
       "type": "component",
