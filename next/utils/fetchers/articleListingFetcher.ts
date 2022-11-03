@@ -42,13 +42,13 @@ export const getArticleListingFetcher =
       case ArticleListingType.Press:
         sectionFilter = filters.categoryId
           ? `article.pressCategory.id = ${filters.categoryId}`
-          : 'article.pressCategory EXISTS'
+          : 'article.pressCategory.id EXISTS'
         break
 
       case ArticleListingType.News:
         sectionFilter = filters.categoryId
           ? `article.newsCategory.id = ${filters.categoryId}`
-          : 'article.newsCategory EXISTS'
+          : 'article.newsCategory.id EXISTS'
         break
     }
 
