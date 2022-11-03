@@ -12,8 +12,8 @@ import IconButton from '../../atoms/IconButton'
 import MLink from '../../atoms/MLink'
 import Tag from '../../atoms/Tag'
 
-interface IRowProps {
-  title: string
+type RowProps = {
+  title?: string
   metadata?: string[]
   tags?: string[]
   linkHref?: string
@@ -40,7 +40,7 @@ const Row = ({
   button = null,
   arrowInCorner = false,
   border = true,
-}: IRowProps) => {
+}: RowProps) => {
   const router = useRouter()
 
   const linkProps = linkHref
@@ -74,13 +74,15 @@ const Row = ({
         )}
 
         <div className="flex gap-4">
-          <h5
-            className={cx('w-fit text-left text-h5 text-foreground-heading', {
-              'group-hover:underline group-focus:underline': linkHref,
-            })}
-          >
-            {title}
-          </h5>
+          {title && (
+            <h5
+              className={cx('w-fit text-left text-h5 text-foreground-heading', {
+                'group-hover:underline group-focus:underline': linkHref,
+              })}
+            >
+              {title}
+            </h5>
+          )}
           {tags.length > 0 &&
             tags.map((tag) => (
               <Tag key={tag} className="bg-background-beige">
@@ -110,7 +112,7 @@ const Row = ({
             <span className="text-primary">
               <PlaceIcon />
             </span>
-            {address}
+            <div className="whitespace-pre-wrap">{address}</div>
           </div>
         )}
 

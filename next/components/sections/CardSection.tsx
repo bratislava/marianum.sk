@@ -6,7 +6,7 @@ import { useTailwindBreakpoint } from '../../hooks/useTailwindBreakpoint'
 import { isDefined } from '../../utils/isDefined'
 import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
 import ServiceCard from '../molecules/Cards/ServiceCard'
-import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section, { SectionProps } from '../molecules/Section'
 
 type CardSectionProps = Pick<SectionProps, 'background'> & {
@@ -14,7 +14,7 @@ type CardSectionProps = Pick<SectionProps, 'background'> & {
 }
 
 const CardSection = ({ section, ...rest }: CardSectionProps) => {
-  const { getFullSlug } = useSlug()
+  const { getFullPath } = useGetFullPath()
 
   const { pages, title, style, showMoreButton } = section
 
@@ -27,11 +27,18 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
   const isMobile = useMemo(() => !isMD, [isMD])
 
   return (
-    <Section title={title} {...rest} cardGrid="cards" button={showMoreButton}>
+    <Section
+      title={title}
+      {...rest}
+      cardGrid={
+        style === Enum_Componentsectionsmanuallisting_Style.Service ? 'serviceCards' : 'cards'
+      }
+      button={showMoreButton}
+    >
       {filteredPages?.map((page, index) => {
         const { id, attributes } = page ?? {}
-        const { title: cardTitle, coverMedia, perex } = attributes ?? {}
-        const fullPath = getFullSlug(page) ?? ''
+        const { title: cardTitle, coverMedia } = attributes ?? {}
+        const fullPath = getFullPath(page) ?? ''
 
         if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
           return (
@@ -57,7 +64,6 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
               linkHref={fullPath}
               border
               image={coverMedia?.data?.attributes}
-              subtitle={perex}
             />
           )
         }
@@ -66,8 +72,6 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
       })}
     </Section>
   )
-
-  return null
 }
 
 export default CardSection

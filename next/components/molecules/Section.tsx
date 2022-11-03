@@ -5,12 +5,12 @@ import { CtaButtonFragment } from '../../graphql'
 import { useActivateHeroSectionContentOverlay } from '../../utils/heroSectionContentOverlay'
 import MLink from '../atoms/MLink'
 import { BackgroundColor, sectionContext } from '../layouts/SectionsWrapper'
-import { useSlug } from './Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPath } from './Navigation/NavigationProvider/useGetFullPath'
 
 export type SectionProps = {
   children: ReactNode
   background?: BackgroundColor
-  cardGrid?: 'cards' | 'bundles'
+  cardGrid?: 'cards' | 'bundles' | 'serviceCards'
   title?: string | null | undefined
   /* use `button` for strapi sections with link to more content */
   button?: CtaButtonFragment | null | undefined
@@ -40,9 +40,9 @@ const Section = ({
   overlayWithHero = false,
   centerTitleOnMobile = true,
 }: SectionProps) => {
-  const { getFullSlug } = useSlug()
+  const { getFullPath } = useGetFullPath()
 
-  const showMorePath = getFullSlug(button?.page?.data) ?? buttonLink?.linkHref
+  const showMorePath = getFullPath(button?.page?.data) ?? buttonLink?.linkHref
   const showMoreLabel = button?.label ?? buttonLink?.label
 
   const { background, isDivider, isFirst, alternateBackground } = useContext(sectionContext)
@@ -111,6 +111,8 @@ const Section = ({
             {
               'grid gap-6 md:grid-cols-2 lg:grid-cols-4': cardGrid === 'cards',
               'grid gap-6 md:grid-cols-2 lg:grid-cols-3': cardGrid === 'bundles',
+              'flex grid-cols-2 gap-6 overflow-x-auto md:grid lg:grid-cols-4':
+                cardGrid === 'serviceCards',
             },
             childrenWrapperClassName,
           )}

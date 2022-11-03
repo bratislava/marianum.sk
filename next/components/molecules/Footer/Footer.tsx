@@ -6,7 +6,7 @@ import { isDefined } from '../../../utils/isDefined'
 import MLink from '../../atoms/MLink'
 import AccordionGroup from '../Accordion/AccordionGroup'
 import AccordionItem from '../Accordion/AccordionItem'
-import { useSlug } from '../Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPath } from '../Navigation/NavigationProvider/useGetFullPath'
 import FooterCredentials from './FooterCredentials'
 import FooterMap from './FooterMap'
 import FooterSocials from './FooterSocials'
@@ -19,11 +19,11 @@ export type FooterProps = {
 
 const Footer = ({ contact, footer, socials }: FooterProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'Footer' })
-  const { getFullSlug } = useSlug()
+  const { getFullPath } = useGetFullPath()
 
   const { phone1, email } = contact?.contact?.data?.attributes ?? {}
-  const openingHoursPath = getFullSlug(contact?.openingHoursPage?.data)
-  const contactsPath = getFullSlug(contact?.contactsPage?.data)
+  const openingHoursPath = getFullPath(contact?.openingHoursPage?.data)
+  const contactsPath = getFullPath(contact?.contactsPage?.data)
 
   const footerColumns = useMemo(() => {
     return [
@@ -51,15 +51,17 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
     <footer className="sticky top-full -mt-14 flex flex-col gap-12">
       <div className="container flex flex-col gap-12">
         <div className="grid bg-primary text-white md:grid-cols-3 lg:grid-cols-2">
-          <div className="h-52 w-full md:h-full">
-            <FooterMap
-              onMarkerClick={() =>
-                // eslint-disable-next-line security/detect-non-literal-fs-filename
-                window.open(contact?.navigateToLink ?? '', '_blank')?.focus()
-              }
-              markerLat={contact?.latitude}
-              markerLng={contact?.longitude}
-            />
+          <div className="h-52 w-full md:h-auto">
+            <div className="h-full">
+              <FooterMap
+                onMarkerClick={() =>
+                  // eslint-disable-next-line security/detect-non-literal-fs-filename
+                  window.open(contact?.navigateToLink ?? '', '_blank')?.focus()
+                }
+                markerLat={contact?.latitude}
+                markerLng={contact?.longitude}
+              />
+            </div>
           </div>
 
           <div className="flex w-full flex-col gap-4 px-4 py-6 md:col-span-2 md:px-8 lg:col-span-1 lg:gap-8 lg:px-12 lg:py-8">
@@ -123,7 +125,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
               <AccordionItem key={colIndex} noBorder title={title}>
                 <div className="flex flex-col gap-4">
                   {links?.map((link, linkIndex) => {
-                    const fullPath = getFullSlug(link?.page?.data) || link?.url || ''
+                    const fullPath = getFullPath(link?.page?.data) || link?.url || ''
 
                     return (
                       <MLink
@@ -152,7 +154,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
               <h4>{title}</h4>
               <div className="flex flex-col gap-3">
                 {links?.map((link, linkIndex) => {
-                  const fullPath = getFullSlug(link?.page?.data) || link?.url || ''
+                  const fullPath = getFullPath(link?.page?.data) || link?.url || ''
 
                   return (
                     <MLink

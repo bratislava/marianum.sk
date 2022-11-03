@@ -3,7 +3,7 @@ import { GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
 import { AnimateHeight } from '../components/atoms/AnimateHeight'
 import TagToggle from '../components/atoms/TagToggle'
@@ -18,12 +18,13 @@ import { GeneralEntityFragment, NavigationItemFragment } from '../graphql'
 import { allSearchTypes, SearchFilters, SearchType, useSearch } from '../hooks/useSearch'
 import { client } from '../utils/gql'
 import { isDefined } from '../utils/isDefined'
+import { useScrollToViewIfDataChange } from '../utils/useScrollToViewIfDataChange'
 
 const SearchSection = () => {
   const { t } = useTranslation('common', { keyPrefix: 'SearchPage' })
 
   const [filters, setFilters] = useState<SearchFilters>({
-    pageSize: 24,
+    pageSize: 10,
     page: 1,
     selectedTypes: [],
   })
@@ -70,10 +71,13 @@ const SearchSection = () => {
     setFilters({ ...filters, page })
   }
 
+  const h1Ref = useRef<HTMLHeadingElement>(null)
+  useScrollToViewIfDataChange(dataToDisplay, filters, h1Ref)
+
   return (
     <Section>
       <div className="flex flex-col gap-3 md:gap-6">
-        <h1>{t('searchResults')}</h1>
+        <h1 ref={h1Ref}>{t('searchResults')}</h1>
         <div className="hidden md:block">
           <Search isLarge value={searchQuery ?? ''} onSearchQueryChange={setSearchQuery} />
         </div>
@@ -138,7 +142,7 @@ const SearchSection = () => {
               )}
             </AnimateHeight>
             {dataToDisplay?.estimatedTotalHits !== 0 && (
-              <div className="flex justify-center md:justify-end">
+              <div className="flex justify-center">
                 <PaginationMeili
                   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                   data={dataToDisplay!}
@@ -161,15 +165,16 @@ type SearchPageProps = {
 }
 
 const SearchPage = ({ navigation, general }: SearchPageProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'SearchPage' })
+
   return (
     <>
       <Head>
-        {/* TODO translations */}
-        <title>Vyhľadávanie - marianum.sk</title>
+        <title>{t('pageTitle')}</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <PageWrapper navigation={navigation} general={general}>
-        <SectionsWrapper alternateBackground>
+        <SectionsWrapper alternateBackground className="pb-14">
           <SearchSection />
         </SectionsWrapper>
       </PageWrapper>

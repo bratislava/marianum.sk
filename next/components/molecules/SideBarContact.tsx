@@ -16,13 +16,13 @@ const SideBarContact = ({ title, phone1, phone2, email }: SideBarContactProps) =
   const { t } = useTranslation('common', { keyPrefix: 'SideBarContact' })
 
   if (!title && !phone1 && !phone2 && !email) {
-    return <aside className="md:w-[360px]" />
+    return <aside className="lg:w-[360px]" />
   }
 
   return (
-    <aside className="flex h-fit flex-col bg-white p-6 md:w-[360px]">
+    <aside className="flex h-fit flex-col bg-white p-6 lg:w-[360px]">
       <h5>{t('contacts')}</h5>
-      {title && <p className="mt-6">{title}</p>}
+      {title && <p className="mt-6 whitespace-pre-wrap">{title}</p>}
       {phone1 && (
         <Button variant="plain-primary" startIcon={<PhoneIcon />} className="mt-3 w-fit">
           {phone1}

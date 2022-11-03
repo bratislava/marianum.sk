@@ -89,7 +89,18 @@ fragment BranchSlugEntity on BranchEntity {
   id
   attributes {
     slug
-    type
+    locale
+  }
+}
+
+fragment BranchOfficeEntity on BranchEntity {
+  __typename
+  id
+  attributes {
+    slug
+    locale
+    title
+    address
   }
 }
 
@@ -98,14 +109,17 @@ fragment BranchCardEntity on BranchEntity {
   attributes {
     title
     address
-    openingHoursOverride
+    offices {
+      data {
+        ...OfficeEntity
+      }
+    }
   }
 }
 
 fragment BranchEntity on BranchEntity {
   ...BranchCardEntity
   attributes {
-    cemeteryType
     description
     contact {
       data {
@@ -126,7 +140,50 @@ fragment BranchEntity on BranchEntity {
   }
 }
 
-fragment BranchInCeremoniesDebtorsEntity on BranchEntity {
+fragment CemeterySlugEntity on CemeteryEntity {
+  __typename
+  id
+  attributes {
+    slug
+    type
+    locale
+  }
+}
+
+fragment CemeteryCardEntity on CemeteryEntity {
+  ...CemeterySlugEntity
+  attributes {
+    title
+    address
+    openingHoursOverride
+  }
+}
+
+fragment CemeteryEntity on CemeteryEntity {
+  ...CemeteryCardEntity
+  attributes {
+    type
+    description
+    contact {
+      data {
+        ...ContactEntity
+      }
+    }
+    medias {
+      data {
+        ...UploadImageEntity
+      }
+    }
+    navigateToLink
+    latitude
+    longitude
+    seo {
+      ...Seo
+    }
+  }
+}
+
+fragment CemeteryInCeremoniesDebtorsEntity on CemeteryEntity {
   __typename
   id
   attributes {
@@ -186,6 +243,16 @@ fragment BundleEntity on BundleEntity {
     seo {
       ...Seo
     }
+  }
+}
+
+fragment BundleSlugEntity on BundleEntity {
+  __typename
+  id
+  attributes {
+    slug
+    type
+    locale
   }
 }
 
@@ -259,6 +326,24 @@ fragment GeneralEntity on GeneralEntity {
       ...Footer
     }
     generalOpeningHours
+  }
+}
+
+fragment OfficeEntity on OfficeEntity {
+  id
+  attributes {
+    title
+    branch {
+      data {
+        ...BranchOfficeEntity
+      }
+    }
+    openingHours {
+      days {
+        label
+        time
+      }
+    }
   }
 }
 
@@ -372,6 +457,10 @@ fragment PageEntity on PageEntity {
         __typename
         ...MapSection
       }
+      ... on ComponentSectionsOpeningHoursSection {
+        __typename
+        ...OpeningHoursSection
+      }
       ... on ComponentSectionsPublicDisclosureSection {
         __typename
         id
@@ -449,7 +538,7 @@ fragment CeremonyEntity on CeremonyEntity {
     company
     officiantProvidedBy
     consentForPrivateFields
-    branch {
+    cemetery {
       data {
         attributes {
           title
@@ -474,7 +563,7 @@ fragment HomepageCeremonyEntity on CeremonyEntity {
   attributes {
     dateTime
     name
-    branch {
+    cemetery {
       data {
         attributes {
           slug

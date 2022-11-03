@@ -25,7 +25,7 @@ import RadioSimpleGroup from '../../components/atoms/Radio/RadioSimpleGroup'
 import ReviewStars from '../../components/atoms/ReviewStars'
 import RichText from '../../components/atoms/RichText/RichText'
 import Select from '../../components/atoms/Select'
-import Tab from '../../components/atoms/Tabs/Tab'
+import TabItem from '../../components/atoms/Tabs/TabItem'
 import Tabs from '../../components/atoms/Tabs/Tabs'
 import Tag from '../../components/atoms/Tag'
 import TagToggle from '../../components/atoms/TagToggle'
@@ -825,20 +825,20 @@ const Showcase = () => {
           <Wrapper title="Tabs">
             <Stack width="full">
               <Tabs>
-                <Tab key="1" title="Mimo zdravotníckeho zariadenia (domov, DSS)">
+                <TabItem key="1" title="Mimo zdravotníckeho zariadenia (domov, DSS)">
                   <div className="p-4">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat velit, incidunt
                     iste excepturi, minus blanditiis saepe repellendus, adipisci eveniet explicabo
                     temporibus repellat minima nemo ipsam maxime tenetur reprehenderit et quae.
                   </div>
-                </Tab>
-                <Tab key="2" title="V zdravotníckom zariadení">
+                </TabItem>
+                <TabItem key="2" title="V zdravotníckom zariadení">
                   <div className="p-4">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure voluptatum
                     inventore at optio reiciendis quasi laborum sed nemo quos! Vel distinctio
                     incidunt blanditiis repellat reiciendis ut impedit optio cupiditate ex.
                   </div>
-                </Tab>
+                </TabItem>
               </Tabs>
             </Stack>
           </Wrapper>
@@ -1102,13 +1102,7 @@ const Showcase = () => {
                 border={cardsBorder}
               />
               <CategoryCard border={cardsBorder} title="Category card" linkHref="" />
-              <ServiceCard
-                title="Headline"
-                subtitle="Subtitle"
-                linkHref="#"
-                image={image}
-                border={cardsBorder}
-              />
+              <ServiceCard title="Headline" linkHref="#" image={image} border={cardsBorder} />
               <FaqThemeCard border={cardsBorder} title="Faq card" subtitle="Subtitle" linkHref="" />
               <PartnerCard title="Partner name" linkHref="#" image={image} border={cardsBorder} />
               <BundleCard

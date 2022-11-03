@@ -1,6 +1,6 @@
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
-import { useCallback, useContext, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 
 import CheckIcon from '../../assets/check.svg'
 import CloseIcon from '../../assets/close.svg'
@@ -62,6 +62,20 @@ const CookieSettingsModal = () => {
   const [areMarketingCookiesAllowed, setMarketingCookiesAllowed] = useState(
     acceptance.areMarketingCookiesAllowed,
   )
+
+  // Get current settings when modal opens
+  useEffect(() => {
+    if (isModalOpen) {
+      setPreferenceCookiesAllowed(acceptance.arePreferenceCookiesAllowed)
+      setStatisticCookiesAllowed(acceptance.areStatisticCookiesAllowed)
+      setMarketingCookiesAllowed(acceptance.areMarketingCookiesAllowed)
+    }
+  }, [
+    acceptance.areMarketingCookiesAllowed,
+    acceptance.arePreferenceCookiesAllowed,
+    acceptance.areStatisticCookiesAllowed,
+    isModalOpen,
+  ])
 
   const handleCustomCookiesAcceptance = useCallback(() => {
     onCustomCookiesAcceptance({

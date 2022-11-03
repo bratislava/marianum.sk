@@ -12,16 +12,16 @@ import {
   CeremoniesSectionFilters,
   getCeremoniesSectionSwrKey,
 } from '../../utils/fetchers/ceremoniesSectionFetcher'
-import { getBranchInfoInCeremoniesDebtors } from '../../utils/getBranchInfoInCeremoniesDebtors'
+import { getCemeteryInfoInCeremoniesDebtors } from '../../utils/getBranchInfoInCeremoniesDebtors'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import FormatDate from '../atoms/FormatDate'
 import Loading from '../atoms/Loading'
 import LoadingOverlay from '../atoms/LoadingOverlay'
 import MLink from '../atoms/MLink'
-import BranchLink from '../molecules/BranchLink'
-import CeremoniesDebtorsBranchSelect from '../molecules/CeremoniesDebtors/BranchSelect'
-import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
+import CemeteryLink from '../molecules/CemeteryLink'
+import CeremoniesDebtorsCemeterySelect from '../molecules/CeremoniesDebtors/CemeterySelect'
+import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section from '../molecules/Section'
 
 const PrivateField = () => <span className="opacity-50">**</span>
@@ -43,12 +43,12 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
     }
 
     const mappedCeremonies = ceremoniesData.map((ceremony) => {
-      const branchInfo = ceremony?.attributes?.branch?.data
-        ? getBranchInfoInCeremoniesDebtors(ceremony.attributes.branch.data, i18n.language)
+      const branchInfo = ceremony?.attributes?.cemetery?.data
+        ? getCemeteryInfoInCeremoniesDebtors(ceremony.attributes.cemetery.data, i18n.language)
         : null
 
       const branch = branchInfo?.slug ? (
-        <BranchLink slug={branchInfo?.slug} title={branchInfo?.title ?? ''} />
+        <CemeteryLink slug={branchInfo?.slug} title={branchInfo?.title ?? ''} />
       ) : (
         branchInfo?.title
       )
@@ -164,20 +164,20 @@ type CeremoniesSectionProps = {
 const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })
 
-  const { getFullSlug } = useSlug()
+  const { getFullPath } = useGetFullPath()
   const [filters, setFilters] = useState<CeremoniesSectionFilters>(ceremoniesSectionDefaultFilters)
 
-  const handleBranchChange = (branchId: string) => {
-    setFilters({ ...filters, branchId })
+  const handleCemeteryChange = (cemeteryId: string) => {
+    setFilters({ ...filters, cemeteryId })
   }
 
   return (
     <Section>
       <div className="mb-6 md:mb-8 md:w-[360px]">
-        <CeremoniesDebtorsBranchSelect
+        <CeremoniesDebtorsCemeterySelect
           label={t('filterBy')}
           type="ceremonies"
-          onBranchChange={handleBranchChange}
+          onCemeteryChange={handleCemeteryChange}
         />
       </div>
 
@@ -189,7 +189,7 @@ const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
         <div className="mt-6 flex flex-col items-center gap-y-3 bg-white px-8 py-4 md:mt-16 md:flex-row md:justify-between md:px-12 md:py-10">
           <h4>{section.archive.title}</h4>
           {section.archive.button?.page?.data?.attributes?.slug && (
-            <MLink href={getFullSlug(section.archive.button.page.data) ?? ''}>
+            <MLink href={getFullPath(section.archive.button.page.data) ?? ''}>
               {section.archive.button?.label}
             </MLink>
           )}

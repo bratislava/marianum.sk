@@ -1,4 +1,5 @@
 import { useTranslation } from 'next-i18next'
+import { useEffect, useRef } from 'react'
 
 import ArrowBack from '../../assets/arrow_back.svg'
 import ArrowForward from '../../assets/arrow_forward.svg'
@@ -15,25 +16,39 @@ export type ImageLightBoxProps = {
 const ImageLightBox = (props: ImageLightBoxProps) => {
   const { images, initialImageIndex, ...rest } = props
 
+  const { isOpen } = rest
+
   const { t } = useTranslation('common', { keyPrefix: 'ImageLightBox' })
 
+  const sliderRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (isOpen) {
+      sliderRef.current?.focus()
+    }
+  }, [isOpen])
+
   return (
-    <Modal overlayClassName="!w-full h-screen pointer-events-none" {...rest}>
+    <Modal overlayClassName="w-full h-screen pointer-events-none" {...rest}>
       <Slider
+        ref={sliderRef}
         description={t('aria.description')}
-        allowKeboardNavigation={images.length > 1}
+        allowKeyboardNavigation={images.length > 1}
         initialPage={initialImageIndex}
         pages={images.map(({ id, attributes }) => (
           <div
             key={id}
-            className="container pointer-events-none flex h-full w-full max-w-6xl items-center justify-center md:px-[88px]"
+            className="container pointer-events-none flex h-full w-full max-w-6xl flex-col items-center justify-center md:px-[88px]"
           >
             <img
               draggable="false"
-              className="pointer-events-auto h-auto max-h-[90vh] w-full select-none object-contain"
+              className="pointer-events-auto h-auto max-h-[86vh] w-full select-none object-contain"
               src={attributes?.url}
               alt={attributes?.alternativeText ?? ''}
             />
+            {attributes?.caption !== attributes?.name && (
+              <div className="mt-4 rounded-2xl bg-white px-2.5 py-0.5">{attributes?.caption}</div>
+            )}
           </div>
         ))}
         pagination={({ goToPrevious, goToNext }) => (

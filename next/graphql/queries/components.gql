@@ -173,7 +173,6 @@ fragment AccordionGroup on ComponentSectionsAccordionGroup {
 fragment BranchGroup on ComponentSectionsBranchGroup {
   id
   title
-  showOpeningHours
   branches {
     branch {
       data {
@@ -317,6 +316,18 @@ fragment HomepageReviewsSection on ComponentSectionsHomepageReviewsSection {
   reviews {
     data {
       ...ReviewEntity
+    }
+  }
+}
+
+fragment OpeningHoursSection on ComponentSectionsOpeningHoursSection {
+  id
+  title
+  offices {
+    office {
+      data {
+        ...OfficeEntity
+      }
     }
   }
 }

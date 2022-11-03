@@ -108,7 +108,7 @@
     "close": "Close",
     "allResults": "All results"
   },
-  "BranchSelect": {
+  "CemeterySelect": {
     "allCemeteries": "All cemeteries"
   },
   "ReviewsFiltering": {
@@ -222,13 +222,14 @@
     "contacts": "Contacts",
     "writeMessage": "Write a message"
   },
-  "BranchPage": {
+  "BranchCemeteryPage": {
     "navigate": "Navigate",
     "openingHours": "Opening hours",
     "aboutCemetery": "About cemetery",
     "aboutBranch": "About branch"
   },
   "SearchPage": {
+    "pageTitle": "Search - marianum.sk",
     "searchResults": "Search results",
     "searchPlaceholder": "Search",
     "resultsFound_zero": "No results found",
@@ -237,12 +238,21 @@
     "resultsFound_other": "{{count}} results found",
     "allResults": "All results",
     "tags": {
-      "page": "Page",
-      "bundle": "Package",
-      "document": "Document",
-      "article": "Article",
-      "branch": "Branch"
+      "page": "Pages",
+      "article": "Articles",
+      "branch": "Branches",
+      "bundle": "Packages",
+      "cemetery": "Cemeteries",
+      "document": "Documents"
     }
+  },
+  "ErrorPage": {
+    "title404": "Page not found",
+    "message404": "We are sorry but this page does not exist. You can follow to home page or to previous page.",
+    "titleGeneralError": "An error occurred",
+    "messageGeneralError": "We are sorry, some unexpected error occurred. Please visit the page later. If the problem persists, please contact the administrator.",
+    "home": "Home page",
+    "previousPage": "Previous page"
   },
   "CookieConsent": {
     "aria": {

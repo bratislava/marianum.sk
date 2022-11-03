@@ -34,12 +34,12 @@ const BreadcrumbChild = ({
   return (
     <div className="flex gap-1">
       {!noChevron && (
-        <div className="-rotate-90 pt-[2px]">
+        <div className="shrink-0 -rotate-90 pt-[2px]">
           <ChevronDown />
         </div>
       )}
       {noLink ? (
-        <div>{crumb.label}</div>
+        <div className="whitespace-nowrap">{crumb.label}</div>
       ) : (
         <MLink
           href={crumb.path}
@@ -134,7 +134,9 @@ const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
       {/* expanded breadcrumbs for calculation purposes */}
       <div
         ref={breadcrumbsExpandedRef}
-        className={cx('invisible absolute flex w-full select-none items-center gap-1')}
+        className={cx(
+          'invisible absolute flex w-full select-none items-center gap-1 overflow-hidden',
+        )}
       >
         {breadcrumbedChildren}
       </div>
@@ -142,7 +144,9 @@ const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
       {/* expanded wrapping breadcrumbs for calculation purposes */}
       <div
         ref={breadcrumbsExpandedWrappingRef}
-        className={cx('invisible absolute flex w-full select-none flex-wrap items-center gap-1')}
+        className={cx(
+          'invisible absolute flex w-full select-none flex-wrap items-center gap-1 overflow-hidden',
+        )}
       >
         {breadcrumbedChildren}
       </div>

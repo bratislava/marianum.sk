@@ -13,13 +13,13 @@
     "description": {
       "type": "text"
     },
-    "atMedicalFacility": {
+    "outsideMedicalFacility": {
       "displayName": "bundle group",
       "type": "component",
       "repeatable": false,
       "component": "blocks.bundle-group"
     },
-    "outsideMedicalFacility": {
+    "atMedicalFacility": {
       "displayName": "bundle group",
       "type": "component",
       "repeatable": false,

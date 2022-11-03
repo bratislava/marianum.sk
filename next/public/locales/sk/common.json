@@ -108,7 +108,7 @@
     "close": "Zavrieť",
     "allResults": "Všetky výsledky"
   },
-  "BranchSelect": {
+  "CemeterySelect": {
     "allCemeteries": "Všetky cintoríny"
   },
   "ReviewsFiltering": {
@@ -222,13 +222,14 @@
     "contacts": "Kontakty",
     "writeMessage": "Napísať správu"
   },
-  "BranchPage": {
+  "BranchCemeteryPage": {
     "navigate": "Navigovať",
     "openingHours": "Otváracie hodiny",
     "aboutCemetery": "O cintoríne",
     "aboutBranch": "O pobočke"
   },
   "SearchPage": {
+    "pageTitle": "Vyhľadávanie - marianum.sk",
     "searchResults": "Výsledky vyhľadávania",
     "searchPlaceholder": "Hľadať",
     "resultsFound_zero": "Nebol nájdený žiaden výsledok",
@@ -238,11 +239,20 @@
     "allResults": "Všetky výsledky",
     "tags": {
       "page": "Stránky",
-      "bundle": "Balíčky pohrebov",
-      "document": "Dokumenty",
       "article": "Články",
-      "branch": "Pobočky a cintoríny"
+      "branch": "Pobočky",
+      "bundle": "Balíčky pohrebov",
+      "cemetery": "Cintoríny",
+      "document": "Dokumenty"
     }
+  },
+  "ErrorPage": {
+    "title404": "Stránka nebola nájdená",
+    "message404": "Ľutujeme, ale táto stránka neexistuje. Môžete ísť na domovskú stránku alebo sa vráťte na predošlú stránku.",
+    "titleGeneralError": "Vyskytla sa chyba",
+    "messageGeneralError": "Ľutujeme, na stránke sa vyskytla chyba. Skúste navštíviť stránku neskôr. Ak problém pretrváva, kontaktujte prosím administrátora.",
+    "home": "Domovská stránka",
+    "previousPage": "Predošlá stránka"
   },
   "CookieConsent": {
     "aria": {

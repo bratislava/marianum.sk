@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_opening_hours_sections",
+  "info": {
+    "displayName": "opening hours section",
+    "icon": "clock"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "offices": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.office-item",
+      "min": 1
+    }
+  }
+}

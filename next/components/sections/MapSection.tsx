@@ -9,7 +9,7 @@ import useSWR from 'swr'
 import ArrowBackIcon from '../../assets/arrow_back.svg'
 import MapMarkerIcon from '../../assets/map-marker.svg'
 import PlaceIcon from '../../assets/place.svg'
-import { BranchEntityFragment, Enum_Branch_Cemeterytype } from '../../graphql'
+import { CemeteryEntityFragment, Enum_Cemetery_Type, MapSectionFragment } from '../../graphql'
 import { cemeteriesFetcher, getCemeteriesSwrKey } from '../../utils/fetchers/cemeteriesFetcher'
 import { isDefined } from '../../utils/isDefined'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
@@ -17,33 +17,33 @@ import Button from '../atoms/Button'
 import Loading from '../atoms/Loading'
 import MLink from '../atoms/MLink'
 import TagToggle from '../atoms/TagToggle'
-import { useSlug } from '../molecules/Navigation/NavigationProvider/useFullSlug'
+import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
 import Search from '../molecules/Search'
-import Section, { SectionProps } from '../molecules/Section'
+import Section from '../molecules/Section'
 
 const slugifyText = (text: string) => {
   return slugify(text, { replacement: ' ', lower: true })
 }
 
-// calculate bounding box for branches
-const getBoundsForBranches = (branches: BranchEntityFragment[]) => {
-  const branchesLongitude =
-    branches.map((branch) => branch.attributes?.longitude).filter(isDefined) ?? []
-  const branchesLatitude =
-    branches.map((branch) => branch.attributes?.latitude).filter(isDefined) ?? []
+// calculate bounding box for cemeteries
+const getBoundsForCemeteries = (cemeteries: CemeteryEntityFragment[]) => {
+  const cemeteriesLongitude =
+    cemeteries.map((cemetery) => cemetery.attributes?.longitude).filter(isDefined) ?? []
+  const cemeteriesLatitude =
+    cemeteries.map((cemetery) => cemetery.attributes?.latitude).filter(isDefined) ?? []
 
   return [
-    [Math.min(...branchesLongitude), Math.min(...branchesLatitude)],
-    [Math.max(...branchesLongitude), Math.max(...branchesLatitude)],
+    [Math.min(...cemeteriesLongitude), Math.min(...cemeteriesLatitude)],
+    [Math.max(...cemeteriesLongitude), Math.max(...cemeteriesLatitude)],
   ] as [[number, number], [number, number]]
 }
 
-type MapSectionProps = Pick<SectionProps, 'background' | 'title'>
+type MapSectionProps = { section: MapSectionFragment }
 
-const MapSection = ({ ...rest }: MapSectionProps) => {
+const MapSection = ({ section }: MapSectionProps) => {
   const { t, i18n } = useTranslation('common', { keyPrefix: 'MapSection' })
 
-  const { getFullSlug } = useSlug()
+  const { getFullPath } = useGetFullPath()
 
   const { data, error } = useSWR(
     getCemeteriesSwrKey(i18n.language),
@@ -55,19 +55,19 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
     error,
   })
 
-  const validBranches = useMemo(() => {
+  const validCemeteries = useMemo(() => {
     return (
-      dataToDisplay?.branches?.data
-        ?.map((branch) => {
-          const { address, title, slug, latitude, longitude } = branch.attributes ?? {}
+      dataToDisplay?.cemeteries?.data
+        ?.map((cemetery) => {
+          const { address, title, slug, latitude, longitude } = cemetery.attributes ?? {}
           if (address && title && slug && latitude && longitude) {
-            return branch
+            return cemetery
           }
           return null
         })
         .filter(isDefined) ?? []
     )
-  }, [dataToDisplay?.branches])
+  }, [dataToDisplay?.cemeteries])
 
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -75,56 +75,53 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
     return slugifyText(searchQuery)
   }, [searchQuery])
 
-  const [hoveredBranchSlug, setHoveredBranchSlug] = useState<string | null>(null)
+  const [hoveredCemeterySlug, setHoveredCemeterySlug] = useState<string | null>(null)
 
   const [isCivilChecked, setCivilChecked] = useState(false)
   const [isHistoricalChecked, setHistoricalChecked] = useState(false)
   const [isWarChecked, setWarChecked] = useState(false)
 
-  const filteredBranches = useMemo(() => {
-    return validBranches.filter(
-      (branch) =>
+  const filteredCemeteries = useMemo(() => {
+    return validCemeteries.filter(
+      (cemetery) =>
         // search filter for address and title
-        ((slugifyText(branch.attributes?.address ?? '').includes(slugifiedSearchQuery) ||
-          slugifyText(branch.attributes?.title ?? '').includes(slugifiedSearchQuery)) &&
+        ((slugifyText(cemetery.attributes?.address ?? '').includes(slugifiedSearchQuery) ||
+          slugifyText(cemetery.attributes?.title ?? '').includes(slugifiedSearchQuery)) &&
           // if no cemetery type selected, show all
           ((!isCivilChecked && !isHistoricalChecked && !isWarChecked) ||
             // otherwise
             // civil cemetery filter
-            (isCivilChecked &&
-              branch.attributes?.cemeteryType === Enum_Branch_Cemeterytype.Civilny) ||
+            (isCivilChecked && cemetery.attributes?.type === Enum_Cemetery_Type.Civilny) ||
             // historical cemetery filter
-            (isHistoricalChecked &&
-              branch.attributes?.cemeteryType === Enum_Branch_Cemeterytype.Historicky) ||
+            (isHistoricalChecked && cemetery.attributes?.type === Enum_Cemetery_Type.Historicky) ||
             // war cemetery filter
-            (isWarChecked &&
-              branch.attributes?.cemeteryType === Enum_Branch_Cemeterytype.Vojensky))) ??
+            (isWarChecked && cemetery.attributes?.type === Enum_Cemetery_Type.Vojensky))) ??
         [],
     )
-  }, [validBranches, slugifiedSearchQuery, isCivilChecked, isHistoricalChecked, isWarChecked])
+  }, [validCemeteries, slugifiedSearchQuery, isCivilChecked, isHistoricalChecked, isWarChecked])
 
   const mapRef = useRef<MapRef | null>(null)
 
-  const fitBranches = useCallback(
+  const fitCemeteries = useCallback(
     (duration = 0) => {
       try {
-        // This code fails when there is no branches in the database.
+        // This code fails when there is no cemeteries in the database.
         // For that reason there is a try-catch block. It's not clean but it's enough.
-        mapRef.current?.fitBounds(getBoundsForBranches(filteredBranches), {
+        mapRef.current?.fitBounds(getBoundsForCemeteries(filteredCemeteries), {
           padding: 100,
           offset: [0, 10],
           duration,
         })
       } catch {
-        // When it fails, no one cares because there is no branches :)
+        // When it fails, no one cares because there is no cemeteries :)
       }
     },
-    [filteredBranches],
+    [filteredCemeteries],
   )
 
   useEffect(() => {
-    fitBranches(500)
-  }, [fitBranches, filteredBranches])
+    fitCemeteries(500)
+  }, [fitCemeteries, filteredCemeteries])
 
   const [isMapOrFiltersDisplayed, setMapOrFiltersDisplayed] = useState(false)
 
@@ -134,15 +131,15 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
   }
 
   if (error) {
-    return <div>Error: {error}</div>
+    return <div>Error: {JSON.stringify(error)}</div>
   }
 
   return (
-    <Section {...rest}>
+    <Section {...section}>
       <div className="relative flex h-[624px] flex-col items-center overflow-hidden md:flex-row md:items-stretch">
         <div
           className={cx(
-            'absolute z-20 flex h-full w-full flex-col bg-white transition-transform duration-500 md:relative md:w-[360px]',
+            'absolute z-[2] flex h-full w-full flex-col bg-white transition-transform duration-500 md:relative md:w-[360px]',
             {
               '-translate-x-full md:translate-x-0': isMapOrFiltersDisplayed,
             },
@@ -164,19 +161,19 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
             </div>
           </div>
           {/* results */}
-          <div className="flex-1 overflow-auto" onMouseLeave={() => setHoveredBranchSlug(null)}>
-            {filteredBranches.map((branch, index) => {
-              const { title, slug, address } = branch.attributes ?? {}
+          <div className="flex-1 overflow-auto" onMouseLeave={() => setHoveredCemeterySlug(null)}>
+            {filteredCemeteries.map((cemetery, index) => {
+              const { title, slug, address } = cemetery.attributes ?? {}
 
               return (
                 <Fragment key={slug}>
                   {index !== 0 && <hr className="mx-5 border-border" />}
                   <MLink
-                    onMouseEnter={() => setHoveredBranchSlug(slug ?? '')}
+                    onMouseEnter={() => setHoveredCemeterySlug(slug ?? '')}
                     noStyles
-                    href={getFullSlug(branch) ?? ''}
+                    href={getFullPath(cemetery) ?? ''}
                     className={cx('flex gap-2 px-5 py-3', {
-                      'bg-primary/5': slug === hoveredBranchSlug,
+                      'bg-primary/5': slug === hoveredCemeterySlug,
                     })}
                   >
                     <div className="pt-[2px] text-primary">
@@ -190,7 +187,7 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
                 </Fragment>
               )
             })}
-            {filteredBranches.length === 0 && <div className="p-5">{t('noResults')}</div>}
+            {filteredCemeteries.length === 0 && <div className="p-5">{t('noResults')}</div>}
           </div>
         </div>
         <div className="h-full w-full flex-1">
@@ -199,11 +196,11 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
             style={{ width: '100%', height: '100%' }}
             mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
             mapStyle={process.env.NEXT_PUBLIC_MAPBOX_LIGHT_STYLE}
-            onLoad={() => fitBranches()}
+            onLoad={() => fitCemeteries()}
             cooperativeGestures
           >
-            {filteredBranches.map((branch) => {
-              const { latitude, longitude, slug } = branch.attributes ?? {}
+            {filteredCemeteries.map((cemetery) => {
+              const { latitude, longitude, slug } = cemetery.attributes ?? {}
 
               if (latitude && longitude) {
                 return (
@@ -217,14 +214,14 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
                     <motion.button
                       style={{ originY: 1 }}
                       initial={{ scale: 0 }}
-                      animate={{ scale: hoveredBranchSlug !== slug ? 0.75 : 1 }}
+                      animate={{ scale: hoveredCemeterySlug !== slug ? 0.75 : 1 }}
                       whileTap={{ scale: 0.8 }}
                     >
                       <MLink
-                        onMouseEnter={() => setHoveredBranchSlug(slug ?? '')}
-                        onMouseLeave={() => setHoveredBranchSlug(null)}
+                        onMouseEnter={() => setHoveredCemeterySlug(slug ?? '')}
+                        onMouseLeave={() => setHoveredCemeterySlug(null)}
                         noStyles
-                        href={getFullSlug(branch) ?? ''}
+                        href={getFullPath(cemetery) ?? ''}
                       >
                         <MapMarkerIcon />
                       </MLink>
@@ -237,7 +234,7 @@ const MapSection = ({ ...rest }: MapSectionProps) => {
           </Map>
         </div>
         {/* mobile bottom button */}
-        <div className="absolute bottom-6 z-20 md:hidden">
+        <div className="absolute bottom-6 z-[2] md:hidden">
           <Button
             className="rounded-full shadow"
             onPress={() => setMapOrFiltersDisplayed((m) => !m)}

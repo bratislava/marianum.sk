@@ -1,12 +1,28 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
+import { useWindowSize } from 'usehooks-ts'
 
 import { screenBreakpoints } from '../screen-breakpoints.config'
 
 // this hook returns current tailwind breakpoint ("sm" | "md" | "lg" | "xl")
 // or null when screen is smaller then "sm" breakpoint
 export const useTailwindBreakpoint = () => {
-  const [screenWidth, setScreenWidth] = useState(0)
-  const [breakpoint, setBreakpoint] = useState<keyof typeof screenBreakpoints | null>(null)
+  const { width } = useWindowSize()
+
+  const breakpoint = useMemo<keyof typeof screenBreakpoints | null>(() => {
+    let currentBreakpoint: keyof typeof screenBreakpoints | null = null
+    let biggestBreakpointValue = 0
+
+    // find the biggest breakpoint
+    ;(Object.keys(screenBreakpoints) as (keyof typeof screenBreakpoints)[]).forEach((bp) => {
+      const breakpointValue = screenBreakpoints[bp]
+      if (breakpointValue > biggestBreakpointValue && width >= breakpointValue) {
+        biggestBreakpointValue = breakpointValue
+        currentBreakpoint = bp
+      }
+    })
+
+    return currentBreakpoint
+  }, [width])
 
   const isNull = useMemo(() => {
     return breakpoint === null
@@ -27,34 +43,6 @@ export const useTailwindBreakpoint = () => {
   const isXL = useMemo(() => {
     return breakpoint === 'xl'
   }, [breakpoint])
-
-  const onWindowResize = useCallback(() => {
-    setScreenWidth(window.innerWidth)
-  }, [])
-
-  useEffect(() => {
-    onWindowResize()
-    window.addEventListener('resize', onWindowResize)
-    return () => {
-      window.removeEventListener('resize', onWindowResize)
-    }
-  }, [onWindowResize])
-
-  useEffect(() => {
-    let currentBreakpoint: keyof typeof screenBreakpoints | null = null
-    let biggestBreakpointValue = 0
-
-    // find the biggest breakpoint
-    ;(Object.keys(screenBreakpoints) as (keyof typeof screenBreakpoints)[]).forEach((bp) => {
-      const breakpointValue = screenBreakpoints[bp]
-      if (breakpointValue > biggestBreakpointValue && screenWidth >= breakpointValue) {
-        biggestBreakpointValue = breakpointValue
-        currentBreakpoint = bp
-      }
-    })
-
-    setBreakpoint(currentBreakpoint)
-  }, [screenWidth])
 
   return { breakpoint, isNull, isSM, isMD, isLG, isXL }
 }

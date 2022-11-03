@@ -5,11 +5,11 @@ import { bratislavaTimezone } from '../consts'
 import { client } from '../gql'
 
 export type CeremoniesSectionFilters = {
-  branchId: string | null
+  cemeteryId: string | null
 }
 
 export const ceremoniesSectionDefaultFilters: CeremoniesSectionFilters = {
-  branchId: null,
+  cemeteryId: null,
 }
 
 export const getCeremoniesSectionSwrKey = (filters: CeremoniesSectionFilters) =>
@@ -22,7 +22,7 @@ export const ceremoniesSectionFetcher = (filters: CeremoniesSectionFilters) => (
 
   return client.Ceremonies({
     dateTime: startOfDayString,
-    branchIdFilter: filters.branchId ? { eq: filters.branchId } : undefined,
+    cemeteryIdFilter: filters.cemeteryId ? { eq: filters.cemeteryId } : undefined,
   })
 }
 

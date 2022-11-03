@@ -2,6 +2,7 @@ import { Key } from 'swr'
 
 import { Option } from '../../components/atoms/Select'
 import { ArticleMeili } from '../../types/meiliTypes'
+import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
 import { client } from '../gql'
 import { isDefined } from '../isDefined'
 import { meiliClient } from '../meilisearch'
@@ -54,8 +55,7 @@ export const getArticleListingFetcher =
     return meiliClient
       .index('search_index')
       .search<SearchIndexWrapped<'article', ArticleMeili>>(filters.search, {
-        limit: filters.pageSize,
-        offset: (filters.page - 1) * filters.pageSize,
+        ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
         filter: ['type = "article"', sectionFilter, locale ? `locale = ${locale}` : null].filter(
           isDefined,
         ),
