@@ -159,6 +159,7 @@ export default {
         settings: {
           filterableAttributes: ["cemetery.id", "dateTimeTimestamp"],
           searchableAttributes: ["name"],
+          sortableAttributes: ["dateTimeTimestamp"],
           pagination: {
             // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
             maxTotalHits: 100000,
