@@ -40,9 +40,7 @@ const searchIndexSettings = {
     // Page + branch + article + bundle + cemetery
     "locale",
     // Article
-    "article.pressCategory",
     "article.pressCategory.id",
-    "article.newsCategory",
     "article.newsCategory.id",
     // Document
     "document.documentCategory.id",
