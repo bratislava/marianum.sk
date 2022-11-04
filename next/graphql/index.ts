@@ -5000,7 +5000,7 @@ export const ProceduresDocument = gql`
     ${ProceduresEntityFragmentDoc}`;
 export const PartnersDocument = gql`
     query Partners {
-  partners {
+  partners(pagination: {limit: -1}) {
     data {
       ...PartnerEntity
     }
@@ -5009,7 +5009,7 @@ export const PartnersDocument = gql`
     ${PartnerEntityFragmentDoc}`;
 export const ReviewsDocument = gql`
     query Reviews($locale: I18NLocaleCode!) {
-  reviews(locale: $locale, sort: ["date:desc"], pagination: {limit: 10000}) {
+  reviews(locale: $locale, sort: ["date:desc"], pagination: {limit: -1}) {
     data {
       ...ReviewEntity
     }
@@ -5054,7 +5054,7 @@ export const BranchBySlugDocument = gql`
     ${BranchEntityFragmentDoc}`;
 export const BranchesDocument = gql`
     query Branches($locale: I18NLocaleCode!) {
-  branches(locale: $locale) {
+  branches(locale: $locale, pagination: {limit: -1}) {
     data {
       ...BranchEntity
     }
@@ -5072,7 +5072,7 @@ export const CemeteryBySlugDocument = gql`
     ${CemeteryEntityFragmentDoc}`;
 export const CemeteriesDocument = gql`
     query Cemeteries($locale: I18NLocaleCode!) {
-  cemeteries(locale: $locale, sort: ["title:asc"], pagination: {limit: 10000}) {
+  cemeteries(locale: $locale, sort: ["title:asc"], pagination: {limit: -1}) {
     data {
       ...CemeteryEntity
     }
@@ -5099,7 +5099,7 @@ export const DocumentBySlugDocument = gql`
     ${DocumentEntityFragmentDoc}`;
 export const ArticlesStaticPathsDocument = gql`
     query ArticlesStaticPaths($locale: I18NLocaleCode) {
-  articles(locale: $locale, pagination: {limit: 10000}) {
+  articles(locale: $locale, pagination: {limit: -1}) {
     data {
       ...ArticleSlugEntity
     }
@@ -5108,7 +5108,7 @@ export const ArticlesStaticPathsDocument = gql`
     ${ArticleSlugEntityFragmentDoc}`;
 export const PagesStaticPathsDocument = gql`
     query PagesStaticPaths($locale: I18NLocaleCode) {
-  pages(locale: $locale, pagination: {limit: 10000}) {
+  pages(locale: $locale, pagination: {limit: -1}) {
     data {
       ...PageSlugEntity
     }
@@ -5117,7 +5117,7 @@ export const PagesStaticPathsDocument = gql`
     ${PageSlugEntityFragmentDoc}`;
 export const BranchesStaticPathsDocument = gql`
     query BranchesStaticPaths($locale: I18NLocaleCode) {
-  branches(locale: $locale, pagination: {limit: 10000}) {
+  branches(locale: $locale, pagination: {limit: -1}) {
     data {
       ...BranchSlugEntity
     }
@@ -5126,7 +5126,7 @@ export const BranchesStaticPathsDocument = gql`
     ${BranchSlugEntityFragmentDoc}`;
 export const BundlesStaticPathsDocument = gql`
     query BundlesStaticPaths($locale: I18NLocaleCode) {
-  bundles(locale: $locale, pagination: {limit: 10000}) {
+  bundles(locale: $locale, pagination: {limit: -1}) {
     data {
       ...BundleSlugEntity
     }
@@ -5135,7 +5135,7 @@ export const BundlesStaticPathsDocument = gql`
     ${BundleSlugEntityFragmentDoc}`;
 export const CemeteriesStaticPathsDocument = gql`
     query CemeteriesStaticPaths($locale: I18NLocaleCode) {
-  cemeteries(locale: $locale, pagination: {limit: 10000}) {
+  cemeteries(locale: $locale, pagination: {limit: -1}) {
     data {
       ...CemeterySlugEntity
     }
@@ -5144,7 +5144,7 @@ export const CemeteriesStaticPathsDocument = gql`
     ${CemeterySlugEntityFragmentDoc}`;
 export const DocumentsStaticPathsDocument = gql`
     query DocumentsStaticPaths {
-  documents(pagination: {limit: 10000}) {
+  documents(pagination: {limit: -1}) {
     data {
       ...DocumentSlugEntity
     }
@@ -5238,7 +5238,7 @@ export const CeremoniesDocument = gql`
     ${CeremonyEntityFragmentDoc}`;
 export const CemeteriesInCeremoniesDocument = gql`
     query CemeteriesInCeremonies {
-  cemeteries(filters: {allowInCeremonies: {eq: true}}) {
+  cemeteries(filters: {allowInCeremonies: {eq: true}}, pagination: {limit: -1}) {
     data {
       ...CemeteryInCeremoniesDebtorsEntity
     }
@@ -5247,7 +5247,7 @@ export const CemeteriesInCeremoniesDocument = gql`
     ${CemeteryInCeremoniesDebtorsEntityFragmentDoc}`;
 export const CemeteriesInDebtorsDocument = gql`
     query CemeteriesInDebtors {
-  cemeteries(filters: {allowInDebtors: {eq: true}}) {
+  cemeteries(filters: {allowInDebtors: {eq: true}}, pagination: {limit: -1}) {
     data {
       ...CemeteryInCeremoniesDebtorsEntity
     }
@@ -5256,7 +5256,7 @@ export const CemeteriesInDebtorsDocument = gql`
     ${CemeteryInCeremoniesDebtorsEntityFragmentDoc}`;
 export const DocumentCategoriesDocument = gql`
     query DocumentCategories {
-  documentCategories {
+  documentCategories(pagination: {limit: -1}) {
     data {
       ...DocumentCategoryEntity
     }
@@ -5265,7 +5265,7 @@ export const DocumentCategoriesDocument = gql`
     ${DocumentCategoryEntityFragmentDoc}`;
 export const ArticleNewsCategoriesDocument = gql`
     query ArticleNewsCategories {
-  articleNewsCategories {
+  articleNewsCategories(pagination: {limit: -1}) {
     data {
       ...ArticleNewsCategoryEntity
     }
@@ -5274,7 +5274,7 @@ export const ArticleNewsCategoriesDocument = gql`
     ${ArticleNewsCategoryEntityFragmentDoc}`;
 export const ArticlePressCategoriesDocument = gql`
     query ArticlePressCategories {
-  articlePressCategories {
+  articlePressCategories(pagination: {limit: -1}) {
     data {
       ...ArticlePressCategoryEntity
     }

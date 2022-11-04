@@ -23,7 +23,7 @@ query Procedures($locale: I18NLocaleCode!) {
 }
 
 query Partners {
-  partners {
+  partners(pagination: { limit: -1 }) {
     data {
       ...PartnerEntity
     }
@@ -31,7 +31,7 @@ query Partners {
 }
 
 query Reviews($locale: I18NLocaleCode!) {
-  reviews(locale: $locale, sort: ["date:desc"], pagination: { limit: 10000 }) {
+  reviews(locale: $locale, sort: ["date:desc"], pagination: { limit: -1 }) {
     data {
       ...ReviewEntity
     }
@@ -71,7 +71,7 @@ query BranchBySlug($locale: I18NLocaleCode!, $slug: String!) {
 }
 
 query Branches($locale: I18NLocaleCode!) {
-  branches(locale: $locale) {
+  branches(locale: $locale, pagination: { limit: -1 }) {
     data {
       ...BranchEntity
     }
@@ -87,7 +87,7 @@ query CemeteryBySlug($locale: I18NLocaleCode!, $slug: String!) {
 }
 
 query Cemeteries($locale: I18NLocaleCode!) {
-  cemeteries(locale: $locale, sort: ["title:asc"], pagination: { limit: 10000 }) {
+  cemeteries(locale: $locale, sort: ["title:asc"], pagination: { limit: -1 }) {
     data {
       ...CemeteryEntity
     }
@@ -113,7 +113,7 @@ query DocumentBySlug($slug: String!) {
 # strapi returns just the default locale if no locale is provided
 # easiest way to get all static paths is to ask for all locales sequentially
 query ArticlesStaticPaths($locale: I18NLocaleCode) {
-  articles(locale: $locale, pagination: { limit: 10000 }) {
+  articles(locale: $locale, pagination: { limit: -1 }) {
     data {
       ...ArticleSlugEntity
     }
@@ -121,7 +121,7 @@ query ArticlesStaticPaths($locale: I18NLocaleCode) {
 }
 
 query PagesStaticPaths($locale: I18NLocaleCode) {
-  pages(locale: $locale, pagination: { limit: 10000 }) {
+  pages(locale: $locale, pagination: { limit: -1 }) {
     data {
       ...PageSlugEntity
     }
@@ -129,7 +129,7 @@ query PagesStaticPaths($locale: I18NLocaleCode) {
 }
 
 query BranchesStaticPaths($locale: I18NLocaleCode) {
-  branches(locale: $locale, pagination: { limit: 10000 }) {
+  branches(locale: $locale, pagination: { limit: -1 }) {
     data {
       ...BranchSlugEntity
     }
@@ -137,7 +137,7 @@ query BranchesStaticPaths($locale: I18NLocaleCode) {
 }
 
 query BundlesStaticPaths($locale: I18NLocaleCode) {
-  bundles(locale: $locale, pagination: { limit: 10000 }) {
+  bundles(locale: $locale, pagination: { limit: -1 }) {
     data {
       ...BundleSlugEntity
     }
@@ -145,7 +145,7 @@ query BundlesStaticPaths($locale: I18NLocaleCode) {
 }
 
 query CemeteriesStaticPaths($locale: I18NLocaleCode) {
-  cemeteries(locale: $locale, pagination: { limit: 10000 }) {
+  cemeteries(locale: $locale, pagination: { limit: -1 }) {
     data {
       ...CemeterySlugEntity
     }
@@ -153,7 +153,7 @@ query CemeteriesStaticPaths($locale: I18NLocaleCode) {
 }
 
 query DocumentsStaticPaths {
-  documents(pagination: { limit: 10000 }) {
+  documents(pagination: { limit: -1 }) {
     data {
       ...DocumentSlugEntity
     }
@@ -236,7 +236,7 @@ query Ceremonies($dateTime: DateTime!, $cemeteryIdFilter: IDFilterInput = {}) {
 }
 
 query CemeteriesInCeremonies {
-  cemeteries(filters: { allowInCeremonies: { eq: true } }) {
+  cemeteries(filters: { allowInCeremonies: { eq: true } }, pagination: { limit: -1 }) {
     data {
       ...CemeteryInCeremoniesDebtorsEntity
     }
@@ -244,7 +244,7 @@ query CemeteriesInCeremonies {
 }
 
 query CemeteriesInDebtors {
-  cemeteries(filters: { allowInDebtors: { eq: true } }) {
+  cemeteries(filters: { allowInDebtors: { eq: true } }, pagination: { limit: -1 }) {
     data {
       ...CemeteryInCeremoniesDebtorsEntity
     }
@@ -252,7 +252,7 @@ query CemeteriesInDebtors {
 }
 
 query DocumentCategories {
-  documentCategories {
+  documentCategories(pagination: { limit: -1 }) {
     data {
       ...DocumentCategoryEntity
     }
@@ -260,7 +260,7 @@ query DocumentCategories {
 }
 
 query ArticleNewsCategories {
-  articleNewsCategories {
+  articleNewsCategories(pagination: { limit: -1 }) {
     data {
       ...ArticleNewsCategoryEntity
     }
@@ -268,7 +268,7 @@ query ArticleNewsCategories {
 }
 
 query ArticlePressCategories {
-  articlePressCategories {
+  articlePressCategories(pagination: { limit: -1 }) {
     data {
       ...ArticlePressCategoryEntity
     }
