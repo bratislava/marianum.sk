@@ -66,6 +66,7 @@ const Table = () => {
 
         return {
           name: ceremony.attributes?.name,
+          consentForPrivateFields: ceremony.attributes?.consentForPrivateFields,
           branch,
           time: new Date(ceremony.attributes?.dateTime),
         }
@@ -105,7 +106,13 @@ const Table = () => {
         {ceremonies?.ceremonies.map((ceremony, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <tr className="group border-t border-border first:border-t-0" key={index}>
-            <td className="py-4 group-last:pb-0">{ceremony.name}</td>
+            <td className="py-4 group-last:pb-0">
+              {ceremony.consentForPrivateFields ? (
+                ceremony.name
+              ) : (
+                <span className="opacity-50">**</span>
+              )}
+            </td>
             <td className="py-4 group-last:pb-0">{ceremony.branch}</td>
             <td className="py-4 group-last:pb-0">
               <FormatDate value={ceremony.time} format="ceremoniesTime" />

@@ -563,6 +563,7 @@ fragment HomepageCeremonyEntity on CeremonyEntity {
   attributes {
     dateTime
     name
+    consentForPrivateFields
     cemetery {
       data {
         attributes {
