@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import { DetailedHTMLProps, InputHTMLAttributes, ReactNode } from 'react'
+import { DetailedHTMLProps, InputHTMLAttributes, ReactNode, useId } from 'react'
 
 import FieldWrapper from './FieldWrapper'
 
@@ -19,7 +19,7 @@ type AreaOrInputConditionalProps =
 // common for textarea and input
 type CommonProps = {
   error?: boolean
-  id: string
+  id?: string
   label?: string
   inputClassName?: string
   isLarge?: boolean
@@ -28,10 +28,13 @@ type CommonProps = {
 type TextFieldProps = CommonProps & AreaOrInputConditionalProps
 
 const TextField = (props: TextFieldProps) => {
+  const generatedId = useId()
+  // eslint-disable-next-line react/destructuring-assignment
+  const generatedOrProvidedId = props.id ?? generatedId
+
   // eslint-disable-next-line react/destructuring-assignment
   if (props.area) {
     const {
-      id,
       area,
       rows = 6,
       label,
@@ -43,9 +46,10 @@ const TextField = (props: TextFieldProps) => {
       isLarge = false,
       ...rest
     } = props
+
     return (
       <FieldWrapper
-        id={id}
+        id={generatedOrProvidedId}
         label={label}
         className={className}
         disabled={disabled}
@@ -54,6 +58,7 @@ const TextField = (props: TextFieldProps) => {
       >
         <textarea
           {...rest}
+          id={generatedOrProvidedId}
           rows={rows}
           disabled={disabled}
           required={required}
@@ -88,7 +93,7 @@ const TextField = (props: TextFieldProps) => {
 
   return (
     <FieldWrapper
-      id={id}
+      id={generatedOrProvidedId}
       label={label}
       className={className}
       hasLeftSlot={!!leftSlot}
@@ -102,6 +107,7 @@ const TextField = (props: TextFieldProps) => {
       )}
       <input
         {...rest}
+        id={generatedOrProvidedId}
         disabled={disabled}
         required={required}
         className={cx('w-full bg-transparent outline-none', inputClassName, {
