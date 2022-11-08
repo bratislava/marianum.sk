@@ -11,8 +11,7 @@
     "gen": "graphql-codegen",
     "lint": "eslint components pages utils",
     "lint:fix": "yarn lint --fix",
-    "sentry-cli": "sentry-cli",
-    "i18n": "node ./i18next-parse.js"
+    "sentry-cli": "sentry-cli"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.6",
