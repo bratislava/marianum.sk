@@ -12,7 +12,7 @@ import {
   CeremoniesSectionFilters,
   getCeremoniesSectionSwrKey,
 } from '../../utils/fetchers/ceremoniesSectionFetcher'
-import { getCemeteryInfoInCeremoniesDebtors } from '../../utils/getBranchInfoInCeremoniesDebtors'
+import { getCemeteryInfoInCeremoniesDebtors } from '../../utils/getCemeteryInfoInCeremoniesDebtors'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import FormatDate from '../atoms/FormatDate'
@@ -43,20 +43,20 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
     }
 
     const mappedCeremonies = ceremoniesData.map((ceremony) => {
-      const branchInfo = ceremony?.attributes?.cemetery?.data
+      const cemeteryInfo = ceremony?.attributes?.cemetery?.data
         ? getCemeteryInfoInCeremoniesDebtors(ceremony.attributes.cemetery.data, i18n.language)
         : null
 
-      const branch = branchInfo?.slug ? (
-        <CemeteryLink slug={branchInfo?.slug} title={branchInfo?.title ?? ''} />
+      const cemetery = cemeteryInfo?.slug ? (
+        <CemeteryLink slug={cemeteryInfo?.slug} title={cemeteryInfo?.title ?? ''} />
       ) : (
-        branchInfo?.title
+        cemeteryInfo?.title
       )
 
       const dateTimeZoned = parseAbsolute(ceremony.attributes?.dateTime, bratislavaTimezone)
       const calendarDate = toCalendarDate(dateTimeZoned)
 
-      return { ...ceremony.attributes, calendarDate, dateTime: dateTimeZoned.toDate(), branch }
+      return { ...ceremony.attributes, calendarDate, dateTime: dateTimeZoned.toDate(), cemetery }
     })
 
     // eslint-disable-next-line lodash/prop-shorthand
@@ -87,7 +87,7 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
                   <th>{t('th.time')}</th>
                   <th>{t('th.name')}</th>
                   <th>{t('th.birthYear')}</th>
-                  <th>{t('th.branchTitle')}</th>
+                  <th>{t('th.cemeteryTitle')}</th>
                   <th>{t('th.type')}</th>
                   <th>{t('th.company')}</th>
                   <th>{t('th.officiantProvidedBy')}</th>
@@ -106,7 +106,7 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
                     <td>
                       {ceremony.consentForPrivateFields ? ceremony.birthYear : <PrivateField />}
                     </td>
-                    <td>{ceremony.branch}</td>
+                    <td>{ceremony.cemetery}</td>
                     <td>{ceremony.consentForPrivateFields ? ceremony.type : <PrivateField />}</td>
                     <td>{ceremony.company}</td>
                     <td>{ceremony.officiantProvidedBy}</td>

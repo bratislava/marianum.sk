@@ -8,7 +8,7 @@ import { meiliClient } from '../meilisearch'
 export type CeremoniesArchiveSectionFilters = {
   pageSize: number
   search: string
-  branchId: string | null
+  cemeteryId: string | null
   page: number
 }
 
@@ -16,7 +16,7 @@ export const ceremoniesArchiveSectionDefaultFilters: CeremoniesArchiveSectionFil
   pageSize: 24,
   search: '',
   page: 1,
-  branchId: null,
+  cemeteryId: null,
 }
 
 export const getCeremoniesArchiveSectionSwrKey = (filters: CeremoniesArchiveSectionFilters) =>
@@ -27,7 +27,7 @@ export const ceremoniesArchiveSectionFetcher = (filters: CeremoniesArchiveSectio
     ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
     filter: [
       `dateTimeTimestamp < ${Date.now()}`,
-      filters.branchId && `branch.id = ${filters.branchId}`,
+      filters.cemeteryId && `cemetery.id = ${filters.cemeteryId}`,
     ].filter(isDefined),
   })
 

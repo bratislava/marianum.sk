@@ -9,7 +9,7 @@ import {
   upcomingCeremoniesFetcher,
   upcomingCeremoniesSwrKey,
 } from '../../utils/fetchers/upcomingCeremoniesFetcher'
-import { getCemeteryInfoInCeremoniesDebtors } from '../../utils/getBranchInfoInCeremoniesDebtors'
+import { getCemeteryInfoInCeremoniesDebtors } from '../../utils/getCemeteryInfoInCeremoniesDebtors'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import FormatDate from '../atoms/FormatDate'
 import Loading from '../atoms/Loading'
@@ -54,20 +54,20 @@ const Table = () => {
     return {
       day: firstCeremonyDayDateTimeZoned.toDate(),
       ceremonies: filteredCeremonies.map((ceremony) => {
-        const branchInfo = ceremony?.attributes?.cemetery?.data
+        const cemeteryInfo = ceremony?.attributes?.cemetery?.data
           ? getCemeteryInfoInCeremoniesDebtors(ceremony.attributes.cemetery.data, i18n.language)
           : null
 
-        const branch = branchInfo?.slug ? (
-          <CemeteryLink slug={branchInfo?.slug} title={branchInfo?.title ?? ''} />
+        const cemetery = cemeteryInfo?.slug ? (
+          <CemeteryLink slug={cemeteryInfo?.slug} title={cemeteryInfo?.title ?? ''} />
         ) : (
-          branchInfo?.title
+          cemeteryInfo?.title
         )
 
         return {
           name: ceremony.attributes?.name,
           consentForPrivateFields: ceremony.attributes?.consentForPrivateFields,
-          branch,
+          cemetery,
           time: new Date(ceremony.attributes?.dateTime),
         }
       }),
@@ -113,7 +113,7 @@ const Table = () => {
                 <span className="opacity-50">**</span>
               )}
             </td>
-            <td className="py-4 group-last:pb-0">{ceremony.branch}</td>
+            <td className="py-4 group-last:pb-0">{ceremony.cemetery}</td>
             <td className="py-4 group-last:pb-0">
               <FormatDate value={ceremony.time} format="ceremoniesTime" />
             </td>

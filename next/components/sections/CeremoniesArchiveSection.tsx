@@ -11,7 +11,7 @@ import {
   CeremoniesArchiveSectionFilters,
   getCeremoniesArchiveSectionSwrKey,
 } from '../../utils/fetchers/ceremoniesArchiveSectionFetcher'
-import { getCemeteryInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfoInCeremoniesDebtors'
+import { getCemeteryInfoInCeremoniesDebtorsMeili } from '../../utils/getCemeteryInfoInCeremoniesDebtors'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import FormatDate from '../atoms/FormatDate'
@@ -57,12 +57,12 @@ const Table = ({
         i18n.language,
       )
 
-      const branch = slug ? <CemeteryLink slug={slug} title={title} /> : title
+      const cemetery = slug ? <CemeteryLink slug={slug} title={title} /> : title
 
       return {
         ...ceremony,
         dateTime,
-        branch,
+        cemetery,
       }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -78,7 +78,7 @@ const Table = ({
               <th>{t('th.dateTime')}</th>
               <th>{t('th.name')}</th>
               <th>{t('th.birthYear')}</th>
-              <th>{t('th.branchTitle')}</th>
+              <th>{t('th.cemeteryTitle')}</th>
               <th>{t('th.type')}</th>
               <th>{t('th.company')}</th>
               <th>{t('th.officiantProvidedBy')}</th>
@@ -95,7 +95,7 @@ const Table = ({
                 </td>
                 <td>{ceremony.consentForPrivateFields ? ceremony.name : <PrivateField />}</td>
                 <td>{ceremony.consentForPrivateFields ? ceremony.birthYear : <PrivateField />}</td>
-                <td>{ceremony.branch}</td>
+                <td>{ceremony.cemetery}</td>
                 <td>{ceremony.consentForPrivateFields ? ceremony.type : <PrivateField />}</td>
                 <td>{ceremony.company}</td>
                 <td>{ceremony.officiantProvidedBy}</td>
@@ -182,8 +182,8 @@ const CeremoniesArchiveSection = () => {
     setFilters({ ...filters, page })
   }
 
-  const handleBranchChange = (branchId: string) => {
-    setFilters({ ...filters, branchId })
+  const handleCemeteryChange = (cemeteryId: string) => {
+    setFilters({ ...filters, cemeteryId })
   }
 
   return (
@@ -192,7 +192,7 @@ const CeremoniesArchiveSection = () => {
         <div>
           <CeremoniesDebtorsCemeterySelect
             type="ceremonies"
-            onCemeteryChange={handleBranchChange}
+            onCemeteryChange={handleCemeteryChange}
           />
         </div>
         <div className="md:col-span-2">
