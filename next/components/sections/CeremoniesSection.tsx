@@ -1,5 +1,6 @@
 import { parseAbsolute, parseDate, toCalendarDate } from '@internationalized/date'
 import groupBy from 'lodash/groupBy'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Fragment, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
@@ -23,6 +24,44 @@ import CemeteryLink from '../molecules/CemeteryLink'
 import CeremoniesDebtorsCemeterySelect from '../molecules/CeremoniesDebtors/CemeterySelect'
 import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section from '../molecules/Section'
+
+const ArchiveCard = ({
+  archive,
+}: {
+  archive: NonNullable<CeremoniesSectionFragment['archive']>
+}) => {
+  const router = useRouter()
+  const { getFullPath } = useGetFullPath()
+
+  // eslint-disable-next-line unicorn/consistent-function-scoping
+  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    // Don't trigger the `handleCardClick` function when link clicked.
+    event.stopPropagation()
+  }
+
+  const handleCardClick = () => {
+    const data = archive.button?.page?.data
+    if (data) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      router.push(getFullPath(data) ?? '')
+    }
+  }
+
+  return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+    <div
+      className="mt-6 flex cursor-pointer flex-col items-center gap-y-3 bg-white px-8 py-4 md:mt-16 md:flex-row md:justify-between md:px-12 md:py-10"
+      onClick={handleCardClick}
+    >
+      <h4>{archive.title}</h4>
+      {archive.button?.page?.data?.attributes?.slug && (
+        <MLink href={getFullPath(archive.button.page.data) ?? ''} onClick={handleLinkClick}>
+          {archive.button?.label}
+        </MLink>
+      )}
+    </div>
+  )
+}
 
 const PrivateField = () => <span className="opacity-50">**</span>
 
@@ -164,7 +203,6 @@ type CeremoniesSectionProps = {
 const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })
 
-  const { getFullPath } = useGetFullPath()
   const [filters, setFilters] = useState<CeremoniesSectionFilters>(ceremoniesSectionDefaultFilters)
 
   const handleCemeteryChange = (cemeteryId: string) => {
@@ -185,16 +223,7 @@ const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
         <DataWrapper filters={filters} />
       </div>
 
-      {section.archive && (
-        <div className="mt-6 flex flex-col items-center gap-y-3 bg-white px-8 py-4 md:mt-16 md:flex-row md:justify-between md:px-12 md:py-10">
-          <h4>{section.archive.title}</h4>
-          {section.archive.button?.page?.data?.attributes?.slug && (
-            <MLink href={getFullPath(section.archive.button.page.data) ?? ''}>
-              {section.archive.button?.label}
-            </MLink>
-          )}
-        </div>
-      )}
+      {section.archive && <ArchiveCard archive={section.archive} />}
     </Section>
   )
 }
