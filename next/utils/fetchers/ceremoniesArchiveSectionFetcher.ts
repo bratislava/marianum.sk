@@ -29,6 +29,7 @@ export const ceremoniesArchiveSectionFetcher = (filters: CeremoniesArchiveSectio
       `dateTimeTimestamp < ${Date.now()}`,
       filters.branchId && `branch.id = ${filters.branchId}`,
     ].filter(isDefined),
+    sort: ['dateTimeTimestamp:desc'],
   })
 
 export const ceremoniesArchiveSectionPrefetch = {
