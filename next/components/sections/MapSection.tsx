@@ -101,6 +101,7 @@ const MapSection = ({ section }: MapSectionProps) => {
   }, [validCemeteries, slugifiedSearchQuery, isCivilChecked, isHistoricalChecked, isWarChecked])
 
   const mapRef = useRef<MapRef | null>(null)
+  const initialBounds = useRef(filteredCemeteries && getBoundsForCemeteries(filteredCemeteries))
 
   const fitCemeteries = useCallback(
     (duration = 0) => {
@@ -196,7 +197,13 @@ const MapSection = ({ section }: MapSectionProps) => {
             style={{ width: '100%', height: '100%' }}
             mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
             mapStyle={process.env.NEXT_PUBLIC_MAPBOX_LIGHT_STYLE}
-            onLoad={() => fitCemeteries()}
+            initialViewState={{
+              bounds: initialBounds.current,
+              fitBoundsOptions: {
+                padding: 100,
+                offset: [0, 10],
+              },
+            }}
             cooperativeGestures
           >
             {filteredCemeteries.map((cemetery) => {

@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import { ContactFragment, FooterFragment, SocialItemFragment } from '../../../graphql'
+import { getPhoneNumberLink } from '../../../utils/getPhoneNumberLink'
 import { isDefined } from '../../../utils/isDefined'
 import MLink from '../../atoms/MLink'
 import AccordionGroup from '../Accordion/AccordionGroup'
@@ -92,7 +93,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
               <div className="text-lg font-bold">{t('contacts')}</div>
               <div className="flex flex-col gap-2 font-regular">
                 {phone1 && (
-                  <MLink noStyles href={`tel:${phone1}`} className="w-fit opacity-72">
+                  <MLink noStyles href={getPhoneNumberLink(phone1)} className="w-fit opacity-72">
                     {phone1}
                   </MLink>
                 )}

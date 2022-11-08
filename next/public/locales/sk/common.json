@@ -160,7 +160,7 @@
       "dateTime": "Dátum a čas",
       "name": "Meno a priezvisko",
       "birthYear": "Rok narodenia",
-      "branchTitle": "Cintorín",
+      "cemeteryTitle": "Cintorín",
       "type": "Typ obradu",
       "company": "Pohrebná služba",
       "officiantProvidedBy": "Obradníka zabezpečuje"
@@ -185,7 +185,7 @@
   },
   "DebtorsSection": {
     "th": {
-      "branchTitle": "Cintorín",
+      "cemeteryTitle": "Cintorín",
       "graveSector": "Hr. miesto sektor",
       "graveNumber": "Hr. miesto číslo",
       "gravePreviousNumber": "Hr. miesto predošlé č.",

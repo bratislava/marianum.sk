@@ -18,12 +18,12 @@ const OpeningHoursSection = ({ section, ...rest }: OpeningHoursSectionProps) => 
       <div className="flex flex-col gap-4">
         {filteredOffices.map((office) => {
           const { branch, openingHours } = office.attributes ?? {}
-          const { title: branchTitle, address: branchAddress } = branch?.data?.attributes ?? {}
+          const { title: cemeteryTitle, address: branchAddress } = branch?.data?.attributes ?? {}
 
           return (
             <Row
               border
-              title={branchTitle}
+              title={cemeteryTitle}
               address={branchAddress}
               moreContent={
                 <div className="flex flex-col gap-3">

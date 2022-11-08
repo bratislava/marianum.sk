@@ -6,6 +6,7 @@ import MarianumLogoWithText from '../../../assets/marianum_logo_with_text.svg'
 import MenuIcon from '../../../assets/menu.svg'
 import PhoneIcon from '../../../assets/phone.svg'
 import { ContactEntityFragment } from '../../../graphql'
+import { getPhoneNumberLink } from '../../../utils/getPhoneNumberLink'
 import Button from '../../atoms/Button'
 import IconButton from '../../atoms/IconButton'
 import MLink from '../../atoms/MLink'
@@ -34,12 +35,12 @@ const Navigation = ({ contact }: NavigationProps) => {
       {title && <div className="opacity-72">{title}:</div>}
       <div className="flex gap-3">
         {phone1 && (
-          <Button href={`tel:${phone1}`} startIcon={<PhoneIcon />} variant="plain-white">
+          <Button href={getPhoneNumberLink(phone1)} startIcon={<PhoneIcon />} variant="plain-white">
             {phone1}
           </Button>
         )}
         {phone2 && (
-          <Button href={`tel:${phone2}`} startIcon={<PhoneIcon />} variant="plain-white">
+          <Button href={getPhoneNumberLink(phone2)} startIcon={<PhoneIcon />} variant="plain-white">
             {phone2}
           </Button>
         )}

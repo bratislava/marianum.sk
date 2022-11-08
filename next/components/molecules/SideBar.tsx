@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import MailIcon from '../../assets/mail.svg'
 import PhoneIcon from '../../assets/phone.svg'
 import { SidebarFragment } from '../../graphql'
+import { getPhoneNumberLink } from '../../utils/getPhoneNumberLink'
 import Button from '../atoms/Button'
 import { useGetFullPath } from './Navigation/NavigationProvider/useGetFullPath'
 
@@ -37,7 +38,7 @@ const SideBar = ({ sidebar }: SideBarProps) => {
               {phone1 && (
                 <Button
                   variant="plain-primary"
-                  href={`tel:${phone1}`}
+                  href={getPhoneNumberLink(phone1)}
                   startIcon={<PhoneIcon />}
                   className="mt-4"
                 >
@@ -63,7 +64,8 @@ const SideBar = ({ sidebar }: SideBarProps) => {
             {phone1 && (
               <Button
                 variant="primary"
-                href={`tel:${phone1}`}
+                // Phone numbers cannot contain spaces.
+                href={getPhoneNumberLink(phone1)}
                 startIcon={<PhoneIcon />}
                 className="mt-6"
               >
@@ -73,7 +75,8 @@ const SideBar = ({ sidebar }: SideBarProps) => {
             {phone2 && (
               <Button
                 variant="tertiary"
-                href={`tel:${phone2}`}
+                // Phone numbers cannot contain spaces.
+                href={getPhoneNumberLink(phone2)}
                 startIcon={<PhoneIcon />}
                 className="mt-3"
               >

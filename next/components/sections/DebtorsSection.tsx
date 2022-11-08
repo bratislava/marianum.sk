@@ -11,7 +11,7 @@ import {
   DebtorsSectionFilters,
   getDebtorsSectionSwrKey,
 } from '../../utils/fetchers/debtorsSectionFetcher'
-import { getCemeteryInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfoInCeremoniesDebtors'
+import { getCemeteryInfoInCeremoniesDebtorsMeili } from '../../utils/getCemeteryInfoInCeremoniesDebtors'
 import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import Loading from '../atoms/Loading'
@@ -51,10 +51,10 @@ const Table = ({
         i18n.language,
       )
 
-      const branch = slug ? <CemeteryLink slug={slug} title={title} /> : title
+      const cemetery = slug ? <CemeteryLink slug={slug} title={title} /> : title
       return {
         ...debtor,
-        branch,
+        cemetery,
       }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -66,7 +66,7 @@ const Table = ({
       <table className="m-table colored">
         <thead ref={theadRef}>
           <tr>
-            <th>{t('th.branchTitle')}</th>
+            <th>{t('th.cemeteryTitle')}</th>
             <th>{t('th.graveSector')}</th>
             <th>{t('th.graveNumber')}</th>
             <th>{t('th.gravePreviousNumber')}</th>
@@ -80,7 +80,7 @@ const Table = ({
           {debtors?.map((debtor, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <tr key={index}>
-              <td>{debtor.branch}</td>
+              <td>{debtor.cemetery}</td>
               <td>{debtor.graveSector}</td>
               <td>{debtor.graveNumber}</td>
               <td>{debtor.gravePreviousNumber}</td>
