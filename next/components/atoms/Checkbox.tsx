@@ -21,7 +21,7 @@ const Checkbox = (
 
   const isDisabledOrReadonly = props.isDisabled || props.isReadOnly
   const checkboxClassName = cx(
-    'mr-[14px] grid h-5 w-5 place-content-center rounded border-2 text-white',
+    'mr-[14px] grid h-5 w-5 shrink-0 place-content-center rounded border-2 text-white',
     {
       'border-primary': !props.hasError,
       'hover:border-primary-dark group-hover:border-primary-dark':
