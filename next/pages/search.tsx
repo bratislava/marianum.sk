@@ -62,10 +62,7 @@ const SearchSection = () => {
     delayedLoading,
     loadingAndNoDataToDisplay,
     emptySearchQuery,
-  } = useSearch({
-    filters,
-    isSyncedWithUrlQuery: true,
-  })
+  } = useSearch({ filters, isSyncedWithUrlQuery: true })
 
   const handleChangePage = (page: number) => {
     setFilters({ ...filters, page })
@@ -103,7 +100,7 @@ const SearchSection = () => {
           </div>
           {!loadingAndNoDataToDisplay && !emptySearchQuery && (
             <div className="whitespace-nowrap">
-              {t('resultsFound', { count: dataToDisplay?.estimatedTotalHits })}
+              {t('resultsFound', { count: dataToDisplay?.estimatedTotalHits ?? 0 })}
             </div>
           )}
         </div>

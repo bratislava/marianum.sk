@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
+import { useEventListener } from 'usehooks-ts'
 
 import ArrowIcon from '../../assets/arrow_back.svg'
 import IconButton from './IconButton'
@@ -13,15 +14,15 @@ const ScrollToTopButton = () => {
 
   const [visible, setVisible] = useState(false)
 
-  if (typeof window !== 'undefined') {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        setVisible(true)
-      } else {
-        setVisible(false)
-      }
-    })
+  const handleScroll = () => {
+    if (window.scrollY > 300) {
+      setVisible(true)
+    } else {
+      setVisible(false)
+    }
   }
+
+  useEventListener('scroll', handleScroll)
 
   return (
     <IconButton
