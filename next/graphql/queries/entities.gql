@@ -199,6 +199,19 @@ fragment CemeteryInCeremoniesDebtorsEntity on CemeteryEntity {
   }
 }
 
+fragment CemeteryInApplicationEntity on CemeteryEntity {
+  __typename
+  id
+  attributes {
+    slug
+    title
+    address
+    ziadostHroboveMiesto
+    ziadostUrnoveMiestoVZemi
+    ziadostUrnovaStena
+  }
+}
+
 fragment BundleCardEntity on BundleEntity {
   __typename
   id
