@@ -19,6 +19,7 @@ import Loading from '../../atoms/Loading'
 import LoadingOverlay from '../../atoms/LoadingOverlay'
 import FilteringSearchInput from '../../molecules/FilteringSearchInput'
 import FiltersBackgroundWrapper from '../../molecules/FiltersBackgroundWrapper'
+import { useGetFullPathMeili } from '../../molecules/Navigation/NavigationProvider/useGetFullPath'
 import PaginationMeili from '../../molecules/PaginationMeili'
 import Row from '../../molecules/Row/Row'
 import Section from '../../molecules/Section'
@@ -38,6 +39,8 @@ const Documents = ({
   const documentsRef = useRef<HTMLDivElement>(null)
   useScrollToViewIfDataChange(data, filters, documentsRef)
 
+  const { getFullPathMeili } = useGetFullPathMeili()
+
   if (data.hits.length > 0) {
     return (
       <div className="grid space-y-3" ref={documentsRef}>
@@ -56,7 +59,7 @@ const Documents = ({
                   }
                 : null
             }
-            linkHref={`documents/${document.slug}`}
+            linkHref={getFullPathMeili('document', document) ?? ''}
             button={
               <Button
                 variant="tertiary"
