@@ -143,6 +143,36 @@
         }
       },
       "component": "general.seo"
+    },
+    "ziadostHroboveMiesto": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "ziadostUrnoveMiestoVZemi": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "ziadostUrnovaStena": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }
