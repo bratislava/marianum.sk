@@ -188,7 +188,7 @@ const CeremoniesArchiveSection = () => {
 
   return (
     <Section overlayWithHero>
-      <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 bg-white md:mb-6 md:grid-cols-3">
+      <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3">
         <div>
           <CeremoniesDebtorsCemeterySelect
             type="ceremonies"
