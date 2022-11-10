@@ -98,16 +98,16 @@ export default {
 
         // Only ceremonies in the days that are present in XLSX are deleted and replaced by new one. All the others are
         // kept as they are.
-        const deleteFilters = {
-          $or: parsedCeremonies.map(({ day }) => {
-            const parsedDay = moment.tz(
-              day,
-              "DD.MM.YYYY",
-              true, // Strict mode ensures the date is in correct format.
-              "Europe/Bratislava"
-            );
+        const deleteFilters = parsedCeremonies.map(({ day }) => {
+          const parsedDay = moment.tz(
+            day,
+            "DD.MM.YYYY",
+            true, // Strict mode ensures the date is in correct format.
+            "Europe/Bratislava"
+          );
 
-            return [
+          return {
+            $and: [
               {
                 dateTime: {
                   $gte: parsedDay.startOf("day").toISOString(),
@@ -118,13 +118,13 @@ export default {
                   $lt: parsedDay.endOf("day").toISOString(),
                 },
               },
-            ];
-          }),
-        };
+            ],
+          };
+        });
 
         const deleteCeremonies = async () => {
           await strapi.db.query("api::ceremony.ceremony").deleteMany({
-            filters: deleteFilters,
+            where: { $or: deleteFilters },
           });
           // `deleteMany` doesn't trigger Meilisearch hooks, so the old ceremonies stay in its database,
           // also having Meilisearch on while adding ceremonies triggers the update content hook after
