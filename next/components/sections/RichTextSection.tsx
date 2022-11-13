@@ -1,4 +1,5 @@
-import { RichtextSectionFragment } from '../../graphql'
+import { RichtextSectionFragment } from '@graphql'
+
 import Button from '../atoms/Button'
 import RichText from '../atoms/RichText/RichText'
 import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'

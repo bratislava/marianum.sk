@@ -2,10 +2,10 @@ import { useMemo } from 'react'
 import { SWRResponse } from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
-import { usePrevious } from './hooks'
+import { usePrevious } from './usePrevious'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function useGetSwrExtras<Data = any, Error = any>({
+export function useGetSwrExtras<Data = any, Error = any>({
   error,
   data,
   loadingDelay = 1000,

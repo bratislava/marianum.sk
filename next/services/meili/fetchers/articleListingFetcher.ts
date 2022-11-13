@@ -1,11 +1,10 @@
+import { client } from '@services/gqlClient'
+import { meiliClient } from '@services/meili/meiliClient'
+import { getMeilisearchPageOptions, isDefined } from '@utils'
 import { Key } from 'swr'
 
-import { Option } from '../../components/atoms/Select'
-import { ArticleMeili } from '../../types/meiliTypes'
-import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
-import { client } from '../gql'
-import { isDefined } from '../isDefined'
-import { meiliClient } from '../meilisearch'
+import { Option } from '../../../components/atoms/Select'
+import { ArticleMeili } from '../meiliTypes'
 import { SearchIndexWrapped, unwrapFromSearchIndex } from './searchIndexWrapped'
 
 export enum ArticleListingType {

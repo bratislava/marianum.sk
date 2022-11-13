@@ -1,7 +1,6 @@
+import { CloseCircleIcon, SearchIcon } from '@assets/icons'
 import { useTranslation } from 'next-i18next'
 
-import SearchIcon from '../../assets/search.svg'
-import XIcon from '../../assets/x-alt.svg'
 import TextField from '../atoms/TextField'
 
 export type FilteringSearchInputProps = {
@@ -24,7 +23,7 @@ const FilteringSearchInput = ({ value, onChange }: FilteringSearchInputProps) =>
       rightSlot={
         value ? (
           <button type="button" className="p-2" onClick={handleCancelClick}>
-            <XIcon />
+            <CloseCircleIcon />
           </button>
         ) : null
       }

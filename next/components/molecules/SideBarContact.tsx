@@ -1,8 +1,7 @@
+import { MailIcon, PhoneIcon } from '@assets/icons'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
-import MailIcon from '../../assets/mail.svg'
-import PhoneIcon from '../../assets/phone.svg'
 import Button from '../atoms/Button'
 
 type SideBarContactProps = {

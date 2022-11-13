@@ -1,7 +1,7 @@
+import { GeneralEntityFragment, NavigationItemFragment } from '@graphql'
+import { isDefined } from '@utils'
 import { ReactNode } from 'react'
 
-import { GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
-import { isDefined } from '../../utils/isDefined'
 import ScrollToTopButton from '../atoms/ScrollToTopButton'
 import Footer from '../molecules/Footer/Footer'
 import Navigation from '../molecules/Navigation/Navigation'

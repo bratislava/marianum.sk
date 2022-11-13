@@ -1,13 +1,9 @@
+import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import filesize from 'filesize'
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
 import { Fragment, ReactNode, useMemo, useState } from 'react'
 
-import {
-  DocumentEntityFragment,
-  GeneralEntityFragment,
-  NavigationItemFragment,
-} from '../../graphql'
 import Button from '../atoms/Button'
 import FileIcon from '../atoms/FileIcon'
 import FormatDate from '../atoms/FormatDate'

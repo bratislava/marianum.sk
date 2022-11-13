@@ -1,9 +1,8 @@
+import { meiliClient } from '@services/meili/meiliClient'
+import { getMeilisearchPageOptions, isDefined } from '@utils'
 import { Key } from 'swr'
 
-import { CeremonyMeili } from '../../types/meiliTypes'
-import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
-import { isDefined } from '../isDefined'
-import { meiliClient } from '../meilisearch'
+import { CeremonyMeili } from '../meiliTypes'
 
 export type CeremoniesArchiveSectionFilters = {
   pageSize: number

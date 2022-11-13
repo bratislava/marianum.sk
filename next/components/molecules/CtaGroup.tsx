@@ -1,5 +1,6 @@
-import { CtaSectionFragment } from '../../graphql'
-import { isDefined } from '../../utils/isDefined'
+import { CtaSectionFragment } from '@graphql'
+import { isDefined } from '@utils'
+
 import Button from '../atoms/Button'
 import { useGetFullPath } from './Navigation/NavigationProvider/useGetFullPath'
 

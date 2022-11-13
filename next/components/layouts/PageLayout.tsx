@@ -1,12 +1,12 @@
-import cx from 'classnames'
-import { ReactNode } from 'react'
-
 import {
   Enum_Page_Layout,
   GeneralEntityFragment,
   NavigationItemFragment,
   PageEntityFragment,
-} from '../../graphql'
+} from '@graphql'
+import cx from 'classnames'
+import { ReactNode } from 'react'
+
 import NormalizeSkText from '../atoms/NormalizeSkText'
 import SideBar from '../molecules/SideBar'
 import HeroSection from '../sections/HeroSection'

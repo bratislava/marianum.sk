@@ -1,6 +1,6 @@
+import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import { ReactNode } from 'react'
 
-import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import SideBar from '../molecules/SideBar'
 import HeroSection from '../sections/HeroSection'
 import PageWrapper from './PageWrapper'

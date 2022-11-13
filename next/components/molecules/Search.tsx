@@ -1,3 +1,4 @@
+import { CloseCircleIcon, CloseIcon, SearchIcon } from '@assets/icons'
 import { useTranslation } from 'next-i18next'
 import {
   DetailedHTMLProps,
@@ -8,9 +9,6 @@ import {
   useState,
 } from 'react'
 
-import CloseIcon from '../../assets/close.svg'
-import SearchIcon from '../../assets/search.svg'
-import XAltIcon from '../../assets/x-alt.svg'
 import TextField from '../atoms/TextField'
 
 type SearchProps = {
@@ -87,7 +85,7 @@ const Search = ({
       rightSlot={
         realValue ? (
           <button onClick={clearHandler} type="button" className="p-2">
-            {isLarge ? <CloseIcon /> : <XAltIcon />}
+            {isLarge ? <CloseIcon /> : <CloseCircleIcon />}
           </button>
         ) : null
       }

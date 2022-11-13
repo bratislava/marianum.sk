@@ -1,7 +1,7 @@
+import { OpeningHoursSectionFragment } from '@graphql'
+import { isDefined } from '@utils'
 import React from 'react'
 
-import { OpeningHoursSectionFragment } from '../../graphql'
-import { isDefined } from '../../utils/isDefined'
 import Row from '../molecules/Row/Row'
 import Section, { SectionProps } from '../molecules/Section'
 

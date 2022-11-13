@@ -1,7 +1,7 @@
+import { BundleListingFragment } from '@graphql'
+import { isDefined } from '@utils'
 import { useMemo } from 'react'
 
-import { BundleListingFragment } from '../../graphql'
-import { isDefined } from '../../utils/isDefined'
 import TabItem from '../atoms/Tabs/TabItem'
 import Tabs from '../atoms/Tabs/Tabs'
 import BundleCard from '../molecules/Cards/BundleCard'

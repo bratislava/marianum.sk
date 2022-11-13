@@ -1,19 +1,18 @@
+import { DownloadIcon } from '@assets/icons'
+import {
+  documentsSectionDefaultFilters,
+  documentsSectionFetcher,
+  DocumentsSectionFilters,
+  getDocumentsSectionSwrKey,
+} from '@services/meili/fetchers'
+import { DocumentMeili } from '@services/meili/meiliTypes'
+import { useGetSwrExtras, useScrollToViewIfDataChange } from '@utils'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
-import DownloadIcon from '../../../assets/download.svg'
-import { DocumentMeili } from '../../../types/meiliTypes'
-import {
-  documentsSectionDefaultFilters,
-  documentsSectionFetcher,
-  DocumentsSectionFilters,
-  getDocumentsSectionSwrKey,
-} from '../../../utils/fetchers/documentsSectionFetcher'
-import useGetSwrExtras from '../../../utils/useGetSwrExtras'
-import { useScrollToViewIfDataChange } from '../../../utils/useScrollToViewIfDataChange'
 import Button from '../../atoms/Button'
 import Loading from '../../atoms/Loading'
 import LoadingOverlay from '../../atoms/LoadingOverlay'

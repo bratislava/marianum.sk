@@ -1,8 +1,8 @@
+import { client } from '@services/gqlClient'
+import { isDefined } from '@utils'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { client } from '../../../utils/gql'
-import { isDefined } from '../../../utils/isDefined'
 import SelectWithFetcher from '../../molecules/SelectWithFetcher'
 
 type DocumentsSectionFiletypeSelectProps = {

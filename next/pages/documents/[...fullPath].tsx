@@ -1,3 +1,5 @@
+import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
+import { client } from '@services/gqlClient'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
@@ -9,12 +11,6 @@ import {
   generateStaticProps,
 } from '../../components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
 import Seo from '../../components/molecules/Seo'
-import {
-  DocumentEntityFragment,
-  GeneralEntityFragment,
-  NavigationItemFragment,
-} from '../../graphql'
-import { client } from '../../utils/gql'
 
 type DocumentPageProps = {
   navigation: NavigationItemFragment[]

@@ -1,10 +1,10 @@
+import { ShoppingCartIcon } from '@assets/icons'
 import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useRef } from 'react'
 import { useHover } from 'usehooks-ts'
 
-import ShoppingCartIcon from '../../../assets/shopping_cart.svg'
 import Button from '../../atoms/Button'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'

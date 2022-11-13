@@ -1,8 +1,7 @@
+import { AddIcon, CheckIcon } from '@assets/icons'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import PlusIcon from '../../../assets/add.svg'
-import CheckIcon from '../../../assets/check.svg'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
 import FormatCurrency from '../../atoms/FormatCurrency'
@@ -95,7 +94,7 @@ const BundleCard = ({
                 // eslint-disable-next-line react/no-array-index-key
                 <li key={index} className="mt-1 flex gap-3 text-sm font-semibold">
                   <span className="mt-0.5 text-primary-light">
-                    <PlusIcon />
+                    <AddIcon />
                   </span>
                   {claim}
                 </li>

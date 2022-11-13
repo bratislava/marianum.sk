@@ -1,4 +1,4 @@
-import { client } from '../gql'
+import { client } from '@services/gqlClient'
 
 export const reviewsFetcher = (locale: string) => () => client.Reviews({ locale })
 

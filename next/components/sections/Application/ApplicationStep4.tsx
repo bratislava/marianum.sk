@@ -1,10 +1,10 @@
+import MapMarkerIcon from '@assets/map-marker.svg'
+import { CemeteryInApplicationEntityFragment } from '@graphql'
 import { RadioGroup } from '@headlessui/react'
 import React, { useMemo } from 'react'
 import { DeepPartial } from 'react-hook-form'
 import * as yup from 'yup'
 
-import MapMarkerIcon from '../../../assets/map-marker.svg'
-import { CemeteryInApplicationEntityFragment } from '../../../graphql'
 import FormRadioGroup from '../../atoms/Forms/FormRadioGroup'
 import RadioCircle from '../../atoms/Radio/RadioCircle'
 import { ApplicationTypes } from './application.types'

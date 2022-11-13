@@ -1,7 +1,7 @@
+import { EditIcon } from '@assets/icons'
 import React, { PropsWithChildren } from 'react'
 import { DeepPartial } from 'react-hook-form'
 
-import EditIcon from '../../../assets/edit.svg'
 import IconButton from '../../atoms/IconButton'
 import { ApplicationTypes } from './application.types'
 

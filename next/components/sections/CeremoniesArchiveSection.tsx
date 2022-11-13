@@ -1,19 +1,21 @@
+import {
+  ceremoniesArchiveSectionDefaultFilters,
+  ceremoniesArchiveSectionFetcher,
+  CeremoniesArchiveSectionFilters,
+  getCeremoniesArchiveSectionSwrKey,
+} from '@services/meili/fetchers'
+import { CeremonyMeili } from '@services/meili/meiliTypes'
+import {
+  getCemeteryInfoInCeremoniesDebtorsMeili,
+  useGetSwrExtras,
+  useScrollToViewIfDataChange,
+} from '@utils'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
-import { CeremonyMeili } from '../../types/meiliTypes'
-import {
-  ceremoniesArchiveSectionDefaultFilters,
-  ceremoniesArchiveSectionFetcher,
-  CeremoniesArchiveSectionFilters,
-  getCeremoniesArchiveSectionSwrKey,
-} from '../../utils/fetchers/ceremoniesArchiveSectionFetcher'
-import { getCemeteryInfoInCeremoniesDebtorsMeili } from '../../utils/getCemeteryInfoInCeremoniesDebtors'
-import useGetSwrExtras from '../../utils/useGetSwrExtras'
-import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import FormatDate from '../atoms/FormatDate'
 import Loading from '../atoms/Loading'
 import LoadingOverlay from '../atoms/LoadingOverlay'

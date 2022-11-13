@@ -1,8 +1,7 @@
+import { SeoFragment, UploadImageEntityFragment } from '@graphql'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-
-import { SeoFragment, UploadImageEntityFragment } from '../../graphql'
 
 interface SeoProps {
   seo?: SeoFragment | null

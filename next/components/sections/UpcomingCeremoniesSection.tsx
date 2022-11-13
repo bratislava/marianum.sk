@@ -1,16 +1,12 @@
+import { UpcomingCeremoniesSectionFragment } from '@graphql'
 import { isSameDay, parseAbsolute } from '@internationalized/date'
+import { upcomingCeremoniesFetcher, upcomingCeremoniesSwrKey } from '@services/meili/fetchers'
+import { getCemeteryInfoInCeremoniesDebtors, useGetSwrExtras } from '@utils'
+import { bratislavaTimezone } from '@utils/consts'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 import useSWR from 'swr'
 
-import { UpcomingCeremoniesSectionFragment } from '../../graphql'
-import { bratislavaTimezone } from '../../utils/consts'
-import {
-  upcomingCeremoniesFetcher,
-  upcomingCeremoniesSwrKey,
-} from '../../utils/fetchers/upcomingCeremoniesFetcher'
-import { getCemeteryInfoInCeremoniesDebtors } from '../../utils/getCemeteryInfoInCeremoniesDebtors'
-import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import FormatDate from '../atoms/FormatDate'
 import Loading from '../atoms/Loading'
 import MLink from '../atoms/MLink'

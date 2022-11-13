@@ -1,9 +1,12 @@
+import { CheckNoPaddingIcon } from '@assets/icons'
+import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
+import { client } from '@services/gqlClient'
+import { isDefined } from '@utils/isDefined'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { ParsedUrlQuery } from 'node:querystring'
 
-import CheckIcon from '../../assets/check_noPadding.svg'
 import FormatCurrency from '../../components/atoms/FormatCurrency'
 import RichText from '../../components/atoms/RichText/RichText'
 import BundleLayout from '../../components/layouts/BundleLayout'
@@ -16,9 +19,6 @@ import {
 } from '../../components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
 import Section from '../../components/molecules/Section'
 import Seo from '../../components/molecules/Seo'
-import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
-import { client } from '../../utils/gql'
-import { isDefined } from '../../utils/isDefined'
 
 type BundlePageProps = {
   navigation: NavigationItemFragment[]
@@ -60,7 +60,7 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, entity, general }) 
                   // eslint-disable-next-line react/no-array-index-key
                   <li key={index} className="mt-4 flex gap-4">
                     <span className="mt-1.5 text-primary">
-                      <CheckIcon className="scale-125" />
+                      <CheckNoPaddingIcon className="scale-125" />
                     </span>
                     {item?.description}
                   </li>

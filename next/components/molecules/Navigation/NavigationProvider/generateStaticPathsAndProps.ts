@@ -1,12 +1,11 @@
+import { GeneralEntityFragment, NavigationItemFragment } from '@graphql'
+import { client } from '@services/gqlClient'
+import { isDefined, parseNavigation } from '@utils'
 import last from 'lodash/last'
 import { GetStaticPathsResult, GetStaticPropsResult } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { GeneralEntityFragment, NavigationItemFragment } from '../../../../graphql'
-import { client } from '../../../../utils/gql'
-import { isDefined } from '../../../../utils/isDefined'
-import { parseNavigation } from '../../../../utils/parseNavigation'
 import { getFullPathFn, isCurrentPathValid, UnionSlugEntityType } from './useGetFullPath'
 
 /**

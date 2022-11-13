@@ -1,7 +1,6 @@
+import { GeneralEntityFragment, NavigationItemFragment } from '@graphql'
+import { NavMap, parseNavigation } from '@utils/parseNavigation'
 import { createContext, PropsWithChildren, useMemo } from 'react'
-
-import { GeneralEntityFragment, NavigationItemFragment } from '../../../../graphql'
-import { NavMap, parseNavigation } from '../../../../utils/parseNavigation'
 
 type NavigationContextProps = {
   navigation: NavigationItemFragment[]

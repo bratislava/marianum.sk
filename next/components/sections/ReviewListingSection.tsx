@@ -1,10 +1,10 @@
+import { ReviewEntityFragment } from '@graphql'
+import { isDefined } from '@utils'
 import cx from 'classnames'
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { useMemo, useState } from 'react'
 
-import { ReviewEntityFragment } from '../../graphql'
-import { isDefined } from '../../utils/isDefined'
 import { AnimateHeight } from '../atoms/AnimateHeight'
 import Pagination from '../atoms/Pagination/Pagination'
 import Review from '../molecules/Review'

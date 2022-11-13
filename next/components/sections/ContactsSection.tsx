@@ -1,10 +1,8 @@
+import { MailIcon, PhoneIcon } from '@assets/icons'
+import { ContactGroupFragment } from '@graphql'
+import { getPhoneNumberLink, isDefined } from '@utils'
 import { useMemo } from 'react'
 
-import MailIcon from '../../assets/mail.svg'
-import PhoneIcon from '../../assets/phone.svg'
-import { ContactGroupFragment } from '../../graphql'
-import { getPhoneNumberLink } from '../../utils/getPhoneNumberLink'
-import { isDefined } from '../../utils/isDefined'
 import MLink from '../atoms/MLink'
 import Section, { SectionProps } from '../molecules/Section'
 

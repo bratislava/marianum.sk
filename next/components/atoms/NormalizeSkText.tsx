@@ -1,7 +1,6 @@
+import { normalizeSkText } from '@utils'
 import { useTranslation } from 'next-i18next'
 import { PropsWithChildren, useMemo } from 'react'
-
-import { normalizeSkText } from '../../utils/normalizeSkText'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 const NormalizeSkText = ({ children }: PropsWithChildren<{}>) => {

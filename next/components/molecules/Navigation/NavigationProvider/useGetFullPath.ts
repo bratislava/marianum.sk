@@ -1,5 +1,3 @@
-import { useMemo } from 'react'
-
 import {
   ArticleSlugEntityFragment,
   Branch,
@@ -11,10 +9,11 @@ import {
   NavigationItemFragment,
   Page,
   PageSlugEntityFragment,
-} from '../../../../graphql'
-import { ArticleMeili, CemeteryMeili, DocumentMeili } from '../../../../types/meiliTypes'
-import { isDefined } from '../../../../utils/isDefined'
-import { NavMap, parseNavigation } from '../../../../utils/parseNavigation'
+} from '@graphql'
+import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@services/meili/meiliTypes'
+import { isDefined, NavMap, parseNavigation } from '@utils'
+import { useMemo } from 'react'
+
 import { useNavigationContext } from './useNavigationContext'
 
 // TODO move this to separate file and add translation logic

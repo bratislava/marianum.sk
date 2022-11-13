@@ -1,10 +1,8 @@
+import { CheckIcon, CloseCircleIcon, InfoIcon } from '@assets/icons'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { useContext } from 'react'
 
-import CheckIcon from '../../assets/check.svg'
-import InfoIcon from '../../assets/info.svg'
-import XIcon from '../../assets/x-alt.svg'
 import Button from './Button'
 import { cookieConsentContext } from './CookieConsent'
 import IconButton from './IconButton'
@@ -35,7 +33,7 @@ const CookieBanner = () => {
                     className="shrink-0"
                     onPress={onCloseBanner}
                   >
-                    <XIcon />
+                    <CloseCircleIcon />
                   </IconButton>
                 </div>
                 <p className="flex-1 px-8">{t('banner.description')}</p>
@@ -55,7 +53,7 @@ const CookieBanner = () => {
                   aria-label={t('aria.rejectAllCookies')}
                   variant="secondary"
                   onPress={onRejectAll}
-                  startIcon={<XIcon />}
+                  startIcon={<CloseCircleIcon />}
                 >
                   {t('rejectAll')}
                 </Button>

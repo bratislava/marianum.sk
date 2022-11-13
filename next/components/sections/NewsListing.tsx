@@ -1,10 +1,9 @@
+import { getNewsListingSwrKey, newsListingFetcher } from '@services/meili/fetchers'
+import { isDefined, useGetSwrExtras } from '@utils'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 import useSWR from 'swr'
 
-import { getNewsListingSwrKey, newsListingFetcher } from '../../utils/fetchers/newsListingFetcher'
-import { isDefined } from '../../utils/isDefined'
-import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import Loading from '../atoms/Loading'
 import ArticleCard from '../molecules/Cards/ArticleCard'
 import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'

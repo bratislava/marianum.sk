@@ -1,12 +1,11 @@
+import { MarianumLogoWithTextSvg } from '@assets'
+import { MenuIcon, PhoneIcon } from '@assets/icons'
+import { ContactEntityFragment } from '@graphql'
+import { getPhoneNumberLink } from '@utils'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useContext, useState } from 'react'
 
-import MarianumLogoWithText from '../../../assets/marianum_logo_with_text.svg'
-import MenuIcon from '../../../assets/menu.svg'
-import PhoneIcon from '../../../assets/phone.svg'
-import { ContactEntityFragment } from '../../../graphql'
-import { getPhoneNumberLink } from '../../../utils/getPhoneNumberLink'
 import Button from '../../atoms/Button'
 import IconButton from '../../atoms/IconButton'
 import MLink from '../../atoms/MLink'
@@ -68,7 +67,7 @@ const Navigation = ({ contact }: NavigationProps) => {
             noArrow
             aria-label={t('home')}
           >
-            <MarianumLogoWithText className="h-full w-full" />
+            <MarianumLogoWithTextSvg className="h-full w-full" />
           </MLink>
           {/* right side of navigation */}
           <div className="flex items-center gap-4 xl:gap-8">

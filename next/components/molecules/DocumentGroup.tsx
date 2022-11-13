@@ -1,9 +1,9 @@
+import { DownloadIcon } from '@assets/icons'
+import { DocumentGroupFragment } from '@graphql'
+import { isDefined } from '@utils'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import DownloadIcon from '../../assets/download.svg'
-import { DocumentGroupFragment } from '../../graphql'
-import { isDefined } from '../../utils/isDefined'
 import Button from '../atoms/Button'
 import { useGetFullPath } from './Navigation/NavigationProvider/useGetFullPath'
 import Row from './Row/Row'

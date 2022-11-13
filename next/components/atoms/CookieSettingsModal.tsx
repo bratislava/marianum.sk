@@ -1,10 +1,8 @@
+import { CheckIcon, CloseCircleIcon, CloseIcon } from '@assets/icons'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useContext, useEffect, useState } from 'react'
 
-import CheckIcon from '../../assets/check.svg'
-import CloseIcon from '../../assets/close.svg'
-import XIcon from '../../assets/x-alt.svg'
 import Button from './Button'
 import Checkbox from './Checkbox'
 import { cookieConsentContext } from './CookieConsent'
@@ -157,7 +155,7 @@ const CookieSettingsModal = () => {
                 className="whitespace-nowrap"
                 variant="secondary"
                 onPress={onRejectAll}
-                startIcon={<XIcon />}
+                startIcon={<CloseCircleIcon />}
               >
                 {t('rejectAll')}
               </Button>

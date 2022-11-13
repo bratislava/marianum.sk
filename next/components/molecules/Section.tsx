@@ -1,8 +1,8 @@
+import { CtaButtonFragment } from '@graphql'
+import { useActivateHeroSectionContentOverlay } from '@utils'
 import cx from 'classnames'
 import { ReactNode, useContext, useMemo } from 'react'
 
-import { CtaButtonFragment } from '../../graphql'
-import { useActivateHeroSectionContentOverlay } from '../../utils/heroSectionContentOverlay'
 import MLink from '../atoms/MLink'
 import { BackgroundColor, sectionContext } from '../layouts/SectionsWrapper'
 import { useGetFullPath } from './Navigation/NavigationProvider/useGetFullPath'

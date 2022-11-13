@@ -1,8 +1,8 @@
+import { client } from '@services/gqlClient'
+import { getCemeteryInfoInCeremoniesDebtors } from '@utils'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { getCemeteryInfoInCeremoniesDebtors } from '../../../utils/getCemeteryInfoInCeremoniesDebtors'
-import { client } from '../../../utils/gql'
 import SelectWithFetcher from '../SelectWithFetcher'
 
 type CeremoniesDebtorsCemeterySelectProps = {

@@ -1,10 +1,9 @@
+import { meiliClient } from '@services/meili/meiliClient'
+import { getMeilisearchPageOptions, isDefined } from '@utils'
 import { Key } from 'swr'
 
-import { Sort } from '../../components/molecules/SortSelect'
-import { DocumentMeili } from '../../types/meiliTypes'
-import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
-import { isDefined } from '../isDefined'
-import { meiliClient } from '../meilisearch'
+import { Sort } from '../../../components/molecules/SortSelect'
+import { DocumentMeili } from '../meiliTypes'
 import { SearchIndexWrapped, unwrapFromSearchIndex } from './searchIndexWrapped'
 
 export type DocumentsSectionFilters = {

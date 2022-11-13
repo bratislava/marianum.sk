@@ -1,3 +1,5 @@
+import { AddIcon, ArrowRightIcon, CloseCircleIcon, DownloadIcon, SearchIcon } from '@assets/icons'
+import { UploadFile } from '@graphql'
 import { RadioGroup } from '@headlessui/react'
 import cx from 'classnames'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
@@ -6,11 +8,6 @@ import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ReactNode, useMemo, useState } from 'react'
 
-import AddIcon from '../../assets/add.svg'
-import ArrowRightIcon from '../../assets/arrow_forward.svg'
-import DownloadIcon from '../../assets/download.svg'
-import SearchIcon from '../../assets/search.svg'
-import XIcon from '../../assets/x-alt.svg'
 import Avatar from '../../components/atoms/Avatar'
 import Breadcrumbs from '../../components/atoms/Breadcrumbs'
 import Button from '../../components/atoms/Button'
@@ -44,7 +41,6 @@ import Review from '../../components/molecules/Review'
 import Row from '../../components/molecules/Row/Row'
 import Search from '../../components/molecules/Search'
 import Section from '../../components/molecules/Section'
-import { UploadFile } from '../../graphql'
 
 /* eslint-disable no-secrets/no-secrets, sonarjs/no-duplicate-string, unicorn/numeric-separators-style */
 const image: UploadFile = {
@@ -492,7 +488,7 @@ const Showcase = () => {
                 id="deafault-right-icon"
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -506,7 +502,7 @@ const Showcase = () => {
                 }
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -530,7 +526,7 @@ const Showcase = () => {
                 defaultValue="Input"
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -545,7 +541,7 @@ const Showcase = () => {
                 }
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -571,7 +567,7 @@ const Showcase = () => {
                 defaultValue="Input"
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -587,7 +583,7 @@ const Showcase = () => {
                 }
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -613,7 +609,7 @@ const Showcase = () => {
                 defaultValue="Input"
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -629,7 +625,7 @@ const Showcase = () => {
                 }
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -655,7 +651,7 @@ const Showcase = () => {
                 defaultValue="Input"
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -671,7 +667,7 @@ const Showcase = () => {
                 }
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -705,7 +701,7 @@ const Showcase = () => {
                 defaultValue="Input"
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -722,7 +718,7 @@ const Showcase = () => {
                 }
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"

@@ -1,6 +1,5 @@
+import { isDefined } from '@utils'
 import { createContext, HTMLProps, ReactNode, useCallback, useMemo } from 'react'
-
-import { isDefined } from '../../utils/isDefined'
 
 export type BackgroundColor = 'dark' | 'light'
 

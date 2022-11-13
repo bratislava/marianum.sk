@@ -1,6 +1,6 @@
+import { SearchData } from '@utils/useSearch'
 import { useState } from 'react'
 
-import { SearchData } from '../../../../hooks/useSearch'
 import NavigationSearchMobileModal from './NavigationSearchMobileModal'
 import NavigationSearchMobileTrigger from './NavigationSearchMobileTrigger'
 

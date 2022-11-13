@@ -1,10 +1,10 @@
+import { ChevronDownIcon } from '@assets/icons'
 import { Listbox } from '@headlessui/react'
+import { isDefined } from '@utils'
 import cx from 'classnames'
 import { ReactNode, useCallback, useId, useMemo, useState } from 'react'
 import { usePopper } from 'react-popper'
 
-import ChevronDown from '../../assets/chevron_down.svg'
-import { isDefined } from '../../utils/isDefined'
 import FieldWrapper from './FieldWrapper'
 
 export interface Option {
@@ -126,7 +126,7 @@ const Select = ({
               )}
             </div>
             <div className={cx('transform p-2 transition-transform', { 'rotate-180': open })}>
-              <ChevronDown />
+              <ChevronDownIcon />
             </div>
           </FieldWrapper>
         )}

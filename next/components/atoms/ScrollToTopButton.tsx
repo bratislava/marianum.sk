@@ -1,8 +1,8 @@
+import { ArrowLeftIcon } from '@assets/icons'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 import { useEventListener } from 'usehooks-ts'
 
-import ArrowIcon from '../../assets/arrow_back.svg'
 import IconButton from './IconButton'
 
 const handleScrollToTop = () => {
@@ -35,7 +35,7 @@ const ScrollToTopButton = () => {
       }`}
     >
       <div className="-mt-0.5 rotate-90">
-        <ArrowIcon />
+        <ArrowLeftIcon />
       </div>
     </IconButton>
   )

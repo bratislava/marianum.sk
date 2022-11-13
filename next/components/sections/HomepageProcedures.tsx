@@ -1,9 +1,8 @@
+import { CtaButtonFragment, ProcedureFragment } from '@graphql'
+import { isDefined, useTailwindBreakpoint } from '@utils'
 import cx from 'classnames'
 import { useMemo } from 'react'
 
-import { CtaButtonFragment, ProcedureFragment } from '../../graphql'
-import { useTailwindBreakpoint } from '../../hooks/useTailwindBreakpoint'
-import { isDefined } from '../../utils/isDefined'
 import MLink from '../atoms/MLink'
 import TabItem from '../atoms/Tabs/TabItem'
 import Tabs from '../atoms/Tabs/Tabs'

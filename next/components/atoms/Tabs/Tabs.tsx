@@ -1,9 +1,9 @@
+import { useTailwindBreakpoint } from '@utils'
 import { useEffect, useRef } from 'react'
 import { useTabList } from 'react-aria'
 import { TabListProps, useTabListState } from 'react-stately'
 import { useSessionStorage } from 'usehooks-ts'
 
-import { useTailwindBreakpoint } from '../../../hooks/useTailwindBreakpoint'
 import { AnimateHeight } from '../AnimateHeight'
 import TabLabel from './TabLabel'
 import TabPanel from './TabPanel'

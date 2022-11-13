@@ -1,12 +1,9 @@
+import { ArticleNewsCategoryEntityFragment, ArticlePressCategoryEntityFragment } from '@graphql'
 import cx from 'classnames'
 import { useRouter } from 'next/router'
 import React, { useMemo, useRef } from 'react'
 import { useHover } from 'usehooks-ts'
 
-import {
-  ArticleNewsCategoryEntityFragment,
-  ArticlePressCategoryEntityFragment,
-} from '../../../graphql'
 import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
 import CardContent from '../../atoms/Card/CardContent'
 import FormatDate from '../../atoms/FormatDate'

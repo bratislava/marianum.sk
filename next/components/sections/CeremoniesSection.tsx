@@ -1,21 +1,23 @@
+import { CeremoniesQuery, CeremoniesSectionFragment } from '@graphql'
 import { parseAbsolute, parseDate, toCalendarDate } from '@internationalized/date'
+import {
+  ceremoniesSectionDefaultFilters,
+  ceremoniesSectionFetcher,
+  CeremoniesSectionFilters,
+  getCeremoniesSectionSwrKey,
+} from '@services/meili/fetchers'
+import {
+  getCemeteryInfoInCeremoniesDebtors,
+  useGetSwrExtras,
+  useScrollToViewIfDataChange,
+} from '@utils'
+import { bratislavaTimezone } from '@utils/consts'
 import groupBy from 'lodash/groupBy'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Fragment, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 
-import { CeremoniesQuery, CeremoniesSectionFragment } from '../../graphql'
-import { bratislavaTimezone } from '../../utils/consts'
-import {
-  ceremoniesSectionDefaultFilters,
-  ceremoniesSectionFetcher,
-  CeremoniesSectionFilters,
-  getCeremoniesSectionSwrKey,
-} from '../../utils/fetchers/ceremoniesSectionFetcher'
-import { getCemeteryInfoInCeremoniesDebtors } from '../../utils/getCemeteryInfoInCeremoniesDebtors'
-import useGetSwrExtras from '../../utils/useGetSwrExtras'
-import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import FormatDate from '../atoms/FormatDate'
 import Loading from '../atoms/Loading'
 import LoadingOverlay from '../atoms/LoadingOverlay'

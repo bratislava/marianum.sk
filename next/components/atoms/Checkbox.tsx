@@ -1,10 +1,9 @@
+import { CheckNoPaddingIcon } from '@assets/icons'
 import { useToggleState } from '@react-stately/toggle'
 import type { AriaCheckboxProps } from '@react-types/checkbox'
 import cx from 'classnames'
 import React, { useRef } from 'react'
 import { mergeProps, useCheckbox, useFocusRing, VisuallyHidden } from 'react-aria'
-
-import CheckIcon from '../../assets/check_noPadding.svg'
 
 /* eslint-disable react/destructuring-assignment */
 /**
@@ -48,7 +47,9 @@ const Checkbox = (
         <input {...mergeProps(inputProps, focusProps)} ref={ref} />
       </VisuallyHidden>
       <div className={checkboxClassName} aria-hidden="true">
-        {props.isSelected && <CheckIcon className={cx({ 'opacity-50': isDisabledOrReadonly })} />}
+        {props.isSelected && (
+          <CheckNoPaddingIcon className={cx({ 'opacity-50': isDisabledOrReadonly })} />
+        )}
       </div>
       <span className="text-sm">{props.children}</span>
     </label>

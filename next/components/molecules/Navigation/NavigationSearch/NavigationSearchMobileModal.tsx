@@ -1,6 +1,6 @@
+import { SearchData } from '@utils/useSearch'
 import { useTranslation } from 'next-i18next'
 
-import { SearchData } from '../../../../hooks/useSearch'
 import { AnimateHeight } from '../../../atoms/AnimateHeight'
 import Button from '../../../atoms/Button'
 import Modal, { ModalProps } from '../../../atoms/Modal'

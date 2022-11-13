@@ -1,8 +1,8 @@
+import { useSearch } from '@utils/useSearch'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useCallback } from 'react'
 
-import { useSearch } from '../../../../hooks/useSearch'
 import NavigationSearchDesktop from './NavigationSearchDesktop'
 import NavigationSearchMobile from './NavigationSearchMobile'
 
@@ -27,7 +27,7 @@ const NavigationSearch = ({ onDesktopSearchOpen, onDesktopSearchClose }: Navigat
   const { t: pathsT } = useTranslation('common', { keyPrefix: 'paths' })
 
   const handleSearch = useCallback(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises,@typescript-eslint/restrict-template-expressions
     router.push(`${pathsT('search')}?query=${searchQuery ?? ''}`)
   }, [router, searchQuery, pathsT])
 

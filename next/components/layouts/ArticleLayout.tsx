@@ -1,7 +1,7 @@
+import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import cx from 'classnames'
 import { ReactNode } from 'react'
 
-import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
 import FormatDate from '../atoms/FormatDate'
 import MImage from '../atoms/MImage'
 import NormalizeSkText from '../atoms/NormalizeSkText'

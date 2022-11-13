@@ -1,8 +1,8 @@
+import { SearchData } from '@utils/useSearch'
 import cx from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 import { useOnClickOutside } from 'usehooks-ts'
 
-import { SearchData } from '../../../../hooks/useSearch'
 import { AnimateHeight } from '../../../atoms/AnimateHeight'
 import Search from '../../Search'
 import NavigationSearchResults from './NavigationSearchResults'

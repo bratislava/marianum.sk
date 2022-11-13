@@ -1,4 +1,5 @@
-import { NavigationItemFragment } from '../../../graphql'
+import { NavigationItemFragment } from '@graphql'
+
 import MLink from '../../atoms/MLink'
 import Menu from '../Menu/Menu'
 

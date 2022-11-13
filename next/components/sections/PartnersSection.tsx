@@ -1,12 +1,8 @@
+import { partnersSectionFetcher, partnersSectionSwrKey } from '@services/meili/fetchers'
+import { isDefined, useGetSwrExtras } from '@utils'
 import { useMemo } from 'react'
 import useSWR from 'swr'
 
-import {
-  partnersSectionFetcher,
-  partnersSectionSwrKey,
-} from '../../utils/fetchers/partnersSectionFetcher'
-import { isDefined } from '../../utils/isDefined'
-import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import Loading from '../atoms/Loading'
 import PartnerCard from '../molecules/Cards/PartnerCard'
 import Row from '../molecules/Row/Row'

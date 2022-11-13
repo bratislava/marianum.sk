@@ -1,19 +1,21 @@
+import {
+  debtorsSectionDefaultFilters,
+  debtorsSectionFetcher,
+  DebtorsSectionFilters,
+  getDebtorsSectionSwrKey,
+} from '@services/meili/fetchers'
+import { DebtorMeili } from '@services/meili/meiliTypes'
+import {
+  getCemeteryInfoInCeremoniesDebtorsMeili,
+  useGetSwrExtras,
+  useScrollToViewIfDataChange,
+} from '@utils'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
-import { DebtorMeili } from '../../types/meiliTypes'
-import {
-  debtorsSectionDefaultFilters,
-  debtorsSectionFetcher,
-  DebtorsSectionFilters,
-  getDebtorsSectionSwrKey,
-} from '../../utils/fetchers/debtorsSectionFetcher'
-import { getCemeteryInfoInCeremoniesDebtorsMeili } from '../../utils/getCemeteryInfoInCeremoniesDebtors'
-import useGetSwrExtras from '../../utils/useGetSwrExtras'
-import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
 import Loading from '../atoms/Loading'
 import LoadingOverlay from '../atoms/LoadingOverlay'
 import CemeteryLink from '../molecules/CemeteryLink'

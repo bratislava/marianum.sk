@@ -1,19 +1,18 @@
-import { SearchResponse } from 'meilisearch'
-import { useTranslation } from 'next-i18next'
-import { useEffect, useRef, useState } from 'react'
-import useSwr from 'swr'
-import { useDebounce } from 'usehooks-ts'
-
-import { ArticleMeili } from '../../../types/meiliTypes'
 import {
   articleListingDefaultFilters,
   ArticleListingFilters,
   ArticleListingType,
   getArticleListingFetcher,
   getArticleListingSwrKey,
-} from '../../../utils/fetchers/articleListingFetcher'
-import useGetSwrExtras from '../../../utils/useGetSwrExtras'
-import { useScrollToViewIfDataChange } from '../../../utils/useScrollToViewIfDataChange'
+} from '@services/meili/fetchers'
+import { ArticleMeili } from '@services/meili/meiliTypes'
+import { useGetSwrExtras, useScrollToViewIfDataChange } from '@utils'
+import { SearchResponse } from 'meilisearch'
+import { useTranslation } from 'next-i18next'
+import { useEffect, useRef, useState } from 'react'
+import useSwr from 'swr'
+import { useDebounce } from 'usehooks-ts'
+
 import Loading from '../../atoms/Loading'
 import LoadingOverlay from '../../atoms/LoadingOverlay'
 import ArticleCard from '../../molecules/Cards/ArticleCard'

@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import '../styles/table.scss'
 import 'swiper/css'
 
+import { HeroSectionOverlayProvider } from '@utils/heroSectionContentOverlay'
 import { MotionConfig } from 'framer-motion'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
@@ -18,7 +19,6 @@ import MI18nProvider from '../components/atoms/MI18nProvider'
 import ThirdPartyScripts from '../components/atoms/ThirdPartyScripts'
 import enCommonNamespace from '../public/locales/en/common.json'
 import skCommonNamespace from '../public/locales/sk/common.json'
-import { HeroSectionOverlayProvider } from '../utils/heroSectionContentOverlay'
 
 // This makes sure that the translations files are in sync.
 // It fails and underlined if translation files are not in same shape.

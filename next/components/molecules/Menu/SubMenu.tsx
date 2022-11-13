@@ -1,8 +1,8 @@
+import { NavigationItemFragment } from '@graphql'
 import { SubMenu as ReactSubMenu } from '@szhsin/react-menu'
 import { useRouter } from 'next/router'
 import { MouseEvent } from 'react'
 
-import { NavigationItemFragment } from '../../../graphql'
 import MenuItem from './MenuItem'
 import MenuLeaf from './MenuLeaf'
 

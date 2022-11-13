@@ -1,3 +1,26 @@
+import {
+  Enum_Page_Layout,
+  GeneralEntityFragment,
+  NavigationItemFragment,
+  PageEntityFragment,
+  ReviewEntityFragment,
+  ReviewsQuery,
+} from '@graphql'
+import { client } from '@services/gqlClient'
+import {
+  ArticleListingType,
+  ceremoniesArchiveSectionPrefetch,
+  ceremoniesSectionPrefetch,
+  debtorsSectionPrefetch,
+  documentsSectionPrefetch,
+  getArticleListingNewsPrefetches,
+  getMapSectionPrefetch,
+  getNewsListingPrefetch,
+  getProceduresPrefetch,
+  getReviewPrefetch,
+  partnersSectionPrefetch,
+} from '@services/meili/fetchers'
+import { prefetchSections } from '@utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
@@ -36,29 +59,6 @@ import OpeningHoursSection from '../../components/sections/OpeningHoursSection'
 import PartnersSection from '../../components/sections/PartnersSection'
 import ReviewListingSection from '../../components/sections/ReviewListingSection'
 import RichTextSection from '../../components/sections/RichTextSection'
-import {
-  Enum_Page_Layout,
-  GeneralEntityFragment,
-  NavigationItemFragment,
-  PageEntityFragment,
-  ReviewEntityFragment,
-  ReviewsQuery,
-} from '../../graphql'
-import {
-  ArticleListingType,
-  getArticleListingNewsPrefetches,
-} from '../../utils/fetchers/articleListingFetcher'
-import { getMapSectionPrefetch } from '../../utils/fetchers/cemeteriesFetcher'
-import { ceremoniesArchiveSectionPrefetch } from '../../utils/fetchers/ceremoniesArchiveSectionFetcher'
-import { ceremoniesSectionPrefetch } from '../../utils/fetchers/ceremoniesSectionFetcher'
-import { debtorsSectionPrefetch } from '../../utils/fetchers/debtorsSectionFetcher'
-import { documentsSectionPrefetch } from '../../utils/fetchers/documentsSectionFetcher'
-import { getNewsListingPrefetch } from '../../utils/fetchers/newsListingFetcher'
-import { partnersSectionPrefetch } from '../../utils/fetchers/partnersSectionFetcher'
-import { getProceduresPrefetch } from '../../utils/fetchers/proceduresFetcher'
-import { getReviewPrefetch } from '../../utils/fetchers/reviewsFetcher'
-import { client } from '../../utils/gql'
-import { prefetchSections } from '../../utils/prefetchSections'
 
 type PageProps = {
   navigation: NavigationItemFragment[]

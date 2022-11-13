@@ -1,10 +1,11 @@
+import { NavigateIcon, PlaceIcon } from '@assets/icons'
+import { CemeteryEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
+import { client } from '@services/gqlClient'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { ParsedUrlQuery } from 'node:querystring'
 
-import NavigateToIcon from '../../assets/directions.svg'
-import PlaceIcon from '../../assets/place.svg'
 import Button from '../../components/atoms/Button'
 import RichText from '../../components/atoms/RichText/RichText'
 import BranchCemeteryLayout from '../../components/layouts/BranchCemeteryLayout'
@@ -14,12 +15,6 @@ import {
 } from '../../components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
 import SectionBoxed from '../../components/molecules/SectionBoxed'
 import Seo from '../../components/molecules/Seo'
-import {
-  CemeteryEntityFragment,
-  GeneralEntityFragment,
-  NavigationItemFragment,
-} from '../../graphql'
-import { client } from '../../utils/gql'
 
 type CemeteryPageProps = {
   navigation: NavigationItemFragment[]
@@ -58,7 +53,7 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
                   href={navigateToLink}
                   target="_blank"
                   variant="plain-secondary"
-                  startIcon={<NavigateToIcon />}
+                  startIcon={<NavigateIcon />}
                   className="-ml-2 md:ml-0"
                 >
                   {t('navigate')}

@@ -1,12 +1,12 @@
 import '@szhsin/react-menu/dist/core.css'
 
+import { ChevronDownIcon } from '@assets/icons'
+import { NavigationItemFragment } from '@graphql'
 import { ControlledMenu as ReactControlledMenu, useMenuState } from '@szhsin/react-menu'
 import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { KeyboardEvent, useEffect } from 'react'
 
-import ChevronIcon from '../../../assets/chevron_down.svg'
-import { NavigationItemFragment } from '../../../graphql'
 import MLink from '../../atoms/MLink'
 import MenuLeaf from './MenuLeaf'
 import SubMenu from './SubMenu'
@@ -46,7 +46,7 @@ const Menu = ({ items, title, path }: MenuProps) => {
       >
         <div className={cx('flex h-full flex-1 items-center justify-center gap-1 px-4')}>
           <span>{title}</span>
-          <ChevronIcon />
+          <ChevronDownIcon />
         </div>
       </MLink>
 

@@ -1,3 +1,8 @@
+import { MapMarkerSvg } from '@assets'
+import { ArrowLeftIcon, PlaceIcon } from '@assets/icons'
+import { CemeteryEntityFragment, Enum_Cemetery_Type, MapSectionFragment } from '@graphql'
+import { cemeteriesFetcher, getCemeteriesSwrKey } from '@services/meili/fetchers'
+import { isDefined, useGetSwrExtras } from '@utils'
 import cx from 'classnames'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
@@ -6,13 +11,6 @@ import Map, { MapRef, Marker } from 'react-map-gl'
 import slugify from 'slugify'
 import useSWR from 'swr'
 
-import ArrowBackIcon from '../../assets/arrow_back.svg'
-import MapMarkerIcon from '../../assets/map-marker.svg'
-import PlaceIcon from '../../assets/place.svg'
-import { CemeteryEntityFragment, Enum_Cemetery_Type, MapSectionFragment } from '../../graphql'
-import { cemeteriesFetcher, getCemeteriesSwrKey } from '../../utils/fetchers/cemeteriesFetcher'
-import { isDefined } from '../../utils/isDefined'
-import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import Button from '../atoms/Button'
 import Loading from '../atoms/Loading'
 import MLink from '../atoms/MLink'
@@ -230,7 +228,7 @@ const MapSection = ({ section }: MapSectionProps) => {
                         noStyles
                         href={getFullPath(cemetery) ?? ''}
                       >
-                        <MapMarkerIcon />
+                        <MapMarkerSvg />
                       </MLink>
                     </motion.button>
                   </Marker>
@@ -245,7 +243,7 @@ const MapSection = ({ section }: MapSectionProps) => {
           <Button
             className="rounded-full shadow"
             onPress={() => setMapOrFiltersDisplayed((m) => !m)}
-            startIcon={isMapOrFiltersDisplayed ? <ArrowBackIcon /> : <PlaceIcon />}
+            startIcon={isMapOrFiltersDisplayed ? <ArrowLeftIcon /> : <PlaceIcon />}
           >
             {isMapOrFiltersDisplayed ? t('filtering') : t('map')}
           </Button>

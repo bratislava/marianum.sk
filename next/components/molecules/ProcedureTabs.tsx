@@ -1,11 +1,10 @@
+import { getProceduresSwrKey, proceduresFetcher } from '@services/meili/fetchers'
+import { isDefined, useGetSwrExtras } from '@utils'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 import slugify from 'slugify'
 import useSWR from 'swr'
 
-import { getProceduresSwrKey, proceduresFetcher } from '../../utils/fetchers/proceduresFetcher'
-import { isDefined } from '../../utils/isDefined'
-import useGetSwrExtras from '../../utils/useGetSwrExtras'
 import TabItem from '../atoms/Tabs/TabItem'
 import Tabs from '../atoms/Tabs/Tabs'
 import Checklist from './Checklist/Checklist'

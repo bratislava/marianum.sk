@@ -1,9 +1,8 @@
+import { Enum_Componentsectionsmanuallisting_Style, ManualListingFragment } from '@graphql'
+import { isDefined, useTailwindBreakpoint } from '@utils'
 import cx from 'classnames'
 import { useMemo } from 'react'
 
-import { Enum_Componentsectionsmanuallisting_Style, ManualListingFragment } from '../../graphql'
-import { useTailwindBreakpoint } from '../../hooks/useTailwindBreakpoint'
-import { isDefined } from '../../utils/isDefined'
 import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
 import ServiceCard from '../molecules/Cards/ServiceCard'
 import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'

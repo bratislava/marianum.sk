@@ -1,7 +1,7 @@
+import { BranchGroupFragment } from '@graphql'
+import { isDefined } from '@utils'
 import { useMemo } from 'react'
 
-import { BranchGroupFragment } from '../../graphql'
-import { isDefined } from '../../utils/isDefined'
 import { useGetFullPath } from './Navigation/NavigationProvider/useGetFullPath'
 import Row from './Row/Row'
 

@@ -1,8 +1,8 @@
+import { CtaFragment } from '@graphql'
 import cx from 'classnames'
 import Image from 'next/future/image'
 import { useTranslation } from 'next-i18next'
 
-import { CtaFragment } from '../../graphql'
 import Button from '../atoms/Button'
 import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
 import Slider from '../molecules/Slider'

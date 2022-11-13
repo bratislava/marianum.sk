@@ -1,5 +1,6 @@
-import { NavigationItemFragment } from '../../graphql'
-import { getSlugsForNavFiltering } from '../../utils/getSlugsForNavFiltering'
+import { NavigationItemFragment } from '@graphql'
+import { getSlugsForNavFiltering } from '@utils'
+
 import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
 import Section, { SectionProps } from '../molecules/Section'
 

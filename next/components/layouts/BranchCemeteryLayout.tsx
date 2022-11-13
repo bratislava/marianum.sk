@@ -1,12 +1,12 @@
-import cx from 'classnames'
-import { ReactNode } from 'react'
-
 import {
   BranchEntityFragment,
   CemeteryEntityFragment,
   GeneralEntityFragment,
   NavigationItemFragment,
-} from '../../graphql'
+} from '@graphql'
+import cx from 'classnames'
+import { ReactNode } from 'react'
+
 import SideBarContact from '../molecules/SideBarContact'
 import HeroSection from '../sections/HeroSection'
 import ImageGallery from '../sections/ImageGallery'

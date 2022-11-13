@@ -1,9 +1,8 @@
+import { ContactFragment, FooterFragment, SocialItemFragment } from '@graphql'
+import { getPhoneNumberLink, isDefined } from '@utils'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
-import { ContactFragment, FooterFragment, SocialItemFragment } from '../../../graphql'
-import { getPhoneNumberLink } from '../../../utils/getPhoneNumberLink'
-import { isDefined } from '../../../utils/isDefined'
 import MLink from '../../atoms/MLink'
 import AccordionGroup from '../Accordion/AccordionGroup'
 import AccordionItem from '../Accordion/AccordionItem'

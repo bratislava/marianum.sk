@@ -1,6 +1,5 @@
+import { client } from '@services/gqlClient'
 import { Key } from 'swr'
-
-import { client } from '../gql'
 
 export const partnersSectionSwrKey = 'PartnersSection' as Key
 

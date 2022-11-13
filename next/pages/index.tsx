@@ -1,4 +1,13 @@
 /* eslint-disable sonarjs/no-duplicate-string */
+import {
+  GeneralEntityFragment,
+  HomepageCeremoniesQuery,
+  HomePageQuery,
+  NavigationItemFragment,
+} from '@graphql'
+import { client } from '@services/gqlClient'
+import { getNewsListingPrefetch, upcomingCeremoniesPrefetch } from '@services/meili/fetchers'
+import { isDefined, prefetchSections } from '@utils'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -15,17 +24,6 @@ import HomepageReviewsSection from '../components/sections/HomepageReviewsSectio
 import HomepageSlider from '../components/sections/HomepageSlider'
 import NewsSection from '../components/sections/NewsSection'
 import UpcomingCeremoniesSection from '../components/sections/UpcomingCeremoniesSection'
-import {
-  GeneralEntityFragment,
-  HomepageCeremoniesQuery,
-  HomePageQuery,
-  NavigationItemFragment,
-} from '../graphql'
-import { getNewsListingPrefetch } from '../utils/fetchers/newsListingFetcher'
-import { upcomingCeremoniesPrefetch } from '../utils/fetchers/upcomingCeremoniesFetcher'
-import { client } from '../utils/gql'
-import { isDefined } from '../utils/isDefined'
-import { prefetchSections } from '../utils/prefetchSections'
 
 type HomeProps = {
   navigation: NavigationItemFragment[]

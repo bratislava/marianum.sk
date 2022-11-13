@@ -1,3 +1,6 @@
+import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
+import { client } from '@services/gqlClient'
+import { isDefined } from '@utils/isDefined'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { ParsedUrlQuery } from 'node:querystring'
@@ -9,9 +12,6 @@ import {
   generateStaticProps,
 } from '../../components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
 import ImageGallery from '../../components/sections/ImageGallery'
-import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
-import { client } from '../../utils/gql'
-import { isDefined } from '../../utils/isDefined'
 
 type ArticlePageProps = {
   navigation: NavigationItemFragment[]

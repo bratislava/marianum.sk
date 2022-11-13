@@ -1,10 +1,10 @@
-import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
-
 import {
   articlePressCategoriesSelectFetcher,
   articlePressCategoriesSelectSwrKey,
-} from '../../../utils/fetchers/articleListingFetcher'
+} from '@services/meili/fetchers'
+import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+
 import SelectWithFetcher from '../../molecules/SelectWithFetcher'
 
 type ArticlePressCategoriesSelectProps = {

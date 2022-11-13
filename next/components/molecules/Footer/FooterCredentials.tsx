@@ -1,7 +1,7 @@
+import { CtaButtonFragment } from '@graphql'
 import { useTranslation } from 'next-i18next'
 import { useContext, useMemo } from 'react'
 
-import { CtaButtonFragment } from '../../../graphql'
 import { cookieConsentContext } from '../../atoms/CookieConsent'
 import MLink from '../../atoms/MLink'
 import { useGetFullPath } from '../Navigation/NavigationProvider/useGetFullPath'
