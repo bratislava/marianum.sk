@@ -1,6 +1,7 @@
 import { CheckNoPaddingIcon } from '@assets/icons'
 import FormatCurrency from '@components/atoms/FormatCurrency'
-import RichText from '@components/atoms/RichText/RichText'
+import RichText from '@components/atoms/RichText'
+import Seo from '@components/atoms/Seo'
 import BundleLayout from '@components/layouts/BundleLayout'
 import AccordionGroup from '@components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '@components/molecules/Accordion/AccordionItem'
@@ -10,7 +11,6 @@ import {
   generateStaticProps,
 } from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
 import Section from '@components/molecules/Section'
-import Seo from '@components/molecules/Seo'
 import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import { client } from '@services/gqlClient'
 import { isDefined } from '@utils/isDefined'

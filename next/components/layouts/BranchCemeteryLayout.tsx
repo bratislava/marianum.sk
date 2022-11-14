@@ -1,7 +1,7 @@
 import PageWrapper from '@components/layouts/PageWrapper'
+import ImageGallery from '@components/molecules/ImageGallery'
 import SideBarContact from '@components/molecules/SideBarContact'
 import HeroSection from '@components/sections/HeroSection'
-import ImageGallery from '@components/sections/ImageGallery'
 import {
   BranchEntityFragment,
   CemeteryEntityFragment,

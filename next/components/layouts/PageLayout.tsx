@@ -1,4 +1,4 @@
-import NormalizeSkText from '@components/atoms/NormalizeSkText'
+import NormalizeText from '@components/atoms/NormalizeText/NormalizeText'
 import PageWrapper from '@components/layouts/PageWrapper'
 import SideBar from '@components/molecules/SideBar'
 import HeroSection from '@components/sections/HeroSection'
@@ -56,7 +56,7 @@ const PageLayout = ({ page, navigation, children, general }: PageLayoutProps) =>
               <h1 className="text-center">{page.attributes?.title}</h1>
               {page.attributes?.perex && (
                 <p className="mt-6 sm:mt-8">
-                  <NormalizeSkText>{page.attributes?.perex}</NormalizeSkText>
+                  <NormalizeText>{page.attributes?.perex}</NormalizeText>
                 </p>
               )}
             </div>

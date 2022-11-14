@@ -1,9 +1,9 @@
+import Seo from '@components/atoms/Seo'
 import DocumentLayout from '@components/layouts/DocumentLayout'
 import {
   generateStaticPaths,
   generateStaticProps,
 } from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import Seo from '@components/molecules/Seo'
 import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import { client } from '@services/gqlClient'
 import { GetStaticPaths, GetStaticProps } from 'next'

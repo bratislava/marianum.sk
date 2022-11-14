@@ -1,10 +1,10 @@
-import RichText from '@components/atoms/RichText/RichText'
+import RichText from '@components/atoms/RichText'
 import ArticleLayout from '@components/layouts/ArticleLayout'
+import ImageGallery from '@components/molecules/ImageGallery'
 import {
   generateStaticPaths,
   generateStaticProps,
 } from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import ImageGallery from '@components/sections/ImageGallery'
 import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import { client } from '@services/gqlClient'
 import { isDefined } from '@utils/isDefined'

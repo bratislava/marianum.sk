@@ -1,13 +1,13 @@
 import { NavigateIcon, PlaceIcon } from '@assets/icons'
 import Button from '@components/atoms/Button'
-import RichText from '@components/atoms/RichText/RichText'
+import RichText from '@components/atoms/RichText'
+import Seo from '@components/atoms/Seo'
 import BranchCemeteryLayout from '@components/layouts/BranchCemeteryLayout'
 import {
   generateStaticPaths,
   generateStaticProps,
 } from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
 import SectionBoxed from '@components/molecules/SectionBoxed'
-import Seo from '@components/molecules/Seo'
 import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import { client } from '@services/gqlClient'
 import { isDefined } from '@utils'

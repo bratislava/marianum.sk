@@ -1,11 +1,11 @@
 /* eslint-disable sonarjs/no-duplicate-string */
+import Seo from '@components/atoms/Seo'
 import PageWrapper from '@components/layouts/PageWrapper'
 import SectionsWrapper from '@components/layouts/SectionsWrapper'
 import CtaGroup from '@components/molecules/CtaGroup'
 import Section from '@components/molecules/Section'
-import Seo from '@components/molecules/Seo'
 import CardSection from '@components/sections/CardSection'
-import HomepageProcedures from '@components/sections/HomepageProcedures'
+import HomepageProceduresSection from '@components/sections/HomepageProceduresSection'
 import HomepageReviewsSection from '@components/sections/HomepageReviewsSection'
 import HomepageSlider from '@components/sections/HomepageSlider'
 import NewsSection from '@components/sections/NewsSection'
@@ -67,16 +67,12 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
             }
             if (section?.__typename === 'ComponentSectionsProceduresShortSection') {
               const { outsideMedicalFacility, atMedicalFacility } = procedures?.attributes ?? {}
-
-              const { showMoreButton, title, __typename, id } = section
-
               return (
-                <HomepageProcedures
-                  key={`${__typename}-${id}`}
-                  title={title}
+                <HomepageProceduresSection
+                  key={`${section.__typename}-${section.id}`}
                   outsideMedicalFacility={outsideMedicalFacility}
                   atMedicalFacility={atMedicalFacility}
-                  showMoreButton={showMoreButton}
+                  section={section}
                 />
               )
             }
@@ -90,7 +86,6 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
             if (section?.__typename === 'ComponentSectionsHomepageReviewsSection') {
               return (
                 <HomepageReviewsSection
-                  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                   key={`${section.__typename}-${section.id}`}
                   section={section}
                 />

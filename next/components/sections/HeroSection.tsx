@@ -2,7 +2,7 @@ import { HomeIcon } from '@assets/icons'
 import Breadcrumbs, { BreadcrumbItem } from '@components/atoms/Breadcrumbs'
 import Button from '@components/atoms/Button'
 import FormatCurrency from '@components/atoms/FormatCurrency'
-import NormalizeSkText from '@components/atoms/NormalizeSkText'
+import NormalizeText from '@components/atoms/NormalizeText/NormalizeText'
 import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { useNavigationContext } from '@components/molecules/Navigation/NavigationProvider/useNavigationContext'
 import { CtaButtonFragment } from '@graphql'
@@ -59,7 +59,7 @@ const HeroSection = ({
           {title && <h1 className="text-white">{title}</h1>}
           {perex && (
             <p className="mt-3 text-lg">
-              <NormalizeSkText>{perex}</NormalizeSkText>
+              <NormalizeText>{perex}</NormalizeText>
             </p>
           )}
           {ctaSlug && (
