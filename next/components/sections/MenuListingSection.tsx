@@ -1,8 +1,7 @@
+import { CategoryCard } from '@components/molecules/Cards/CategoryFaqThemeCard'
+import Section, { SectionProps } from '@components/molecules/Section'
 import { NavigationItemFragment } from '@graphql'
 import { getSlugsForNavFiltering } from '@utils'
-
-import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
-import Section, { SectionProps } from '../molecules/Section'
 
 type MenuListingSectionProps = Pick<SectionProps, 'title' | 'background'> & {
   slug: string | null | undefined

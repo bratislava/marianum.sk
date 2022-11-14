@@ -1,4 +1,6 @@
 import { CheckCircleIcon, CheckIcon, CloseCircleIcon, DownloadIcon, PrintIcon } from '@assets/icons'
+import { AnimateHeight } from '@components/atoms/AnimateHeight'
+import Button from '@components/atoms/Button'
 import { UploadFileEntityFragment } from '@graphql'
 import cx from 'classnames'
 import filesize from 'filesize'
@@ -7,8 +9,6 @@ import prntr from 'prntr'
 import { useCallback, useEffect, useMemo, useReducer } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 
-import { AnimateHeight } from '../../atoms/AnimateHeight'
-import Button from '../../atoms/Button'
 import { ChecklistActionKind, ChecklistItem, checklistReducer } from './checklistReducer'
 
 type ChecklistRadioProps = {

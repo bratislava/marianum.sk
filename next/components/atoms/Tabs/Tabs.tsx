@@ -1,10 +1,10 @@
+import { AnimateHeight } from '@components/atoms/AnimateHeight'
 import { useTailwindBreakpoint } from '@utils'
 import { useEffect, useRef } from 'react'
 import { useTabList } from 'react-aria'
 import { TabListProps, useTabListState } from 'react-stately'
 import { useSessionStorage } from 'usehooks-ts'
 
-import { AnimateHeight } from '../AnimateHeight'
 import TabLabel from './TabLabel'
 import TabPanel from './TabPanel'
 

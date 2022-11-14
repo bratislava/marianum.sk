@@ -1,8 +1,7 @@
+import Loading from '@components/atoms/Loading'
 import cx from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import React, { PropsWithChildren } from 'react'
-
-import Loading from './Loading'
 
 type LoadingOverlayProps = { loading: boolean }
 

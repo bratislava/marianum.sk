@@ -1,7 +1,6 @@
 import { FacebookIcon, InstagramIcon, LinkedInIcon, TwitterIcon, YoutubeIcon } from '@assets/icons'
+import MLink from '@components/atoms/MLink'
 import { SocialItemFragment } from '@graphql'
-
-import MLink from '../../atoms/MLink'
 
 export type FooterSocialsProps = {
   socials: SocialItemFragment[]

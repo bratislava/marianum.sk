@@ -1,6 +1,5 @@
+import { AnimateHeight } from '@components/atoms/AnimateHeight'
 import cx from 'classnames'
-
-import { AnimateHeight } from '../../atoms/AnimateHeight'
 
 const ChecklistRadio = () => {
   return (

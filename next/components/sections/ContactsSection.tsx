@@ -1,10 +1,9 @@
 import { MailIcon, PhoneIcon } from '@assets/icons'
+import MLink from '@components/atoms/MLink'
+import Section, { SectionProps } from '@components/molecules/Section'
 import { ContactGroupFragment } from '@graphql'
 import { getPhoneNumberLink, isDefined } from '@utils'
 import { useMemo } from 'react'
-
-import MLink from '../atoms/MLink'
-import Section, { SectionProps } from '../molecules/Section'
 
 const ContactsSection = ({
   contacts,

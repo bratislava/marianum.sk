@@ -1,9 +1,9 @@
+import { Option } from '@components/atoms/Select'
 import { client } from '@services/gqlClient'
 import { meiliClient } from '@services/meili/meiliClient'
 import { getMeilisearchPageOptions, isDefined } from '@utils'
 import { Key } from 'swr'
 
-import { Option } from '../../../components/atoms/Select'
 import { ArticleMeili } from '../meiliTypes'
 import { SearchIndexWrapped, unwrapFromSearchIndex } from './searchIndexWrapped'
 

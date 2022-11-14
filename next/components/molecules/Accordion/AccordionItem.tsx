@@ -1,9 +1,8 @@
 import { ChevronDownIcon } from '@assets/icons'
+import { AnimateHeight } from '@components/atoms/AnimateHeight'
 import { Disclosure } from '@headlessui/react'
 import cx from 'classnames'
 import { ReactNode } from 'react'
-
-import { AnimateHeight } from '../../atoms/AnimateHeight'
 
 export type AccordionItemProps = {
   title: string | null | undefined | ReactNode

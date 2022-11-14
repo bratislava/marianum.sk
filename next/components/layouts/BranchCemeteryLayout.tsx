@@ -1,3 +1,7 @@
+import PageWrapper from '@components/layouts/PageWrapper'
+import SideBarContact from '@components/molecules/SideBarContact'
+import HeroSection from '@components/sections/HeroSection'
+import ImageGallery from '@components/sections/ImageGallery'
 import {
   BranchEntityFragment,
   CemeteryEntityFragment,
@@ -6,11 +10,6 @@ import {
 } from '@graphql'
 import cx from 'classnames'
 import { ReactNode } from 'react'
-
-import SideBarContact from '../molecules/SideBarContact'
-import HeroSection from '../sections/HeroSection'
-import ImageGallery from '../sections/ImageGallery'
-import PageWrapper from './PageWrapper'
 
 type BranchCemeteryLayoutProps = {
   entity: BranchEntityFragment | CemeteryEntityFragment

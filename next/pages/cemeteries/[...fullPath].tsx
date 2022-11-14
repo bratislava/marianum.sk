@@ -1,20 +1,19 @@
 import { NavigateIcon, PlaceIcon } from '@assets/icons'
+import Button from '@components/atoms/Button'
+import RichText from '@components/atoms/RichText/RichText'
+import BranchCemeteryLayout from '@components/layouts/BranchCemeteryLayout'
+import {
+  generateStaticPaths,
+  generateStaticProps,
+} from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import SectionBoxed from '@components/molecules/SectionBoxed'
+import Seo from '@components/molecules/Seo'
 import { CemeteryEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import { client } from '@services/gqlClient'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { ParsedUrlQuery } from 'node:querystring'
-
-import Button from '../../components/atoms/Button'
-import RichText from '../../components/atoms/RichText/RichText'
-import BranchCemeteryLayout from '../../components/layouts/BranchCemeteryLayout'
-import {
-  generateStaticPaths,
-  generateStaticProps,
-} from '../../components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import SectionBoxed from '../../components/molecules/SectionBoxed'
-import Seo from '../../components/molecules/Seo'
 
 type CemeteryPageProps = {
   navigation: NavigationItemFragment[]
@@ -85,7 +84,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
     client.CemeteriesStaticPaths({ locale }).then((response) => response.cemeteries?.data),
   )
 
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console,@typescript-eslint/restrict-template-expressions
   console.log(`Cemeteries: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }

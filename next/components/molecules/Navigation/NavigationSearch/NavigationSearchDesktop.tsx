@@ -1,11 +1,10 @@
+import { AnimateHeight } from '@components/atoms/AnimateHeight'
+import NavigationSearchResults from '@components/molecules/Navigation/NavigationSearch/NavigationSearchResults'
+import Search from '@components/molecules/Search'
 import { SearchData } from '@utils/useSearch'
 import cx from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 import { useOnClickOutside } from 'usehooks-ts'
-
-import { AnimateHeight } from '../../../atoms/AnimateHeight'
-import Search from '../../Search'
-import NavigationSearchResults from './NavigationSearchResults'
 
 type NavigationSearchDesktopProps = {
   searchQuery: string

@@ -1,10 +1,9 @@
+import Button from '@components/atoms/Button'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { PropsWithChildren, useCallback, useEffect, useMemo } from 'react'
 import { DeepPartial, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { AnySchema } from 'yup'
-
-import Button from '../../atoms/Button'
 
 export const useApplicationStep = <T,>({
   yupShape,

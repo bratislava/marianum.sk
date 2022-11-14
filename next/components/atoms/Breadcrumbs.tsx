@@ -1,12 +1,11 @@
 import { ChevronDownIcon } from '@assets/icons'
+import MLink from '@components/atoms/MLink'
 import { usePrevious } from '@utils'
 import cx from 'classnames'
 import last from 'lodash/last'
 import { useTranslation } from 'next-i18next'
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
-
-import MLink from './MLink'
 
 export type BreadcrumbItem = {
   label: string | ReactNode

@@ -1,10 +1,10 @@
 import { ArrowLeftIcon } from '@assets/icons'
-import { useLeavePageConfirm } from '@utils/useLeavePageConfirm'
+import IconButton from '@components/atoms/IconButton'
+import AccordionItem from '@components/molecules/Accordion/AccordionItem'
+import { useLeavePageConfirm } from '@utils'
 import { useMemo, useRef, useState } from 'react'
 import { DeepPartial } from 'react-hook-form'
 
-import IconButton from '../../atoms/IconButton'
-import AccordionItem from '../../molecules/Accordion/AccordionItem'
 import { ApplicationTypes } from './application.types'
 import { fixApplication, getListOfSteps } from './application.utils'
 import ApplicationStep1 from './ApplicationStep1'

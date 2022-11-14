@@ -1,4 +1,15 @@
 /* eslint-disable sonarjs/no-duplicate-string */
+import PageWrapper from '@components/layouts/PageWrapper'
+import SectionsWrapper from '@components/layouts/SectionsWrapper'
+import CtaGroup from '@components/molecules/CtaGroup'
+import Section from '@components/molecules/Section'
+import Seo from '@components/molecules/Seo'
+import CardSection from '@components/sections/CardSection'
+import HomepageProcedures from '@components/sections/HomepageProcedures'
+import HomepageReviewsSection from '@components/sections/HomepageReviewsSection'
+import HomepageSlider from '@components/sections/HomepageSlider'
+import NewsSection from '@components/sections/NewsSection'
+import UpcomingCeremoniesSection from '@components/sections/UpcomingCeremoniesSection'
 import {
   GeneralEntityFragment,
   HomepageCeremoniesQuery,
@@ -12,18 +23,6 @@ import { GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { SWRConfig } from 'swr'
-
-import PageWrapper from '../components/layouts/PageWrapper'
-import SectionsWrapper from '../components/layouts/SectionsWrapper'
-import CtaGroup from '../components/molecules/CtaGroup'
-import Section from '../components/molecules/Section'
-import Seo from '../components/molecules/Seo'
-import CardSection from '../components/sections/CardSection'
-import HomepageProcedures from '../components/sections/HomepageProcedures'
-import HomepageReviewsSection from '../components/sections/HomepageReviewsSection'
-import HomepageSlider from '../components/sections/HomepageSlider'
-import NewsSection from '../components/sections/NewsSection'
-import UpcomingCeremoniesSection from '../components/sections/UpcomingCeremoniesSection'
 
 type HomeProps = {
   navigation: NavigationItemFragment[]

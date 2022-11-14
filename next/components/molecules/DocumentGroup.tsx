@@ -1,12 +1,11 @@
 import { DownloadIcon } from '@assets/icons'
+import Button from '@components/atoms/Button'
+import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Row from '@components/molecules/Row/Row'
 import { DocumentGroupFragment } from '@graphql'
 import { isDefined } from '@utils'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
-
-import Button from '../atoms/Button'
-import { useGetFullPath } from './Navigation/NavigationProvider/useGetFullPath'
-import Row from './Row/Row'
 
 const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
   const { t } = useTranslation('common', { keyPrefix: 'DocumentGroup' })

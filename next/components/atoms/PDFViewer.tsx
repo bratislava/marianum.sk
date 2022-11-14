@@ -1,8 +1,7 @@
+import Spinner from '@components/atoms/Spinner'
 import cx from 'classnames'
 import { useState } from 'react'
 import { Document, Page, pdfjs } from 'react-pdf'
-
-import Spinner from './Spinner'
 
 pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js'
 

@@ -1,8 +1,7 @@
+import Button from '@components/atoms/Button'
+import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { CtaSectionFragment } from '@graphql'
 import { isDefined } from '@utils'
-
-import Button from '../atoms/Button'
-import { useGetFullPath } from './Navigation/NavigationProvider/useGetFullPath'
 
 const CtaGroup = ({ ctas }: CtaSectionFragment) => {
   const { getFullPath } = useGetFullPath()

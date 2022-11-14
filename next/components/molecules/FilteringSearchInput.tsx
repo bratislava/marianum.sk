@@ -1,7 +1,6 @@
 import { CloseCircleIcon, SearchIcon } from '@assets/icons'
+import TextField from '@components/atoms/TextField'
 import { useTranslation } from 'next-i18next'
-
-import TextField from '../atoms/TextField'
 
 export type FilteringSearchInputProps = {
   value: string

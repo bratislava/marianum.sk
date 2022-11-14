@@ -1,8 +1,8 @@
-import Avatar from '../../atoms/Avatar'
-import CardBox from '../../atoms/Card/CardBox'
-import CardContent from '../../atoms/Card/CardContent'
-import FormatDate from '../../atoms/FormatDate'
-import ReviewStars from '../../atoms/ReviewStars'
+import Avatar from '@components/atoms/Avatar'
+import CardBox from '@components/atoms/Card/CardBox'
+import CardContent from '@components/atoms/Card/CardContent'
+import FormatDate from '@components/atoms/FormatDate'
+import ReviewStars from '@components/atoms/ReviewStars'
 
 type ReviewCardProps = {
   rating: number

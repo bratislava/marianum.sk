@@ -1,11 +1,10 @@
 import { CheckIcon, CloseCircleIcon, InfoIcon } from '@assets/icons'
+import Button from '@components/atoms/Button'
+import { cookieConsentContext } from '@components/atoms/CookieConsent'
+import IconButton from '@components/atoms/IconButton'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { useContext } from 'react'
-
-import Button from './Button'
-import { cookieConsentContext } from './CookieConsent'
-import IconButton from './IconButton'
 
 const CookieBanner = () => {
   const { t } = useTranslation('common', { keyPrefix: 'CookieConsent' })

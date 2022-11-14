@@ -1,13 +1,12 @@
+import MLink from '@components/atoms/MLink'
+import TabItem from '@components/atoms/Tabs/TabItem'
+import Tabs from '@components/atoms/Tabs/Tabs'
+import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Section, { SectionProps } from '@components/molecules/Section'
 import { CtaButtonFragment, ProcedureFragment } from '@graphql'
 import { isDefined, useTailwindBreakpoint } from '@utils'
 import cx from 'classnames'
 import { useMemo } from 'react'
-
-import MLink from '../atoms/MLink'
-import TabItem from '../atoms/Tabs/TabItem'
-import Tabs from '../atoms/Tabs/Tabs'
-import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
-import Section, { SectionProps } from '../molecules/Section'
 
 type HomepageProceduresProps = Pick<SectionProps, 'title' | 'background'> & {
   outsideMedicalFacility: ProcedureFragment | null | undefined

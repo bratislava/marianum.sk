@@ -1,9 +1,8 @@
+import Button from '@components/atoms/Button'
+import RichText from '@components/atoms/RichText/RichText'
+import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Section from '@components/molecules/Section'
 import { RichtextSectionFragment } from '@graphql'
-
-import Button from '../atoms/Button'
-import RichText from '../atoms/RichText/RichText'
-import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
-import Section from '../molecules/Section'
 
 type RichTextSectionProps = {
   section: RichtextSectionFragment

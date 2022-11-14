@@ -1,8 +1,7 @@
+import SelectWithFetcher from '@components/molecules/SelectWithFetcher'
 import { client } from '@services/gqlClient'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
-
-import SelectWithFetcher from '../../molecules/SelectWithFetcher'
 
 type DocumentsSectionCategorySelectProps = {
   onCategoryChange: (id: string | null) => void

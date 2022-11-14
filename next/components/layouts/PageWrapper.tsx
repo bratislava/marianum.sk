@@ -1,11 +1,10 @@
+import ScrollToTopButton from '@components/atoms/ScrollToTopButton'
+import Footer from '@components/molecules/Footer/Footer'
+import Navigation from '@components/molecules/Navigation/Navigation'
+import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
 import { GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import { isDefined } from '@utils'
 import { ReactNode } from 'react'
-
-import ScrollToTopButton from '../atoms/ScrollToTopButton'
-import Footer from '../molecules/Footer/Footer'
-import Navigation from '../molecules/Navigation/Navigation'
-import NavigationProvider from '../molecules/Navigation/NavigationProvider/NavigationProvider'
 
 type PageWrapperProps = {
   navigation: NavigationItemFragment[]

@@ -1,8 +1,6 @@
 import { MailIcon, PhoneIcon } from '@assets/icons'
+import Button from '@components/atoms/Button'
 import { useTranslation } from 'next-i18next'
-import React from 'react'
-
-import Button from '../atoms/Button'
 
 type SideBarContactProps = {
   title: string | null | undefined

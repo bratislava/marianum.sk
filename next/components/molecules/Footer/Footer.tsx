@@ -1,15 +1,14 @@
+import MLink from '@components/atoms/MLink'
+import AccordionGroup from '@components/molecules/Accordion/AccordionGroup'
+import AccordionItem from '@components/molecules/Accordion/AccordionItem'
+import FooterCredentials from '@components/molecules/Footer/FooterCredentials'
+import FooterMap from '@components/molecules/Footer/FooterMap'
+import FooterSocials from '@components/molecules/Footer/FooterSocials'
+import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { ContactFragment, FooterFragment, SocialItemFragment } from '@graphql'
 import { getPhoneNumberLink, isDefined } from '@utils'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
-
-import MLink from '../../atoms/MLink'
-import AccordionGroup from '../Accordion/AccordionGroup'
-import AccordionItem from '../Accordion/AccordionItem'
-import { useGetFullPath } from '../Navigation/NavigationProvider/useGetFullPath'
-import FooterCredentials from './FooterCredentials'
-import FooterMap from './FooterMap'
-import FooterSocials from './FooterSocials'
 
 export type FooterProps = {
   contact: ContactFragment | null | undefined

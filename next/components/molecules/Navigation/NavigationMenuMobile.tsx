@@ -1,12 +1,11 @@
 import { ArrowLeftIcon, ChevronDownIcon, CloseIcon } from '@assets/icons'
+import IconButton from '@components/atoms/IconButton'
+import MLink from '@components/atoms/MLink'
+import Modal from '@components/atoms/Modal'
 import { NavigationItemFragment } from '@graphql'
 import { isDefined, usePrevious } from '@utils'
 import { motion } from 'framer-motion'
 import { useCallback, useMemo, useState } from 'react'
-
-import IconButton from '../../atoms/IconButton'
-import MLink from '../../atoms/MLink'
-import Modal from '../../atoms/Modal'
 
 export type NavigationMenuMobileProps = {
   items: NavigationItemFragment[]

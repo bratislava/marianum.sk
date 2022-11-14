@@ -1,12 +1,11 @@
+import Loading from '@components/atoms/Loading'
+import PartnerCard from '@components/molecules/Cards/PartnerCard'
+import Row from '@components/molecules/Row/Row'
+import Section, { SectionProps } from '@components/molecules/Section'
 import { partnersSectionFetcher, partnersSectionSwrKey } from '@services/meili/fetchers'
 import { isDefined, useGetSwrExtras } from '@utils'
 import { useMemo } from 'react'
 import useSWR from 'swr'
-
-import Loading from '../atoms/Loading'
-import PartnerCard from '../molecules/Cards/PartnerCard'
-import Row from '../molecules/Row/Row'
-import Section, { SectionProps } from '../molecules/Section'
 
 type PartnersSectionProps = {
   featuredTitle: string | undefined | null

@@ -1,14 +1,13 @@
 import { ChevronRightIcon, OpenInNewIcon, PlaceIcon } from '@assets/icons'
+import Button from '@components/atoms/Button'
+import IconButton from '@components/atoms/IconButton'
+import MLink from '@components/atoms/MLink'
+import Tag from '@components/atoms/Tag'
 import { DocumentCategoryEntityFragment } from '@graphql'
 import { onEnterOrSpaceKeyDown } from '@utils'
 import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { Fragment, ReactNode } from 'react'
-
-import Button from '../../atoms/Button'
-import IconButton from '../../atoms/IconButton'
-import MLink from '../../atoms/MLink'
-import Tag from '../../atoms/Tag'
 
 type RowProps = {
   title?: string

@@ -1,8 +1,7 @@
+import NavigationSearchMobileModal from '@components/molecules/Navigation/NavigationSearch/NavigationSearchMobileModal'
+import NavigationSearchMobileTrigger from '@components/molecules/Navigation/NavigationSearch/NavigationSearchMobileTrigger'
 import { SearchData } from '@utils/useSearch'
 import { useState } from 'react'
-
-import NavigationSearchMobileModal from './NavigationSearchMobileModal'
-import NavigationSearchMobileTrigger from './NavigationSearchMobileTrigger'
 
 type NavigationSearchMobileProps = {
   searchQuery: string

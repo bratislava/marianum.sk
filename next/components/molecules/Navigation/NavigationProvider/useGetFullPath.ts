@@ -1,3 +1,4 @@
+import { useNavigationContext } from '@components/molecules/Navigation/NavigationProvider/useNavigationContext'
 import {
   ArticleSlugEntityFragment,
   Branch,
@@ -13,8 +14,6 @@ import {
 import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@services/meili/meiliTypes'
 import { isDefined, NavMap, parseNavigation } from '@utils'
 import { useMemo } from 'react'
-
-import { useNavigationContext } from './useNavigationContext'
 
 // TODO move this to separate file and add translation logic
 // IMPORTANT: Keep this in sync with next config rewrites

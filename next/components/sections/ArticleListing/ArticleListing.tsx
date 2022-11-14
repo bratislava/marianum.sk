@@ -1,3 +1,13 @@
+import Loading from '@components/atoms/Loading'
+import LoadingOverlay from '@components/atoms/LoadingOverlay'
+import ArticleCard from '@components/molecules/Cards/ArticleCard'
+import FilteringSearchInput from '@components/molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '@components/molecules/FiltersBackgroundWrapper'
+import { useGetFullPathMeili } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import PaginationMeili from '@components/molecules/PaginationMeili'
+import Section from '@components/molecules/Section'
+import ArticleNewsCategoriesSelect from '@components/sections/ArticleListing/ArticleNewsCategoriesSelect'
+import ArticlePressCategoriesSelect from '@components/sections/ArticleListing/ArticlePressCategoriesSelect'
 import {
   articleListingDefaultFilters,
   ArticleListingFilters,
@@ -12,17 +22,6 @@ import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
-
-import Loading from '../../atoms/Loading'
-import LoadingOverlay from '../../atoms/LoadingOverlay'
-import ArticleCard from '../../molecules/Cards/ArticleCard'
-import FilteringSearchInput from '../../molecules/FilteringSearchInput'
-import FiltersBackgroundWrapper from '../../molecules/FiltersBackgroundWrapper'
-import { useGetFullPathMeili } from '../../molecules/Navigation/NavigationProvider/useGetFullPath'
-import PaginationMeili from '../../molecules/PaginationMeili'
-import Section from '../../molecules/Section'
-import ArticleNewsCategoriesSelect from './ArticleNewsCategoriesSelect'
-import ArticlePressCategoriesSelect from './ArticlePressCategoriesSelect'
 
 const Articles = ({
   data,

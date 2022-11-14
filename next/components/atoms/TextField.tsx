@@ -1,7 +1,6 @@
+import FieldWrapper from '@components/atoms/FieldWrapper'
 import cx from 'classnames'
 import { DetailedHTMLProps, forwardRef, InputHTMLAttributes, ReactNode, useId } from 'react'
-
-import FieldWrapper from './FieldWrapper'
 
 type AreaOrInputConditionalProps =
   // textarea props

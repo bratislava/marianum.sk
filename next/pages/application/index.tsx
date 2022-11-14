@@ -1,7 +1,6 @@
+import { ApplicationTypes } from '@components/sections/Application/application.types'
+import { ApplicationSection } from '@components/sections/Application/ApplicationSection'
 import { GetStaticProps } from 'next'
-
-import { ApplicationTypes } from '../../components/sections/Application/application.types'
-import { ApplicationSection } from '../../components/sections/Application/ApplicationSection'
 
 type ApplicationPageProps = {
   cemeteries: ApplicationTypes.Cemeteries

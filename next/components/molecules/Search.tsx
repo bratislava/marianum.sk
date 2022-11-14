@@ -1,4 +1,5 @@
 import { CloseCircleIcon, CloseIcon, SearchIcon } from '@assets/icons'
+import TextField from '@components/atoms/TextField'
 import { useTranslation } from 'next-i18next'
 import {
   DetailedHTMLProps,
@@ -8,8 +9,6 @@ import {
   useEffect,
   useState,
 } from 'react'
-
-import TextField from '../atoms/TextField'
 
 type SearchProps = {
   value?: string

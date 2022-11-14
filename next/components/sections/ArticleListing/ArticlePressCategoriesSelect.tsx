@@ -1,11 +1,10 @@
+import SelectWithFetcher from '@components/molecules/SelectWithFetcher'
 import {
   articlePressCategoriesSelectFetcher,
   articlePressCategoriesSelectSwrKey,
 } from '@services/meili/fetchers'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
-
-import SelectWithFetcher from '../../molecules/SelectWithFetcher'
 
 type ArticlePressCategoriesSelectProps = {
   onCategoryChange: (id: string | null) => void

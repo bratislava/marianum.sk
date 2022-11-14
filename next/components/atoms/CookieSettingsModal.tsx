@@ -1,13 +1,12 @@
 import { CheckIcon, CloseCircleIcon, CloseIcon } from '@assets/icons'
+import Button from '@components/atoms/Button'
+import Checkbox from '@components/atoms/Checkbox'
+import { cookieConsentContext } from '@components/atoms/CookieConsent'
+import IconButton from '@components/atoms/IconButton'
+import Modal from '@components/atoms/Modal'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useContext, useEffect, useState } from 'react'
-
-import Button from './Button'
-import Checkbox from './Checkbox'
-import { cookieConsentContext } from './CookieConsent'
-import IconButton from './IconButton'
-import Modal from './Modal'
 
 const CookieTypeCheckbox = ({
   isChecked,

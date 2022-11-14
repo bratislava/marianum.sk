@@ -1,6 +1,5 @@
+import Button from '@components/atoms/Button'
 import { useTranslation } from 'next-i18next'
-
-import Button from './Button'
 
 /* Based on approach here: https://levelup.gitconnected.com/build-an-accessible-skip-to-content-anchor-link-with-react-140903f3bd7e */
 const handleSkip = () => {

@@ -1,9 +1,8 @@
 import { ArrowLeftIcon } from '@assets/icons'
+import IconButton from '@components/atoms/IconButton'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 import { useEventListener } from 'usehooks-ts'
-
-import IconButton from './IconButton'
 
 const handleScrollToTop = () => {
   window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })

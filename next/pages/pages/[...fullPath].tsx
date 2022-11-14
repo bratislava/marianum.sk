@@ -1,3 +1,35 @@
+import Divider from '@components/atoms/Divider'
+import RichText from '@components/atoms/RichText/RichText'
+import PageLayout from '@components/layouts/PageLayout'
+import SectionsWrapper from '@components/layouts/SectionsWrapper'
+import AccordionGroup from '@components/molecules/Accordion/AccordionGroup'
+import AccordionItem from '@components/molecules/Accordion/AccordionItem'
+import BranchGroup from '@components/molecules/BranchGroup'
+import DisclosureIframe from '@components/molecules/DisclosureIframe'
+import DocumentGroup from '@components/molecules/DocumentGroup'
+import {
+  generateStaticPaths,
+  generateStaticProps,
+} from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import ProcedureTabs from '@components/molecules/ProcedureTabs'
+import Section from '@components/molecules/Section'
+import Seo from '@components/molecules/Seo'
+import ArticleListing from '@components/sections/ArticleListing/ArticleListing'
+import BundleListingSection from '@components/sections/BundleListingSection'
+import CardSection from '@components/sections/CardSection'
+import CeremoniesArchiveSection from '@components/sections/CeremoniesArchiveSection'
+import CeremoniesSection from '@components/sections/CeremoniesSection'
+import ContactsSection from '@components/sections/ContactsSection'
+import DebtorsSection from '@components/sections/DebtorsSection'
+import DocumentsSection from '@components/sections/DocumentsSection/DocumentsSection'
+import ImageGallery from '@components/sections/ImageGallery'
+import MapSection from '@components/sections/MapSection'
+import MenuListingSection from '@components/sections/MenuListingSection'
+import NewsListing from '@components/sections/NewsSection'
+import OpeningHoursSection from '@components/sections/OpeningHoursSection'
+import PartnersSection from '@components/sections/PartnersSection'
+import ReviewListingSection from '@components/sections/ReviewListingSection'
+import RichTextSection from '@components/sections/RichTextSection'
 import {
   Enum_Page_Layout,
   GeneralEntityFragment,
@@ -26,39 +58,6 @@ import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
 import { ParsedUrlQuery } from 'node:querystring'
 import { SWRConfig } from 'swr'
-
-import Divider from '../../components/atoms/Divider'
-import RichText from '../../components/atoms/RichText/RichText'
-import PageLayout from '../../components/layouts/PageLayout'
-import SectionsWrapper from '../../components/layouts/SectionsWrapper'
-import AccordionGroup from '../../components/molecules/Accordion/AccordionGroup'
-import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
-import BranchGroup from '../../components/molecules/BranchGroup'
-import DisclosureIframe from '../../components/molecules/DisclosureIframe'
-import DocumentGroup from '../../components/molecules/DocumentGroup'
-import {
-  generateStaticPaths,
-  generateStaticProps,
-} from '../../components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import ProcedureTabs from '../../components/molecules/ProcedureTabs'
-import Section from '../../components/molecules/Section'
-import Seo from '../../components/molecules/Seo'
-import ArticleListing from '../../components/sections/ArticleListing/ArticleListing'
-import BundleListingSection from '../../components/sections/BundleListingSection'
-import CardSection from '../../components/sections/CardSection'
-import CeremoniesArchiveSection from '../../components/sections/CeremoniesArchiveSection'
-import CeremoniesSection from '../../components/sections/CeremoniesSection'
-import ContactsSection from '../../components/sections/ContactsSection'
-import DebtorsSection from '../../components/sections/DebtorsSection'
-import DocumentsSection from '../../components/sections/DocumentsSection/DocumentsSection'
-import ImageGallery from '../../components/sections/ImageGallery'
-import MapSection from '../../components/sections/MapSection'
-import MenuListingSection from '../../components/sections/MenuListingSection'
-import NewsListing from '../../components/sections/NewsSection'
-import OpeningHoursSection from '../../components/sections/OpeningHoursSection'
-import PartnersSection from '../../components/sections/PartnersSection'
-import ReviewListingSection from '../../components/sections/ReviewListingSection'
-import RichTextSection from '../../components/sections/RichTextSection'
 
 type PageProps = {
   navigation: NavigationItemFragment[]
@@ -262,7 +261,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
     client.PagesStaticPaths({ locale }).then((response) => response.pages?.data),
   )
 
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console, @typescript-eslint/restrict-template-expressions
   console.log(`Pages: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }

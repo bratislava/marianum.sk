@@ -1,12 +1,11 @@
+import Divider from '@components/atoms/Divider'
+import MLink from '@components/atoms/MLink'
+import NormalizeSkText from '@components/atoms/NormalizeSkText'
 import cx from 'classnames'
 import ReactMarkdown from 'react-markdown'
 import { LiProps } from 'react-markdown/lib/ast-to-react'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
-
-import Divider from '../Divider'
-import MLink from '../MLink'
-import NormalizeSkText from '../NormalizeSkText'
 
 export interface RichTextProps {
   className?: string

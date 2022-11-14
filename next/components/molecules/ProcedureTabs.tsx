@@ -1,14 +1,13 @@
+import TabItem from '@components/atoms/Tabs/TabItem'
+import Tabs from '@components/atoms/Tabs/Tabs'
+import Checklist from '@components/molecules/Checklist/Checklist'
+import ChecklistSkeleton from '@components/molecules/Checklist/ChecklistSkeleton'
 import { getProceduresSwrKey, proceduresFetcher } from '@services/meili/fetchers'
 import { isDefined, useGetSwrExtras } from '@utils'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 import slugify from 'slugify'
 import useSWR from 'swr'
-
-import TabItem from '../atoms/Tabs/TabItem'
-import Tabs from '../atoms/Tabs/Tabs'
-import Checklist from './Checklist/Checklist'
-import ChecklistSkeleton from './Checklist/ChecklistSkeleton'
 
 const ProcedureTabs = () => {
   const { i18n } = useTranslation()

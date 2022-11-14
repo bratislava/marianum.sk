@@ -1,4 +1,16 @@
 import { CheckNoPaddingIcon } from '@assets/icons'
+import FormatCurrency from '@components/atoms/FormatCurrency'
+import RichText from '@components/atoms/RichText/RichText'
+import BundleLayout from '@components/layouts/BundleLayout'
+import AccordionGroup from '@components/molecules/Accordion/AccordionGroup'
+import AccordionItem from '@components/molecules/Accordion/AccordionItem'
+import DocumentGroup from '@components/molecules/DocumentGroup'
+import {
+  generateStaticPaths,
+  generateStaticProps,
+} from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import Section from '@components/molecules/Section'
+import Seo from '@components/molecules/Seo'
 import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import { client } from '@services/gqlClient'
 import { isDefined } from '@utils/isDefined'
@@ -6,19 +18,6 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { ParsedUrlQuery } from 'node:querystring'
-
-import FormatCurrency from '../../components/atoms/FormatCurrency'
-import RichText from '../../components/atoms/RichText/RichText'
-import BundleLayout from '../../components/layouts/BundleLayout'
-import AccordionGroup from '../../components/molecules/Accordion/AccordionGroup'
-import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
-import DocumentGroup from '../../components/molecules/DocumentGroup'
-import {
-  generateStaticPaths,
-  generateStaticProps,
-} from '../../components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import Section from '../../components/molecules/Section'
-import Seo from '../../components/molecules/Seo'
 
 type BundlePageProps = {
   navigation: NavigationItemFragment[]
@@ -127,7 +126,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
     client.BundlesStaticPaths({ locale }).then((response) => response.bundles?.data),
   )
 
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console, @typescript-eslint/restrict-template-expressions
   console.log(`Bundles: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }

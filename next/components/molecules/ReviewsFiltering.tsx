@@ -1,7 +1,6 @@
+import Checkbox from '@components/atoms/Checkbox'
+import ReviewStars from '@components/atoms/ReviewStars'
 import { useTranslation } from 'next-i18next'
-
-import Checkbox from '../atoms/Checkbox'
-import ReviewStars from '../atoms/ReviewStars'
 
 export type ReviewStat = {
   title: string

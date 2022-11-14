@@ -1,17 +1,16 @@
+import RichText from '@components/atoms/RichText/RichText'
+import ArticleLayout from '@components/layouts/ArticleLayout'
+import {
+  generateStaticPaths,
+  generateStaticProps,
+} from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import ImageGallery from '@components/sections/ImageGallery'
 import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import { client } from '@services/gqlClient'
 import { isDefined } from '@utils/isDefined'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { ParsedUrlQuery } from 'node:querystring'
-
-import RichText from '../../components/atoms/RichText/RichText'
-import ArticleLayout from '../../components/layouts/ArticleLayout'
-import {
-  generateStaticPaths,
-  generateStaticProps,
-} from '../../components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import ImageGallery from '../../components/sections/ImageGallery'
 
 type ArticlePageProps = {
   navigation: NavigationItemFragment[]
@@ -44,7 +43,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
     client.ArticlesStaticPaths({ locale }).then((response) => response.articles?.data),
   )
 
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console, @typescript-eslint/restrict-template-expressions
   console.log(`Articles: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }

@@ -1,3 +1,4 @@
+import { useGetFullPathMeili } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { SearchIndexWrapped } from '@services/meili/fetchers'
 import { meiliClient } from '@services/meili/meiliClient'
 import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@services/meili/meiliTypes'
@@ -8,8 +9,6 @@ import { useState } from 'react'
 import useSWR from 'swr'
 import { StringParam, useQueryParam, withDefault } from 'use-query-params'
 import { useDebounce } from 'usehooks-ts'
-
-import { useGetFullPathMeili } from '../components/molecules/Navigation/NavigationProvider/useGetFullPath'
 
 export const allSearchTypes = [
   'page' as const,
@@ -95,7 +94,7 @@ export const useSearch = ({ filters, isSyncedWithUrlQuery = false }: UseSearchOp
           const { type } = hit
           // TODO: Fix types, but not worth it.
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const dataInner = hit[type]
+          const dataInner = (hit as any)[type]
           const link = getFullPathMeili(type, dataInner)
           return { type, title: dataInner.title, link, data: dataInner } as SearchResult
         })

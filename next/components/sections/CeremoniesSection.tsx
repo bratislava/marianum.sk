@@ -1,3 +1,11 @@
+import FormatDate from '@components/atoms/FormatDate'
+import Loading from '@components/atoms/Loading'
+import LoadingOverlay from '@components/atoms/LoadingOverlay'
+import MLink from '@components/atoms/MLink'
+import CemeteryLink from '@components/molecules/CemeteryLink'
+import CeremoniesDebtorsCemeterySelect from '@components/molecules/CeremoniesDebtors/CemeterySelect'
+import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Section from '@components/molecules/Section'
 import { CeremoniesQuery, CeremoniesSectionFragment } from '@graphql'
 import { parseAbsolute, parseDate, toCalendarDate } from '@internationalized/date'
 import {
@@ -17,15 +25,6 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Fragment, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
-
-import FormatDate from '../atoms/FormatDate'
-import Loading from '../atoms/Loading'
-import LoadingOverlay from '../atoms/LoadingOverlay'
-import MLink from '../atoms/MLink'
-import CemeteryLink from '../molecules/CemeteryLink'
-import CeremoniesDebtorsCemeterySelect from '../molecules/CeremoniesDebtors/CemeterySelect'
-import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
-import Section from '../molecules/Section'
 
 const ArchiveCard = ({
   archive,

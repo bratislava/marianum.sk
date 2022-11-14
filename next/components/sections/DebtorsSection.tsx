@@ -1,3 +1,11 @@
+import Loading from '@components/atoms/Loading'
+import LoadingOverlay from '@components/atoms/LoadingOverlay'
+import CemeteryLink from '@components/molecules/CemeteryLink'
+import CeremoniesDebtorsCemeterySelect from '@components/molecules/CeremoniesDebtors/CemeterySelect'
+import FilteringSearchInput from '@components/molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '@components/molecules/FiltersBackgroundWrapper'
+import PaginationMeili from '@components/molecules/PaginationMeili'
+import Section from '@components/molecules/Section'
 import {
   debtorsSectionDefaultFilters,
   debtorsSectionFetcher,
@@ -15,15 +23,6 @@ import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
-
-import Loading from '../atoms/Loading'
-import LoadingOverlay from '../atoms/LoadingOverlay'
-import CemeteryLink from '../molecules/CemeteryLink'
-import CeremoniesDebtorsCemeterySelect from '../molecules/CeremoniesDebtors/CemeterySelect'
-import FilteringSearchInput from '../molecules/FilteringSearchInput'
-import FiltersBackgroundWrapper from '../molecules/FiltersBackgroundWrapper'
-import PaginationMeili from '../molecules/PaginationMeili'
-import Section from '../molecules/Section'
 
 const Table = ({
   data,

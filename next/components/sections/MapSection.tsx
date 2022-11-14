@@ -1,5 +1,12 @@
 import { MapMarkerSvg } from '@assets'
 import { ArrowLeftIcon, PlaceIcon } from '@assets/icons'
+import Button from '@components/atoms/Button'
+import Loading from '@components/atoms/Loading'
+import MLink from '@components/atoms/MLink'
+import TagToggle from '@components/atoms/TagToggle'
+import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Search from '@components/molecules/Search'
+import Section from '@components/molecules/Section'
 import { CemeteryEntityFragment, Enum_Cemetery_Type, MapSectionFragment } from '@graphql'
 import { cemeteriesFetcher, getCemeteriesSwrKey } from '@services/meili/fetchers'
 import { isDefined, useGetSwrExtras } from '@utils'
@@ -10,14 +17,6 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'rea
 import Map, { MapRef, Marker } from 'react-map-gl'
 import slugify from 'slugify'
 import useSWR from 'swr'
-
-import Button from '../atoms/Button'
-import Loading from '../atoms/Loading'
-import MLink from '../atoms/MLink'
-import TagToggle from '../atoms/TagToggle'
-import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
-import Search from '../molecules/Search'
-import Section from '../molecules/Section'
 
 const slugifyText = (text: string) => {
   return slugify(text, { replacement: ' ', lower: true })

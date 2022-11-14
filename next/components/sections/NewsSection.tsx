@@ -1,10 +1,8 @@
+import Section, { SectionProps } from '@components/molecules/Section'
+import NewsListing from '@components/sections/NewsListing'
 import { NewsListingFragment } from '@graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-
-// import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
-import Section, { SectionProps } from '../molecules/Section'
-import NewsListing from './NewsListing'
 
 type NewsSectionProps = Pick<SectionProps, 'background'> & {
   section?: NewsListingFragment

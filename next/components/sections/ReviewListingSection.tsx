@@ -1,14 +1,13 @@
+import { AnimateHeight } from '@components/atoms/AnimateHeight'
+import Pagination from '@components/atoms/Pagination/Pagination'
+import Review from '@components/molecules/Review'
+import Section from '@components/molecules/Section'
 import { ReviewEntityFragment } from '@graphql'
 import { isDefined } from '@utils'
 import cx from 'classnames'
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { useMemo, useState } from 'react'
-
-import { AnimateHeight } from '../atoms/AnimateHeight'
-import Pagination from '../atoms/Pagination/Pagination'
-import Review from '../molecules/Review'
-import Section from '../molecules/Section'
 
 const REVIEWS_PER_PAGE = 10
 

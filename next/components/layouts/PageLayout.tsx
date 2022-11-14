@@ -1,3 +1,7 @@
+import NormalizeSkText from '@components/atoms/NormalizeSkText'
+import PageWrapper from '@components/layouts/PageWrapper'
+import SideBar from '@components/molecules/SideBar'
+import HeroSection from '@components/sections/HeroSection'
 import {
   Enum_Page_Layout,
   GeneralEntityFragment,
@@ -6,11 +10,6 @@ import {
 } from '@graphql'
 import cx from 'classnames'
 import { ReactNode } from 'react'
-
-import NormalizeSkText from '../atoms/NormalizeSkText'
-import SideBar from '../molecules/SideBar'
-import HeroSection from '../sections/HeroSection'
-import PageWrapper from './PageWrapper'
 
 type PageLayoutProps = {
   page: PageEntityFragment

@@ -1,8 +1,7 @@
+import { sectionContext } from '@components/layouts/SectionsWrapper'
 import cx from 'classnames'
 import React, { PropsWithChildren, useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
-
-import { sectionContext } from '../layouts/SectionsWrapper'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 
