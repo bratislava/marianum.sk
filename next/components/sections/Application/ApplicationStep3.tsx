@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import FormRadioGroup from '@components/atoms/Forms/FormRadioGroup'
+import RadioBox from '@components/atoms/Radio/RadioBox'
+import { useEffect } from 'react'
 import * as yup from 'yup'
 
-import FormRadioGroup from '../../atoms/Forms/FormRadioGroup'
-import RadioBox from '../../atoms/Radio/RadioBox'
 import { ApplicationTypes } from './application.types'
 import { useApplicationStep } from './useApplicationStep'
 

@@ -1,8 +1,7 @@
-import React from 'react'
+import FormCheckbox from '@components/atoms/Forms/FormCheckbox'
+import TextField from '@components/atoms/TextField'
 import * as yup from 'yup'
 
-import FormCheckbox from '../../atoms/Forms/FormCheckbox'
-import TextField from '../../atoms/TextField'
 import { ApplicationTypes } from './application.types'
 import { useApplicationStep } from './useApplicationStep'
 

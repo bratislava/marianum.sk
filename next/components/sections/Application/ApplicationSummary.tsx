@@ -1,8 +1,8 @@
 import { EditIcon } from '@assets/icons'
-import React, { PropsWithChildren } from 'react'
+import IconButton from '@components/atoms/IconButton'
+import { PropsWithChildren } from 'react'
 import { DeepPartial } from 'react-hook-form'
 
-import IconButton from '../../atoms/IconButton'
 import { ApplicationTypes } from './application.types'
 
 type StepCardProps = {
