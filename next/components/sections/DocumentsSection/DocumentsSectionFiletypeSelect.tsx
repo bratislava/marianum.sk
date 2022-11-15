@@ -1,6 +1,6 @@
 import SelectWithFetcher from '@components/molecules/SelectWithFetcher'
-import { client } from '@services/gqlClient'
-import { isDefined } from '@utils'
+import { client } from '@services/graphql/gqlClient'
+import { isDefined } from '@utils/isDefined'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 

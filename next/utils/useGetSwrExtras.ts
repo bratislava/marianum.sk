@@ -1,4 +1,4 @@
-import { usePrevious } from '@utils'
+import { usePrevious } from '@utils/usePrevious'
 import { useMemo } from 'react'
 import { SWRResponse } from 'swr'
 import { useDebounce } from 'usehooks-ts'

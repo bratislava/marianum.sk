@@ -1,7 +1,7 @@
 import { ArrowLeftIcon } from '@assets/icons'
 import IconButton from '@components/atoms/IconButton'
 import AccordionItem from '@components/molecules/Accordion/AccordionItem'
-import { useLeavePageConfirm } from '@utils'
+import { useLeavePageConfirm } from '@utils/useLeavePageConfirm'
 import { useMemo, useRef, useState } from 'react'
 import { DeepPartial } from 'react-hook-form'
 

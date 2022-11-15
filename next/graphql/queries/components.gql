@@ -188,6 +188,12 @@ fragment PartnersSection on ComponentSectionsPartnersSection {
   otherPartnersTitle
 }
 
+fragment MenuListing on ComponentSectionsMenuListing {
+  id
+  title
+  slug
+}
+
 fragment MapSection on ComponentSectionsMapSection {
   id
   title
@@ -291,6 +297,14 @@ fragment RichtextSection on ComponentSectionsRichtext {
   id
   content
   button {
+    ...CtaButton
+  }
+}
+
+fragment ProceduresShortSection on ComponentSectionsProceduresShortSection {
+  id
+  title
+  showMoreButton {
     ...CtaButton
   }
 }

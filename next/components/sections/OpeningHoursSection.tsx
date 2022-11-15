@@ -1,7 +1,7 @@
 import Row from '@components/molecules/Row/Row'
 import Section, { SectionProps } from '@components/molecules/Section'
 import { OpeningHoursSectionFragment } from '@graphql'
-import { isDefined } from '@utils'
+import { isDefined } from '@utils/isDefined'
 import React from 'react'
 
 type OpeningHoursSectionProps = Pick<SectionProps, 'background' | 'title'> & {

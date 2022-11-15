@@ -1,7 +1,7 @@
 import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Row from '@components/molecules/Row/Row'
 import { BranchGroupFragment } from '@graphql'
-import { isDefined } from '@utils'
+import { isDefined } from '@utils/isDefined'
 import { useMemo } from 'react'
 
 const BranchGroup = ({ branches }: BranchGroupFragment) => {

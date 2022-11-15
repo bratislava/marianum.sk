@@ -1,4 +1,4 @@
-import { cookieConsentContext } from '@components/atoms/CookieConsent'
+import { cookieConsentContext } from '@components/atoms/Cookies/CookieConsent'
 import MLink from '@components/atoms/MLink'
 import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { CtaButtonFragment } from '@graphql'

@@ -454,9 +454,7 @@ fragment PageEntity on PageEntity {
       }
       ... on ComponentSectionsMenuListing {
         __typename
-        id
-        title
-        slug
+        ...MenuListing
       }
       ... on ComponentSectionsManualListing {
         __typename

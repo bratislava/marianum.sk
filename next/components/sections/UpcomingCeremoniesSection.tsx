@@ -6,9 +6,13 @@ import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvi
 import Section from '@components/molecules/Section'
 import { UpcomingCeremoniesSectionFragment } from '@graphql'
 import { isSameDay, parseAbsolute } from '@internationalized/date'
-import { upcomingCeremoniesFetcher, upcomingCeremoniesSwrKey } from '@services/meili/fetchers'
-import { getCemeteryInfoInCeremoniesDebtors, useGetSwrExtras } from '@utils'
+import {
+  upcomingCeremoniesFetcher,
+  upcomingCeremoniesSwrKey,
+} from '@services/fetchers/upcomingCeremoniesFetcher'
 import { bratislavaTimezone } from '@utils/consts'
+import { getCemeteryInfoInCeremoniesDebtors } from '@utils/getCemeteryInfoInCeremoniesDebtors'
+import { useGetSwrExtras } from '@utils/useGetSwrExtras'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 import useSWR from 'swr'

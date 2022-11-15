@@ -1,5 +1,5 @@
 import { AnimateHeight } from '@components/atoms/AnimateHeight'
-import { useTailwindBreakpoint } from '@utils'
+import { useTailwindBreakpoint } from '@utils/useTailwindBreakpoint'
 import { useEffect, useRef } from 'react'
 import { useTabList } from 'react-aria'
 import { TabListProps, useTabListState } from 'react-stately'

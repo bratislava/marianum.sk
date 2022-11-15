@@ -4,7 +4,7 @@
 
 import ImageLightBox from '@components/molecules/ImageLightBox'
 import { UploadImageEntityFragment } from '@graphql'
-import { onEnterOrSpaceKeyDown } from '@utils'
+import { onEnterOrSpaceKeyDown } from '@utils/onEnterOrSpaceKeyDown'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo, useState } from 'react'

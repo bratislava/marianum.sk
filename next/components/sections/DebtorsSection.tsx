@@ -11,13 +11,11 @@ import {
   debtorsSectionFetcher,
   DebtorsSectionFilters,
   getDebtorsSectionSwrKey,
-} from '@services/meili/fetchers'
+} from '@services/fetchers/debtorsSectionFetcher'
 import { DebtorMeili } from '@services/meili/meiliTypes'
-import {
-  getCemeteryInfoInCeremoniesDebtorsMeili,
-  useGetSwrExtras,
-  useScrollToViewIfDataChange,
-} from '@utils'
+import { getCemeteryInfoInCeremoniesDebtorsMeili } from '@utils/getCemeteryInfoInCeremoniesDebtors'
+import { useGetSwrExtras } from '@utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'

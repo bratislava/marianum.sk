@@ -3680,6 +3680,8 @@ export type BranchGroupFragment = { __typename?: 'ComponentSectionsBranchGroup',
 
 export type PartnersSectionFragment = { __typename?: 'ComponentSectionsPartnersSection', id: string, featuredPartnersTitle: string, otherPartnersTitle: string };
 
+export type MenuListingFragment = { __typename?: 'ComponentSectionsMenuListing', id: string, title?: string | null, slug: string };
+
 export type MapSectionFragment = { __typename?: 'ComponentSectionsMapSection', id: string, title?: string | null };
 
 export type BundleListingFragment = { __typename?: 'ComponentSectionsBundleListing', id: string, title?: string | null, description?: string | null, atMedicalFacility?: { __typename?: 'ComponentBlocksBundleGroup', title: string, bundles?: Array<{ __typename?: 'ComponentBlocksBundleItem', bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, perex?: string | null, price: number, type: Enum_Bundle_Type, discountTextShort?: string | null, discountText?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null } | null } | null } | null> | null } | null, outsideMedicalFacility?: { __typename?: 'ComponentBlocksBundleGroup', title: string, bundles?: Array<{ __typename?: 'ComponentBlocksBundleItem', bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, perex?: string | null, price: number, type: Enum_Bundle_Type, discountTextShort?: string | null, discountText?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null } | null } | null } | null> | null } | null };
@@ -3697,6 +3699,8 @@ export type NewsListingFragment = { __typename?: 'ComponentSectionsNewsListing',
 export type CeremoniesSectionFragment = { __typename?: 'ComponentSectionsCeremoniesSection', id: string, archive?: { __typename?: 'ComponentBlocksBlocksCeremonyArchiveBlock', title?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null } | null };
 
 export type RichtextSectionFragment = { __typename?: 'ComponentSectionsRichtext', id: string, content?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null };
+
+export type ProceduresShortSectionFragment = { __typename?: 'ComponentSectionsProceduresShortSection', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null };
 
 export type UpcomingCeremoniesSectionFragment = { __typename?: 'ComponentSectionsUpcomingCeremoniesSection', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null };
 
@@ -4055,6 +4059,15 @@ export const CtaSectionFragmentDoc = gql`
     button {
       ...CtaButton
     }
+  }
+}
+    ${CtaButtonFragmentDoc}`;
+export const ProceduresShortSectionFragmentDoc = gql`
+    fragment ProceduresShortSection on ComponentSectionsProceduresShortSection {
+  id
+  title
+  showMoreButton {
+    ...CtaButton
   }
 }
     ${CtaButtonFragmentDoc}`;
@@ -4713,6 +4726,13 @@ export const PartnersSectionFragmentDoc = gql`
   otherPartnersTitle
 }
     `;
+export const MenuListingFragmentDoc = gql`
+    fragment MenuListing on ComponentSectionsMenuListing {
+  id
+  title
+  slug
+}
+    `;
 export const ManualListingFragmentDoc = gql`
     fragment ManualListing on ComponentSectionsManualListing {
   id
@@ -4837,9 +4857,7 @@ export const PageEntityFragmentDoc = gql`
       }
       ... on ComponentSectionsMenuListing {
         __typename
-        id
-        title
-        slug
+        ...MenuListing
       }
       ... on ComponentSectionsManualListing {
         __typename
@@ -4913,6 +4931,7 @@ ${ContactGroupFragmentDoc}
 ${DocumentGroupFragmentDoc}
 ${UploadImageEntityFragmentDoc}
 ${PartnersSectionFragmentDoc}
+${MenuListingFragmentDoc}
 ${ManualListingFragmentDoc}
 ${NewsListingFragmentDoc}
 ${MapSectionFragmentDoc}
@@ -5211,11 +5230,7 @@ export const HomePageDocument = gql`
           }
           ... on ComponentSectionsProceduresShortSection {
             __typename
-            id
-            title
-            showMoreButton {
-              ...CtaButton
-            }
+            ...ProceduresShortSection
           }
           ... on ComponentSectionsCtaSection {
             __typename
@@ -5239,7 +5254,7 @@ export const HomePageDocument = gql`
 ${SeoFragmentDoc}
 ${ManualListingFragmentDoc}
 ${UpcomingCeremoniesSectionFragmentDoc}
-${CtaButtonFragmentDoc}
+${ProceduresShortSectionFragmentDoc}
 ${CtaSectionFragmentDoc}
 ${HomepageReviewsSectionFragmentDoc}
 ${ProceduresEntityFragmentDoc}`;

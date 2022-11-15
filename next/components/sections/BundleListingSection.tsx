@@ -4,7 +4,7 @@ import BundleCard from '@components/molecules/Cards/BundleCard'
 import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section, { SectionProps } from '@components/molecules/Section'
 import { BundleListingFragment } from '@graphql'
-import { isDefined } from '@utils'
+import { isDefined } from '@utils/isDefined'
 import { useMemo } from 'react'
 
 type BundleListingSectionProps = Pick<SectionProps, 'background'> & {
