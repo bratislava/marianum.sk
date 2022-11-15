@@ -21,7 +21,7 @@ type SearchProps = {
   onSearch?: (value: string) => void
   isLarge?: boolean
   className?: string
-} & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+} & Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'ref'>
 
 const Search = ({
   value = '',
