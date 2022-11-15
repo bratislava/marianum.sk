@@ -6,7 +6,7 @@ import ChevronDown from '../../../assets/chevron_down.svg'
 import { AnimateHeight } from '../../atoms/AnimateHeight'
 
 export type AccordionItemProps = {
-  title: string | null | undefined
+  title: string | null | undefined | ReactNode
   additionalInfo?: ReactNode
   children?: ReactNode
   noBorder?: boolean

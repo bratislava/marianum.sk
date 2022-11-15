@@ -474,6 +474,9 @@ export type Cemetery = {
   title: Scalars['String'];
   type?: Maybe<Enum_Cemetery_Type>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+  ziadostHroboveMiesto: Scalars['Boolean'];
+  ziadostUrnovaStena: Scalars['Boolean'];
+  ziadostUrnoveMiestoVZemi: Scalars['Boolean'];
 };
 
 
@@ -529,6 +532,9 @@ export type CemeteryFiltersInput = {
   title?: InputMaybe<StringFilterInput>;
   type?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
+  ziadostHroboveMiesto?: InputMaybe<BooleanFilterInput>;
+  ziadostUrnovaStena?: InputMaybe<BooleanFilterInput>;
+  ziadostUrnoveMiestoVZemi?: InputMaybe<BooleanFilterInput>;
 };
 
 export type CemeteryInput = {
@@ -546,6 +552,9 @@ export type CemeteryInput = {
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<Enum_Cemetery_Type>;
+  ziadostHroboveMiesto?: InputMaybe<Scalars['Boolean']>;
+  ziadostUrnovaStena?: InputMaybe<Scalars['Boolean']>;
+  ziadostUrnoveMiestoVZemi?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type CemeteryRelationResponseCollection = {
@@ -3727,6 +3736,8 @@ export type CemeteryEntityFragment = { __typename: 'CemeteryEntity', id?: string
 
 export type CemeteryInCeremoniesDebtorsEntityFragment = { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, locale?: string | null } | null }> } | null } | null };
 
+export type CemeteryInApplicationEntityFragment = { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', slug: string, title: string, address?: string | null, ziadostHroboveMiesto: boolean, ziadostUrnoveMiestoVZemi: boolean, ziadostUrnovaStena: boolean } | null };
+
 export type BundleCardEntityFragment = { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, perex?: string | null, price: number, type: Enum_Bundle_Type, discountTextShort?: string | null, discountText?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null };
 
 export type BundleEntityFragment = { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', description?: string | null, title: string, slug: string, perex?: string | null, price: number, type: Enum_Bundle_Type, discountTextShort?: string | null, discountText?: string | null, additionalServices?: Array<{ __typename?: 'ComponentBlocksAccordionItemWithPrice', id: string, title: string, description?: string | null, price?: number | null } | null> | null, documents?: { __typename?: 'ComponentSectionsDocumentGroup', id: string, title?: string | null, documents?: Array<{ __typename?: 'ComponentBlocksDocumentItem', document?: { __typename?: 'DocumentEntityResponse', data?: { __typename: 'DocumentEntity', id?: string | null, attributes?: { __typename?: 'Document', title: string, publishedAt?: any | null, slug: string, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, documentCategory?: { __typename?: 'DocumentCategoryEntityResponse', data?: { __typename?: 'DocumentCategoryEntity', id?: string | null, attributes?: { __typename?: 'DocumentCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | null, sidebar?: { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', attributes?: { __typename?: 'Page', slug: string, locale?: string | null } | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, name?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null };
@@ -3948,6 +3959,13 @@ export type DocumentFiletypesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type DocumentFiletypesQuery = { __typename?: 'Query', documentFiletypes?: Array<string | null> | null };
+
+export type CemeteriesInApplicationQueryVariables = Exact<{
+  locale: Scalars['I18NLocaleCode'];
+}>;
+
+
+export type CemeteriesInApplicationQuery = { __typename?: 'Query', cemeteries?: { __typename?: 'CemeteryEntityResponseCollection', data: Array<{ __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', slug: string, title: string, address?: string | null, ziadostHroboveMiesto: boolean, ziadostUrnoveMiestoVZemi: boolean, ziadostUrnovaStena: boolean } | null }> } | null };
 
 export const FlatNavigationItemFragmentDoc = gql`
     fragment FlatNavigationItem on NavigationItem {
@@ -4312,6 +4330,20 @@ export const CemeteryInCeremoniesDebtorsEntityFragmentDoc = gql`
         }
       }
     }
+  }
+}
+    `;
+export const CemeteryInApplicationEntityFragmentDoc = gql`
+    fragment CemeteryInApplicationEntity on CemeteryEntity {
+  __typename
+  id
+  attributes {
+    slug
+    title
+    address
+    ziadostHroboveMiesto
+    ziadostUrnoveMiestoVZemi
+    ziadostUrnovaStena
   }
 }
     `;
@@ -5287,6 +5319,19 @@ export const DocumentFiletypesDocument = gql`
   documentFiletypes
 }
     `;
+export const CemeteriesInApplicationDocument = gql`
+    query CemeteriesInApplication($locale: I18NLocaleCode!) {
+  cemeteries(
+    filters: {or: [{ziadostHroboveMiesto: {eq: true}}, {ziadostUrnoveMiestoVZemi: {eq: true}}, {ziadostUrnovaStena: {eq: true}}]}
+    pagination: {limit: -1}
+    locale: $locale
+  ) {
+    data {
+      ...CemeteryInApplicationEntity
+    }
+  }
+}
+    ${CemeteryInApplicationEntityFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -5378,6 +5423,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     DocumentFiletypes(variables?: DocumentFiletypesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DocumentFiletypesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<DocumentFiletypesQuery>(DocumentFiletypesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'DocumentFiletypes', 'query');
+    },
+    CemeteriesInApplication(variables: CemeteriesInApplicationQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CemeteriesInApplicationQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CemeteriesInApplicationQuery>(CemeteriesInApplicationDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CemeteriesInApplication', 'query');
     }
   };
 }
