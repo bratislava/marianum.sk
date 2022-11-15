@@ -9,7 +9,7 @@ import { isSameDay, parseAbsolute } from '@internationalized/date'
 import {
   upcomingCeremoniesFetcher,
   upcomingCeremoniesSwrKey,
-} from '@services/meili/fetchers/upcomingCeremoniesFetcher'
+} from '@services/fetchers/upcomingCeremoniesFetcher'
 import { bratislavaTimezone } from '@utils/consts'
 import { getCemeteryInfoInCeremoniesDebtors } from '@utils/getCemeteryInfoInCeremoniesDebtors'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'

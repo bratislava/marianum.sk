@@ -16,9 +16,9 @@ import {
   HomePageQuery,
   NavigationItemFragment,
 } from '@graphql'
-import { client } from '@services/gqlClient'
-import { getNewsListingPrefetch } from '@services/meili/fetchers/newsListingFetcher'
-import { upcomingCeremoniesPrefetch } from '@services/meili/fetchers/upcomingCeremoniesFetcher'
+import { getNewsListingPrefetch } from '@services/fetchers/newsListingFetcher'
+import { upcomingCeremoniesPrefetch } from '@services/fetchers/upcomingCeremoniesFetcher'
+import { client } from '@services/graphql/gqlClient'
 import { isDefined } from '@utils/isDefined'
 import { prefetchSections } from '@utils/prefetchSections'
 import { GetStaticProps, GetStaticPropsResult } from 'next'

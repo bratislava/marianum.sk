@@ -12,7 +12,7 @@ import {
 } from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
 import Section from '@components/molecules/Section'
 import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
-import { client } from '@services/gqlClient'
+import { client } from '@services/graphql/gqlClient'
 import { isDefined } from '@utils/isDefined'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'

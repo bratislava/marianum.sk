@@ -1,4 +1,4 @@
-import { client } from '@services/gqlClient'
+import { client } from '@services/graphql/gqlClient'
 import { Key } from 'swr'
 
 export const getNewsListingSwrKey = (locale: string) => ['News', locale] as Key

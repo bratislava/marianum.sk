@@ -14,7 +14,7 @@ import {
   ArticleListingType,
   getArticleListingFetcher,
   getArticleListingSwrKey,
-} from '@services/meili/fetchers/articleListingFetcher'
+} from '@services/fetchers/articleListingFetcher'
 import { ArticleMeili } from '@services/meili/meiliTypes'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'

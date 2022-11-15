@@ -11,7 +11,7 @@ import {
   debtorsSectionFetcher,
   DebtorsSectionFilters,
   getDebtorsSectionSwrKey,
-} from '@services/meili/fetchers/debtorsSectionFetcher'
+} from '@services/fetchers/debtorsSectionFetcher'
 import { DebtorMeili } from '@services/meili/meiliTypes'
 import { getCemeteryInfoInCeremoniesDebtorsMeili } from '@utils/getCemeteryInfoInCeremoniesDebtors'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'

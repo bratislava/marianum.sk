@@ -1,5 +1,5 @@
 import { withSentry } from '@sentry/nextjs'
-import { client } from '@services/gqlClient'
+import { client } from '@services/graphql/gqlClient'
 import { isDefined } from '@utils/isDefined'
 import { parseNavigation } from '@utils/parseNavigation'
 import type { NextApiRequest, NextApiResponse } from 'next'

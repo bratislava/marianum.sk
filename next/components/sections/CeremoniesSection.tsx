@@ -13,7 +13,7 @@ import {
   ceremoniesSectionFetcher,
   CeremoniesSectionFilters,
   getCeremoniesSectionSwrKey,
-} from '@services/meili/fetchers/ceremoniesSectionFetcher'
+} from '@services/fetchers/ceremoniesSectionFetcher'
 import { bratislavaTimezone } from '@utils/consts'
 import { getCemeteryInfoInCeremoniesDebtors } from '@utils/getCemeteryInfoInCeremoniesDebtors'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'

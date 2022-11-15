@@ -2,7 +2,7 @@ import SelectWithFetcher from '@components/molecules/SelectWithFetcher'
 import {
   articlePressCategoriesSelectFetcher,
   articlePressCategoriesSelectSwrKey,
-} from '@services/meili/fetchers/articleListingFetcher'
+} from '@services/fetchers/articleListingFetcher'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 

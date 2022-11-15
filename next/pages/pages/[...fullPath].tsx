@@ -36,20 +36,20 @@ import {
   ReviewEntityFragment,
   ReviewsQuery,
 } from '@graphql'
-import { client } from '@services/gqlClient'
 import {
   ArticleListingType,
   getArticleListingNewsPrefetches,
-} from '@services/meili/fetchers/articleListingFetcher'
-import { getMapSectionPrefetch } from '@services/meili/fetchers/cemeteriesFetcher'
-import { ceremoniesArchiveSectionPrefetch } from '@services/meili/fetchers/ceremoniesArchiveSectionFetcher'
-import { ceremoniesSectionPrefetch } from '@services/meili/fetchers/ceremoniesSectionFetcher'
-import { debtorsSectionPrefetch } from '@services/meili/fetchers/debtorsSectionFetcher'
-import { documentsSectionPrefetch } from '@services/meili/fetchers/documentsSectionFetcher'
-import { getNewsListingPrefetch } from '@services/meili/fetchers/newsListingFetcher'
-import { partnersSectionPrefetch } from '@services/meili/fetchers/partnersSectionFetcher'
-import { getProceduresPrefetch } from '@services/meili/fetchers/proceduresFetcher'
-import { getReviewPrefetch } from '@services/meili/fetchers/reviewsFetcher'
+} from '@services/fetchers/articleListingFetcher'
+import { getMapSectionPrefetch } from '@services/fetchers/cemeteriesFetcher'
+import { ceremoniesArchiveSectionPrefetch } from '@services/fetchers/ceremoniesArchiveSectionFetcher'
+import { ceremoniesSectionPrefetch } from '@services/fetchers/ceremoniesSectionFetcher'
+import { debtorsSectionPrefetch } from '@services/fetchers/debtorsSectionFetcher'
+import { documentsSectionPrefetch } from '@services/fetchers/documentsSectionFetcher'
+import { getNewsListingPrefetch } from '@services/fetchers/newsListingFetcher'
+import { partnersSectionPrefetch } from '@services/fetchers/partnersSectionFetcher'
+import { getProceduresPrefetch } from '@services/fetchers/proceduresFetcher'
+import { getReviewPrefetch } from '@services/fetchers/reviewsFetcher'
+import { client } from '@services/graphql/gqlClient'
 import { prefetchSections } from '@utils/prefetchSections'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'

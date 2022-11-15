@@ -8,7 +8,7 @@ import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvi
 import Search from '@components/molecules/Search'
 import Section from '@components/molecules/Section'
 import { CemeteryEntityFragment, Enum_Cemetery_Type, MapSectionFragment } from '@graphql'
-import { cemeteriesFetcher, getCemeteriesSwrKey } from '@services/meili/fetchers/cemeteriesFetcher'
+import { cemeteriesFetcher, getCemeteriesSwrKey } from '@services/fetchers/cemeteriesFetcher'
 import { isDefined } from '@utils/isDefined'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'
 import cx from 'classnames'

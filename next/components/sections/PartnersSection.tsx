@@ -6,7 +6,7 @@ import { PartnersSectionFragment } from '@graphql'
 import {
   partnersSectionFetcher,
   partnersSectionSwrKey,
-} from '@services/meili/fetchers/partnersSectionFetcher'
+} from '@services/fetchers/partnersSectionFetcher'
 import { isDefined } from '@utils/isDefined'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'
 import { useMemo } from 'react'

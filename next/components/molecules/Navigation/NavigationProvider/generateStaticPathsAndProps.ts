@@ -4,7 +4,7 @@ import {
   UnionSlugEntityType,
 } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { GeneralEntityFragment, NavigationItemFragment } from '@graphql'
-import { client } from '@services/gqlClient'
+import { client } from '@services/graphql/gqlClient'
 import { isDefined } from '@utils/isDefined'
 import { parseNavigation } from '@utils/parseNavigation'
 import last from 'lodash/last'

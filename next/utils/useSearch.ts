@@ -1,7 +1,7 @@
 import { useGetFullPathMeili } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { SearchIndexWrapped } from '@services/meili/fetchers/searchIndexWrapped'
 import { meiliClient } from '@services/meili/meiliClient'
 import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@services/meili/meiliTypes'
+import { SearchIndexWrapped } from '@services/meili/searchIndexWrapped'
 import { getMeilisearchPageOptions } from '@utils/getMeilisearchPageOptions'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'
 import { SearchResponse } from 'meilisearch'

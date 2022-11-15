@@ -4,8 +4,8 @@ import { getMeilisearchPageOptions } from '@utils/getMeilisearchPageOptions'
 import { isDefined } from '@utils/isDefined'
 import { Key } from 'swr'
 
-import { DocumentMeili } from '../meiliTypes'
-import { SearchIndexWrapped, unwrapFromSearchIndex } from './searchIndexWrapped'
+import { DocumentMeili } from '../meili/meiliTypes'
+import { SearchIndexWrapped, unwrapFromSearchIndex } from '../meili/searchIndexWrapped'
 
 export type DocumentsSectionFilters = {
   pageSize: number

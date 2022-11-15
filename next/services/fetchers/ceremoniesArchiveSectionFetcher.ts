@@ -3,7 +3,7 @@ import { getMeilisearchPageOptions } from '@utils/getMeilisearchPageOptions'
 import { isDefined } from '@utils/isDefined'
 import { Key } from 'swr'
 
-import { CeremonyMeili } from '../meiliTypes'
+import { CeremonyMeili } from '../meili/meiliTypes'
 
 export type CeremoniesArchiveSectionFilters = {
   pageSize: number

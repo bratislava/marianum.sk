@@ -12,7 +12,7 @@ import {
   ceremoniesArchiveSectionFetcher,
   CeremoniesArchiveSectionFilters,
   getCeremoniesArchiveSectionSwrKey,
-} from '@services/meili/fetchers/ceremoniesArchiveSectionFetcher'
+} from '@services/fetchers/ceremoniesArchiveSectionFetcher'
 import { CeremonyMeili } from '@services/meili/meiliTypes'
 import { getCemeteryInfoInCeremoniesDebtorsMeili } from '@utils/getCemeteryInfoInCeremoniesDebtors'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'

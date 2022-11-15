@@ -16,7 +16,7 @@ import {
   documentsSectionFetcher,
   DocumentsSectionFilters,
   getDocumentsSectionSwrKey,
-} from '@services/meili/fetchers/documentsSectionFetcher'
+} from '@services/fetchers/documentsSectionFetcher'
 import { DocumentMeili } from '@services/meili/meiliTypes'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
