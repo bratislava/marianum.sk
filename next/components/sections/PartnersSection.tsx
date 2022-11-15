@@ -3,8 +3,12 @@ import PartnerCard from '@components/molecules/Cards/PartnerCard'
 import Row from '@components/molecules/Row/Row'
 import Section, { SectionProps } from '@components/molecules/Section'
 import { PartnersSectionFragment } from '@graphql'
-import { partnersSectionFetcher, partnersSectionSwrKey } from '@services/meili/fetchers'
-import { isDefined, useGetSwrExtras } from '@utils'
+import {
+  partnersSectionFetcher,
+  partnersSectionSwrKey,
+} from '@services/meili/fetchers/partnersSectionFetcher'
+import { isDefined } from '@utils/isDefined'
+import { useGetSwrExtras } from '@utils/useGetSwrExtras'
 import { useMemo } from 'react'
 import useSWR from 'swr'
 

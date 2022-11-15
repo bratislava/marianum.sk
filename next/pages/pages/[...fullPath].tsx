@@ -39,18 +39,18 @@ import {
 import { client } from '@services/gqlClient'
 import {
   ArticleListingType,
-  ceremoniesArchiveSectionPrefetch,
-  ceremoniesSectionPrefetch,
-  debtorsSectionPrefetch,
-  documentsSectionPrefetch,
   getArticleListingNewsPrefetches,
-  getMapSectionPrefetch,
-  getNewsListingPrefetch,
-  getProceduresPrefetch,
-  getReviewPrefetch,
-  partnersSectionPrefetch,
-} from '@services/meili/fetchers'
-import { prefetchSections } from '@utils'
+} from '@services/meili/fetchers/articleListingFetcher'
+import { getMapSectionPrefetch } from '@services/meili/fetchers/cemeteriesFetcher'
+import { ceremoniesArchiveSectionPrefetch } from '@services/meili/fetchers/ceremoniesArchiveSectionFetcher'
+import { ceremoniesSectionPrefetch } from '@services/meili/fetchers/ceremoniesSectionFetcher'
+import { debtorsSectionPrefetch } from '@services/meili/fetchers/debtorsSectionFetcher'
+import { documentsSectionPrefetch } from '@services/meili/fetchers/documentsSectionFetcher'
+import { getNewsListingPrefetch } from '@services/meili/fetchers/newsListingFetcher'
+import { partnersSectionPrefetch } from '@services/meili/fetchers/partnersSectionFetcher'
+import { getProceduresPrefetch } from '@services/meili/fetchers/proceduresFetcher'
+import { getReviewPrefetch } from '@services/meili/fetchers/reviewsFetcher'
+import { prefetchSections } from '@utils/prefetchSections'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'

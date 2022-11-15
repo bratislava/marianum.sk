@@ -17,8 +17,10 @@ import {
   NavigationItemFragment,
 } from '@graphql'
 import { client } from '@services/gqlClient'
-import { getNewsListingPrefetch, upcomingCeremoniesPrefetch } from '@services/meili/fetchers'
-import { isDefined, prefetchSections } from '@utils'
+import { getNewsListingPrefetch } from '@services/meili/fetchers/newsListingFetcher'
+import { upcomingCeremoniesPrefetch } from '@services/meili/fetchers/upcomingCeremoniesFetcher'
+import { isDefined } from '@utils/isDefined'
+import { prefetchSections } from '@utils/prefetchSections'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'

@@ -3,7 +3,7 @@ import Footer from '@components/molecules/Footer/Footer'
 import Navigation from '@components/molecules/Navigation/Navigation'
 import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
 import { GeneralEntityFragment, NavigationItemFragment } from '@graphql'
-import { isDefined } from '@utils'
+import { isDefined } from '@utils/isDefined'
 import { ReactNode } from 'react'
 
 type PageWrapperProps = {

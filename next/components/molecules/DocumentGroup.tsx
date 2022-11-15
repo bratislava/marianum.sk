@@ -3,7 +3,7 @@ import Button from '@components/atoms/Button'
 import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Row from '@components/molecules/Row/Row'
 import { DocumentGroupFragment } from '@graphql'
-import { isDefined } from '@utils'
+import { isDefined } from '@utils/isDefined'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 

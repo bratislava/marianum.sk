@@ -2,7 +2,7 @@ import MLink from '@components/atoms/MLink'
 import { BackgroundColor, sectionContext } from '@components/layouts/SectionsWrapper'
 import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { CtaButtonFragment } from '@graphql'
-import { useActivateHeroSectionContentOverlay } from '@utils'
+import { useActivateHeroSectionContentOverlay } from '@utils/heroSectionContentOverlay'
 import cx from 'classnames'
 import { ReactNode, useContext, useMemo } from 'react'
 

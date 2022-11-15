@@ -1,7 +1,8 @@
 import { Option } from '@components/atoms/Select'
 import { client } from '@services/gqlClient'
 import { meiliClient } from '@services/meili/meiliClient'
-import { getMeilisearchPageOptions, isDefined } from '@utils'
+import { getMeilisearchPageOptions } from '@utils/getMeilisearchPageOptions'
+import { isDefined } from '@utils/isDefined'
 import { Key } from 'swr'
 
 import { ArticleMeili } from '../meiliTypes'

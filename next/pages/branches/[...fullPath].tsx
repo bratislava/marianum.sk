@@ -10,7 +10,7 @@ import {
 import SectionBoxed from '@components/molecules/SectionBoxed'
 import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import { client } from '@services/gqlClient'
-import { isDefined } from '@utils'
+import { isDefined } from '@utils/isDefined'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { SSRConfig, useTranslation } from 'next-i18next'

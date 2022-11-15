@@ -1,8 +1,12 @@
 import Loading from '@components/atoms/Loading'
 import ArticleCard from '@components/molecules/Cards/ArticleCard'
 import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { getNewsListingSwrKey, newsListingFetcher } from '@services/meili/fetchers'
-import { isDefined, useGetSwrExtras } from '@utils'
+import {
+  getNewsListingSwrKey,
+  newsListingFetcher,
+} from '@services/meili/fetchers/newsListingFetcher'
+import { isDefined } from '@utils/isDefined'
+import { useGetSwrExtras } from '@utils/useGetSwrExtras'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 import useSWR from 'swr'

@@ -2,7 +2,7 @@ import { CategoryCard } from '@components/molecules/Cards/CategoryFaqThemeCard'
 import { useNavigationContext } from '@components/molecules/Navigation/NavigationProvider/useNavigationContext'
 import Section, { SectionProps } from '@components/molecules/Section'
 import { MenuListingFragment, NavigationItemFragment } from '@graphql'
-import { getSlugsForNavFiltering } from '@utils'
+import { getSlugsForNavFiltering } from '@utils/getSlugsForNavFiltering'
 
 type MenuListingSectionProps = Pick<SectionProps, 'background'> & {
   section: MenuListingFragment

@@ -16,9 +16,10 @@ import {
   documentsSectionFetcher,
   DocumentsSectionFilters,
   getDocumentsSectionSwrKey,
-} from '@services/meili/fetchers'
+} from '@services/meili/fetchers/documentsSectionFetcher'
 import { DocumentMeili } from '@services/meili/meiliTypes'
-import { useGetSwrExtras, useScrollToViewIfDataChange } from '@utils'
+import { useGetSwrExtras } from '@utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'

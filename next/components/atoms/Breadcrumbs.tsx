@@ -1,6 +1,6 @@
 import { ChevronDownIcon } from '@assets/icons'
 import MLink from '@components/atoms/MLink'
-import { usePrevious } from '@utils'
+import { usePrevious } from '@utils/usePrevious'
 import cx from 'classnames'
 import last from 'lodash/last'
 import { useTranslation } from 'next-i18next'
