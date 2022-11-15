@@ -1,9 +1,8 @@
+import MLink from '@components/atoms/MLink'
+import Spinner from '@components/atoms/Spinner'
+import { SearchData } from '@utils/useSearch'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
-
-import { SearchData } from '../../../../hooks/useSearch'
-import MLink from '../../../atoms/MLink'
-import Spinner from '../../../atoms/Spinner'
 
 type NavigationSearchResultsProps = {
   searchQuery: string

@@ -8,7 +8,7 @@ import {
   Document,
   DocumentCategory,
   UploadFile,
-} from '../graphql'
+} from '@graphql'
 
 // Meilisearch doesn't nest entities in `data.attributes`, therefore in order to use Strapi types we need to `Omit` those
 // attributes that are nested and replace them with their direct representations.

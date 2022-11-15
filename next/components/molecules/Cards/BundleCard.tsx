@@ -1,14 +1,12 @@
+import { AddIcon, CheckIcon } from '@assets/icons'
+import CardBox, { CardBoxProps } from '@components/atoms/Card/CardBox'
+import CardContent from '@components/atoms/Card/CardContent'
+import FormatCurrency from '@components/atoms/FormatCurrency'
+import ImagePlaceholder from '@components/atoms/ImagePlaceholder'
+import MImage, { MImageImage } from '@components/atoms/MImage'
+import MLink from '@components/atoms/MLink'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-
-import PlusIcon from '../../../assets/add.svg'
-import CheckIcon from '../../../assets/check.svg'
-import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
-import CardContent from '../../atoms/Card/CardContent'
-import FormatCurrency from '../../atoms/FormatCurrency'
-import ImagePlaceholder from '../../atoms/ImagePlaceholder'
-import MImage, { MImageImage } from '../../atoms/MImage'
-import MLink from '../../atoms/MLink'
 
 type BundleCardProps = {
   image?: MImageImage | null
@@ -95,7 +93,7 @@ const BundleCard = ({
                 // eslint-disable-next-line react/no-array-index-key
                 <li key={index} className="mt-1 flex gap-3 text-sm font-semibold">
                   <span className="mt-0.5 text-primary-light">
-                    <PlusIcon />
+                    <AddIcon />
                   </span>
                   {claim}
                 </li>

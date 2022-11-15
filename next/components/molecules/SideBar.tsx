@@ -1,11 +1,9 @@
+import { MailIcon, PhoneIcon } from '@assets/icons'
+import Button from '@components/atoms/Button'
+import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { SidebarFragment } from '@graphql'
+import { getPhoneNumberLink } from '@utils/getPhoneNumberLink'
 import { useTranslation } from 'next-i18next'
-
-import MailIcon from '../../assets/mail.svg'
-import PhoneIcon from '../../assets/phone.svg'
-import { SidebarFragment } from '../../graphql'
-import { getPhoneNumberLink } from '../../utils/getPhoneNumberLink'
-import Button from '../atoms/Button'
-import { useGetFullPath } from './Navigation/NavigationProvider/useGetFullPath'
 
 type SideBarProps = {
   sidebar: SidebarFragment | null | undefined

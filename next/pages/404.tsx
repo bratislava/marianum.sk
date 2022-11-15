@@ -1,13 +1,12 @@
+import PageWrapper from '@components/layouts/PageWrapper'
+import SectionsWrapper from '@components/layouts/SectionsWrapper'
+import ErrorSection from '@components/sections/ErrorSection'
+import { GeneralEntityFragment, NavigationItemFragment } from '@graphql'
+import { client } from '@services/graphql/gqlClient'
+import { isDefined } from '@utils/isDefined'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
-import PageWrapper from '../components/layouts/PageWrapper'
-import SectionsWrapper from '../components/layouts/SectionsWrapper'
-import ErrorSection from '../components/sections/ErrorSection'
-import { GeneralEntityFragment, NavigationItemFragment } from '../graphql'
-import { client } from '../utils/gql'
-import { isDefined } from '../utils/isDefined'
 
 interface Error404PageProps {
   navigation: NavigationItemFragment[]

@@ -1,10 +1,10 @@
 import { useTranslation } from 'next-i18next'
 import { PropsWithChildren, useMemo } from 'react'
 
-import { normalizeSkText } from '../../utils/normalizeSkText'
+import { normalizeSkText } from './normalizeSkText'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-const NormalizeSkText = ({ children }: PropsWithChildren<{}>) => {
+const NormalizeText = ({ children }: PropsWithChildren<{}>) => {
   const { i18n } = useTranslation()
 
   return useMemo(() => {
@@ -16,4 +16,4 @@ const NormalizeSkText = ({ children }: PropsWithChildren<{}>) => {
   }, [children, i18n?.language])
 }
 
-export default NormalizeSkText
+export default NormalizeText

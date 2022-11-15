@@ -1,12 +1,11 @@
+import { sectionContext } from '@components/layouts/SectionsWrapper'
+import ReviewCard from '@components/molecules/Cards/ReviewCard'
+import Section from '@components/molecules/Section'
+import { HomepageReviewsSectionFragment } from '@graphql'
 import { useContext } from 'react'
 import { Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useIsClient } from 'usehooks-ts'
-
-import { HomepageReviewsSectionFragment } from '../../graphql'
-import { sectionContext } from '../layouts/SectionsWrapper'
-import ReviewCard from '../molecules/Cards/ReviewCard'
-import Section from '../molecules/Section'
 
 type HomepageReviewsSectionProps = {
   section?: HomepageReviewsSectionFragment

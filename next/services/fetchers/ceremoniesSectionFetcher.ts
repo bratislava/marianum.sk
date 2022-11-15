@@ -1,8 +1,7 @@
 import { parseAbsolute } from '@internationalized/date'
+import { client } from '@services/graphql/gqlClient'
+import { bratislavaTimezone } from '@utils/consts'
 import { Key } from 'swr'
-
-import { bratislavaTimezone } from '../consts'
-import { client } from '../gql'
 
 export type CeremoniesSectionFilters = {
   cemeteryId: string | null

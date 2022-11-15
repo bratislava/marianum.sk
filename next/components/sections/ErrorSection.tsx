@@ -1,9 +1,7 @@
+import Button from '@components/atoms/Button'
+import Section from '@components/molecules/Section'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import React from 'react'
-
-import Button from '../atoms/Button'
-import Section from '../molecules/Section'
 
 type ErrorSectionProps = {
   code: number

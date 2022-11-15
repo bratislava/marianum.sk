@@ -1,10 +1,9 @@
+import { cookieConsentContext } from '@components/atoms/Cookies/CookieConsent'
+import MLink from '@components/atoms/MLink'
+import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { CtaButtonFragment } from '@graphql'
 import { useTranslation } from 'next-i18next'
 import { useContext, useMemo } from 'react'
-
-import { CtaButtonFragment } from '../../../graphql'
-import { cookieConsentContext } from '../../atoms/CookieConsent'
-import MLink from '../../atoms/MLink'
-import { useGetFullPath } from '../Navigation/NavigationProvider/useGetFullPath'
 
 type FooterCredentialsProps = {
   links: CtaButtonFragment[] | null | undefined

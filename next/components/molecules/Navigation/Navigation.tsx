@@ -1,20 +1,18 @@
+import { MarianumLogoWithTextSvg } from '@assets'
+import { MenuIcon, PhoneIcon } from '@assets/icons'
+import Button from '@components/atoms/Button'
+import IconButton from '@components/atoms/IconButton'
+import MLink from '@components/atoms/MLink'
+import SkipToContentButton from '@components/atoms/SkipToContentButton'
+import NavigationMenuDesktop from '@components/molecules/Navigation/NavigationMenuDesktop'
+import NavigationMenuMobile from '@components/molecules/Navigation/NavigationMenuMobile'
+import { useNavigationContext } from '@components/molecules/Navigation/NavigationProvider/useNavigationContext'
+import NavigationSearch from '@components/molecules/Navigation/NavigationSearch/NavigationSearch'
+import { ContactEntityFragment } from '@graphql'
+import { getPhoneNumberLink } from '@utils/getPhoneNumberLink'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
-import { useContext, useState } from 'react'
-
-import MarianumLogoWithText from '../../../assets/marianum_logo_with_text.svg'
-import MenuIcon from '../../../assets/menu.svg'
-import PhoneIcon from '../../../assets/phone.svg'
-import { ContactEntityFragment } from '../../../graphql'
-import { getPhoneNumberLink } from '../../../utils/getPhoneNumberLink'
-import Button from '../../atoms/Button'
-import IconButton from '../../atoms/IconButton'
-import MLink from '../../atoms/MLink'
-import SkipToContentButton from '../../atoms/SkipToContentButton'
-import NavigationMenuDesktop from './NavigationMenuDesktop'
-import NavigationMenuMobile from './NavigationMenuMobile'
-import { NavigationContext } from './NavigationProvider/NavigationProvider'
-import NavigationSearch from './NavigationSearch/NavigationSearch'
+import { useState } from 'react'
 
 type NavigationProps = {
   contact: ContactEntityFragment | null | undefined
@@ -26,7 +24,7 @@ const Navigation = ({ contact }: NavigationProps) => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
   const [isDesktopSearchOpen, setDesktopSearchOpen] = useState(false)
 
-  const { navigation } = useContext(NavigationContext)
+  const { navigation } = useNavigationContext()
 
   const { title, phone1, phone2 } = contact?.attributes ?? {}
 
@@ -68,7 +66,7 @@ const Navigation = ({ contact }: NavigationProps) => {
             noArrow
             aria-label={t('home')}
           >
-            <MarianumLogoWithText className="h-full w-full" />
+            <MarianumLogoWithTextSvg className="h-full w-full" />
           </MLink>
           {/* right side of navigation */}
           <div className="flex items-center gap-4 xl:gap-8">

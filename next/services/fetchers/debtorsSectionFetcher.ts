@@ -1,8 +1,8 @@
+import { meiliClient } from '@services/meili/meiliClient'
+import { getMeilisearchPageOptions } from '@utils/getMeilisearchPageOptions'
 import { Key } from 'swr'
 
-import { DebtorMeili } from '../../types/meiliTypes'
-import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
-import { meiliClient } from '../meilisearch'
+import { DebtorMeili } from '../meili/meiliTypes'
 
 export type DebtorsSectionFilters = {
   pageSize: number

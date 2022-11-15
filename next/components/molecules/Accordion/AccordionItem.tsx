@@ -1,9 +1,8 @@
+import { ChevronDownIcon } from '@assets/icons'
+import { AnimateHeight } from '@components/atoms/AnimateHeight'
 import { Disclosure } from '@headlessui/react'
 import cx from 'classnames'
 import { ReactNode } from 'react'
-
-import ChevronDown from '../../../assets/chevron_down.svg'
-import { AnimateHeight } from '../../atoms/AnimateHeight'
 
 export type AccordionItemProps = {
   title: string | null | undefined | ReactNode
@@ -38,7 +37,7 @@ const AccordionItem = ({
                   { 'border border-border': !noBorder },
                 )}
               >
-                <ChevronDown
+                <ChevronDownIcon
                   className={cx('transform text-primary transition-transform', {
                     'rotate-180': open,
                   })}

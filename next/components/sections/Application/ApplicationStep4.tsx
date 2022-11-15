@@ -1,12 +1,12 @@
+import { MapMarkerSvg } from '@assets'
+import FormRadioGroup from '@components/atoms/Forms/FormRadioGroup'
+import RadioCircle from '@components/atoms/Radio/RadioCircle'
+import { CemeteryInApplicationEntityFragment } from '@graphql'
 import { RadioGroup } from '@headlessui/react'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { DeepPartial } from 'react-hook-form'
 import * as yup from 'yup'
 
-import MapMarkerIcon from '../../../assets/map-marker.svg'
-import { CemeteryInApplicationEntityFragment } from '../../../graphql'
-import FormRadioGroup from '../../atoms/Forms/FormRadioGroup'
-import RadioCircle from '../../atoms/Radio/RadioCircle'
 import { ApplicationTypes } from './application.types'
 import { useApplicationStep } from './useApplicationStep'
 
@@ -20,7 +20,7 @@ const CemeteryRadioBox = ({ cemetery }: { cemetery: CemeteryInApplicationEntityF
         <div className="flex w-full justify-between px-5 py-3">
           <div className="flex grow gap-x-4">
             <div className="flex items-center">
-              <MapMarkerIcon className="h-4 w-4" />
+              <MapMarkerSvg className="h-4 w-4" />
             </div>
             <div className="flex flex-col">
               <RadioGroup.Label className="font-semibold text-primary">

@@ -1,3 +1,5 @@
+import { CloseIcon } from '@assets/icons'
+import IconButton from '@components/atoms/IconButton'
 import cx from 'classnames'
 import FocusTrap from 'focus-trap-react'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -11,9 +13,6 @@ import {
 } from 'react-aria'
 import { twMerge } from 'tailwind-merge'
 import { useIsClient } from 'usehooks-ts'
-
-import CloseIcon from '../../assets/close.svg'
-import IconButton from './IconButton'
 
 export type ModalProps = {
   children: ReactNode

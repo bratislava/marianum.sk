@@ -2,6 +2,12 @@ import '../styles/globals.css'
 import '../styles/table.scss'
 import 'swiper/css'
 
+import CookieBanner from '@components/atoms/Cookies/CookieBanner'
+import CookieConsent from '@components/atoms/Cookies/CookieConsent'
+import CookieSettingsModal from '@components/atoms/Cookies/CookieSettingsModal'
+import MI18nProvider from '@components/atoms/MI18nProvider'
+import ThirdPartyScripts from '@components/atoms/ThirdPartyScripts'
+import { HeroSectionOverlayProvider } from '@utils/heroSectionContentOverlay'
 import { MotionConfig } from 'framer-motion'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
@@ -11,14 +17,8 @@ import { OverlayProvider, SSRProvider } from 'react-aria'
 import { assert, Equals } from 'tsafe'
 import { QueryParamProvider } from 'use-query-params'
 
-import CookieBanner from '../components/atoms/CookieBanner'
-import CookieConsent from '../components/atoms/CookieConsent'
-import CookieSettingsModal from '../components/atoms/CookieSettingsModal'
-import MI18nProvider from '../components/atoms/MI18nProvider'
-import ThirdPartyScripts from '../components/atoms/ThirdPartyScripts'
 import enCommonNamespace from '../public/locales/en/common.json'
 import skCommonNamespace from '../public/locales/sk/common.json'
-import { HeroSectionOverlayProvider } from '../utils/heroSectionContentOverlay'
 
 // This makes sure that the translations files are in sync.
 // It fails and underlined if translation files are not in same shape.

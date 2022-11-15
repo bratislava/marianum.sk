@@ -1,7 +1,7 @@
+import { CemeteryInApplicationEntityFragment } from '@graphql'
+import { isDefined } from '@utils/isDefined'
 import { DeepPartial } from 'react-hook-form'
 
-import { CemeteryInApplicationEntityFragment } from '../../../graphql'
-import { isDefined } from '../../../utils/isDefined'
 import { ApplicationTypes } from './application.types'
 
 export const getListOfSteps = (application: DeepPartial<ApplicationTypes.Application>) => {

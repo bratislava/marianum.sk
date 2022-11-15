@@ -1,7 +1,6 @@
+import { NavigationItemFragment } from '@graphql'
+import { isDefined } from '@utils/isDefined'
 import last from 'lodash/last'
-
-import { NavigationItemFragment } from '../graphql'
-import { isDefined } from './isDefined'
 
 const navMap = new Map<string, { label: string; path: string }>()
 

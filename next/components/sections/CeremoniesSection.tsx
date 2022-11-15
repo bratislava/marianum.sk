@@ -1,29 +1,28 @@
+import FormatDate from '@components/atoms/FormatDate'
+import Loading from '@components/atoms/Loading'
+import LoadingOverlay from '@components/atoms/LoadingOverlay'
+import MLink from '@components/atoms/MLink'
+import CemeteryLink from '@components/molecules/CemeteryLink'
+import CeremoniesDebtorsCemeterySelect from '@components/molecules/CeremoniesDebtors/CemeterySelect'
+import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Section from '@components/molecules/Section'
+import { CeremoniesQuery, CeremoniesSectionFragment } from '@graphql'
 import { parseAbsolute, parseDate, toCalendarDate } from '@internationalized/date'
-import groupBy from 'lodash/groupBy'
-import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
-import { Fragment, useMemo, useRef, useState } from 'react'
-import useSwr from 'swr'
-
-import { CeremoniesQuery, CeremoniesSectionFragment } from '../../graphql'
-import { bratislavaTimezone } from '../../utils/consts'
 import {
   ceremoniesSectionDefaultFilters,
   ceremoniesSectionFetcher,
   CeremoniesSectionFilters,
   getCeremoniesSectionSwrKey,
-} from '../../utils/fetchers/ceremoniesSectionFetcher'
-import { getCemeteryInfoInCeremoniesDebtors } from '../../utils/getCemeteryInfoInCeremoniesDebtors'
-import useGetSwrExtras from '../../utils/useGetSwrExtras'
-import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
-import FormatDate from '../atoms/FormatDate'
-import Loading from '../atoms/Loading'
-import LoadingOverlay from '../atoms/LoadingOverlay'
-import MLink from '../atoms/MLink'
-import CemeteryLink from '../molecules/CemeteryLink'
-import CeremoniesDebtorsCemeterySelect from '../molecules/CeremoniesDebtors/CemeterySelect'
-import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
-import Section from '../molecules/Section'
+} from '@services/fetchers/ceremoniesSectionFetcher'
+import { bratislavaTimezone } from '@utils/consts'
+import { getCemeteryInfoInCeremoniesDebtors } from '@utils/getCemeteryInfoInCeremoniesDebtors'
+import { useGetSwrExtras } from '@utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
+import groupBy from 'lodash/groupBy'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { Fragment, useMemo, useRef, useState } from 'react'
+import useSwr from 'swr'
 
 const ArchiveCard = ({
   archive,

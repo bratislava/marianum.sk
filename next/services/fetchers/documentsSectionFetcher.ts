@@ -1,11 +1,11 @@
+import { Sort } from '@components/molecules/SortSelect'
+import { meiliClient } from '@services/meili/meiliClient'
+import { getMeilisearchPageOptions } from '@utils/getMeilisearchPageOptions'
+import { isDefined } from '@utils/isDefined'
 import { Key } from 'swr'
 
-import { Sort } from '../../components/molecules/SortSelect'
-import { DocumentMeili } from '../../types/meiliTypes'
-import { getMeilisearchPageOptions } from '../getMeilisearchPageOptions'
-import { isDefined } from '../isDefined'
-import { meiliClient } from '../meilisearch'
-import { SearchIndexWrapped, unwrapFromSearchIndex } from './searchIndexWrapped'
+import { DocumentMeili } from '../meili/meiliTypes'
+import { SearchIndexWrapped, unwrapFromSearchIndex } from '../meili/searchIndexWrapped'
 
 export type DocumentsSectionFilters = {
   pageSize: number

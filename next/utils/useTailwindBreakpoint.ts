@@ -4,7 +4,7 @@ import { useWindowSize } from 'usehooks-ts'
 import { screenBreakpoints } from '../screen-breakpoints.config'
 
 // this hook returns current tailwind breakpoint ("sm" | "md" | "lg" | "xl")
-// or null when screen is smaller then "sm" breakpoint
+// or null when screen is smaller than "sm" breakpoint
 export const useTailwindBreakpoint = () => {
   const { width } = useWindowSize()
 

@@ -1,31 +1,31 @@
+import MLink from '@components/atoms/MLink'
+import TabItem from '@components/atoms/Tabs/TabItem'
+import Tabs from '@components/atoms/Tabs/Tabs'
+import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Section, { SectionProps } from '@components/molecules/Section'
+import { ProcedureFragment, ProceduresShortSectionFragment } from '@graphql'
+import { isDefined } from '@utils/isDefined'
+import { useTailwindBreakpoint } from '@utils/useTailwindBreakpoint'
 import cx from 'classnames'
 import { useMemo } from 'react'
 
-import { CtaButtonFragment, ProcedureFragment } from '../../graphql'
-import { useTailwindBreakpoint } from '../../hooks/useTailwindBreakpoint'
-import { isDefined } from '../../utils/isDefined'
-import MLink from '../atoms/MLink'
-import TabItem from '../atoms/Tabs/TabItem'
-import Tabs from '../atoms/Tabs/Tabs'
-import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
-import Section, { SectionProps } from '../molecules/Section'
-
-type HomepageProceduresProps = Pick<SectionProps, 'title' | 'background'> & {
+type HomepageProceduresProps = Pick<SectionProps, 'background'> & {
   outsideMedicalFacility: ProcedureFragment | null | undefined
   atMedicalFacility: ProcedureFragment | null | undefined
-  showMoreButton: CtaButtonFragment | null | undefined
+  section: ProceduresShortSectionFragment
 }
 
-const HomepageProcedures = ({
-  title,
+const HomepageProceduresSection = ({
   outsideMedicalFacility: outMF,
   atMedicalFacility: atMF,
-  showMoreButton,
+  section,
   ...rest
 }: HomepageProceduresProps) => {
   const { getFullPath } = useGetFullPath()
   const { isNull } = useTailwindBreakpoint()
   const isMobile = useMemo(() => isNull, [isNull])
+
+  const { showMoreButton, title } = section
 
   const showMoreSlug = getFullPath(showMoreButton?.page?.data)
 
@@ -95,4 +95,4 @@ const HomepageProcedures = ({
   )
 }
 
-export default HomepageProcedures
+export default HomepageProceduresSection

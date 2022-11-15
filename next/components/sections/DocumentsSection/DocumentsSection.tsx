@@ -1,31 +1,30 @@
-import { SearchResponse } from 'meilisearch'
-import { useTranslation } from 'next-i18next'
-import { useEffect, useRef, useState } from 'react'
-import useSwr from 'swr'
-import { useDebounce } from 'usehooks-ts'
-
-import DownloadIcon from '../../../assets/download.svg'
-import { DocumentMeili } from '../../../types/meiliTypes'
+import { DownloadIcon } from '@assets/icons'
+import Button from '@components/atoms/Button'
+import Loading from '@components/atoms/Loading'
+import LoadingOverlay from '@components/atoms/LoadingOverlay'
+import FilteringSearchInput from '@components/molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '@components/molecules/FiltersBackgroundWrapper'
+import { useGetFullPathMeili } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import PaginationMeili from '@components/molecules/PaginationMeili'
+import Row from '@components/molecules/Row/Row'
+import Section from '@components/molecules/Section'
+import SortSelect, { Sort } from '@components/molecules/SortSelect'
+import DocumentsSectionCategorySelect from '@components/sections/DocumentsSection/DocumentsSectionCategorySelect'
+import DocumentsSectionFiletypeSelect from '@components/sections/DocumentsSection/DocumentsSectionFiletypeSelect'
 import {
   documentsSectionDefaultFilters,
   documentsSectionFetcher,
   DocumentsSectionFilters,
   getDocumentsSectionSwrKey,
-} from '../../../utils/fetchers/documentsSectionFetcher'
-import useGetSwrExtras from '../../../utils/useGetSwrExtras'
-import { useScrollToViewIfDataChange } from '../../../utils/useScrollToViewIfDataChange'
-import Button from '../../atoms/Button'
-import Loading from '../../atoms/Loading'
-import LoadingOverlay from '../../atoms/LoadingOverlay'
-import FilteringSearchInput from '../../molecules/FilteringSearchInput'
-import FiltersBackgroundWrapper from '../../molecules/FiltersBackgroundWrapper'
-import { useGetFullPathMeili } from '../../molecules/Navigation/NavigationProvider/useGetFullPath'
-import PaginationMeili from '../../molecules/PaginationMeili'
-import Row from '../../molecules/Row/Row'
-import Section from '../../molecules/Section'
-import SortSelect, { Sort } from '../../molecules/SortSelect'
-import DocumentsSectionCategorySelect from './DocumentsSectionCategorySelect'
-import DocumentsSectionFiletypeSelect from './DocumentsSectionFiletypeSelect'
+} from '@services/fetchers/documentsSectionFetcher'
+import { DocumentMeili } from '@services/meili/meiliTypes'
+import { useGetSwrExtras } from '@utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
+import { SearchResponse } from 'meilisearch'
+import { useTranslation } from 'next-i18next'
+import { useEffect, useRef, useState } from 'react'
+import useSwr from 'swr'
+import { useDebounce } from 'usehooks-ts'
 
 const Documents = ({
   data,

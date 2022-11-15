@@ -1,7 +1,6 @@
+import TextField from '@components/atoms/TextField'
 import { ErrorMessage } from '@hookform/error-message'
 import React, { ComponentProps, forwardRef, PropsWithChildren } from 'react'
-
-import TextField from '../TextField'
 
 // Types are not worth the effort.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

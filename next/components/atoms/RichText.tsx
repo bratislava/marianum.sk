@@ -1,12 +1,11 @@
+import Divider from '@components/atoms/Divider'
+import MLink from '@components/atoms/MLink'
+import NormalizeText from '@components/atoms/NormalizeText/NormalizeText'
 import cx from 'classnames'
 import ReactMarkdown from 'react-markdown'
 import { LiProps } from 'react-markdown/lib/ast-to-react'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
-
-import Divider from '../Divider'
-import MLink from '../MLink'
-import NormalizeSkText from '../NormalizeSkText'
 
 export interface RichTextProps {
   className?: string
@@ -47,7 +46,7 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
           <p className="whitespace-pre-wrap" {...props}>
             {children.map((child, index) => (
               // eslint-disable-next-line react/no-array-index-key
-              <NormalizeSkText key={index}>{child}</NormalizeSkText>
+              <NormalizeText key={index}>{child}</NormalizeText>
             ))}
           </p>
         ),
@@ -83,7 +82,7 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
             <div {...props}>
               {children.map((child, index) => (
                 // eslint-disable-next-line react/no-array-index-key
-                <NormalizeSkText key={index}>{child}</NormalizeSkText>
+                <NormalizeText key={index}>{child}</NormalizeText>
               ))}
             </div>
           </td>

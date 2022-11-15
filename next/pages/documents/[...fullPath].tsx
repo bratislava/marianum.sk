@@ -1,20 +1,15 @@
+import Seo from '@components/atoms/Seo'
+import DocumentLayout from '@components/layouts/DocumentLayout'
+import {
+  generateStaticPaths,
+  generateStaticProps,
+} from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
+import { client } from '@services/graphql/gqlClient'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
 import { ParsedUrlQuery } from 'node:querystring'
-
-import DocumentLayout from '../../components/layouts/DocumentLayout'
-import {
-  generateStaticPaths,
-  generateStaticProps,
-} from '../../components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import Seo from '../../components/molecules/Seo'
-import {
-  DocumentEntityFragment,
-  GeneralEntityFragment,
-  NavigationItemFragment,
-} from '../../graphql'
-import { client } from '../../utils/gql'
 
 type DocumentPageProps = {
   navigation: NavigationItemFragment[]
@@ -47,7 +42,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
     client.DocumentsStaticPaths().then((response) => response.documents?.data),
   )
 
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console, @typescript-eslint/restrict-template-expressions
   console.log(`Documents: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }

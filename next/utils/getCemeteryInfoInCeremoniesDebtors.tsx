@@ -1,5 +1,5 @@
-import { Maybe } from '../graphql'
-import { CemeteryMeili } from '../types/meiliTypes'
+import { Maybe } from '@graphql'
+import { CemeteryMeili } from '@services/meili/meiliTypes'
 
 /**
  * As the relation in ceremonies and debtors is always with the Slovak version, we always get the Slovak version as the

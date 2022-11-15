@@ -1,12 +1,11 @@
+import { ChevronDownIcon } from '@assets/icons'
+import MLink from '@components/atoms/MLink'
+import { usePrevious } from '@utils/usePrevious'
 import cx from 'classnames'
 import last from 'lodash/last'
 import { useTranslation } from 'next-i18next'
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
-
-import ChevronDown from '../../assets/chevron_down.svg'
-import { usePrevious } from '../../utils/hooks'
-import MLink from './MLink'
 
 export type BreadcrumbItem = {
   label: string | ReactNode
@@ -35,7 +34,7 @@ const BreadcrumbChild = ({
     <div className="flex gap-1">
       {!noChevron && (
         <div className="shrink-0 -rotate-90 pt-[2px]">
-          <ChevronDown />
+          <ChevronDownIcon />
         </div>
       )}
       {noLink ? (
@@ -115,7 +114,7 @@ const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
               {/* TODO add aria attributes */}
               <button className="p-4" type="button" onClick={() => setOpen((o) => !o)}>
                 <div className={cx('transform transition-transform', { 'rotate-180': isOpen })}>
-                  <ChevronDown />
+                  <ChevronDownIcon />
                 </div>
               </button>
             </div>

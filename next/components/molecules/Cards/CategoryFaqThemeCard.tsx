@@ -1,10 +1,9 @@
+import CardBox, { CardBoxProps } from '@components/atoms/Card/CardBox'
+import CardContent from '@components/atoms/Card/CardContent'
+import MLink from '@components/atoms/MLink'
 import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-
-import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
-import CardContent from '../../atoms/Card/CardContent'
-import MLink from '../../atoms/MLink'
 
 type CategoryCardProps = {
   title: string

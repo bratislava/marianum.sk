@@ -1,12 +1,11 @@
+import { OpenInNewIcon } from '@assets/icons'
+import Button from '@components/atoms/Button'
+import CardBox, { CardBoxProps } from '@components/atoms/Card/CardBox'
+import CardContent from '@components/atoms/Card/CardContent'
+import MImage, { MImageImage } from '@components/atoms/MImage'
+import MLink from '@components/atoms/MLink'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-
-import OpenInNewIcon from '../../../assets/open_in_new.svg'
-import Button from '../../atoms/Button'
-import CardBox, { CardBoxProps } from '../../atoms/Card/CardBox'
-import CardContent from '../../atoms/Card/CardContent'
-import MImage, { MImageImage } from '../../atoms/MImage'
-import MLink from '../../atoms/MLink'
 
 type PartnerCardProps = {
   title: string

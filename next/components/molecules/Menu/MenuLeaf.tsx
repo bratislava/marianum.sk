@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
+import MenuItem from '@components/molecules/Menu/MenuItem'
 import { ClickEvent, MenuItem as ReactMenuItem } from '@szhsin/react-menu'
 import { useRouter } from 'next/router'
-
-import MenuItem from './MenuItem'
 
 type MenuLeafProps = {
   title: string

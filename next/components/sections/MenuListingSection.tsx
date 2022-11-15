@@ -1,14 +1,17 @@
-import { NavigationItemFragment } from '../../graphql'
-import { getSlugsForNavFiltering } from '../../utils/getSlugsForNavFiltering'
-import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
-import Section, { SectionProps } from '../molecules/Section'
+import { CategoryCard } from '@components/molecules/Cards/CategoryFaqThemeCard'
+import { useNavigationContext } from '@components/molecules/Navigation/NavigationProvider/useNavigationContext'
+import Section, { SectionProps } from '@components/molecules/Section'
+import { MenuListingFragment, NavigationItemFragment } from '@graphql'
+import { getSlugsForNavFiltering } from '@utils/getSlugsForNavFiltering'
 
-type MenuListingSectionProps = Pick<SectionProps, 'title' | 'background'> & {
-  slug: string | null | undefined
-  navigation: NavigationItemFragment[]
+type MenuListingSectionProps = Pick<SectionProps, 'background'> & {
+  section: MenuListingFragment
 }
 
-const MenuListingSection = ({ slug, navigation, ...rest }: MenuListingSectionProps) => {
+const MenuListingSection = ({ section, ...rest }: MenuListingSectionProps) => {
+  const { slug, title } = section
+  const { navigation } = useNavigationContext()
+
   const slugs = getSlugsForNavFiltering(slug)
 
   let desiredChild: NavigationItemFragment | null = null
@@ -20,7 +23,7 @@ const MenuListingSection = ({ slug, navigation, ...rest }: MenuListingSectionPro
   }
 
   return (
-    <Section {...rest} cardGrid="cards">
+    <Section title={title} cardGrid="cards" {...rest}>
       {desiredChild?.items?.map((subItem) => (
         <CategoryCard
           key={subItem?.path}

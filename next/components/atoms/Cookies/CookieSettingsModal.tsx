@@ -1,15 +1,12 @@
+import { CheckIcon, CloseCircleIcon, CloseIcon } from '@assets/icons'
+import Button from '@components/atoms/Button'
+import Checkbox from '@components/atoms/Checkbox'
+import { cookieConsentContext } from '@components/atoms/Cookies/CookieConsent'
+import IconButton from '@components/atoms/IconButton'
+import Modal from '@components/atoms/Modal'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useContext, useEffect, useState } from 'react'
-
-import CheckIcon from '../../assets/check.svg'
-import CloseIcon from '../../assets/close.svg'
-import XIcon from '../../assets/x-alt.svg'
-import Button from './Button'
-import Checkbox from './Checkbox'
-import { cookieConsentContext } from './CookieConsent'
-import IconButton from './IconButton'
-import Modal from './Modal'
 
 const CookieTypeCheckbox = ({
   isChecked,
@@ -157,7 +154,7 @@ const CookieSettingsModal = () => {
                 className="whitespace-nowrap"
                 variant="secondary"
                 onPress={onRejectAll}
-                startIcon={<XIcon />}
+                startIcon={<CloseCircleIcon />}
               >
                 {t('rejectAll')}
               </Button>

@@ -1,13 +1,12 @@
+import { CategoryCard } from '@components/molecules/Cards/CategoryFaqThemeCard'
+import ServiceCard from '@components/molecules/Cards/ServiceCard'
+import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Section, { SectionProps } from '@components/molecules/Section'
+import { Enum_Componentsectionsmanuallisting_Style, ManualListingFragment } from '@graphql'
+import { isDefined } from '@utils/isDefined'
+import { useTailwindBreakpoint } from '@utils/useTailwindBreakpoint'
 import cx from 'classnames'
 import { useMemo } from 'react'
-
-import { Enum_Componentsectionsmanuallisting_Style, ManualListingFragment } from '../../graphql'
-import { useTailwindBreakpoint } from '../../hooks/useTailwindBreakpoint'
-import { isDefined } from '../../utils/isDefined'
-import { CategoryCard } from '../molecules/Cards/CategoryFaqThemeCard'
-import ServiceCard from '../molecules/Cards/ServiceCard'
-import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
-import Section, { SectionProps } from '../molecules/Section'
 
 type CardSectionProps = Pick<SectionProps, 'background'> & {
   section: ManualListingFragment

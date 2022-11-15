@@ -1,8 +1,7 @@
+import Spinner from '@components/atoms/Spinner'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
-
-import Spinner from './Spinner'
 
 type LoadingProps = { className?: string }
 

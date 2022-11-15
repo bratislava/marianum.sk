@@ -1,10 +1,10 @@
+import { ArrowLeftIcon } from '@assets/icons'
+import IconButton from '@components/atoms/IconButton'
+import AccordionItem from '@components/molecules/Accordion/AccordionItem'
+import { useLeavePageConfirm } from '@utils/useLeavePageConfirm'
 import { useMemo, useRef, useState } from 'react'
 import { DeepPartial } from 'react-hook-form'
 
-import ArrowBackIcon from '../../../assets/arrow_back.svg'
-import { useLeavePageConfirm } from '../../../utils/useLeavePageConfirm'
-import IconButton from '../../atoms/IconButton'
-import AccordionItem from '../../molecules/Accordion/AccordionItem'
 import { ApplicationTypes } from './application.types'
 import { fixApplication, getListOfSteps } from './application.utils'
 import ApplicationStep1 from './ApplicationStep1'
@@ -101,7 +101,7 @@ export const ApplicationSection = ({ cemeteries }: ApplicationSectionProps) => {
         <div className="ml-4 w-10 md:ml-7">
           {currentStep !== ApplicationTypes.Step.Step1 ? (
             <IconButton onPress={handleGoBack}>
-              <ArrowBackIcon className="text-background-dark" />
+              <ArrowLeftIcon className="text-background-dark" />
             </IconButton>
           ) : null}
         </div>

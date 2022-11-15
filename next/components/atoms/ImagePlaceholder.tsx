@@ -1,11 +1,9 @@
-import React from 'react'
-
-import MarianumLogo from '../../assets/marianum_logo.svg'
+import { MarianumLogoSvg } from '@assets'
 
 const ImagePlaceholder = () => {
   return (
     <div className="flex h-full w-full place-content-center bg-primary-dark text-primary">
-      <MarianumLogo className="w-5/12" />
+      <MarianumLogoSvg className="w-5/12" />
     </div>
   )
 }

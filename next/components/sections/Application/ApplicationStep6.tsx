@@ -1,7 +1,6 @@
-import React from 'react'
+import FormTextField from '@components/atoms/Forms/FormTextField'
 import * as yup from 'yup'
 
-import FormTextField from '../../atoms/Forms/FormTextField'
 import { ApplicationTypes } from './application.types'
 import { useApplicationStep } from './useApplicationStep'
 
