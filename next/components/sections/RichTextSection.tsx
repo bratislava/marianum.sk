@@ -1,5 +1,5 @@
 import Button from '@components/atoms/Button'
-import RichText from '@components/atoms/RichText/RichText'
+import RichText from '@components/atoms/RichText'
 import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section from '@components/molecules/Section'
 import { RichtextSectionFragment } from '@graphql'

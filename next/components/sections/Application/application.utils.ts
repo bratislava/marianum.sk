@@ -1,5 +1,5 @@
 import { CemeteryInApplicationEntityFragment } from '@graphql'
-import { isDefined } from '@utils'
+import { isDefined } from '@utils/isDefined'
 import { DeepPartial } from 'react-hook-form'
 
 import { ApplicationTypes } from './application.types'

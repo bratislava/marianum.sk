@@ -13,13 +13,11 @@ import {
   ceremoniesSectionFetcher,
   CeremoniesSectionFilters,
   getCeremoniesSectionSwrKey,
-} from '@services/meili/fetchers'
-import {
-  getCemeteryInfoInCeremoniesDebtors,
-  useGetSwrExtras,
-  useScrollToViewIfDataChange,
-} from '@utils'
+} from '@services/fetchers/ceremoniesSectionFetcher'
 import { bratislavaTimezone } from '@utils/consts'
+import { getCemeteryInfoInCeremoniesDebtors } from '@utils/getCemeteryInfoInCeremoniesDebtors'
+import { useGetSwrExtras } from '@utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
 import groupBy from 'lodash/groupBy'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'

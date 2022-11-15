@@ -186,11 +186,7 @@ query HomePage($locale: I18NLocaleCode) {
           }
           ... on ComponentSectionsProceduresShortSection {
             __typename
-            id
-            title
-            showMoreButton {
-              ...CtaButton
-            }
+            ...ProceduresShortSection
           }
           ... on ComponentSectionsCtaSection {
             __typename

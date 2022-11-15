@@ -1,19 +1,18 @@
 import Divider from '@components/atoms/Divider'
-import RichText from '@components/atoms/RichText/RichText'
+import Seo from '@components/atoms/Seo'
 import PageLayout from '@components/layouts/PageLayout'
 import SectionsWrapper from '@components/layouts/SectionsWrapper'
-import AccordionGroup from '@components/molecules/Accordion/AccordionGroup'
-import AccordionItem from '@components/molecules/Accordion/AccordionItem'
 import BranchGroup from '@components/molecules/BranchGroup'
 import DisclosureIframe from '@components/molecules/DisclosureIframe'
 import DocumentGroup from '@components/molecules/DocumentGroup'
+import ImageGallery from '@components/molecules/ImageGallery'
 import {
   generateStaticPaths,
   generateStaticProps,
 } from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
 import ProcedureTabs from '@components/molecules/ProcedureTabs'
 import Section from '@components/molecules/Section'
-import Seo from '@components/molecules/Seo'
+import AccordionGroupSection from '@components/sections/AccordionGroupSection'
 import ArticleListing from '@components/sections/ArticleListing/ArticleListing'
 import BundleListingSection from '@components/sections/BundleListingSection'
 import CardSection from '@components/sections/CardSection'
@@ -22,7 +21,6 @@ import CeremoniesSection from '@components/sections/CeremoniesSection'
 import ContactsSection from '@components/sections/ContactsSection'
 import DebtorsSection from '@components/sections/DebtorsSection'
 import DocumentsSection from '@components/sections/DocumentsSection/DocumentsSection'
-import ImageGallery from '@components/sections/ImageGallery'
 import MapSection from '@components/sections/MapSection'
 import MenuListingSection from '@components/sections/MenuListingSection'
 import NewsListing from '@components/sections/NewsSection'
@@ -38,21 +36,21 @@ import {
   ReviewEntityFragment,
   ReviewsQuery,
 } from '@graphql'
-import { client } from '@services/gqlClient'
 import {
   ArticleListingType,
-  ceremoniesArchiveSectionPrefetch,
-  ceremoniesSectionPrefetch,
-  debtorsSectionPrefetch,
-  documentsSectionPrefetch,
   getArticleListingNewsPrefetches,
-  getMapSectionPrefetch,
-  getNewsListingPrefetch,
-  getProceduresPrefetch,
-  getReviewPrefetch,
-  partnersSectionPrefetch,
-} from '@services/meili/fetchers'
-import { prefetchSections } from '@utils'
+} from '@services/fetchers/articleListingFetcher'
+import { getMapSectionPrefetch } from '@services/fetchers/cemeteriesFetcher'
+import { ceremoniesArchiveSectionPrefetch } from '@services/fetchers/ceremoniesArchiveSectionFetcher'
+import { ceremoniesSectionPrefetch } from '@services/fetchers/ceremoniesSectionFetcher'
+import { debtorsSectionPrefetch } from '@services/fetchers/debtorsSectionFetcher'
+import { documentsSectionPrefetch } from '@services/fetchers/documentsSectionFetcher'
+import { getNewsListingPrefetch } from '@services/fetchers/newsListingFetcher'
+import { partnersSectionPrefetch } from '@services/fetchers/partnersSectionFetcher'
+import { getProceduresPrefetch } from '@services/fetchers/proceduresFetcher'
+import { getReviewPrefetch } from '@services/fetchers/reviewsFetcher'
+import { client } from '@services/graphql/gqlClient'
+import { prefetchSections } from '@utils/prefetchSections'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
@@ -101,18 +99,10 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
             }
             if (section?.__typename === 'ComponentSectionsAccordionGroup') {
               return (
-                <Section key={`${section.__typename}-${section.id}`}>
-                  <h2 className="mb-4 grow text-center text-h3 md:mb-6 md:text-left">
-                    {section.title}
-                  </h2>
-                  <AccordionGroup>
-                    {section.accordions?.map((accordion) => (
-                      <AccordionItem key={accordion?.id} title={accordion?.title}>
-                        <RichText content={accordion?.content} coloredTable={false} />
-                      </AccordionItem>
-                    ))}
-                  </AccordionGroup>
-                </Section>
+                <AccordionGroupSection
+                  key={`${section.__typename}-${section.id}`}
+                  section={section}
+                />
               )
             }
             if (section?.__typename === 'ComponentSectionsBranchGroup') {
@@ -142,10 +132,11 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
             }
             if (section?.__typename === 'ComponentSectionsDocumentGroup') {
               return (
-                <Section key={`${section.__typename}-${section.id}`}>
-                  <h2 className="mb-4 grow text-center text-h3 md:mb-6 md:text-left">
-                    {section.title}
-                  </h2>
+                <Section
+                  key={`${section.__typename}-${section.id}`}
+                  title={section.title}
+                  titleFontSize="h3"
+                >
                   <DocumentGroup {...section} />
                 </Section>
               )
@@ -160,11 +151,7 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
             }
             if (section?.__typename === 'ComponentSectionsPartnersSection') {
               return (
-                <PartnersSection
-                  key={`${section.__typename}-${section.id}`}
-                  featuredTitle={section.featuredPartnersTitle}
-                  otherTitle={section.otherPartnersTitle}
-                />
+                <PartnersSection key={`${section.__typename}-${section.id}`} section={section} />
               )
             }
             if (section?.__typename === 'ComponentSectionsGallery') {
@@ -176,12 +163,7 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
             }
             if (section?.__typename === 'ComponentSectionsMenuListing') {
               return (
-                <MenuListingSection
-                  key={`${section.__typename}-${section.id}`}
-                  title={section.title}
-                  slug={section.slug}
-                  navigation={navigation}
-                />
+                <MenuListingSection key={`${section.__typename}-${section.id}`} section={section} />
               )
             }
             if (section?.__typename === 'ComponentSectionsManualListing') {

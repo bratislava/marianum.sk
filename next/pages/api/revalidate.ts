@@ -1,6 +1,7 @@
 import { withSentry } from '@sentry/nextjs'
-import { client } from '@services/gqlClient'
-import { isDefined, parseNavigation } from '@utils'
+import { client } from '@services/graphql/gqlClient'
+import { isDefined } from '@utils/isDefined'
+import { parseNavigation } from '@utils/parseNavigation'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Response = { revalidated: boolean } | { message: string } | string

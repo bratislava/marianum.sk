@@ -12,7 +12,8 @@ import {
   PageSlugEntityFragment,
 } from '@graphql'
 import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@services/meili/meiliTypes'
-import { isDefined, NavMap, parseNavigation } from '@utils'
+import { isDefined } from '@utils/isDefined'
+import { NavMap, parseNavigation } from '@utils/parseNavigation'
 import { useMemo } from 'react'
 
 // TODO move this to separate file and add translation logic

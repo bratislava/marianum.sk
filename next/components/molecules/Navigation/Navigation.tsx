@@ -9,7 +9,7 @@ import NavigationMenuMobile from '@components/molecules/Navigation/NavigationMen
 import { useNavigationContext } from '@components/molecules/Navigation/NavigationProvider/useNavigationContext'
 import NavigationSearch from '@components/molecules/Navigation/NavigationSearch/NavigationSearch'
 import { ContactEntityFragment } from '@graphql'
-import { getPhoneNumberLink } from '@utils'
+import { getPhoneNumberLink } from '@utils/getPhoneNumberLink'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'

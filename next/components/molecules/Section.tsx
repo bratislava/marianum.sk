@@ -2,7 +2,7 @@ import MLink from '@components/atoms/MLink'
 import { BackgroundColor, sectionContext } from '@components/layouts/SectionsWrapper'
 import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { CtaButtonFragment } from '@graphql'
-import { useActivateHeroSectionContentOverlay } from '@utils'
+import { useActivateHeroSectionContentOverlay } from '@utils/heroSectionContentOverlay'
 import cx from 'classnames'
 import { ReactNode, useContext, useMemo } from 'react'
 
@@ -22,6 +22,7 @@ export type SectionProps = {
   dividerClassName?: string
   overlayWithHero?: boolean
   centerTitleOnMobile?: boolean
+  titleFontSize?: 'h2' | 'h3'
 }
 
 const Section = ({
@@ -38,6 +39,7 @@ const Section = ({
   dividerClassName,
   overlayWithHero = false,
   centerTitleOnMobile = true,
+  titleFontSize,
 }: SectionProps) => {
   const { getFullPath } = useGetFullPath()
 
@@ -91,7 +93,12 @@ const Section = ({
       >
         {(title || showMorePath) && (
           <div className="flex">
-            <h2 className={cx('grow md:text-left', { 'text-center': centerTitleOnMobile })}>
+            <h2
+              className={cx('grow md:text-left', {
+                'text-center': centerTitleOnMobile,
+                'text-h3': titleFontSize === 'h3',
+              })}
+            >
               {title}
             </h2>
             {showMorePath && (

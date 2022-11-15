@@ -1,11 +1,11 @@
+import Seo from '@components/atoms/Seo'
 import DocumentLayout from '@components/layouts/DocumentLayout'
 import {
   generateStaticPaths,
   generateStaticProps,
 } from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import Seo from '@components/molecules/Seo'
 import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
-import { client } from '@services/gqlClient'
+import { client } from '@services/graphql/gqlClient'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'

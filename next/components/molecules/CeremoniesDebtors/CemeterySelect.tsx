@@ -1,6 +1,6 @@
 import SelectWithFetcher from '@components/molecules/SelectWithFetcher'
-import { client } from '@services/gqlClient'
-import { getCemeteryInfoInCeremoniesDebtors } from '@utils'
+import { client } from '@services/graphql/gqlClient'
+import { getCemeteryInfoInCeremoniesDebtors } from '@utils/getCemeteryInfoInCeremoniesDebtors'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 

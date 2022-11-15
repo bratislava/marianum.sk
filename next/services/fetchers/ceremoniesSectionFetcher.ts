@@ -1,5 +1,5 @@
 import { parseAbsolute } from '@internationalized/date'
-import { client } from '@services/gqlClient'
+import { client } from '@services/graphql/gqlClient'
 import { bratislavaTimezone } from '@utils/consts'
 import { Key } from 'swr'
 
