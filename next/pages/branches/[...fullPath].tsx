@@ -8,6 +8,7 @@ import {
   generateStaticProps,
 } from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
 import SectionBoxed from '@components/molecules/SectionBoxed'
+import OfficeSectionBoxed from '@components/sections/OfficeSectionBoxed'
 import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import { client } from '@services/graphql/gqlClient'
 import { isDefined } from '@utils/isDefined'
@@ -68,15 +69,7 @@ const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
             </SectionBoxed>
           )}
           {filteredOffices?.map((office) => (
-            <SectionBoxed title={office.attributes?.title ?? ''}>
-              {office.attributes?.openingHours?.days?.map((record, index) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <div key={index} className="flex max-w-[400px]">
-                  <div className="grow">{record?.label}</div>
-                  <div className="font-semibold">{record?.time}</div>
-                </div>
-              ))}
-            </SectionBoxed>
+            <OfficeSectionBoxed office={office} />
           ))}
         </div>
       </BranchCemeteryLayout>

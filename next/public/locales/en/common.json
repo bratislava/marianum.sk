@@ -222,6 +222,10 @@
     "contacts": "Contacts",
     "writeMessage": "Write a message"
   },
+  "OfficeSectionBoxed": {
+    "contacts": "Contacts",
+    "openingHours": "Opening hours"
+  },
   "BranchCemeteryPage": {
     "navigate": "Navigate",
     "openingHours": "Opening hours",

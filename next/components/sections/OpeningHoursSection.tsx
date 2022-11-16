@@ -28,9 +28,9 @@ const OpeningHoursSection = ({ section, ...rest }: OpeningHoursSectionProps) => 
                 <div className="flex flex-col gap-3">
                   {openingHours?.days?.map((record, index) => (
                     // eslint-disable-next-line react/no-array-index-key
-                    <div key={index} className="flex max-w-[460px]">
-                      <div className="grow">{record?.label}</div>
-                      <div className="font-semibold">{record?.time}</div>
+                    <div key={index} className="flex max-w-[360px]">
+                      <div className="grow font-semibold">{record?.label}</div>
+                      <div>{record?.time}</div>
                     </div>
                   ))}
                 </div>

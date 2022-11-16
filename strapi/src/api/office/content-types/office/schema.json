@@ -49,6 +49,11 @@
         }
       },
       "component": "blocks.opening-hours-universal"
+    },
+    "contacts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::contact.contact"
     }
   }
 }

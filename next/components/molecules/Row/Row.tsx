@@ -70,7 +70,7 @@ const Row = ({
           </MLink>
         )}
 
-        <div className="flex gap-4">
+        <div className="flex items-center gap-4 empty:hidden">
           {title && (
             <h5
               className={cx('w-fit text-left text-h5 text-foreground-heading', {

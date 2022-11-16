@@ -273,7 +273,7 @@ fragment ContactEntity on ContactEntity {
   id
   attributes {
     title
-    name
+    position
     email
     phone1
     phone2
@@ -355,6 +355,11 @@ fragment OfficeEntity on OfficeEntity {
       days {
         label
         time
+      }
+    }
+    contacts {
+      data {
+        ...ContactEntity
       }
     }
   }
