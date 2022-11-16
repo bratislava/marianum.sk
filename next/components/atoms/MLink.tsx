@@ -2,6 +2,7 @@ import { ArrowRightIcon } from '@assets/icons'
 import cx from 'classnames'
 import NextLink from 'next/link'
 import { ComponentProps, forwardRef, ReactNode } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 export type LinkProps = Omit<ComponentProps<typeof NextLink>, 'as' | 'passHref'> & {
   children: ReactNode
@@ -9,7 +10,6 @@ export type LinkProps = Omit<ComponentProps<typeof NextLink>, 'as' | 'passHref'>
   noArrow?: boolean
   noStyles?: boolean
   className?: string
-  suffix?: string
 }
 
 const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
@@ -26,40 +26,41 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
       noArrow = false,
       noStyles = false,
       className,
-      suffix,
       ...rest
     },
     ref,
   ) => {
+    const styles = twMerge(
+      noStyles
+        ? ''
+        : cx(
+            'inline-flex items-center justify-center space-x-2 text-center align-middle text-md font-bold',
+            {
+              'text-primary hover:text-primary-dark': variant === 'primary',
+              'text-white hover:opacity-64': variant === 'white',
+            },
+          ),
+      className,
+    )
     return (
       <NextLink
-        href={href}
+        href={href ?? ''}
         replace={replace}
         scroll={scroll}
         shallow={shallow}
         locale={locale}
+        ref={ref}
         passHref
+        {...rest}
+        className={styles}
       >
         {noStyles ? (
-          <a ref={ref} {...rest} className={className}>
-            {children}
-          </a>
+          children
         ) : (
-          <a
-            ref={ref}
-            {...rest}
-            className={cx(
-              className,
-              'inline-flex items-center justify-center space-x-2 text-center align-middle text-md font-bold',
-              {
-                'text-primary hover:text-primary-dark': variant === 'primary',
-                'text-white hover:opacity-64': variant === 'white',
-              },
-            )}
-          >
+          <>
             <span>{children}</span>
             {!noArrow && <ArrowRightIcon />}
-          </a>
+          </>
         )}
       </NextLink>
     )
