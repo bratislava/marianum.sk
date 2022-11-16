@@ -14,13 +14,14 @@ const BranchGroup = ({ branches }: BranchGroupFragment) => {
   return (
     <div className="flex flex-col gap-4">
       {filteredBranches?.map((branch) => {
-        const { title, slug, address } = branch.attributes ?? {}
+        const { title, slug, address, offices } = branch.attributes ?? {}
         return (
           <Row
             key={slug}
             title={title ?? ''}
             address={address}
             linkHref={getFullPath(branch) ?? ''}
+            tags={offices?.data.map((office) => office?.attributes?.title).filter(isDefined)}
           />
         )
       })}

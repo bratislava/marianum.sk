@@ -222,6 +222,10 @@
     "contacts": "Kontakty",
     "writeMessage": "Napísať správu"
   },
+  "OfficeSectionBoxed": {
+    "contacts": "Kontakty",
+    "openingHours": "Otváracie hodiny"
+  },
   "BranchCemeteryPage": {
     "navigate": "Navigovať",
     "openingHours": "Otváracie hodiny",

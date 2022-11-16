@@ -25,21 +25,13 @@
       "type": "string",
       "required": true
     },
-    "name": {
+    "position": {
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       },
       "type": "string"
-    },
-    "email": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "type": "email"
     },
     "phone1": {
       "pluginOptions": {
@@ -56,6 +48,14 @@
         }
       },
       "type": "string"
+    },
+    "email": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "email"
     }
   }
 }
