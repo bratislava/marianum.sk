@@ -30,13 +30,11 @@ export type ButtonProps = Omit<AriaButtonProps<'button'>, keyof LinkButtonProps>
   ButtonBase & {
     ref?: Ref<HTMLButtonElement>
     href?: undefined
-    suffix?: undefined
   }
 export type AnchorProps = AriaButtonProps<'a'> &
   ButtonBase & {
     ref?: Ref<HTMLAnchorElement>
     href: string
-    suffix?: string
   }
 
 export type PolymorphicProps = ButtonProps | AnchorProps
@@ -133,7 +131,6 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
         <MLink
           ref={ref as RefObject<HTMLAnchorElement>}
           href={rest.href}
-          suffix={rest.suffix}
           tabIndex={tabIndex}
           noArrow
           noStyles
