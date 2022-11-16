@@ -43,7 +43,7 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
     <CardBox {...rest} hover={!isCategoryHovered} onClick={handleCardClick}>
       <div className="aspect-w-[264] aspect-h-[148] w-full bg-gray">
         <MLink href={linkHref} tabIndex={-1} onClick={handleLinkClick} noStyles aria-label={title}>
-          {image ? <MImage image={image} layout="fill" objectFit="cover" /> : <ImagePlaceholder />}
+          {image ? <MImage image={image} fill className="object-cover" /> : <ImagePlaceholder />}
         </MLink>
       </div>
       <CardContent className="gap-y-3">

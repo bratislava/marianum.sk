@@ -50,7 +50,7 @@ const ProductCard = ({
   return (
     <CardBox {...rest} hover={!isButtonHovered} onClick={handleCardClick}>
       <div className="aspect-w-1 aspect-h-1 w-full bg-gray">
-        {image ? <MImage image={image} layout="fill" objectFit="contain" /> : <ImagePlaceholder />}
+        {image ? <MImage image={image} fill className="object-contain" /> : <ImagePlaceholder />}
       </div>
       <CardContent className="gap-y-2">
         <MLink href={linkHref} noStyles onClick={handleLinkClick}>

@@ -3,7 +3,7 @@ import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvi
 import Slider from '@components/molecules/Slider'
 import { CtaFragment } from '@graphql'
 import cx from 'classnames'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 
 type HomepageSliderProps = {

@@ -33,7 +33,7 @@ const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
       <CardContent className="justify-between gap-y-4">
         {image && (
           <div className="aspect-w-[240] aspect-h-[72] w-full bg-gray md:aspect-w-[216] md:aspect-h-[83]">
-            <MImage image={image} layout="fill" objectFit="contain" />
+            <MImage image={image} fill className="object-contain" />
           </div>
         )}
         <div className="flex flex-col items-center gap-y-2">

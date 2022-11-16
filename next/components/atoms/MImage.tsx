@@ -19,15 +19,12 @@ type MImageProps = Omit<
 const MImage = ({ image, disableBlurPlaceholder = false, ...rest }: MImageProps) => (
   <Image
     src={image.url}
-    // Type 'null' is not assignable to type 'string | undefined'.
-    alt={image.alternativeText ?? undefined}
+    alt={image.alternativeText ?? ''}
     placeholder={disableBlurPlaceholder || !image.placeholder ? undefined : 'blur'}
     blurDataURL={disableBlurPlaceholder || !image.placeholder ? undefined : image.placeholder}
     // Next shows Image with src "..." and "layout='fill'" has unused properties assigned. Please remove "width" and "height".
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    width={rest.layout === 'fill' ? undefined : image.width!}
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    height={rest.layout === 'fill' ? undefined : image.height!}
+    width={rest.fill ? undefined : image.width ?? undefined}
+    height={rest.fill ? undefined : image.height ?? undefined}
     {...rest}
   />
 )
