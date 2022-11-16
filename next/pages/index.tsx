@@ -26,6 +26,7 @@ import Head from 'next/head'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { SWRConfig } from 'swr'
 
+
 type HomeProps = {
   navigation: NavigationItemFragment[]
   page: NonNullable<NonNullable<HomePageQuery['homePage']>['data']>
