@@ -199,6 +199,19 @@ fragment CemeteryInCeremoniesDebtorsEntity on CemeteryEntity {
   }
 }
 
+fragment CemeteryInApplicationEntity on CemeteryEntity {
+  __typename
+  id
+  attributes {
+    slug
+    title
+    address
+    ziadostHroboveMiesto
+    ziadostUrnoveMiestoVZemi
+    ziadostUrnovaStena
+  }
+}
+
 fragment BundleCardEntity on BundleEntity {
   __typename
   id
@@ -441,9 +454,7 @@ fragment PageEntity on PageEntity {
       }
       ... on ComponentSectionsMenuListing {
         __typename
-        id
-        title
-        slug
+        ...MenuListing
       }
       ... on ComponentSectionsManualListing {
         __typename
@@ -563,6 +574,7 @@ fragment HomepageCeremonyEntity on CeremonyEntity {
   attributes {
     dateTime
     name
+    consentForPrivateFields
     cemetery {
       data {
         attributes {

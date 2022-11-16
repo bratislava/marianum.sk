@@ -1,3 +1,38 @@
+import { AddIcon, ArrowRightIcon, CloseCircleIcon, DownloadIcon, SearchIcon } from '@assets/icons'
+import Avatar from '@components/atoms/Avatar'
+import Breadcrumbs from '@components/atoms/Breadcrumbs'
+import Button from '@components/atoms/Button'
+import Checkbox from '@components/atoms/Checkbox'
+import IconButton from '@components/atoms/IconButton'
+import MLink from '@components/atoms/MLink'
+import Pagination from '@components/atoms/Pagination/Pagination'
+import QuantitySelect from '@components/atoms/QuantitySelect'
+import RadioBox from '@components/atoms/Radio/RadioBox'
+import RadioSimple from '@components/atoms/Radio/RadioSimple'
+import RadioSimpleGroup from '@components/atoms/Radio/RadioSimpleGroup'
+import ReviewStars from '@components/atoms/ReviewStars'
+import RichText from '@components/atoms/RichText'
+import Select from '@components/atoms/Select'
+import TabItem from '@components/atoms/Tabs/TabItem'
+import Tabs from '@components/atoms/Tabs/Tabs'
+import Tag from '@components/atoms/Tag'
+import TagToggle from '@components/atoms/TagToggle'
+import TextField from '@components/atoms/TextField'
+import SectionsWrapper, { SectionsWrapperProps } from '@components/layouts/SectionsWrapper'
+import AccordionGroup from '@components/molecules/Accordion/AccordionGroup'
+import AccordionItem from '@components/molecules/Accordion/AccordionItem'
+import ArticleCard from '@components/molecules/Cards/ArticleCard'
+import BundleCard from '@components/molecules/Cards/BundleCard'
+import { CategoryCard, FaqThemeCard } from '@components/molecules/Cards/CategoryFaqThemeCard'
+import PartnerCard from '@components/molecules/Cards/PartnerCard'
+import ProductCard from '@components/molecules/Cards/ProductCard'
+import ServiceCard from '@components/molecules/Cards/ServiceCard'
+import Checklist from '@components/molecules/Checklist/Checklist'
+import Review from '@components/molecules/Review'
+import Row from '@components/molecules/Row/Row'
+import Search from '@components/molecules/Search'
+import Section from '@components/molecules/Section'
+import { UploadFile } from '@graphql'
 import { RadioGroup } from '@headlessui/react'
 import cx from 'classnames'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
@@ -5,46 +40,6 @@ import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ReactNode, useMemo, useState } from 'react'
-
-import AddIcon from '../../assets/add.svg'
-import ArrowRightIcon from '../../assets/arrow_forward.svg'
-import DownloadIcon from '../../assets/download.svg'
-import SearchIcon from '../../assets/search.svg'
-import XIcon from '../../assets/x-alt.svg'
-import Avatar from '../../components/atoms/Avatar'
-import Breadcrumbs from '../../components/atoms/Breadcrumbs'
-import Button from '../../components/atoms/Button'
-import Checkbox from '../../components/atoms/Checkbox'
-import IconButton from '../../components/atoms/IconButton'
-import MLink from '../../components/atoms/MLink'
-import Pagination from '../../components/atoms/Pagination/Pagination'
-import QuantitySelect from '../../components/atoms/QuantitySelect'
-import RadioBox from '../../components/atoms/Radio/RadioBox'
-import RadioSimple from '../../components/atoms/Radio/RadioSimple'
-import RadioSimpleGroup from '../../components/atoms/Radio/RadioSimpleGroup'
-import ReviewStars from '../../components/atoms/ReviewStars'
-import RichText from '../../components/atoms/RichText/RichText'
-import Select from '../../components/atoms/Select'
-import TabItem from '../../components/atoms/Tabs/TabItem'
-import Tabs from '../../components/atoms/Tabs/Tabs'
-import Tag from '../../components/atoms/Tag'
-import TagToggle from '../../components/atoms/TagToggle'
-import TextField from '../../components/atoms/TextField'
-import SectionsWrapper, { SectionsWrapperProps } from '../../components/layouts/SectionsWrapper'
-import AccordionGroup from '../../components/molecules/Accordion/AccordionGroup'
-import AccordionItem from '../../components/molecules/Accordion/AccordionItem'
-import ArticleCard from '../../components/molecules/Cards/ArticleCard'
-import BundleCard from '../../components/molecules/Cards/BundleCard'
-import { CategoryCard, FaqThemeCard } from '../../components/molecules/Cards/CategoryFaqThemeCard'
-import PartnerCard from '../../components/molecules/Cards/PartnerCard'
-import ProductCard from '../../components/molecules/Cards/ProductCard'
-import ServiceCard from '../../components/molecules/Cards/ServiceCard'
-import Checklist from '../../components/molecules/Checklist/Checklist'
-import Review from '../../components/molecules/Review'
-import Row from '../../components/molecules/Row/Row'
-import Search from '../../components/molecules/Search'
-import Section from '../../components/molecules/Section'
-import { UploadFile } from '../../graphql'
 
 /* eslint-disable no-secrets/no-secrets, sonarjs/no-duplicate-string, unicorn/numeric-separators-style */
 const image: UploadFile = {
@@ -492,7 +487,7 @@ const Showcase = () => {
                 id="deafault-right-icon"
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -506,7 +501,7 @@ const Showcase = () => {
                 }
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -530,7 +525,7 @@ const Showcase = () => {
                 defaultValue="Input"
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -545,7 +540,7 @@ const Showcase = () => {
                 }
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -571,7 +566,7 @@ const Showcase = () => {
                 defaultValue="Input"
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -587,7 +582,7 @@ const Showcase = () => {
                 }
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -613,7 +608,7 @@ const Showcase = () => {
                 defaultValue="Input"
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -629,7 +624,7 @@ const Showcase = () => {
                 }
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -655,7 +650,7 @@ const Showcase = () => {
                 defaultValue="Input"
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -671,7 +666,7 @@ const Showcase = () => {
                 }
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -705,7 +700,7 @@ const Showcase = () => {
                 defaultValue="Input"
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -722,7 +717,7 @@ const Showcase = () => {
                 }
                 rightSlot={
                   <button type="button" className="p-2">
-                    <XIcon />
+                    <CloseCircleIcon />
                   </button>
                 }
                 placeholder="Input"
@@ -847,7 +842,7 @@ const Showcase = () => {
             <Stack width="full">
               <Search
                 placeholder="Search..."
-                // eslint-disable-next-line no-alert
+                // eslint-disable-next-line no-alert,@typescript-eslint/restrict-template-expressions
                 onSearch={(value) => alert(`Searching for: ${value}`)}
               />
             </Stack>

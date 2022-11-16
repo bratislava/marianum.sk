@@ -1,3 +1,5 @@
+import { CloseCircleIcon, CloseIcon, SearchIcon } from '@assets/icons'
+import TextField from '@components/atoms/TextField'
 import { useTranslation } from 'next-i18next'
 import {
   DetailedHTMLProps,
@@ -8,11 +10,6 @@ import {
   useState,
 } from 'react'
 
-import CloseIcon from '../../assets/close.svg'
-import SearchIcon from '../../assets/search.svg'
-import XAltIcon from '../../assets/x-alt.svg'
-import TextField from '../atoms/TextField'
-
 type SearchProps = {
   value?: string
   placeholder?: string
@@ -21,7 +18,7 @@ type SearchProps = {
   onSearch?: (value: string) => void
   isLarge?: boolean
   className?: string
-} & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+} & Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'ref'>
 
 const Search = ({
   value = '',
@@ -87,7 +84,7 @@ const Search = ({
       rightSlot={
         realValue ? (
           <button onClick={clearHandler} type="button" className="p-2">
-            {isLarge ? <CloseIcon /> : <XAltIcon />}
+            {isLarge ? <CloseIcon /> : <CloseCircleIcon />}
           </button>
         ) : null
       }

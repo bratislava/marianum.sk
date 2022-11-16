@@ -2,7 +2,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable default-case */
 
-import { ComponentGeneralProcedureItem } from '../../../graphql'
+import { ComponentGeneralProcedureItem } from '@graphql'
 
 export enum ChecklistActionKind {
   OpenItem = 'OpenItem',

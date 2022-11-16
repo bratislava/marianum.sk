@@ -1,11 +1,10 @@
-import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
-
+import SelectWithFetcher from '@components/molecules/SelectWithFetcher'
 import {
   articlePressCategoriesSelectFetcher,
   articlePressCategoriesSelectSwrKey,
-} from '../../../utils/fetchers/articleListingFetcher'
-import SelectWithFetcher from '../../molecules/SelectWithFetcher'
+} from '@services/fetchers/articleListingFetcher'
+import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
 
 type ArticlePressCategoriesSelectProps = {
   onCategoryChange: (id: string | null) => void

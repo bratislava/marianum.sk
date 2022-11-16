@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react'
+import { PropsWithChildren } from 'react'
 
 type SectionBoxedProps = PropsWithChildren<{
   title?: string

@@ -1,9 +1,11 @@
+import { CloseIcon } from '@assets/icons'
+import IconButton from '@components/atoms/IconButton'
 import cx from 'classnames'
+import FocusTrap from 'focus-trap-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ReactNode, useRef } from 'react'
 import {
   AriaOverlayProps,
-  FocusScope,
   OverlayContainer,
   useModal,
   useOverlay,
@@ -11,9 +13,6 @@ import {
 } from 'react-aria'
 import { twMerge } from 'tailwind-merge'
 import { useIsClient } from 'usehooks-ts'
-
-import CloseIcon from '../../assets/close.svg'
-import IconButton from './IconButton'
 
 export type ModalProps = {
   children: ReactNode
@@ -45,24 +44,24 @@ const Modal = (props: ModalProps) => {
   const isClient = useIsClient()
 
   return isClient ? (
-    <FocusScope contain>
-      <OverlayContainer>
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              className="relative z-50"
-              transition={{ duration: 0.2 }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+    <OverlayContainer>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="relative z-50"
+            transition={{ duration: 0.2 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <div
+              {...underlayProps}
+              className={twMerge(
+                'fixed inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black/40',
+                underlayClassName,
+              )}
             >
-              <div
-                {...underlayProps}
-                className={twMerge(
-                  'fixed inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black/40',
-                  underlayClassName,
-                )}
-              >
-                <div className={cx({ 'flex min-h-full items-center': centerVertically })}>
+              <div className={cx({ 'flex min-h-full items-center': centerVertically })}>
+                <FocusTrap>
                   <div
                     className={twMerge('mx-auto flex w-fit items-center', overlayClassName)}
                     {...overlayProps}
@@ -80,13 +79,13 @@ const Modal = (props: ModalProps) => {
                     )}
                     {children}
                   </div>
-                </div>
+                </FocusTrap>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </OverlayContainer>
-    </FocusScope>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </OverlayContainer>
   ) : null
 }
 

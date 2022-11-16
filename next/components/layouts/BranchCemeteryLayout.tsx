@@ -1,16 +1,15 @@
-import cx from 'classnames'
-import { ReactNode } from 'react'
-
+import PageWrapper from '@components/layouts/PageWrapper'
+import ImageGallery from '@components/molecules/ImageGallery'
+import SideBarContact from '@components/molecules/SideBarContact'
+import HeroSection from '@components/sections/HeroSection'
 import {
   BranchEntityFragment,
   CemeteryEntityFragment,
   GeneralEntityFragment,
   NavigationItemFragment,
-} from '../../graphql'
-import SideBarContact from '../molecules/SideBarContact'
-import HeroSection from '../sections/HeroSection'
-import ImageGallery from '../sections/ImageGallery'
-import PageWrapper from './PageWrapper'
+} from '@graphql'
+import cx from 'classnames'
+import { ReactNode } from 'react'
 
 type BranchCemeteryLayoutProps = {
   entity: BranchEntityFragment | CemeteryEntityFragment

@@ -1,27 +1,26 @@
-import { SearchResponse } from 'meilisearch'
-import { useTranslation } from 'next-i18next'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import useSwr from 'swr'
-import { useDebounce } from 'usehooks-ts'
-
-import { DebtorMeili } from '../../types/meiliTypes'
+import Loading from '@components/atoms/Loading'
+import LoadingOverlay from '@components/atoms/LoadingOverlay'
+import CemeteryLink from '@components/molecules/CemeteryLink'
+import CeremoniesDebtorsCemeterySelect from '@components/molecules/CeremoniesDebtors/CemeterySelect'
+import FilteringSearchInput from '@components/molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '@components/molecules/FiltersBackgroundWrapper'
+import PaginationMeili from '@components/molecules/PaginationMeili'
+import Section from '@components/molecules/Section'
 import {
   debtorsSectionDefaultFilters,
   debtorsSectionFetcher,
   DebtorsSectionFilters,
   getDebtorsSectionSwrKey,
-} from '../../utils/fetchers/debtorsSectionFetcher'
-import { getCemeteryInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfoInCeremoniesDebtors'
-import useGetSwrExtras from '../../utils/useGetSwrExtras'
-import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
-import Loading from '../atoms/Loading'
-import LoadingOverlay from '../atoms/LoadingOverlay'
-import CemeteryLink from '../molecules/CemeteryLink'
-import CeremoniesDebtorsCemeterySelect from '../molecules/CeremoniesDebtors/CemeterySelect'
-import FilteringSearchInput from '../molecules/FilteringSearchInput'
-import FiltersBackgroundWrapper from '../molecules/FiltersBackgroundWrapper'
-import PaginationMeili from '../molecules/PaginationMeili'
-import Section from '../molecules/Section'
+} from '@services/fetchers/debtorsSectionFetcher'
+import { DebtorMeili } from '@services/meili/meiliTypes'
+import { getCemeteryInfoInCeremoniesDebtorsMeili } from '@utils/getCemeteryInfoInCeremoniesDebtors'
+import { useGetSwrExtras } from '@utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
+import { SearchResponse } from 'meilisearch'
+import { useTranslation } from 'next-i18next'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import useSwr from 'swr'
+import { useDebounce } from 'usehooks-ts'
 
 const Table = ({
   data,
@@ -51,10 +50,10 @@ const Table = ({
         i18n.language,
       )
 
-      const branch = slug ? <CemeteryLink slug={slug} title={title} /> : title
+      const cemetery = slug ? <CemeteryLink slug={slug} title={title} /> : title
       return {
         ...debtor,
-        branch,
+        cemetery,
       }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -66,7 +65,7 @@ const Table = ({
       <table className="m-table colored">
         <thead ref={theadRef}>
           <tr>
-            <th>{t('th.branchTitle')}</th>
+            <th>{t('th.cemeteryTitle')}</th>
             <th>{t('th.graveSector')}</th>
             <th>{t('th.graveNumber')}</th>
             <th>{t('th.gravePreviousNumber')}</th>
@@ -80,7 +79,7 @@ const Table = ({
           {debtors?.map((debtor, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <tr key={index}>
-              <td>{debtor.branch}</td>
+              <td>{debtor.cemetery}</td>
               <td>{debtor.graveSector}</td>
               <td>{debtor.graveNumber}</td>
               <td>{debtor.gravePreviousNumber}</td>

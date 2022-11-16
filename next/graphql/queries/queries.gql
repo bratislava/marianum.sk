@@ -186,11 +186,7 @@ query HomePage($locale: I18NLocaleCode) {
           }
           ... on ComponentSectionsProceduresShortSection {
             __typename
-            id
-            title
-            showMoreButton {
-              ...CtaButton
-            }
+            ...ProceduresShortSection
           }
           ... on ComponentSectionsCtaSection {
             __typename
@@ -277,4 +273,22 @@ query ArticlePressCategories {
 
 query DocumentFiletypes {
   documentFiletypes
+}
+
+query CemeteriesInApplication($locale: I18NLocaleCode!) {
+  cemeteries(
+    filters: {
+      or: [
+        { ziadostHroboveMiesto: { eq: true } }
+        { ziadostUrnoveMiestoVZemi: { eq: true } }
+        { ziadostUrnovaStena: { eq: true } }
+      ]
+    }
+    pagination: { limit: -1 }
+    locale: $locale
+  ) {
+    data {
+      ...CemeteryInApplicationEntity
+    }
+  }
 }

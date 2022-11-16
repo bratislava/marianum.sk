@@ -1,8 +1,8 @@
+import { ArrowLeftIcon } from '@assets/icons'
+import IconButton from '@components/atoms/IconButton'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
-
-import ArrowIcon from '../../assets/arrow_back.svg'
-import IconButton from './IconButton'
+import { useEventListener } from 'usehooks-ts'
 
 const handleScrollToTop = () => {
   window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
@@ -13,15 +13,15 @@ const ScrollToTopButton = () => {
 
   const [visible, setVisible] = useState(false)
 
-  if (typeof window !== 'undefined') {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        setVisible(true)
-      } else {
-        setVisible(false)
-      }
-    })
+  const handleScroll = () => {
+    if (window.scrollY > 300) {
+      setVisible(true)
+    } else {
+      setVisible(false)
+    }
   }
+
+  useEventListener('scroll', handleScroll)
 
   return (
     <IconButton
@@ -34,7 +34,7 @@ const ScrollToTopButton = () => {
       }`}
     >
       <div className="-mt-0.5 rotate-90">
-        <ArrowIcon />
+        <ArrowLeftIcon />
       </div>
     </IconButton>
   )

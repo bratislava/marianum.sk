@@ -1,22 +1,20 @@
+import { NavigateIcon, PlaceIcon } from '@assets/icons'
+import Button from '@components/atoms/Button'
+import RichText from '@components/atoms/RichText'
+import Seo from '@components/atoms/Seo'
+import BranchCemeteryLayout from '@components/layouts/BranchCemeteryLayout'
+import {
+  generateStaticPaths,
+  generateStaticProps,
+} from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import SectionBoxed from '@components/molecules/SectionBoxed'
+import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
+import { client } from '@services/graphql/gqlClient'
+import { isDefined } from '@utils/isDefined'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { ParsedUrlQuery } from 'node:querystring'
-
-import NavigateToIcon from '../../assets/directions.svg'
-import PlaceIcon from '../../assets/place.svg'
-import Button from '../../components/atoms/Button'
-import RichText from '../../components/atoms/RichText/RichText'
-import BranchCemeteryLayout from '../../components/layouts/BranchCemeteryLayout'
-import {
-  generateStaticPaths,
-  generateStaticProps,
-} from '../../components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import SectionBoxed from '../../components/molecules/SectionBoxed'
-import Seo from '../../components/molecules/Seo'
-import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
-import { client } from '../../utils/gql'
-import { isDefined } from '../../utils/isDefined'
 
 type BranchPageProps = {
   navigation: NavigationItemFragment[]
@@ -56,7 +54,7 @@ const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
                   href={navigateToLink}
                   target="_blank"
                   variant="plain-secondary"
-                  startIcon={<NavigateToIcon />}
+                  startIcon={<NavigateIcon />}
                   className="-ml-2 md:ml-0"
                 >
                   {t('navigate')}
@@ -96,7 +94,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
     client.BranchesStaticPaths({ locale }).then((response) => response.branches?.data),
   )
 
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console, @typescript-eslint/restrict-template-expressions
   console.log(`Branches: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }

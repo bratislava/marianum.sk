@@ -18,7 +18,7 @@ module.exports = {
       { allow: ['__NEXT_DATA__', '__NEXT_LOADED_PAGES__', '__typename'] },
     ],
     /** Links get confused for secrets */
-    'no-secrets/no-secrets': ['error', { ignoreContent: '^http' }],
+    'no-secrets/no-secrets': ['warn', { ignoreContent: '^http' }],
     /** Not needed */
     'eslint-comments/disable-enable-pair': 'off',
     /** Use official sorting */

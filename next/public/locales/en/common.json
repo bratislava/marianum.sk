@@ -160,7 +160,7 @@
       "dateTime": "Date and time",
       "name": "Name and surname",
       "birthYear": "Date of birth",
-      "branchTitle": "Cemetery",
+      "cemeteryTitle": "Cemetery",
       "type": "Type of ceremony",
       "company": "Company",
       "officiantProvidedBy": "Officiant provided by"
@@ -185,7 +185,7 @@
   },
   "DebtorsSection": {
     "th": {
-      "branchTitle": "Cemetery",
+      "cemeteryTitle": "Cemetery",
       "graveSector": "Gr. place sector",
       "graveNumber": "Gr. place number",
       "gravePreviousNumber": "Gr. place old no.",

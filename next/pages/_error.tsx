@@ -13,13 +13,12 @@
  *  - https://reactjs.org/docs/error-boundaries.html
  */
 
+import SectionsWrapper from '@components/layouts/SectionsWrapper'
+import ErrorSection from '@components/sections/ErrorSection'
 import * as Sentry from '@sentry/nextjs'
 import { GetServerSideProps, GetServerSidePropsResult } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
-import SectionsWrapper from '../components/layouts/SectionsWrapper'
-import ErrorSection from '../components/sections/ErrorSection'
 
 interface ErrorPageProps {
   statusCode: number

@@ -1,14 +1,13 @@
+import FormatDate from '@components/atoms/FormatDate'
+import MImage from '@components/atoms/MImage'
+import NormalizeText from '@components/atoms/NormalizeText/NormalizeText'
+import PageWrapper from '@components/layouts/PageWrapper'
+import SectionsWrapper from '@components/layouts/SectionsWrapper'
+import HeroSection from '@components/sections/HeroSection'
+import NewsSection from '@components/sections/NewsSection'
+import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import cx from 'classnames'
 import { ReactNode } from 'react'
-
-import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '../../graphql'
-import FormatDate from '../atoms/FormatDate'
-import MImage from '../atoms/MImage'
-import NormalizeSkText from '../atoms/NormalizeSkText'
-import HeroSection from '../sections/HeroSection'
-import NewsSection from '../sections/NewsSection'
-import PageWrapper from './PageWrapper'
-import SectionsWrapper from './SectionsWrapper'
 
 type ArticleLayoutProps = {
   navigation: NavigationItemFragment[]
@@ -54,7 +53,7 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
               <h1 className="text-center">{title}</h1>
               {perex && (
                 <p className="mt-6 sm:mt-8">
-                  <NormalizeSkText>{perex}</NormalizeSkText>
+                  <NormalizeText>{perex}</NormalizeText>
                 </p>
               )}
             </div>

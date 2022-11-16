@@ -1,9 +1,7 @@
+import { AddIcon, RemoveIcon } from '@assets/icons'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useId, useState } from 'react'
 import AutosizeInput from 'react-input-autosize'
-
-import AddIcon from '../../assets/add.svg'
-import RemoveIcon from '../../assets/remove.svg'
 
 type QuantitySelectProps = {
   id?: string

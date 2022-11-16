@@ -11,20 +11,23 @@
     "gen": "graphql-codegen",
     "lint": "eslint components pages utils",
     "lint:fix": "yarn lint --fix",
-    "sentry-cli": "sentry-cli",
-    "i18n": "node ./i18next-parse.js"
+    "sentry-cli": "sentry-cli"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.6",
+    "@hookform/error-message": "^2.0.0",
+    "@hookform/resolvers": "^2.9.10",
     "@internationalized/date": "^3.0.1",
     "@popperjs/core": "^2.11.5",
     "@radix-ui/react-dropdown-menu": "^1.0.0",
+    "@react-aria/utils": "^3.14.0",
     "@react-stately/toggle": "^3.4.0",
     "@sentry/nextjs": "^7.13.0",
     "@szhsin/react-menu": "^3.1.2",
     "classnames": "^2.3.1",
     "copy-webpack-plugin": "^11.0.0",
     "filesize": "^9.0.11",
+    "focus-trap-react": "^10.0.0",
     "framer-motion": "^6.5.1",
     "graphql": "^16.5.0",
     "graphql-request": "^4.3.0",
@@ -41,6 +44,7 @@
     "react": "18.2.0",
     "react-aria": "3.20.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.39.1",
     "react-input-autosize": "^3.0.0",
     "react-map-gl": "^7.0.19",
     "react-markdown": "^8.0.3",
@@ -58,7 +62,8 @@
     "tailwindcss-radix": "^2.4.0",
     "tsafe": "^1.2.1",
     "use-query-params": "^2.1.2",
-    "usehooks-ts": "^2.6.0"
+    "usehooks-ts": "^2.6.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.6.2",

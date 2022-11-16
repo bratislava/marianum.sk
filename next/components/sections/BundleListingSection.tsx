@@ -1,12 +1,11 @@
+import TabItem from '@components/atoms/Tabs/TabItem'
+import Tabs from '@components/atoms/Tabs/Tabs'
+import BundleCard from '@components/molecules/Cards/BundleCard'
+import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Section, { SectionProps } from '@components/molecules/Section'
+import { BundleListingFragment } from '@graphql'
+import { isDefined } from '@utils/isDefined'
 import { useMemo } from 'react'
-
-import { BundleListingFragment } from '../../graphql'
-import { isDefined } from '../../utils/isDefined'
-import TabItem from '../atoms/Tabs/TabItem'
-import Tabs from '../atoms/Tabs/Tabs'
-import BundleCard from '../molecules/Cards/BundleCard'
-import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
-import Section, { SectionProps } from '../molecules/Section'
 
 type BundleListingSectionProps = Pick<SectionProps, 'background'> & {
   section: BundleListingFragment

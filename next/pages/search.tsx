@@ -1,24 +1,23 @@
+import { AnimateHeight } from '@components/atoms/AnimateHeight'
+import TagToggle from '@components/atoms/TagToggle'
+import PageWrapper from '@components/layouts/PageWrapper'
+import SectionsWrapper from '@components/layouts/SectionsWrapper'
+import PaginationMeili from '@components/molecules/PaginationMeili'
+import Row from '@components/molecules/Row/Row'
+import RowSkeleton from '@components/molecules/Row/RowSkeleton'
+import Search from '@components/molecules/Search'
+import Section from '@components/molecules/Section'
+import { GeneralEntityFragment, NavigationItemFragment } from '@graphql'
+import { client } from '@services/graphql/gqlClient'
+import { isDefined } from '@utils/isDefined'
+import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
+import { allSearchTypes, SearchFilters, SearchType, useSearch } from '@utils/useSearch'
 import { motion } from 'framer-motion'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useCallback, useRef, useState } from 'react'
-
-import { AnimateHeight } from '../components/atoms/AnimateHeight'
-import TagToggle from '../components/atoms/TagToggle'
-import PageWrapper from '../components/layouts/PageWrapper'
-import SectionsWrapper from '../components/layouts/SectionsWrapper'
-import PaginationMeili from '../components/molecules/PaginationMeili'
-import Row from '../components/molecules/Row/Row'
-import RowSkeleton from '../components/molecules/Row/RowSkeleton'
-import Search from '../components/molecules/Search'
-import Section from '../components/molecules/Section'
-import { GeneralEntityFragment, NavigationItemFragment } from '../graphql'
-import { allSearchTypes, SearchFilters, SearchType, useSearch } from '../hooks/useSearch'
-import { client } from '../utils/gql'
-import { isDefined } from '../utils/isDefined'
-import { useScrollToViewIfDataChange } from '../utils/useScrollToViewIfDataChange'
 
 const SearchSection = () => {
   const { t } = useTranslation('common', { keyPrefix: 'SearchPage' })
@@ -62,10 +61,7 @@ const SearchSection = () => {
     delayedLoading,
     loadingAndNoDataToDisplay,
     emptySearchQuery,
-  } = useSearch({
-    filters,
-    isSyncedWithUrlQuery: true,
-  })
+  } = useSearch({ filters, isSyncedWithUrlQuery: true })
 
   const handleChangePage = (page: number) => {
     setFilters({ ...filters, page })
@@ -103,7 +99,7 @@ const SearchSection = () => {
           </div>
           {!loadingAndNoDataToDisplay && !emptySearchQuery && (
             <div className="whitespace-nowrap">
-              {t('resultsFound', { count: dataToDisplay?.estimatedTotalHits })}
+              {t('resultsFound', { count: dataToDisplay?.estimatedTotalHits ?? 0 })}
             </div>
           )}
         </div>

@@ -1,13 +1,12 @@
+import Loading from '@components/atoms/Loading'
+import ArticleCard from '@components/molecules/Cards/ArticleCard'
+import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { getNewsListingSwrKey, newsListingFetcher } from '@services/fetchers/newsListingFetcher'
+import { isDefined } from '@utils/isDefined'
+import { useGetSwrExtras } from '@utils/useGetSwrExtras'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 import useSWR from 'swr'
-
-import { getNewsListingSwrKey, newsListingFetcher } from '../../utils/fetchers/newsListingFetcher'
-import { isDefined } from '../../utils/isDefined'
-import useGetSwrExtras from '../../utils/useGetSwrExtras'
-import Loading from '../atoms/Loading'
-import ArticleCard from '../molecules/Cards/ArticleCard'
-import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
 
 const NewsListing = () => {
   const { i18n } = useTranslation()

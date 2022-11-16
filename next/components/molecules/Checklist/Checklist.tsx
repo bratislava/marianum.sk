@@ -1,3 +1,7 @@
+import { CheckCircleIcon, CheckIcon, CloseCircleIcon, DownloadIcon, PrintIcon } from '@assets/icons'
+import { AnimateHeight } from '@components/atoms/AnimateHeight'
+import Button from '@components/atoms/Button'
+import { UploadFileEntityFragment } from '@graphql'
 import cx from 'classnames'
 import filesize from 'filesize'
 import { useTranslation } from 'next-i18next'
@@ -5,14 +9,6 @@ import prntr from 'prntr'
 import { useCallback, useEffect, useMemo, useReducer } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 
-import CheckCircleIcon from '../../../assets/check_circle.svg'
-import CheckIcon from '../../../assets/check_noPadding.svg'
-import DownloadIcon from '../../../assets/download.svg'
-import PrintIcon from '../../../assets/print.svg'
-import XIcon from '../../../assets/x-alt.svg'
-import { UploadFileEntityFragment } from '../../../graphql'
-import { AnimateHeight } from '../../atoms/AnimateHeight'
-import Button from '../../atoms/Button'
 import { ChecklistActionKind, ChecklistItem, checklistReducer } from './checklistReducer'
 
 type ChecklistRadioProps = {
@@ -185,6 +181,7 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
                             target="_blank"
                             href={downloadFile.attributes.url}
                             // TODO use hook for filesize
+                            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                             aria-label={`${t('aria.download')} ${
                               downloadFile.attributes.name
                             } ${filesize(downloadFile.attributes.size * 1000, {
@@ -212,7 +209,7 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
                         <Button
                           onPress={() => uncompleteItemHandler(key)}
                           variant="secondary"
-                          startIcon={<XIcon />}
+                          startIcon={<CloseCircleIcon />}
                           aria-label={t('aria.markAsUncomplete')}
                         >
                           {t('markAsUncomplete')}

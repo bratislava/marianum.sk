@@ -1,11 +1,10 @@
+import { MailIcon, PhoneIcon } from '@assets/icons'
+import MLink from '@components/atoms/MLink'
+import Section, { SectionProps } from '@components/molecules/Section'
+import { ContactGroupFragment } from '@graphql'
+import { getPhoneNumberLink } from '@utils/getPhoneNumberLink'
+import { isDefined } from '@utils/isDefined'
 import { useMemo } from 'react'
-
-import MailIcon from '../../assets/mail.svg'
-import PhoneIcon from '../../assets/phone.svg'
-import { ContactGroupFragment } from '../../graphql'
-import { isDefined } from '../../utils/isDefined'
-import MLink from '../atoms/MLink'
-import Section, { SectionProps } from '../molecules/Section'
 
 const ContactsSection = ({
   contacts,
@@ -32,7 +31,7 @@ const ContactsSection = ({
                       <MLink
                         noStyles
                         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                        href={`tel:${phone1.replace(/ /g, '')}`}
+                        href={getPhoneNumberLink(phone1)}
                       >
                         {phone1}
                       </MLink>
@@ -44,7 +43,7 @@ const ContactsSection = ({
                         <MLink
                           noStyles
                           // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                          href={`tel:${phone2.replace(/ /g, '')}`}
+                          href={getPhoneNumberLink(phone2)}
                         >
                           {phone2}
                         </MLink>

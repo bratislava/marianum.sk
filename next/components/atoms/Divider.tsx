@@ -1,6 +1,5 @@
+import { WavesSvg } from '@assets'
 import cx from 'classnames'
-
-import Waves from '../../assets/waves.svg'
 
 type DividerProps = {
   color?: 'default' | 'primary'
@@ -17,7 +16,7 @@ const Divider = ({ color = 'default', className }: DividerProps) => {
     >
       <div className="mr-3 h-[2px] grow bg-current" />
       <div className="shrink">
-        <Waves />
+        <WavesSvg />
       </div>
       <div className="ml-3 h-[2px] grow bg-current" />
     </div>

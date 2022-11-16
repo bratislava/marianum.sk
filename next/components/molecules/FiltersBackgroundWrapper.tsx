@@ -1,7 +1,7 @@
+import { sectionContext } from '@components/layouts/SectionsWrapper'
 import cx from 'classnames'
 import React, { PropsWithChildren, useContext } from 'react'
-
-import { sectionContext } from '../layouts/SectionsWrapper'
+import { twMerge } from 'tailwind-merge'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 
@@ -18,12 +18,11 @@ const FiltersBackgroundWrapper = ({
 
   return (
     <div
-      className={cx(
-        'md:p-6',
-        {
+      className={twMerge(
+        cx('md:p-6', {
           'md:bg-white': background === 'dark',
           'md:bg-background-beige': background === 'light',
-        },
+        }),
         className,
       )}
     >

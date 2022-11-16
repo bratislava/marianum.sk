@@ -1,7 +1,5 @@
+import Pagination from '@components/atoms/Pagination/Pagination'
 import { SearchResponse } from 'meilisearch'
-import React from 'react'
-
-import Pagination from '../atoms/Pagination/Pagination'
 
 type PaginationMeiliProps = {
   data: SearchResponse

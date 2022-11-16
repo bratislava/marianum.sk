@@ -1,15 +1,12 @@
+import { ArrowLeftIcon, ChevronDownIcon, CloseIcon } from '@assets/icons'
+import IconButton from '@components/atoms/IconButton'
+import MLink from '@components/atoms/MLink'
+import Modal from '@components/atoms/Modal'
+import { NavigationItemFragment } from '@graphql'
+import { isDefined } from '@utils/isDefined'
+import { usePrevious } from '@utils/usePrevious'
 import { motion } from 'framer-motion'
 import { useCallback, useMemo, useState } from 'react'
-
-import ArrowBackIcon from '../../../assets/arrow_back.svg'
-import ChevronIcon from '../../../assets/chevron_down.svg'
-import CloseIcon from '../../../assets/close.svg'
-import { NavigationItemFragment } from '../../../graphql'
-import { usePrevious } from '../../../utils/hooks'
-import { isDefined } from '../../../utils/isDefined'
-import IconButton from '../../atoms/IconButton'
-import MLink from '../../atoms/MLink'
-import Modal from '../../atoms/Modal'
 
 export type NavigationMenuMobileProps = {
   items: NavigationItemFragment[]
@@ -46,7 +43,7 @@ const RenderItems = ({
           >
             <span className="font-semibold">{title}</span>
             <div className="-rotate-90">
-              <ChevronIcon />
+              <ChevronDownIcon />
             </div>
           </ButtonComponent>
         ) : (
@@ -125,8 +122,8 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
           {currentItem.id === rootItem.id ? (
             <div>{/* todo: add lang selector */}</div>
           ) : (
-            <IconButton aria-label="spať" variant="tertiary" onPress={goBack}>
-              <ArrowBackIcon />
+            <IconButton aria-label="späť" variant="tertiary" onPress={goBack}>
+              <ArrowLeftIcon />
             </IconButton>
           )}
           <div className="font-bold">{currentItem.title}</div>

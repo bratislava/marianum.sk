@@ -1,9 +1,8 @@
+import Row from '@components/molecules/Row/Row'
+import Section, { SectionProps } from '@components/molecules/Section'
+import { OpeningHoursSectionFragment } from '@graphql'
+import { isDefined } from '@utils/isDefined'
 import React from 'react'
-
-import { OpeningHoursSectionFragment } from '../../graphql'
-import { isDefined } from '../../utils/isDefined'
-import Row from '../molecules/Row/Row'
-import Section, { SectionProps } from '../molecules/Section'
 
 type OpeningHoursSectionProps = Pick<SectionProps, 'background' | 'title'> & {
   section: OpeningHoursSectionFragment
@@ -18,12 +17,12 @@ const OpeningHoursSection = ({ section, ...rest }: OpeningHoursSectionProps) => 
       <div className="flex flex-col gap-4">
         {filteredOffices.map((office) => {
           const { branch, openingHours } = office.attributes ?? {}
-          const { title: branchTitle, address: branchAddress } = branch?.data?.attributes ?? {}
+          const { title: cemeteryTitle, address: branchAddress } = branch?.data?.attributes ?? {}
 
           return (
             <Row
               border
-              title={branchTitle}
+              title={cemeteryTitle}
               address={branchAddress}
               moreContent={
                 <div className="flex flex-col gap-3">

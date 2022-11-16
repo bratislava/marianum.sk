@@ -1,10 +1,9 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 
+import { MapMarkerMarianumSvg } from '@assets'
+import { Maybe } from '@graphql'
 import { motion } from 'framer-motion'
 import Map, { Marker } from 'react-map-gl'
-
-import MapMarkerMarianum from '../../../assets/map-marker-marianum.svg'
-import { Maybe } from '../../../graphql'
 
 export type FooterMapProps = {
   markerLat?: Maybe<string>
@@ -37,7 +36,7 @@ const FooterMap = ({ markerLat, markerLng, onMarkerClick }: FooterMapProps) => {
           animate={{ scale: 1 }}
           whileTap={{ scale: 0.8 }}
         >
-          <MapMarkerMarianum />
+          <MapMarkerMarianumSvg />
         </motion.button>
       </Marker>
     </Map>

@@ -1,12 +1,10 @@
+import { ArrowLeftIcon, ArrowRightIcon } from '@assets/icons'
+import IconButton from '@components/atoms/IconButton'
+import Modal, { ModalProps } from '@components/atoms/Modal'
+import Slider from '@components/molecules/Slider'
+import { UploadImageEntityFragment } from '@graphql'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useRef } from 'react'
-
-import ArrowBack from '../../assets/arrow_back.svg'
-import ArrowForward from '../../assets/arrow_forward.svg'
-import { UploadImageEntityFragment } from '../../graphql'
-import IconButton from '../atoms/IconButton'
-import Modal, { ModalProps } from '../atoms/Modal'
-import Slider from './Slider'
 
 export type ImageLightBoxProps = {
   images: UploadImageEntityFragment[]
@@ -56,10 +54,10 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
             {images.length > 1 && (
               <>
                 <IconButton variant="white" className="pointer-events-auto" onPress={goToPrevious}>
-                  <ArrowBack />
+                  <ArrowLeftIcon />
                 </IconButton>
                 <IconButton variant="white" className="pointer-events-auto" onPress={goToNext}>
-                  <ArrowForward />
+                  <ArrowRightIcon />
                 </IconButton>
               </>
             )}

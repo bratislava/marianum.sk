@@ -1,22 +1,21 @@
+import FormatDate from '@components/atoms/FormatDate'
+import Loading from '@components/atoms/Loading'
+import MLink from '@components/atoms/MLink'
+import CemeteryLink from '@components/molecules/CemeteryLink'
+import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Section from '@components/molecules/Section'
+import { UpcomingCeremoniesSectionFragment } from '@graphql'
 import { isSameDay, parseAbsolute } from '@internationalized/date'
-import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
-import useSWR from 'swr'
-
-import { UpcomingCeremoniesSectionFragment } from '../../graphql'
-import { bratislavaTimezone } from '../../utils/consts'
 import {
   upcomingCeremoniesFetcher,
   upcomingCeremoniesSwrKey,
-} from '../../utils/fetchers/upcomingCeremoniesFetcher'
-import { getCemeteryInfoInCeremoniesDebtors } from '../../utils/getBranchInfoInCeremoniesDebtors'
-import useGetSwrExtras from '../../utils/useGetSwrExtras'
-import FormatDate from '../atoms/FormatDate'
-import Loading from '../atoms/Loading'
-import MLink from '../atoms/MLink'
-import CemeteryLink from '../molecules/CemeteryLink'
-import { useGetFullPath } from '../molecules/Navigation/NavigationProvider/useGetFullPath'
-import Section from '../molecules/Section'
+} from '@services/fetchers/upcomingCeremoniesFetcher'
+import { bratislavaTimezone } from '@utils/consts'
+import { getCemeteryInfoInCeremoniesDebtors } from '@utils/getCemeteryInfoInCeremoniesDebtors'
+import { useGetSwrExtras } from '@utils/useGetSwrExtras'
+import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+import useSWR from 'swr'
 
 const Table = () => {
   const { t, i18n } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })
@@ -54,19 +53,20 @@ const Table = () => {
     return {
       day: firstCeremonyDayDateTimeZoned.toDate(),
       ceremonies: filteredCeremonies.map((ceremony) => {
-        const branchInfo = ceremony?.attributes?.cemetery?.data
+        const cemeteryInfo = ceremony?.attributes?.cemetery?.data
           ? getCemeteryInfoInCeremoniesDebtors(ceremony.attributes.cemetery.data, i18n.language)
           : null
 
-        const branch = branchInfo?.slug ? (
-          <CemeteryLink slug={branchInfo?.slug} title={branchInfo?.title ?? ''} />
+        const cemetery = cemeteryInfo?.slug ? (
+          <CemeteryLink slug={cemeteryInfo?.slug} title={cemeteryInfo?.title ?? ''} />
         ) : (
-          branchInfo?.title
+          cemeteryInfo?.title
         )
 
         return {
           name: ceremony.attributes?.name,
-          branch,
+          consentForPrivateFields: ceremony.attributes?.consentForPrivateFields,
+          cemetery,
           time: new Date(ceremony.attributes?.dateTime),
         }
       }),
@@ -105,8 +105,14 @@ const Table = () => {
         {ceremonies?.ceremonies.map((ceremony, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <tr className="group border-t border-border first:border-t-0" key={index}>
-            <td className="py-4 group-last:pb-0">{ceremony.name}</td>
-            <td className="py-4 group-last:pb-0">{ceremony.branch}</td>
+            <td className="py-4 group-last:pb-0">
+              {ceremony.consentForPrivateFields ? (
+                ceremony.name
+              ) : (
+                <span className="opacity-50">**</span>
+              )}
+            </td>
+            <td className="py-4 group-last:pb-0">{ceremony.cemetery}</td>
             <td className="py-4 group-last:pb-0">
               <FormatDate value={ceremony.time} format="ceremoniesTime" />
             </td>

@@ -1,9 +1,8 @@
+import SelectWithFetcher from '@components/molecules/SelectWithFetcher'
+import { client } from '@services/graphql/gqlClient'
+import { getCemeteryInfoInCeremoniesDebtors } from '@utils/getCemeteryInfoInCeremoniesDebtors'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
-
-import { getCemeteryInfoInCeremoniesDebtors } from '../../../utils/getBranchInfoInCeremoniesDebtors'
-import { client } from '../../../utils/gql'
-import SelectWithFetcher from '../SelectWithFetcher'
 
 type CeremoniesDebtorsCemeterySelectProps = {
   label?: string

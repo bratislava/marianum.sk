@@ -1,28 +1,27 @@
-import { SearchResponse } from 'meilisearch'
-import { useTranslation } from 'next-i18next'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import useSwr from 'swr'
-import { useDebounce } from 'usehooks-ts'
-
-import { CeremonyMeili } from '../../types/meiliTypes'
+import FormatDate from '@components/atoms/FormatDate'
+import Loading from '@components/atoms/Loading'
+import LoadingOverlay from '@components/atoms/LoadingOverlay'
+import CemeteryLink from '@components/molecules/CemeteryLink'
+import CeremoniesDebtorsCemeterySelect from '@components/molecules/CeremoniesDebtors/CemeterySelect'
+import FilteringSearchInput from '@components/molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '@components/molecules/FiltersBackgroundWrapper'
+import PaginationMeili from '@components/molecules/PaginationMeili'
+import Section from '@components/molecules/Section'
 import {
   ceremoniesArchiveSectionDefaultFilters,
   ceremoniesArchiveSectionFetcher,
   CeremoniesArchiveSectionFilters,
   getCeremoniesArchiveSectionSwrKey,
-} from '../../utils/fetchers/ceremoniesArchiveSectionFetcher'
-import { getCemeteryInfoInCeremoniesDebtorsMeili } from '../../utils/getBranchInfoInCeremoniesDebtors'
-import useGetSwrExtras from '../../utils/useGetSwrExtras'
-import { useScrollToViewIfDataChange } from '../../utils/useScrollToViewIfDataChange'
-import FormatDate from '../atoms/FormatDate'
-import Loading from '../atoms/Loading'
-import LoadingOverlay from '../atoms/LoadingOverlay'
-import CemeteryLink from '../molecules/CemeteryLink'
-import CeremoniesDebtorsCemeterySelect from '../molecules/CeremoniesDebtors/CemeterySelect'
-import FilteringSearchInput from '../molecules/FilteringSearchInput'
-import FiltersBackgroundWrapper from '../molecules/FiltersBackgroundWrapper'
-import PaginationMeili from '../molecules/PaginationMeili'
-import Section from '../molecules/Section'
+} from '@services/fetchers/ceremoniesArchiveSectionFetcher'
+import { CeremonyMeili } from '@services/meili/meiliTypes'
+import { getCemeteryInfoInCeremoniesDebtorsMeili } from '@utils/getCemeteryInfoInCeremoniesDebtors'
+import { useGetSwrExtras } from '@utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
+import { SearchResponse } from 'meilisearch'
+import { useTranslation } from 'next-i18next'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import useSwr from 'swr'
+import { useDebounce } from 'usehooks-ts'
 
 const pageSize = 20
 
@@ -57,12 +56,12 @@ const Table = ({
         i18n.language,
       )
 
-      const branch = slug ? <CemeteryLink slug={slug} title={title} /> : title
+      const cemetery = slug ? <CemeteryLink slug={slug} title={title} /> : title
 
       return {
         ...ceremony,
         dateTime,
-        branch,
+        cemetery,
       }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -78,7 +77,7 @@ const Table = ({
               <th>{t('th.dateTime')}</th>
               <th>{t('th.name')}</th>
               <th>{t('th.birthYear')}</th>
-              <th>{t('th.branchTitle')}</th>
+              <th>{t('th.cemeteryTitle')}</th>
               <th>{t('th.type')}</th>
               <th>{t('th.company')}</th>
               <th>{t('th.officiantProvidedBy')}</th>
@@ -95,7 +94,7 @@ const Table = ({
                 </td>
                 <td>{ceremony.consentForPrivateFields ? ceremony.name : <PrivateField />}</td>
                 <td>{ceremony.consentForPrivateFields ? ceremony.birthYear : <PrivateField />}</td>
-                <td>{ceremony.branch}</td>
+                <td>{ceremony.cemetery}</td>
                 <td>{ceremony.consentForPrivateFields ? ceremony.type : <PrivateField />}</td>
                 <td>{ceremony.company}</td>
                 <td>{ceremony.officiantProvidedBy}</td>
@@ -182,17 +181,17 @@ const CeremoniesArchiveSection = () => {
     setFilters({ ...filters, page })
   }
 
-  const handleBranchChange = (branchId: string) => {
-    setFilters({ ...filters, branchId })
+  const handleCemeteryChange = (cemeteryId: string) => {
+    setFilters({ ...filters, cemeteryId })
   }
 
   return (
     <Section overlayWithHero>
-      <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 bg-white md:mb-6 md:grid-cols-3">
+      <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3">
         <div>
           <CeremoniesDebtorsCemeterySelect
             type="ceremonies"
-            onCemeteryChange={handleBranchChange}
+            onCemeteryChange={handleCemeteryChange}
           />
         </div>
         <div className="md:col-span-2">

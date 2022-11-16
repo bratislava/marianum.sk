@@ -1,15 +1,15 @@
+import MLink from '@components/atoms/MLink'
+import AccordionGroup from '@components/molecules/Accordion/AccordionGroup'
+import AccordionItem from '@components/molecules/Accordion/AccordionItem'
+import FooterCredentials from '@components/molecules/Footer/FooterCredentials'
+import FooterMap from '@components/molecules/Footer/FooterMap'
+import FooterSocials from '@components/molecules/Footer/FooterSocials'
+import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { ContactFragment, FooterFragment, SocialItemFragment } from '@graphql'
+import { getPhoneNumberLink } from '@utils/getPhoneNumberLink'
+import { isDefined } from '@utils/isDefined'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
-
-import { ContactFragment, FooterFragment, SocialItemFragment } from '../../../graphql'
-import { isDefined } from '../../../utils/isDefined'
-import MLink from '../../atoms/MLink'
-import AccordionGroup from '../Accordion/AccordionGroup'
-import AccordionItem from '../Accordion/AccordionItem'
-import { useGetFullPath } from '../Navigation/NavigationProvider/useGetFullPath'
-import FooterCredentials from './FooterCredentials'
-import FooterMap from './FooterMap'
-import FooterSocials from './FooterSocials'
 
 export type FooterProps = {
   contact: ContactFragment | null | undefined
@@ -92,7 +92,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
               <div className="text-lg font-bold">{t('contacts')}</div>
               <div className="flex flex-col gap-2 font-regular">
                 {phone1 && (
-                  <MLink noStyles href={`tel:${phone1}`} className="w-fit opacity-72">
+                  <MLink noStyles href={getPhoneNumberLink(phone1)} className="w-fit opacity-72">
                     {phone1}
                   </MLink>
                 )}
