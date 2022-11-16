@@ -28,6 +28,7 @@ import { SWRConfig } from 'swr'
 
 
 
+
 type HomeProps = {
   navigation: NavigationItemFragment[]
   page: NonNullable<NonNullable<HomePageQuery['homePage']>['data']>
