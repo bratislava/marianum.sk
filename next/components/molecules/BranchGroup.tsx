@@ -22,6 +22,7 @@ const BranchGroup = ({ branches }: BranchGroupFragment) => {
             address={address}
             linkHref={getFullPath(branch) ?? ''}
             tags={offices?.data.map((office) => office?.attributes?.title).filter(isDefined)}
+            tagsPosition="under"
           />
         )
       })}

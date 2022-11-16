@@ -97,7 +97,11 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
                   </MLink>
                 )}
                 {email && (
-                  <MLink noStyles href={`mailto:${email}`} className="w-fit opacity-72">
+                  <MLink
+                    noStyles
+                    href={`mailto:${email.replace(/ /g, '')}`}
+                    className="w-fit opacity-72"
+                  >
                     {email}
                   </MLink>
                 )}

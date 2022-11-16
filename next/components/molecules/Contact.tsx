@@ -15,7 +15,7 @@ const Contact = ({ contact, className }: ContactProps) => {
   return (
     <div className={className}>
       <div className="flex gap-4 pb-3">
-        <div className="font-bold text-black">{title}</div>
+        <div className="font-bold text-foreground-heading">{title}</div>
         {position && (
           <>
             <div>&bull;</div>

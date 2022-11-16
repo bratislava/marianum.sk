@@ -1,5 +1,6 @@
 import { MailIcon, PhoneIcon } from '@assets/icons'
 import Button from '@components/atoms/Button'
+import { getPhoneNumberLink } from '@utils/getPhoneNumberLink'
 import { useTranslation } from 'next-i18next'
 
 type SideBarContactProps = {
@@ -21,12 +22,22 @@ const SideBarContact = ({ title, phone1, phone2, email }: SideBarContactProps) =
       <h5>{t('contacts')}</h5>
       {title && <p className="mt-6 whitespace-pre-wrap">{title}</p>}
       {phone1 && (
-        <Button variant="plain-primary" startIcon={<PhoneIcon />} className="mt-3 w-fit">
+        <Button
+          href={getPhoneNumberLink(phone1)}
+          variant="plain-primary"
+          startIcon={<PhoneIcon />}
+          className="mt-3 w-fit"
+        >
           {phone1}
         </Button>
       )}
       {phone2 && (
-        <Button variant="plain-secondary" startIcon={<PhoneIcon />} className="mt-2 w-fit">
+        <Button
+          href={getPhoneNumberLink(phone2)}
+          variant="plain-secondary"
+          startIcon={<PhoneIcon />}
+          className="mt-2 w-fit"
+        >
           {phone2}
         </Button>
       )}
@@ -35,7 +46,7 @@ const SideBarContact = ({ title, phone1, phone2, email }: SideBarContactProps) =
           <Button variant="plain-primary" startIcon={<MailIcon />} className="mt-2 w-fit">
             {email}
           </Button>
-          <Button href={`mailto:${email}`} variant="primary" className="mt-6">
+          <Button href={`mailto:${email.replace(/ /g, '')}`} variant="primary" className="mt-6">
             {t('writeMessage')}
           </Button>
         </>
