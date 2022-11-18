@@ -13,12 +13,6 @@ const headerTexts = {
   ceremonies: "Import obradov",
 };
 
-const contentTexts = {
-  // TODO: Texts
-  debtors: "TODO",
-  ceremonies: "TODO",
-};
-
 type ImportSectionProps = {
   type: "debtors" | "ceremonies";
 };
@@ -75,7 +69,6 @@ const ImportSection = ({ type }: ImportSectionProps) => {
         <Typography variant="delta" as="h2">
           {headerTexts[type]}
         </Typography>
-        <p>{contentTexts[type]}</p>
         {loading && <Loader />}
         <input type="file" ref={inputFileRef} />
         <div>
