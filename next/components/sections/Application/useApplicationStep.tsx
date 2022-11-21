@@ -1,11 +1,11 @@
 import Button from '@components/atoms/Button'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { PropsWithChildren, useCallback, useEffect, useMemo } from 'react'
-import { DeepPartial, useForm } from 'react-hook-form'
+import { DeepPartial, FieldValues, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { AnySchema } from 'yup'
 
-export const useApplicationStep = <T,>({
+export const useApplicationStep = <T extends FieldValues,>({
   yupShape,
   values,
   defaultValues,

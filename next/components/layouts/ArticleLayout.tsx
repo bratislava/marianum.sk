@@ -30,7 +30,7 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
           moreContent={
             coverImage ? (
               <div className="static h-[188px] sm:h-[238px] md:relative md:h-[287px] lg:h-[387px] xl:h-[440px]">
-                <MImage image={coverImage} layout="fill" objectFit="cover" unoptimized />
+                <MImage image={coverImage} fill className="object-cover" />
               </div>
             ) : null
           }

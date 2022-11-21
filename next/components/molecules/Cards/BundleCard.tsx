@@ -47,11 +47,7 @@ const BundleCard = ({
       <CardContent largePadding className="grow gap-6">
         <div className="relative h-[56px] w-[56px] bg-gray">
           <MLink href={linkHref} tabIndex={-1} noStyles onClick={handleLinkClick} aria-label={name}>
-            {image ? (
-              <MImage image={image} layout="fill" objectFit="cover" />
-            ) : (
-              <ImagePlaceholder />
-            )}
+            {image ? <MImage image={image} fill className="object-cover" /> : <ImagePlaceholder />}
           </MLink>
         </div>
 

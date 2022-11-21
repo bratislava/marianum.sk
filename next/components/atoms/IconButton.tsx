@@ -103,7 +103,6 @@ const IconButton = forwardRef<HTMLAnchorElement | HTMLButtonElement, Polymorphic
         <MLink
           ref={ref as RefObject<HTMLAnchorElement>}
           href={rest.href}
-          suffix={rest.suffix}
           tabIndex={tabIndex}
           noStyles
           noArrow
