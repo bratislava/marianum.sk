@@ -4,7 +4,7 @@
   "info": {
     "singularName": "branch",
     "pluralName": "branches",
-    "displayName": "Branches",
+    "displayName": "Pobočky",
     "description": ""
   },
   "options": {
@@ -39,7 +39,9 @@
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": ["images"],
+      "allowedTypes": [
+        "images"
+      ],
       "pluginOptions": {
         "i18n": {
           "localized": false

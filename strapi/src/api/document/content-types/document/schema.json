@@ -4,12 +4,13 @@
   "info": {
     "singularName": "document",
     "pluralName": "documents",
-    "displayName": "Documents",
+    "displayName": "Dokumenty",
     "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
     "title": {
       "type": "string",
@@ -24,7 +25,9 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": ["files"]
+      "allowedTypes": [
+        "files"
+      ]
     },
     "description": {
       "type": "text"
@@ -38,11 +41,7 @@
     "seo": {
       "type": "component",
       "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
+      "pluginOptions": {},
       "component": "general.seo"
     }
   }

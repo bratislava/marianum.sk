@@ -4,7 +4,7 @@
   "info": {
     "singularName": "bundle",
     "pluralName": "bundles",
-    "displayName": "Bundles",
+    "displayName": "Balíčky pohrebov",
     "description": ""
   },
   "options": {
@@ -47,7 +47,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"],
+      "allowedTypes": [
+        "images"
+      ],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -70,7 +72,10 @@
         }
       },
       "type": "enumeration",
-      "enum": ["pochovanie", "kremacia"],
+      "enum": [
+        "pochovanie",
+        "kremacia"
+      ],
       "required": true,
       "default": "pochovanie"
     },
