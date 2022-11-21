@@ -1,17 +1,18 @@
+import { InfoIcon } from '@assets/icons'
+import Tooltip from '@components/atoms/Tooltip'
 import { RadioGroup } from '@headlessui/react'
 import cx from 'classnames'
-import React, { ReactNode } from 'react'
+import React, { PropsWithChildren, ReactNode } from 'react'
 
 import RadioCircle from './RadioCircle'
 
-/**
- * TODO: Add tooltip when available.
- */
 const RadioBox = ({
   children,
   className,
+  tooltip,
   ...props
-}: Parameters<typeof RadioGroup.Option>[0] & { className?: string; children?: ReactNode }) => {
+}: Parameters<typeof RadioGroup.Option>[0] &
+  PropsWithChildren<{ className?: string; tooltip?: ReactNode }>) => {
   const boxClassName = ({ checked, disabled }: { checked: boolean; disabled: boolean }) =>
     cx(
       'group flex flex-col space-y-4 p-6',
@@ -29,6 +30,12 @@ const RadioBox = ({
         <>
           <RadioCircle checked={checked} disabled={disabled} active={active} />
           <RadioGroup.Label className="text-h6 font-bold">{children}</RadioGroup.Label>
+          {tooltip ? (
+            // `popoverClassname` calculations offsets the tooltip icon to the info icon and makes it wider to balance the offset.
+            <Tooltip tooltip={tooltip} popoverClassname="w-[calc(100%+theme(space.6))] -ml-3">
+              <InfoIcon className="text-primary" />
+            </Tooltip>
+          ) : null}
         </>
       )}
     </RadioGroup.Option>
