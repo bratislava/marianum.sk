@@ -14,7 +14,7 @@ const ContactsSection = ({
 
   return (
     <Section {...rest}>
-      <div className="flex flex-col gap-4 bg-white p-6">
+      <div className="flex flex-col gap-4 border border-border bg-white p-6">
         {filteredContacts.map((contact, index) => (
           <Contact
             // eslint-disable-next-line react/no-array-index-key
