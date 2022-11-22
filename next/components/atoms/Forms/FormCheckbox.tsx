@@ -1,5 +1,5 @@
 import Checkbox from '@components/atoms/Checkbox'
-import { ErrorMessage } from '@hookform/error-message'
+import FormErrorWrapper from '@components/atoms/Forms/FormErrorWrapper'
 import get from 'lodash/get'
 import React, { ComponentProps, PropsWithChildren } from 'react'
 import { useController, UseControllerProps } from 'react-hook-form'
@@ -23,7 +23,7 @@ const FormCheckbox = ({ children, errors, ...props }: PropsWithChildren<FormChec
   const hasError = Boolean(get(errors, props.name))
 
   return (
-    <>
+    <FormErrorWrapper errors={errors} name={props.name}>
       <Checkbox
         {...props}
         isSelected={value}
@@ -33,8 +33,7 @@ const FormCheckbox = ({ children, errors, ...props }: PropsWithChildren<FormChec
       >
         {children}
       </Checkbox>
-      {props.name && errors ? <ErrorMessage errors={errors} name={props.name} /> : null}
-    </>
+    </FormErrorWrapper>
   )
 }
 

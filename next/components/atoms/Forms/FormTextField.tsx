@@ -1,5 +1,5 @@
+import FormErrorWrapper from '@components/atoms/Forms/FormErrorWrapper'
 import TextField from '@components/atoms/TextField'
-import { ErrorMessage } from '@hookform/error-message'
 import React, { ComponentProps, forwardRef, PropsWithChildren } from 'react'
 
 // Types are not worth the effort.
@@ -11,12 +11,11 @@ const FormTextField = forwardRef<
   PropsWithChildren<FormTextFieldProps>
 >(({ children, errors, ...props }, ref) => {
   return (
-    <>
+    <FormErrorWrapper errors={errors} name={props.name}>
       <TextField {...props} ref={ref}>
         {children}
       </TextField>
-      {props.name && errors ? <ErrorMessage errors={errors} name={props.name} /> : null}
-    </>
+    </FormErrorWrapper>
   )
 })
 

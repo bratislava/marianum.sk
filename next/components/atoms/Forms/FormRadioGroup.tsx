@@ -1,5 +1,5 @@
+import FormErrorWrapper from '@components/atoms/Forms/FormErrorWrapper'
 import { RadioGroup } from '@headlessui/react'
-import { ErrorMessage } from '@hookform/error-message'
 import React, { PropsWithChildren } from 'react'
 import { useController, UseControllerProps } from 'react-hook-form'
 
@@ -16,13 +16,11 @@ const FormRadioGroup = ({ children, errors, ...props }: PropsWithChildren<FormRa
   } = useController(props)
 
   return (
-    <>
+    <FormErrorWrapper errors={errors} name={props.name}>
       <RadioGroup {...props} value={value} onChange={onChange} onBlur={onBlur}>
         {children}
       </RadioGroup>
-
-      {props.name && errors ? <ErrorMessage errors={errors} name={props.name} /> : null}
-    </>
+    </FormErrorWrapper>
   )
 }
 
