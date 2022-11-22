@@ -47,6 +47,14 @@ const nextConfig = {
           source: '/vyhladavanie',
           destination: '/search',
         },
+        {
+          source: '/ziadost',
+          destination: '/application',
+        },
+        {
+          source: '/ziadost/suhlasy',
+          destination: '/application/consents',
+        },
         ...generateRedirects([
           { fullPath: '/aktuality/novinky/:slug', nextRoute: '/articles' },
           {
