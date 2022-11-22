@@ -4,16 +4,26 @@ import fromPairs from 'lodash/fromPairs'
 import get from 'lodash/get'
 import { useTranslation } from 'next-i18next'
 import React, { PropsWithChildren, useMemo } from 'react'
+import { FormState } from 'react-hook-form'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type FormErrorWrapperProps = { errors?: Record<string, any>; name?: string }
+type FormErrorWrapperProps = { formState: FormState<any>; name?: string }
 
-const FormErrorWrapper = ({ name, errors, children }: PropsWithChildren<FormErrorWrapperProps>) => {
+const FormErrorWrapper = ({
+  name,
+  formState,
+  children,
+}: PropsWithChildren<FormErrorWrapperProps>) => {
   const { t } = useTranslation()
 
   const translatedErrors = useMemo(
-    () => fromPairs(Object.entries(errors ?? {}).map(([key, value]) => [key, t(value) || value])),
-    [errors, t],
+    () =>
+      fromPairs(
+        Object.entries(formState.errors ?? {}).map(([key, value]) => [key, t(value) || value]),
+      ),
+    // https://react-hook-form.com/api/useform/formstate
+    // formState.errors would not work
+    [formState, t],
   )
   const hasError = Boolean(name && translatedErrors && get(translatedErrors, name))
 

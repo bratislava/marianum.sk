@@ -18,13 +18,7 @@ const ApplicationStep3 = ({
   onFormChange,
   texts,
 }: ApplicationStepComponentProps<ApplicationTypes.Step.Step3>) => {
-  const {
-    setValue,
-    watch,
-    control,
-    formState: { errors },
-    Wrapper,
-  } = useApplicationStep({
+  const { setValue, watch, control, formState, Wrapper } = useApplicationStep({
     yupShape: step3YupShape,
     values,
     defaultValues,
@@ -55,7 +49,7 @@ const ApplicationStep3 = ({
       <FormRadioGroup
         name="druhHrobovehoMiesta"
         control={control}
-        errors={errors}
+        formState={formState}
         className="grid gap-4 pb-4 md:grid-cols-2 md:gap-6 md:pb-6"
       >
         <RadioBox
@@ -81,7 +75,7 @@ const ApplicationStep3 = ({
           <FormRadioGroup
             name="typUrnovehoMiesta"
             control={control}
-            errors={errors}
+            formState={formState}
             className="grid gap-4 pb-6 md:grid-cols-2 md:gap-6"
           >
             <RadioBox

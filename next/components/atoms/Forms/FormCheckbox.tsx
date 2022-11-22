@@ -2,7 +2,7 @@ import Checkbox from '@components/atoms/Checkbox'
 import FormErrorWrapper from '@components/atoms/Forms/FormErrorWrapper'
 import get from 'lodash/get'
 import React, { ComponentProps, PropsWithChildren } from 'react'
-import { useController, UseControllerProps } from 'react-hook-form'
+import { FormState, useController, UseControllerProps } from 'react-hook-form'
 
 // Types are not worth the effort.
 type FormCheckboxProps = Omit<
@@ -12,18 +12,18 @@ type FormCheckboxProps = Omit<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   UseControllerProps<any> & {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    errors?: any // TODO: type
+    formState: FormState<any>
   }
 
-const FormCheckbox = ({ children, errors, ...props }: PropsWithChildren<FormCheckboxProps>) => {
+const FormCheckbox = ({ children, formState, ...props }: PropsWithChildren<FormCheckboxProps>) => {
   const {
     field: { value, onChange, onBlur },
   } = useController(props)
 
-  const hasError = Boolean(get(errors, props.name))
+  const hasError = Boolean(get(formState.errors, props.name))
 
   return (
-    <FormErrorWrapper errors={errors} name={props.name}>
+    <FormErrorWrapper formState={formState} name={props.name}>
       <Checkbox
         {...props}
         isSelected={value}

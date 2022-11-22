@@ -17,14 +17,7 @@ const ApplicationStep2 = ({
   onFormChange,
   texts,
 }: ApplicationStepComponentProps<ApplicationTypes.Step.Step2>) => {
-  const {
-    register,
-    watch,
-    control,
-    setValue,
-    formState: { errors },
-    Wrapper,
-  } = useApplicationStep({
+  const { register, watch, control, setValue, formState, Wrapper } = useApplicationStep({
     yupShape: step2YupShape,
     values,
     defaultValues,
@@ -49,7 +42,7 @@ const ApplicationStep2 = ({
       <FormRadioGroup
         name="uviestHroboveCislo"
         control={control}
-        errors={errors}
+        formState={formState}
         className="grid gap-4 pb-4 md:grid-cols-2 md:gap-6 md:pb-6"
       >
         <RadioBox value className="grow" tooltip={texts.uviestHroboveCisloAnoTooltip}>
@@ -63,7 +56,7 @@ const ApplicationStep2 = ({
         <div className="pb-4 md:pb-6">
           <FormTextField
             label="Hrobové číslo vo formáte: Cintorín / sektor / hrobové miesto"
-            errors={errors}
+            formState={formState}
             {...register('hroboveCislo')}
           />
         </div>

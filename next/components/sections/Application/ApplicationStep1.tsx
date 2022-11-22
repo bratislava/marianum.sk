@@ -15,11 +15,7 @@ const ApplicationStep1 = ({
   onContinue,
   onFormChange,
 }: ApplicationStepComponentProps<ApplicationTypes.Step.Step1>) => {
-  const {
-    control,
-    Wrapper,
-    formState: { errors },
-  } = useApplicationStep({
+  const { control, Wrapper, formState } = useApplicationStep({
     yupShape: step1YupShape,
     values,
     defaultValues,
@@ -33,7 +29,7 @@ const ApplicationStep1 = ({
       <FormRadioGroup
         name="typZiadosti"
         control={control}
-        errors={errors}
+        formState={formState}
         className="grid gap-4 pb-6 md:grid-cols-2 md:gap-6"
       >
         <RadioBox value={ApplicationTypes.TypZiadosti.Pridelenie} className="grow">

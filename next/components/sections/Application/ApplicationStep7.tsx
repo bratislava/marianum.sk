@@ -20,12 +20,7 @@ const ApplicationStep7 = ({
   onFormChange,
   sending,
 }: ApplicationStepComponentProps<ApplicationTypes.Step.Step7>) => {
-  const {
-    register,
-    control,
-    formState: { errors },
-    Wrapper,
-  } = useApplicationStep({
+  const { register, control, formState, Wrapper } = useApplicationStep({
     yupShape: step7YupShape,
     values,
     defaultValues,
@@ -42,21 +37,21 @@ const ApplicationStep7 = ({
 
       <h3 className="mt-8 mb-4">Súhlasy</h3>
       <div className="grid gap-4 pb-4 md:pb-6">
-        <FormCheckbox name="suhlasSOdoslanim" control={control} errors={errors}>
+        <FormCheckbox name="suhlasSOdoslanim" control={control} formState={formState}>
           Súhlasím s vyhlásením o{' '}
           <MLink href="/ziadost/suhlasy" variant="regular" noArrow target="_blank">
             <span>záväznosti odoslanej žiadosti a platnosti údajov v nej uvedených</span>
           </MLink>
           . *
         </FormCheckbox>
-        <FormCheckbox name="suhlasSOsobnymiUdajmi" control={control} errors={errors}>
+        <FormCheckbox name="suhlasSOsobnymiUdajmi" control={control} formState={formState}>
           Súhlasím so{' '}
           <MLink href="/ziadost/suhlasy" variant="regular" noArrow target="_blank">
             <span>spracovaním osobných údajov</span>
           </MLink>
           . *
         </FormCheckbox>
-        <FormCheckbox name="suhlasNewsletter" control={control} errors={errors}>
+        <FormCheckbox name="suhlasNewsletter" control={control} formState={formState}>
           Súhlasím so{' '}
           <MLink href="/ziadost/suhlasy" variant="regular" noArrow target="_blank">
             <span>

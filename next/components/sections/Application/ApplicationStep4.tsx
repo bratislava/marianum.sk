@@ -74,11 +74,7 @@ const ApplicationStep4 = ({
     [list],
   )
 
-  const {
-    control,
-    formState: { errors },
-    Wrapper,
-  } = useApplicationStep({
+  const { control, formState, Wrapper } = useApplicationStep({
     yupShape: step4YupShape,
     values,
     defaultValues,
@@ -93,7 +89,7 @@ const ApplicationStep4 = ({
         value="5"
         name="cintorin"
         control={control}
-        errors={errors}
+        formState={formState}
         className="mb-6 flex w-full flex-row flex-wrap md:border md:border-border"
       >
         {list.map((cemetery) => (
