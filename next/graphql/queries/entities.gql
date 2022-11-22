@@ -598,3 +598,17 @@ fragment HomepageCeremonyEntity on CeremonyEntity {
     }
   }
 }
+
+fragment ApplicationText on ApplicationText {
+  spracovanieOsobnychUdajov
+  spracovanieOsobnychUdajovMarketing
+  typZiadostiPridelenieTooltip
+  typZiadostiRezervaciaTooltip
+  uviestHroboveCisloAnoTooltip
+  uviestHroboveCisloNieTooltip
+  osobnaPritomnostDescription
+  druhHroboveMiestoTooltip
+  druhUrnoveMiestoTooltip
+  druhUrnoveMiestoVZemiTooltip
+  druhUrnovaStenaTooltip
+}
