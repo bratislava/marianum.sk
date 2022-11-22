@@ -1,21 +1,13 @@
+import { AnimateHeight } from '@components/atoms/AnimateHeight'
 import FormRadioGroup from '@components/atoms/Forms/FormRadioGroup'
 import FormTextField from '@components/atoms/Forms/FormTextField'
 import RadioBox from '@components/atoms/Radio/RadioBox'
 import { useEffect } from 'react'
-import * as yup from 'yup'
 
-import { ApplicationTypes } from './application.types'
+import { ApplicationStepComponentProps } from './application.types'
+import { ApplicationTypes } from './application-shared.types'
+import { step2YupShape } from './application-shared.yup'
 import { useApplicationStep } from './useApplicationStep'
-
-const yupShape = {
-  uviestHroboveCislo: yup.boolean().required(),
-  hroboveCislo: yup.mixed().when(['uviestHroboveCislo'], {
-    is: (uviestHroboveCislo: boolean) => uviestHroboveCislo,
-    // eslint-disable-next-line unicorn/no-thenable
-    then: yup.string().min(1).required(),
-    otherwise: yup.mixed().equals([undefined, null]),
-  }),
-}
 
 const defaultValues: ApplicationTypes.Step2Model = { uviestHroboveCislo: false }
 
@@ -23,7 +15,8 @@ const ApplicationStep2 = ({
   values,
   onContinue,
   onFormChange,
-}: ApplicationTypes.StepComponentProps<ApplicationTypes.Step.Step2>) => {
+  texts,
+}: ApplicationStepComponentProps<ApplicationTypes.Step.Step2>) => {
   const {
     register,
     watch,
@@ -32,7 +25,7 @@ const ApplicationStep2 = ({
     formState: { errors },
     Wrapper,
   } = useApplicationStep({
-    yupShape,
+    yupShape: step2YupShape,
     values,
     defaultValues,
     onContinue,
@@ -52,28 +45,21 @@ const ApplicationStep2 = ({
 
   return (
     <Wrapper>
-      <h3 className="mb-4">Chcete do žiadosti uviesť konkrétne hrobové číslo?</h3>
-      <p className="mb-4 md:mb-6">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris.
-      </p>
+      <h3 className="mb-3 md:mb-6">Chcete do žiadosti uviesť konkrétne hrobové číslo?</h3>
       <FormRadioGroup
         name="uviestHroboveCislo"
         control={control}
         errors={errors}
         className="grid gap-4 pb-4 md:grid-cols-2 md:gap-6 md:pb-6"
       >
-        <RadioBox value className="grow">
+        <RadioBox value className="grow" tooltip={texts.uviestHroboveCisloAnoTooltip}>
           Áno, chcem
         </RadioBox>
-        <RadioBox value={false} className="grow">
+        <RadioBox value={false} className="grow" tooltip={texts.uviestHroboveCisloNieTooltip}>
           Nie, nechcem
         </RadioBox>
       </FormRadioGroup>
-      {/* TODO: Fix and use AnimateHeight */}
-      {/* <AnimateHeight isVisible={watchUviestHroboveCislo}> */}
-      {watchUviestHroboveCislo && (
+      <AnimateHeight isVisible={watchUviestHroboveCislo}>
         <div className="pb-4 md:pb-6">
           <FormTextField
             label="Hrobové číslo vo formáte: Cintorín / sektor / hrobové miesto"
@@ -81,8 +67,7 @@ const ApplicationStep2 = ({
             {...register('hroboveCislo')}
           />
         </div>
-      )}
-      {/* </AnimateHeight> */}
+      </AnimateHeight>
     </Wrapper>
   )
 }

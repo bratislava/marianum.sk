@@ -1,22 +1,27 @@
 import Button from '@components/atoms/Button'
+import Spinner from '@components/atoms/Spinner'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { PropsWithChildren, useCallback, useEffect, useMemo } from 'react'
 import { DeepPartial, FieldValues, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { AnySchema } from 'yup'
 
-export const useApplicationStep = <T extends FieldValues,>({
+export const useApplicationStep = <T extends FieldValues>({
   yupShape,
   values,
   defaultValues,
   onContinue,
   onFormChange,
+  sending,
+  sendStep = false,
 }: {
   yupShape: Record<keyof T, AnySchema>
   values?: DeepPartial<T>
   defaultValues: T
   onContinue: (values: T) => void
   onFormChange: (values: DeepPartial<T>) => void
+  sending?: boolean
+  sendStep?: boolean
 }) => {
   const schema = useMemo(() => yup.object().shape(yupShape).required(), [yupShape])
 
@@ -38,13 +43,22 @@ export const useApplicationStep = <T extends FieldValues,>({
       <form onSubmit={useFormResult.handleSubmit(onContinue)} className="w-full">
         <div>
           {children}
-          <Button className="w-full" type="submit">
-            Pokračovať
-          </Button>
+          {sendStep ? (
+            <Button className="w-full" type="submit" disabled={sending}>
+              <div className="flex items-center gap-2">
+                {sending ? <Spinner /> : null}
+                <span>Odoslať</span>
+              </div>
+            </Button>
+          ) : (
+            <Button className="w-full" type="submit">
+              Pokračovať
+            </Button>
+          )}
         </div>
       </form>
     ),
-    [onContinue, useFormResult],
+    [onContinue, sendStep, sending, useFormResult],
   )
 
   // TODO: fix type

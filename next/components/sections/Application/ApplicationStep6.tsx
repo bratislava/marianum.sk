@@ -1,18 +1,9 @@
 import FormTextField from '@components/atoms/Forms/FormTextField'
-import * as yup from 'yup'
+import { ApplicationStepComponentProps } from '@components/sections/Application/application.types'
 
-import { ApplicationTypes } from './application.types'
+import { ApplicationTypes } from './application-shared.types'
+import { step6YupShape } from './application-shared.yup'
 import { useApplicationStep } from './useApplicationStep'
-
-const yupShape = {
-  meno: yup.string().required('required'),
-  priezvisko: yup.string().required('required'),
-  email: yup.string().email('invalidEmail').required('required'),
-  telefon: yup.string().required('required'),
-  adresa: yup.string().required('required'),
-  mesto: yup.string().required('required'),
-  psc: yup.string().required('required'),
-}
 
 const defaultValues: ApplicationTypes.Step6Model = {
   meno: '',
@@ -28,13 +19,13 @@ const ApplicationStep6 = ({
   values,
   onContinue,
   onFormChange,
-}: ApplicationTypes.StepComponentProps<ApplicationTypes.Step.Step6>) => {
+}: ApplicationStepComponentProps<ApplicationTypes.Step.Step6>) => {
   const {
     register,
     formState: { errors },
     Wrapper,
   } = useApplicationStep({
-    yupShape,
+    yupShape: step6YupShape,
     values,
     defaultValues,
     onContinue,

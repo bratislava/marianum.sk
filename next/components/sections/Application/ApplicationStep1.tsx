@@ -1,15 +1,10 @@
 import FormRadioGroup from '@components/atoms/Forms/FormRadioGroup'
 import RadioBox from '@components/atoms/Radio/RadioBox'
-import * as yup from 'yup'
+import { ApplicationStepComponentProps } from '@components/sections/Application/application.types'
 
-import { ApplicationTypes } from './application.types'
+import { ApplicationTypes } from './application-shared.types'
+import { step1YupShape } from './application-shared.yup'
 import { useApplicationStep } from './useApplicationStep'
-
-const yupShape = {
-  typZiadosti: yup
-    .mixed<ApplicationTypes.TypZiadosti>()
-    .oneOf(Object.values(ApplicationTypes.TypZiadosti)),
-}
 
 const defaultValues: ApplicationTypes.Step1Model = {
   typZiadosti: ApplicationTypes.TypZiadosti.Rezervacia,
@@ -19,13 +14,13 @@ const ApplicationStep1 = ({
   values,
   onContinue,
   onFormChange,
-}: ApplicationTypes.StepComponentProps<ApplicationTypes.Step.Step1>) => {
+}: ApplicationStepComponentProps<ApplicationTypes.Step.Step1>) => {
   const {
     control,
     Wrapper,
     formState: { errors },
   } = useApplicationStep({
-    yupShape,
+    yupShape: step1YupShape,
     values,
     defaultValues,
     onContinue,

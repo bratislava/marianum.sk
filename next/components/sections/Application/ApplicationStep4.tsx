@@ -5,9 +5,10 @@ import { CemeteryInApplicationEntityFragment } from '@graphql'
 import { RadioGroup } from '@headlessui/react'
 import { useMemo } from 'react'
 import { DeepPartial } from 'react-hook-form'
-import * as yup from 'yup'
 
-import { ApplicationTypes } from './application.types'
+import { ApplicationCemeteries, ApplicationStepComponentProps } from './application.types'
+import { ApplicationTypes } from './application-shared.types'
+import { step4YupShape } from './application-shared.yup'
 import { useApplicationStep } from './useApplicationStep'
 
 const CemeteryRadioBox = ({ cemetery }: { cemetery: CemeteryInApplicationEntityFragment }) => {
@@ -20,7 +21,7 @@ const CemeteryRadioBox = ({ cemetery }: { cemetery: CemeteryInApplicationEntityF
         <div className="flex w-full justify-between px-5 py-3">
           <div className="flex grow gap-x-4">
             <div className="flex items-center">
-              <MapMarkerSvg className="h-4 w-4" />
+              <MapMarkerSvg width="12px" height={null} />
             </div>
             <div className="flex flex-col">
               <RadioGroup.Label className="font-semibold text-primary">
@@ -39,19 +40,15 @@ const CemeteryRadioBox = ({ cemetery }: { cemetery: CemeteryInApplicationEntityF
   )
 }
 
-const yupShape = {
-  cintorin: yup.string().required(),
-}
-
 const ApplicationStep4 = ({
   step3,
   values,
   onContinue,
   onFormChange,
   cemeteries,
-}: ApplicationTypes.StepComponentProps<ApplicationTypes.Step.Step4> & {
+}: ApplicationStepComponentProps<ApplicationTypes.Step.Step4> & {
   step3: DeepPartial<ApplicationTypes.Step3Model> | undefined
-  cemeteries: ApplicationTypes.Cemeteries
+  cemeteries: ApplicationCemeteries
 }) => {
   const list = useMemo(() => {
     if (step3?.druhHrobovehoMiesta === ApplicationTypes.DruhHrobovehoMiesta.HroboveMiesto) {
@@ -82,7 +79,7 @@ const ApplicationStep4 = ({
     formState: { errors },
     Wrapper,
   } = useApplicationStep({
-    yupShape,
+    yupShape: step4YupShape,
     values,
     defaultValues,
     onContinue,
