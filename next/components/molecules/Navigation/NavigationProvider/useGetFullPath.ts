@@ -116,7 +116,7 @@ type GetFullPathMeiliFn = (
  *
  * @param navMap
  */
-const getFullPathMeiliFn = (navMap: NavMap) => {
+export const getFullPathMeiliFn = (navMap: NavMap) => {
   // eslint-disable-next-line sonarjs/cognitive-complexity
   return ((entityType, entity) => {
     const { slug } = entity
