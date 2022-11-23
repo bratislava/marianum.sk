@@ -4,7 +4,7 @@ const FormatCurrency = ({ value }: { value: number }) => {
   const formatter = useNumberFormatter({
     style: 'currency',
     currency: 'EUR',
-    minimumFractionDigits: 0,
+    minimumFractionDigits: 2,
   })
 
   return <>{formatter.format(value)}</>
