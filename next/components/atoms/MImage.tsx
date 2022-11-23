@@ -1,6 +1,12 @@
 import { UploadFile } from '@graphql'
-import Image from 'next/image'
+import Image, { ImageLoader } from 'next/image'
 import { ComponentProps } from 'react'
+
+// After update to Next.js, loading images is broken (returns 503 and makes the server crash for a moment), this is a
+// temporary fix.
+export const customImageLoader: ImageLoader = ({ src, width, quality }) => {
+  return `https://www.mestskakniznica.sk/_next/image?url=${src}&w=${width}&q=${quality || 75}`
+}
 
 export type MImageImage = Pick<
   UploadFile,
@@ -26,6 +32,7 @@ const MImage = ({ image, disableBlurPlaceholder = false, ...rest }: MImageProps)
     width={rest.fill ? undefined : image.width ?? undefined}
     height={rest.fill ? undefined : image.height ?? undefined}
     {...rest}
+    loader={customImageLoader}
   />
 )
 
