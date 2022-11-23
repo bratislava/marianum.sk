@@ -10,7 +10,9 @@ export const customImageLoader: ImageLoader = ({ src, width, quality }) => {
     return src
   }
 
-  return `https://www.mestskakniznica.sk/_next/image?url=${src}&w=${width}&q=${quality || 75}`
+  return `https://www.mestskakniznica.sk/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${
+    quality || 75
+  }`
 }
 
 export type MImageImage = Pick<
