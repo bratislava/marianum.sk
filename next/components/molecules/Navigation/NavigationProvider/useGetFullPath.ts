@@ -22,7 +22,7 @@ const localPaths = {
   branches: '/o-nas/kontakty',
   news: '/aktuality/novinky',
   press: '/o-nas/pre-media',
-  bundlesBurial: '/sluzby/balicky-pohrebov/pochovanie-do-zeme',
+  bundlesBurial: '/sluzby/balicky-pohrebov/rozlucka-na-cintorine',
   bundlesCremation: '/sluzby/balicky-pohrebov/kremacia',
   cemeteries: '/o-nas/cintoriny-v-sprave',
   documents: '/o-nas/dokumenty',
