@@ -1,4 +1,5 @@
 import Divider from '@components/atoms/Divider'
+import { customImageLoader } from '@components/atoms/MImage'
 import MLink from '@components/atoms/MLink'
 import NormalizeText from '@components/atoms/NormalizeText/NormalizeText'
 import cx from 'classnames'
@@ -46,6 +47,7 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
                 className="w-full"
                 alt={alt}
                 sizes="100vw"
+                loader={customImageLoader}
               />
               <figcaption className="text-center text-sm">{caption}</figcaption>
             </figure>
