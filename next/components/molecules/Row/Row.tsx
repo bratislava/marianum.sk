@@ -11,6 +11,7 @@ import { Fragment, ReactNode } from 'react'
 
 type RowProps = {
   title?: string
+  titleId?: string
   metadata?: string[]
   tags?: string[]
   tagsPosition?: 'beside' | 'under'
@@ -27,6 +28,7 @@ type RowProps = {
 
 const Row = ({
   title,
+  titleId,
   metadata,
   tags = [],
   tagsPosition = 'beside',
@@ -83,6 +85,7 @@ const Row = ({
               className={cx('w-fit text-left text-h5 text-foreground-heading', {
                 'group-hover:underline group-focus:underline': linkHref,
               })}
+              id={titleId}
             >
               {title}
             </h5>
