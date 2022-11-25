@@ -64,12 +64,7 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
         a: ({ href, children }) => {
           const isExternal = href?.startsWith('http')
           return (
-            <MLink
-              href={href ?? '#'}
-              target={isExternal ? '_blank' : '_self'}
-              noStyles
-              className="font-semibold text-primary underline hover:text-primary-dark"
-            >
+            <MLink href={href ?? '#'} target={isExternal ? '_blank' : '_self'} variant="regular">
               {children[0]}
               {isExternal && ' ↗'}
             </MLink>

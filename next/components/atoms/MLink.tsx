@@ -6,7 +6,7 @@ import { twMerge } from 'tailwind-merge'
 
 export type LinkProps = Omit<ComponentProps<typeof NextLink>, 'as' | 'passHref'> & {
   children: ReactNode
-  variant?: 'primary' | 'white'
+  variant?: 'primary' | 'white' | 'regular'
   noArrow?: boolean
   noStyles?: boolean
   className?: string
@@ -33,13 +33,13 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
     const styles = twMerge(
       noStyles
         ? ''
-        : cx(
-            'inline-flex items-center justify-center space-x-2 text-center align-middle text-md font-bold',
-            {
-              'text-primary hover:text-primary-dark': variant === 'primary',
-              'text-white hover:opacity-64': variant === 'white',
-            },
-          ),
+        : cx({
+            'inline-flex items-center justify-center space-x-2 text-center align-middle text-md font-bold':
+              variant === 'primary' || variant === 'white',
+            'text-primary hover:text-primary-dark': variant === 'primary',
+            'text-white hover:opacity-64': variant === 'white',
+            'font-semibold text-primary underline hover:text-primary-dark': variant === 'regular',
+          }),
       className,
     )
     return (
@@ -59,7 +59,9 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
         ) : (
           <>
             <span>{children}</span>
-            {!noArrow && <ArrowRightIcon />}
+            {!noArrow && (
+              <ArrowRightIcon className={variant === 'regular' ? 'inline' : undefined} />
+            )}
           </>
         )}
       </NextLink>
