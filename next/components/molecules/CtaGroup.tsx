@@ -20,7 +20,7 @@ const CtaGroup = ({ ctas }: CtaSectionFragment) => {
         return (
           // eslint-disable-next-line react/no-array-index-key
           <div className="flex flex-col bg-primary px-4 py-8 text-white md:p-12" key={index}>
-            <h3 className="font-bold text-white" id={getAriaLabelId(id, index)}>
+            <h3 className="font-bold text-current" id={getAriaLabelId(id, index)}>
               {title}
             </h3>
             <p className="mt-4 grow opacity-72">{description}</p>
