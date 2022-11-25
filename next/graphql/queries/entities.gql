@@ -332,7 +332,7 @@ fragment GeneralEntity on GeneralEntity {
     socials {
       ...SocialItem
     }
-    contact {
+    address {
       ...Contact
     }
     footer {
