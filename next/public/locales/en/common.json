@@ -207,8 +207,7 @@
     "noReviews": "No reviews to show."
   },
   "DocumentGroup": {
-    "download": "Download",
-    "downloadFile": "Download file"
+    "download": "Download"
   },
   "DocumentLayout": {
     "createdAt": "Created",
