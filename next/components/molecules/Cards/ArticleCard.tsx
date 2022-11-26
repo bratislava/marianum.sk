@@ -6,7 +6,6 @@ import MImage, { MImageImage } from '@components/atoms/MImage'
 import MLink from '@components/atoms/MLink'
 import { ArticleNewsCategoryEntityFragment, ArticlePressCategoryEntityFragment } from '@graphql'
 import cx from 'classnames'
-import { useRouter } from 'next/router'
 import React, { useMemo, useRef } from 'react'
 import { useHover } from 'usehooks-ts'
 
@@ -23,7 +22,6 @@ type ArticleCardProps = {
 } & CardBoxProps
 
 const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: ArticleCardProps) => {
-  const router = useRouter()
   const categoryHoverRef = useRef<HTMLAnchorElement>(null)
   const isCategoryHovered = useHover(categoryHoverRef)
 
@@ -34,17 +32,10 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
     event.stopPropagation()
   }
 
-  const handleCardClick = () => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    router.push(linkHref)
-  }
-
   return (
-    <CardBox {...rest} hover={!isCategoryHovered} onClick={handleCardClick}>
+    <CardBox {...rest} hover={!isCategoryHovered}>
       <div className="aspect-w-[264] aspect-h-[148] w-full bg-gray">
-        <MLink href={linkHref} tabIndex={-1} onClick={handleLinkClick} noStyles aria-label={title}>
-          {image ? <MImage image={image} fill className="object-cover" /> : <ImagePlaceholder />}
-        </MLink>
+        {image ? <MImage image={image} fill className="object-cover" /> : <ImagePlaceholder />}
       </div>
       <CardContent className="gap-y-3">
         <span className="text-sm line-clamp-1">
@@ -54,12 +45,12 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
           {category?.attributes && (
             <>
               {' '}
-              • {/* TODO link to filtered articles */}
-              {category.attributes.title}
+              • <span>{category.attributes.title}</span>
+              {/* TODO link to filtered articles */}
               {/* <MLink */}
               {/*  noStyles}
               {/*  href={category.attributes.slug} */}
-              {/*  className="underline" */}
+              {/*  className="underline z-[1]" */}
               {/*  onClick={handleLinkClick} */}
               {/* > */}
               {/*  {category.attributes.title} */}
@@ -73,7 +64,12 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
             'group-hover:underline': !isCategoryHovered,
           })}
         >
-          <MLink href={linkHref} onClick={handleLinkClick} noStyles>
+          <MLink
+            href={linkHref}
+            onClick={handleLinkClick}
+            noStyles
+            className="after:absolute after:inset-0"
+          >
             {title}
           </MLink>
         </h5>

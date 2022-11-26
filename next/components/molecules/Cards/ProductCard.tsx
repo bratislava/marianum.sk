@@ -7,7 +7,6 @@ import ImagePlaceholder from '@components/atoms/ImagePlaceholder'
 import MImage, { MImageImage } from '@components/atoms/MImage'
 import MLink from '@components/atoms/MLink'
 import cx from 'classnames'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useRef } from 'react'
 import { useHover } from 'usehooks-ts'
@@ -30,7 +29,6 @@ const ProductCard = ({
   onAddToCartPress = () => {},
   ...rest
 }: ProductCardProps) => {
-  const router = useRouter()
   const { t } = useTranslation()
 
   const buttonHoverRef = useRef<HTMLButtonElement>(null)
@@ -42,18 +40,18 @@ const ProductCard = ({
     event.stopPropagation()
   }
 
-  const handleCardClick = () => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    router.push(linkHref)
-  }
-
   return (
-    <CardBox {...rest} hover={!isButtonHovered} onClick={handleCardClick}>
+    <CardBox {...rest} hover={!isButtonHovered}>
       <div className="aspect-w-1 aspect-h-1 w-full bg-gray">
         {image ? <MImage image={image} fill className="object-contain" /> : <ImagePlaceholder />}
       </div>
       <CardContent className="gap-y-2">
-        <MLink href={linkHref} noStyles onClick={handleLinkClick}>
+        <MLink
+          href={linkHref}
+          noStyles
+          onClick={handleLinkClick}
+          className="after:absolute after:inset-0"
+        >
           <h5
             className={cx('line-clamp-3', {
               'group-hover:underline': !isButtonHovered,
@@ -67,7 +65,7 @@ const ProductCard = ({
         </span>
         {showAddToCartButton && (
           <Button
-            className="mt-2"
+            className="z-[1] mt-2"
             startIcon={<ShoppingCartIcon />}
             onPress={() => onAddToCartPress()}
             ref={buttonHoverRef}

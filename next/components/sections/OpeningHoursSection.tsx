@@ -1,3 +1,4 @@
+import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Row from '@components/molecules/Row/Row'
 import Section, { SectionProps } from '@components/molecules/Section'
 import { OpeningHoursSectionFragment } from '@graphql'
@@ -8,6 +9,8 @@ type OpeningHoursSectionProps = Pick<SectionProps, 'background' | 'title'> & {
 }
 
 const OpeningHoursSection = ({ section, ...rest }: OpeningHoursSectionProps) => {
+  const { getFullPath } = useGetFullPath()
+
   const filteredOffices =
     section.offices?.map((office) => office?.office?.data).filter(isDefined) ?? []
 
@@ -23,8 +26,9 @@ const OpeningHoursSection = ({ section, ...rest }: OpeningHoursSectionProps) => 
               border
               title={cemeteryTitle}
               address={branchAddress}
+              linkHref={getFullPath(branch?.data) ?? undefined}
               moreContent={
-                <div className="flex flex-col gap-3">
+                <div className="flex grow flex-col gap-3">
                   {openingHours?.days?.map((record, index) => (
                     // eslint-disable-next-line react/no-array-index-key
                     <div key={index} className="flex max-w-[360px]">

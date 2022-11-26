@@ -1,27 +1,27 @@
 import cx from 'classnames'
 import { HTMLAttributes, PropsWithChildren } from 'react'
+import { twMerge } from 'tailwind-merge'
 
-export type CardBoxProps = {
+export type RowBoxProps = {
   border?: boolean
   hover?: boolean
 } & Pick<HTMLAttributes<HTMLDivElement>, 'className' | 'onClick'>
 
-const CardBox = ({
+const RowBox = ({
   border = false,
   className,
   hover = true,
   children,
   onClick = () => {},
-}: PropsWithChildren<CardBoxProps>) => {
+}: PropsWithChildren<RowBoxProps>) => {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
-      className={cx(
-        'flex flex-col bg-white',
-        {
+      className={twMerge(
+        cx('flex w-full flex-col bg-white', {
           'border border-border': border,
-          'group cursor-pointer hover:shadow-card': hover,
-        },
+          'hover:shadow-card': hover,
+        }),
         className,
       )}
       onClick={onClick}
@@ -31,4 +31,4 @@ const CardBox = ({
   )
 }
 
-export default CardBox
+export default RowBox

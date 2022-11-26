@@ -1,7 +1,10 @@
-import cx from 'classnames'
 import { PropsWithChildren } from 'react'
+import { twMerge } from 'tailwind-merge'
 
-type CardContentProps = { largePadding?: boolean; className?: string }
+type CardContentProps = {
+  largePadding?: boolean
+  className?: string
+}
 
 const CardContent = ({
   largePadding = false,
@@ -9,7 +12,9 @@ const CardContent = ({
   children,
 }: PropsWithChildren<CardContentProps>) => {
   return (
-    <div className={cx('flex flex-col', largePadding ? 'p-6' : 'p-4', className)}>{children}</div>
+    <div className={twMerge('relative flex flex-col', largePadding ? 'p-6' : 'p-4', className)}>
+      {children}
+    </div>
   )
 }
 

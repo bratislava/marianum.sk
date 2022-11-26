@@ -10,6 +10,11 @@
     "search": "/vyhladavanie",
     "reviews": "/o-nas/referencie"
   },
+  "general": {
+    "downloadFile": "Stiahnuť súbor",
+    "downloadFileAriaLabel": "Stiahnuť súbor {{fileName}}, formát {{ext}}, {{size}}",
+    "unknownFormat": "neznámy"
+  },
   "Seo": {
     "siteName": "Marianum - Pohrebníctvo mesta Bratislavy"
   },
@@ -21,6 +26,9 @@
   },
   "ProductCard": {
     "addToCart": "Pridať do košíka"
+  },
+  "PartnerRow": {
+    "showWebsite": "Zobraziť web"
   },
   "SearchField": {
     "aria": {
