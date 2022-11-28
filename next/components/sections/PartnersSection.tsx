@@ -63,7 +63,7 @@ const PartnersSection = ({
             {mainPartners.map((partner) => (
               <PartnerCard
                 title={partner.title}
-                linkHref={partner.link ?? '#'}
+                linkHref={partner.link}
                 image={partner.logo.data?.attributes}
                 border
               />
@@ -74,7 +74,7 @@ const PartnersSection = ({
           {otherPartnersTitle && <h2>{otherPartnersTitle}</h2>}
           <div className="flex flex-col gap-3">
             {otherPartners.map((partner) => (
-              <Row title={partner.title} linkHref={partner.link ?? '#'} border />
+              <Row title={partner.title} linkHref={partner.link} border />
             ))}
           </div>
         </div>

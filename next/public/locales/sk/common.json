@@ -207,8 +207,7 @@
     "noReviews": "Žiadne recenzie na zobrazenie."
   },
   "DocumentGroup": {
-    "download": "Stiahnuť",
-    "downloadFile": "Stiahnuť súbor"
+    "download": "Stiahnuť"
   },
   "DocumentLayout": {
     "createdAt": "Vytvorené",

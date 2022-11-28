@@ -11,6 +11,7 @@ import { Fragment, ReactNode } from 'react'
 
 type RowProps = {
   title?: string
+  titleId?: string
   metadata?: string[]
   tags?: string[]
   tagsPosition?: 'beside' | 'under'
@@ -27,6 +28,7 @@ type RowProps = {
 
 const Row = ({
   title,
+  titleId,
   metadata,
   tags = [],
   tagsPosition = 'beside',
@@ -60,7 +62,7 @@ const Row = ({
         'border border-border': border,
       })}
     >
-      <div className="grow space-y-1.5">
+      <div className="grow gap-y-1.5">
         {category?.attributes && (
           <MLink
             // TODO add proper link for category
@@ -72,33 +74,32 @@ const Row = ({
           </MLink>
         )}
 
-        {(title || tags.length > 0) && (
-          <div
-            className={cx('flex gap-x-4 gap-y-1.5', {
-              'items-start pb-1 md:flex-col': tagsPosition === 'under',
-              'items-center': tagsPosition === 'beside',
-            })}
-          >
-            {title && (
-              <h5
-                className={cx('w-fit text-left text-h5 text-foreground-heading', {
-                  'group-hover:underline group-focus:underline': linkHref,
-                })}
-              >
-                {title}
-              </h5>
-            )}
-            {tags.length > 0 && (
-              <div className="flex gap-4">
-                {tags.map((tag) => (
-                  <Tag key={tag} className="bg-background-beige">
-                    {tag}
-                  </Tag>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
+        <div
+          className={cx('flex gap-x-4 gap-y-1.5', {
+            'items-start pb-1 md:flex-col': tagsPosition === 'under',
+            'items-center': tagsPosition === 'beside',
+          })}
+        >
+          {title && (
+            <h5
+              className={cx('w-fit text-left text-h5 text-foreground-heading', {
+                'group-hover:underline group-focus:underline': linkHref,
+              })}
+              id={titleId}
+            >
+              {title}
+            </h5>
+          )}
+          {tags.length > 0 && (
+            <div className="flex gap-4">
+              {tags.map((tag) => (
+                <Tag key={tag} className="bg-background-beige">
+                  {tag}
+                </Tag>
+              ))}
+            </div>
+          )}
+        </div>
 
         <div className="space-x-3 text-sm empty:hidden">
           {showUrl && linkHref && (

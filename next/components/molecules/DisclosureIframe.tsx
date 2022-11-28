@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 
 const DisclosureIframe = () => {
   const { t } = useTranslation('common', { keyPrefix: 'DisclosureIframe' })
+
   const [loading, setLoading] = useState(true)
 
   return (

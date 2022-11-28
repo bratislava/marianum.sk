@@ -25,7 +25,7 @@ const PageWrapper = ({ navigation, header, children, general }: PageWrapperProps
         <main className="bg-background-beige">{children}</main>
 
         <Footer
-          contact={general?.attributes?.contact}
+          contact={general?.attributes?.address}
           footer={general?.attributes?.footer}
           socials={general?.attributes?.socials?.filter(isDefined)}
         />

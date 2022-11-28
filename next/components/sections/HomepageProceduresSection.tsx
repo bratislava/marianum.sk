@@ -51,7 +51,7 @@ const HomepageProceduresSection = ({
         <Tabs>
           {slicedProceduresWithKeys.map((procedure) => (
             <TabItem key={procedure.key} title={procedure.title}>
-              <div
+              <ol
                 className={cx('flex', {
                   'w-full gap-4 overflow-x-auto': isMobile,
                   'flex-col gap-4': !isMobile,
@@ -59,7 +59,7 @@ const HomepageProceduresSection = ({
               >
                 {procedure.steps.map((step, index) =>
                   isMobile ? (
-                    <div
+                    <li
                       key={step.title}
                       className="flex w-[calc(100vw-6rem)] shrink-0 flex-col items-center gap-2 bg-white px-6 pt-4 pb-8"
                     >
@@ -68,9 +68,9 @@ const HomepageProceduresSection = ({
                         <div className="w-full text-center text-h3 font-bold">{step.title}</div>
                         <div className="w-full text-center">{step.description}</div>
                       </div>
-                    </div>
+                    </li>
                   ) : (
-                    <div key={step.title} className="flex items-center bg-white p-6">
+                    <li key={step.title} className="flex items-center bg-white p-6">
                       <div className="pr-6 text-h1 font-bold text-primary">{index + 1}</div>
                       <div className="flex flex-col">
                         <h4 className="w-fit text-left text-h5 text-foreground-heading">
@@ -78,10 +78,10 @@ const HomepageProceduresSection = ({
                         </h4>
                         <div className="pt-2 text-left">{step.description}</div>
                       </div>
-                    </div>
+                    </li>
                   ),
                 )}
-              </div>
+              </ol>
             </TabItem>
           ))}
         </Tabs>

@@ -1,7 +1,9 @@
 import Divider from '@components/atoms/Divider'
+import { customImageLoader } from '@components/atoms/MImage'
 import MLink from '@components/atoms/MLink'
 import NormalizeText from '@components/atoms/NormalizeText/NormalizeText'
 import cx from 'classnames'
+import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import { LiProps } from 'react-markdown/lib/ast-to-react'
 import rehypeRaw from 'rehype-raw'
@@ -31,13 +33,22 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
           // thank to patch located in patches/@strapi+admin+4.3.8.patch
           // So here we are extracting alt and caption.
           // If there is no || symbols then whole alt is used for both properties.
-          const { alt: altAndCaption = '||' } = props
+          const { alt: altAndCaption = '||', src } = props
           const [alt, caption] = altAndCaption.includes('||')
             ? altAndCaption.split('||')
             : [altAndCaption, altAndCaption]
           return (
             <figure className="flex flex-col gap-4">
-              <img {...props} className="w-full" alt={alt} />
+              {/* https://stackoverflow.com/a/73618982 */}
+              <Image
+                src={src as string}
+                width="0"
+                height="0"
+                className="w-full"
+                alt={alt}
+                sizes="100vw"
+                loader={customImageLoader}
+              />
               <figcaption className="text-center text-sm">{caption}</figcaption>
             </figure>
           )
@@ -53,12 +64,7 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
         a: ({ href, children }) => {
           const isExternal = href?.startsWith('http')
           return (
-            <MLink
-              href={href ?? '#'}
-              target={isExternal ? '_blank' : '_self'}
-              noStyles
-              className="font-semibold text-primary underline hover:text-primary-dark"
-            >
+            <MLink href={href ?? '#'} target={isExternal ? '_blank' : '_self'} variant="regular">
               {children[0]}
               {isExternal && ' ↗'}
             </MLink>
@@ -97,7 +103,7 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
             {children}
           </ul>
         ),
-        li: ({ children, ...props }) => <li {...props}>{children}</li>,
+        li: ({ children, ordered, ...props }) => <li {...props}>{children}</li>,
         hr: () => <Divider />,
       }}
       remarkPlugins={[remarkGfm]}

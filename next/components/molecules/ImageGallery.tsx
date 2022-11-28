@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 
+import MImage from '@components/atoms/MImage'
 import ImageLightBox from '@components/molecules/ImageLightBox'
 import { UploadImageEntityFragment } from '@graphql'
 import { onEnterOrSpaceKeyDown } from '@utils/onEnterOrSpaceKeyDown'
@@ -25,7 +26,7 @@ const ImageGallery = ({ images = [], variant = 'bellow' }: ImageGalleryProps) =>
   }, [images])
 
   const firstImage = useMemo(() => {
-    return (images[0] ?? undefined) as UploadImageEntityFragment | undefined
+    return images[0] ?? undefined
   }, [images])
 
   const { ref: containerRef, width: containerWidth } = useResizeDetector()
@@ -98,11 +99,13 @@ const ImageGallery = ({ images = [], variant = 'bellow' }: ImageGalleryProps) =>
                 'pt-[54%]': thumbnailCount === 0 && variant === 'aside',
               })}
             >
-              <img
-                className="absolute top-0 h-full w-full object-cover"
-                src={firstImage.attributes?.url}
-                alt={firstImage.attributes?.alternativeText ?? ''}
-              />
+              {firstImage.attributes && (
+                <MImage
+                  image={firstImage.attributes}
+                  fill
+                  className="absolute top-0 object-cover"
+                />
+              )}
             </div>
           )}
 
@@ -112,19 +115,22 @@ const ImageGallery = ({ images = [], variant = 'bellow' }: ImageGalleryProps) =>
               className="mt-4 grid gap-4"
               style={{ gridTemplateColumns: `repeat(${thumbnailCount + 1}, 1fr)` }}
             >
-              {smallImages.map((image, index) => (
-                <div
-                  onClick={() => openAtImageIndex(index + 1)}
-                  key={image.id}
-                  className="relative w-full cursor-pointer pt-[100%]"
-                >
-                  <img
-                    className="absolute top-0 h-full w-full object-cover"
-                    src={image.attributes?.url}
-                    alt={image.attributes?.alternativeText ?? ''}
-                  />
-                </div>
-              ))}
+              {smallImages
+                .filter((image) => image.attributes)
+                .map((image, index) => (
+                  <div
+                    onClick={() => openAtImageIndex(index + 1)}
+                    key={image.id}
+                    className="relative w-full cursor-pointer pt-[100%]"
+                  >
+                    <MImage
+                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                      image={image.attributes!}
+                      fill
+                      className="absolute top-0 object-cover"
+                    />
+                  </div>
+                ))}
 
               {/* more images button */}
               {moreImagesCount > 0 && (
@@ -149,19 +155,22 @@ const ImageGallery = ({ images = [], variant = 'bellow' }: ImageGalleryProps) =>
                 hidden: imageCount === 1,
               })}
             >
-              {smallImages.map((image, index) => (
-                <div
-                  onClick={() => openAtImageIndex(index + 1)}
-                  key={image.id}
-                  className="relative w-[168px] cursor-pointer pt-[168px]"
-                >
-                  <img
-                    className="absolute top-0 h-full w-full object-cover"
-                    src={image.attributes?.url}
-                    alt={image.attributes?.alternativeText ?? ''}
-                  />
-                </div>
-              ))}
+              {smallImages
+                .filter((image) => image.attributes)
+                .map((image, index) => (
+                  <div
+                    onClick={() => openAtImageIndex(index + 1)}
+                    key={image.id}
+                    className="relative w-[168px] cursor-pointer pt-[168px]"
+                  >
+                    <MImage
+                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                      image={image.attributes!}
+                      fill
+                      className="absolute top-0 object-cover"
+                    />
+                  </div>
+                ))}
 
               {/* more images button */}
               {moreImagesCount > 0 && (

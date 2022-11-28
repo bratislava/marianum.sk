@@ -4,7 +4,7 @@
   "info": {
     "singularName": "partner",
     "pluralName": "partners",
-    "displayName": "Partners",
+    "displayName": "Partneri",
     "description": ""
   },
   "options": {
@@ -17,7 +17,8 @@
       "required": true
     },
     "link": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "logo": {
       "type": "media",

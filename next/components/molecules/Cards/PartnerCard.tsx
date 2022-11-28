@@ -32,12 +32,12 @@ const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
     <CardBox {...rest} onClick={handleCardClick}>
       <CardContent className="justify-between gap-y-4">
         {image && (
-          <div className="aspect-w-[240] aspect-h-[72] w-full bg-gray md:aspect-w-[216] md:aspect-h-[83]">
-            <MImage image={image} layout="fill" objectFit="contain" />
+          <div className="aspect-w-[240] aspect-h-[72] w-full md:aspect-w-[216] md:aspect-h-[83]">
+            <MImage image={image} fill className="object-contain" />
           </div>
         )}
         <div className="flex flex-col items-center gap-y-2">
-          <h5 className="line-clamp-3 group-hover:underline">
+          <h5 className="text-center line-clamp-3 group-hover:underline">
             <MLink href={linkHref} noStyles onClick={handleLinkClick}>
               {title}
             </MLink>
@@ -46,7 +46,6 @@ const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
             href={linkHref}
             tabIndex={-1}
             variant="plain-primary"
-            className="inline-block"
             startIcon={<OpenInNewIcon />}
           >
             {t('Cards.showMore')}

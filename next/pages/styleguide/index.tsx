@@ -18,6 +18,7 @@ import Tabs from '@components/atoms/Tabs/Tabs'
 import Tag from '@components/atoms/Tag'
 import TagToggle from '@components/atoms/TagToggle'
 import TextField from '@components/atoms/TextField'
+import Tooltip from '@components/atoms/Tooltip'
 import SectionsWrapper, { SectionsWrapperProps } from '@components/layouts/SectionsWrapper'
 import AccordionGroup from '@components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '@components/molecules/Accordion/AccordionItem'
@@ -1033,7 +1034,7 @@ const Showcase = () => {
                 <RadioBox value="value-1" className="w-[362px]">
                   Value 1
                 </RadioBox>
-                <RadioBox value="value-2" className="w-[362px]">
+                <RadioBox value="value-2" className="w-[362px]" tooltip="With tooltip">
                   Value 2
                 </RadioBox>
                 <RadioBox value="value-3" className="w-[362px]" disabled>
@@ -1153,6 +1154,10 @@ const Showcase = () => {
               date={new Date()}
               description="Pekne nové priestory, pani čo s nami riešila potrebné veci bola veľmi milá (aj keď ju popri nás stále niekto z kolegou vyrušoval)Vybavia všetky potrebnosti, samozrejme si za to zaplatíte. A nie málo."
             />
+          </Wrapper>
+
+          <Wrapper title="Tooltip">
+            <Tooltip tooltip="Tooltip text">Tooltip trigger</Tooltip>
           </Wrapper>
 
           <div className="h-64" />
