@@ -31,6 +31,7 @@ export type ButtonProps = Omit<AriaButtonProps<'button'>, keyof LinkButtonProps>
     ref?: Ref<HTMLButtonElement>
     href?: undefined
   }
+
 export type AnchorProps = AriaButtonProps<'a'> &
   ButtonBase & {
     ref?: Ref<HTMLAnchorElement>
