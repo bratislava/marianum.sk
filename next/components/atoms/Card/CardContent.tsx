@@ -12,7 +12,7 @@ const CardContent = ({
   children,
 }: PropsWithChildren<CardContentProps>) => {
   return (
-    <div className={twMerge('relative flex flex-col', largePadding ? 'p-6' : 'p-4', className)}>
+    <div className={twMerge('flex flex-col', largePadding ? 'p-6' : 'p-4', className)}>
       {children}
     </div>
   )

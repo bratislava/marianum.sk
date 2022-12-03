@@ -52,13 +52,13 @@ const ProductCard = ({
           onClick={handleLinkClick}
           className="after:absolute after:inset-0"
         >
-          <h5
-            className={cx('line-clamp-3', {
+          <h3
+            className={cx('text-h5 line-clamp-3', {
               'group-hover:underline': !isButtonHovered,
             })}
           >
             {title}
-          </h5>
+          </h3>
         </MLink>
         <span className="text-sm">
           <FormatCurrency value={price} />

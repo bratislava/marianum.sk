@@ -22,8 +22,8 @@ type ArticleCardProps = {
 } & CardBoxProps
 
 const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: ArticleCardProps) => {
-  const categoryHoverRef = useRef<HTMLAnchorElement>(null)
-  const isCategoryHovered = useHover(categoryHoverRef)
+  const linkRef = useRef<HTMLAnchorElement>(null)
+  const isLinkHovered = useHover(linkRef)
 
   const formattedDate = useMemo(() => new Date(date), [date])
 
@@ -33,7 +33,7 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
   }
 
   return (
-    <CardBox {...rest} hover={!isCategoryHovered}>
+    <CardBox {...rest} hover={isLinkHovered}>
       <div className="aspect-w-[264] aspect-h-[148] w-full bg-gray">
         {image ? <MImage image={image} fill className="object-cover" /> : <ImagePlaceholder />}
       </div>
@@ -48,9 +48,9 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
               • <span>{category.attributes.title}</span>
               {/* TODO link to filtered articles */}
               {/* <MLink */}
-              {/*  noStyles}
+              {/*  noStyles */}
               {/*  href={category.attributes.slug} */}
-              {/*  className="underline z-[1]" */}
+              {/*  className="z-[1] underline" */}
               {/*  onClick={handleLinkClick} */}
               {/* > */}
               {/*  {category.attributes.title} */}
@@ -59,20 +59,21 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
           )}
         </span>
 
-        <h5
-          className={cx({
-            'group-hover:underline': !isCategoryHovered,
+        <h3
+          className={cx('text-h5', {
+            'group-hover:underline': isLinkHovered,
           })}
         >
           <MLink
             href={linkHref}
+            ref={linkRef}
             onClick={handleLinkClick}
             noStyles
             className="after:absolute after:inset-0"
           >
             {title}
           </MLink>
-        </h5>
+        </h3>
       </CardContent>
     </CardBox>
   )

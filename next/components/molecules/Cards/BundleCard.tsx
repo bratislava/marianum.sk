@@ -46,9 +46,9 @@ const BundleCard = ({
         </div>
 
         <div>
-          <h5 id={titleId} className="line-clamp-3 group-hover:underline">
+          <h4 id={titleId} className="text-h5 line-clamp-3 group-hover:underline">
             {name}
-          </h5>
+          </h4>
           <div className="flex flex-wrap items-center gap-3">
             <div className="whitespace-nowrap font-semibold">
               {t('BundleCard.from')} <FormatCurrency value={priceFrom} />

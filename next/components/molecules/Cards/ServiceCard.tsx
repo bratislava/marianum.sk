@@ -29,9 +29,9 @@ const ServiceCard = ({ image, title, linkHref, ...rest }: ServiceCardProps) => {
       </div>
       <CardContent className="justify-between">
         <div>
-          <h5 id={titleId} className="line-clamp-3 group-hover:underline">
+          <h3 id={titleId} className="text-h5 line-clamp-3 group-hover:underline">
             {title}
-          </h5>
+          </h3>
         </div>
         <div className="mt-4">
           <MLink
