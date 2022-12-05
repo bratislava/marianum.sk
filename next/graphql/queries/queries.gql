@@ -177,8 +177,7 @@ query HomePage($locale: I18NLocaleCode) {
           }
           ... on ComponentSectionsNewsListing {
             __typename
-            id
-            title
+            ...NewsListing
           }
           ... on ComponentSectionsUpcomingCeremoniesSection {
             __typename

@@ -30,7 +30,7 @@ const Navigation = ({ contact }: NavigationProps) => {
 
   const TopContacts = () => (
     <>
-      {title && <div className="opacity-72">{title}:</div>}
+      {title && <div>{title}:</div>}
       <div className="flex gap-3">
         {phone1 && (
           <Button href={getPhoneNumberLink(phone1)} startIcon={<PhoneIcon />} variant="plain-white">

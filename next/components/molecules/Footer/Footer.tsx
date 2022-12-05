@@ -67,18 +67,11 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
           <div className="flex w-full flex-col gap-4 px-4 py-6 md:col-span-2 md:px-8 lg:col-span-1 lg:gap-8 lg:px-12 lg:py-8">
             <div className="relative flex flex-col gap-3">
               <div className="text-lg font-bold">{t('address')}</div>
-              <div className="flex flex-col gap-2 whitespace-pre-wrap font-regular">
-                {contact?.address && (
-                  <MLink
-                    noStyles
-                    href={contact?.navigateToLink ?? ''}
-                    target="_blank"
-                    className="w-fit opacity-72"
-                  >
-                    {contact.address}
-                  </MLink>
-                )}
-              </div>
+              {contact?.address && (
+                <div className="flex flex-col gap-2 whitespace-pre-wrap font-regular text-white/72">
+                  {contact.address}
+                </div>
+              )}
               <div className="top-1 right-0 flex md:absolute">
                 {openingHoursPath && (
                   <MLink variant="white" href={openingHoursPath}>
@@ -92,7 +85,11 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
               <div className="text-lg font-bold">{t('contacts')}</div>
               <div className="flex flex-col gap-2 font-regular">
                 {phone1 && (
-                  <MLink noStyles href={getPhoneNumberLink(phone1)} className="w-fit opacity-72">
+                  <MLink
+                    noStyles
+                    href={getPhoneNumberLink(phone1)}
+                    className="w-fit underline opacity-72 hover:opacity-100"
+                  >
                     {phone1}
                   </MLink>
                 )}
@@ -100,7 +97,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
                   <MLink
                     noStyles
                     href={`mailto:${email.replace(/ /g, '')}`}
-                    className="w-fit opacity-72"
+                    className="w-fit underline opacity-72 hover:opacity-100"
                   >
                     {email}
                   </MLink>

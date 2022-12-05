@@ -18,8 +18,11 @@ const CtaGroup = ({ ctas }: CtaSectionFragment) => {
         const ctaSlug = getFullPath(button?.page?.data)
 
         return (
-          // eslint-disable-next-line react/no-array-index-key
-          <div className="flex flex-col bg-primary px-4 py-8 text-white md:p-12" key={index}>
+          <div
+            className="relative flex flex-col bg-primary px-4 py-8 text-white md:p-12"
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
+          >
             <h3 className="font-bold text-current" id={getAriaLabelId(id, index)}>
               {title}
             </h3>
@@ -27,7 +30,7 @@ const CtaGroup = ({ ctas }: CtaSectionFragment) => {
             {ctaSlug && (
               <Button
                 href={ctaSlug}
-                className="mt-6 w-fit"
+                className="mt-6 w-fit after:absolute after:inset-0"
                 variant="white"
                 aria-labelledby={getAriaLabelId(id, index)}
               >
