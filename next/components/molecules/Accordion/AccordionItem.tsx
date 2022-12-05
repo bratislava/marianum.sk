@@ -29,7 +29,7 @@ const AccordionItem = ({
                 'p-4 sm:p-5 md:p-6': !noBorder,
               })}
             >
-              <div className="py-[3px] font-bold">{title}</div>
+              <h3 className="py-[3px] text-h5">{title}</h3>
               {additionalInfo && <div className="pr-6">{additionalInfo}</div>}
               <div
                 className={cx(

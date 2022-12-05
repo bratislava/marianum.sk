@@ -30,6 +30,7 @@ import ProductCard from '@components/molecules/Cards/ProductCard'
 import ServiceCard from '@components/molecules/Cards/ServiceCard'
 import Checklist from '@components/molecules/Checklist/Checklist'
 import Review from '@components/molecules/Review'
+import PartnerRow from '@components/molecules/Row/PartnerRow'
 import Row from '@components/molecules/Row/Row'
 import Search from '@components/molecules/Search'
 import Section from '@components/molecules/Section'
@@ -774,7 +775,7 @@ const Showcase = () => {
                 linkHref="#"
                 border={cardsBorder}
               />
-              <Row title="Nazov partnera" border={cardsBorder} />
+              <PartnerRow title="Nazov partnera" linkHref="#" border={cardsBorder} />
               <Row
                 title="Nazov suboru"
                 category={{ attributes: { title: 'Kategoria', slug: 'kategoria' } }}
@@ -801,12 +802,10 @@ const Showcase = () => {
                 tags={['Typ vysledku']}
                 border={cardsBorder}
               />
-              <Row title="Nazov partnera" linkHref="#" isExternal border={cardsBorder} />
               <Row
                 title="Nazov pobocky"
                 linkHref="#"
                 address="Adresa"
-                arrowInCorner
                 moreContent={
                   <div>
                     <p>Otvaracie hodiny</p>
