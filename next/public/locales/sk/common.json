@@ -13,7 +13,8 @@
   "general": {
     "downloadFile": "Stiahnuť súbor",
     "downloadFileAriaLabel": "Stiahnuť súbor {{fileName}}, formát {{ext}}, {{size}}",
-    "unknownFormat": "neznámy"
+    "unknownFormat": "neznámy",
+    "results": "Výsledky vyhľadávania"
   },
   "Seo": {
     "siteName": "Marianum - Pohrebníctvo mesta Bratislavy"
@@ -133,11 +134,17 @@
     "allFileTypes": "Všetky typy súborov",
     "allCategories": "Všetky kategórie",
     "noDocuments": "Žiadne dokumenty na zobrazenie.",
-    "download": "Stiahnuť"
+    "download": "Stiahnuť",
+    "aria": {
+      "results": "Vyhľadávané dokumenty"
+    }
   },
   "ArticleListing": {
     "allCategories": "Všetky kategórie",
-    "noNews": "Žiadne novinky na zobrazenie."
+    "noNews": "Žiadne novinky na zobrazenie.",
+    "aria": {
+      "results": "Vyhľadávané články"
+    }
   },
   "HomepageSlider": {
     "aria": {

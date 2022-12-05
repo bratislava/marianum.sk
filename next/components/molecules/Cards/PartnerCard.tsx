@@ -25,9 +25,9 @@ const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
           </div>
         )}
         <div className="flex flex-col items-center gap-y-2">
-          <h5 id={titleId} className="text-center line-clamp-3 group-hover:underline">
+          <h3 id={titleId} className="text-center text-h5 line-clamp-3 group-hover:underline">
             {title}
-          </h5>
+          </h3>
           <Button
             href={linkHref}
             aria-labelledby={titleId}

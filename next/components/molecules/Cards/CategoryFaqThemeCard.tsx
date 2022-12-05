@@ -34,9 +34,9 @@ const CategoryFaqThemeCard = ({
         className={cx('justify-between', subtitle ? 'md:min-h-[264px]' : 'md:min-h-[240px]')}
       >
         <div className={cx('flex grow', subtitle ? 'mb-[54px]' : 'mb-5')}>
-          <h5 id={titleId} className="flex grow line-clamp-3 group-hover:underline">
+          <h3 id={titleId} className="flex grow text-h5 line-clamp-3 group-hover:underline">
             {title}
-          </h5>
+          </h3>
           {subtitle && <div className="mt-2 block line-clamp-3">{subtitle}</div>}
         </div>
         <div>

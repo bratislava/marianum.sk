@@ -70,14 +70,14 @@ const Row = ({
             })}
           >
             {title && (
-              <h5
+              <h3
                 className={cx('w-fit text-left text-h5 text-foreground-heading', {
                   'group-hover:underline group-focus:underline': linkHref,
                 })}
                 id={titleId}
               >
                 {title}
-              </h5>
+              </h3>
             )}
             {tags.length > 0 && (
               <div className="flex gap-4">

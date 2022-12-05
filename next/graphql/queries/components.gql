@@ -281,6 +281,9 @@ fragment ManualListing on ComponentSectionsManualListing {
 fragment NewsListing on ComponentSectionsNewsListing {
   id
   title
+  showMoreButton {
+    ...CtaButton
+  }
 }
 
 fragment CeremoniesSection on ComponentSectionsCeremoniesSection {
