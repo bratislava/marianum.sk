@@ -52,7 +52,6 @@ import { getReviewPrefetch } from '@services/fetchers/reviewsFetcher'
 import { client } from '@services/graphql/gqlClient'
 import { prefetchSections } from '@utils/prefetchSections'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
 import { ParsedUrlQuery } from 'node:querystring'
 import { SWRConfig } from 'swr'
@@ -73,9 +72,6 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
   return (
     <SWRConfig value={{ fallback }}>
       <Seo seo={seo} title={title} description={perex} />
-      <Head>
-        <title>{title}</title>
-      </Head>
 
       <PageLayout page={entity} navigation={navigation} general={general}>
         <SectionsWrapper

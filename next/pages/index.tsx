@@ -23,7 +23,7 @@ import { client } from '@services/graphql/gqlClient'
 import { isDefined } from '@utils/isDefined'
 import { prefetchSections } from '@utils/prefetchSections'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
-import Head from 'next/head'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { SWRConfig } from 'swr'
 
@@ -36,14 +36,13 @@ type HomeProps = {
 }
 
 const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'HomePage' })
+
   const { seo } = page.attributes ?? {}
 
   return (
     <SWRConfig value={{ fallback }}>
-      <Seo seo={seo} />
-      <Head>
-        <title>Marianum</title>
-      </Head>
+      <Seo seo={seo} title={t('home')} />
 
       <PageWrapper navigation={navigation} general={general}>
         {/* TODO translation */}

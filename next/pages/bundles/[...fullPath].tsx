@@ -15,7 +15,6 @@ import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } f
 import { client } from '@services/graphql/gqlClient'
 import { isDefined } from '@utils/isDefined'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import Head from 'next/head'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { ParsedUrlQuery } from 'node:querystring'
 
@@ -44,9 +43,6 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, entity, general }) 
   return (
     <>
       <Seo seo={seo} title={title} description={perex} />
-      <Head>
-        <title>{title}</title>
-      </Head>
 
       <BundleLayout navigation={navigation} general={general} bundle={entity}>
         <div className="flex flex-col">

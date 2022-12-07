@@ -4,14 +4,14 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 interface SeoProps {
+  title: string | undefined | null
   seo?: SeoFragment | null
   ogType?: string
-  title?: string
   description?: string | null
   image?: UploadImageEntityFragment | null
 }
 
-const Seo = ({ seo, ogType = 'website', title, description, image }: SeoProps) => {
+const Seo = ({ title, seo, ogType = 'website', description, image }: SeoProps) => {
   const router = useRouter()
   const { t } = useTranslation('common', { keyPrefix: 'Seo' })
 
@@ -19,7 +19,9 @@ const Seo = ({ seo, ogType = 'website', title, description, image }: SeoProps) =
 
   return (
     <Head>
-      <meta name="title" content={seo?.metaTitle || title || ''} />
+      <title>{title} - Marianum</title>
+
+      <meta name="title" content={`${seo?.metaTitle || title || ''} - Marianum`} />
       <meta name="description" content={seo?.metaDescription || description || ''} />
       <meta name="keywords" content={seo?.keywords ?? ''} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
