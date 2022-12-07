@@ -23,7 +23,6 @@ const OpeningHoursSection = ({ section, ...rest }: OpeningHoursSectionProps) => 
 
           return (
             <Row
-              border
               title={cemeteryTitle}
               address={branchAddress}
               linkHref={getFullPath(branch?.data) ?? undefined}

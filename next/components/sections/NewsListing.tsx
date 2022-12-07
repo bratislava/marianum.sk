@@ -26,7 +26,7 @@ const NewsListing = () => {
     return dataToDisplay?.articles?.data?.filter(isDefined)
   }, [dataToDisplay?.articles])
 
-  // // TODO replace by proper loading and error
+  // TODO replace by proper loading and error
   if (loadingAndNoDataToDisplay) {
     return <Loading />
   }
@@ -53,7 +53,6 @@ const NewsListing = () => {
             date={publishedAt}
             linkHref={getFullPath(article) ?? ''}
             category={newsCategory?.data}
-            border
           />
         )
       })}

@@ -1,8 +1,6 @@
-import { sectionContext } from '@components/layouts/SectionsWrapper'
 import ReviewCard from '@components/molecules/Cards/ReviewCard'
 import Section from '@components/molecules/Section'
 import { HomepageReviewsSectionFragment } from '@graphql'
-import { useContext } from 'react'
 import { Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useIsClient } from 'usehooks-ts'
@@ -12,8 +10,6 @@ type HomepageReviewsSectionProps = {
 }
 
 const HomepageReviewsSection = ({ section }: HomepageReviewsSectionProps) => {
-  const { background } = useContext(sectionContext)
-
   const isBrowser = useIsClient()
 
   return (
@@ -49,7 +45,6 @@ const HomepageReviewsSection = ({ section }: HomepageReviewsSectionProps) => {
                 date={new Date(review.attributes?.date)}
                 rating={review.attributes?.rating ?? 5}
                 description={review.attributes?.description ?? ''}
-                border={background === 'light'}
               />
             </SwiperSlide>
           ))}

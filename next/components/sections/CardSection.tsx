@@ -46,7 +46,6 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
               key={`${id}-${index}`}
               title={cardTitle ?? ''}
               linkHref={fullPath}
-              border
             />
           )
         }
@@ -61,7 +60,6 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
               })}
               title={cardTitle ?? ''}
               linkHref={fullPath}
-              border
               image={coverMedia?.data?.attributes}
             />
           )
