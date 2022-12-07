@@ -243,6 +243,7 @@ fragment BundleListing on ComponentSectionsBundleListing {
 fragment ContactGroup on ComponentSectionsContactGroup {
   id
   title
+  layout
   contacts {
     contact {
       data {
