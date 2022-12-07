@@ -1,6 +1,6 @@
 import Loading from '@components/atoms/Loading'
-import ArticleCard from '@components/molecules/Cards/ArticleCard'
 import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import ArticleGroup from '@components/sections/ArticleGroup'
 import { getNewsListingSwrKey, newsListingFetcher } from '@services/fetchers/newsListingFetcher'
 import { isDefined } from '@utils/isDefined'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'
@@ -10,7 +10,6 @@ import useSWR from 'swr'
 
 const NewsListing = () => {
   const { i18n } = useTranslation()
-  const { getFullPath } = useGetFullPath()
 
   const { data, error } = useSWR(
     getNewsListingSwrKey(i18n.language),
@@ -39,25 +38,7 @@ const NewsListing = () => {
     return <div>Nothing to show</div>
   }
 
-  return (
-    <div className="flex grid-cols-2 gap-4 overflow-x-auto md:grid md:gap-6 lg:grid-cols-4">
-      {filteredNews?.map((article) => {
-        const { title, publishedAt, coverMedia, slug, newsCategory } = article.attributes ?? {}
-
-        return (
-          <ArticleCard
-            className="w-[calc(100vw-6rem)] shrink-0 sm:w-[calc(100vw-16rem)] md:w-full"
-            key={slug}
-            title={title ?? ''}
-            image={coverMedia?.data?.attributes}
-            date={publishedAt}
-            linkHref={getFullPath(article) ?? ''}
-            category={newsCategory?.data}
-          />
-        )
-      })}
-    </div>
-  )
+  return <ArticleGroup articles={filteredNews ?? []} />
 }
 
 export default NewsListing

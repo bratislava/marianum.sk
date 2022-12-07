@@ -4,6 +4,7 @@ import PageWrapper from '@components/layouts/PageWrapper'
 import SectionsWrapper from '@components/layouts/SectionsWrapper'
 import CtaGroup from '@components/molecules/CtaGroup'
 import Section from '@components/molecules/Section'
+import ArticlesManualListingSection from '@components/sections/ArticlesManualListingSection'
 import CardSection from '@components/sections/CardSection'
 import HomepageProceduresSection from '@components/sections/HomepageProceduresSection'
 import HomepageReviewsSection from '@components/sections/HomepageReviewsSection'
@@ -55,6 +56,14 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
           {page.attributes?.sections?.map((section) => {
             if (section?.__typename === 'ComponentSectionsManualListing') {
               return <CardSection key={`${section.__typename}-${section.id}`} section={section} />
+            }
+            if (section?.__typename === 'ComponentSectionsArticlesManualListing') {
+              return (
+                <ArticlesManualListingSection
+                  key={`${section.__typename}-${section.id}`}
+                  section={section}
+                />
+              )
             }
             if (section?.__typename === 'ComponentSectionsNewsListing') {
               return <NewsSection key={`${section.__typename}-${section.id}`} section={section} />

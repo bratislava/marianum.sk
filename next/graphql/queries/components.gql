@@ -160,6 +160,21 @@ fragment Procedure on ComponentGeneralProcedure {
   }
 }
 
+fragment ArticlesManualListing on ComponentSectionsArticlesManualListing {
+  id
+  title
+  showMoreButton {
+    ...CtaButton
+  }
+  articles {
+    article {
+      data {
+        ...ArticleCardEntity
+      }
+    }
+  }
+}
+
 fragment AccordionGroup on ComponentSectionsAccordionGroup {
   id
   title
