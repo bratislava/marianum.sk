@@ -25,6 +25,7 @@ type ApplicationSectionProps = {
   texts: ApplicationText
 }
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export const ApplicationSection = ({ cemeteries, texts }: ApplicationSectionProps) => {
   const [application, setApplication] = useState<DeepPartial<ApplicationTypes.Application>>({})
   const [currentStep, setCurrentStep] = useState(ApplicationTypes.Step.Step1)
@@ -46,6 +47,7 @@ export const ApplicationSection = ({ cemeteries, texts }: ApplicationSectionProp
     const currentStepIndex = listOfSteps.indexOf(currentStep)
 
     if (currentStepIndex === listOfSteps.length - 1) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       send(newApplication as ApplicationTypes.Application)
     } else {
       const nextStep = listOfSteps[currentStepIndex + 1]
