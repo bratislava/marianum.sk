@@ -33,17 +33,19 @@ export const getStaticProps: GetStaticProps = async ({
   const partitionedCemeteries = partitionCemeteries(cemeteries)
 
   // Remove to make publicly available
-  return {
-    notFound: true,
+  if (['localhost', 'dev', 'staging'].includes(process.env.DEPLOY_ENV as string)) {
+    return {
+      props: {
+        cemeteries: partitionedCemeteries,
+        texts,
+        ...translations,
+      },
+      revalidate: 10,
+    }
   }
 
   return {
-    props: {
-      cemeteries: partitionedCemeteries,
-      texts,
-      ...translations,
-    },
-    revalidate: 10,
+    notFound: true,
   }
 }
 
