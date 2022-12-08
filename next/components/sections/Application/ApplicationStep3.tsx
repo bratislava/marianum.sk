@@ -1,41 +1,25 @@
+import { AnimateHeight } from '@components/atoms/AnimateHeight'
 import FormRadioGroup from '@components/atoms/Forms/FormRadioGroup'
 import RadioBox from '@components/atoms/Radio/RadioBox'
+import { ApplicationStepComponentProps } from '@components/sections/Application/application.types'
 import { useEffect } from 'react'
-import * as yup from 'yup'
 
-import { ApplicationTypes } from './application.types'
+import { ApplicationTypes } from './application-shared.types'
+import { step3YupShape } from './application-shared.yup'
 import { useApplicationStep } from './useApplicationStep'
 
-const yupShape = {
-  druhHrobovehoMiesta: yup
-    .mixed<ApplicationTypes.DruhHrobovehoMiesta>()
-    .oneOf(Object.values(ApplicationTypes.DruhHrobovehoMiesta)),
-  typUrnovehoMiesta: yup.mixed().when(['druhHrobovehoMiesta'], {
-    is: (druhHrobovehoMiesta: ApplicationTypes.DruhHrobovehoMiesta) =>
-      druhHrobovehoMiesta === ApplicationTypes.DruhHrobovehoMiesta.UrnoveMiesto,
-    // eslint-disable-next-line unicorn/no-thenable
-    then: yup
-      .mixed<ApplicationTypes.TypUrnovehoMiesta>()
-      .oneOf(Object.values(ApplicationTypes.TypUrnovehoMiesta)),
-    otherwise: yup.mixed().equals([undefined, null]),
-  }),
+const defaultValues = {
+  druhHrobovehoMiesta: ApplicationTypes.DruhHrobovehoMiesta.HroboveMiesto,
 }
-
-const defaultValues = { druhHrobovehoMiesta: ApplicationTypes.DruhHrobovehoMiesta.UrnoveMiesto }
 
 const ApplicationStep3 = ({
   values,
   onContinue,
   onFormChange,
-}: ApplicationTypes.StepComponentProps<ApplicationTypes.Step.Step3>) => {
-  const {
-    setValue,
-    watch,
-    control,
-    formState: { errors },
-    Wrapper,
-  } = useApplicationStep({
-    yupShape,
+  texts,
+}: ApplicationStepComponentProps<ApplicationTypes.Step.Step3>) => {
+  const { setValue, watch, control, formState, Wrapper } = useApplicationStep({
+    yupShape: step3YupShape,
     values,
     defaultValues,
     onContinue,
@@ -61,47 +45,56 @@ const ApplicationStep3 = ({
   return (
     <Wrapper>
       <h3 className="mb-3 md:mb-6">Druh hrobového miesta</h3>
-      <p className="mb-4 md:mb-6">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris.
-      </p>
+      <p className="mb-4 md:mb-6" />
       <FormRadioGroup
         name="druhHrobovehoMiesta"
         control={control}
-        errors={errors}
+        formState={formState}
         className="grid gap-4 pb-4 md:grid-cols-2 md:gap-6 md:pb-6"
       >
-        <RadioBox value={ApplicationTypes.DruhHrobovehoMiesta.HroboveMiesto} className="grow">
+        <RadioBox
+          value={ApplicationTypes.DruhHrobovehoMiesta.HroboveMiesto}
+          className="grow"
+          tooltip={texts.druhHroboveMiestoTooltip}
+        >
           Hrobové miesto pre pochovanie do zeme
         </RadioBox>
-        <RadioBox value={ApplicationTypes.DruhHrobovehoMiesta.UrnoveMiesto} className="grow">
+        <RadioBox
+          value={ApplicationTypes.DruhHrobovehoMiesta.UrnoveMiesto}
+          className="grow"
+          tooltip={texts.druhUrnoveMiestoTooltip}
+        >
           Urnové miesto
         </RadioBox>
       </FormRadioGroup>
-      {/* TODO: Fix and use AnimateHeight */}
-      {/* <AnimateHeight */}
-      {/*  isVisible={watchDruhHrobovehoMiesta === ApplicationTypes.DruhHrobovehoMiesta.UrnoveMiesto} */}
-      {/* > */}
-      {watchDruhHrobovehoMiesta === ApplicationTypes.DruhHrobovehoMiesta.UrnoveMiesto && (
+      <AnimateHeight
+        isVisible={watchDruhHrobovehoMiesta === ApplicationTypes.DruhHrobovehoMiesta.UrnoveMiesto}
+      >
         <div>
           <h4 className="mb-4">Vyberte typ urnového miesta</h4>
           <FormRadioGroup
             name="typUrnovehoMiesta"
             control={control}
-            errors={errors}
+            formState={formState}
             className="grid gap-4 pb-6 md:grid-cols-2 md:gap-6"
           >
-            <RadioBox value={ApplicationTypes.TypUrnovehoMiesta.VZemi} className="grow">
+            <RadioBox
+              value={ApplicationTypes.TypUrnovehoMiesta.VZemi}
+              className="grow"
+              tooltip={texts.druhUrnoveMiestoVZemiTooltip}
+            >
               Urnové miesto v zemi
             </RadioBox>
-            <RadioBox value={ApplicationTypes.TypUrnovehoMiesta.Stena} className="grow">
+            <RadioBox
+              value={ApplicationTypes.TypUrnovehoMiesta.Stena}
+              className="grow"
+              tooltip={texts.druhUrnovaStenaTooltip}
+            >
               Urnová stena (kolumbárium)
             </RadioBox>
           </FormRadioGroup>
         </div>
-      )}
-      {/* </AnimateHeight> */}
+      </AnimateHeight>
     </Wrapper>
   )
 }

@@ -291,3 +291,18 @@ query CemeteriesInApplication($locale: I18NLocaleCode!) {
     }
   }
 }
+
+mutation CreateApplication($data: JSON!, $captchaToken: String!) {
+  createApplicationCustom(data: $data, captchaToken: $captchaToken)
+}
+
+query ApplicationTexts {
+  applicationText {
+    data {
+      attributes {
+        ...ApplicationText
+      }
+    }
+  }
+}
+

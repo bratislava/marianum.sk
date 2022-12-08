@@ -1,0 +1,51 @@
+{
+  "kind": "singleType",
+  "collectionName": "application_texts",
+  "info": {
+    "singularName": "application-text",
+    "pluralName": "application-texts",
+    "displayName": "Application texts"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "spracovanieOsobnychUdajov": {
+      "type": "richtext"
+    },
+    "spracovanieOsobnychUdajovMarketing": {
+      "type": "richtext"
+    },
+    "zavaznostOdoslanejZiadosti": {
+      "type": "richtext"
+    },
+    "typZiadostiPridelenieTooltip": {
+      "type": "text"
+    },
+    "typZiadostiRezervaciaTooltip": {
+      "type": "text"
+    },
+    "uviestHroboveCisloAnoTooltip": {
+      "type": "text"
+    },
+    "uviestHroboveCisloNieTooltip": {
+      "type": "text"
+    },
+    "osobnaPritomnostDescription": {
+      "type": "text"
+    },
+    "druhHroboveMiestoTooltip": {
+      "type": "text"
+    },
+    "druhUrnoveMiestoTooltip": {
+      "type": "text"
+    },
+    "druhUrnoveMiestoVZemiTooltip": {
+      "type": "text"
+    },
+    "druhUrnovaStenaTooltip": {
+      "type": "text"
+    }
+  }
+}

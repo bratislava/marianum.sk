@@ -22,6 +22,87 @@ export type Scalars = {
   Upload: any;
 };
 
+export type Application = {
+  __typename?: 'Application';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type ApplicationEntity = {
+  __typename?: 'ApplicationEntity';
+  attributes?: Maybe<Application>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type ApplicationEntityResponse = {
+  __typename?: 'ApplicationEntityResponse';
+  data?: Maybe<ApplicationEntity>;
+};
+
+export type ApplicationEntityResponseCollection = {
+  __typename?: 'ApplicationEntityResponseCollection';
+  data: Array<ApplicationEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type ApplicationFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ApplicationFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  data?: InputMaybe<JsonFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<ApplicationFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ApplicationFiltersInput>>>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type ApplicationInput = {
+  data?: InputMaybe<Scalars['JSON']>;
+};
+
+export type ApplicationText = {
+  __typename?: 'ApplicationText';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  druhHroboveMiestoTooltip?: Maybe<Scalars['String']>;
+  druhUrnovaStenaTooltip?: Maybe<Scalars['String']>;
+  druhUrnoveMiestoTooltip?: Maybe<Scalars['String']>;
+  druhUrnoveMiestoVZemiTooltip?: Maybe<Scalars['String']>;
+  osobnaPritomnostDescription?: Maybe<Scalars['String']>;
+  spracovanieOsobnychUdajov?: Maybe<Scalars['String']>;
+  spracovanieOsobnychUdajovMarketing?: Maybe<Scalars['String']>;
+  typZiadostiPridelenieTooltip?: Maybe<Scalars['String']>;
+  typZiadostiRezervaciaTooltip?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  uviestHroboveCisloAnoTooltip?: Maybe<Scalars['String']>;
+  uviestHroboveCisloNieTooltip?: Maybe<Scalars['String']>;
+  zavaznostOdoslanejZiadosti?: Maybe<Scalars['String']>;
+};
+
+export type ApplicationTextEntity = {
+  __typename?: 'ApplicationTextEntity';
+  attributes?: Maybe<ApplicationText>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type ApplicationTextEntityResponse = {
+  __typename?: 'ApplicationTextEntityResponse';
+  data?: Maybe<ApplicationTextEntity>;
+};
+
+export type ApplicationTextInput = {
+  druhHroboveMiestoTooltip?: InputMaybe<Scalars['String']>;
+  druhUrnovaStenaTooltip?: InputMaybe<Scalars['String']>;
+  druhUrnoveMiestoTooltip?: InputMaybe<Scalars['String']>;
+  druhUrnoveMiestoVZemiTooltip?: InputMaybe<Scalars['String']>;
+  osobnaPritomnostDescription?: InputMaybe<Scalars['String']>;
+  spracovanieOsobnychUdajov?: InputMaybe<Scalars['String']>;
+  spracovanieOsobnychUdajovMarketing?: InputMaybe<Scalars['String']>;
+  typZiadostiPridelenieTooltip?: InputMaybe<Scalars['String']>;
+  typZiadostiRezervaciaTooltip?: InputMaybe<Scalars['String']>;
+  uviestHroboveCisloAnoTooltip?: InputMaybe<Scalars['String']>;
+  uviestHroboveCisloNieTooltip?: InputMaybe<Scalars['String']>;
+  zavaznostOdoslanejZiadosti?: InputMaybe<Scalars['String']>;
+};
+
 export type Article = {
   __typename?: 'Article';
   content?: Maybe<Scalars['String']>;
@@ -1806,7 +1887,7 @@ export type GeneralRelationResponseCollection = {
   data: Array<GeneralEntity>;
 };
 
-export type GenericMorph = Article | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Document | DocumentCategory | General | HomePage | I18NLocale | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Application | ApplicationText | Article | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Document | DocumentCategory | General | HomePage | I18NLocale | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -1962,6 +2043,8 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
+  createApplication?: Maybe<ApplicationEntityResponse>;
+  createApplicationCustom?: Maybe<Scalars['String']>;
   createArticle?: Maybe<ArticleEntityResponse>;
   createArticleLocalization?: Maybe<ArticleEntityResponse>;
   createArticleNewsCategory?: Maybe<ArticleNewsCategoryEntityResponse>;
@@ -1994,6 +2077,8 @@ export type Mutation = {
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  deleteApplication?: Maybe<ApplicationEntityResponse>;
+  deleteApplicationText?: Maybe<ApplicationTextEntityResponse>;
   deleteArticle?: Maybe<ArticleEntityResponse>;
   deleteArticleNewsCategory?: Maybe<ArticleNewsCategoryEntityResponse>;
   deleteArticlePressCategory?: Maybe<ArticlePressCategoryEntityResponse>;
@@ -2029,6 +2114,8 @@ export type Mutation = {
   removeFile?: Maybe<UploadFileEntityResponse>;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
+  updateApplication?: Maybe<ApplicationEntityResponse>;
+  updateApplicationText?: Maybe<ApplicationTextEntityResponse>;
   updateArticle?: Maybe<ArticleEntityResponse>;
   updateArticleNewsCategory?: Maybe<ArticleNewsCategoryEntityResponse>;
   updateArticlePressCategory?: Maybe<ArticlePressCategoryEntityResponse>;
@@ -2062,6 +2149,17 @@ export type MutationChangePasswordArgs = {
   currentPassword: Scalars['String'];
   password: Scalars['String'];
   passwordConfirmation: Scalars['String'];
+};
+
+
+export type MutationCreateApplicationArgs = {
+  data: ApplicationInput;
+};
+
+
+export type MutationCreateApplicationCustomArgs = {
+  captchaToken: Scalars['String'];
+  data: Scalars['JSON'];
 };
 
 
@@ -2245,6 +2343,11 @@ export type MutationCreateUsersPermissionsUserArgs = {
 };
 
 
+export type MutationDeleteApplicationArgs = {
+  id: Scalars['ID'];
+};
+
+
 export type MutationDeleteArticleArgs = {
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
@@ -2400,6 +2503,17 @@ export type MutationResetPasswordArgs = {
   code: Scalars['String'];
   password: Scalars['String'];
   passwordConfirmation: Scalars['String'];
+};
+
+
+export type MutationUpdateApplicationArgs = {
+  data: ApplicationInput;
+  id: Scalars['ID'];
+};
+
+
+export type MutationUpdateApplicationTextArgs = {
+  data: ApplicationTextInput;
 };
 
 
@@ -2852,6 +2966,9 @@ export enum PublicationState {
 
 export type Query = {
   __typename?: 'Query';
+  application?: Maybe<ApplicationEntityResponse>;
+  applicationText?: Maybe<ApplicationTextEntityResponse>;
+  applications?: Maybe<ApplicationEntityResponseCollection>;
   article?: Maybe<ArticleEntityResponse>;
   articleNewsCategories?: Maybe<ArticleNewsCategoryEntityResponseCollection>;
   articleNewsCategory?: Maybe<ArticleNewsCategoryEntityResponse>;
@@ -2899,6 +3016,18 @@ export type Query = {
   usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
   usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>;
   usersPermissionsUsers?: Maybe<UsersPermissionsUserEntityResponseCollection>;
+};
+
+
+export type QueryApplicationArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryApplicationsArgs = {
+  filters?: InputMaybe<ApplicationFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 
@@ -3789,6 +3918,8 @@ export type CeremonyEntityFragment = { __typename?: 'CeremonyEntity', id?: strin
 
 export type HomepageCeremonyEntityFragment = { __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, consentForPrivateFields?: boolean | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string } | null }> } | null } | null } | null } | null } | null };
 
+export type ApplicationTextFragment = { __typename?: 'ApplicationText', spracovanieOsobnychUdajov?: string | null, spracovanieOsobnychUdajovMarketing?: string | null, typZiadostiPridelenieTooltip?: string | null, typZiadostiRezervaciaTooltip?: string | null, uviestHroboveCisloAnoTooltip?: string | null, uviestHroboveCisloNieTooltip?: string | null, osobnaPritomnostDescription?: string | null, druhHroboveMiestoTooltip?: string | null, druhUrnoveMiestoTooltip?: string | null, druhUrnoveMiestoVZemiTooltip?: string | null, druhUrnovaStenaTooltip?: string | null };
+
 export type GeneralQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode'];
 }>;
@@ -3981,6 +4112,19 @@ export type CemeteriesInApplicationQueryVariables = Exact<{
 
 
 export type CemeteriesInApplicationQuery = { __typename?: 'Query', cemeteries?: { __typename?: 'CemeteryEntityResponseCollection', data: Array<{ __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', slug: string, title: string, address?: string | null, ziadostHroboveMiesto: boolean, ziadostUrnoveMiestoVZemi: boolean, ziadostUrnovaStena: boolean } | null }> } | null };
+
+export type CreateApplicationMutationVariables = Exact<{
+  data: Scalars['JSON'];
+  captchaToken: Scalars['String'];
+}>;
+
+
+export type CreateApplicationMutation = { __typename?: 'Mutation', createApplicationCustom?: string | null };
+
+export type ApplicationTextsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ApplicationTextsQuery = { __typename?: 'Query', applicationText?: { __typename?: 'ApplicationTextEntityResponse', data?: { __typename?: 'ApplicationTextEntity', attributes?: { __typename?: 'ApplicationText', spracovanieOsobnychUdajov?: string | null, spracovanieOsobnychUdajovMarketing?: string | null, typZiadostiPridelenieTooltip?: string | null, typZiadostiRezervaciaTooltip?: string | null, uviestHroboveCisloAnoTooltip?: string | null, uviestHroboveCisloNieTooltip?: string | null, osobnaPritomnostDescription?: string | null, druhHroboveMiestoTooltip?: string | null, druhUrnoveMiestoTooltip?: string | null, druhUrnoveMiestoVZemiTooltip?: string | null, druhUrnovaStenaTooltip?: string | null } | null } | null } | null };
 
 export const FlatNavigationItemFragmentDoc = gql`
     fragment FlatNavigationItem on NavigationItem {
@@ -5043,6 +5187,21 @@ export const HomepageCeremonyEntityFragmentDoc = gql`
   }
 }
     `;
+export const ApplicationTextFragmentDoc = gql`
+    fragment ApplicationText on ApplicationText {
+  spracovanieOsobnychUdajov
+  spracovanieOsobnychUdajovMarketing
+  typZiadostiPridelenieTooltip
+  typZiadostiRezervaciaTooltip
+  uviestHroboveCisloAnoTooltip
+  uviestHroboveCisloNieTooltip
+  osobnaPritomnostDescription
+  druhHroboveMiestoTooltip
+  druhUrnoveMiestoTooltip
+  druhUrnoveMiestoVZemiTooltip
+  druhUrnovaStenaTooltip
+}
+    `;
 export const GeneralDocument = gql`
     query General($locale: I18NLocaleCode!) {
   navigation: renderNavigation(
@@ -5367,6 +5526,22 @@ export const CemeteriesInApplicationDocument = gql`
   }
 }
     ${CemeteryInApplicationEntityFragmentDoc}`;
+export const CreateApplicationDocument = gql`
+    mutation CreateApplication($data: JSON!, $captchaToken: String!) {
+  createApplicationCustom(data: $data, captchaToken: $captchaToken)
+}
+    `;
+export const ApplicationTextsDocument = gql`
+    query ApplicationTexts {
+  applicationText {
+    data {
+      attributes {
+        ...ApplicationText
+      }
+    }
+  }
+}
+    ${ApplicationTextFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -5461,6 +5636,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     CemeteriesInApplication(variables: CemeteriesInApplicationQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CemeteriesInApplicationQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<CemeteriesInApplicationQuery>(CemeteriesInApplicationDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CemeteriesInApplication', 'query');
+    },
+    CreateApplication(variables: CreateApplicationMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateApplicationMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateApplicationMutation>(CreateApplicationDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CreateApplication', 'mutation');
+    },
+    ApplicationTexts(variables?: ApplicationTextsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ApplicationTextsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ApplicationTextsQuery>(ApplicationTextsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ApplicationTexts', 'query');
     }
   };
 }

@@ -2,7 +2,8 @@ import { CemeteryInApplicationEntityFragment } from '@graphql'
 import { isDefined } from '@utils/isDefined'
 import { DeepPartial } from 'react-hook-form'
 
-import { ApplicationTypes } from './application.types'
+import { ApplicationCemeteries } from './application.types'
+import { ApplicationTypes } from './application-shared.types'
 
 export const getListOfSteps = (application: DeepPartial<ApplicationTypes.Application>) => {
   return [
@@ -34,7 +35,7 @@ export const partitionCemeteries = (cemeteries: CemeteryInApplicationEntityFragm
  */
 export const fixApplication = (
   applicationToFix: DeepPartial<ApplicationTypes.Application>,
-  cemeteries: ApplicationTypes.Cemeteries,
+  cemeteries: ApplicationCemeteries,
 ) => {
   const newApplication = { ...applicationToFix }
 

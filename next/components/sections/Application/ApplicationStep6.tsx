@@ -1,18 +1,9 @@
 import FormTextField from '@components/atoms/Forms/FormTextField'
-import * as yup from 'yup'
+import { ApplicationStepComponentProps } from '@components/sections/Application/application.types'
 
-import { ApplicationTypes } from './application.types'
+import { ApplicationTypes } from './application-shared.types'
+import { step6YupShape } from './application-shared.yup'
 import { useApplicationStep } from './useApplicationStep'
-
-const yupShape = {
-  meno: yup.string().required('required'),
-  priezvisko: yup.string().required('required'),
-  email: yup.string().email('invalidEmail').required('required'),
-  telefon: yup.string().required('required'),
-  adresa: yup.string().required('required'),
-  mesto: yup.string().required('required'),
-  psc: yup.string().required('required'),
-}
 
 const defaultValues: ApplicationTypes.Step6Model = {
   meno: '',
@@ -28,13 +19,9 @@ const ApplicationStep6 = ({
   values,
   onContinue,
   onFormChange,
-}: ApplicationTypes.StepComponentProps<ApplicationTypes.Step.Step6>) => {
-  const {
-    register,
-    formState: { errors },
-    Wrapper,
-  } = useApplicationStep({
-    yupShape,
+}: ApplicationStepComponentProps<ApplicationTypes.Step.Step6>) => {
+  const { register, formState, Wrapper } = useApplicationStep({
+    yupShape: step6YupShape,
     values,
     defaultValues,
     onContinue,
@@ -50,7 +37,7 @@ const ApplicationStep6 = ({
             autoComplete="given-name"
             label="Meno"
             {...register('meno')}
-            errors={errors}
+            formState={formState}
           />
         </div>
         <div className="md:col-span-2">
@@ -58,7 +45,7 @@ const ApplicationStep6 = ({
             autoComplete="family-name"
             label="Priezvisko"
             {...register('priezvisko')}
-            errors={errors}
+            formState={formState}
           />
         </div>
         <div className="md:col-span-2">
@@ -66,7 +53,7 @@ const ApplicationStep6 = ({
             autoComplete="email"
             label="Email"
             {...register('email')}
-            errors={errors}
+            formState={formState}
           />
         </div>
         <div className="md:col-span-2">
@@ -74,7 +61,7 @@ const ApplicationStep6 = ({
             autoComplete="tel"
             label="Telefón"
             {...register('telefon')}
-            errors={errors}
+            formState={formState}
           />
         </div>
         <div className="md:col-span-4">
@@ -82,7 +69,7 @@ const ApplicationStep6 = ({
             autoComplete="street-address"
             label="Adresa"
             {...register('adresa')}
-            errors={errors}
+            formState={formState}
           />
         </div>
         <div className="md:col-span-3">
@@ -90,7 +77,7 @@ const ApplicationStep6 = ({
             autoComplete="address-level2"
             label="Mesto"
             {...register('mesto')}
-            errors={errors}
+            formState={formState}
           />
         </div>
         <div className="md:col-span-1">
@@ -98,7 +85,7 @@ const ApplicationStep6 = ({
             autoComplete="postal-code"
             label="PSČ"
             {...register('psc')}
-            errors={errors}
+            formState={formState}
           />
         </div>
       </div>

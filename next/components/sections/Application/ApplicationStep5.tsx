@@ -1,13 +1,10 @@
 import FormRadioGroup from '@components/atoms/Forms/FormRadioGroup'
 import RadioBox from '@components/atoms/Radio/RadioBox'
-import * as yup from 'yup'
+import { ApplicationStepComponentProps } from '@components/sections/Application/application.types'
 
-import { ApplicationTypes } from './application.types'
+import { ApplicationTypes } from './application-shared.types'
+import { step5YupShape } from './application-shared.yup'
 import { useApplicationStep } from './useApplicationStep'
-
-const yupShape = {
-  osobnaPritomnost: yup.boolean().required(),
-}
 
 const defaultValues: ApplicationTypes.Step5Model = {
   osobnaPritomnost: false,
@@ -17,13 +14,10 @@ const ApplicationStep5 = ({
   values,
   onContinue,
   onFormChange,
-}: ApplicationTypes.StepComponentProps<ApplicationTypes.Step.Step5>) => {
-  const {
-    control,
-    formState: { errors },
-    Wrapper,
-  } = useApplicationStep({
-    yupShape,
+  texts,
+}: ApplicationStepComponentProps<ApplicationTypes.Step.Step5>) => {
+  const { control, formState, Wrapper } = useApplicationStep({
+    yupShape: step5YupShape,
     values,
     defaultValues,
     onContinue,
@@ -32,16 +26,14 @@ const ApplicationStep5 = ({
 
   return (
     <Wrapper>
-      <h3 className="mb-4">Prajete si byť osobne prítomný pri vyhľadávaní?</h3>
-      <p className="mb-4 md:mb-6">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris.
-      </p>
+      <h3 className="mb-3 md:mb-6">Prajete si byť osobne prítomný pri vyhľadávaní?</h3>
+      {texts.osobnaPritomnostDescription ? (
+        <p className="mb-4 md:mb-6">{texts.osobnaPritomnostDescription}</p>
+      ) : null}
       <FormRadioGroup
         name="osobnaPritomnost"
         control={control}
-        errors={errors}
+        formState={formState}
         className="grid gap-4 pb-6 md:grid-cols-2 md:gap-6"
       >
         <RadioBox value className="grow">

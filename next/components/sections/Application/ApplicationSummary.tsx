@@ -3,7 +3,8 @@ import IconButton from '@components/atoms/IconButton'
 import { PropsWithChildren } from 'react'
 import { DeepPartial } from 'react-hook-form'
 
-import { ApplicationTypes } from './application.types'
+import { ApplicationCemeteries } from './application.types'
+import { ApplicationTypes } from './application-shared.types'
 
 type StepCardProps = {
   title?: string
@@ -38,7 +39,7 @@ const StepCard = ({
 
 type ApplicationSummaryProps = {
   application: DeepPartial<ApplicationTypes.Application>
-  cemeteries: ApplicationTypes.Cemeteries
+  cemeteries: ApplicationCemeteries
   currentStep: ApplicationTypes.Step
   listOfSteps: ApplicationTypes.Step[]
   onEdit: (step: ApplicationTypes.Step) => void
