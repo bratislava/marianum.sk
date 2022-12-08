@@ -4,7 +4,7 @@
   "info": {
     "singularName": "application-text",
     "pluralName": "application-texts",
-    "displayName": "application texts"
+    "displayName": "Application texts"
   },
   "options": {
     "draftAndPublish": false
