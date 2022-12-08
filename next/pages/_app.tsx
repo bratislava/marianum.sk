@@ -2,9 +2,9 @@ import '../styles/globals.css'
 import '../styles/table.scss'
 import 'swiper/css'
 
-import CookieBanner from '@components/atoms/Cookies/CookieBanner'
-import CookieConsent from '@components/atoms/Cookies/CookieConsent'
-import CookieSettingsModal from '@components/atoms/Cookies/CookieSettingsModal'
+// import CookieBanner from '@components/atoms/Cookies/CookieBanner'
+// import CookieConsent from '@components/atoms/Cookies/CookieConsent'
+// import CookieSettingsModal from '@components/atoms/Cookies/CookieSettingsModal'
 import MI18nProvider from '@components/atoms/MI18nProvider'
 import ThirdPartyScripts from '@components/atoms/ThirdPartyScripts'
 import { HeroSectionOverlayProvider } from '@utils/heroSectionContentOverlay'
@@ -44,10 +44,12 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             <MI18nProvider>
               <MotionConfig reducedMotion="user">
                 <OverlayProvider>
-                  <CookieConsent banner={CookieBanner} modal={CookieSettingsModal}>
-                    <ThirdPartyScripts />
-                    <Component {...pageProps} />
-                  </CookieConsent>
+                  {/* Hidden until cookies are used */}
+                  {/* TODO when enabling cookies: check if cookie banner is focus as first element on page */}
+                  {/* <CookieConsent banner={CookieBanner} modal={CookieSettingsModal}> */}
+                  <ThirdPartyScripts />
+                  <Component {...pageProps} />
+                  {/* </CookieConsent> */}
                 </OverlayProvider>
               </MotionConfig>
             </MI18nProvider>

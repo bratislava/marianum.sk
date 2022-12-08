@@ -1,9 +1,9 @@
-import { cookieConsentContext } from '@components/atoms/Cookies/CookieConsent'
+// import { cookieConsentContext } from '@components/atoms/Cookies/CookieConsent'
 import MLink from '@components/atoms/MLink'
 import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { CtaButtonFragment } from '@graphql'
 import { useTranslation } from 'next-i18next'
-import { useContext, useMemo } from 'react'
+import { useMemo } from 'react'
 
 type FooterCredentialsProps = {
   links: CtaButtonFragment[] | null | undefined
@@ -17,7 +17,7 @@ const FooterCredentials = ({ links }: FooterCredentialsProps) => {
     return new Date().getFullYear()
   }, [])
 
-  const { onOpenModal } = useContext(cookieConsentContext)
+  // const { onOpenModal } = useContext(cookieConsentContext)
 
   return (
     <div className="border-t border-border">
@@ -42,9 +42,10 @@ const FooterCredentials = ({ links }: FooterCredentialsProps) => {
           </div>
         </div>
         <div className="flex flex-col items-center gap-2 lg:flex-row lg:gap-4">
-          <button className="hover:underline" type="button" onClick={onOpenModal}>
-            {t('cookieSettings')}
-          </button>
+          {/* Hidden until cookies are used */}
+          {/* <button className="hover:underline" type="button" onClick={onOpenModal}> */}
+          {/*  {t('cookieSettings')} */}
+          {/* </button> */}
           {links?.map((link, index) => (
             <MLink
               // eslint-disable-next-line react/no-array-index-key

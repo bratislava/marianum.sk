@@ -1,6 +1,6 @@
 import Loading from '@components/atoms/Loading'
 import PartnerCard from '@components/molecules/Cards/PartnerCard'
-import Row from '@components/molecules/Row/Row'
+import PartnerRow from '@components/molecules/Row/PartnerRow'
 import Section, { SectionProps } from '@components/molecules/Section'
 import { PartnersSectionFragment } from '@graphql'
 import {
@@ -9,17 +9,21 @@ import {
 } from '@services/fetchers/partnersSectionFetcher'
 import { isDefined } from '@utils/isDefined'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'
-import { useMemo } from 'react'
+import { useId, useMemo } from 'react'
 import useSWR from 'swr'
 
 type PartnersSectionProps = {
   section: PartnersSectionFragment
 }
 
+const getAriaLabelId = (id: string, index: number) => `other-partners-${id}-${index}`
+
 const PartnersSection = ({
   section,
   ...rest
 }: Pick<SectionProps, 'background'> & PartnersSectionProps) => {
+  const id = useId()
+
   const { featuredPartnersTitle, otherPartnersTitle } = section
 
   const { data, error } = useSWR(partnersSectionSwrKey, partnersSectionFetcher)
@@ -73,8 +77,13 @@ const PartnersSection = ({
         <div className="flex flex-col gap-6">
           {otherPartnersTitle && <h2>{otherPartnersTitle}</h2>}
           <div className="flex flex-col gap-3">
-            {otherPartners.map((partner) => (
-              <Row title={partner.title} linkHref={partner.link} border />
+            {otherPartners.map((partner, index) => (
+              <PartnerRow
+                title={partner.title}
+                linkHref={partner.link}
+                titleId={getAriaLabelId(id, index)}
+                border
+              />
             ))}
           </div>
         </div>

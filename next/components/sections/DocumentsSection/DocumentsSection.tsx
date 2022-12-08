@@ -42,7 +42,8 @@ const Documents = ({
 
   if (data.hits.length > 0) {
     return (
-      <div className="grid space-y-3" ref={documentsRef}>
+      <div className="grid gap-y-3" ref={documentsRef}>
+        <h2 className="sr-only">{t('aria.results')}</h2>
         {data.hits.map((document, index) => (
           <Row
             // eslint-disable-next-line react/no-array-index-key

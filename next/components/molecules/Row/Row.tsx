@@ -1,164 +1,139 @@
-import { ChevronRightIcon, OpenInNewIcon, PlaceIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
+import { ChevronRightIcon, PlaceIcon } from '@assets/icons'
 import IconButton from '@components/atoms/IconButton'
-import MLink from '@components/atoms/MLink'
+import RowBox, { RowBoxProps } from '@components/atoms/Row/RowBox'
+import RowContent from '@components/atoms/Row/RowContent'
+import RowMoreContent from '@components/atoms/Row/RowMoreContent'
 import Tag from '@components/atoms/Tag'
 import { DocumentCategoryEntityFragment } from '@graphql'
-import { onEnterOrSpaceKeyDown } from '@utils/onEnterOrSpaceKeyDown'
 import cx from 'classnames'
-import { useRouter } from 'next/router'
-import { Fragment, ReactNode } from 'react'
+import { Fragment, ReactNode, useRef } from 'react'
+import { useHover } from 'usehooks-ts'
 
-type RowProps = {
+export type RowProps = {
   title?: string
+  titleId?: string
   metadata?: string[]
   tags?: string[]
   tagsPosition?: 'beside' | 'under'
   linkHref?: string
-  isExternal?: boolean
   showUrl?: boolean
   category?: DocumentCategoryEntityFragment | null | undefined
   address?: string | null | undefined
   moreContent?: ReactNode
   button?: ReactNode
-  arrowInCorner?: boolean
-  border?: boolean
-}
+  /*
+   * Since linkButton replaces standard link, it must implement the same behavior, especially for accessibility
+   * (aria-labelledby={titleId}) and classes to expand link to the whole component ("after:absolute after:inset-0").
+   */
+  linkButton?: ReactNode
+} & RowBoxProps
 
 const Row = ({
   title,
+  titleId,
   metadata,
   tags = [],
   tagsPosition = 'beside',
   linkHref,
-  isExternal = false,
   showUrl = false,
   category,
   address,
   moreContent,
   button = null,
-  arrowInCorner = false,
-  border = true,
+  linkButton = null,
+  ...rest
 }: RowProps) => {
-  const router = useRouter()
-
-  const linkProps = linkHref
-    ? {
-        role: 'link',
-        tabIndex: -1,
-        onClick: () => router.push(linkHref),
-        onKeyDown: onEnterOrSpaceKeyDown(() => router.push(linkHref)),
-      }
-    : null
+  const linkRef = useRef<HTMLAnchorElement>(null)
+  const isLinkHovered = useHover(linkRef)
 
   return (
-    <div
-      {...linkProps}
-      aria-label={title}
-      className={cx('group relative flex w-full items-center bg-white py-3 px-4 md:py-4 md:px-5', {
-        'cursor-pointer': linkHref,
-        'border border-border': border,
-      })}
-    >
-      <div className="grow gap-y-1.5">
-        {category?.attributes && (
-          <MLink
+    <RowBox hover={!!linkHref} {...rest}>
+      {/* When some other clickable element is hovered, display shadow but not other "hover styles" */}
+      <RowContent hover={isLinkHovered}>
+        <div className="flex grow flex-col gap-y-1.5">
+          {category?.attributes && (
+            <div className="text-primary">{category.attributes.title}</div>
             // TODO add proper link for category
-            href="#"
-            noStyles
-            className="text-sm text-primary underline hover:text-primary-dark"
-          >
-            {category.attributes.title}
-          </MLink>
-        )}
-
-        <div
-          className={cx('flex gap-x-4 gap-y-1.5', {
-            'items-start pb-1 md:flex-col': tagsPosition === 'under',
-            'items-center': tagsPosition === 'beside',
-          })}
-        >
-          {title && (
-            <h5
-              className={cx('w-fit text-left text-h5 text-foreground-heading', {
-                'group-hover:underline group-focus:underline': linkHref,
-              })}
-            >
-              {title}
-            </h5>
+            // <MLink
+            //   href="#"
+            //   noStyles
+            //   className="text-sm z-[1] text-primary underline hover:text-primary-dark"
+            // >
+            //   {category.attributes.title}
+            // </MLink>
           )}
-          {tags.length > 0 && (
-            <div className="flex gap-4">
-              {tags.map((tag) => (
-                <Tag key={tag} className="bg-background-beige">
-                  {tag}
-                </Tag>
-              ))}
+
+          <div
+            className={cx('flex gap-x-4 gap-y-1.5', {
+              'items-start pb-1 md:flex-col': tagsPosition === 'under',
+              'items-center': tagsPosition === 'beside',
+            })}
+          >
+            {title && (
+              <h3
+                className={cx('w-fit text-left text-h5 text-foreground-heading', {
+                  'group-hover:underline group-focus:underline': linkHref,
+                })}
+                id={titleId}
+              >
+                {title}
+              </h3>
+            )}
+            {tags.length > 0 && (
+              <div className="flex gap-4">
+                {tags.map((tag) => (
+                  <Tag key={tag} className="bg-background-beige">
+                    {tag}
+                  </Tag>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="space-x-3 text-sm empty:hidden">
+            {showUrl && linkHref && (
+              <>
+                <span>{linkHref}</span>
+                {metadata && metadata.length > 0 && <span>&bull;</span>}
+              </>
+            )}
+            {metadata?.map((metadataItem, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={i}>
+                <span>{metadataItem}</span>
+                {i !== metadata.length - 1 && <span>•</span>}
+              </Fragment>
+            ))}
+          </div>
+
+          {address && (
+            <div className="flex items-center gap-x-2">
+              <span className="text-primary">
+                <PlaceIcon />
+              </span>
+              <div className="whitespace-pre-wrap">{address}</div>
             </div>
           )}
         </div>
 
-        <div className="space-x-3 text-sm empty:hidden">
-          {showUrl && linkHref && (
-            <>
-              <span>{linkHref}</span>
-              {metadata && metadata.length > 0 && <span>&bull;</span>}
-            </>
-          )}
-          {metadata?.map((metadataItem, i) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <Fragment key={i}>
-              <span>{metadataItem}</span>
-              {i !== metadata.length - 1 && <span>•</span>}
-            </Fragment>
-          ))}
-        </div>
-
-        {address && (
-          <div className="flex items-center gap-x-2">
-            <span className="text-primary">
-              <PlaceIcon />
-            </span>
-            <div className="whitespace-pre-wrap">{address}</div>
-          </div>
-        )}
-
-        {moreContent && <div className="pt-2 text-left">{moreContent}</div>}
-      </div>
-
-      <div className={cx('flex gap-x-5', { 'items-center': !arrowInCorner })}>
-        {button && <div className="hidden md:flex">{button}</div>}
-        {linkHref &&
-          (isExternal ? (
-            <>
-              {/* desktop button */}
-              <Button
-                href={linkHref}
-                variant="plain-secondary"
-                startIcon={<OpenInNewIcon />}
-                className="hidden md:flex"
-              >
-                {/* TODO translations */}
-                Zobraziť web
-              </Button>
-              {/* mobile buttom */}
+        <div className="flex gap-x-5">
+          {button && <div className="z-[1] hidden md:flex">{button}</div>}
+          {linkHref &&
+            (linkButton || (
               <IconButton
                 href={linkHref}
-                aria-label={title}
-                variant="plain-secondary"
-                className="-mr-2 md:hidden"
+                ref={linkRef}
+                aria-labelledby={titleId}
+                className="-mr-2 after:absolute after:inset-0"
               >
-                <OpenInNewIcon />
+                <ChevronRightIcon />
               </IconButton>
-            </>
-          ) : (
-            // eslint-disable-next-line jsx-a11y/tabindex-no-positive
-            <IconButton href={linkHref} aria-label={title} className="-mr-2 hidden md:flex">
-              <ChevronRightIcon />
-            </IconButton>
-          ))}
-      </div>
-    </div>
+            ))}
+        </div>
+      </RowContent>
+
+      {moreContent && <RowMoreContent>{moreContent}</RowMoreContent>}
+    </RowBox>
   )
 }
 

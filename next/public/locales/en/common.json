@@ -10,6 +10,12 @@
     "search": "/vyhladavanie",
     "reviews": "/o-nas/referencie"
   },
+  "general": {
+    "downloadFile": "Download file",
+    "downloadFileAriaLabel": "Download file {{fileName}}, format {{ext}}, {{size}}",
+    "unknownFormat": "unknown",
+    "results": "Search results"
+  },
   "Seo": {
     "siteName": "Marianum - Pohrebníctvo mesta Bratislavy"
   },
@@ -21,6 +27,9 @@
   },
   "ProductCard": {
     "addToCart": "Add to cart"
+  },
+  "PartnerRow": {
+    "showWebsite": "Show website"
   },
   "SearchField": {
     "aria": {
@@ -125,11 +134,17 @@
     "allFileTypes": "All file types",
     "allCategories": "All categories",
     "noDocuments": "No documents to show.",
-    "download": "Download"
+    "download": "Download",
+    "aria": {
+      "results": "Searched documents"
+    }
   },
   "ArticleListing": {
     "allCategories": "All categories",
-    "noNews": "No news to show."
+    "noNews": "No news to show.",
+    "aria": {
+      "results": "Searched articles"
+    }
   },
   "HomepageSlider": {
     "aria": {
@@ -207,8 +222,7 @@
     "noReviews": "No reviews to show."
   },
   "DocumentGroup": {
-    "download": "Download",
-    "downloadFile": "Download file"
+    "download": "Download"
   },
   "DocumentLayout": {
     "createdAt": "Created",

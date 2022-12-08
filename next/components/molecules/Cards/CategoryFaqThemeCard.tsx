@@ -2,8 +2,8 @@ import CardBox, { CardBoxProps } from '@components/atoms/Card/CardBox'
 import CardContent from '@components/atoms/Card/CardContent'
 import MLink from '@components/atoms/MLink'
 import cx from 'classnames'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { useId } from 'react'
 
 type CategoryCardProps = {
   title: string
@@ -18,8 +18,8 @@ const CategoryFaqThemeCard = ({
   linkHref,
   ...rest
 }: CategoryFaqThemeCardProps) => {
-  const router = useRouter()
   const { t } = useTranslation()
+  const titleId = useId()
 
   // eslint-disable-next-line unicorn/consistent-function-scoping
   const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -27,29 +27,24 @@ const CategoryFaqThemeCard = ({
     event.stopPropagation()
   }
 
-  const handleCardClick = () => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    router.push(linkHref)
-  }
-
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    <CardBox {...rest} onClick={handleCardClick}>
+    <CardBox {...rest}>
       <CardContent
         className={cx('justify-between', subtitle ? 'md:min-h-[264px]' : 'md:min-h-[240px]')}
       >
         <div className={cx('flex grow', subtitle ? 'mb-[54px]' : 'mb-5')}>
-          <MLink href={linkHref} noStyles onClick={handleLinkClick}>
-            <h5 className="flex grow line-clamp-3 group-hover:underline">{title}</h5>
-          </MLink>
+          <h3 id={titleId} className="flex grow text-h5 line-clamp-3 group-hover:underline">
+            {title}
+          </h3>
           {subtitle && <div className="mt-2 block line-clamp-3">{subtitle}</div>}
         </div>
         <div>
           <MLink
             href={linkHref}
-            tabIndex={-1}
+            aria-labelledby={titleId}
             noArrow
-            className="inline-block"
+            className="after:absolute after:inset-0"
             onClick={handleLinkClick}
           >
             {t('Cards.showMore')}

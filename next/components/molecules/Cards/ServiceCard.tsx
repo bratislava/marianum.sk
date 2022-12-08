@@ -3,9 +3,8 @@ import CardContent from '@components/atoms/Card/CardContent'
 import ImagePlaceholder from '@components/atoms/ImagePlaceholder'
 import MImage, { MImageImage } from '@components/atoms/MImage'
 import MLink from '@components/atoms/MLink'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import React from 'react'
+import React, { useId } from 'react'
 
 type ServiceCardProps = {
   image?: MImageImage | null
@@ -15,7 +14,7 @@ type ServiceCardProps = {
 
 const ServiceCard = ({ image, title, linkHref, ...rest }: ServiceCardProps) => {
   const { t } = useTranslation()
-  const router = useRouter()
+  const titleId = useId()
 
   // eslint-disable-next-line unicorn/consistent-function-scoping
   const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -23,32 +22,23 @@ const ServiceCard = ({ image, title, linkHref, ...rest }: ServiceCardProps) => {
     event.stopPropagation()
   }
 
-  const handleCardClick = () => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    router.push(linkHref)
-  }
-
   return (
-    <CardBox {...rest} onClick={handleCardClick}>
+    <CardBox {...rest}>
       <div className="aspect-w-1 aspect-h-1 w-full bg-gray">
-        <MLink href={linkHref} tabIndex={-1} noStyles onClick={handleLinkClick} aria-label={title}>
-          {image ? <MImage image={image} fill className="object-contain" /> : <ImagePlaceholder />}
-        </MLink>
+        {image ? <MImage image={image} fill className="object-contain" /> : <ImagePlaceholder />}
       </div>
       <CardContent className="justify-between">
         <div>
-          <h5 className="line-clamp-3 group-hover:underline">
-            <MLink href={linkHref} noStyles onClick={handleLinkClick}>
-              {title}
-            </MLink>
-          </h5>
+          <h3 id={titleId} className="text-h5 line-clamp-3 group-hover:underline">
+            {title}
+          </h3>
         </div>
         <div className="mt-4">
           <MLink
             href={linkHref}
-            tabIndex={-1}
+            aria-labelledby={titleId}
             noArrow
-            className="inline-block"
+            className="inline-block after:absolute after:inset-0"
             onClick={handleLinkClick}
           >
             {t('Cards.showMore')}

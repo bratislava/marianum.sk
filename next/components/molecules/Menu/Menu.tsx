@@ -49,7 +49,14 @@ const Menu = ({ items, title, path }: MenuProps) => {
         </div>
       </MLink>
 
-      <ReactControlledMenu className="py-3" onClose={() => toggleMenu(false)} {...menuProps}>
+      <ReactControlledMenu
+        className="py-3"
+        // For an unknown reason default `szh-menu` classes are missing in production.
+        // TODO: Try to update to a newer version.
+        menuClassName="szh-menu"
+        onClose={() => toggleMenu(false)}
+        {...menuProps}
+      >
         <div className="bg-white py-3 text-foreground shadow-card">
           {items?.map(
             (item) =>

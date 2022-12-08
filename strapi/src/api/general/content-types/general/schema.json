@@ -27,7 +27,7 @@
       },
       "component": "general.header"
     },
-    "contact": {
+    "address": {
       "type": "component",
       "repeatable": false,
       "pluginOptions": {

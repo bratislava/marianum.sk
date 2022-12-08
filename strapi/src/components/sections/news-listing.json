@@ -2,12 +2,18 @@
   "collectionName": "components_sections_news_listings",
   "info": {
     "displayName": "news listing",
-    "icon": "newspaper"
+    "icon": "newspaper",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "title": {
       "type": "string"
+    },
+    "showMoreButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "blocks.button-link"
     }
   }
 }

@@ -1,17 +1,22 @@
 import Button from '@components/atoms/Button'
+import { customImageLoader } from '@components/atoms/MImage'
 import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Slider from '@components/molecules/Slider'
 import { CtaFragment } from '@graphql'
 import cx from 'classnames'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
+import { useId } from 'react'
 
 type HomepageSliderProps = {
   slides: CtaFragment[] | null | undefined
 }
 
+const getAriaLabelId = (id: string, index: number) => `homepageslider-${id}-${index}`
+
 const HomepageSlider = ({ slides }: HomepageSliderProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'HomepageSlider' })
+  const id = useId()
 
   const { getFullPath } = useGetFullPath()
 
@@ -23,7 +28,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
     <div className="relative h-[412px] bg-primary-dark text-white lg:h-[436px]">
       <Slider
         autoSwipeDuration={5000}
-        pages={slides.map(({ title, description, button, image }) => {
+        pages={slides.map(({ title, description, button, image }, index) => {
           const ctaSlug = getFullPath(button?.page?.data)
 
           const { url, alternativeText } = image?.data?.attributes ?? {}
@@ -41,7 +46,10 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                     )}
                   </div>
 
-                  <h3 className="text-center text-h1 font-bold text-current lg:text-left">
+                  <h3
+                    id={getAriaLabelId(id, index)}
+                    className="text-center text-h1 font-bold text-current lg:text-left"
+                  >
                     {title}
                   </h3>
 
@@ -53,7 +61,11 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
 
                   {ctaSlug && (
                     <div className="mt-4 lg:mt-6">
-                      <Button variant="white" href={ctaSlug}>
+                      <Button
+                        variant="white"
+                        href={ctaSlug}
+                        aria-labelledby={getAriaLabelId(id, index)}
+                      >
                         {button?.label}
                       </Button>
                     </div>
@@ -73,6 +85,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                       alt={alternativeText ?? ''}
                       fill
                       className="object-cover mix-blend-multiply"
+                      loader={customImageLoader}
                     />
                   )}
                 </div>

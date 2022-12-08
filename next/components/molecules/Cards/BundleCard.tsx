@@ -5,8 +5,8 @@ import FormatCurrency from '@components/atoms/FormatCurrency'
 import ImagePlaceholder from '@components/atoms/ImagePlaceholder'
 import MImage, { MImageImage } from '@components/atoms/MImage'
 import MLink from '@components/atoms/MLink'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { useId } from 'react'
 
 type BundleCardProps = {
   image?: MImageImage | null
@@ -28,8 +28,9 @@ const BundleCard = ({
   linkHref,
   ...props
 }: BundleCardProps) => {
-  const router = useRouter()
   const { t } = useTranslation()
+
+  const titleId = useId()
 
   // eslint-disable-next-line unicorn/consistent-function-scoping
   const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -37,26 +38,17 @@ const BundleCard = ({
     event.stopPropagation()
   }
 
-  const handleCardClick = () => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    router.push(linkHref)
-  }
-
   return (
-    <CardBox {...props} onClick={handleCardClick}>
+    <CardBox {...props}>
       <CardContent largePadding className="grow gap-6">
         <div className="relative h-[56px] w-[56px] bg-gray">
-          <MLink href={linkHref} tabIndex={-1} noStyles onClick={handleLinkClick} aria-label={name}>
-            {image ? <MImage image={image} fill className="object-cover" /> : <ImagePlaceholder />}
-          </MLink>
+          {image ? <MImage image={image} fill className="object-cover" /> : <ImagePlaceholder />}
         </div>
 
         <div>
-          <h5 className="line-clamp-3 group-hover:underline">
-            <MLink href={linkHref} noStyles onClick={handleLinkClick}>
-              {name}
-            </MLink>
-          </h5>
+          <h4 id={titleId} className="text-h5 line-clamp-3 group-hover:underline">
+            {name}
+          </h4>
           <div className="flex flex-wrap items-center gap-3">
             <div className="whitespace-nowrap font-semibold">
               {t('BundleCard.from')} <FormatCurrency value={priceFrom} />
@@ -100,9 +92,9 @@ const BundleCard = ({
         <div>
           <MLink
             href={linkHref}
-            tabIndex={-1}
+            aria-labelledby={titleId}
             noArrow
-            className="inline-block"
+            className="after:absolute after:inset-0"
             onClick={handleLinkClick}
           >
             {t('Cards.showMore')}

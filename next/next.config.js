@@ -55,6 +55,7 @@ const nextConfig = {
           source: '/ziadost/suhlasy',
           destination: '/application/consents',
         },
+        // IMPORTANT: Keep this in sync with `localPaths` const in getFullPath.ts
         ...generateRedirects([
           { fullPath: '/aktuality/novinky/:slug', nextRoute: '/articles' },
           {
@@ -62,7 +63,7 @@ const nextConfig = {
             nextRoute: '/articles',
           },
           {
-            fullPath: '/sluzby/balicky-pohrebov/pochovanie-do-zeme/:slug',
+            fullPath: '/sluzby/balicky-pohrebov/rozlucka-na-cintorine/:slug',
             nextRoute: '/bundles',
           },
           {

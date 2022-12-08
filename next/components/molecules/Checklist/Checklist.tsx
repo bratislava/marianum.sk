@@ -6,7 +6,7 @@ import cx from 'classnames'
 import filesize from 'filesize'
 import { useTranslation } from 'next-i18next'
 import prntr from 'prntr'
-import { useCallback, useEffect, useMemo, useReducer } from 'react'
+import { useCallback, useEffect, useId, useMemo, useReducer } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { ChecklistActionKind, ChecklistItem, checklistReducer } from './checklistReducer'
@@ -16,6 +16,8 @@ type ChecklistRadioProps = {
   isCompleted?: boolean
   className?: string
 }
+
+const getAriaId = (id: string, index: number) => `checklist-${id}-${index}`
 
 const ChecklistRadio = ({
   isOpen = false,
@@ -88,6 +90,8 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
     return `marianum-${items.map((item) => item.title).join('-')}`
   }, [items])
 
+  const id = useId()
+
   const [localChecklistState, setLocalChecklistState] = useLocalStorage(checklistId, { items })
 
   const [checklistState, dispatchChecklistState] = useReducer(checklistReducer, localChecklistState)
@@ -156,6 +160,8 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
                 onKeyUp={(e) => (e.code === 'Enter' || e.code === 'Space') && openItemHandler(key)}
                 onClick={() => openItemHandler(key)}
                 className="flex items-center p-6"
+                aria-expanded={isOpen}
+                aria-controls={getAriaId(id, index)}
               >
                 <div
                   className={cx('transition-all sm:hidden', {
@@ -168,7 +174,7 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
                 <h4 className="text-left">{title}</h4>
               </button>
               <AnimateHeight isVisible={isOpen}>
-                <div className="flex w-full flex-col gap-6 px-6 pb-6">
+                <div className="flex w-full flex-col gap-6 px-6 pb-6" id={getAriaId(id, index)}>
                   {/* item description */}
                   {description && <div className="text-lg">{description}</div>}
                   {
