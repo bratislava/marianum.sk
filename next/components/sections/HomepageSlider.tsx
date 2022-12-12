@@ -28,6 +28,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
     <div className="relative h-[412px] bg-primary-dark text-white lg:h-[436px]">
       <Slider
         autoSwipeDuration={5000}
+        allowKeyboardNavigation
         pages={slides.map(({ title, description, button, image }, index) => {
           const ctaSlug = getFullPath(button?.page?.data)
 
