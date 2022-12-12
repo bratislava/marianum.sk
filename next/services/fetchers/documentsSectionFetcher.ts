@@ -41,8 +41,8 @@ export const documentsSectionFetcher = (filters: DocumentsSectionFilters) => () 
         isDefined(filters.filetype) ? `document.file.ext = ${filters.filetype}` : null,
       ].filter(Boolean) as string[],
       sort: [
-        filters.sort === 'newest' ? 'document.publishedAtTimestamp:asc' : null,
-        filters.sort === 'oldest' ? 'document.publishedAtTimestamp:desc' : null,
+        filters.sort === 'newest' ? 'document.updatedAtTimestamp:desc' : null,
+        filters.sort === 'oldest' ? 'document.updatedAtTimestamp:asc' : null,
       ].filter(Boolean) as string[],
     })
     .then(unwrapFromSearchIndex('document'))
