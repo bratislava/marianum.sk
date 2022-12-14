@@ -216,6 +216,8 @@ export default {
         return;
       }
 
+      const meilisearch = strapi.plugin("meilisearch").service("meilisearch");
+
       try {
         const importId = uuid();
         const parsedDisclosures = parseDisclosuresXlsx(file.path, importId);
@@ -223,6 +225,11 @@ export default {
         await strapi.db
           .query("api::disclosure.disclosure")
           .createMany({ data: parsedDisclosures });
+
+        // `createMany` doesn't work with Meilisearch, so the update must be triggered manually.
+        await meilisearch.updateContentTypeInMeiliSearch({
+          contentType: "api::disclosure.disclosure",
+        });
 
         ctx.body = {
           message: `Nahraných ${parsedDisclosures.length} zverejňovaní.`,
