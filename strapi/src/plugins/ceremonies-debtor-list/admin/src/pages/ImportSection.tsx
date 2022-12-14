@@ -6,15 +6,17 @@ import { useNotification } from "@strapi/helper-plugin";
 const updateUrls = {
   debtors: "/ceremonies-debtor-list/update-debtors",
   ceremonies: "/ceremonies-debtor-list/update-ceremonies",
+  disclosures: "/ceremonies-debtor-list/update-disclosures",
 };
 
 const headerTexts = {
   debtors: "Import dlžníkov",
   ceremonies: "Import obradov",
+  disclosures: "Import zverejňovania",
 };
 
 type ImportSectionProps = {
-  type: "debtors" | "ceremonies";
+  type: "debtors" | "ceremonies" | "disclosures";
 };
 
 const ImportSection = ({ type }: ImportSectionProps) => {
@@ -38,7 +40,7 @@ const ImportSection = ({ type }: ImportSectionProps) => {
       .then((response) => {
         toggleNotification({
           type: "success",
-          message: { defaultMessage: response.data },
+          message: { defaultMessage: response.data.message },
         });
       })
       .catch((error) => {

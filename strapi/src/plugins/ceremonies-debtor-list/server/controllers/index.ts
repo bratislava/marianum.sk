@@ -4,9 +4,11 @@ import { getCemeteriesSlugIdMap } from "../helpers/get-cemeteries-slug-id-map";
 import { parseCeremoniesXlsx } from "../helpers/parse-ceremonies-xlsx";
 import moment from "moment/moment";
 import "moment-timezone";
+import { parseDisclosuresXlsx } from "../helpers/parse-disclosures-xlsx";
+import { v4 as uuid } from "uuid";
 
 export default {
-  debtorsCeremoniesController: ({ strapi }: { strapi: Strapi }) => ({
+  importXlsxController: ({ strapi }: { strapi: Strapi }) => ({
     async updateDebtors(ctx) {
       ctx.request.socket.setTimeout(120000);
 
@@ -63,7 +65,7 @@ export default {
           throw createDebtorsError;
         }
 
-        ctx.body = `Nahraných ${parsedDebtors.length} dlžníkov.`;
+        ctx.body = { message: `Nahraných ${parsedDebtors.length} dlžníkov.` };
       } catch (e) {
         ctx.status = 400;
         ctx.body = {
@@ -178,15 +180,48 @@ export default {
         const successMessage = parsedCeremonies
           .map(({ day, data }) => `${day} (${data.length})`)
           .join(", ");
-        ctx.body = `Nahraných ${successMessage} obradov.\nZáznamy staršie ako ${olderThanThreeDays.format(
-          "DD.MM.YYYY"
-        )} (vrátane) boli vymazané.`;
+        ctx.body = {
+          message: `Nahraných ${successMessage} obradov.\nZáznamy staršie ako ${olderThanThreeDays.format(
+            "DD.MM.YYYY"
+          )} (vrátane) boli vymazané.`,
+        };
       } catch (e) {
         ctx.status = 400;
         ctx.body = {
           message: e.toString(),
         };
         return;
+      }
+    },
+    async updateDisclosures(ctx) {
+      ctx.request.socket.setTimeout(120000);
+
+      const file = ctx.request.files?.file;
+      if (!file) {
+        ctx.status = 400;
+        ctx.body = {
+          message: "Chýba súbor.",
+        };
+        return;
+      }
+
+      try {
+        const importId = uuid();
+        const parsedDisclosures = parseDisclosuresXlsx(file.path, importId);
+
+        await strapi.db
+          .query("api::disclosure.disclosure")
+          .createMany({ data: parsedDisclosures });
+
+        ctx.body = {
+          message: `Nahraných ${parsedDisclosures.length} zverejňovaní.`,
+          importId,
+        };
+      } catch (e) {
+        ctx.status = 400;
+        ctx.body = {
+          message: e.toString(),
+        };
       }
     },
   }),

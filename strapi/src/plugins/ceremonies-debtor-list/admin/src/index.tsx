@@ -8,7 +8,7 @@ export default {
       icon: UploadIcon,
       intlLabel: {
         id: `${pluginId}.plugin.name`,
-        defaultMessage: "Import dlžníkov a obradov",
+        defaultMessage: "Import Excel súborov",
       },
       Component: async () => {
         return await import(/* webpackChunkName: "[request]" */ "./pages/App");
