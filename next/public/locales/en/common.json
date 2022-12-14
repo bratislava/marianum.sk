@@ -310,5 +310,32 @@
         }
       }
     }
+  },
+  "DisclosuresSection": {
+    "th": {
+      "type": "",
+      "internalInvoiceNumber": "",
+      "invoiceNumberOrVariableSymbol": "",
+      "orderNumber": "",
+      "contractNumber": "",
+      "description": "",
+      "supplierName": "",
+      "supplierAddress": "",
+      "supplierRegistrationNumber": "",
+      "dateOfOrder": "",
+      "totalValue": "",
+      "invoicedAmount": "",
+      "dateOfDelivery": "",
+      "signedBy": "",
+      "files": "",
+      "additionalData": ""
+    },
+    "types": {
+      "all": "",
+      "zmluvy": "",
+      "faktury": "",
+      "objednavky": ""
+    },
+    "noRecords": ""
   }
 }
