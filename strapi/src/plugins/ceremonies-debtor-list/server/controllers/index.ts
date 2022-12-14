@@ -29,7 +29,12 @@ export default {
           "debtors"
         );
 
-        const parsedDebtors = parseDebtorsXlsx(file.path, cemeteriesSlugIdMap);
+        const importId = uuid();
+        const parsedDebtors = parseDebtorsXlsx(
+          file.path,
+          cemeteriesSlugIdMap,
+          importId
+        );
 
         // All the debtors are replaced when a new XLSX is uploaded.
         const deleteDebtors = async () => {
@@ -65,7 +70,10 @@ export default {
           throw createDebtorsError;
         }
 
-        ctx.body = { message: `Nahraných ${parsedDebtors.length} dlžníkov.` };
+        ctx.body = {
+          message: `Nahraných ${parsedDebtors.length} dlžníkov.`,
+          importId,
+        };
       } catch (e) {
         ctx.status = 400;
         ctx.body = {
@@ -93,9 +101,11 @@ export default {
           "ceremonies"
         );
 
+        const importId = uuid();
         const parsedCeremonies = parseCeremoniesXlsx(
           file.path,
-          cemeteriesSlugIdMap
+          cemeteriesSlugIdMap,
+          importId
         );
 
         // Only ceremonies in the days that are present in XLSX are deleted and replaced by new one. All the others are
@@ -184,6 +194,7 @@ export default {
           message: `Nahraných ${successMessage} obradov.\nZáznamy staršie ako ${olderThanThreeDays.format(
             "DD.MM.YYYY"
           )} (vrátane) boli vymazané.`,
+          importId,
         };
       } catch (e) {
         ctx.status = 400;
