@@ -174,6 +174,23 @@ export default {
           };
         },
       },
+      disclosure: {
+        settings: {
+          filterableAttributes: ["type"],
+          searchableAttributes: [
+            "internalInvoiceNumber",
+            "invoiceNumberOrVariableSymbol",
+            "orderNumber",
+            "contractNumber",
+            "description",
+            "supplierName",
+          ],
+          pagination: {
+            // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
+            maxTotalHits: 1000000,
+          },
+        },
+      },
       document: {
         indexName: "search_index",
         entriesQuery: {

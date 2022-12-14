@@ -5,6 +5,7 @@ import {
   Cemetery,
   Ceremony,
   Debtor,
+  Disclosure,
   Document,
   DocumentCategory,
   UploadFile,
@@ -40,4 +41,8 @@ export type DebtorMeili = Omit<Debtor, '__typename' | 'cemetery'> & {
 export type DocumentMeili = Omit<Document, '__typename' | 'documentCategory' | 'file'> & {
   documentCategory: Omit<DocumentCategory, '__typename' | 'documents'>
   file: Omit<UploadFile, '__typename'>
+}
+
+export type DisclosureMeili = Omit<Disclosure, '__typename' | 'files'> & {
+  files: Omit<UploadFile, '__typename'>[]
 }
