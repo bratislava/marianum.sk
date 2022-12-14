@@ -683,6 +683,7 @@ export type CeremonyFiltersInput = {
   createdAt?: InputMaybe<DateTimeFilterInput>;
   dateTime?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  importId?: InputMaybe<StringFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<CeremonyFiltersInput>;
   officiantProvidedBy?: InputMaybe<StringFilterInput>;
@@ -697,6 +698,7 @@ export type CeremonyInput = {
   company?: InputMaybe<Scalars['String']>;
   consentForPrivateFields?: InputMaybe<Scalars['Boolean']>;
   dateTime?: InputMaybe<Scalars['DateTime']>;
+  importId?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   officiantProvidedBy?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<Scalars['String']>;
@@ -1325,6 +1327,11 @@ export type ComponentSectionsDebtorsSection = {
   id: Scalars['ID'];
 };
 
+export type ComponentSectionsDisclosureSection = {
+  __typename?: 'ComponentSectionsDisclosureSection';
+  id: Scalars['ID'];
+};
+
 export type ComponentSectionsDivider = {
   __typename?: 'ComponentSectionsDivider';
   color: Enum_Componentsectionsdivider_Color;
@@ -1643,6 +1650,7 @@ export type DebtorFiltersInput = {
   gravePreviousNumber?: InputMaybe<StringFilterInput>;
   graveSector?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  importId?: InputMaybe<StringFilterInput>;
   lastName?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<DebtorFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<DebtorFiltersInput>>>;
@@ -1657,7 +1665,99 @@ export type DebtorInput = {
   graveNumber?: InputMaybe<Scalars['String']>;
   gravePreviousNumber?: InputMaybe<Scalars['String']>;
   graveSector?: InputMaybe<Scalars['String']>;
+  importId?: InputMaybe<Scalars['String']>;
   lastName?: InputMaybe<Scalars['String']>;
+};
+
+export type Disclosure = {
+  __typename?: 'Disclosure';
+  additionalData?: Maybe<Scalars['JSON']>;
+  contractNumber?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  dateOfDelivery?: Maybe<Scalars['String']>;
+  dateOfOrder?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  files?: Maybe<UploadFileRelationResponseCollection>;
+  internalInvoiceNumber?: Maybe<Scalars['String']>;
+  invoiceNumberOrVariableSymbol?: Maybe<Scalars['String']>;
+  invoicedAmount?: Maybe<Scalars['String']>;
+  orderNumber?: Maybe<Scalars['String']>;
+  signedBy?: Maybe<Scalars['String']>;
+  supplierAddress?: Maybe<Scalars['String']>;
+  supplierName?: Maybe<Scalars['String']>;
+  supplierRegistrationNumber?: Maybe<Scalars['String']>;
+  totalValue?: Maybe<Scalars['String']>;
+  type?: Maybe<Enum_Disclosure_Type>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+
+export type DisclosureFilesArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type DisclosureEntity = {
+  __typename?: 'DisclosureEntity';
+  attributes?: Maybe<Disclosure>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type DisclosureEntityResponse = {
+  __typename?: 'DisclosureEntityResponse';
+  data?: Maybe<DisclosureEntity>;
+};
+
+export type DisclosureEntityResponseCollection = {
+  __typename?: 'DisclosureEntityResponseCollection';
+  data: Array<DisclosureEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type DisclosureFiltersInput = {
+  additionalData?: InputMaybe<JsonFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<DisclosureFiltersInput>>>;
+  contractNumber?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  dateOfDelivery?: InputMaybe<StringFilterInput>;
+  dateOfOrder?: InputMaybe<StringFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  importId?: InputMaybe<StringFilterInput>;
+  internalInvoiceNumber?: InputMaybe<StringFilterInput>;
+  invoiceNumberOrVariableSymbol?: InputMaybe<StringFilterInput>;
+  invoicedAmount?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<DisclosureFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<DisclosureFiltersInput>>>;
+  orderNumber?: InputMaybe<StringFilterInput>;
+  signedBy?: InputMaybe<StringFilterInput>;
+  supplierAddress?: InputMaybe<StringFilterInput>;
+  supplierName?: InputMaybe<StringFilterInput>;
+  supplierRegistrationNumber?: InputMaybe<StringFilterInput>;
+  totalValue?: InputMaybe<StringFilterInput>;
+  type?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type DisclosureInput = {
+  additionalData?: InputMaybe<Scalars['JSON']>;
+  contractNumber?: InputMaybe<Scalars['String']>;
+  dateOfDelivery?: InputMaybe<Scalars['String']>;
+  dateOfOrder?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  files?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  importId?: InputMaybe<Scalars['String']>;
+  internalInvoiceNumber?: InputMaybe<Scalars['String']>;
+  invoiceNumberOrVariableSymbol?: InputMaybe<Scalars['String']>;
+  invoicedAmount?: InputMaybe<Scalars['String']>;
+  orderNumber?: InputMaybe<Scalars['String']>;
+  signedBy?: InputMaybe<Scalars['String']>;
+  supplierAddress?: InputMaybe<Scalars['String']>;
+  supplierName?: InputMaybe<Scalars['String']>;
+  supplierRegistrationNumber?: InputMaybe<Scalars['String']>;
+  totalValue?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Enum_Disclosure_Type>;
 };
 
 export type Document = {
@@ -1801,6 +1901,12 @@ export enum Enum_Componentsectionsmanuallisting_Style {
   Simple = 'simple'
 }
 
+export enum Enum_Disclosure_Type {
+  Faktura = 'Faktura',
+  Objednavka = 'Objednavka',
+  Zmluva = 'Zmluva'
+}
+
 export enum Enum_Page_Layout {
   Centered = 'centered',
   Fullwidth = 'fullwidth',
@@ -1887,7 +1993,7 @@ export type GeneralRelationResponseCollection = {
   data: Array<GeneralEntity>;
 };
 
-export type GenericMorph = Application | ApplicationText | Article | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Document | DocumentCategory | General | HomePage | I18NLocale | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Application | ApplicationText | Article | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosureSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -2059,6 +2165,7 @@ export type Mutation = {
   createContact?: Maybe<ContactEntityResponse>;
   createContactLocalization?: Maybe<ContactEntityResponse>;
   createDebtor?: Maybe<DebtorEntityResponse>;
+  createDisclosure?: Maybe<DisclosureEntityResponse>;
   createDocument?: Maybe<DocumentEntityResponse>;
   createDocumentCategory?: Maybe<DocumentCategoryEntityResponse>;
   createGeneralLocalization?: Maybe<GeneralEntityResponse>;
@@ -2088,6 +2195,7 @@ export type Mutation = {
   deleteCeremony?: Maybe<CeremonyEntityResponse>;
   deleteContact?: Maybe<ContactEntityResponse>;
   deleteDebtor?: Maybe<DebtorEntityResponse>;
+  deleteDisclosure?: Maybe<DisclosureEntityResponse>;
   deleteDocument?: Maybe<DocumentEntityResponse>;
   deleteDocumentCategory?: Maybe<DocumentCategoryEntityResponse>;
   deleteGeneral?: Maybe<GeneralEntityResponse>;
@@ -2125,6 +2233,7 @@ export type Mutation = {
   updateCeremony?: Maybe<CeremonyEntityResponse>;
   updateContact?: Maybe<ContactEntityResponse>;
   updateDebtor?: Maybe<DebtorEntityResponse>;
+  updateDisclosure?: Maybe<DisclosureEntityResponse>;
   updateDocument?: Maybe<DocumentEntityResponse>;
   updateDocumentCategory?: Maybe<DocumentCategoryEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
@@ -2245,6 +2354,11 @@ export type MutationCreateContactLocalizationArgs = {
 
 export type MutationCreateDebtorArgs = {
   data: DebtorInput;
+};
+
+
+export type MutationCreateDisclosureArgs = {
+  data: DisclosureInput;
 };
 
 
@@ -2394,6 +2508,11 @@ export type MutationDeleteContactArgs = {
 
 
 export type MutationDeleteDebtorArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteDisclosureArgs = {
   id: Scalars['ID'];
 };
 
@@ -2572,6 +2691,12 @@ export type MutationUpdateContactArgs = {
 
 export type MutationUpdateDebtorArgs = {
   data: DebtorInput;
+  id: Scalars['ID'];
+};
+
+
+export type MutationUpdateDisclosureArgs = {
+  data: DisclosureInput;
   id: Scalars['ID'];
 };
 
@@ -2987,6 +3112,8 @@ export type Query = {
   contacts?: Maybe<ContactEntityResponseCollection>;
   debtor?: Maybe<DebtorEntityResponse>;
   debtors?: Maybe<DebtorEntityResponseCollection>;
+  disclosure?: Maybe<DisclosureEntityResponse>;
+  disclosures?: Maybe<DisclosureEntityResponseCollection>;
   document?: Maybe<DocumentEntityResponse>;
   documentCategories?: Maybe<DocumentCategoryEntityResponseCollection>;
   documentCategory?: Maybe<DocumentCategoryEntityResponse>;
@@ -3146,6 +3273,18 @@ export type QueryDebtorArgs = {
 
 export type QueryDebtorsArgs = {
   filters?: InputMaybe<DebtorFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryDisclosureArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryDisclosuresArgs = {
+  filters?: InputMaybe<DisclosureFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
