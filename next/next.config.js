@@ -47,6 +47,14 @@ const nextConfig = {
           source: '/vyhladavanie',
           destination: '/search',
         },
+        {
+          source: '/ziadost',
+          destination: '/application',
+        },
+        {
+          source: '/ziadost/suhlasy',
+          destination: '/application/consents',
+        },
         // IMPORTANT: Keep this in sync with `localPaths` const in getFullPath.ts
         ...generateRedirects([
           { fullPath: '/aktuality/novinky/:slug', nextRoute: '/articles' },

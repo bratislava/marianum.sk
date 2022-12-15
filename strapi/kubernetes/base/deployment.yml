@@ -33,6 +33,8 @@ spec:
             - secretRef:
                 name: ${BUILD_REPOSITORY_NAME}-meilisearch-secret
             - secretRef:
+                name: ${BUILD_REPOSITORY_NAME}-cloudflare-turnstile-secret
+            - secretRef:
                 name: minio-secret-standalone
             - configMapRef:
                 name: ${BUILD_REPOSITORY_NAME}-env

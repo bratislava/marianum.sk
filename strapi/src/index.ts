@@ -12,6 +12,9 @@ export default {
             type Query {
               documentFiletypes: [String]
             }
+            type Mutation {
+              createApplicationCustom(data: JSON!, captchaToken: String!): String
+            }
           `,
       resolvers: {
         Query: {
@@ -20,9 +23,20 @@ export default {
               strapi.controller("api::document.document").listFiletypes(ctx),
           },
         },
+        Mutation: {
+          createApplicationCustom: {
+            resolve: async (ctx, data) =>
+              strapi
+                .service("api::application.application")
+                .createApplicationCustom(data),
+          },
+        },
       },
       resolversConfig: {
         "Query.documentFiletypes": {
+          auth: false,
+        },
+        "Mutation.createApplicationCustom": {
           auth: false,
         },
       },
