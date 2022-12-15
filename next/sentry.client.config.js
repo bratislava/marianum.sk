@@ -28,9 +28,8 @@ Sentry.init({
       ],
       shouldCreateSpanForRequest: (url) => {
         const isPlausible = url.includes('plausible')
-        const isGoogleAnalytics = url.includes('google-analytics')
 
-        const conditions = [isPlausible, isGoogleAnalytics]
+        const conditions = [isPlausible]
         return conditions.every((value) => !value) // make sure every value is false
       },
     }),

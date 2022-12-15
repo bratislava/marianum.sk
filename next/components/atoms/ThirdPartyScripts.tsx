@@ -1,28 +1,12 @@
 import { cookieConsentContext } from '@components/atoms/Cookies/CookieConsent'
-import * as gtag from '@utils/googleAnalytics'
-import { useRouter } from 'next/router'
 import Script from 'next/script'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 
 const ThirdPartyScripts = () => {
-  const router = useRouter()
-
   const {
     acceptance: { areMarketingCookiesAllowed, areStatisticCookiesAllowed },
   } = useContext(cookieConsentContext)
 
-  useEffect(() => {
-    if (areMarketingCookiesAllowed && areStatisticCookiesAllowed) {
-      router.events.on('routeChangeComplete', gtag.pageview)
-      router.events.on('hashChangeComplete', gtag.pageview)
-    }
-    return () => {
-      if (areMarketingCookiesAllowed && areStatisticCookiesAllowed) {
-        router.events.off('routeChangeComplete', gtag.pageview)
-        router.events.off('hashChangeComplete', gtag.pageview)
-      }
-    }
-  }, [router.events, areMarketingCookiesAllowed, areStatisticCookiesAllowed])
   return (
     <>
       {/* Plausible */}
@@ -31,33 +15,6 @@ const ThirdPartyScripts = () => {
         data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
         src="https://plausible.io/js/plausible.js"
       />
-
-      {areMarketingCookiesAllowed && areStatisticCookiesAllowed && (
-        <>
-          {/* Google Analytics */}
-          <Script
-            async
-            strategy="afterInteractive"
-            src={`https://www.googletagmanager.com/gtag/js?id=${
-              process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? ''
-            }`}
-          />
-          <Script
-            id="google-analytics-script"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? ''}', {
-                page_path: window.location.pathname,
-              });
-            `,
-            }}
-          />
-        </>
-      )}
 
       {/* TODO: are Hotjar cookies for marketing purpose? */}
       {areMarketingCookiesAllowed && areStatisticCookiesAllowed && (
