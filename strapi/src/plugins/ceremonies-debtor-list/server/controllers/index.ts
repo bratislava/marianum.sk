@@ -122,24 +122,9 @@ export default {
           };
         });
 
-        const olderThanThreeDays = moment
-          .tz("Europe/Bratislava")
-          .subtract("4", "days")
-          .endOf("day");
-
-        // Marianum says they cannot show ceremonies older than 3 days, because they might not have consent for it.
-        // Filtering them while querying is not enough as it would be possible to query them with custom query.
-        // It's not worth developing a custom scheduled action that does this, so when new entries are uploaded, the
-        // ones older than 3 days are removed by this filter.
-        const deleteFilterOlderThanThreeDays = {
-          dateTime: {
-            $lte: olderThanThreeDays.toISOString(),
-          },
-        };
-
         const deleteCeremonies = async () => {
           await strapi.db.query("api::ceremony.ceremony").deleteMany({
-            where: { $or: [...deleteFilters, deleteFilterOlderThanThreeDays] },
+            where: { $or: deleteFilters },
           });
           // `deleteMany` doesn't trigger Meilisearch hooks, so the old ceremonies stay in its database,
           // also having Meilisearch on while adding ceremonies triggers the update content hook after
@@ -178,9 +163,7 @@ export default {
         const successMessage = parsedCeremonies
           .map(({ day, data }) => `${day} (${data.length})`)
           .join(", ");
-        ctx.body = `Nahraných ${successMessage} obradov.\nZáznamy staršie ako ${olderThanThreeDays.format(
-          "DD.MM.YYYY"
-        )} (vrátane) boli vymazané.`;
+        ctx.body = `Nahraných ${successMessage} obradov.`;
       } catch (e) {
         ctx.status = 400;
         ctx.body = {
