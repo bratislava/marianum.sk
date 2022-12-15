@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_sections_disclosures_sections",
+  "info": {
+    "displayName": "Disclosures section",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "aad": {
+      "type": "string"
+    }
+  }
+}

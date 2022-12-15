@@ -20,6 +20,7 @@ import CeremoniesArchiveSection from '@components/sections/CeremoniesArchiveSect
 import CeremoniesSection from '@components/sections/CeremoniesSection'
 import ContactsSection from '@components/sections/ContactsSection'
 import DebtorsSection from '@components/sections/DebtorsSection'
+import DisclosuresSection from '@components/sections/DisclosuresSection'
 import DocumentsSection from '@components/sections/DocumentsSection/DocumentsSection'
 import MapSection from '@components/sections/MapSection'
 import MenuListingSection from '@components/sections/MenuListingSection'
@@ -44,6 +45,7 @@ import { getMapSectionPrefetch } from '@services/fetchers/cemeteriesFetcher'
 import { ceremoniesArchiveSectionPrefetch } from '@services/fetchers/ceremoniesArchiveSectionFetcher'
 import { ceremoniesSectionPrefetch } from '@services/fetchers/ceremoniesSectionFetcher'
 import { debtorsSectionPrefetch } from '@services/fetchers/debtorsSectionFetcher'
+import { disclosuresSectionPrefetch } from '@services/fetchers/disclosuresSectionFetcher'
 import { documentsSectionPrefetch } from '@services/fetchers/documentsSectionFetcher'
 import { getNewsListingPrefetch } from '@services/fetchers/newsListingFetcher'
 import { partnersSectionPrefetch } from '@services/fetchers/partnersSectionFetcher'
@@ -221,6 +223,9 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
                 />
               )
             }
+            if (section?.__typename === 'ComponentSectionsDisclosuresSection') {
+              return <DisclosuresSection key={`${section.__typename}-${section.id}`} />
+            }
             return null
           })}
         </SectionsWrapper>
@@ -264,6 +269,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
     documentsSectionPrefetch,
     debtorsSectionPrefetch,
     partnersSectionPrefetch,
+    disclosuresSectionPrefetch,
   ]
 
   return generateStaticProps({

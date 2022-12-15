@@ -519,6 +519,10 @@ fragment PageEntity on PageEntity {
         __typename
         ...ReviewListing
       }
+      ... on ComponentSectionsDisclosuresSection {
+        __typename
+        id
+      }
     }
   }
 }

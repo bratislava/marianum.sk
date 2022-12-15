@@ -111,7 +111,8 @@
         "sections.review-listing",
         "sections.article-news-listing",
         "sections.article-press-listing",
-        "sections.opening-hours-section"
+        "sections.opening-hours-section",
+        "sections.disclosures-section"
       ]
     },
     "sidebar": {
