@@ -59,17 +59,9 @@ const ImportSection = ({ type }: ImportSectionProps) => {
       })
       .then((response) => {
         setSuccess(response);
-        // response.data.message
       })
       .catch((error) => {
         setError(error);
-        // toggleNotification({
-        //   type: "warning",
-        //   message: {
-        //     defaultMessage: ,
-        //   },
-        //   blockTransition: true,
-        // });
       })
       .finally(() => {
         setLoading(false);
