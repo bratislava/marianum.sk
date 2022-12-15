@@ -5,6 +5,7 @@ export type BackgroundColor = 'dark' | 'light'
 
 type SectionContextValue = {
   background: BackgroundColor
+  border: boolean
   isDivider: boolean
   isFirst: boolean
   isLast: boolean
@@ -14,6 +15,7 @@ type SectionContextValue = {
 
 export const sectionContext = createContext<SectionContextValue>({
   background: 'dark',
+  border: false,
   isDivider: false,
   isFirst: false,
   isLast: false,
@@ -92,6 +94,7 @@ const SectionsWrapper = ({
           value={{
             alternateBackground,
             background: getBackground(index),
+            border: getBackground(index) === 'light',
             isDivider: getDivider(index),
             isFirst: index === 0,
             isLast: getLast(index),

@@ -2,12 +2,22 @@
   "collectionName": "components_sections_contact_groups",
   "info": {
     "displayName": "contact group",
-    "icon": "address-card"
+    "icon": "address-card",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "title": {
       "type": "string"
+    },
+    "layout": {
+      "type": "enumeration",
+      "enum": [
+        "default",
+        "condensed"
+      ],
+      "required": true,
+      "default": "default"
     },
     "contacts": {
       "displayName": "contact item",

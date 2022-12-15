@@ -19,7 +19,7 @@ const AccordionGroupSection = ({ section, ...rest }: AccordionGroupSectionProps)
             <RichText content={accordion?.content} coloredTable={false} />
           </AccordionItem>
         ))}
-      </AccordionGroup>{' '}
+      </AccordionGroup>
     </Section>
   )
 }

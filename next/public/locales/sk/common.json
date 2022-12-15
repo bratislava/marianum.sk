@@ -240,6 +240,9 @@
     "contacts": "Kontakty",
     "openingHours": "Otváracie hodiny"
   },
+  "HomePage": {
+    "home": "Domov"
+  },
   "BranchCemeteryPage": {
     "navigate": "Navigovať",
     "openingHours": "Otváracie hodiny",

@@ -142,7 +142,7 @@ export const ApplicationSection = ({ cemeteries, texts }: ApplicationSectionProp
                     </div>
                   ) : null}
                   <div className="md:hidden">
-                    <AccordionItem title={<h3>Sumár</h3>} noBorder>
+                    <AccordionItem title={<h3>Sumár</h3>} noBoxStyles>
                       {summary}
                     </AccordionItem>
                     <div className="my-4 h-0.5 bg-background-beige" />
