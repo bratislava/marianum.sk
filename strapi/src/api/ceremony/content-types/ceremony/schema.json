@@ -45,6 +45,10 @@
     },
     "consentForPrivateFields": {
       "type": "boolean"
+    },
+    "importId": {
+      "type": "string",
+      "private": true
     }
   }
 }

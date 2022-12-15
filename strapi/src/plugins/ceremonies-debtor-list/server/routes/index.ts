@@ -5,12 +5,17 @@ export default {
       {
         method: "PUT",
         path: "/update-debtors",
-        handler: "debtorsCeremoniesController.updateDebtors",
+        handler: "importXlsxController.updateDebtors",
       },
       {
         method: "PUT",
         path: "/update-ceremonies",
-        handler: "debtorsCeremoniesController.updateCeremonies",
+        handler: "importXlsxController.updateCeremonies",
+      },
+      {
+        method: "PUT",
+        path: "/update-disclosures",
+        handler: "importXlsxController.updateDisclosures",
       },
     ],
   },

@@ -23,8 +23,6 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
-const pageSize = 20
-
 const PrivateField = () => <span className="opacity-50">**</span>
 
 const Table = ({
@@ -151,7 +149,7 @@ const DataWrapper = ({
       {dataToDisplay ? (
         <PaginationMeili
           data={dataToDisplay}
-          pageSize={pageSize}
+          pageSize={filters.pageSize}
           selectedPage={filters.page}
           onPageChange={onPageChange}
         />
