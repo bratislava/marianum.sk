@@ -59,6 +59,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     // eslint-disable-next-line sonarjs/cognitive-complexity
   ) => {
     const { t } = useTranslation('common', { keyPrefix: 'Slider' })
+    const [isFocused, setFocused] = useState(false)
 
     const [[page, direction], setPage] = useState([initialPage ?? 0, 0])
     const [isDragging, setDragging] = useState(false)
@@ -95,14 +96,14 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     }, [])
 
     useEffect(() => {
-      if (!autoSwipeDuration || isDragging || pages.length < 2) return () => {}
+      if (!autoSwipeDuration || isDragging || pages.length < 2 || isFocused) return () => {}
 
       const timer = setInterval(() => {
         paginate(1)
       }, autoSwipeDuration)
 
       return () => clearInterval(timer)
-    }, [autoSwipeDuration, paginate, isDragging, pages])
+    }, [autoSwipeDuration, paginate, isDragging, pages, isFocused])
 
     const goToPage = useCallback(
       (goToIndex: number) => {
@@ -136,6 +137,8 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       <div
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
         tabIndex={0}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
         ref={forwardedRef}
         onKeyUp={keyUpHandler}
         role="application"

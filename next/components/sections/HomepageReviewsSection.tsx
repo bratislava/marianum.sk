@@ -21,7 +21,8 @@ const HomepageReviewsSection = ({ section }: HomepageReviewsSectionProps) => {
           loop
           autoplay={{
             delay: 3000,
-            disableOnInteraction: false,
+            disableOnInteraction: true,
+            pauseOnMouseEnter: true,
           }}
           allowTouchMove={(section?.reviews?.data?.length ?? 0) > 4}
           breakpoints={{
