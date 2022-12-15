@@ -145,7 +145,7 @@ const MapSection = ({ section }: MapSectionProps) => {
           )}
         >
           {/* filtering */}
-          <div className="flex flex-col gap-3 border-b border-border  p-5">
+          <div className="flex flex-col gap-3 border-b border-border p-5">
             <Search value={searchQuery} onSearchQueryChange={setSearchQuery} />
             <div className="flex gap-2">
               <TagToggle isSelected={isCivilChecked} onChange={setCivilChecked}>

@@ -123,7 +123,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
           <AccordionGroup>
             {footerColumns.map(({ title, links }, colIndex) => (
               // eslint-disable-next-line react/no-array-index-key
-              <AccordionItem key={colIndex} noBorder title={title}>
+              <AccordionItem key={colIndex} noBoxStyles title={title}>
                 <div className="flex flex-col gap-4">
                   {links?.map((link, linkIndex) => {
                     const fullPath = getFullPath(link?.page?.data) || link?.url || ''

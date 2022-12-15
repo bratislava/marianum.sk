@@ -66,7 +66,6 @@ const Articles = ({
               date={publishedAt}
               linkHref={getFullPathMeili('article', article) ?? ''}
               category={category}
-              border
             />
           )
         })}

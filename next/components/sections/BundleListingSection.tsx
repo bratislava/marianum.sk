@@ -62,7 +62,6 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
                           .filter(isDefined) ?? []
                       }
                       linkHref={getFullPath(bundle) ?? ''}
-                      border
                     />
                   )
                 })}

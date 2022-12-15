@@ -1,5 +1,5 @@
 import Avatar from '@components/atoms/Avatar'
-import CardBox from '@components/atoms/Card/CardBox'
+import CardBox, { CardBoxProps } from '@components/atoms/Card/CardBox'
 import CardContent from '@components/atoms/Card/CardContent'
 import FormatDate from '@components/atoms/FormatDate'
 import ReviewStars from '@components/atoms/ReviewStars'
@@ -9,11 +9,11 @@ type ReviewCardProps = {
   author: string
   date: Date
   description: string
-  border?: boolean
-}
-const ReviewCard = ({ rating, author, date, description, border = false }: ReviewCardProps) => {
+} & CardBoxProps
+
+const ReviewCard = ({ rating, author, date, description, ...rest }: ReviewCardProps) => {
   return (
-    <CardBox hover={false} border={border} className="h-[228px]">
+    <CardBox {...rest} hover={false} className="h-[228px]">
       <CardContent>
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between gap-4">
