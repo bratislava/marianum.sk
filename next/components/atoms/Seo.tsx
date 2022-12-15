@@ -19,7 +19,7 @@ const Seo = ({ title, seo, ogType = 'website', description, image }: SeoProps) =
 
   return (
     <Head>
-      <title>{title} – Marianum</title>
+      <title>{`${title || ''} – Marianum`}</title>
 
       <meta name="title" content={`${seo?.metaTitle || title || ''} – Marianum`} />
       <meta name="description" content={seo?.metaDescription || description || ''} />
