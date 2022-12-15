@@ -44,6 +44,10 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::cemetery.cemetery"
+    },
+    "importId": {
+      "type": "string",
+      "private": true
     }
   }
 }

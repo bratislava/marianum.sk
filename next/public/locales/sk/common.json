@@ -313,5 +313,32 @@
         }
       }
     }
+  },
+  "DisclosuresSection": {
+    "th": {
+      "type": "Typ dokumentu",
+      "internalInvoiceNumber": "Interné číslo faktúry",
+      "invoiceNumberOrVariableSymbol": "Číslo faktúry/variabilný symbol",
+      "orderNumber": "Číslo objednávky",
+      "contractNumber": "Číslo zmluvy",
+      "description": "Popis fakturovaného plnenia",
+      "supplierName": "Dodávateľ: meno + priezvisko/obchodný názov",
+      "supplierAddress": "Dodávateľ: adresa/sídlo",
+      "supplierRegistrationNumber": "Dodávateľ: IČO",
+      "dateOfOrder": "Dátum vyhotovenia objednávky",
+      "totalValue": "Celková hodnota objednaného plnenia",
+      "invoicedAmount": "Fakturovaná suma s DPH",
+      "dateOfDelivery": "Dátum doručenia faktúry",
+      "signedBy": "Za objednávateľa podpísal meno + priezvisko",
+      "files": "Súbory",
+      "additionalData": "Ďaľšie údaje"
+    },
+    "types": {
+      "all": "Všetky",
+      "zmluvy": "Zmluvy",
+      "faktury": "Faktúry",
+      "objednavky": "Objednávky"
+    },
+    "noRecords": "Žiadne záznamy"
   }
 }

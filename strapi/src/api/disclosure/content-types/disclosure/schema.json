@@ -1,0 +1,81 @@
+{
+  "kind": "collectionType",
+  "collectionName": "disclosures",
+  "info": {
+    "singularName": "disclosure",
+    "pluralName": "disclosures",
+    "displayName": "Zverejňovanie",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Zmluva",
+        "Faktúra",
+        "Objednávka"
+      ]
+    },
+    "internalInvoiceNumber": {
+      "type": "string"
+    },
+    "invoiceNumberOrVariableSymbol": {
+      "type": "string"
+    },
+    "orderNumber": {
+      "type": "string"
+    },
+    "contractNumber": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "supplierName": {
+      "type": "string"
+    },
+    "supplierAddress": {
+      "type": "text"
+    },
+    "supplierRegistrationNumber": {
+      "type": "string"
+    },
+    "dateOfOrder": {
+      "type": "string"
+    },
+    "totalValue": {
+      "type": "string"
+    },
+    "invoicedAmount": {
+      "type": "string"
+    },
+    "dateOfDelivery": {
+      "type": "string"
+    },
+    "signedBy": {
+      "type": "string"
+    },
+    "files": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "additionalData": {
+      "type": "json"
+    },
+    "importId": {
+      "type": "string",
+      "private": true
+    }
+  }
+}
