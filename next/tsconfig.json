@@ -33,6 +33,5 @@
     "**/*.tsx",
     "next-i18next.config.js"
   ],
-  "exclude": ["node_modules"],
-  "types": ["@types/gtag.js"]
+  "exclude": ["node_modules"]
 }

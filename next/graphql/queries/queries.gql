@@ -175,6 +175,10 @@ query HomePage($locale: I18NLocaleCode) {
             __typename
             ...ManualListing
           }
+          ... on ComponentSectionsArticlesManualListing {
+            __typename
+            ...ArticlesManualListing
+          }
           ... on ComponentSectionsNewsListing {
             __typename
             ...NewsListing

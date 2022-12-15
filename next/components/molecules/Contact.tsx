@@ -14,13 +14,13 @@ const Contact = ({ contact, className }: ContactProps) => {
 
   return (
     <div className={className}>
-      <div className="flex gap-4 pb-3">
+      <div className="flex flex-wrap gap-x-4 gap-y-2 pb-3">
         <div className="font-bold text-foreground-heading">{title}</div>
         {position && (
-          <>
-            <div>&bull;</div>
-            <div>{position}</div>
-          </>
+          <div className="flex gap-4">
+            <span>&bull;</span>
+            <span>{position}</span>
+          </div>
         )}
       </div>
       <div className="flex gap-6">

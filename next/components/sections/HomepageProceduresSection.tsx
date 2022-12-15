@@ -1,13 +1,14 @@
 import MLink from '@components/atoms/MLink'
 import TabItem from '@components/atoms/Tabs/TabItem'
 import Tabs from '@components/atoms/Tabs/Tabs'
+import { sectionContext } from '@components/layouts/SectionsWrapper'
 import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section, { SectionProps } from '@components/molecules/Section'
 import { ProcedureFragment, ProceduresShortSectionFragment } from '@graphql'
 import { isDefined } from '@utils/isDefined'
 import { useTailwindBreakpoint } from '@utils/useTailwindBreakpoint'
 import cx from 'classnames'
-import { useMemo } from 'react'
+import { useContext, useMemo } from 'react'
 
 type HomepageProceduresProps = Pick<SectionProps, 'background'> & {
   outsideMedicalFacility: ProcedureFragment | null | undefined
@@ -24,6 +25,7 @@ const HomepageProceduresSection = ({
   const { getFullPath } = useGetFullPath()
   const { isNull } = useTailwindBreakpoint()
   const isMobile = useMemo(() => isNull, [isNull])
+  const { border } = useContext(sectionContext)
 
   const { showMoreButton, title } = section
 
@@ -61,7 +63,12 @@ const HomepageProceduresSection = ({
                   isMobile ? (
                     <li
                       key={step.title}
-                      className="flex w-[calc(100vw-6rem)] shrink-0 flex-col items-center gap-2 bg-white px-6 pt-4 pb-8"
+                      className={cx(
+                        'flex w-[calc(100vw-6rem)] shrink-0 flex-col items-center gap-2 bg-white px-6 pt-4 pb-8',
+                        {
+                          'border border-border': border,
+                        },
+                      )}
                     >
                       <div className="text-[40px] font-bold text-primary">{index + 1}</div>
                       <div className="flex flex-col items-center gap-4">
@@ -70,7 +77,12 @@ const HomepageProceduresSection = ({
                       </div>
                     </li>
                   ) : (
-                    <li key={step.title} className="flex items-center bg-white p-6">
+                    <li
+                      key={step.title}
+                      className={cx('flex items-center bg-white p-6', {
+                        'border border-border': border,
+                      })}
+                    >
                       <div className="pr-6 text-h1 font-bold text-primary">{index + 1}</div>
                       <div className="flex flex-col">
                         <h4 className="w-fit text-left text-h5 text-foreground-heading">

@@ -69,7 +69,6 @@ const PartnersSection = ({
                 title={partner.title}
                 linkHref={partner.link}
                 image={partner.logo.data?.attributes}
-                border
               />
             ))}
           </div>
@@ -82,7 +81,6 @@ const PartnersSection = ({
                 title={partner.title}
                 linkHref={partner.link}
                 titleId={getAriaLabelId(id, index)}
-                border
               />
             ))}
           </div>
