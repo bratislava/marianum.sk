@@ -1,5 +1,4 @@
 import Loading from '@components/atoms/Loading'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import ArticleGroup from '@components/sections/ArticleGroup'
 import { getNewsListingSwrKey, newsListingFetcher } from '@services/fetchers/newsListingFetcher'
 import { isDefined } from '@utils/isDefined'
