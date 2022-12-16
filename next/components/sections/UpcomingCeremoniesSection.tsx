@@ -64,6 +64,7 @@ const Table = () => {
         )
 
         return {
+          id: ceremony.id,
           name: ceremony.attributes?.name,
           consentForPrivateFields: ceremony.attributes?.consentForPrivateFields,
           cemetery,
@@ -102,9 +103,9 @@ const Table = () => {
         </tr>
       </thead>
       <tbody>
-        {ceremonies?.ceremonies.map((ceremony, index) => (
+        {ceremonies?.ceremonies.map((ceremony) => (
           // eslint-disable-next-line react/no-array-index-key
-          <tr className="group border-t border-border first:border-t-0" key={index}>
+          <tr className="group border-t border-border first:border-t-0" key={ceremony.id}>
             <td className="py-4 group-last:pb-0">
               {ceremony.consentForPrivateFields ? (
                 ceremony.name

@@ -82,9 +82,8 @@ const Table = ({
             </tr>
           </thead>
           <tbody>
-            {ceremonies?.map((ceremony, index) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <tr key={index}>
+            {ceremonies?.map((ceremony) => (
+              <tr key={ceremony.id}>
                 <td>
                   {ceremony.dateTime && (
                     <FormatDate value={ceremony.dateTime} format="ceremoniesArchive" />
