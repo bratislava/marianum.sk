@@ -155,9 +155,15 @@
   }
 }
 
-/* React menu width fix */
+/* React menu override style */
 .szh-menu {
   width: 100% !important;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.szh-menu-container {
+  width: 100%;
 }
 
 /* React menu anumations */
