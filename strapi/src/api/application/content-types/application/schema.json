@@ -4,7 +4,8 @@
   "info": {
     "singularName": "application",
     "pluralName": "applications",
-    "displayName": "Application"
+    "displayName": "Žiadosti",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
