@@ -38,6 +38,7 @@ export const ApplicationSection = ({ cemeteries, texts }: ApplicationSectionProp
 
   const handleContinue = <Step extends ApplicationTypes.Step>(
     value: ApplicationTypes.StepModelMap[Step],
+    captchaToken?: string,
   ) => {
     const newApplication = fixApplication({ ...application, [currentStep]: value }, cemeteries)
     setApplication(newApplication)
@@ -47,8 +48,8 @@ export const ApplicationSection = ({ cemeteries, texts }: ApplicationSectionProp
     const currentStepIndex = listOfSteps.indexOf(currentStep)
 
     if (currentStepIndex === listOfSteps.length - 1) {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      send(newApplication as ApplicationTypes.Application)
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises,@typescript-eslint/no-non-null-assertion
+      send(newApplication as ApplicationTypes.Application, captchaToken!)
     } else {
       const nextStep = listOfSteps[currentStepIndex + 1]
       setCurrentStep(nextStep)
@@ -142,7 +143,7 @@ export const ApplicationSection = ({ cemeteries, texts }: ApplicationSectionProp
                     </div>
                   ) : null}
                   <div className="md:hidden">
-                    <AccordionItem title={<h3>Sumár</h3>} noBoxStyles>
+                    <AccordionItem title="Sumár" noBoxStyles>
                       {summary}
                     </AccordionItem>
                     <div className="my-4 h-0.5 bg-background-beige" />
