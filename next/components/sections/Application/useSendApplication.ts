@@ -8,15 +8,14 @@ export const useSendApplication = () => {
   const [sent, setSent] = useState(false)
   const [error, setError] = useState(false)
 
-  const send = async (application: ApplicationTypes.Application) => {
+  const send = async (application: ApplicationTypes.Application, captchaToken: string) => {
     if (sending) {
       return
     }
     setSending(true)
     setError(false)
     try {
-      // TODO: Captcha
-      await client.CreateApplication({ data: application, captchaToken: '' })
+      await client.CreateApplication({ data: application, captchaToken })
       setSending(false)
       setSent(true)
     } catch (error_) {
