@@ -30,7 +30,7 @@ export const ApplicationSection = ({ cemeteries, texts }: ApplicationSectionProp
   const [application, setApplication] = useState<DeepPartial<ApplicationTypes.Application>>({})
   const [currentStep, setCurrentStep] = useState(ApplicationTypes.Step.Step1)
   const editingStep = useRef<DeepPartial<ApplicationTypes.StepModel>>()
-  const { sent, sending, error: sendError, send } = useSendApplication()
+  const { sent, sending, error: sendError, send, captchaRefreshDate } = useSendApplication()
 
   useLeavePageConfirm(!sent && (Boolean(application.step1) || editingStep.current != null))
 
@@ -208,6 +208,7 @@ export const ApplicationSection = ({ cemeteries, texts }: ApplicationSectionProp
                   onFormChange={onFormChange}
                   texts={texts}
                   sending={sending}
+                  captchaRefreshDate={captchaRefreshDate}
                 />
               ) : null}
             </div>

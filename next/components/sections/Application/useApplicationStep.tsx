@@ -40,14 +40,36 @@ export const ApplicationStepWrapper = <T extends FieldValues>({
   sendStep = false,
   sending,
   children,
+  captchaRefreshDate,
 }: PropsWithChildren<{
   handleSubmit: UseFormHandleSubmit<T>
   onContinue: (values: T, captchaToken?: string) => void
   sendStep?: boolean
   sending?: boolean
+  captchaRefreshDate?: number
 }>) => {
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
 
+  const turnstileRefreshing = useMemo(
+    () => (
+      <Turnstile
+        sitekey={process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY as string}
+        onVerify={(token) => setTurnstileToken(token)}
+        onError={() => setTurnstileToken(null)}
+        onTimeout={() => setTurnstileToken(null)}
+        onExpire={() => setTurnstileToken(null)}
+        className="mb-2"
+      />
+    ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [captchaRefreshDate],
+  )
+
+  console.log(
+    captchaRefreshDate,
+    turnstileRefreshing,
+    process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY,
+  )
   return (
     <form
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -62,14 +84,7 @@ export const ApplicationStepWrapper = <T extends FieldValues>({
 
         {sendStep ? (
           <>
-            <Turnstile
-              sitekey={process.env.CLOUDFLARE_TURNSTILE_SITE_KEY as string}
-              onVerify={(token) => setTurnstileToken(token)}
-              onError={() => setTurnstileToken(null)}
-              onTimeout={() => setTurnstileToken(null)}
-              onExpire={() => setTurnstileToken(null)}
-              className="mb-2"
-            />
+            {turnstileRefreshing}
 
             <Button className="w-full" type="submit" disabled={sending || !turnstileToken}>
               <div className="flex items-center gap-2">

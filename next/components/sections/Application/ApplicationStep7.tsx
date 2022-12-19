@@ -19,7 +19,10 @@ const ApplicationStep7 = ({
   onContinue,
   onFormChange,
   sending,
-}: ApplicationStepComponentProps<ApplicationTypes.Step.Step7>) => {
+  captchaRefreshDate,
+}: ApplicationStepComponentProps<ApplicationTypes.Step.Step7> & {
+  captchaRefreshDate: number
+}) => {
   const { register, control, formState, handleSubmit } =
     useApplicationStep<ApplicationTypes.Step7Model>({
       yupShape: step7YupShape,
@@ -34,6 +37,7 @@ const ApplicationStep7 = ({
       onContinue={onContinue}
       sending={sending}
       sendStep
+      captchaRefreshDate={captchaRefreshDate}
     >
       <h3 className="mb-3 md:mb-6">Poznámka</h3>
       <TextField area {...register('poznamka')} />
