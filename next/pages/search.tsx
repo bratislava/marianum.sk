@@ -166,7 +166,7 @@ const SearchPage = ({ navigation, general }: SearchPageProps) => {
   return (
     <>
       <Head>
-        <title>{t('pageTitle')}</title>
+        <title>{`${t('pageTitle') as string} – Marianum`}</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <PageWrapper navigation={navigation} general={general}>

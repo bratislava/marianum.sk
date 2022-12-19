@@ -4,7 +4,7 @@
   "info": {
     "singularName": "home-page",
     "pluralName": "home-pages",
-    "displayName": "Home page",
+    "displayName": "Homepage",
     "description": ""
   },
   "options": {
@@ -41,7 +41,8 @@
         "sections.news-listing",
         "sections.procedures-short-section",
         "sections.homepage-reviews-section",
-        "sections.cta-section"
+        "sections.cta-section",
+        "sections.articles-manual-listing"
       ]
     },
     "seo": {

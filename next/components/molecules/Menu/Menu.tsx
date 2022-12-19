@@ -49,24 +49,20 @@ const Menu = ({ items, title, path }: MenuProps) => {
         </div>
       </MLink>
 
-      <ReactControlledMenu
-        className="py-3"
-        // For an unknown reason default `szh-menu` classes are missing in production.
-        // TODO: Try to update to a newer version.
-        menuClassName="szh-menu"
-        onClose={() => toggleMenu(false)}
-        {...menuProps}
-      >
-        <div className="bg-white py-3 text-foreground shadow-card">
-          {items?.map(
-            (item) =>
-              item &&
-              (item.items?.length ? (
-                <SubMenu path={item.path} key={item.id} title={item.title} items={item.items} />
-              ) : (
-                <MenuLeaf path={item.path ?? ''} title={item.title} key={item.id} />
-              )),
-          )}
+      <ReactControlledMenu className="py-3" onClose={() => toggleMenu(false)} {...menuProps}>
+        {/* For some reason `offsetY` doesn't work on the element above. */}
+        <div className="mt-3">
+          <div className="bg-white py-3 text-foreground shadow-card">
+            {items?.map(
+              (item) =>
+                item &&
+                (item.items?.length ? (
+                  <SubMenu path={item.path} key={item.id} title={item.title} items={item.items} />
+                ) : (
+                  <MenuLeaf path={item.path ?? ''} title={item.title} key={item.id} />
+                )),
+            )}
+          </div>
         </div>
       </ReactControlledMenu>
     </div>

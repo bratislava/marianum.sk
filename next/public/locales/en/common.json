@@ -240,6 +240,9 @@
     "contacts": "Contacts",
     "openingHours": "Opening hours"
   },
+  "HomePage": {
+    "home": "Home"
+  },
   "BranchCemeteryPage": {
     "navigate": "Navigate",
     "openingHours": "Opening hours",
@@ -247,7 +250,7 @@
     "aboutBranch": "About branch"
   },
   "SearchPage": {
-    "pageTitle": "Search - marianum.sk",
+    "pageTitle": "Search",
     "searchResults": "Search results",
     "searchPlaceholder": "Search",
     "resultsFound_zero": "No results found",
@@ -310,5 +313,32 @@
         }
       }
     }
+  },
+  "DisclosuresSection": {
+    "th": {
+      "type": "",
+      "internalInvoiceNumber": "",
+      "invoiceNumberOrVariableSymbol": "",
+      "orderNumber": "",
+      "contractNumber": "",
+      "description": "",
+      "supplierName": "",
+      "supplierAddress": "",
+      "supplierRegistrationNumber": "",
+      "dateOfOrder": "",
+      "totalValue": "",
+      "invoicedAmount": "",
+      "dateOfDelivery": "",
+      "signedBy": "",
+      "files": "",
+      "additionalData": ""
+    },
+    "types": {
+      "all": "",
+      "zmluvy": "",
+      "faktury": "",
+      "objednavky": ""
+    },
+    "noRecords": ""
   }
 }

@@ -20,9 +20,6 @@ const SubMenu = ({ title, items, path }: SubMenuProps) => {
   return (
     <ReactSubMenu
       className="outline-none"
-      // For an unknown reason default `szh-menu` classes are missing in production.
-      // TODO: Try to update to a newer version.
-      menuClassName="szh-menu"
       label={({ open, hover }) => (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div onClick={handleClick} className="-mx-3 px-3 outline-none">

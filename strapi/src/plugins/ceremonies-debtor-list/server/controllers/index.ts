@@ -4,9 +4,11 @@ import { getCemeteriesSlugIdMap } from "../helpers/get-cemeteries-slug-id-map";
 import { parseCeremoniesXlsx } from "../helpers/parse-ceremonies-xlsx";
 import moment from "moment/moment";
 import "moment-timezone";
+import { parseDisclosuresXlsx } from "../helpers/parse-disclosures-xlsx";
+import { v4 as uuid } from "uuid";
 
 export default {
-  debtorsCeremoniesController: ({ strapi }: { strapi: Strapi }) => ({
+  importXlsxController: ({ strapi }: { strapi: Strapi }) => ({
     async updateDebtors(ctx) {
       ctx.request.socket.setTimeout(120000);
 
@@ -27,7 +29,12 @@ export default {
           "debtors"
         );
 
-        const parsedDebtors = parseDebtorsXlsx(file.path, cemeteriesSlugIdMap);
+        const importId = uuid();
+        const parsedDebtors = parseDebtorsXlsx(
+          file.path,
+          cemeteriesSlugIdMap,
+          importId
+        );
 
         // All the debtors are replaced when a new XLSX is uploaded.
         const deleteDebtors = async () => {
@@ -63,7 +70,10 @@ export default {
           throw createDebtorsError;
         }
 
-        ctx.body = `Nahraných ${parsedDebtors.length} dlžníkov.`;
+        ctx.body = {
+          message: `Nahraných ${parsedDebtors.length} dlžníkov.`,
+          importId,
+        };
       } catch (e) {
         ctx.status = 400;
         ctx.body = {
@@ -91,9 +101,11 @@ export default {
           "ceremonies"
         );
 
+        const importId = uuid();
         const parsedCeremonies = parseCeremoniesXlsx(
           file.path,
-          cemeteriesSlugIdMap
+          cemeteriesSlugIdMap,
+          importId
         );
 
         // Only ceremonies in the days that are present in XLSX are deleted and replaced by new one. All the others are
@@ -122,24 +134,9 @@ export default {
           };
         });
 
-        const olderThanThreeDays = moment
-          .tz("Europe/Bratislava")
-          .subtract("4", "days")
-          .endOf("day");
-
-        // Marianum says they cannot show ceremonies older than 3 days, because they might not have consent for it.
-        // Filtering them while querying is not enough as it would be possible to query them with custom query.
-        // It's not worth developing a custom scheduled action that does this, so when new entries are uploaded, the
-        // ones older than 3 days are removed by this filter.
-        const deleteFilterOlderThanThreeDays = {
-          dateTime: {
-            $lte: olderThanThreeDays.toISOString(),
-          },
-        };
-
         const deleteCeremonies = async () => {
           await strapi.db.query("api::ceremony.ceremony").deleteMany({
-            where: { $or: [...deleteFilters, deleteFilterOlderThanThreeDays] },
+            where: { $or: deleteFilters },
           });
           // `deleteMany` doesn't trigger Meilisearch hooks, so the old ceremonies stay in its database,
           // also having Meilisearch on while adding ceremonies triggers the update content hook after
@@ -178,15 +175,54 @@ export default {
         const successMessage = parsedCeremonies
           .map(({ day, data }) => `${day} (${data.length})`)
           .join(", ");
-        ctx.body = `Nahraných ${successMessage} obradov.\nZáznamy staršie ako ${olderThanThreeDays.format(
-          "DD.MM.YYYY"
-        )} (vrátane) boli vymazané.`;
+        ctx.body = {
+          message: `Nahraných ${successMessage} obradov.`,
+          importId,
+        };
       } catch (e) {
         ctx.status = 400;
         ctx.body = {
           message: e.toString(),
         };
         return;
+      }
+    },
+    async updateDisclosures(ctx) {
+      ctx.request.socket.setTimeout(120000);
+
+      const file = ctx.request.files?.file;
+      if (!file) {
+        ctx.status = 400;
+        ctx.body = {
+          message: "Chýba súbor.",
+        };
+        return;
+      }
+
+      const meilisearch = strapi.plugin("meilisearch").service("meilisearch");
+
+      try {
+        const importId = uuid();
+        const parsedDisclosures = parseDisclosuresXlsx(file.path, importId);
+
+        await strapi.db
+          .query("api::disclosure.disclosure")
+          .createMany({ data: parsedDisclosures });
+
+        // `createMany` doesn't work with Meilisearch, so the update must be triggered manually.
+        await meilisearch.updateContentTypeInMeiliSearch({
+          contentType: "api::disclosure.disclosure",
+        });
+
+        ctx.body = {
+          message: `Nahraných ${parsedDisclosures.length} zverejňovaní.`,
+          importId,
+        };
+      } catch (e) {
+        ctx.status = 400;
+        ctx.body = {
+          message: e.toString(),
+        };
       }
     },
   }),

@@ -76,9 +76,8 @@ const Table = ({
           </tr>
         </thead>
         <tbody>
-          {debtors?.map((debtor, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <tr key={index}>
+          {debtors?.map((debtor) => (
+            <tr key={debtor.id}>
               <td>{debtor.cemetery}</td>
               <td>{debtor.graveSector}</td>
               <td>{debtor.graveNumber}</td>

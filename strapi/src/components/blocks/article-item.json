@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_blocks_article_items",
+  "info": {
+    "displayName": "article item",
+    "icon": "newspaper"
+  },
+  "options": {},
+  "attributes": {
+    "article": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::article.article"
+    }
+  }
+}

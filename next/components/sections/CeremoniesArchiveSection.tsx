@@ -23,8 +23,6 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
-const pageSize = 20
-
 const PrivateField = () => <span className="opacity-50">**</span>
 
 const Table = ({
@@ -84,9 +82,8 @@ const Table = ({
             </tr>
           </thead>
           <tbody>
-            {ceremonies?.map((ceremony, index) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <tr key={index}>
+            {ceremonies?.map((ceremony) => (
+              <tr key={ceremony.id}>
                 <td>
                   {ceremony.dateTime && (
                     <FormatDate value={ceremony.dateTime} format="ceremoniesArchive" />
@@ -151,7 +148,7 @@ const DataWrapper = ({
       {dataToDisplay ? (
         <PaginationMeili
           data={dataToDisplay}
-          pageSize={pageSize}
+          pageSize={filters.pageSize}
           selectedPage={filters.page}
           onPageChange={onPageChange}
         />

@@ -13,7 +13,6 @@ import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } f
 import { client } from '@services/graphql/gqlClient'
 import { isDefined } from '@utils/isDefined'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import Head from 'next/head'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { ParsedUrlQuery } from 'node:querystring'
 
@@ -33,9 +32,6 @@ const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
   return (
     <>
       <Seo seo={seo} title={title} />
-      <Head>
-        <title>{title}</title>
-      </Head>
 
       <BranchCemeteryLayout entity={entity} navigation={navigation} general={general}>
         <div className="flex flex-col gap-3 md:gap-4">

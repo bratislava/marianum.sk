@@ -94,7 +94,13 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
       const dateTimeZoned = parseAbsolute(ceremony.attributes?.dateTime, bratislavaTimezone)
       const calendarDate = toCalendarDate(dateTimeZoned)
 
-      return { ...ceremony.attributes, calendarDate, dateTime: dateTimeZoned.toDate(), cemetery }
+      return {
+        ...ceremony.attributes,
+        calendarDate,
+        dateTime: dateTimeZoned.toDate(),
+        cemetery,
+        id: ceremony.id,
+      }
     })
 
     // eslint-disable-next-line lodash/prop-shorthand
@@ -132,9 +138,9 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
                 </tr>
               </thead>
               <tbody>
-                {list?.map((ceremony, ceremonyIndex) => (
+                {list?.map((ceremony) => (
                   // eslint-disable-next-line react/no-array-index-key
-                  <tr key={ceremonyIndex}>
+                  <tr key={ceremony.id}>
                     <td>
                       {ceremony.dateTime && (
                         <FormatDate value={ceremony.dateTime} format="ceremoniesTime" />

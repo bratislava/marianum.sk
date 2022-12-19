@@ -11,7 +11,6 @@ import SectionBoxed from '@components/molecules/SectionBoxed'
 import { CemeteryEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import { client } from '@services/graphql/gqlClient'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import Head from 'next/head'
 import { SSRConfig, useTranslation } from 'next-i18next'
 import { ParsedUrlQuery } from 'node:querystring'
 
@@ -30,9 +29,6 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
   return (
     <>
       <Seo seo={seo} title={title} />
-      <Head>
-        <title>{title}</title>
-      </Head>
 
       <BranchCemeteryLayout entity={entity} navigation={navigation} general={general}>
         <div className="flex flex-col gap-3 md:gap-4">

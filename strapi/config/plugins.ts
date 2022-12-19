@@ -50,7 +50,7 @@ const searchIndexSettings = {
     // Article
     "article.publishedAtTimestamp",
     // Document
-    "document.publishedAtTimestamp",
+    "document.updatedAtTimestamp",
   ],
   pagination: {
     // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
@@ -174,6 +174,23 @@ export default {
           };
         },
       },
+      disclosure: {
+        settings: {
+          filterableAttributes: ["type"],
+          searchableAttributes: [
+            "internalInvoiceNumber",
+            "invoiceNumberOrVariableSymbol",
+            "orderNumber",
+            "contractNumber",
+            "description",
+            "supplierName",
+          ],
+          pagination: {
+            // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
+            maxTotalHits: 1000000,
+          },
+        },
+      },
       document: {
         indexName: "search_index",
         entriesQuery: {
@@ -185,8 +202,8 @@ export default {
             ...entry,
             // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
             // use (number) filters.
-            publishedAtTimestamp: entry.publishedAt
-              ? new Date(entry.publishedAt).getTime()
+            updatedAtTimestamp: entry.updatedAt
+              ? new Date(entry.updatedAt).getTime()
               : undefined,
           }),
       },

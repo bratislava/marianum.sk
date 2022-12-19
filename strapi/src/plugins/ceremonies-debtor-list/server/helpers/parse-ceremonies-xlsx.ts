@@ -6,7 +6,8 @@ import assert from "assert";
 
 export const parseCeremoniesXlsx = (
   filePath: string,
-  cemeteriesSlugIdMap: Record<string, number>
+  cemeteriesSlugIdMap: Record<string, number>,
+  importId: string
 ) => {
   const workBook = readFile(filePath);
 
@@ -112,6 +113,7 @@ export const parseCeremoniesXlsx = (
           officiantProvidedBy,
           cemetery: cemeteryId,
           consentForPrivateFields,
+          importId,
         };
       });
 

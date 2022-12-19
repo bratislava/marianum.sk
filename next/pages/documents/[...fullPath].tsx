@@ -7,7 +7,6 @@ import {
 import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import { client } from '@services/graphql/gqlClient'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
 import { ParsedUrlQuery } from 'node:querystring'
 
@@ -23,9 +22,6 @@ const DocumentPage = ({ navigation, entity, general }: DocumentPageProps) => {
   return (
     <>
       <Seo seo={seo} title={title} description={description} />
-      <Head>
-        <title>{title}</title>
-      </Head>
 
       <DocumentLayout document={entity} navigation={navigation} general={general} />
     </>

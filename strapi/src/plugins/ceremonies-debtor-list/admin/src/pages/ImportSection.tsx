@@ -1,26 +1,45 @@
 import React, { useRef, useState } from "react";
 import axiosInstance from "../utils/axiosInstance";
-import { Box, Button, Loader, Stack, Typography } from "@strapi/design-system";
-import { useNotification } from "@strapi/helper-plugin";
+import {
+  Alert,
+  Box,
+  Button,
+  Link,
+  Loader,
+  Stack,
+  Typography,
+} from "@strapi/design-system";
 
 const updateUrls = {
   debtors: "/ceremonies-debtor-list/update-debtors",
   ceremonies: "/ceremonies-debtor-list/update-ceremonies",
+  disclosures: "/ceremonies-debtor-list/update-disclosures",
 };
 
 const headerTexts = {
   debtors: "Import dlžníkov",
   ceremonies: "Import obradov",
+  disclosures: "Import zverejňovania",
+};
+
+const importLinks = {
+  debtors: (importId: string) =>
+    `/content-manager/collectionType/api::debtor.debtor?filters[$and][0][importId][$eq]=${importId}`,
+  ceremonies: (importId: string) =>
+    `/content-manager/collectionType/api::ceremony.ceremony?filters[$and][0][importId][$eq]=${importId}`,
+  disclosures: (importId: string) =>
+    `/content-manager/collectionType/api::disclosure.disclosure?filters[$and][0][importId][$eq]=${importId}`,
 };
 
 type ImportSectionProps = {
-  type: "debtors" | "ceremonies";
+  type: "debtors" | "ceremonies" | "disclosures";
 };
 
 const ImportSection = ({ type }: ImportSectionProps) => {
-  const toggleNotification = useNotification();
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleSubmit = () => {
     const file = inputFileRef.current.files[0];
@@ -29,6 +48,9 @@ const ImportSection = ({ type }: ImportSectionProps) => {
     formData.append("file", file);
 
     setLoading(true);
+    setSuccess(null);
+    setError(null);
+
     axiosInstance
       .put(updateUrls[type], formData, {
         headers: {
@@ -36,19 +58,10 @@ const ImportSection = ({ type }: ImportSectionProps) => {
         },
       })
       .then((response) => {
-        toggleNotification({
-          type: "success",
-          message: { defaultMessage: response.data },
-        });
+        setSuccess(response);
       })
       .catch((error) => {
-        toggleNotification({
-          type: "warning",
-          message: {
-            defaultMessage: error?.response?.data?.message ?? error.toString(),
-          },
-          blockTransition: true,
-        });
+        setError(error);
       })
       .finally(() => {
         setLoading(false);
@@ -70,6 +83,31 @@ const ImportSection = ({ type }: ImportSectionProps) => {
           {headerTexts[type]}
         </Typography>
         {loading && <Loader />}
+        {success && (
+          <Alert
+            title="Nahrávanie úspešné"
+            action={
+              success.data?.importId && (
+                <Link to={importLinks[type](success.data.importId)}>
+                  Zobraziť nahrané data
+                </Link>
+              )
+            }
+            variant="success"
+            onClose={() => setSuccess(null)}
+          >
+            {success.data.message}
+          </Alert>
+        )}
+        {error && (
+          <Alert
+            title="Nahrávanie neúspešné"
+            variant="danger"
+            onClose={() => setError(null)}
+          >
+            {error?.response?.data?.message ?? error.toString()}
+          </Alert>
+        )}
         <input type="file" ref={inputFileRef} />
         <div>
           <Button onClick={handleSubmit} disabled={loading}>

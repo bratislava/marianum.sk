@@ -4,7 +4,8 @@ import * as assert from "assert";
 
 export const parseDebtorsXlsx = (
   filePath: string,
-  cemeteriesSlugIdMap: Record<string, number>
+  cemeteriesSlugIdMap: Record<string, number>,
+  importId: string
 ) => {
   const workBook = readFile(filePath);
   // Only the first sheet is used.
@@ -68,6 +69,7 @@ export const parseDebtorsXlsx = (
         birthDate,
         deathDate,
         cemetery: cemeteryId,
+        importId,
       };
     });
 };
