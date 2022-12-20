@@ -1,3 +1,5 @@
+import { DownloadIcon } from '@assets/icons'
+import IconButton from '@components/atoms/IconButton'
 import Loading from '@components/atoms/Loading'
 import LoadingOverlay from '@components/atoms/LoadingOverlay'
 import Select from '@components/atoms/Select'
@@ -13,6 +15,7 @@ import {
   getDisclosuresSectionSwrKey,
 } from '@services/fetchers/disclosuresSectionFetcher'
 import { DisclosureMeili } from '@services/meili/meiliTypes'
+import { useDownloadAriaLabel } from '@utils/useDownloadAriaLabel'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
 import { SearchResponse } from 'meilisearch'
@@ -47,6 +50,8 @@ const Table = ({
   filters: DisclosuresSectionFilters
 }) => {
   const { t } = useTranslation('common', { keyPrefix: 'DisclosuresSection' })
+
+  const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
   const theadRef = useRef<HTMLTableSectionElement>(null)
   useScrollToViewIfDataChange(data, filters, theadRef)
@@ -96,7 +101,21 @@ const Table = ({
               <td>{disclosure.invoicedAmount}</td>
               <td>{disclosure.dateOfDelivery}</td>
               <td>{disclosure.signedBy}</td>
-              {hasFiles && <td>{/* TODO: files */}</td>}
+              {hasFiles && (
+                <td>
+                  {disclosure.files?.map((file) => (
+                    <IconButton
+                      variant="white"
+                      className="pointer-events-auto m-auto"
+                      target="_blank"
+                      href={file?.url ?? ''}
+                      aria-label={getDownloadAriaLabel({ attributes: file }, file.name)}
+                    >
+                      <DownloadIcon />
+                    </IconButton>
+                  ))}
+                </td>
+              )}
               {hasAdditionalData && (
                 <td>
                   <AdditionalData additionalData={disclosure.additionalData} />
