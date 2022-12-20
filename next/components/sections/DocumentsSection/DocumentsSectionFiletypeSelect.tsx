@@ -8,13 +8,14 @@ type DocumentsSectionFiletypeSelectProps = {
   onFiletypeChange: (filetype: string | null) => void
 }
 
-const mappedFetcher = client.DocumentFiletypes().then(
-  (data) =>
-    data.documentFiletypes?.filter(isDefined).map((filetype) => ({
-      label: (filetype.startsWith('.') ? filetype.slice(1) : filetype).toUpperCase(),
-      key: filetype,
-    })) ?? [],
-)
+const mappedFetcher = () =>
+  client.DocumentFiletypes().then(
+    (data) =>
+      data.documentFiletypes?.filter(isDefined).map((filetype) => ({
+        label: (filetype.startsWith('.') ? filetype.slice(1) : filetype).toUpperCase(),
+        key: filetype,
+      })) ?? [],
+  )
 
 const DocumentsSectionFiletypeSelect = ({
   onFiletypeChange = () => {},
@@ -27,7 +28,7 @@ const DocumentsSectionFiletypeSelect = ({
     <SelectWithFetcher
       swrKey="DocumentsSectionFiletypeSelect"
       defaultOption={defaultOption}
-      fetcher={() => mappedFetcher}
+      fetcher={mappedFetcher}
       onSelectionChange={(selection: string) => {
         onFiletypeChange(selection === '' ? null : selection)
       }}

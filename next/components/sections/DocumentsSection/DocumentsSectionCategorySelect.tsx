@@ -7,14 +7,15 @@ type DocumentsSectionCategorySelectProps = {
   onCategoryChange: (id: string | null) => void
 }
 
-const mappedFetcher = client.DocumentCategories().then(
-  (data) =>
-    data.documentCategories?.data.map((category) => ({
-      label: category.attributes?.title,
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      key: category.id!,
-    })) ?? [],
-)
+const mappedFetcher = () =>
+  client.DocumentCategories().then(
+    (data) =>
+      data.documentCategories?.data.map((category) => ({
+        label: category.attributes?.title,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        key: category.id!,
+      })) ?? [],
+  )
 
 const DocumentsSectionCategorySelect = ({
   onCategoryChange = () => {},
@@ -27,7 +28,7 @@ const DocumentsSectionCategorySelect = ({
     <SelectWithFetcher
       swrKey="DocumentsSectionCategorySelect"
       defaultOption={defaultOption}
-      fetcher={() => mappedFetcher}
+      fetcher={mappedFetcher}
       onSelectionChange={(selection: string) => {
         onCategoryChange(selection === '' ? null : selection)
       }}
