@@ -12,7 +12,7 @@
   },
   "general": {
     "downloadFile": "Download file",
-    "downloadFileAriaLabel": "Download file {{fileName}}, format {{ext}}, {{size}}",
+    "downloadFileAriaLabel": "Download file {{title}}, format {{ext}}, {{size}}",
     "unknownFormat": "unknown",
     "results": "Search results"
   },

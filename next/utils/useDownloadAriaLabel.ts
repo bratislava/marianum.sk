@@ -8,26 +8,18 @@ export const useDownloadAriaLabel = () => {
 
   const getDownloadAriaLabel = useCallback(
     (file: UploadFileEntityFragment, title: string): string => {
-      const getFileDownloadAriaLabel = (
-        fileInternal: UploadFileEntityFragment,
-        titleInternal: string,
-        locale: string,
-      ) => {
-        if (!fileInternal.attributes) {
-          return t('general.downloadFile')
-        }
-        const { size, ext } = fileInternal.attributes
-        const formattedSize = filesize(size * 1000, { round: 1, locale })
-        const extFormatted = ext ?? t('general.unknownFormat')
-
-        return t('general.downloadFileAriaLabel', {
-          title: titleInternal,
-          ext: extFormatted,
-          size: formattedSize,
-        })
+      if (!file.attributes) {
+        return t('general.downloadFile')
       }
+      const { size, ext } = file.attributes
+      const formattedSize = filesize(size * 1000, { round: 1, locale: i18n.language })
+      const extFormatted = ext ?? t('general.unknownFormat')
 
-      return getFileDownloadAriaLabel(file, title, i18n.language)
+      return t('general.downloadFileAriaLabel', {
+        title,
+        ext: extFormatted,
+        size: formattedSize,
+      })
     },
     [i18n.language, t],
   )

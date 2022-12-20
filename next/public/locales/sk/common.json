@@ -12,7 +12,7 @@
   },
   "general": {
     "downloadFile": "Stiahnuť súbor",
-    "downloadFileAriaLabel": "Stiahnuť súbor {{fileName}}, formát {{ext}}, {{size}}",
+    "downloadFileAriaLabel": "Stiahnuť súbor {{title}}, formát {{ext}}, {{size}}",
     "unknownFormat": "neznámy",
     "results": "Výsledky vyhľadávania"
   },
