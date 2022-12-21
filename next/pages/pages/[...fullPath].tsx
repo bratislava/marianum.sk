@@ -155,7 +155,7 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
             if (section?.__typename === 'ComponentSectionsGallery') {
               return (
                 <Section key={`${section.__typename}-${section.id}`} title={section.title}>
-                  <ImageGallery images={section.medias?.data} variant="bellow" />
+                  <ImageGallery images={section.medias?.data} variant="below" />
                 </Section>
               )
             }
