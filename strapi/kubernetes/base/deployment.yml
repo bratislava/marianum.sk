@@ -1,6 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    commit: ${COMMIT}
+    tag: ${TAG}
+    image: ${IMAGE}
+    repositoryUrl: ${BUILD_REPOSITORY_URI}
   name: ${BUILD_REPOSITORY_NAME}-app
   namespace: ${NAMESPACE}
   labels:
