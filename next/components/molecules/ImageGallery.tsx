@@ -81,7 +81,7 @@ const ImageGallery = ({ images = [], variant = 'bellow' }: ImageGalleryProps) =>
           onKeyUp={onEnterOrSpaceKeyDown(() => openAtImageIndex(0))}
           className={cx('cursor-default outline-offset-2 outline-primary focus:outline-4', {
             'flex flex-col ': variant === 'bellow',
-            'grid grid-cols-[1fr_auto]': variant === 'aside',
+            'grid grid-cols-[minmax(0,1fr)_auto]': variant === 'aside',
           })}
         >
           {/* first image */}

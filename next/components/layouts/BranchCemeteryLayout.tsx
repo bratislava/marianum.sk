@@ -45,7 +45,7 @@ const BranchCemeteryLayout = ({
       <div className="h-full">
         <div
           className={cx(
-            'container relative grid h-auto gap-6 pb-20 lg:grid-flow-col lg:grid-cols-[1fr_auto]',
+            'container relative grid h-auto grid-cols-1 gap-6 pb-20 lg:grid-flow-col lg:grid-cols-[minmax(0,1fr)_auto]',
             {
               'pt-24': hasMedias,
               'pt-6': !hasMedias,
