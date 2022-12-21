@@ -185,6 +185,7 @@ export default {
             "description",
             "supplierName",
           ],
+          sortableAttributes: ["id"],
           pagination: {
             // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
             maxTotalHits: 1000000,

@@ -24,7 +24,7 @@ export const parseDisclosuresXlsx = (filePath: string, importId: string) => {
     "Dodávateľ: IČO",
     "Dátum vyhotovenia objednávky",
     "Celková hodnota objednaného plnenia",
-    "Fakturovaná suma s DPH",
+    "Fakturovaná suma",
     "Dátum doručenia faktúry",
     "Za objednávateľa podpísal meno + priezvisko",
   ];

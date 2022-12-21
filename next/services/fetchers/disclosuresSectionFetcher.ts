@@ -1,15 +1,14 @@
-import { Enum_Disclosure_Type } from '@graphql'
 import { meiliClient } from '@services/meili/meiliClient'
 import { getMeilisearchPageOptions } from '@utils/getMeilisearchPageOptions'
 import { Key } from 'swr'
 
-import { DisclosureMeili } from '../meili/meiliTypes'
+import { DisclosureMeili, DisclosureTypeFixed } from '../meili/meiliTypes'
 
 export type DisclosuresSectionFilters = {
   pageSize: number
   search: string
   page: number
-  type: Enum_Disclosure_Type | null
+  type: DisclosureTypeFixed | null
 }
 
 export const disclosuresSectionDefaultFilters: DisclosuresSectionFilters = {
@@ -28,6 +27,7 @@ export const disclosuresSectionFetcher = (filters: DisclosuresSectionFilters) =>
     // Buggy ESLint rule
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     filter: filters.type ? [`type = ${filters.type}`] : [],
+    sort: ['id:desc'],
   })
 
 export const disclosuresSectionPrefetch = {

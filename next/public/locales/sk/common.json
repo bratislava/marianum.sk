@@ -12,7 +12,7 @@
   },
   "general": {
     "downloadFile": "Stiahnuť súbor",
-    "downloadFileAriaLabel": "Stiahnuť súbor {{fileName}}, formát {{ext}}, {{size}}",
+    "downloadFileAriaLabel": "Stiahnuť súbor {{title}}, formát {{ext}}, {{size}}",
     "unknownFormat": "neznámy",
     "results": "Výsledky vyhľadávania"
   },
@@ -327,7 +327,7 @@
       "supplierRegistrationNumber": "Dodávateľ: IČO",
       "dateOfOrder": "Dátum vyhotovenia objednávky",
       "totalValue": "Celková hodnota objednaného plnenia",
-      "invoicedAmount": "Fakturovaná suma s DPH",
+      "invoicedAmount": "Fakturovaná suma",
       "dateOfDelivery": "Dátum doručenia faktúry",
       "signedBy": "Za objednávateľa podpísal meno + priezvisko",
       "files": "Súbory",
