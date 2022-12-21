@@ -1,12 +1,42 @@
+import { getFullPathMeiliFn } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { Branch, Bundle, Page } from '@graphql'
 import { withSentry } from '@sentry/nextjs'
 import { client } from '@services/graphql/gqlClient'
+import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@services/meili/meiliTypes'
 import { isDefined } from '@utils/isDefined'
 import { parseNavigation } from '@utils/parseNavigation'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+// https://docs.strapi.io/developer-docs/latest/development/backend-customization/webhooks.html#payloads
 type Response = { revalidated: boolean } | { message: string } | string
-type RequestPayload = { model: string; entry: { slug: string } }
+type RequestPayload =
+  | {
+      model: 'page'
+      entry: Pick<Page, 'slug'>
+    }
+  | {
+      model: 'article'
+      entry: ArticleMeili
+    }
+  | {
+      model: 'branch'
+      entry: Pick<Branch, 'slug'>
+    }
+  | {
+      model: 'bundle'
+      entry: Pick<Bundle, 'slug'>
+    }
+  | {
+      model: 'cemetery'
+      entry: Pick<CemeteryMeili, 'slug'>
+    }
+  | {
+      model: 'document'
+      entry: Pick<DocumentMeili, 'slug'>
+    }
+  | { model: 'procedure'; entry: unknown }
 
+/* Webhook returns entry in "REST format" which is equivalent to Meili format, so we can use the same function and types */
 const revalidate = async (req: NextApiRequest, res: NextApiResponse<Response>) => {
   if (req.query.secret !== process.env.REVALIDATE_SECRET_TOKEN) {
     return res.status(401).json({ message: 'Invalid token' })
@@ -14,23 +44,38 @@ const revalidate = async (req: NextApiRequest, res: NextApiResponse<Response>) =
 
   try {
     const payload = req.body as RequestPayload
+    const { model, entry } = payload
 
-    const slug = payload?.entry?.slug
+    /* Always revalidate homepage */
+    const pathsToRevalidate: (string | null)[] = ['/']
 
-    // TODO add proper page urls
-    if (payload?.model === 'page') {
+    /* Other updates are ignored and revalidate just homepage */
+    if (
+      model === 'page' ||
+      model === 'article' ||
+      model === 'branch' ||
+      model === 'bundle' ||
+      model === 'cemetery' ||
+      model === 'document'
+    ) {
       const { navigation } = await client.General({ locale: 'sk' })
       const { navMap } = parseNavigation(navigation.filter(isDefined))
+      const getFullPathMeili = getFullPathMeiliFn(navMap)
 
-      const path = navMap.get(slug)?.path
-
-      await res.revalidate(path || `/${slug}`)
+      /* TODO fix types: `model` and `entry` always match, but typescript doesn't know that */
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      pathsToRevalidate.push(getFullPathMeili(model, entry))
     }
 
-    // TODO add other content types: branch, bundle, document, article
+    if (model === 'procedure') {
+      // TODO add EN variant
+      pathsToRevalidate.push('/vybavenie-pohrebu/navod-ako-postupovat')
+    }
 
-    /** Always revalidate index */
-    await res.revalidate('/')
+    // eslint-disable-next-line no-console
+    console.log('Paths to revalidate:', pathsToRevalidate.filter(isDefined))
+    await Promise.all(pathsToRevalidate.filter(isDefined).map((path) => res.revalidate(path)))
 
     return res.json({ revalidated: true })
   } catch (error) {
