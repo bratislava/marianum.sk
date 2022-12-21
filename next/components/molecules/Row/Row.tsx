@@ -65,7 +65,7 @@ const Row = ({
 
           <div
             className={cx('flex gap-x-4 gap-y-1.5', {
-              'items-start pb-1 md:flex-col': tagsPosition === 'under',
+              'flex-col items-start pb-1': tagsPosition === 'under',
               'items-center': tagsPosition === 'beside',
             })}
           >
@@ -80,7 +80,7 @@ const Row = ({
               </h3>
             )}
             {tags.length > 0 && (
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-x-4 gap-y-2">
                 {tags.map((tag) => (
                   <Tag key={tag} className="bg-background-beige">
                     {tag}
