@@ -5,9 +5,5 @@
     "description": ""
   },
   "options": {},
-  "attributes": {
-    "aad": {
-      "type": "string"
-    }
-  }
+  "attributes": {}
 }
