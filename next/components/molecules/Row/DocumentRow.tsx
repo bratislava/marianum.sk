@@ -22,7 +22,6 @@ const DocumentRow = (props: DocumentRowProps) => {
         href={file?.attributes?.url}
         target="_blank"
         variant="tertiary"
-        // TODO fix aria-label not being passed to the button
         aria-label={getDownloadAriaLabel(file, title)}
         startIcon={<DownloadIcon />}
       >

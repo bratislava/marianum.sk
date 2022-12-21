@@ -18,6 +18,7 @@ import {
   getDocumentsSectionSwrKey,
 } from '@services/fetchers/documentsSectionFetcher'
 import { DocumentMeili } from '@services/meili/meiliTypes'
+import { useDownloadAriaLabel } from '@utils/useDownloadAriaLabel'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
 import { SearchResponse } from 'meilisearch'
@@ -34,6 +35,7 @@ const Documents = ({
   filters: DocumentsSectionFilters
 }) => {
   const { t } = useTranslation('common', { keyPrefix: 'DocumentsSection' })
+  const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
   const documentsRef = useRef<HTMLDivElement>(null)
   useScrollToViewIfDataChange(data, filters, documentsRef)
@@ -45,6 +47,7 @@ const Documents = ({
       <div className="grid gap-y-3" ref={documentsRef}>
         <h2 className="sr-only">{t('aria.results')}</h2>
         {data.hits.map((document, index) => (
+          // TODO: Use DocumentRow
           <Row
             // eslint-disable-next-line react/no-array-index-key
             key={index}
@@ -66,6 +69,7 @@ const Documents = ({
                 startIcon={<DownloadIcon />}
                 target="_blank"
                 href={document.file?.url ?? ''}
+                aria-label={getDownloadAriaLabel({ attributes: document.file }, document.title)}
               >
                 {t('download')}
               </Button>

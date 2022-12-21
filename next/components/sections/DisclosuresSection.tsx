@@ -1,3 +1,5 @@
+import { DownloadIcon } from '@assets/icons'
+import IconButton from '@components/atoms/IconButton'
 import Loading from '@components/atoms/Loading'
 import LoadingOverlay from '@components/atoms/LoadingOverlay'
 import Select from '@components/atoms/Select'
@@ -5,14 +7,14 @@ import FilteringSearchInput from '@components/molecules/FilteringSearchInput'
 import FiltersBackgroundWrapper from '@components/molecules/FiltersBackgroundWrapper'
 import PaginationMeili from '@components/molecules/PaginationMeili'
 import Section from '@components/molecules/Section'
-import { Enum_Disclosure_Type } from '@graphql'
 import {
   disclosuresSectionDefaultFilters,
   disclosuresSectionFetcher,
   DisclosuresSectionFilters,
   getDisclosuresSectionSwrKey,
 } from '@services/fetchers/disclosuresSectionFetcher'
-import { DisclosureMeili } from '@services/meili/meiliTypes'
+import { DisclosureMeili, DisclosureTypeFixed } from '@services/meili/meiliTypes'
+import { useDownloadAriaLabel } from '@utils/useDownloadAriaLabel'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
 import { SearchResponse } from 'meilisearch'
@@ -47,6 +49,8 @@ const Table = ({
   filters: DisclosuresSectionFilters
 }) => {
   const { t } = useTranslation('common', { keyPrefix: 'DisclosuresSection' })
+
+  const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
   const theadRef = useRef<HTMLTableSectionElement>(null)
   useScrollToViewIfDataChange(data, filters, theadRef)
@@ -96,7 +100,21 @@ const Table = ({
               <td>{disclosure.invoicedAmount}</td>
               <td>{disclosure.dateOfDelivery}</td>
               <td>{disclosure.signedBy}</td>
-              {hasFiles && <td>{/* TODO: files */}</td>}
+              {hasFiles && (
+                <td>
+                  {disclosure.files?.map((file) => (
+                    <IconButton
+                      variant="white"
+                      className="pointer-events-auto m-auto"
+                      target="_blank"
+                      href={file?.url ?? ''}
+                      aria-label={getDownloadAriaLabel({ attributes: file }, file.name)}
+                    >
+                      <DownloadIcon />
+                    </IconButton>
+                  ))}
+                </td>
+              )}
               {hasAdditionalData && (
                 <td>
                   <AdditionalData additionalData={disclosure.additionalData} />
@@ -163,7 +181,7 @@ const DataWrapper = ({
 const TypeSelect = ({
   onTypeChange,
 }: {
-  onTypeChange: (type: Enum_Disclosure_Type | null) => void
+  onTypeChange: (type: DisclosureTypeFixed | null) => void
 }) => {
   const { t } = useTranslation('common', { keyPrefix: 'DisclosuresSection' })
 
@@ -176,20 +194,20 @@ const TypeSelect = ({
           label: t('types.all'),
         },
         {
-          key: Enum_Disclosure_Type.Faktura,
+          key: DisclosureTypeFixed.Faktura,
           label: t('types.faktury'),
         },
         {
-          key: Enum_Disclosure_Type.Zmluva,
+          key: DisclosureTypeFixed.Zmluva,
           label: t('types.zmluvy'),
         },
         {
-          key: Enum_Disclosure_Type.Objednavka,
+          key: DisclosureTypeFixed.Objednavka,
           label: t('types.objednavky'),
         },
       ]}
       onSelectionChange={(type) => {
-        onTypeChange(type === 'all' ? null : (type as Enum_Disclosure_Type))
+        onTypeChange(type === 'all' ? null : (type as DisclosureTypeFixed))
       }}
     />
   )
@@ -213,7 +231,7 @@ const DisclosuresSection = () => {
     setFilters({ ...filters, page })
   }
 
-  const handleTypeChange = (type: Enum_Disclosure_Type | null) => {
+  const handleTypeChange = (type: DisclosureTypeFixed | null) => {
     setFilters({ ...filters, page: 1, type })
   }
 
