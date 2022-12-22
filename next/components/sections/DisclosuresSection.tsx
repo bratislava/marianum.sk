@@ -1,4 +1,5 @@
 import { DownloadIcon } from '@assets/icons'
+import FormatDate from '@components/atoms/FormatDate'
 import IconButton from '@components/atoms/IconButton'
 import Loading from '@components/atoms/Loading'
 import LoadingOverlay from '@components/atoms/LoadingOverlay'
@@ -65,6 +66,7 @@ const Table = ({
       <table className="m-table colored">
         <thead ref={theadRef}>
           <tr>
+            <th>{t('th.publishedDate')}</th>
             <th>{t('th.type')}</th>
             <th>{t('th.internalInvoiceNumber')}</th>
             <th>{t('th.invoiceNumberOrVariableSymbol')}</th>
@@ -86,6 +88,11 @@ const Table = ({
         <tbody>
           {data.hits.map((disclosure) => (
             <tr key={disclosure.id}>
+              <td>
+                {disclosure.publishedAt && (
+                  <FormatDate value={disclosure.publishedAt} valueType="ISO" format="articlePage" />
+                )}
+              </td>
               <td>{disclosure.type}</td>
               <td>{disclosure.internalInvoiceNumber}</td>
               <td>{disclosure.invoiceNumberOrVariableSymbol}</td>
@@ -102,8 +109,10 @@ const Table = ({
               <td>{disclosure.signedBy}</td>
               {hasFiles && (
                 <td>
-                  {disclosure.files?.map((file) => (
+                  {disclosure.files?.map((file, index) => (
                     <IconButton
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={index}
                       variant="white"
                       className="pointer-events-auto m-auto"
                       target="_blank"

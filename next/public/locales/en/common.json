@@ -316,6 +316,7 @@
   },
   "DisclosuresSection": {
     "th": {
+      "publishedDate": "",
       "type": "",
       "internalInvoiceNumber": "",
       "invoiceNumberOrVariableSymbol": "",
