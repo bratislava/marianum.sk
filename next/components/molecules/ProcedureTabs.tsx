@@ -7,7 +7,6 @@ import { isDefined } from '@utils/isDefined'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
-import slugify from 'slugify'
 import useSWR from 'swr'
 
 const ProcedureTabs = () => {
@@ -62,13 +61,9 @@ const ProcedureTabs = () => {
         <TabItem key={procedure.key} title={procedure.title}>
           <div>
             <Checklist
-              items={
-                procedure.steps?.filter(isDefined).map((step, index) => ({
-                  ...step,
-                  key: slugify(step.title),
-                  isOpen: index === 0,
-                })) ?? []
-              }
+              localStorageId={procedure.key}
+              updatedAt={dataToDisplay?.procedures?.data?.attributes?.updatedAt}
+              items={(procedure.steps ?? []).filter(isDefined)}
               downloadFile={procedure.downloadFile?.data}
             />
           </div>
