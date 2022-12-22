@@ -60,4 +60,5 @@ export type DisclosureMeili = Omit<Disclosure, '__typename' | 'files' | 'type'> 
   id: string
   type: DisclosureTypeFixed
   files: Omit<UploadFile, '__typename'>[]
+  publishedAt: string
 }

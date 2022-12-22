@@ -185,11 +185,17 @@ export default {
             "description",
             "supplierName",
           ],
-          sortableAttributes: ["id"],
+          sortableAttributes: ["publishedAt"],
           pagination: {
             // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
             maxTotalHits: 1000000,
           },
+          transformEntry: ({ entry }) => ({
+            ...entry,
+            // The old imported entries are added later on, but we want to use their original published date, the newly
+            // imported should use their Strapi creation date.
+            publishedAt: entry.publishedAtOverride ?? entry.createdAt,
+          }),
         },
       },
       document: {

@@ -12,6 +12,9 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "publishedAtOverride": {
+      "type": "datetime"
+    },
     "type": {
       "type": "enumeration",
       "enum": [
