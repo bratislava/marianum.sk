@@ -185,10 +185,23 @@ export default {
             "description",
             "supplierName",
           ],
-          sortableAttributes: ["id"],
+          sortableAttributes: ["publishedAtTimestamp"],
           pagination: {
             // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
             maxTotalHits: 1000000,
+          },
+          transformEntry: ({ entry }) => {
+            // The old imported entries are added later on, but we want to use their original published date, the newly
+            // imported should use their Strapi creation date.
+            const publishedAt = entry.publishedAtOverride ?? entry.createdAt;
+
+            return {
+              ...entry,
+              publishedAt,
+              // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
+              // use (number) filters.
+              publishedAtTimestamp: new Date(publishedAt).getTime(),
+            };
           },
         },
       },

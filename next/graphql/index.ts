@@ -1711,6 +1711,7 @@ export type Disclosure = {
   invoiceNumberOrVariableSymbol?: Maybe<Scalars['String']>;
   invoicedAmount?: Maybe<Scalars['String']>;
   orderNumber?: Maybe<Scalars['String']>;
+  publishedAtOverride?: Maybe<Scalars['DateTime']>;
   signedBy?: Maybe<Scalars['String']>;
   supplierAddress?: Maybe<Scalars['String']>;
   supplierName?: Maybe<Scalars['String']>;
@@ -1760,6 +1761,7 @@ export type DisclosureFiltersInput = {
   not?: InputMaybe<DisclosureFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<DisclosureFiltersInput>>>;
   orderNumber?: InputMaybe<StringFilterInput>;
+  publishedAtOverride?: InputMaybe<DateTimeFilterInput>;
   signedBy?: InputMaybe<StringFilterInput>;
   supplierAddress?: InputMaybe<StringFilterInput>;
   supplierName?: InputMaybe<StringFilterInput>;
@@ -1781,6 +1783,7 @@ export type DisclosureInput = {
   invoiceNumberOrVariableSymbol?: InputMaybe<Scalars['String']>;
   invoicedAmount?: InputMaybe<Scalars['String']>;
   orderNumber?: InputMaybe<Scalars['String']>;
+  publishedAtOverride?: InputMaybe<Scalars['DateTime']>;
   signedBy?: InputMaybe<Scalars['String']>;
   supplierAddress?: InputMaybe<Scalars['String']>;
   supplierName?: InputMaybe<Scalars['String']>;

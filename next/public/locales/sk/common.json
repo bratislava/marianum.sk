@@ -316,6 +316,7 @@
   },
   "DisclosuresSection": {
     "th": {
+      "publishedDate": "Zverejnené dňa",
       "type": "Typ dokumentu",
       "internalInvoiceNumber": "Interné číslo faktúry",
       "invoiceNumberOrVariableSymbol": "Číslo faktúry/variabilný symbol",

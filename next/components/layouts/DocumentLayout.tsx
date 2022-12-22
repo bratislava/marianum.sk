@@ -37,7 +37,9 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
       {
         key: 'createdAt',
         title: t('createdAt'),
-        description: <FormatDate value={new Date(publishedAt)} format="articlePage" />,
+        description: (
+          <FormatDate value={publishedAt as string} valueType="ISO" format="articlePage" />
+        ),
       },
     ] as { key: string; title: string; description: ReactNode }[]
   }, [documentCategory, publishedAt, t])
@@ -70,7 +72,8 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
             </div>
             <div className="flex flex-col items-center gap-2 text-sm md:items-start">
               <div>
-                {t('createdAt')} <FormatDate value={new Date(publishedAt)} format="articlePage" />
+                {t('createdAt')}{' '}
+                <FormatDate value={publishedAt as string} valueType="ISO" format="articlePage" />
               </div>
               <h1>{title}</h1>
               <div className="flex items-center gap-2 text-sm">
