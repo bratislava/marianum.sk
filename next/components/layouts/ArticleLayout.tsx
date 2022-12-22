@@ -46,7 +46,7 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
         >
           <div className="container relative h-auto py-6 sm:px-20 sm:pt-10 md:px-28 md:pb-20 lg:px-40">
             <div className="pb-1 text-center text-sm">
-              <FormatDate value={new Date(publishedAt as string)} format="articlePage" />
+              <FormatDate value={publishedAt as string} valueType="ISO" format="articlePage" />
             </div>
 
             <div className="pb-6 sm:pb-10">

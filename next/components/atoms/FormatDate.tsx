@@ -1,4 +1,5 @@
 import { bratislavaTimezone } from '@utils/consts'
+import { useMemo } from 'react'
 import { DateFormatterOptions, useDateFormatter } from 'react-aria'
 
 /**
@@ -28,14 +29,28 @@ const formats = {
 }
 
 type FormatDateProps = {
-  value: Date // TODO: add number?
   format?: keyof typeof formats
-}
+} & (
+  | {
+      valueType?: 'date' // default value
+      value: Date
+    }
+  | { valueType: 'ISO'; value: string }
+  | { valueType: 'timestamp'; value: number }
+)
 
-const FormatDate = ({ value, format = 'default' }: FormatDateProps) => {
+const FormatDate = ({ value, format = 'default', valueType }: FormatDateProps) => {
+  const date = useMemo(() => {
+    if (valueType === 'ISO' || valueType === 'timestamp') {
+      return new Date(value)
+    }
+    // valueType === 'ISO' || valueType === undefined
+    return value
+  }, [value, valueType])
+
   const formatter = useDateFormatter({ ...formats[format], timeZone: bratislavaTimezone })
 
-  return <>{formatter.format(value)}</>
+  return <>{formatter.format(date)}</>
 }
 
 export default FormatDate
