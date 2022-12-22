@@ -9,7 +9,7 @@ import { DeepPartial } from 'react-hook-form'
 import { ApplicationCemeteries, ApplicationStepComponentProps } from './application.types'
 import { ApplicationTypes } from './application-shared.types'
 import { step4YupShape } from './application-shared.yup'
-import { useApplicationStep } from './useApplicationStep'
+import { ApplicationStepWrapper, useApplicationStep } from './useApplicationStep'
 
 const CemeteryRadioBox = ({ cemetery }: { cemetery: CemeteryInApplicationEntityFragment }) => {
   return (
@@ -74,16 +74,15 @@ const ApplicationStep4 = ({
     [list],
   )
 
-  const { control, formState, Wrapper } = useApplicationStep({
+  const { control, formState, handleSubmit } = useApplicationStep<ApplicationTypes.Step4Model>({
     yupShape: step4YupShape,
     values,
     defaultValues,
-    onContinue,
     onFormChange,
   })
 
   return (
-    <Wrapper>
+    <ApplicationStepWrapper handleSubmit={handleSubmit} onContinue={onContinue}>
       <h3 className="mb-3 md:mb-6">Výber cintorína</h3>
       <FormRadioGroup
         value="5"
@@ -96,7 +95,7 @@ const ApplicationStep4 = ({
           <CemeteryRadioBox key={cemetery.id} cemetery={cemetery} />
         ))}
       </FormRadioGroup>
-    </Wrapper>
+    </ApplicationStepWrapper>
   )
 }
 

@@ -3,7 +3,7 @@ import { ApplicationStepComponentProps } from '@components/sections/Application/
 
 import { ApplicationTypes } from './application-shared.types'
 import { step6YupShape } from './application-shared.yup'
-import { useApplicationStep } from './useApplicationStep'
+import { ApplicationStepWrapper, useApplicationStep } from './useApplicationStep'
 
 const defaultValues: ApplicationTypes.Step6Model = {
   meno: '',
@@ -20,16 +20,15 @@ const ApplicationStep6 = ({
   onContinue,
   onFormChange,
 }: ApplicationStepComponentProps<ApplicationTypes.Step.Step6>) => {
-  const { register, formState, Wrapper } = useApplicationStep({
+  const { register, formState, handleSubmit } = useApplicationStep<ApplicationTypes.Step6Model>({
     yupShape: step6YupShape,
     values,
     defaultValues,
-    onContinue,
     onFormChange,
   })
 
   return (
-    <Wrapper>
+    <ApplicationStepWrapper handleSubmit={handleSubmit} onContinue={onContinue}>
       <h3 className="mb-3 md:mb-6">Osobné údaje</h3>
       <div className="grid grid-cols-1 gap-4 pb-4 md:grid-cols-4 md:gap-6 md:pb-6">
         <div className="md:col-span-2">
@@ -89,7 +88,7 @@ const ApplicationStep6 = ({
           />
         </div>
       </div>
-    </Wrapper>
+    </ApplicationStepWrapper>
   )
 }
 

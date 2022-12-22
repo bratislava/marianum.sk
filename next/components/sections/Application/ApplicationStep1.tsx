@@ -4,7 +4,7 @@ import { ApplicationStepComponentProps } from '@components/sections/Application/
 
 import { ApplicationTypes } from './application-shared.types'
 import { step1YupShape } from './application-shared.yup'
-import { useApplicationStep } from './useApplicationStep'
+import { ApplicationStepWrapper, useApplicationStep } from './useApplicationStep'
 
 const defaultValues: ApplicationTypes.Step1Model = {
   typZiadosti: ApplicationTypes.TypZiadosti.Rezervacia,
@@ -15,16 +15,15 @@ const ApplicationStep1 = ({
   onContinue,
   onFormChange,
 }: ApplicationStepComponentProps<ApplicationTypes.Step.Step1>) => {
-  const { control, Wrapper, formState } = useApplicationStep({
+  const { control, formState, handleSubmit } = useApplicationStep<ApplicationTypes.Step1Model>({
     yupShape: step1YupShape,
     values,
     defaultValues,
-    onContinue,
     onFormChange,
   })
 
   return (
-    <Wrapper>
+    <ApplicationStepWrapper handleSubmit={handleSubmit} onContinue={onContinue}>
       <h3 className="mb-3 md:mb-6">Typ žiadosti</h3>
       <FormRadioGroup
         name="typZiadosti"
@@ -39,7 +38,7 @@ const ApplicationStep1 = ({
           Žiadam o rezerváciu hrobového miesta
         </RadioBox>
       </FormRadioGroup>
-    </Wrapper>
+    </ApplicationStepWrapper>
   )
 }
 

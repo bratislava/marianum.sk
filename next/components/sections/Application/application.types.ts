@@ -6,7 +6,7 @@ import { ApplicationTypes } from './application-shared.types'
 
 export type ApplicationStepComponentProps<T extends ApplicationTypes.Step> = {
   values?: DeepPartial<ApplicationTypes.StepModelMap[T]>
-  onContinue: (values: ApplicationTypes.StepModelMap[T]) => void
+  onContinue: (values: ApplicationTypes.StepModelMap[T], captchaToken?: string) => void
   onFormChange: (values: DeepPartial<ApplicationTypes.StepModelMap[T]>) => void
   texts: ApplicationText
   sending?: boolean
