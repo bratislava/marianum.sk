@@ -1,23 +1,19 @@
 import { CheckCircleIcon, CheckIcon, CloseCircleIcon, DownloadIcon, PrintIcon } from '@assets/icons'
 import { AnimateHeight } from '@components/atoms/AnimateHeight'
 import Button from '@components/atoms/Button'
-import { UploadFileEntityFragment } from '@graphql'
+import { ComponentGeneralProcedureItem, UploadFileEntityFragment } from '@graphql'
 import cx from 'classnames'
 import filesize from 'filesize'
 import { useTranslation } from 'next-i18next'
 import prntr from 'prntr'
-import { useCallback, useEffect, useId, useMemo, useReducer } from 'react'
+import { useCallback, useId, useMemo } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
-
-import { ChecklistActionKind, ChecklistItem, checklistReducer } from './checklistReducer'
 
 type ChecklistRadioProps = {
   isOpen?: boolean
   isCompleted?: boolean
   className?: string
 }
-
-const getAriaId = (id: string, index: number) => `checklist-${id}-${index}`
 
 const ChecklistRadio = ({
   isOpen = false,
@@ -77,56 +73,60 @@ const ChecklistLineWithRadio = ({
   )
 }
 
+const getAriaId = (id: string, index: number) => `checklist-${id}-${index}`
+
 export type ChecklistProps = {
-  items: ChecklistItem[]
+  localStorageId: string
+  updatedAt: string
+  items: ComponentGeneralProcedureItem[]
   downloadFile: UploadFileEntityFragment | null | undefined
 }
 
-const Checklist = ({ items, downloadFile }: ChecklistProps) => {
+const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: ChecklistProps) => {
   const { t, i18n } = useTranslation('common', { keyPrefix: 'Checklist' })
 
-  // generate id from titles
+  // The saved state is valid up until we change anything in procedures in Strapi. Therefore, we can save only indexes
+  // instead of keys as when something changes the id will be regenerated.
   const checklistId = useMemo(() => {
-    return `marianum-${items.map((item) => item.title).join('-')}`
-  }, [items])
+    return `marianum-${localStorageId}-${updatedAt}`
+  }, [localStorageId, updatedAt])
 
   const id = useId()
 
-  const [localChecklistState, setLocalChecklistState] = useLocalStorage(checklistId, { items })
+  // The state is persisted in local storage for future sessions.
+  const [localChecklistState, setLocalChecklistState] = useLocalStorage(checklistId, {
+    completedStepsIndexes: [] as number[],
+    openStepIndex: 0,
+  })
 
-  const [checklistState, dispatchChecklistState] = useReducer(checklistReducer, localChecklistState)
+  const handleItemOpen = (index: number) => {
+    setLocalChecklistState((state) => ({ ...state, openStepIndex: index }))
+  }
 
-  useEffect(() => {
-    setLocalChecklistState(checklistState)
-  }, [checklistState, setLocalChecklistState])
+  const handleNextItemOpen = () => {
+    const newIndex = localChecklistState.openStepIndex + 1
+    if (newIndex > items.length) {
+      return
+    }
+    setLocalChecklistState((state) => ({ ...state, openStepIndex: newIndex }))
+  }
 
-  const openItemHandler = useCallback((itemKey: string) => {
-    dispatchChecklistState({
-      type: ChecklistActionKind.OpenItem,
-      itemKey,
-    })
-  }, [])
+  const handleItemComplete = (index: number) => {
+    const newIndex = localChecklistState.openStepIndex + 1
 
-  const openNextItemHandler = useCallback((itemKey: string) => {
-    dispatchChecklistState({
-      type: ChecklistActionKind.OpenNextItem,
-      itemKey,
-    })
-  }, [])
+    setLocalChecklistState((state) => ({
+      ...state,
+      completedStepsIndexes: [...state.completedStepsIndexes, index],
+      ...(newIndex > items.length ? {} : { openStepIndex: newIndex }),
+    }))
+  }
 
-  const completeItemHandler = useCallback((itemKey: string) => {
-    dispatchChecklistState({
-      type: ChecklistActionKind.CompleteItem,
-      itemKey,
-    })
-  }, [])
-
-  const uncompleteItemHandler = useCallback((itemKey: string) => {
-    dispatchChecklistState({
-      type: ChecklistActionKind.UncompleteItem,
-      itemKey,
-    })
-  }, [])
+  const handleItemUncomplete = (index: number) => {
+    setLocalChecklistState((state) => ({
+      ...state,
+      completedStepsIndexes: state.completedStepsIndexes.filter((i) => i !== index),
+    }))
+  }
 
   const handlePrint = useCallback(() => {
     // we can only print pdf files
@@ -137,12 +137,17 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
 
   return (
     <div className="flex w-full flex-col gap-6">
-      {localChecklistState.items.map(
-        ({ key, title, description, isOpen = false, isCompleted = false }, index) => (
-          <div className="flex gap-10" key={key}>
+      {items.map(({ title, description }, index) => {
+        const isOpen = localChecklistState.openStepIndex === index
+        const isCompleted = localChecklistState.completedStepsIndexes.includes(index)
+        const isLast = index + 1 === items.length
+
+        return (
+          // eslint-disable-next-line react/no-array-index-key
+          <div className="flex gap-10" key={index}>
             <ChecklistLineWithRadio
               hideTopLine={index === 0}
-              hideBottomLine={index + 1 === items.length}
+              hideBottomLine={isLast}
               isOpen={isOpen}
               isCompleted={isCompleted}
             />
@@ -157,8 +162,8 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
               {/* item title */}
               <button
                 type="button"
-                onKeyUp={(e) => (e.code === 'Enter' || e.code === 'Space') && openItemHandler(key)}
-                onClick={() => openItemHandler(key)}
+                onKeyUp={(e) => (e.code === 'Enter' || e.code === 'Space') && handleItemOpen(index)}
+                onClick={() => handleItemOpen(index)}
                 className="flex items-center p-6"
                 aria-expanded={isOpen}
                 aria-controls={getAriaId(id, index)}
@@ -179,7 +184,7 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
                   {description && <div className="text-lg">{description}</div>}
                   {
                     // download buttons for last item
-                    index + 1 === items.length ? (
+                    isLast ? (
                       downloadFile?.attributes?.url ? (
                         <div className="flex flex-col gap-4 sm:flex-row">
                           <Button
@@ -213,7 +218,7 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
                       // completed item buttons
                       <div className="flex flex-col gap-4 sm:flex-row">
                         <Button
-                          onPress={() => uncompleteItemHandler(key)}
+                          onPress={() => handleItemUncomplete(index)}
                           variant="secondary"
                           startIcon={<CloseCircleIcon />}
                           aria-label={t('aria.markAsUncomplete')}
@@ -225,14 +230,14 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
                       // uncompleted item buttons
                       <div className="flex flex-col gap-4 sm:flex-row">
                         <Button
-                          onPress={() => completeItemHandler(key)}
+                          onPress={() => handleItemComplete(index)}
                           startIcon={<CheckCircleIcon />}
                           aria-label={t('aria.markAsComplete')}
                         >
                           {t('markAsComplete')}
                         </Button>
                         <Button
-                          onPress={() => openNextItemHandler(key)}
+                          onPress={() => handleNextItemOpen()}
                           variant="secondary"
                           aria-label={t('aria.skip')}
                         >
@@ -245,8 +250,8 @@ const Checklist = ({ items, downloadFile }: ChecklistProps) => {
               </AnimateHeight>
             </div>
           </div>
-        ),
-      )}
+        )
+      })}
     </div>
   )
 }

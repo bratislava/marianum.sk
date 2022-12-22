@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 
 import { ApplicationTypes } from './application-shared.types'
 import { step3YupShape } from './application-shared.yup'
-import { useApplicationStep } from './useApplicationStep'
+import { ApplicationStepWrapper, useApplicationStep } from './useApplicationStep'
 
 const defaultValues = {
   druhHrobovehoMiesta: ApplicationTypes.DruhHrobovehoMiesta.HroboveMiesto,
@@ -18,13 +18,13 @@ const ApplicationStep3 = ({
   onFormChange,
   texts,
 }: ApplicationStepComponentProps<ApplicationTypes.Step.Step3>) => {
-  const { setValue, watch, control, formState, Wrapper } = useApplicationStep({
-    yupShape: step3YupShape,
-    values,
-    defaultValues,
-    onContinue,
-    onFormChange,
-  })
+  const { setValue, watch, control, formState, handleSubmit } =
+    useApplicationStep<ApplicationTypes.Step3Model>({
+      yupShape: step3YupShape,
+      values,
+      defaultValues,
+      onFormChange,
+    })
 
   const watchDruhHrobovehoMiesta = watch('druhHrobovehoMiesta')
 
@@ -43,7 +43,7 @@ const ApplicationStep3 = ({
   }, [setValue, watch])
 
   return (
-    <Wrapper>
+    <ApplicationStepWrapper handleSubmit={handleSubmit} onContinue={onContinue}>
       <h3 className="mb-3 md:mb-6">Druh hrobového miesta</h3>
       <p className="mb-4 md:mb-6" />
       <FormRadioGroup
@@ -95,7 +95,7 @@ const ApplicationStep3 = ({
           </FormRadioGroup>
         </div>
       </AnimateHeight>
-    </Wrapper>
+    </ApplicationStepWrapper>
   )
 }
 

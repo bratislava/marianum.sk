@@ -76,9 +76,11 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
           </blockquote>
         ),
         table: ({ children, ...props }) => (
-          <table {...props} className={cx('m-table', { colored: coloredTable })}>
-            {children}
-          </table>
+          <div className="overflow-x-auto">
+            <table {...props} className={cx('m-table', { colored: coloredTable })}>
+              {children}
+            </table>
+          </div>
         ),
         thead: ({ children, ...props }) => <thead {...props}>{children}</thead>,
         tbody: ({ children, ...props }) => <tbody {...props}>{children}</tbody>,

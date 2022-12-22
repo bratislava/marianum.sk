@@ -535,6 +535,7 @@ fragment ProceduresEntity on ProcedureEntity {
     atMedicalFacility {
       ...Procedure
     }
+    updatedAt
   }
 }
 

@@ -9078,6 +9078,11 @@ react-transition-state@^1.1.5:
   resolved "https://registry.yarnpkg.com/react-transition-state/-/react-transition-state-1.1.5.tgz#22accee21d0011b1d0245be24b6262ae67f494c3"
   integrity sha512-ITY2mZqc2dWG2eitJkYNdcSFW8aKeOlkL2A/vowRrLL8GH3J6Re/SpD/BLvQzrVOTqjsP0b5S9N10vgNNzwMUQ==
 
+react-turnstile@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-turnstile/-/react-turnstile-1.0.6.tgz#c1106d084d005972cfd1aed27ef2d299889e2846"
+  integrity sha512-4HD11+b5eVswNvDPbTSBSFsCD/fTYiWaKui737Ze+8DSciZbqvXzk6ffmjJKXlVuOELqvzLw91BhUQLkS59vRw==
+
 react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"

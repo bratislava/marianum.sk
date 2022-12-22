@@ -3,7 +3,10 @@
  */
 
 import { factories } from "@strapi/strapi";
+import { errors } from "@strapi/utils";
+
 import { applicationShape } from "./application-shared.yup";
+import Turnstile from "cf-turnstile";
 
 export default factories.createCoreService(
   "api::application.application",
@@ -17,7 +20,16 @@ export default factories.createCoreService(
         data: any;
         captchaToken: string;
       }) {
-        // TODO: Validate captcha
+        const turnstile = Turnstile(
+          process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY
+        );
+
+        const turnstileResult = await turnstile(captchaToken);
+
+        if (!turnstileResult.success) {
+          throw new errors.ApplicationError("Captcha error", 404);
+        }
+
         try {
           applicationShape.validateSync(data);
         } catch (e) {

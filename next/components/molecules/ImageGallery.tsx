@@ -14,10 +14,10 @@ import { useOverlayTriggerState } from 'react-stately'
 
 export type ImageGalleryProps = {
   images: UploadImageEntityFragment[] | undefined
-  variant?: 'bellow' | 'aside'
+  variant?: 'below' | 'aside'
 }
 
-const ImageGallery = ({ images = [], variant = 'bellow' }: ImageGalleryProps) => {
+const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'ImageGallery' })
 
   // all images count
@@ -40,13 +40,13 @@ const ImageGallery = ({ images = [], variant = 'bellow' }: ImageGalleryProps) =>
         : // variant 'aside'small
           0
     }
-    // variant 'bellow' large
+    // variant 'below' large
     return (containerWidth ?? 0) > 1000
       ? 7
-      : // variant 'bellow' middle
+      : // variant 'below' middle
       (containerWidth ?? 0) > 800
       ? 5
-      : // variant 'bellow' small
+      : // variant 'below' small
         3
   }, [containerWidth, variant])
 
@@ -80,8 +80,8 @@ const ImageGallery = ({ images = [], variant = 'bellow' }: ImageGalleryProps) =>
           aria-label={t('aria.openImageGallery')}
           onKeyUp={onEnterOrSpaceKeyDown(() => openAtImageIndex(0))}
           className={cx('cursor-default outline-offset-2 outline-primary focus:outline-4', {
-            'flex flex-col ': variant === 'bellow',
-            'grid grid-cols-[1fr_auto]': variant === 'aside',
+            'flex flex-col ': variant === 'below',
+            'grid grid-cols-[minmax(0,1fr)_auto]': variant === 'aside',
           })}
         >
           {/* first image */}
@@ -89,10 +89,10 @@ const ImageGallery = ({ images = [], variant = 'bellow' }: ImageGalleryProps) =>
             <div
               onClick={() => openAtImageIndex(0)}
               className={cx('relative w-full cursor-pointer', {
-                // large 'bellow' layout
-                'h-[500px]': thumbnailCount > 6 && variant === 'bellow',
-                // small & middle 'bellow' layout
-                'pt-[53%]': thumbnailCount <= 6 && variant === 'bellow',
+                // large 'below' layout
+                'h-[500px]': thumbnailCount > 6 && variant === 'below',
+                // small & middle 'below' layout
+                'pt-[53%]': thumbnailCount <= 6 && variant === 'below',
                 // large 'aside' layout
                 'h-[360px]': thumbnailCount !== 0 && variant === 'aside',
                 // small 'aside' layout
@@ -110,7 +110,7 @@ const ImageGallery = ({ images = [], variant = 'bellow' }: ImageGalleryProps) =>
           )}
 
           {/* row images */}
-          {variant === 'bellow' && smallImages.length > 0 && (
+          {variant === 'below' && smallImages.length > 0 && (
             <div
               className="mt-4 grid gap-4"
               style={{ gridTemplateColumns: `repeat(${thumbnailCount + 1}, 1fr)` }}

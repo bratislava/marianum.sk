@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 import { ApplicationStepComponentProps } from './application.types'
 import { ApplicationTypes } from './application-shared.types'
 import { step2YupShape } from './application-shared.yup'
-import { useApplicationStep } from './useApplicationStep'
+import { ApplicationStepWrapper, useApplicationStep } from './useApplicationStep'
 
 const defaultValues: ApplicationTypes.Step2Model = { uviestHroboveCislo: false }
 
@@ -17,13 +17,13 @@ const ApplicationStep2 = ({
   onFormChange,
   texts,
 }: ApplicationStepComponentProps<ApplicationTypes.Step.Step2>) => {
-  const { register, watch, control, setValue, formState, Wrapper } = useApplicationStep({
-    yupShape: step2YupShape,
-    values,
-    defaultValues,
-    onContinue,
-    onFormChange,
-  })
+  const { register, watch, control, setValue, formState, handleSubmit } =
+    useApplicationStep<ApplicationTypes.Step2Model>({
+      yupShape: step2YupShape,
+      values,
+      defaultValues,
+      onFormChange,
+    })
 
   const watchUviestHroboveCislo = watch('uviestHroboveCislo')
 
@@ -37,7 +37,7 @@ const ApplicationStep2 = ({
   }, [setValue, watch])
 
   return (
-    <Wrapper>
+    <ApplicationStepWrapper handleSubmit={handleSubmit} onContinue={onContinue}>
       <h3 className="mb-3 md:mb-6">Chcete do žiadosti uviesť konkrétne hrobové číslo?</h3>
       <FormRadioGroup
         name="uviestHroboveCislo"
@@ -61,7 +61,7 @@ const ApplicationStep2 = ({
           />
         </div>
       </AnimateHeight>
-    </Wrapper>
+    </ApplicationStepWrapper>
   )
 }
 

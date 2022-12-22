@@ -1,20 +1,21 @@
 import FormErrorWrapper from '@components/atoms/Forms/FormErrorWrapper'
 import { RadioGroup } from '@headlessui/react'
 import React, { PropsWithChildren } from 'react'
-import { FormState, useController, UseControllerProps } from 'react-hook-form'
+import { FieldValues, FormState, useController, UseControllerProps } from 'react-hook-form'
 
-// Types are not worth the effort.
-type FormRadioGroupProps = Omit<Parameters<typeof RadioGroup>[0], 'value' | 'onChange' | 'onBlur'> &
-  UseControllerProps & {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    formState: FormState<any> // TODO: type
+type FormRadioGroupProps<T extends FieldValues> = Omit<
+  Parameters<typeof RadioGroup>[0],
+  'value' | 'onChange' | 'onBlur'
+> &
+  UseControllerProps<T> & {
+    formState: FormState<T>
   }
 
-const FormRadioGroup = ({
+const FormRadioGroup = <T extends FieldValues>({
   children,
   formState,
   ...props
-}: PropsWithChildren<FormRadioGroupProps>) => {
+}: PropsWithChildren<FormRadioGroupProps<T>>) => {
   const {
     field: { value, onChange, onBlur },
   } = useController(props)

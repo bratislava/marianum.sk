@@ -4007,6 +4007,13 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha512-4tYFyifaFfGacoiObjJegolkwSU4xQNGbVgUiNYVUxbQ2x2lUsFvY4hVgVzGiIe6WLOPqycWXA40l+PWsxthUw==
 
+cf-turnstile@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/cf-turnstile/-/cf-turnstile-1.0.8.tgz#a38310ea7269bd615498bc6f71342ed2d6f08f9b"
+  integrity sha512-GwcnyJDzZki+3OHlF7Jd+kCkJezBiGdtQiRdX9G8Yo68/CfLmix1KUUdxYO0SUKIJjqM0f1ZFBu/nLByTNLS5Q==
+  dependencies:
+    node-fetch "^2.6.7"
+
 chalk@4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.1.tgz#c80b3fab28bf6371e6863325eee67e618b77e6ad"
