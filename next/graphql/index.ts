@@ -1358,7 +1358,6 @@ export type ComponentSectionsDebtorsSection = {
 
 export type ComponentSectionsDisclosuresSection = {
   __typename?: 'ComponentSectionsDisclosuresSection';
-  aad?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
 };
 
