@@ -106,7 +106,7 @@ const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
         {isExpanded || !isCollapsing ? (
           <div className="flex items-center gap-1 py-6">{breadcrumbedChildren}</div>
         ) : (
-          <div className="flex w-full flex-col py-6">
+          <div className="flex w-full flex-col pt-2 pb-3">
             <div className="flex w-full items-center justify-between overflow-hidden">
               {/* min-w-0 is used because:
               https://css-tricks.com/flexbox-truncated-text/#aa-the-solution-is-min-width-0-on-the-flex-child */}
@@ -119,14 +119,20 @@ const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
                 {last(breadcrumbedChildren)}
               </div>
               {/* TODO add aria attributes */}
-              <button className="px-4" type="button" onClick={() => setOpen((o) => !o)}>
-                <div className={cx('transform transition-transform', { 'rotate-180': isOpen })}>
+              <button className="p-4" type="button" onClick={() => setOpen((o) => !o)}>
+                {/*  h-6 is set to match the height of the preceding text */}
+                <div
+                  className={cx('flex h-6 transform items-center transition-transform', {
+                    'rotate-180': isOpen,
+                  })}
+                >
                   <ChevronDownIcon />
                 </div>
               </button>
             </div>
-            <AnimateHeight isVisible={isOpen}>
-              <div className="flex flex-col gap-2 px-3 pt-3">
+            {/* The negative margin is here because of the ChevronDownIcon button having too large padding. */}
+            <AnimateHeight isVisible={isOpen} className="-mt-1">
+              <div className="flex flex-col gap-2 px-3 pb-3">
                 {breadcrumbedChildren.slice(1, -1).map((crumbedChild, index) => (
                   // eslint-disable-next-line react/no-array-index-key
                   <div key={index}>{crumbedChild}</div>
