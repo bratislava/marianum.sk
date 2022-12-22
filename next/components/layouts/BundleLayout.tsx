@@ -28,7 +28,7 @@ const BundleLayout = ({ bundle, navigation, children, general }: BundleLayoutPro
       }
     >
       <div className="h-full pb-14">
-        <div className="container relative grid h-auto gap-6 pb-6 pt-10 md:pt-16 lg:grid-flow-col lg:grid-cols-[1fr_auto] lg:pb-20">
+        <div className="container relative grid h-auto grid-cols-1 gap-6 pb-6 pt-10 md:pt-16 lg:grid-flow-col lg:grid-cols-[minmax(0,1fr)_auto] lg:pb-20">
           {children}
 
           <SideBar sidebar={bundle.attributes?.sidebar} />

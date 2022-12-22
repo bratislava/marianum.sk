@@ -7,6 +7,8 @@ import { useTranslation } from 'next-i18next'
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 
+import { AnimateHeight } from './AnimateHeight'
+
 export type BreadcrumbItem = {
   label: string | ReactNode
   path: string
@@ -22,29 +24,31 @@ export type BreadcrumbChildProps = {
   noChevron?: boolean
   noLink?: boolean
   ariaLabel?: string
+  dontShrink?: boolean
 }
 
 const BreadcrumbChild = ({
   crumb,
   noChevron = false,
   noLink = false,
+  dontShrink = false,
   ariaLabel,
 }: BreadcrumbChildProps) => {
   return (
-    <div className="flex gap-1">
+    <div className={cx('flex gap-1 overflow-hidden', { 'shrink-0': dontShrink })}>
       {!noChevron && (
         <div className="shrink-0 -rotate-90 pt-[2px]">
           <ChevronDownIcon />
         </div>
       )}
       {noLink ? (
-        <div className="whitespace-nowrap">{crumb.label}</div>
+        <div className="overflow-hidden text-ellipsis whitespace-nowrap">{crumb.label}</div>
       ) : (
         <MLink
           href={crumb.path}
           noStyles
           aria-label={ariaLabel}
-          className="whitespace-nowrap underline"
+          className="overflow-hidden text-ellipsis whitespace-nowrap"
         >
           {crumb.label}
         </MLink>
@@ -85,6 +89,7 @@ const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
         crumb={crumb}
         noChevron={index === 0}
         ariaLabel={index === 0 ? t('Navigation.home') : undefined}
+        dontShrink={index === 0}
         noLink={index === crumbs.length - 1}
       />
       /* eslint-enable react/no-array-index-key */
@@ -101,31 +106,39 @@ const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
         {isExpanded || !isCollapsing ? (
           <div className="flex items-center gap-1 py-6">{breadcrumbedChildren}</div>
         ) : (
-          <div className="flex w-full flex-col">
-            <div className="flex w-full items-center justify-between">
-              <div className="flex items-center gap-1">
+          <div className="flex w-full flex-col pt-2 pb-3">
+            <div className="flex w-full items-center justify-between overflow-hidden">
+              {/* min-w-0 is used because:
+              https://css-tricks.com/flexbox-truncated-text/#aa-the-solution-is-min-width-0-on-the-flex-child */}
+              <div className="flex min-w-0 items-center gap-1">
                 {/* first child */}
                 {breadcrumbedChildren[0]}
                 {/* dots, linkHref is ignored */}
-                <BreadcrumbChild crumb={{ label: '…', path: '#' }} noLink />
+                <BreadcrumbChild crumb={{ label: '…', path: '#' }} noLink dontShrink />
                 {/* last child */}
                 {last(breadcrumbedChildren)}
               </div>
               {/* TODO add aria attributes */}
               <button className="p-4" type="button" onClick={() => setOpen((o) => !o)}>
-                <div className={cx('transform transition-transform', { 'rotate-180': isOpen })}>
+                {/*  h-6 is set to match the height of the preceding text */}
+                <div
+                  className={cx('flex h-6 transform items-center transition-transform', {
+                    'rotate-180': isOpen,
+                  })}
+                >
                   <ChevronDownIcon />
                 </div>
               </button>
             </div>
-            {isOpen && (
-              <div className="flex flex-col gap-2 px-3 pb-4">
+            {/* The negative margin is here because of the ChevronDownIcon button having too large padding. */}
+            <AnimateHeight isVisible={isOpen} className="-mt-1">
+              <div className="flex flex-col gap-2 px-3 pb-3">
                 {breadcrumbedChildren.slice(1, -1).map((crumbedChild, index) => (
                   // eslint-disable-next-line react/no-array-index-key
                   <div key={index}>{crumbedChild}</div>
                 ))}
               </div>
-            )}
+            </AnimateHeight>
           </div>
         )}
       </div>

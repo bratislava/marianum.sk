@@ -32,7 +32,7 @@ You need `docker` installed locally.
 
 ### Meilisearch
 
-After initial `docker-compose up` you have to set keys for meilisearch for both the strapi and nextjs. To get them run the command bellow.
+After initial `docker-compose up` you have to set keys for meilisearch for both the strapi and nextjs. To get them run the command below.
 
 ```
 curl --request GET \

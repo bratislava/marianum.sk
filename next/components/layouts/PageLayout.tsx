@@ -44,7 +44,7 @@ const PageLayout = ({ page, navigation, children, general }: PageLayoutProps) =>
             'container relative py-6 md:pt-12 md:pb-20':
               page.attributes?.layout !== Enum_Page_Layout.Fullwidth,
             // Set grid for Sidebar layout
-            'grid gap-6 lg:grid-flow-col lg:grid-cols-[1fr_auto]':
+            'grid grid-cols-1 gap-6 lg:grid-flow-col lg:grid-cols-[minmax(0,1fr)_auto]':
               page.attributes?.layout === Enum_Page_Layout.Sidebar,
             // Center content for Centered layout
             'sm:px-20 md:px-28 lg:px-40': page.attributes?.layout === Enum_Page_Layout.Centered,
