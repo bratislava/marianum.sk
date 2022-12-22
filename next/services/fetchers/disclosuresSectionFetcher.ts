@@ -27,7 +27,7 @@ export const disclosuresSectionFetcher = (filters: DisclosuresSectionFilters) =>
     // Buggy ESLint rule
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     filter: filters.type ? [`type = ${filters.type}`] : [],
-    sort: ['id:desc'],
+    sort: ['publishedAt:desc'],
   })
 
 export const disclosuresSectionPrefetch = {
