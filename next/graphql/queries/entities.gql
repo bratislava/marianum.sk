@@ -523,6 +523,10 @@ fragment PageEntity on PageEntity {
         __typename
         id
       }
+      ... on ComponentSectionsIframeSection {
+        __typename
+        ...IframeSection
+      }
     }
   }
 }

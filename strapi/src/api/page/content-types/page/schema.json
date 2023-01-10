@@ -112,7 +112,8 @@
         "sections.article-news-listing",
         "sections.article-press-listing",
         "sections.opening-hours-section",
-        "sections.disclosures-section"
+        "sections.disclosures-section",
+        "sections.iframe-section"
       ]
     },
     "sidebar": {
