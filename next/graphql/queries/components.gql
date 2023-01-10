@@ -364,3 +364,12 @@ fragment OpeningHoursSection on ComponentSectionsOpeningHoursSection {
     }
   }
 }
+
+fragment IframeSection on ComponentSectionsIframeSection {
+  id
+  title
+  iframeTitle
+  body
+  url
+}
+
