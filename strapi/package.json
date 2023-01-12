@@ -13,7 +13,7 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "@strapi/plugin-graphql": "^4.5.1",
+    "@strapi/plugin-graphql": "^4.5.6",
     "@strapi/plugin-i18n": "^4.5.1",
     "@strapi/plugin-upload": "^4.5.1",
     "@strapi/plugin-users-permissions": "^4.5.1",
