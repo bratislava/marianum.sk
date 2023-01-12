@@ -71,7 +71,7 @@
     "@graphql-codegen/typescript": "^2.5.1",
     "@graphql-codegen/typescript-graphql-request": "^4.4.10",
     "@graphql-codegen/typescript-operations": "^2.4.2",
-    "@next/eslint-plugin-next": "^13.0.3",
+    "@next/eslint-plugin-next": "^13.1.1",
     "@react-types/checkbox": "^3.3.2",
     "@svgr/webpack": "^6.2.1",
     "@tailwindcss/aspect-ratio": "^0.4.0",
