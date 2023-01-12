@@ -86,6 +86,7 @@ fragment SocialItem on ComponentBlocksSocialItem {
 }
 
 fragment Contact on ComponentGeneralContacts {
+  addressFirstLine
   address
   openingHoursPage {
     data {
