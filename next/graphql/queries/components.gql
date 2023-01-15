@@ -85,6 +85,13 @@ fragment SocialItem on ComponentBlocksSocialItem {
   icon
 }
 
+fragment OpeningHours on ComponentBlocksOpeningHoursUniversal {
+  days {
+    label
+    time
+  }
+}
+
 fragment Contact on ComponentGeneralContacts {
   addressFirstLine
   address
@@ -364,6 +371,15 @@ fragment OpeningHoursSection on ComponentSectionsOpeningHoursSection {
       }
     }
   }
+}
+
+fragment CemeteriesOpeningHours on ComponentSectionsCemeteriesOpeningHours {
+  id
+  title
+  showMoreButton {
+    ...CtaButton
+  }
+  buttonPosition
 }
 
 fragment IframeSection on ComponentSectionsIframeSection {

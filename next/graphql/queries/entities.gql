@@ -155,7 +155,9 @@ fragment CemeteryCardEntity on CemeteryEntity {
   attributes {
     title
     address
-    openingHoursOverride
+    overrideOpeningHours {
+      ...OpeningHours
+    }
   }
 }
 
@@ -338,7 +340,9 @@ fragment GeneralEntity on GeneralEntity {
     footer {
       ...Footer
     }
-    generalOpeningHours
+    cemeteryOpeningHours {
+      ...OpeningHours
+    }
   }
 }
 
@@ -476,6 +480,10 @@ fragment PageEntity on PageEntity {
       ... on ComponentSectionsOpeningHoursSection {
         __typename
         ...OpeningHoursSection
+      }
+      ... on ComponentSectionsCemeteriesOpeningHours {
+        __typename
+        ...CemeteriesOpeningHours
       }
       ... on ComponentSectionsPublicDisclosureSection {
         __typename

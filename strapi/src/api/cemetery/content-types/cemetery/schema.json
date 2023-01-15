@@ -126,14 +126,6 @@
       },
       "type": "richtext"
     },
-    "openingHoursOverride": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "richtext"
-    },
     "seo": {
       "type": "component",
       "repeatable": false,
@@ -173,6 +165,16 @@
       "type": "boolean",
       "default": false,
       "required": true
+    },
+    "overrideOpeningHours": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "blocks.opening-hours-universal"
     }
   }
 }
