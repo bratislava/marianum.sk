@@ -7,6 +7,7 @@ import {
   generateStaticPaths,
   generateStaticProps,
 } from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import OpeningHours from '@components/molecules/OpeningHours'
 import SectionBoxed from '@components/molecules/SectionBoxed'
 import { CemeteryEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import { client } from '@services/graphql/gqlClient'
@@ -23,7 +24,7 @@ type CemeteryPageProps = {
 const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'BranchCemeteryPage' })
 
-  const { seo, title, address, navigateToLink, description, openingHoursOverride } =
+  const { seo, title, address, navigateToLink, description, overrideOpeningHours } =
     entity.attributes ?? {}
 
   return (
@@ -61,9 +62,13 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
               <RichText content={description} coloredTable={false} />
             </SectionBoxed>
           )}
-          <SectionBoxed title={t('openingHours')}>
-            <RichText content={openingHoursOverride || general?.attributes?.generalOpeningHours} />
-          </SectionBoxed>
+          {general?.attributes?.cemeteryOpeningHours && (
+            <SectionBoxed title={t('openingHours')}>
+              <OpeningHours
+                openingHours={overrideOpeningHours || general?.attributes?.cemeteryOpeningHours}
+              />
+            </SectionBoxed>
+          )}
         </div>
       </BranchCemeteryLayout>
     </>
