@@ -12,7 +12,7 @@ const nextConfig = {
   reactStrictMode: true,
   reloadOnPrerender: process.env.NODE_ENV === 'development',
   images: {
-    domains: ['localhost', 'cdn-api.bratislava.sk'],
+    domains: ['localhost', 'cdn-api.bratislava.sk', 'api.mapbox.com'],
   },
   sentry: {
     // Use `hidden-source-map` rather than `source-map` as the Webpack `devtool`

@@ -2,7 +2,7 @@ import MLink from '@components/atoms/MLink'
 import AccordionGroup from '@components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '@components/molecules/Accordion/AccordionItem'
 import FooterCredentials from '@components/molecules/Footer/FooterCredentials'
-import FooterMap from '@components/molecules/Footer/FooterMap'
+import FooterMapStatic from '@components/molecules/Footer/FooterMapStatic'
 import FooterSocials from '@components/molecules/Footer/FooterSocials'
 import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { ContactFragment, FooterFragment, SocialItemFragment } from '@graphql'
@@ -46,30 +46,51 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
     ]
   }, [footer])
 
+  const { latitude, longitude } = contact ?? {}
+
   return (
     // negative top margin to make footer overflow last section
     <footer className="sticky top-full -mt-14 flex flex-col gap-12">
       <div className="container flex flex-col gap-12">
         <div className="grid bg-primary text-white md:grid-cols-3 lg:grid-cols-2">
-          <div className="h-52 w-full md:h-auto">
+          {/* aspect ratios must be in sync with sizes in FooterMapStatic component */}
+          <div className="aspect-w-[464] aspect-h-[329] relative overflow-hidden px-4 sm:aspect-w-[576] sm:aspect-h-[208] md:h-auto md:w-full">
             <div className="h-full">
-              <FooterMap
-                onMarkerClick={() =>
-                  // eslint-disable-next-line security/detect-non-literal-fs-filename
-                  window.open(contact?.navigateToLink ?? '', '_blank')?.focus()
-                }
-                markerLat={contact?.latitude}
-                markerLng={contact?.longitude}
-              />
+              <FooterMapStatic latitude={latitude} longitude={longitude} />
+              {/* TODO tmp replaced by static image due to high number of requests exceeding our limits */}
+              {/* <FooterMap */}
+              {/*  onMarkerClick={() => */}
+              {/*    // eslint-disable-next-line security/detect-non-literal-fs-filename */}
+              {/*    window.open(contact?.navigateToLink ?? '', '_blank')?.focus() */}
+              {/*  } */}
+              {/*  markerLat={contact?.latitude} */}
+              {/*  markerLng={contact?.longitude} */}
+              {/* /> */}
             </div>
           </div>
 
           <div className="flex w-full flex-col gap-4 px-4 py-6 md:col-span-2 md:px-8 lg:col-span-1 lg:gap-8 lg:px-12 lg:py-8">
             <div className="relative flex flex-col gap-3">
               <div className="text-lg font-bold">{t('address')}</div>
-              {contact?.address && (
+              {(contact?.addressFirstLine || contact?.address) && (
                 <div className="flex flex-col gap-2 whitespace-pre-wrap font-regular text-white/72">
-                  {contact.address}
+                  <div>{contact.addressFirstLine}</div>
+                  {contact.navigateToLink && contact.address ? (
+                    <div>
+                      <MLink
+                        href={contact.navigateToLink}
+                        target="_blank"
+                        noStyles
+                        className="w-fit text-white/72 underline hover:text-white/100"
+                        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                        aria-label={`${t('navigateTo')} ${contact?.address}`}
+                      >
+                        {contact.address}
+                      </MLink>
+                    </div>
+                  ) : (
+                    <div>{contact.address}</div>
+                  )}
                 </div>
               )}
               <div className="top-1 right-0 flex md:absolute">
