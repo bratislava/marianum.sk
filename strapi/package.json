@@ -22,7 +22,7 @@
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.40",
     "patch-package": "^6.5.1",
-    "pg": "8.6.0",
+    "pg": "8.8.0",
     "postinstall-postinstall": "^2.1.0",
     "strapi-plugin-meilisearch": "^0.8.0",
     "strapi-plugin-navigation": "^2.2.1",
