@@ -113,7 +113,8 @@
         "sections.article-press-listing",
         "sections.opening-hours-section",
         "sections.disclosures-section",
-        "sections.iframe-section"
+        "sections.iframe-section",
+        "sections.cemeteries-opening-hours"
       ]
     },
     "sidebar": {
