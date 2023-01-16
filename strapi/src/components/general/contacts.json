@@ -7,6 +7,9 @@
   },
   "options": {},
   "attributes": {
+    "addressFirstLine": {
+      "type": "string"
+    },
     "address": {
       "type": "text"
     },

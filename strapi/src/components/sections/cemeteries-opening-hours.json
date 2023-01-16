@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_sections_cemeteries_opening_hours",
+  "info": {
+    "displayName": "cemeteries opening hours",
+    "icon": "clock",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "showMoreButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "blocks.button-link"
+    },
+    "buttonPosition": {
+      "type": "enumeration",
+      "enum": [
+        "standard",
+        "below"
+      ],
+      "default": "standard",
+      "required": false
+    }
+  }
+}

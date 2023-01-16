@@ -48,7 +48,7 @@ const BreadcrumbChild = ({
           href={crumb.path}
           noStyles
           aria-label={ariaLabel}
-          className="overflow-hidden text-ellipsis whitespace-nowrap"
+          className="overflow-hidden text-ellipsis whitespace-nowrap underline hover:text-white/100"
         >
           {crumb.label}
         </MLink>
