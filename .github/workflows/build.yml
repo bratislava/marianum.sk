@@ -18,6 +18,7 @@ jobs:
       debug: --debug
     secrets:
       sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
+    permissions: write-all
 
   next:
     name: build Next
@@ -30,4 +31,5 @@ jobs:
       version: beta
     secrets:
       sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
+    permissions: write-all
 
