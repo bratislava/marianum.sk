@@ -88,7 +88,8 @@
     "openingHours": "Opening hours",
     "contacts": "Contacts",
     "allContacts": "All contacts",
-    "open": "Open"
+    "open": "Open",
+    "navigateTo": "Navigate to"
   },
   "FooterCredentials": {
     "founder": "Founder",

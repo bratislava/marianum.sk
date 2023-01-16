@@ -88,7 +88,8 @@
     "openingHours": "Otváracie hodiny",
     "contacts": "Kontakty",
     "allContacts": "Všetky kontakty",
-    "open": "Otvorené"
+    "open": "Otvorené",
+    "navigateTo": "Navigovať na"
   },
   "FooterCredentials": {
     "founder": "Zriaďovateľ",
