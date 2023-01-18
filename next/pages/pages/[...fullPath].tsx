@@ -69,18 +69,13 @@ type PageProps = {
 } & SSRConfig
 
 const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => {
-  const { seo, title, perex, layout, sections } = entity.attributes ?? {}
+  const { seo, title, perex, layout, sections, coverMedia } = entity.attributes ?? {}
 
   const isContainer = layout === Enum_Page_Layout.Fullwidth
 
   return (
     <SWRConfig value={{ fallback }}>
-      <Seo
-        seo={seo}
-        title={title}
-        description={perex}
-        image={entity.attributes?.coverMedia?.data}
-      />
+      <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} />
 
       <PageLayout page={entity} navigation={navigation} general={general}>
         <SectionsWrapper
