@@ -75,7 +75,12 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
 
   return (
     <SWRConfig value={{ fallback }}>
-      <Seo seo={seo} title={title} description={perex} />
+      <Seo
+        seo={seo}
+        title={title}
+        description={perex}
+        image={entity.attributes?.coverMedia?.data}
+      />
 
       <PageLayout page={entity} navigation={navigation} general={general}>
         <SectionsWrapper
