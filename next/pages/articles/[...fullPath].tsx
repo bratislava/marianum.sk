@@ -1,4 +1,5 @@
 import RichText from '@components/atoms/RichText'
+import Seo from '@components/atoms/Seo'
 import ArticleLayout from '@components/layouts/ArticleLayout'
 import ImageGallery from '@components/molecules/ImageGallery'
 import {
@@ -20,16 +21,21 @@ type ArticlePageProps = {
 
 const ArticlePage = ({ navigation, entity, general }: ArticlePageProps) => {
   const medias = entity.attributes?.mediaGallery?.data.filter(isDefined)
+  const { seo, title, perex, coverMedia } = entity.attributes ?? {}
 
   return (
-    <ArticleLayout article={entity} navigation={navigation} general={general}>
-      <RichText content={entity.attributes?.content} />
-      {medias?.length ? (
-        <div className="mt-4 md:mt-6">
-          <ImageGallery images={medias} />
-        </div>
-      ) : null}
-    </ArticleLayout>
+    <>
+      <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} />
+
+      <ArticleLayout article={entity} navigation={navigation} general={general}>
+        <RichText content={entity.attributes?.content} />
+        {medias?.length ? (
+          <div className="mt-4 md:mt-6">
+            <ImageGallery images={medias} />
+          </div>
+        ) : null}
+      </ArticleLayout>
+    </>
   )
 }
 
