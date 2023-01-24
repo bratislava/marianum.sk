@@ -36,13 +36,14 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, entity, general }) 
     additionalItems,
     description,
     documents,
+    coverMedia,
   } = entity.attributes ?? {}
 
   const claims = [...(bundleItems ?? []), ...(additionalItems ?? [])].filter(isDefined)
 
   return (
     <>
-      <Seo seo={seo} title={title} description={perex} />
+      <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} />
 
       <BundleLayout navigation={navigation} general={general} bundle={entity}>
         <div className="flex flex-col">
