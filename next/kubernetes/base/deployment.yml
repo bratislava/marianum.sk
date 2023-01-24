@@ -20,11 +20,11 @@ spec:
           imagePullPolicy: IfNotPresent
           resources:
             limits:
-              cpu: 500m
-              memory: 1Gi
+              cpu: 900m
+              memory: 8Gi
             requests:
-              cpu: 50m
-              memory: 64Mi
+              cpu: ${NEXT_CPU_REQUESTS}
+              memory: ${NEXT_MEMORY_REQUESTS}
           envFrom:
             - secretRef:
                 name: ${BUILD_REPOSITORY_NAME}-general-secret

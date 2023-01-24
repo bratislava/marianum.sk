@@ -26,8 +26,11 @@ const Seo = ({ title, seo, ogType = 'website', description, image }: SeoProps) =
       <meta name="keywords" content={seo?.keywords ?? ''} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+      {/* TODO this is tmp fix to override Next source urls */}
+      <link rel="canonical" href={fullPath} />
+
       {/* Documentation: https://ogp.me/ */}
-      <meta property="og:title" content={seo?.metaTitle || title || ''} />
+      <meta property="og:title" content={`${seo?.metaTitle || title || ''} – Marianum`} />
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={fullPath} />
 
