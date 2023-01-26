@@ -74,5 +74,10 @@ export default {
     console.log({
       locales: await strapi.db.query("plugin::i18n.locale").findMany(),
     });
+    console.log({
+      host: strapi.config.get("server.host"),
+      port: strapi.config.get("server.port"),
+      url: strapi.config.get("server.url"),
+    });
   },
 };
