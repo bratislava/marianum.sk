@@ -146,7 +146,7 @@ export default {
           searchableAttributes: ["firstName", "lastName"],
           pagination: {
             // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
-            maxTotalHits: 10000,
+            maxTotalHits: 100000,
           },
         },
       },
