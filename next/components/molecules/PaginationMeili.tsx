@@ -14,9 +14,9 @@ const PaginationMeili = ({
   pageSize,
   onPageChange = () => {},
 }: PaginationMeiliProps) => {
-  const pageCount = data ? Math.ceil(data.estimatedTotalHits / pageSize) : 0
+  const pageCount = data.estimatedTotalHits ? Math.ceil(data.estimatedTotalHits / pageSize) : 0
 
-  return pageCount > 0 ? (
+  return pageCount ? (
     <Pagination
       className="flex justify-center pt-4 md:pt-6"
       selectedPage={selectedPage}
