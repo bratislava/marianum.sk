@@ -10,7 +10,7 @@ import { v4 as uuid } from "uuid";
 export default {
   importXlsxController: ({ strapi }: { strapi: Strapi }) => ({
     async updateDebtors(ctx) {
-      ctx.request.socket.setTimeout(120000);
+      ctx.request.socket.setTimeout(300000); // 5 minutes
 
       const file = ctx.request.files?.file;
       if (!file) {
