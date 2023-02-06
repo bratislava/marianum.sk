@@ -16,7 +16,7 @@ services:
       - ./data:/var/lib/postgresql/data/
 
   meilisearch:
-    image: getmeili/meilisearch:v0.29.1
+    image: getmeili/meilisearch:v0.30.5
     environment:
       - http_proxy
       - https_proxy
