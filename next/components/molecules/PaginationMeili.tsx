@@ -14,7 +14,7 @@ const PaginationMeili = ({
   pageSize,
   onPageChange = () => {},
 }: PaginationMeiliProps) => {
-  const pageCount = data.estimatedTotalHits ? Math.ceil(data.estimatedTotalHits / pageSize) : 0
+  const pageCount = data?.estimatedTotalHits ? Math.ceil(data.estimatedTotalHits / pageSize) : 0
 
   return pageCount ? (
     <Pagination
