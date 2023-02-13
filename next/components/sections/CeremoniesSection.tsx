@@ -17,11 +17,13 @@ import {
 import { bratislavaTimezone } from '@utils/consts'
 import { getCemeteryInfoInCeremoniesDebtors } from '@utils/getCemeteryInfoInCeremoniesDebtors'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'
+import { useHorizontalScrollFade } from '@utils/useHorizontalScrollFade'
 import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
+import cx from 'classnames'
 import groupBy from 'lodash/groupBy'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Fragment, useMemo, useRef, useState } from 'react'
+import { Fragment, PropsWithChildren, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 
 const ArchiveCard = ({
@@ -63,6 +65,23 @@ const ArchiveCard = ({
 }
 
 const PrivateField = () => <span className="opacity-50">**</span>
+
+const TableWrapper = ({ children }: PropsWithChildren) => {
+  const tableWrapperRef = useRef<HTMLDivElement>(null)
+
+  const { scrollFadeClassNames } = useHorizontalScrollFade({ ref: tableWrapperRef })
+
+  return (
+    <div className="relative">
+      <div
+        className={cx('mb-6 overflow-x-auto md:mb-10', scrollFadeClassNames)}
+        ref={tableWrapperRef}
+      >
+        {children}
+      </div>
+    </div>
+  )
+}
 
 const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSectionFilters }) => {
   const { t, i18n } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })
@@ -123,7 +142,7 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
             <FormatDate value={parsedDate} format="ceremoniesDate" />
           </span>
           {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
-          <div className="mb-6 overflow-x-auto md:mb-10">
+          <TableWrapper>
             {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
             <table className="m-table">
               <thead ref={theadRef}>
@@ -158,7 +177,7 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
                 ))}
               </tbody>
             </table>
-          </div>
+          </TableWrapper>
         </Fragment>
       ))}
       {ceremonies?.length === 0 && (

@@ -17,7 +17,9 @@ import {
 import { DisclosureMeili, DisclosureTypeFixed } from '@services/meili/meiliTypes'
 import { useDownloadAriaLabel } from '@utils/useDownloadAriaLabel'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'
+import { useHorizontalScrollFade } from '@utils/useHorizontalScrollFade'
 import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
+import cx from 'classnames'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -53,15 +55,17 @@ const Table = ({
 
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
+  const tableWrapperRef = useRef<HTMLDivElement>(null)
   const theadRef = useRef<HTMLTableSectionElement>(null)
   useScrollToViewIfDataChange(data, filters, theadRef)
+  const { scrollFadeClassNames } = useHorizontalScrollFade({ ref: tableWrapperRef })
 
   // Files and additional data are present only in the old entries, no need to display them for new ones.
   const hasFiles = data.hits.some((disclosure) => disclosure.files?.length > 0)
   const hasAdditionalData = data.hits.some((disclosure) => disclosure.additionalData)
 
   return (
-    <div className="overflow-x-auto">
+    <div className={cx('overflow-x-auto', scrollFadeClassNames)} ref={tableWrapperRef}>
       {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
       <table className="m-table colored">
         <thead ref={theadRef}>
