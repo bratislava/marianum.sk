@@ -1,6 +1,12 @@
 import SelectWithFetcher from '@components/molecules/SelectWithFetcher'
-import { client } from '@services/graphql/gqlClient'
-import { getCemeteryInfoInCeremoniesDebtors } from '@utils/getCemeteryInfoInCeremoniesDebtors'
+import {
+  cemeteriesInCeremoniesFetcher,
+  getCemeteriesInCeremoniesKey,
+} from '@services/fetchers/ceremoniesSectionFetcher'
+import {
+  cemeteriesInDebtorsFetcher,
+  getCemeteriesInDebtorsKey,
+} from '@services/fetchers/debtorsSectionFetcher'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
@@ -20,44 +26,30 @@ const CeremoniesDebtorsCemeterySelect = ({
   // eslint-disable-next-line consistent-return
   const fetcher = useMemo(() => {
     if (type === 'ceremonies') {
-      return client.CemeteriesInCeremonies()
+      return () => cemeteriesInCeremoniesFetcher(i18n.language)
     }
     if (type === 'debtors') {
-      return client.CemeteriesInDebtors()
+      return () => cemeteriesInDebtorsFetcher(i18n.language)
     }
-  }, [type])
+  }, [type, i18n.language])
 
   // eslint-disable-next-line consistent-return
   const swrKey = useMemo(() => {
     if (type === 'ceremonies') {
-      return 'CemeteriesInCeremonies'
+      return getCemeteriesInCeremoniesKey(i18n.language)
     }
     if (type === 'debtors') {
-      return 'CemeteriesInDebtors'
+      return getCemeteriesInDebtorsKey(i18n.language)
     }
-  }, [type])
-
-  const mappedFetcher = useMemo(() => {
-    return fetcher?.then((data) => {
-      return (
-        data?.cemeteries?.data?.map((cemetery) => {
-          return {
-            label: getCemeteryInfoInCeremoniesDebtors(cemetery, i18n.language).title ?? '',
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            key: cemetery.id!,
-          }
-        }) ?? []
-      )
-    })
-  }, [fetcher, i18n.language])
+  }, [type, i18n.language])
 
   const defaultOption = useMemo(() => ({ label: t('allCemeteries'), key: '' }), [t])
 
-  return mappedFetcher ? (
+  return fetcher ? (
     <SelectWithFetcher
       swrKey={swrKey}
       defaultOption={defaultOption}
-      fetcher={() => mappedFetcher}
+      fetcher={fetcher}
       label={label}
       onSelectionChange={(selection: string) => {
         onCemeteryChange(selection)

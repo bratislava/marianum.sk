@@ -44,9 +44,9 @@ import {
   getArticleListingNewsPrefetches,
 } from '@services/fetchers/articleListingFetcher'
 import { getMapSectionPrefetch } from '@services/fetchers/cemeteriesFetcher'
-import { ceremoniesArchiveSectionPrefetch } from '@services/fetchers/ceremoniesArchiveSectionFetcher'
-import { ceremoniesSectionPrefetch } from '@services/fetchers/ceremoniesSectionFetcher'
-import { debtorsSectionPrefetch } from '@services/fetchers/debtorsSectionFetcher'
+import { ceremoniesArchiveSectionPrefetches } from '@services/fetchers/ceremoniesArchiveSectionFetcher'
+import { getCeremoniesSectionPrefetches } from '@services/fetchers/ceremoniesSectionFetcher'
+import { getDebtorsSectionPrefetches } from '@services/fetchers/debtorsSectionFetcher'
 import { disclosuresSectionPrefetch } from '@services/fetchers/disclosuresSectionFetcher'
 import { documentsSectionPrefetch } from '@services/fetchers/documentsSectionFetcher'
 import { getNewsListingPrefetch } from '@services/fetchers/newsListingFetcher'
@@ -277,10 +277,10 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
     getNewsListingPrefetch(locale),
     getMapSectionPrefetch(locale),
     ...getArticleListingNewsPrefetches(locale),
-    ceremoniesSectionPrefetch,
-    ceremoniesArchiveSectionPrefetch,
+    ...getCeremoniesSectionPrefetches(locale),
+    ...ceremoniesArchiveSectionPrefetches,
     documentsSectionPrefetch,
-    debtorsSectionPrefetch,
+    ...getDebtorsSectionPrefetches(locale),
     partnersSectionPrefetch,
     disclosuresSectionPrefetch,
   ]
