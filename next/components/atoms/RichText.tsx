@@ -2,22 +2,37 @@ import Divider from '@components/atoms/Divider'
 import { customImageLoader } from '@components/atoms/MImage'
 import MLink from '@components/atoms/MLink'
 import NormalizeText from '@components/atoms/NormalizeText/NormalizeText'
+import { useHorizontalScrollFade } from '@utils/useHorizontalScrollFade'
 import cx from 'classnames'
 import Image from 'next/image'
+import { PropsWithChildren, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
-import { LiProps } from 'react-markdown/lib/ast-to-react'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
 
 export interface RichTextProps {
   className?: string
   content?: string | null
-  coloredTable?: boolean
 }
 
-export type AdvancedListItemProps = LiProps & { depth?: number }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const RichTextTable = ({ children, ...props }: PropsWithChildren<any>) => {
+  const tableWrapperRef = useRef<HTMLDivElement>(null)
+  const { scrollFadeClassNames } = useHorizontalScrollFade({ ref: tableWrapperRef })
 
-const RichText = ({ className, content, coloredTable = true }: RichTextProps) => {
+  return (
+    <div className="relative">
+      <div className={cx('overflow-x-auto', scrollFadeClassNames)} ref={tableWrapperRef}>
+        {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
+        <table {...props} className="m-table">
+          {children}
+        </table>
+      </div>
+    </div>
+  )
+}
+
+const RichText = ({ className, content }: RichTextProps) => {
   return (
     <ReactMarkdown
       className={cx('flex flex-col gap-8', className)}
@@ -75,13 +90,7 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
             {children}
           </blockquote>
         ),
-        table: ({ children, ...props }) => (
-          <div className="overflow-x-auto">
-            <table {...props} className={cx('m-table', { colored: coloredTable })}>
-              {children}
-            </table>
-          </div>
-        ),
+        table: RichTextTable,
         thead: ({ children, ...props }) => <thead {...props}>{children}</thead>,
         tbody: ({ children, ...props }) => <tbody {...props}>{children}</tbody>,
         tr: ({ children, isHeader, ...props }) => <tr {...props}>{children}</tr>,
