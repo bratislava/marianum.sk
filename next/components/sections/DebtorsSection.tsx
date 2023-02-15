@@ -15,7 +15,9 @@ import {
 import { DebtorMeili } from '@services/meili/meiliTypes'
 import { getCemeteryInfoInCeremoniesDebtorsMeili } from '@utils/getCemeteryInfoInCeremoniesDebtors'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'
+import { useHorizontalScrollFade } from '@utils/useHorizontalScrollFade'
 import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
+import cx from 'classnames'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -31,8 +33,10 @@ const Table = ({
 }) => {
   const { t, i18n } = useTranslation('common', { keyPrefix: 'DebtorsSection' })
 
+  const tableWrapperRef = useRef<HTMLDivElement>(null)
   const theadRef = useRef<HTMLTableSectionElement>(null)
   useScrollToViewIfDataChange(data, filters, theadRef)
+  const { scrollFadeClassNames } = useHorizontalScrollFade({ ref: tableWrapperRef })
 
   const debtors = useMemo(() => {
     const debtorsData = data.hits
@@ -60,7 +64,7 @@ const Table = ({
   }, [data])
 
   return (
-    <div className="overflow-x-auto">
+    <div className={cx('overflow-x-auto', scrollFadeClassNames)} ref={tableWrapperRef}>
       {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
       <table className="m-table colored">
         <thead ref={theadRef}>

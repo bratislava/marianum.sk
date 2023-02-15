@@ -47,7 +47,7 @@ COPY --chown=node:node src/plugins/ceremonies-debtor-list/yarn.lock ./src/plugin
 RUN yarn config set network-timeout 600000 -g
 RUN yarn install --production
 
-COPY . ./
+COPY --chown=node:node . ./
 
 USER root
 RUN yarn build && chown -R node:node /home/node/app

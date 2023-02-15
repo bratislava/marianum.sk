@@ -56,7 +56,7 @@ COPY --chown=node:node yarn.lock ./
 RUN yarn config set network-timeout 600000 -g
 RUN yarn install --production
 
-COPY . ./
+COPY --chown=node:node . ./
 
 USER root
 RUN chown -R node:node /home/node/app

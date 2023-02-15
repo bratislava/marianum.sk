@@ -10,6 +10,7 @@ import {
   generateStaticPaths,
   generateStaticProps,
 } from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
 import ProcedureTabs from '@components/molecules/ProcedureTabs'
 import Section from '@components/molecules/Section'
 import AccordionGroupSection from '@components/sections/AccordionGroupSection'
@@ -44,9 +45,9 @@ import {
   getArticleListingNewsPrefetches,
 } from '@services/fetchers/articleListingFetcher'
 import { getMapSectionPrefetch } from '@services/fetchers/cemeteriesFetcher'
-import { ceremoniesArchiveSectionPrefetch } from '@services/fetchers/ceremoniesArchiveSectionFetcher'
-import { ceremoniesSectionPrefetch } from '@services/fetchers/ceremoniesSectionFetcher'
-import { debtorsSectionPrefetch } from '@services/fetchers/debtorsSectionFetcher'
+import { ceremoniesArchiveSectionPrefetches } from '@services/fetchers/ceremoniesArchiveSectionFetcher'
+import { getCeremoniesSectionPrefetches } from '@services/fetchers/ceremoniesSectionFetcher'
+import { getDebtorsSectionPrefetches } from '@services/fetchers/debtorsSectionFetcher'
 import { disclosuresSectionPrefetch } from '@services/fetchers/disclosuresSectionFetcher'
 import { documentsSectionPrefetch } from '@services/fetchers/documentsSectionFetcher'
 import { getNewsListingPrefetch } from '@services/fetchers/newsListingFetcher'
@@ -75,7 +76,10 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
 
   return (
     <SWRConfig value={{ fallback }}>
-      <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} />
+      {/* TODO: Extract NavigationProvider from PageWrapper */}
+      <NavigationProvider navigation={navigation} general={general}>
+        <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
+      </NavigationProvider>
 
       <PageLayout page={entity} navigation={navigation} general={general}>
         <SectionsWrapper
@@ -277,10 +281,10 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
     getNewsListingPrefetch(locale),
     getMapSectionPrefetch(locale),
     ...getArticleListingNewsPrefetches(locale),
-    ceremoniesSectionPrefetch,
-    ceremoniesArchiveSectionPrefetch,
+    ...getCeremoniesSectionPrefetches(locale),
+    ...ceremoniesArchiveSectionPrefetches,
     documentsSectionPrefetch,
-    debtorsSectionPrefetch,
+    ...getDebtorsSectionPrefetches(locale),
     partnersSectionPrefetch,
     disclosuresSectionPrefetch,
   ]

@@ -1,3 +1,7 @@
+import {
+  cemeteriesInCeremoniesFetcher,
+  getCemeteriesInCeremoniesKey,
+} from '@services/fetchers/ceremoniesSectionFetcher'
 import { meiliClient } from '@services/meili/meiliClient'
 import { getMeilisearchPageOptions } from '@utils/getMeilisearchPageOptions'
 import { isDefined } from '@utils/isDefined'
@@ -32,8 +36,15 @@ export const ceremoniesArchiveSectionFetcher = (filters: CeremoniesArchiveSectio
     sort: ['dateTimeTimestamp:desc'],
   })
 
-export const ceremoniesArchiveSectionPrefetch = {
-  sectionTypename: 'ComponentSectionsCeremoniesArchiveSection',
-  key: getCeremoniesArchiveSectionSwrKey(ceremoniesArchiveSectionDefaultFilters),
-  fetcher: ceremoniesArchiveSectionFetcher(ceremoniesArchiveSectionDefaultFilters),
-} as const
+export const ceremoniesArchiveSectionPrefetches = [
+  {
+    sectionTypename: 'ComponentSectionsCeremoniesArchiveSection',
+    key: getCemeteriesInCeremoniesKey,
+    fetcher: cemeteriesInCeremoniesFetcher,
+  } as const,
+  {
+    sectionTypename: 'ComponentSectionsCeremoniesArchiveSection',
+    key: getCeremoniesArchiveSectionSwrKey(ceremoniesArchiveSectionDefaultFilters),
+    fetcher: ceremoniesArchiveSectionFetcher(ceremoniesArchiveSectionDefaultFilters),
+  } as const,
+]
