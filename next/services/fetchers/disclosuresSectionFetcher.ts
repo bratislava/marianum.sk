@@ -12,7 +12,7 @@ export type DisclosuresSectionFilters = {
 }
 
 export const disclosuresSectionDefaultFilters: DisclosuresSectionFilters = {
-  pageSize: 20,
+  pageSize: 10,
   search: '',
   page: 1,
   type: null,
