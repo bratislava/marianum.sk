@@ -6,6 +6,7 @@ import {
   generateStaticPaths,
   generateStaticProps,
 } from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
 import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import { client } from '@services/graphql/gqlClient'
 import { isDefined } from '@utils/isDefined'
@@ -25,7 +26,10 @@ const ArticlePage = ({ navigation, entity, general }: ArticlePageProps) => {
 
   return (
     <>
-      <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} />
+      {/* TODO: Extract NavigationProvider from PageWrapper */}
+      <NavigationProvider navigation={navigation} general={general}>
+        <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
+      </NavigationProvider>
 
       <ArticleLayout article={entity} navigation={navigation} general={general}>
         <RichText content={entity.attributes?.content} />

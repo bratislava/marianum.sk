@@ -10,6 +10,7 @@ import {
   generateStaticPaths,
   generateStaticProps,
 } from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
 import ProcedureTabs from '@components/molecules/ProcedureTabs'
 import Section from '@components/molecules/Section'
 import AccordionGroupSection from '@components/sections/AccordionGroupSection'
@@ -75,7 +76,10 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
 
   return (
     <SWRConfig value={{ fallback }}>
-      <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} />
+      {/* TODO: Extract NavigationProvider from PageWrapper */}
+      <NavigationProvider navigation={navigation} general={general}>
+        <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
+      </NavigationProvider>
 
       <PageLayout page={entity} navigation={navigation} general={general}>
         <SectionsWrapper
