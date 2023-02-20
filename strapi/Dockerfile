@@ -40,7 +40,7 @@ EXPOSE 1337
 ARG GIT_COMMIT="undefined"
 ENV GIT_COMMIT=$GIT_COMMIT
 LABEL org.opencontainers.image.revision="${GIT_COMMIT}" \
-      org.opencontainers.image.source="https://github.com/bratislava/nest-magproxy" \
+      org.opencontainers.image.source="https://github.com/bratislava/marianum.sk" \
       org.opencontainers.image.licenses="EUPL-1.2"
 ENTRYPOINT [ "/sbin/tini", "--" ]
 
