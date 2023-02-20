@@ -2,10 +2,11 @@ import Divider from '@components/atoms/Divider'
 import { customImageLoader } from '@components/atoms/MImage'
 import MLink from '@components/atoms/MLink'
 import NormalizeText from '@components/atoms/NormalizeText/NormalizeText'
+import { useHorizontalScrollFade } from '@utils/useHorizontalScrollFade'
 import cx from 'classnames'
 import Image from 'next/image'
+import { PropsWithChildren, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
-import { LiProps } from 'react-markdown/lib/ast-to-react'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
 
@@ -15,7 +16,25 @@ export interface RichTextProps {
   coloredTable?: boolean
 }
 
-export type AdvancedListItemProps = LiProps & { depth?: number }
+const RichTextTable = ({
+  children,
+  colored,
+  ...props
+}: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+PropsWithChildren<{ colored: boolean } & Record<any, any>>) => {
+  const tableWrapperRef = useRef<HTMLDivElement>(null)
+  const { scrollFadeClassNames } = useHorizontalScrollFade({ ref: tableWrapperRef })
+
+  return (
+    <div className="relative">
+      <div className={cx('overflow-x-auto', scrollFadeClassNames)} ref={tableWrapperRef}>
+        <table {...props} className={cx('m-table', { colored })}>
+          {children}
+        </table>
+      </div>
+    </div>
+  )
+}
 
 const RichText = ({ className, content, coloredTable = true }: RichTextProps) => {
   return (
@@ -76,11 +95,9 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
           </blockquote>
         ),
         table: ({ children, ...props }) => (
-          <div className="overflow-x-auto">
-            <table {...props} className={cx('m-table', { colored: coloredTable })}>
-              {children}
-            </table>
-          </div>
+          <RichTextTable colored={coloredTable} {...props}>
+            {children}
+          </RichTextTable>
         ),
         thead: ({ children, ...props }) => <thead {...props}>{children}</thead>,
         tbody: ({ children, ...props }) => <tbody {...props}>{children}</tbody>,

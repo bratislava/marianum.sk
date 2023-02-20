@@ -16,7 +16,9 @@ import {
 import { CeremonyMeili } from '@services/meili/meiliTypes'
 import { getCemeteryInfoInCeremoniesDebtorsMeili } from '@utils/getCemeteryInfoInCeremoniesDebtors'
 import { useGetSwrExtras } from '@utils/useGetSwrExtras'
+import { useHorizontalScrollFade } from '@utils/useHorizontalScrollFade'
 import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
+import cx from 'classnames'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -34,8 +36,10 @@ const Table = ({
 }) => {
   const { t, i18n } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })
 
+  const tableWrapperRef = useRef<HTMLDivElement>(null)
   const theadRef = useRef<HTMLTableSectionElement>(null)
   useScrollToViewIfDataChange(data, filters, theadRef)
+  const { scrollFadeClassNames } = useHorizontalScrollFade({ ref: tableWrapperRef })
 
   const ceremonies = useMemo(() => {
     const ceremoniesData = data.hits
@@ -67,7 +71,10 @@ const Table = ({
 
   return (
     <>
-      <div className="mb-6 overflow-x-auto md:mb-10">
+      <div
+        className={cx('mb-6 overflow-x-auto md:mb-10', scrollFadeClassNames)}
+        ref={tableWrapperRef}
+      >
         {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
         <table className="m-table colored">
           <thead ref={theadRef}>

@@ -1,6 +1,9 @@
+import {
+  UnionSlugEntityType,
+  useGetFullPath,
+} from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { SeoFragment, UploadImageEntityFragment } from '@graphql'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
 interface SeoProps {
@@ -9,13 +12,29 @@ interface SeoProps {
   ogType?: string
   description?: string | null
   image?: UploadImageEntityFragment | null
+  entity?: UnionSlugEntityType
+  homepage?: boolean
 }
 
-const Seo = ({ title, seo, ogType = 'website', description, image }: SeoProps) => {
-  const router = useRouter()
+const Seo = ({
+  title,
+  seo,
+  ogType = 'website',
+  description,
+  image,
+  entity,
+  homepage = false,
+}: SeoProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'Seo' })
 
-  const fullPath = `https://marianum.sk${router.asPath}`
+  const { getFullPath } = useGetFullPath()
+
+  const fullPath = getFullPath(entity)
+  const fullPathWithDomain = homepage
+    ? `https://marianum.sk/`
+    : fullPath
+    ? `https://marianum.sk${fullPath}`
+    : null
 
   return (
     <Head>
@@ -26,13 +45,12 @@ const Seo = ({ title, seo, ogType = 'website', description, image }: SeoProps) =
       <meta name="keywords" content={seo?.keywords ?? ''} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-      {/* TODO this is tmp fix to override Next source urls */}
-      <link rel="canonical" href={fullPath} />
+      {fullPathWithDomain && <link rel="canonical" href={fullPathWithDomain} />}
 
       {/* Documentation: https://ogp.me/ */}
       <meta property="og:title" content={`${seo?.metaTitle || title || ''} – Marianum`} />
       <meta property="og:type" content={ogType} />
-      <meta property="og:url" content={fullPath} />
+      {fullPathWithDomain && <meta property="og:url" content={fullPathWithDomain} />}
 
       {/* TODO: Twitter's image size limit is only 1MB */}
       <meta property="og:image" content={image?.attributes?.url ?? ''} />

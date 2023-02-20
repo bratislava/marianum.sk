@@ -1,4 +1,7 @@
+import { Option } from '@components/atoms/Select'
+import { client } from '@services/graphql/gqlClient'
 import { meiliClient } from '@services/meili/meiliClient'
+import { getCemeteryInfoInCeremoniesDebtors } from '@utils/getCemeteryInfoInCeremoniesDebtors'
 import { getMeilisearchPageOptions } from '@utils/getMeilisearchPageOptions'
 import { Key } from 'swr'
 
@@ -27,8 +30,32 @@ export const debtorsSectionFetcher = (filters: DebtorsSectionFilters) => () =>
     filter: filters.cemeteryId ? [`cemetery.id = ${filters.cemeteryId}`] : [],
   })
 
-export const debtorsSectionPrefetch = {
-  sectionTypename: 'ComponentSectionsDebtorsSection',
-  key: getDebtorsSectionSwrKey(debtorsSectionDefaultFilters),
-  fetcher: debtorsSectionFetcher(debtorsSectionDefaultFilters),
-} as const
+export const getCemeteriesInDebtorsKey = (locale: string) => ['CemeteriesInDebtors', locale] as Key
+
+export const cemeteriesInDebtorsFetcher = async (locale: string) => {
+  const result = await client.CemeteriesInDebtors()
+
+  return (
+    result.cemeteries?.data?.map(
+      (cemetery) =>
+        ({
+          label: getCemeteryInfoInCeremoniesDebtors(cemetery, locale).title ?? '',
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          key: cemetery.id!,
+        } as Option),
+    ) ?? ([] as Option[])
+  )
+}
+
+export const getDebtorsSectionPrefetches = (locale: string) => [
+  {
+    sectionTypename: 'ComponentSectionsDebtorsSection',
+    key: getCemeteriesInDebtorsKey(locale),
+    fetcher: cemeteriesInDebtorsFetcher,
+  } as const,
+  {
+    sectionTypename: 'ComponentSectionsDebtorsSection',
+    key: getDebtorsSectionSwrKey(debtorsSectionDefaultFilters),
+    fetcher: debtorsSectionFetcher(debtorsSectionDefaultFilters),
+  } as const,
+]

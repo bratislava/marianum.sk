@@ -7,6 +7,7 @@ import {
   generateStaticPaths,
   generateStaticProps,
 } from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
 import SectionBoxed from '@components/molecules/SectionBoxed'
 import OfficeSectionBoxed from '@components/sections/OfficeSectionBoxed'
 import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
@@ -31,7 +32,10 @@ const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
 
   return (
     <>
-      <Seo seo={seo} title={title} />
+      {/* TODO: Extract NavigationProvider from PageWrapper */}
+      <NavigationProvider navigation={navigation} general={general}>
+        <Seo seo={seo} title={title} entity={entity} />
+      </NavigationProvider>
 
       <BranchCemeteryLayout entity={entity} navigation={navigation} general={general}>
         <div className="flex flex-col gap-3 md:gap-4">

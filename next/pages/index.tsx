@@ -3,6 +3,7 @@ import Seo from '@components/atoms/Seo'
 import PageWrapper from '@components/layouts/PageWrapper'
 import SectionsWrapper from '@components/layouts/SectionsWrapper'
 import CtaGroup from '@components/molecules/CtaGroup'
+import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
 import Section from '@components/molecules/Section'
 import ArticlesManualListingSection from '@components/sections/ArticlesManualListingSection'
 import CardSection from '@components/sections/CardSection'
@@ -42,7 +43,10 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
 
   return (
     <SWRConfig value={{ fallback }}>
-      <Seo seo={seo} title={t('home')} />
+      {/* TODO: Extract NavigationProvider from PageWrapper */}
+      <NavigationProvider navigation={navigation} general={general}>
+        <Seo seo={seo} title={t('home')} homepage />
+      </NavigationProvider>
 
       <PageWrapper navigation={navigation} general={general}>
         {/* TODO translation */}

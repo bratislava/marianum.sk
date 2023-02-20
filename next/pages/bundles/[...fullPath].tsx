@@ -10,6 +10,7 @@ import {
   generateStaticPaths,
   generateStaticProps,
 } from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
 import Section from '@components/molecules/Section'
 import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import { client } from '@services/graphql/gqlClient'
@@ -43,7 +44,10 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, entity, general }) 
 
   return (
     <>
-      <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} />
+      {/* TODO: Extract NavigationProvider from PageWrapper */}
+      <NavigationProvider navigation={navigation} general={general}>
+        <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />{' '}
+      </NavigationProvider>
 
       <BundleLayout navigation={navigation} general={general} bundle={entity}>
         <div className="flex flex-col">
