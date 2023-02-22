@@ -6,7 +6,7 @@ RUN apk update \
                        automake \
                        zlib-dev \
                        libpng-dev \
-                       vips-dev > /dev/null 2>&1
+                       vips-dev
 WORKDIR /build
 COPY ./package.json ./yarn.lock ./
 # Uncomment if you need any to apply any patches
@@ -28,8 +28,8 @@ RUN yarn install --development && yarn build
 
 FROM node:16-alpine AS app-base
 RUN apk add --no-cache vips-dev \
-                       tini \
- && mkdir -p /home/node/app \
+                       tini
+RUN mkdir -p /home/node/app \
  && chown node:node /home/node/app
 USER node
 WORKDIR /home/node/app
