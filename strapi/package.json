@@ -27,7 +27,8 @@
     "strapi-plugin-meilisearch": "^0.9.1",
     "strapi-plugin-navigation": "^2.2.1",
     "strapi-plugin-placeholder": "^4.3.6",
-    "strapi-provider-upload-ts-minio": "^3.1.0"
+    "strapi-provider-upload-ts-minio": "^3.1.0",
+    "xlsx": "^0.18.5"
   },
   "author": {
     "name": "The City of Bratislava"
