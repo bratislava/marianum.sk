@@ -105,7 +105,8 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
         td: ({ children, isHeader, ...props }) => (
           <td>
             <div {...props}>
-              {children.map((child, index) => (
+              {/* children may come as undefined, if the table is not properly formatted, so "?" is needed */}
+              {children?.map((child, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <NormalizeText key={index}>{child}</NormalizeText>
               ))}
