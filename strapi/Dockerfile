@@ -59,8 +59,10 @@ COPY --chown=node:node --from=build /build/app/dist ./dist
 # - plugins/<name>/yarn.lock
 # - plugins/<name>/package.json
 # - plugins/<name>/dist/
+# - plugins/<name>/*.js
 # Or leave empty (do not add anyting) if you don't have any custom plugins (most likely ./plugins directory)
 COPY --chown=node:node --from=install-prod /build/src/plugins/ceremonies-debtor-list/yarn.lock ./src/plugins/ceremonies-debtor-list/yarn.lock
 COPY --chown=node:node --from=install-prod /build/src/plugins/ceremonies-debtor-list/package.json ./src/plugins/ceremonies-debtor-list/package.json
 COPY --chown=node:node --from=build /build/app/src/plugins/ceremonies-debtor-list/dist ./src/plugins/ceremonies-debtor-list/dist
+COPY --chown=node:node --from=build /build/app/src/plugins/ceremonies-debtor-list/*.js ./src/plugins/ceremonies-debtor-list/
 CMD [ "strapi", "start" ]
