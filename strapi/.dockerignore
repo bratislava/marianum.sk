@@ -1,11 +1,8 @@
 .gitignore
-.git/
 .dockerignore
-*Dockerfile*
-*docker-compose*
+Dockerfile
 dist
 node_modules
-npm-debug.log
 .env
 .env.example
 .env.test
@@ -23,11 +20,6 @@ misc
 .nvmrc
 .tmp/
 .cache/
+.git/
 build/
 data/
-# kustomize files
-kubernetes/
-# bratiska-cli manifest files
-manifest-*.y?ml
-# markdown files
-**/*.md
