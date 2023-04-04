@@ -6,17 +6,21 @@ on:
 jobs:
   conditions:
     name: Check for build conditions
-    uses: bratislava/github-actions/.github/workflows/build-conditions.yml@stable
+    uses: bratislava/github-actions/.github/workflows/build-conditions-inhouse.yml@test/change-runner
     permissions: write-all
+    with:
+      runs-on: '["self-hosted", "Linux", "X64", "bratislava"]'
 
   strapi:
     name: build Strapi
     needs: conditions
     if: needs.conditions.outputs.strapi == 'true'
-    uses: bratislava/github-actions/.github/workflows/build-with-bratiska-cli.yml@stable
+    uses: bratislava/github-actions/.github/workflows/build-with-bratiska-cli-inhouse.yml@test/change-runner
     with:
       directory: strapi/
       debug: --debug
+      runs-on: '["self-hosted", "Linux", "X64", "bratislava"]'
+      version: '2.6.5'
     secrets:
       sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
     permissions: write-all
@@ -25,12 +29,12 @@ jobs:
     name: build Next
     needs: conditions
     if: needs.conditions.outputs.next == 'true'
-    uses: bratislava/github-actions/.github/workflows/build-with-bratiska-cli.yml@stable
+    uses: bratislava/github-actions/.github/workflows/build-with-bratiska-cli-inhouse.yml@test/change-runner
     with:
       directory: next/
       debug: --debug
-      version: beta
+      version: '2.6.5'
+      runs-on: '["self-hosted", "Linux", "X64", "bratislava"]'
     secrets:
       sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
     permissions: write-all
-
