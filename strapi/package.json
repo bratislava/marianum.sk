@@ -17,7 +17,7 @@
     "@strapi/plugin-i18n": "4.5.1",
     "@strapi/plugin-upload": "4.5.1",
     "@strapi/plugin-users-permissions": "4.5.1",
-    "@strapi/strapi": "4.5.1",
+    "@strapi/strapi": "4.10.1",
     "cf-turnstile": "^1.0.8",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.40",
