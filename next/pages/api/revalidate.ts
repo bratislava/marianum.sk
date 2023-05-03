@@ -1,6 +1,5 @@
 import { getFullPathMeiliFn } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { Branch, Bundle, Page } from '@graphql'
-import { withSentry } from '@sentry/nextjs'
 import { client } from '@services/graphql/gqlClient'
 import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@services/meili/meiliTypes'
 import { isDefined } from '@utils/isDefined'
@@ -85,4 +84,4 @@ const revalidate = async (req: NextApiRequest, res: NextApiResponse<Response>) =
   }
 }
 
-export default withSentry(revalidate)
+export default revalidate
