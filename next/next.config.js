@@ -13,6 +13,7 @@ const nextConfig = {
   images: {
     domains: ['localhost', 'cdn-api.bratislava.sk', 'api.mapbox.com'],
   },
+  output: 'standalone',
 
   async rewrites() {
     return {
