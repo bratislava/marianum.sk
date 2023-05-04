@@ -54,7 +54,6 @@ export default {
     //------------------------------------
     // ADDING ENGLISH LOCALE
     //------------------------------------
-    // Some additional information
     const existingEnglish = await strapi.db
       .query("plugin::i18n.locale")
       .findOne({ where: { code: "en" } });

@@ -1,4 +1,6 @@
-FROM node:16-alpine AS build-base
+FROM node:16-alpine AS base
+
+FROM base AS build-base
 RUN apk update \
  && apk add --no-cache build-base \
                        gcc \
@@ -23,14 +25,14 @@ RUN --mount=type=cache,target=/build/.cache/yarn \
     yarn config set network-timeout 600000 -g \
  && yarn install --production
 
-FROM install-prod as build
+FROM install-prod AS build
 WORKDIR /build/app
 COPY ./ .
 RUN --mount=type=cache,target=/build/.cache/yarn \
     yarn install --development \
  && yarn build
 
-FROM node:16-alpine AS app-base
+FROM base AS app-base
 RUN apk add --no-cache vips-dev \
                        tini
 RUN mkdir -p /home/node/app \

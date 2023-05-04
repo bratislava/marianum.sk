@@ -11,20 +11,18 @@ on:
 jobs:
   conditions:
     name: Check for cluster conditions
-    uses: bratislava/github-actions/.github/workflows/cluster-deploy-conditions-inhouse.yml@test/change-runner
+    uses: bratislava/github-actions/.github/workflows/cluster-deploy-conditions-inhouse.yml@stable
 
   deploy-dev:
     name: after dev Strapi deploy Next
     if: needs.conditions.outputs.dev == 'true'
     needs: [conditions, deploy-dev-strapi]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@test/change-runner
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: next/
       cluster: tkg-innov-dev
       url: https://tkg.dev.bratislava.sk
       debug: --debug
-      version: beta
-      runs-on: '["self-hosted", "Linux", "X64", "bratislava"]'
     secrets:
       service-account: ${{ secrets.DEV_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
@@ -34,14 +32,12 @@ jobs:
     name: dev Strapi
     needs: conditions
     if: needs.conditions.outputs.dev-strapi == 'true'
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@test/change-runner
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: strapi/
       cluster: tkg-innov-dev
       url: https://tkg.dev.bratislava.sk
       debug: --debug
-      version: beta
-      runs-on: '["self-hosted", "Linux", "X64", "bratislava"]'
     secrets:
       service-account: ${{ secrets.DEV_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
@@ -51,14 +47,12 @@ jobs:
     name: dev Next
     needs: conditions
     if: needs.conditions.outputs.dev-next == 'true'
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@test/change-runner
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: next/
       cluster: tkg-innov-dev
       url: https://tkg.dev.bratislava.sk
       debug: --debug
-      version: beta
-      runs-on: '["self-hosted", "Linux", "X64", "bratislava"]'
     secrets:
       service-account: ${{ secrets.DEV_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
@@ -68,14 +62,13 @@ jobs:
     name: after staging Strapi deploy Next
     if: needs.conditions.outputs.staging == 'true'
     needs: [conditions, deploy-staging-strapi]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@test/change-runner
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: next/
       cluster: tkg-innov-staging
       url: https://tkg.staging.bratislava.sk
       debug: --debug
       flag: --staging
-      runs-on: '["self-hosted", "Linux", "X64", "bratislava"]'
     secrets:
       service-account: ${{ secrets.STAGING_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
@@ -85,14 +78,13 @@ jobs:
     name: staging Strapi
     needs: conditions
     if: needs.conditions.outputs.staging-strapi == 'true'
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@test/change-runner
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: strapi/
       cluster: tkg-innov-staging
       url: https://tkg.staging.bratislava.sk
       debug: --debug
       flag: --staging
-      runs-on: '["self-hosted", "Linux", "X64", "bratislava"]'
     secrets:
       service-account: ${{ secrets.STAGING_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
@@ -102,14 +94,13 @@ jobs:
     name: staging Next
     needs: conditions
     if: needs.conditions.outputs.staging-next == 'true'
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@test/change-runner
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: next/
       cluster: tkg-innov-staging
       url: https://tkg.staging.bratislava.sk
       debug: --debug
       flag: --staging
-      runs-on: '["self-hosted", "Linux", "X64", "bratislava"]'
     secrets:
       service-account: ${{ secrets.STAGING_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
@@ -119,14 +110,13 @@ jobs:
     name: after prod Strapi deploy Next
     if: needs.conditions.outputs.prod == 'true'
     needs: [conditions, deploy-prod-strapi]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@test/change-runner
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: next/
       cluster: tkg-innov-prod
       url: https://tkg.bratislava.sk
       flag: --production
       debug: --debug
-      runs-on: '["self-hosted", "Linux", "X64", "bratislava"]'
     secrets:
       service-account: ${{ secrets.PROD_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
@@ -136,15 +126,13 @@ jobs:
     name: prod Strapi
     needs: conditions
     if: needs.conditions.outputs.prod-strapi == 'true'
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@test/change-runner
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: strapi/
       cluster: tkg-innov-prod
       url: https://tkg.bratislava.sk
       flag: --production
       debug: --debug
-      version: '2.6.5'
-      runs-on: '["self-hosted", "Linux", "X64", "bratislava"]'
     secrets:
       service-account: ${{ secrets.PROD_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
@@ -154,15 +142,13 @@ jobs:
     name: prod Next
     needs: conditions
     if: needs.conditions.outputs.prod-next == 'true'
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@test/change-runner
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: next/
       cluster: tkg-innov-prod
       url: https://tkg.bratislava.sk
       flag: --production
       debug: --debug
-      version: '2.6.5'
-      runs-on: '["self-hosted", "Linux", "X64", "bratislava"]'
     secrets:
       service-account: ${{ secrets.PROD_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
