@@ -29,8 +29,6 @@ jobs:
     with:
       directory: next/
       debug: --debug
-      version: beta
     secrets:
       sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
     permissions: write-all
-
