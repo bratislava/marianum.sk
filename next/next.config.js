@@ -63,6 +63,10 @@ const nextConfig = {
             nextRoute: '/bundles',
           },
           {
+            fullPath: '/sluzby/balicky-pohrebov/prirodne-obrady/:slug',
+            nextRoute: '/bundles',
+          },
+          {
             fullPath: '/o-nas/kontakty/:slug',
             nextRoute: '/branches',
           },

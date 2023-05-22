@@ -24,6 +24,7 @@ const localPaths = {
   press: '/o-nas/pre-media',
   bundlesBurial: '/sluzby/balicky-pohrebov/rozlucka-na-cintorine',
   bundlesCremation: '/sluzby/balicky-pohrebov/kremacia',
+  bundlesNatural: '/sluzby/balicky-pohrebov/prirodne-obrady',
   cemeteries: '/o-nas/cintoriny-v-sprave',
   documents: '/o-nas/dokumenty',
   legislative: '/o-nas/dokumenty/legislativa',
@@ -78,6 +79,9 @@ export const getFullPathFn = (
     }
     if (entity.attributes.type === 'kremacia') {
       return [localPaths.bundlesCremation, slug].join('/')
+    }
+    if (entity.attributes.type === 'prirodne') {
+      return [localPaths.bundlesNatural, slug].join('/')
     }
   }
 

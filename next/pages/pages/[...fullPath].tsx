@@ -16,6 +16,7 @@ import Section from '@components/molecules/Section'
 import AccordionGroupSection from '@components/sections/AccordionGroupSection'
 import ArticleListing from '@components/sections/ArticleListing/ArticleListing'
 import BundleListingSection from '@components/sections/BundleListingSection'
+import BundleListingSimpleSection from '@components/sections/BundleListingSimpleSection'
 import CardSection from '@components/sections/CardSection'
 import CemeteriesOpeningHoursSection from '@components/sections/CemeteriesOpeningHoursSection'
 import CeremoniesArchiveSection from '@components/sections/CeremoniesArchiveSection'
@@ -119,6 +120,14 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
             if (section?.__typename === 'ComponentSectionsBundleListing') {
               return (
                 <BundleListingSection
+                  key={`${section.__typename}-${section.id}`}
+                  section={section}
+                />
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsBundleListingSimple') {
+              return (
+                <BundleListingSimpleSection
                   key={`${section.__typename}-${section.id}`}
                   section={section}
                 />

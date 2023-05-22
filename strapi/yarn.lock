@@ -10822,10 +10822,10 @@ std-env@^3.0.1:
   resolved "https://registry.yarnpkg.com/std-env/-/std-env-3.1.1.tgz#1f19c4d3f6278c52efd08a94574a2a8d32b7d092"
   integrity sha512-/c645XdExBypL01TpFKiG/3RAa/Qmu+zRi0MwAmrdEkwHNuN0ebo8ccAXBBDa5Z0QOJgBskUIbuCK91x0sCVEw==
 
-strapi-plugin-meilisearch@^0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/strapi-plugin-meilisearch/-/strapi-plugin-meilisearch-0.9.1.tgz#1f134866b6b77bd65d9869d6ab949514a5ff4ef7"
-  integrity sha512-kSZjqYJuuXulqPsIc1ZcpCG7xNbYfCYCNDNRN6CI/aisWFL65dQYVG7HkVOAaJfxdUaboFKNu9c5R1hzbtJwTQ==
+strapi-plugin-meilisearch@^0.9.2:
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-meilisearch/-/strapi-plugin-meilisearch-0.9.2.tgz#c8db12820b86640b1bdc850dde94da9c50e9b6e8"
+  integrity sha512-18rAUkQ5LTVYGKqe0bslKpMPC3nd/VpQNFAFkydTqhONkdPI/m1SkRnudaFujMspTB7+fqcAhrdGOeHTH/g3cQ==
   dependencies:
     "@strapi/utils" "^4.5.4"
     meilisearch "^0.30.0"

@@ -74,7 +74,8 @@
       "type": "enumeration",
       "enum": [
         "pochovanie",
-        "kremacia"
+        "kremacia",
+        "prirodne"
       ],
       "required": true,
       "default": "pochovanie"
