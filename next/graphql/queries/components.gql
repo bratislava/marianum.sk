@@ -248,6 +248,17 @@ fragment BundleListing on ComponentSectionsBundleListing {
   }
 }
 
+fragment BundleListingSimple on ComponentSectionsBundleListingSimple {
+  id
+  title
+  description
+  bundles {
+    data {
+      ...BundleCardEntity
+    }
+  }
+}
+
 fragment ContactGroup on ComponentSectionsContactGroup {
   id
   title

@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_sections_bundle_listing_simples",
+  "info": {
+    "displayName": "bundle listing simple",
+    "icon": "align-justify",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "bundles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bundle.bundle"
+    }
+  }
+}
