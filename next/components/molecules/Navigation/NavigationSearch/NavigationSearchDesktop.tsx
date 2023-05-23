@@ -3,8 +3,8 @@ import NavigationSearchResults from '@components/molecules/Navigation/Navigation
 import Search from '@components/molecules/Search'
 import { SearchData } from '@utils/useSearch'
 import cx from 'classnames'
-import { useEffect, useRef, useState } from 'react'
-import { useOnClickOutside } from 'usehooks-ts'
+import { useEffect, useState } from 'react'
+import { useFocusWithin } from 'react-aria'
 
 type NavigationSearchDesktopProps = {
   searchQuery: string
@@ -28,21 +28,22 @@ const NavigationSearchDesktop = ({
   onClose,
 }: NavigationSearchDesktopProps) => {
   const [isOpen, setOpen] = useState(false)
-  const ref = useRef(null)
 
   useEffect(() => {
     if (isOpen) onOpen()
     if (!isOpen) onClose()
   }, [isOpen, onClose, onOpen])
 
-  useOnClickOutside(ref, () => setOpen(false))
+  const { focusWithinProps } = useFocusWithin({
+    onBlurWithin: () => setOpen(false),
+  })
 
   return (
     <div
       className={cx('relative w-72 text-foreground transition-all duration-500 ', {
         'w-[540px]': isOpen,
       })}
-      ref={ref}
+      {...focusWithinProps}
     >
       <Search
         className={cx('border-transparent', {
