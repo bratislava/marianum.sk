@@ -3,10 +3,11 @@
  */
 
 import { factories } from "@strapi/strapi";
-import { errors } from "@strapi/utils";
-
+import utils from "@strapi/utils";
 import { applicationShape } from "./application-shared.yup";
 import Turnstile from "cf-turnstile";
+
+const { ApplicationError } = utils.errors;
 
 export default factories.createCoreService(
   "api::application.application",
@@ -27,15 +28,15 @@ export default factories.createCoreService(
         const turnstileResult = await turnstile(captchaToken);
 
         if (!turnstileResult.success) {
-          throw new errors.ApplicationError("Captcha error", 404);
+          throw new ApplicationError("Captcha error", 404);
         }
 
         try {
           applicationShape.validateSync(data);
         } catch (e) {
           // TODO: Error
-          // throw new errors.YupValidationError(e);
-          // throw new errors.ApplicationError("Not found", 404);
+          // throw new YupValidationError(e);
+          // throw new ApplicationError("Not found", 404);
         }
 
         const entries = await super.create({

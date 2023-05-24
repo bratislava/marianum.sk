@@ -1,11 +1,11 @@
 import pluginId from "./pluginId";
-import UploadIcon from "@strapi/icons/Upload";
+import { Upload } from "@strapi/icons";
 
 export default {
   register(app) {
     app.addMenuLink({
       to: `/plugins/${pluginId}`,
-      icon: UploadIcon,
+      icon: Upload,
       intlLabel: {
         id: `${pluginId}.plugin.name`,
         defaultMessage: "Import Excel súborov",
