@@ -133,7 +133,7 @@ const Select = ({
 
       <Listbox.Options
         as="div"
-        ref={setPopperElement}
+        ref={setPopperElement as any}
         className="z-20 max-h-[240px] w-full flex-col overflow-y-auto border border-border bg-white outline-none"
         style={styles.popper}
         {...attributes.popper}

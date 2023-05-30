@@ -85,6 +85,7 @@ const ApplicationStep4 = ({
     <ApplicationStepWrapper handleSubmit={handleSubmit} onContinue={onContinue}>
       <h3 className="mb-3 md:mb-6">Výber cintorína</h3>
       <FormRadioGroup
+        // @ts-ignore
         value="5"
         name="cintorin"
         control={control}
