@@ -41,6 +41,7 @@ export const getStaticProps: GetStaticProps = async (
       general: general?.data ?? null,
       ...translations,
     },
+    revalidate: 10,
   }
 }
 
