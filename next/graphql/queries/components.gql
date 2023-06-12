@@ -21,6 +21,12 @@ fragment NavigationItem on NavigationItem {
     ...FlatNavigationItem
     items {
       ...FlatNavigationItem
+      items {
+        ...FlatNavigationItem
+        items {
+          ...FlatNavigationItem
+        }
+      }
     }
   }
 }
