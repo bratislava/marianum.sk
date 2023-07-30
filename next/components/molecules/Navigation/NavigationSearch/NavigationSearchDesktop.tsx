@@ -60,10 +60,10 @@ const NavigationSearchDesktop = ({
         isVisible={isOpen}
         className="absolute top-full z-50 mt-2 w-full bg-white shadow"
       >
-        {!emptySearchQuery ? (
+        {emptySearchQuery ? null : (
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           <NavigationSearchResults data={data!} isLoading={isLoading} searchQuery={searchQuery} />
-        ) : null}
+        )}
       </AnimateHeight>
     </div>
   )

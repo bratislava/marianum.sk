@@ -1,3 +1,5 @@
+import { ParsedUrlQuery } from 'node:querystring'
+
 import Divider from '@components/atoms/Divider'
 import Seo from '@components/atoms/Seo'
 import PageLayout from '@components/layouts/PageLayout'
@@ -59,7 +61,6 @@ import { client } from '@services/graphql/gqlClient'
 import { prefetchSections } from '@utils/prefetchSections'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { SSRConfig } from 'next-i18next'
-import { ParsedUrlQuery } from 'node:querystring'
 import { SWRConfig } from 'swr'
 
 type PageProps = {

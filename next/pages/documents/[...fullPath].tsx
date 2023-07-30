@@ -1,3 +1,5 @@
+import { ParsedUrlQuery } from 'node:querystring'
+
 import Seo from '@components/atoms/Seo'
 import DocumentLayout from '@components/layouts/DocumentLayout'
 import {
@@ -9,7 +11,6 @@ import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment }
 import { client } from '@services/graphql/gqlClient'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { SSRConfig } from 'next-i18next'
-import { ParsedUrlQuery } from 'node:querystring'
 
 type DocumentPageProps = {
   navigation: NavigationItemFragment[]

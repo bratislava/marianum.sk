@@ -46,7 +46,7 @@ const SideBar = ({ sidebar }: SideBarProps) => {
               {email && (
                 <Button
                   variant="plain-primary"
-                  href={`mailto:${email.replace(/ /g, '')}`}
+                  href={`mailto:${email.replaceAll(' ', '')}`}
                   startIcon={<MailIcon />}
                   className="mt-2"
                 >
@@ -86,7 +86,7 @@ const SideBar = ({ sidebar }: SideBarProps) => {
                 {(phone1 || phone2) && <div className="mt-4">{t('orContactUsByEmail')}</div>}
                 <Button
                   variant="plain-primary"
-                  href={`mailto:${email.replace(/ /g, '')}`}
+                  href={`mailto:${email.replaceAll(' ', '')}`}
                   startIcon={<MailIcon />}
                   className="mt-4"
                 >

@@ -124,6 +124,5 @@ module.exports = {
     customVariants,
     require('tailwindcss-radix')(),
     require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/line-clamp'),
   ],
 }

@@ -50,7 +50,7 @@ const Contact = ({ contact, className }: ContactProps) => {
           <MLink
             noStyles
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-            href={`mailto:${email.replace(/ /g, '')}`}
+            href={`mailto:${email.replaceAll(' ', '')}`}
             className="flex items-center gap-x-2 font-semibold text-primary hover:text-primary-dark"
           >
             <MailIcon />

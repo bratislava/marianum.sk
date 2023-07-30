@@ -42,13 +42,13 @@ const BreadcrumbChild = ({
         </div>
       )}
       {noLink ? (
-        <div className="overflow-hidden text-ellipsis whitespace-nowrap">{crumb.label}</div>
+        <div className="truncate">{crumb.label}</div>
       ) : (
         <MLink
           href={crumb.path}
           noStyles
           aria-label={ariaLabel}
-          className="overflow-hidden text-ellipsis whitespace-nowrap underline hover:text-white/100"
+          className="truncate underline hover:text-white/100"
         >
           {crumb.label}
         </MLink>
@@ -106,7 +106,7 @@ const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
         {isExpanded || !isCollapsing ? (
           <div className="flex items-center gap-1 py-6">{breadcrumbedChildren}</div>
         ) : (
-          <div className="flex w-full flex-col pt-2 pb-3">
+          <div className="flex w-full flex-col pb-3 pt-2">
             <div className="flex w-full items-center justify-between overflow-hidden">
               {/* min-w-0 is used because:
               https://css-tricks.com/flexbox-truncated-text/#aa-the-solution-is-min-width-0-on-the-flex-child */}

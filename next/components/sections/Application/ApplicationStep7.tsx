@@ -41,7 +41,7 @@ const ApplicationStep7 = ({
     >
       <h3 className="mb-3 md:mb-6">Poznámka</h3>
       <TextField area {...register('poznamka')} />
-      <h3 className="mt-8 mb-4">Súhlasy</h3>
+      <h3 className="mb-4 mt-8">Súhlasy</h3>
       <div className="grid gap-4 pb-4 md:pb-6">
         <FormCheckbox name="suhlasSOdoslanim" control={control} formState={formState}>
           Súhlasím s vyhlásením o{' '}

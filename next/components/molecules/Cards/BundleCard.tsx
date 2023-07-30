@@ -46,7 +46,7 @@ const BundleCard = ({
         </div>
 
         <div>
-          <h4 id={titleId} className="text-h5 line-clamp-3 group-hover:underline">
+          <h4 id={titleId} className="line-clamp-3 text-h5 group-hover:underline">
             {name}
           </h4>
           <div className="flex flex-wrap items-center gap-3">
@@ -54,7 +54,7 @@ const BundleCard = ({
               {t('BundleCard.from')} <FormatCurrency value={priceFrom} />
             </div>
             {discountText && (
-              <div className="rounded-2xl bg-primary/12 py-1.5 px-3 text-sm font-semibold leading-4 text-primary">
+              <div className="rounded-2xl bg-primary/12 px-3 py-1.5 text-sm font-semibold leading-4 text-primary">
                 {discountText}
               </div>
             )}

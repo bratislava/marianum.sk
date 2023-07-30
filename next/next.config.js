@@ -9,7 +9,6 @@ const {
 const nextConfig = {
   i18n,
   reactStrictMode: true,
-  reloadOnPrerender: process.env.NODE_ENV === 'development',
   images: {
     domains: ['localhost', 'cdn-api.bratislava.sk', 'api.mapbox.com'],
   },

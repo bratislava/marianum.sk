@@ -54,7 +54,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
       <div className="container flex flex-col gap-12">
         <div className="grid bg-primary text-white md:grid-cols-3 lg:grid-cols-2">
           {/* aspect ratios must be in sync with sizes in FooterMapStatic component */}
-          <div className="aspect-w-[464] aspect-h-[329] relative overflow-hidden px-4 sm:aspect-w-[576] sm:aspect-h-[208] md:h-auto md:w-full">
+          <div className="aspect-h-[329] aspect-w-[464] relative overflow-hidden px-4 sm:aspect-h-[208] sm:aspect-w-[576] md:h-auto md:w-full">
             <div className="h-full">
               <FooterMapStatic latitude={latitude} longitude={longitude} />
               {/* TODO tmp replaced by static image due to high number of requests exceeding our limits */}
@@ -93,7 +93,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
                   )}
                 </div>
               )}
-              <div className="top-1 right-0 flex md:absolute">
+              <div className="right-0 top-1 flex md:absolute">
                 {openingHoursPath && (
                   <MLink variant="white" href={openingHoursPath}>
                     {t('openingHours')}
@@ -117,14 +117,14 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
                 {email && (
                   <MLink
                     noStyles
-                    href={`mailto:${email.replace(/ /g, '')}`}
+                    href={`mailto:${email.replaceAll(' ', '')}`}
                     className="w-fit underline opacity-72 hover:opacity-100"
                   >
                     {email}
                   </MLink>
                 )}
               </div>
-              <div className="top-1 right-0 flex md:absolute">
+              <div className="right-0 top-1 flex md:absolute">
                 {contactsPath && (
                   <MLink variant="white" href={contactsPath}>
                     {t('allContacts')}

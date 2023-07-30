@@ -1,3 +1,5 @@
+import { ParsedUrlQuery } from 'node:querystring'
+
 import { NavigateIcon, PlaceIcon } from '@assets/icons'
 import Button from '@components/atoms/Button'
 import RichText from '@components/atoms/RichText'
@@ -15,7 +17,6 @@ import { client } from '@services/graphql/gqlClient'
 import { isDefined } from '@utils/isDefined'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { SSRConfig, useTranslation } from 'next-i18next'
-import { ParsedUrlQuery } from 'node:querystring'
 
 type BranchPageProps = {
   navigation: NavigationItemFragment[]
@@ -68,9 +69,7 @@ const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
               <RichText content={description} coloredTable={false} />
             </SectionBoxed>
           )}
-          {filteredOffices?.map((office) => (
-            <OfficeSectionBoxed office={office} />
-          ))}
+          {filteredOffices?.map((office) => <OfficeSectionBoxed office={office} />)}
         </div>
       </BranchCemeteryLayout>
     </>

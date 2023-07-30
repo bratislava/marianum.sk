@@ -29,7 +29,7 @@ const CemeteriesOpeningHoursSection = ({
       {...rest}
     >
       <div
-        className={cx('bg-white py-3 px-4 md:py-4 md:px-5', {
+        className={cx('bg-white px-4 py-3 md:px-5 md:py-4', {
           'border border-border': border,
         })}
       >

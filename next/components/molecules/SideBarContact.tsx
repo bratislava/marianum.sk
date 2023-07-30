@@ -46,7 +46,7 @@ const SideBarContact = ({ title, phone1, phone2, email }: SideBarContactProps) =
           <Button variant="plain-primary" startIcon={<MailIcon />} className="mt-2 w-fit">
             {email}
           </Button>
-          <Button href={`mailto:${email.replace(/ /g, '')}`} variant="primary" className="mt-6">
+          <Button href={`mailto:${email.replaceAll(' ', '')}`} variant="primary" className="mt-6">
             {t('writeMessage')}
           </Button>
         </>

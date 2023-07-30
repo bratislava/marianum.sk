@@ -43,7 +43,7 @@ export const generateStaticPaths = async (
   )
   const fullPathsArray = fullPaths.map((path) => path.split('/')?.slice(1))
   return fullPathsArray.map(
-    (fullPath) => ({ params: { fullPath, locale: 'sk' } } as const),
+    (fullPath) => ({ params: { fullPath, locale: 'sk' } }) as const,
   ) as GetStaticPathsResult<{ fullPath: string[] }>['paths']
 }
 

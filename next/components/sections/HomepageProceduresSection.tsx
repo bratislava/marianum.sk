@@ -64,7 +64,7 @@ const HomepageProceduresSection = ({
                     <li
                       key={step.title}
                       className={cx(
-                        'flex w-[calc(100vw-6rem)] shrink-0 flex-col items-center gap-2 bg-white px-6 pt-4 pb-8',
+                        'flex w-[calc(100vw-6rem)] shrink-0 flex-col items-center gap-2 bg-white px-6 pb-8 pt-4',
                         {
                           'border border-border': border,
                         },

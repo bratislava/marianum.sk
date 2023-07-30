@@ -20,7 +20,7 @@ const ReviewCard = ({ rating, author, date, description, ...rest }: ReviewCardPr
             <div className="flex items-center gap-4">
               <Avatar name={author} />
               <div>
-                <div className="font-bold line-clamp-2">{author}</div>
+                <div className="line-clamp-2 font-bold">{author}</div>
                 <div className="text-sm">
                   <FormatDate value={date} />
                 </div>
