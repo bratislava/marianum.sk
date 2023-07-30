@@ -5310,7 +5310,7 @@ export const PageEntityFragmentDoc = gql`
         __typename
         id
         title
-        medias {
+        medias(pagination: {limit: -1}) {
           data {
             ...UploadImageEntity
           }
