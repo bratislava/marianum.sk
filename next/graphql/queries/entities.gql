@@ -455,7 +455,7 @@ fragment PageEntity on PageEntity {
         __typename
         id
         title
-        medias {
+        medias(pagination: { limit: -1 }) {
           data {
             ...UploadImageEntity
           }
