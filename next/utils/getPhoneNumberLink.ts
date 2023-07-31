@@ -4,4 +4,4 @@
  * Phone number links cannot contain spaces.
  * @param phone
  */
-export const getPhoneNumberLink = (phone: string) => `tel:${phone.replace(/\s/g, '')}`
+export const getPhoneNumberLink = (phone: string) => `tel:${phone.replaceAll(/\s/g, '')}`

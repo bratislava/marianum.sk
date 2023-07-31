@@ -71,7 +71,7 @@ const Modal = (props: ModalProps) => {
                     {showCloseButton && (
                       <IconButton
                         variant="white"
-                        className="fixed top-6 right-6 z-30"
+                        className="fixed right-6 top-6 z-30"
                         onPress={onClose}
                       >
                         <CloseIcon />

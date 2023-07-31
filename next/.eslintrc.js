@@ -36,6 +36,11 @@ module.exports = {
     '@typescript-eslint/no-unsafe-argument': 'off',
     'lodash/prefer-noop': 'off',
     'jsx-a11y/img-redundant-alt': 'warn',
+    '@typescript-eslint/no-floating-promises': 'off',
+    'pii/no-phone-number': 'warn',
+    'const-case/uppercase': 'warn',
+    '@typescript-eslint/ban-ts-comment': 'warn',
+    'xss/no-mixed-html': 'off',
   },
   ignorePatterns: ['*.config.*', 'graphql', '.eslintrc.js'],
 }

@@ -24,7 +24,7 @@ const StepCard = ({
         <div className="mb-4 flex">
           <h3 className="grow text-h6">{title}</h3>
           {enableEdit ? (
-            <div className="-mt-1 -ml-1 text-primary md:-mt-2 md:-ml-2">
+            <div className="-ml-1 -mt-1 text-primary md:-ml-2 md:-mt-2">
               <IconButton onPress={onEdit} size="small">
                 <EditIcon />
               </IconButton>
@@ -64,11 +64,11 @@ ApplicationSummaryProps) => {
   return (
     <div className="flex flex-col gap-y-2 md:gap-y-3">
       <h2 className="mb-4 hidden text-h3 md:block">Sumár</h2>
-      {!application.step1 ? (
+      {application.step1 ? null : (
         <StepCard enableEdit={false}>
           Vyplňte povinné údaje označené * a stlačte tlačidlo “Pokračovať”.
         </StepCard>
-      ) : null}
+      )}
       {application.step1 ? (
         <StepCard
           title="Typ žiadosti"

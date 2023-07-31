@@ -1,3 +1,5 @@
+import { ParsedUrlQuery } from 'node:querystring'
+
 import { CheckNoPaddingIcon } from '@assets/icons'
 import FormatCurrency from '@components/atoms/FormatCurrency'
 import RichText from '@components/atoms/RichText'
@@ -17,7 +19,6 @@ import { client } from '@services/graphql/gqlClient'
 import { isDefined } from '@utils/isDefined'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { SSRConfig, useTranslation } from 'next-i18next'
-import { ParsedUrlQuery } from 'node:querystring'
 
 type BundlePageProps = {
   navigation: NavigationItemFragment[]
@@ -68,7 +69,7 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, entity, general }) 
               </ul>
 
               {discountText && (
-                <div className="mt-8 w-fit rounded-2xl bg-primary/12 py-1.5 px-3 text-sm font-semibold leading-4 text-primary">
+                <div className="mt-8 w-fit rounded-2xl bg-primary/12 px-3 py-1.5 text-sm font-semibold leading-4 text-primary">
                   {discountText}
                 </div>
               )}

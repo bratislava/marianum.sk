@@ -55,7 +55,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                   </h3>
 
                   {description && (
-                    <div className="mt-3 hidden opacity-72 lg:block lg:pr-40 lg:line-clamp-3">
+                    <div className="mt-3 hidden opacity-72 lg:line-clamp-3 lg:block lg:pr-40">
                       {description}
                     </div>
                   )}
@@ -78,7 +78,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
               <div key={ctaSlug} className="hidden h-full flex-1 lg:flex">
                 <div className="w-[60%]" />
                 {/* gradient overlay */}
-                <div className="absolute left-[60%] z-[1] h-full w-[10%] -ml-px bg-gradient-to-r from-primary-dark" />
+                <div className="absolute left-[60%] z-[1] -ml-px h-full w-[10%] bg-gradient-to-r from-primary-dark" />
                 <div className="pointer-events-none relative h-[228px] w-full select-none bg-black/20 lg:h-full lg:w-[40%]">
                   {url && (
                     <Image

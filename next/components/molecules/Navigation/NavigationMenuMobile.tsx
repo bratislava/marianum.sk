@@ -65,7 +65,7 @@ const RenderItems = ({
 
 const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobileProps) => {
   const rootItem = useMemo<NavigationItemFragment>(
-    () => ({ id: 0, title: '', path: '', items } as NavigationItemFragment),
+    () => ({ id: 0, title: '', path: '', items }) as NavigationItemFragment,
     [items],
   )
 

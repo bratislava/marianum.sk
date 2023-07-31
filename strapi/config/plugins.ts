@@ -17,7 +17,6 @@ export default {
   graphql: {
     enabled: true,
     config: {
-      defaultLimit: 100,
       generateArtifacts: true,
       artifacts: {
         // When changing schema path, also change watchIgnoreFiles in strapi/config/admin.js

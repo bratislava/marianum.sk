@@ -219,7 +219,7 @@ const MapSection = ({ section }: MapSectionProps) => {
                     <motion.button
                       style={{ originY: 1 }}
                       initial={{ scale: 0 }}
-                      animate={{ scale: hoveredCemeterySlug !== slug ? 0.75 : 1 }}
+                      animate={{ scale: hoveredCemeterySlug === slug ? 1 : 0.75 }}
                       whileTap={{ scale: 0.8 }}
                     >
                       <MLink

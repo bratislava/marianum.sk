@@ -1,3 +1,5 @@
+import { ParsedUrlQuery } from 'node:querystring'
+
 import { NavigateIcon, PlaceIcon } from '@assets/icons'
 import Button from '@components/atoms/Button'
 import RichText from '@components/atoms/RichText'
@@ -14,7 +16,6 @@ import { CemeteryEntityFragment, GeneralEntityFragment, NavigationItemFragment }
 import { client } from '@services/graphql/gqlClient'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { SSRConfig, useTranslation } from 'next-i18next'
-import { ParsedUrlQuery } from 'node:querystring'
 
 type CemeteryPageProps = {
   navigation: NavigationItemFragment[]

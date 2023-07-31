@@ -20,12 +20,12 @@ const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
     <CardBox {...rest}>
       <CardContent className="justify-between gap-y-4">
         {image && (
-          <div className="aspect-w-[240] aspect-h-[72] w-full md:aspect-w-[216] md:aspect-h-[83]">
+          <div className="aspect-h-[72] aspect-w-[240] w-full md:aspect-h-[83] md:aspect-w-[216]">
             <MImage image={image} fill className="object-contain" />
           </div>
         )}
         <div className="flex flex-col items-center gap-y-2">
-          <h3 id={titleId} className="text-center text-h5 line-clamp-3 group-hover:underline">
+          <h3 id={titleId} className="line-clamp-3 text-center text-h5 group-hover:underline">
             {title}
           </h3>
           <Button

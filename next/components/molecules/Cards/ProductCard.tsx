@@ -42,7 +42,7 @@ const ProductCard = ({
 
   return (
     <CardBox {...rest} hover={!isButtonHovered}>
-      <div className="aspect-w-1 aspect-h-1 w-full bg-gray">
+      <div className="aspect-h-1 aspect-w-1 w-full bg-gray">
         {image ? <MImage image={image} fill className="object-contain" /> : <ImagePlaceholder />}
       </div>
       <CardContent className="gap-y-2">
@@ -53,7 +53,7 @@ const ProductCard = ({
           className="after:absolute after:inset-0"
         >
           <h3
-            className={cx('text-h5 line-clamp-3', {
+            className={cx('line-clamp-3 text-h5', {
               'group-hover:underline': !isButtonHovered,
             })}
           >
