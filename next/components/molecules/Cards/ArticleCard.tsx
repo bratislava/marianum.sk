@@ -4,7 +4,11 @@ import FormatDate from '@components/atoms/FormatDate'
 import ImagePlaceholder from '@components/atoms/ImagePlaceholder'
 import MImage, { MImageImage } from '@components/atoms/MImage'
 import MLink from '@components/atoms/MLink'
-import { ArticleNewsCategoryEntityFragment, ArticlePressCategoryEntityFragment } from '@graphql'
+import {
+  ArticleJobsCategoryEntityFragment,
+  ArticleNewsCategoryEntityFragment,
+  ArticlePressCategoryEntityFragment,
+} from '@graphql'
 import cx from 'classnames'
 import React, { useMemo, useRef } from 'react'
 import { useHover } from 'usehooks-ts'
@@ -16,6 +20,7 @@ type ArticleCardProps = {
   category?:
     | ArticleNewsCategoryEntityFragment
     | ArticlePressCategoryEntityFragment
+    | ArticleJobsCategoryEntityFragment
     | null
     | undefined
   linkHref: string

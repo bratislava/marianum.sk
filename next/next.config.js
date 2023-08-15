@@ -49,6 +49,7 @@ const nextConfig = {
         // IMPORTANT: Keep this in sync with `localPaths` const in getFullPath.ts
         ...generateRedirects([
           { fullPath: '/aktuality/novinky/:slug', nextRoute: '/articles' },
+          { fullPath: '/aktuality/kariera/:slug', nextRoute: '/articles' },
           {
             fullPath: '/o-nas/pre-media/:slug',
             nextRoute: '/articles',

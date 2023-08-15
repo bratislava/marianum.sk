@@ -239,6 +239,14 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
                 />
               )
             }
+            if (section?.__typename === 'ComponentSectionsArticleJobsListing') {
+              return (
+                <ArticleListing
+                  key={`${section.__typename}-${section.id}`}
+                  type={ArticleListingType.Jobs}
+                />
+              )
+            }
             if (section?.__typename === 'ComponentSectionsReviewListing') {
               return (
                 <ReviewListingSection

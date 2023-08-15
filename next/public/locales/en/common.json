@@ -2,6 +2,7 @@
   "paths": {
     "contacts": "/o-nas/kontakty",
     "news": "/aktuality/novinky",
+    "jobs": "/aktuality/kariera",
     "press": "/o-nas/pre-media",
     "bundles": "/sluzby/pohrebna-sluzba/balicky-pohrebov",
     "cemeteries": "/o-nas/cintoriny-v-sprave",

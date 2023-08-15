@@ -274,6 +274,14 @@ query ArticlePressCategories {
   }
 }
 
+query ArticleJobsCategories {
+  articleJobsCategories(pagination: { limit: -1 }) {
+    data {
+      ...ArticleJobsCategoryEntity
+    }
+  }
+}
+
 query DocumentFiletypes {
   documentFiletypes
 }

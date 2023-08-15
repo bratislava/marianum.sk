@@ -37,6 +37,14 @@ fragment ArticlePressCategoryEntity on ArticlePressCategoryEntity {
   }
 }
 
+fragment ArticleJobsCategoryEntity on ArticleJobsCategoryEntity {
+  id
+  attributes {
+    title
+    slug
+  }
+}
+
 fragment ArticleSlugEntity on ArticleEntity {
   __typename
   id
@@ -50,6 +58,11 @@ fragment ArticleSlugEntity on ArticleEntity {
     pressCategory {
       data {
         ...ArticlePressCategoryEntity
+      }
+    }
+    jobsCategory {
+      data {
+        ...ArticleJobsCategoryEntity
       }
     }
   }
@@ -524,6 +537,10 @@ fragment PageEntity on PageEntity {
         id
       }
       ... on ComponentSectionsArticlePressListing {
+        __typename
+        id
+      }
+      ... on ComponentSectionsArticleJobsListing {
         __typename
         id
       }

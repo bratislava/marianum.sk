@@ -1,5 +1,6 @@
 import {
   Article,
+  ArticleJobsCategory,
   ArticleNewsCategory,
   ArticlePressCategory,
   Cemetery,
@@ -16,11 +17,12 @@ import {
 
 export type ArticleMeili = Omit<
   Article,
-  '__typename' | 'newsCategory' | 'pressCategory' | 'coverMedia'
+  '__typename' | 'newsCategory' | 'pressCategory' | 'jobsCategory' | 'coverMedia'
 > & {
   id: string
   newsCategory?: Omit<ArticleNewsCategory, '__typename' | 'articles'>
   pressCategory?: Omit<ArticlePressCategory, '__typename' | 'articles'>
+  jobsCategory?: Omit<ArticleJobsCategory, '__typename' | 'articles'>
   coverMedia?: UploadFile
 }
 
