@@ -76,6 +76,12 @@
       "target": "api::article-press-category.article-press-category",
       "inversedBy": "articles"
     },
+    "jobsCategory": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::article-jobs-category.article-jobs-category",
+      "inversedBy": "articles"
+    },
     "mediaGallery": {
       "type": "media",
       "multiple": true,

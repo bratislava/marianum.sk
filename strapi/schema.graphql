@@ -113,6 +113,7 @@ type Article {
   content: String
   coverMedia: UploadFileEntityResponse
   createdAt: DateTime
+  jobsCategory: ArticleJobsCategoryEntityResponse
   locale: String
   localizations(filters: ArticleFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ArticleRelationResponseCollection
   mediaGallery(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
@@ -145,6 +146,7 @@ input ArticleFiltersInput {
   content: StringFilterInput
   createdAt: DateTimeFilterInput
   id: IDFilterInput
+  jobsCategory: ArticleJobsCategoryFiltersInput
   locale: StringFilterInput
   localizations: ArticleFiltersInput
   newsCategory: ArticleNewsCategoryFiltersInput
@@ -162,6 +164,7 @@ input ArticleFiltersInput {
 input ArticleInput {
   content: String
   coverMedia: ID
+  jobsCategory: ID
   mediaGallery: [ID]
   newsCategory: ID
   perex: String
@@ -170,6 +173,50 @@ input ArticleInput {
   seo: ComponentGeneralSeoInput
   slug: String
   title: String
+}
+
+type ArticleJobsCategory {
+  articles(filters: ArticleFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ArticleRelationResponseCollection
+  createdAt: DateTime
+  slug: String!
+  title: String!
+  updatedAt: DateTime
+}
+
+type ArticleJobsCategoryEntity {
+  attributes: ArticleJobsCategory
+  id: ID
+}
+
+type ArticleJobsCategoryEntityResponse {
+  data: ArticleJobsCategoryEntity
+}
+
+type ArticleJobsCategoryEntityResponseCollection {
+  data: [ArticleJobsCategoryEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input ArticleJobsCategoryFiltersInput {
+  and: [ArticleJobsCategoryFiltersInput]
+  articles: ArticleFiltersInput
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  not: ArticleJobsCategoryFiltersInput
+  or: [ArticleJobsCategoryFiltersInput]
+  slug: StringFilterInput
+  title: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input ArticleJobsCategoryInput {
+  articles: [ID]
+  slug: String
+  title: String
+}
+
+type ArticleJobsCategoryRelationResponseCollection {
+  data: [ArticleJobsCategoryEntity!]!
 }
 
 type ArticleNewsCategory {
@@ -1225,6 +1272,20 @@ input ComponentSectionsAccordionGroupInput {
   accordions: [ComponentBlocksAccordionItemInput]
   id: ID
   title: String
+}
+
+type ComponentSectionsArticleJobsListing {
+  id: ID!
+}
+
+input ComponentSectionsArticleJobsListingFiltersInput {
+  and: [ComponentSectionsArticleJobsListingFiltersInput]
+  not: ComponentSectionsArticleJobsListingFiltersInput
+  or: [ComponentSectionsArticleJobsListingFiltersInput]
+}
+
+input ComponentSectionsArticleJobsListingInput {
+  id: ID
 }
 
 type ComponentSectionsArticleNewsListing {
@@ -2365,7 +2426,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = Application | ApplicationText | Article | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Application | ApplicationText | Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2573,6 +2634,7 @@ type Mutation {
   createApplication(data: ApplicationInput!): ApplicationEntityResponse
   createApplicationCustom(captchaToken: String!, data: JSON!): String
   createArticle(data: ArticleInput!, locale: I18NLocaleCode): ArticleEntityResponse
+  createArticleJobsCategory(data: ArticleJobsCategoryInput!): ArticleJobsCategoryEntityResponse
   createArticleLocalization(data: ArticleInput, id: ID, locale: I18NLocaleCode): ArticleEntityResponse
   createArticleNewsCategory(data: ArticleNewsCategoryInput!): ArticleNewsCategoryEntityResponse
   createArticlePressCategory(data: ArticlePressCategoryInput!): ArticlePressCategoryEntityResponse
@@ -2610,6 +2672,7 @@ type Mutation {
   deleteApplication(id: ID!): ApplicationEntityResponse
   deleteApplicationText: ApplicationTextEntityResponse
   deleteArticle(id: ID!, locale: I18NLocaleCode): ArticleEntityResponse
+  deleteArticleJobsCategory(id: ID!): ArticleJobsCategoryEntityResponse
   deleteArticleNewsCategory(id: ID!): ArticleNewsCategoryEntityResponse
   deleteArticlePressCategory(id: ID!): ArticlePressCategoryEntityResponse
   deleteBranch(id: ID!, locale: I18NLocaleCode): BranchEntityResponse
@@ -2656,6 +2719,7 @@ type Mutation {
   updateApplication(data: ApplicationInput!, id: ID!): ApplicationEntityResponse
   updateApplicationText(data: ApplicationTextInput!): ApplicationTextEntityResponse
   updateArticle(data: ArticleInput!, id: ID!, locale: I18NLocaleCode): ArticleEntityResponse
+  updateArticleJobsCategory(data: ArticleJobsCategoryInput!, id: ID!): ArticleJobsCategoryEntityResponse
   updateArticleNewsCategory(data: ArticleNewsCategoryInput!, id: ID!): ArticleNewsCategoryEntityResponse
   updateArticlePressCategory(data: ArticlePressCategoryInput!, id: ID!): ArticlePressCategoryEntityResponse
   updateBranch(data: BranchInput!, id: ID!, locale: I18NLocaleCode): BranchEntityResponse
@@ -2865,7 +2929,7 @@ type PageRelationResponseCollection {
   data: [PageEntity!]!
 }
 
-union PageSectionsDynamicZone = ComponentSectionsAccordionGroup | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | Error
+union PageSectionsDynamicZone = ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | Error
 
 scalar PageSectionsDynamicZoneInput
 
@@ -2986,6 +3050,8 @@ type Query {
   applicationText: ApplicationTextEntityResponse
   applications(filters: ApplicationFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ApplicationEntityResponseCollection
   article(id: ID, locale: I18NLocaleCode): ArticleEntityResponse
+  articleJobsCategories(filters: ArticleJobsCategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ArticleJobsCategoryEntityResponseCollection
+  articleJobsCategory(id: ID): ArticleJobsCategoryEntityResponse
   articleNewsCategories(filters: ArticleNewsCategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ArticleNewsCategoryEntityResponseCollection
   articleNewsCategory(id: ID): ArticleNewsCategoryEntityResponse
   articlePressCategories(filters: ArticlePressCategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ArticlePressCategoryEntityResponseCollection

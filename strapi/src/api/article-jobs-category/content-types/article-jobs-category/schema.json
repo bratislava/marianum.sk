@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "article_jobs_categories",
+  "info": {
+    "singularName": "article-jobs-category",
+    "pluralName": "article-jobs-categories",
+    "displayName": "Články: Kategórie prac. pozícií",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "articles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article.article",
+      "mappedBy": "jobsCategory"
+    }
+  }
+}

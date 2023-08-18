@@ -6,6 +6,7 @@ import FiltersBackgroundWrapper from '@components/molecules/FiltersBackgroundWra
 import { useGetFullPathMeili } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import PaginationMeili from '@components/molecules/PaginationMeili'
 import Section from '@components/molecules/Section'
+import ArticleJobsCategoriesSelect from '@components/sections/ArticleListing/ArticleJobsCategoriesSelect'
 import ArticleNewsCategoriesSelect from '@components/sections/ArticleListing/ArticleNewsCategoriesSelect'
 import ArticlePressCategoriesSelect from '@components/sections/ArticleListing/ArticlePressCategoriesSelect'
 import {
@@ -44,7 +45,15 @@ const Articles = ({
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4" ref={cardsRef}>
         <h2 className="sr-only">{t('aria.results')}</h2>
         {data.hits.map((article) => {
-          const { title, publishedAt, coverMedia, slug, newsCategory, pressCategory } = article
+          const {
+            title,
+            publishedAt,
+            coverMedia,
+            slug,
+            newsCategory,
+            pressCategory,
+            jobsCategory,
+          } = article
           const category = (() => {
             switch (type) {
               case ArticleListingType.News:
@@ -52,6 +61,9 @@ const Articles = ({
 
               case ArticleListingType.Press:
                 return { attributes: pressCategory }
+
+              case ArticleListingType.Jobs:
+                return { attributes: jobsCategory }
 
               default:
                 return null
@@ -160,6 +172,9 @@ const ArticleListing = ({ type }: ArticleListingProps) => {
           ) : null}
           {type === ArticleListingType.News ? (
             <ArticleNewsCategoriesSelect onCategoryChange={handleCategoryChange} />
+          ) : null}
+          {type === ArticleListingType.Jobs ? (
+            <ArticleJobsCategoriesSelect onCategoryChange={handleCategoryChange} />
           ) : null}
         </div>
         <div className="md:col-span-2">

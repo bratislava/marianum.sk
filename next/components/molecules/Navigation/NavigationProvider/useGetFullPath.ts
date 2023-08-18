@@ -22,6 +22,7 @@ const localPaths = {
   branches: '/o-nas/kontakty',
   news: '/aktuality/novinky',
   press: '/o-nas/pre-media',
+  jobs: '/aktuality/kariera',
   bundlesBurial: '/sluzby/balicky-pohrebov/rozlucka-na-cintorine',
   bundlesCremation: '/sluzby/balicky-pohrebov/kremacia',
   bundlesNatural: '/sluzby/balicky-pohrebov/prirodne-obrady',
@@ -61,6 +62,9 @@ export const getFullPathFn = (
     }
     if (isDefined(entity.attributes.newsCategory?.data)) {
       return [localPaths.news, slug].join('/')
+    }
+    if (isDefined(entity.attributes.jobsCategory?.data)) {
+      return [localPaths.jobs, slug].join('/')
     }
   }
 
@@ -133,6 +137,10 @@ export const getFullPathMeiliFn = (navMap: NavMap) => {
       // eslint-disable-next-line unicorn/consistent-destructuring
       if (isDefined(entity.newsCategory)) {
         return [localPaths.news, slug].join('/')
+      }
+      // eslint-disable-next-line unicorn/consistent-destructuring
+      if (isDefined(entity.jobsCategory)) {
+        return [localPaths.jobs, slug].join('/')
       }
     }
 

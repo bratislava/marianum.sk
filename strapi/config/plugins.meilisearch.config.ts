@@ -42,6 +42,7 @@ const searchIndexSettings = {
     // Article
     "article.pressCategory.id",
     "article.newsCategory.id",
+    "article.jobsCategory.id",
     // Document
     "document.documentCategory.id",
     "document.file.ext",

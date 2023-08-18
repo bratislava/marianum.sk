@@ -11,6 +11,7 @@ import { SearchIndexWrapped, unwrapFromSearchIndex } from '../meili/searchIndexW
 export enum ArticleListingType {
   News,
   Press,
+  Jobs,
 }
 
 export type ArticleListingFilters = {
@@ -50,6 +51,12 @@ export const getArticleListingFetcher =
           ? `article.newsCategory.id = ${filters.categoryId}`
           : 'article.newsCategory.id EXISTS'
         break
+
+      case ArticleListingType.Jobs:
+        sectionFilter = filters.categoryId
+          ? `article.jobsCategory.id = ${filters.categoryId}`
+          : 'article.jobsCategory.id EXISTS'
+        break
     }
 
     return meiliClient
@@ -71,7 +78,7 @@ const mapSelectFn = (category: {
   ({
     label: category.attributes?.title,
     key: category.id,
-  } as Option)
+  }) as Option
 
 export const articleNewsCategoriesSelectSwrKey = 'ArticleNewsCategoriesSelect'
 export const articleNewsCategoriesSelectFetcher = () =>
@@ -85,9 +92,16 @@ export const articlePressCategoriesSelectFetcher = () =>
     .ArticlePressCategories()
     .then((data) => data.articlePressCategories?.data.map(mapSelectFn) ?? [])
 
+export const articleJobsCategoriesSelectSwrKey = 'ArticleJobsCategoriesSelect'
+export const articleJobsCategoriesSelectFetcher = () =>
+  client
+    .ArticleJobsCategories()
+    .then((data) => data.articleJobsCategories?.data.map(mapSelectFn) ?? [])
+
 export const getArticleListingNewsPrefetches = (locale: string) => {
   const argsNews = [articleListingDefaultFilters, ArticleListingType.News, locale] as const
   const argsPress = [articleListingDefaultFilters, ArticleListingType.Press, locale] as const
+  const argsJobs = [articleListingDefaultFilters, ArticleListingType.Jobs, locale] as const
 
   return [
     {
@@ -109,6 +123,16 @@ export const getArticleListingNewsPrefetches = (locale: string) => {
       sectionTypename: 'ComponentSectionsArticlePressListing',
       key: articlePressCategoriesSelectSwrKey,
       fetcher: articlePressCategoriesSelectFetcher,
+    } as const,
+    {
+      sectionTypename: 'ComponentSectionsArticleJobsListing',
+      key: getArticleListingSwrKey(...argsJobs),
+      fetcher: getArticleListingFetcher(...argsJobs),
+    } as const,
+    {
+      sectionTypename: 'ComponentSectionsArticleJobsListing',
+      key: articleJobsCategoriesSelectSwrKey,
+      fetcher: articleJobsCategoriesSelectFetcher,
     } as const,
   ]
 }
