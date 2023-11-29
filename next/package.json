@@ -133,5 +133,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "yarn run lint:fix"
+  },
+  "volta": {
+    "node": "18.17.1"
   }
 }
