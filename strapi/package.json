@@ -13,11 +13,11 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "@strapi/plugin-graphql": "4.10.5",
-    "@strapi/plugin-i18n": "4.10.5",
-    "@strapi/plugin-upload": "4.10.5",
-    "@strapi/plugin-users-permissions": "4.10.5",
-    "@strapi/strapi": "4.10.5",
+    "@strapi/plugin-graphql": "4.10.8",
+    "@strapi/plugin-i18n": "4.10.8",
+    "@strapi/plugin-upload": "4.10.8",
+    "@strapi/plugin-users-permissions": "4.10.8",
+    "@strapi/strapi": "4.10.8",
     "cf-turnstile": "^1.0.8",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.40",
@@ -36,8 +36,11 @@
     "uuid": "02276e74-d45b-4f22-8469-68326d1ddda3"
   },
   "engines": {
-    "node": ">=12.x.x <=16.x.x",
-    "npm": ">=6.0.0"
+    "node": ">=18.x.x",
+    "npm": ">=9.8.1"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "volta": {
+    "node": "18.17.1"
+  }
 }
