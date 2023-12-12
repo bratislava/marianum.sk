@@ -1,3 +1,5 @@
+import 'mapbox-gl/dist/mapbox-gl.css'
+
 import { MapMarkerSvg } from '@assets'
 import { ArrowLeftIcon, PlaceIcon } from '@assets/icons'
 import Button from '@components/atoms/Button'
@@ -206,7 +208,6 @@ const MapSection = ({ section }: MapSectionProps) => {
           >
             {filteredCemeteries.map((cemetery) => {
               const { latitude, longitude, slug } = cemetery.attributes ?? {}
-
               if (latitude && longitude) {
                 return (
                   <Marker
