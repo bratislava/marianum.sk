@@ -87,7 +87,7 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
               href={href ?? '#'}
               target={isExternal ? '_blank' : '_self'}
               variant="regular"
-              noArrow={isExternal}
+              noArrow
             >
               {children[0]}
               {isExternal && ' ↗\u{0000FE0E}'}
