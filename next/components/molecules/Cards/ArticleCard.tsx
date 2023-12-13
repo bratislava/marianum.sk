@@ -74,7 +74,7 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
             ref={linkRef}
             onClick={handleLinkClick}
             noStyles
-            className="after:absolute after:inset-0"
+            className="block after:absolute after:inset-0"
           >
             {title}
           </MLink>

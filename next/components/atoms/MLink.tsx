@@ -40,8 +40,10 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
             'text-white hover:opacity-64': variant === 'white',
             'font-semibold text-primary underline hover:text-primary-dark': variant === 'regular',
           }),
+      'focus:outline-2 focus:outline-primary',
       className,
     )
+
     return (
       <NextLink
         href={href ?? ''}

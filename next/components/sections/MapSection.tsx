@@ -162,7 +162,10 @@ const MapSection = ({ section }: MapSectionProps) => {
             </div>
           </div>
           {/* results */}
-          <div className="flex-1 overflow-auto" onMouseLeave={() => setHoveredCemeterySlug(null)}>
+          <div
+            className="flex-1 overflow-auto p-1"
+            onMouseLeave={() => setHoveredCemeterySlug(null)}
+          >
             {filteredCemeteries.map((cemetery, index) => {
               const { title, slug, address } = cemetery.attributes ?? {}
 

@@ -101,7 +101,7 @@ const Select = ({
       <Listbox.Button
         ref={setReferenceElement}
         as="button"
-        className="group flex w-full outline-none"
+        className="group flex w-full outline-none focus:outline-2 focus:outline-primary"
       >
         {({ open }) => (
           <FieldWrapper
