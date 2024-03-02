@@ -44,6 +44,8 @@ export type UnionSlugEntityType =
 
 /**
  * Returns the URL for Strapi returned entity.
+ *
+ * IMPORTANT: When changing this function, also change the `getFullPathMeiliFn` function.
  */
 export const getFullPathFn = (
   entity: UnionSlugEntityType,
@@ -117,10 +119,12 @@ type GetFullPathMeiliFn = (
  *
  * There are three differences between entities returned by Strapi and Meilisearch:
  * 1. In Meilisearch, `__typename` is missing.
- * 2. In Meilisearch, entities are not nested in `attributes`..
- * 3. In Meiliserach, the nested entities are nested directly, `article` vs `attributes.article.data.attributes`.
+ * 2. In Meilisearch, entities are not nested in `attributes`.
+ * 3. In Meilisearch, the nested entities are nested directly, `article` vs `attributes.article.data.attributes`.
  *
  * Therefore, it's easier to duplicate the logic in a new function.
+ *
+ * IMPORTANT: When changing this function, also change the `getFullPathFn` function.
  *
  * @param navMap
  */
@@ -159,6 +163,9 @@ export const getFullPathMeiliFn = (navMap: NavMap) => {
       }
       if (entity.type === 'kremacia') {
         return [localPaths.bundlesCremation, slug].join('/')
+      }
+      if (entity.type === 'prirodne') {
+        return [localPaths.bundlesNatural, slug].join('/')
       }
     }
 
