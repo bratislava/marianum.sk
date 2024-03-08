@@ -1,4 +1,5 @@
 resources:
+  - scaler.yml
   - ../../base
 
 generatorOptions:
