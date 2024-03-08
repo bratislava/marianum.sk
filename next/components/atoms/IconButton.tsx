@@ -50,7 +50,7 @@ const IconButton = forwardRef<HTMLAnchorElement | HTMLButtonElement, Polymorphic
     )
 
     const style = cx(
-      'flex items-center justify-center rounded-full p-2 text-center align-middle text-btn focus:outline-none',
+      'flex items-center justify-center rounded-full p-2 text-center align-middle text-btn outline-none focus:outline-2 focus:outline-primary',
       className,
       {
         'h-[40px] w-[40px]': size === 'default',

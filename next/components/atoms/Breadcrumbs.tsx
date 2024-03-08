@@ -35,7 +35,7 @@ const BreadcrumbChild = ({
   ariaLabel,
 }: BreadcrumbChildProps) => {
   return (
-    <div className={cx('flex gap-1 overflow-hidden', { 'shrink-0': dontShrink })}>
+    <div className={cx('flex gap-1 overflow-hidden p-1', { 'shrink-0': dontShrink })}>
       {!noChevron && (
         <div className="shrink-0 -rotate-90 pt-[2px]">
           <ChevronDownIcon />

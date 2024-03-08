@@ -70,7 +70,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
     )
 
     const style = cx(
-      'inline-flex items-center justify-center space-x-2 text-center align-middle text-btn font-bold focus:outline-none',
+      'inline-flex items-center justify-center space-x-2 text-center align-middle text-btn font-bold outline-none focus:outline-2 focus:outline-primary ',
       className,
       {
         'px-6 py-2':

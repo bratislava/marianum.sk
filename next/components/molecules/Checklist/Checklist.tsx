@@ -164,7 +164,7 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
                 type="button"
                 onKeyUp={(e) => (e.code === 'Enter' || e.code === 'Space') && handleItemOpen(index)}
                 onClick={() => handleItemOpen(index)}
-                className="flex items-center p-6"
+                className="flex items-center p-6 focus:outline-2 focus:outline-primary"
                 aria-expanded={isOpen}
                 aria-controls={getAriaId(id, index)}
               >
