@@ -135,6 +135,7 @@
     "*.{js,jsx,ts,tsx}": "yarn run lint:fix"
   },
   "volta": {
-    "node": "18.17.1"
+    "node": "18.20.5",
+    "yarn": "1.22.17"
   }
 }
