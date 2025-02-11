@@ -1,11 +1,16 @@
 # 🚀 Marianum Strapi
 
-## Setup
+## First-time setup
 
-Before you start, install all dependencies and create `.env.local` file which is .gitignored and used for local dev.
+Install all dependencies
 
 ```
 yarn
+```
+
+Create `.env.local` file based on `.env.example` which is .gitignored and used for local dev.
+
+```
 cp .env.example .env.local
 ```
 
