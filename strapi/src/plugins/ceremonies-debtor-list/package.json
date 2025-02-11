@@ -14,7 +14,7 @@
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@strapi/strapi": "4.11.4",
+    "@strapi/strapi": "4.14.0",
     "@types/koa": "^2.13.5",
     "typescript": "^5.7.3",
     "@types/react": "^18.2.0"
