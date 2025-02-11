@@ -1,0 +1,52 @@
+diff --git a/node_modules/@strapi/admin/admin/src/content-manager/components/Wysiwyg/index.js b/node_modules/@strapi/admin/admin/src/content-manager/components/Wysiwyg/index.js
+index f444514..0dd43ec 100644
+--- a/node_modules/@strapi/admin/admin/src/content-manager/components/Wysiwyg/index.js
++++ b/node_modules/@strapi/admin/admin/src/content-manager/components/Wysiwyg/index.js
+@@ -1,24 +1,24 @@
+-import React, { forwardRef, useRef, useState } from 'react';
++import { forwardRef, useRef, useState } from 'react'
+ 
+-import { Box, Flex, Typography } from '@strapi/design-system';
+-import { prefixFileUrlWithBackendUrl, useLibrary } from '@strapi/helper-plugin';
+-import PropTypes from 'prop-types';
+-import { useIntl } from 'react-intl';
+-import styled from 'styled-components';
++import { Box, Flex, Typography } from '@strapi/design-system'
++import { prefixFileUrlWithBackendUrl, useLibrary } from '@strapi/helper-plugin'
++import PropTypes from 'prop-types'
++import { useIntl } from 'react-intl'
++import styled from 'styled-components'
+ 
+-import Hint from '../Hint';
++import Hint from '../Hint'
+ 
+-import Editor from './Editor';
+-import { EditorLayout } from './EditorLayout';
++import Editor from './Editor'
++import { EditorLayout } from './EditorLayout'
+ import {
+   insertFile,
+   listHandler,
+   markdownHandler,
+   quoteAndCodeHandler,
+   titleHandler,
+-} from './utils/utils';
+-import WysiwygFooter from './WysiwygFooter';
+-import WysiwygNav from './WysiwygNav';
++} from './utils/utils'
++import WysiwygFooter from './WysiwygFooter'
++import WysiwygNav from './WysiwygNav'
+ 
+ const LabelAction = styled(Box)`
+   svg path {
+@@ -95,7 +95,9 @@ const Wysiwyg = forwardRef(
+ 
+     const handleSelectAssets = (files) => {
+       const formattedFiles = files.map((f) => ({
+-        alt: f.alternativeText || f.name,
++        // This adds caption into alt property so we can use both on the frontend.
++        // Inserted image in markdown will look like this: ![alt||caption](url)
++        alt: `${f.alternativeText}||${f.caption}` || f.name,
+         url: prefixFileUrlWithBackendUrl(f.url),
+         mime: f.mime,
+       }));
