@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
-import axiosInstance from "../utils/axiosInstance";
+import React, { useRef, useState } from "react"
+import axiosInstance from "../utils/axiosInstance"
+import { AxiosResponse, AxiosError } from 'axios'
 import {
   Alert,
   Box,
@@ -8,7 +9,7 @@ import {
   Loader,
   Stack,
   Typography,
-} from "@strapi/design-system";
+} from "@strapi/design-system"
 
 const updateUrls = {
   debtors: "/ceremonies-debtor-list/update-debtors",
@@ -35,15 +36,19 @@ type ImportSectionProps = {
   type: "debtors" | "ceremonies" | "disclosures";
 };
 
-const ImportSection = ({ type }: ImportSectionProps) => {
+const ImportSection: React.FC<ImportSectionProps> = ({ type }) => {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(null);
-  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState<AxiosResponse | null>(null);
+  const [error, setError] = useState<AxiosError | null>(null);
 
   const handleSubmit = () => {
-    const file = inputFileRef.current.files[0];
+    const file = inputFileRef.current?.files?.[0]
 
+    if (!file) { 
+      return;
+    }
+    
     const formData = new FormData();
     formData.append("file", file);
 
@@ -105,7 +110,7 @@ const ImportSection = ({ type }: ImportSectionProps) => {
             variant="danger"
             onClose={() => setError(null)}
           >
-            {error?.response?.data?.message ?? error.toString()}
+            {error?.response?.data ? error.toString() : null}
           </Alert>
         )}
         <input type="file" ref={inputFileRef} />

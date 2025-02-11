@@ -3221,7 +3221,6 @@ type UploadFile {
   height: Int
   mime: String!
   name: String!
-  placeholder: String
   previewUrl: String
   provider: String!
   provider_metadata: JSON
@@ -3262,7 +3261,6 @@ input UploadFileFiltersInput {
   name: StringFilterInput
   not: UploadFileFiltersInput
   or: [UploadFileFiltersInput]
-  placeholder: StringFilterInput
   previewUrl: StringFilterInput
   provider: StringFilterInput
   provider_metadata: JSONFilterInput
@@ -3283,7 +3281,6 @@ input UploadFileInput {
   height: Int
   mime: String
   name: String
-  placeholder: String
   previewUrl: String
   provider: String
   provider_metadata: JSON
