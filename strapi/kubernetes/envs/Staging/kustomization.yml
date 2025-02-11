@@ -1,5 +1,11 @@
 resources:
+  - scaler.yml
   - ../../base
+  - ./secrets/cloudflare-turnstile.secret.yml
+  - ./secrets/database.secret.yml
+  - ./secrets/mailgun.secret.yml
+  - ./secrets/meilisearch.secret.yml
+  - ./secrets/strapi.secret.yml
 
 generatorOptions:
   disableNameSuffixHash: true
