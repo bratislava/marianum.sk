@@ -41,6 +41,9 @@ module.exports = {
     'const-case/uppercase': 'warn',
     '@typescript-eslint/ban-ts-comment': 'warn',
     'xss/no-mixed-html': 'off',
+
+    /* Formatting rules */
+    'prettier/prettier': ['error', { endOfLine: 'auto' }], // TODO revisit, prettier should not be run by eslint
   },
   ignorePatterns: ['*.config.*', 'graphql', '.eslintrc.js'],
 }
