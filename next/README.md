@@ -1,22 +1,16 @@
-# 🚀 Marianum Next
+# marianum.sk
 
 This readme should get you up & running.
 
-For CMS setup see `strapi` directory. You can also run the project against staging or production strapi (useful when developing and debugging) - provided that you're not working on Strapi model changes.
-
 ## First-time setup
 
-Install all dependencies
+To install dependencies run:
 
 ```
 yarn
 ```
 
-Create `.env.local` file based on `.env.example` which is .gitignored and used for local dev.
-
-```
-cp .env.example .env.local
-```
+For CMS setup see `strapi` directory. You can also run the project against staging or production strapi (useful when developing and debugging) - provided that you're not working on Strapi model changes or tth
 
 ## Run project locally
 
