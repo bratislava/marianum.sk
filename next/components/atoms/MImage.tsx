@@ -39,7 +39,7 @@ const MImage = ({ image, disableBlurPlaceholder = false, ...rest }: MImageProps)
     width={rest.fill ? undefined : image.width ?? undefined}
     height={rest.fill ? undefined : image.height ?? undefined}
     {...rest}
-    loader={customImageLoader}
+    // loader={customImageLoader}
   />
 )
 
