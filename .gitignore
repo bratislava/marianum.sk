@@ -6,6 +6,8 @@
 
 # Postgres
 data
+postgres
+postresql
 
 # Meilisearch
 meilisearch
