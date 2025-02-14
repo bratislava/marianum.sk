@@ -1,8 +1,12 @@
 {
   "name": "marianum-strapi",
-  "private": true,
   "version": "0.1.0",
-  "description": "A Strapi application",
+  "private": true,
+  "description": "A Strapi CMS for marianum.sk website",
+  "license": "MIT",
+  "author": {
+    "name": "City of Bratislava"
+  },
   "scripts": {
     "dev": "yarn develop",
     "develop": "cross-env ENV_PATH='./.env.local' strapi develop",
@@ -29,9 +33,6 @@
     "strapi-provider-upload-ts-minio": "^3.1.0",
     "xlsx": "^0.18.5"
   },
-  "author": {
-    "name": "The City of Bratislava"
-  },
   "strapi": {
     "uuid": "02276e74-d45b-4f22-8469-68326d1ddda3"
   },
@@ -39,7 +40,6 @@
     "node": ">=18.x.x",
     "npm": ">=9.8.1"
   },
-  "license": "MIT",
   "volta": {
     "node": "18.17.1"
   }
