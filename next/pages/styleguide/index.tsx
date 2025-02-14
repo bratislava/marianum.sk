@@ -6,7 +6,6 @@ import Checkbox from '@components/atoms/Checkbox'
 import IconButton from '@components/atoms/IconButton'
 import MLink from '@components/atoms/MLink'
 import Pagination from '@components/atoms/Pagination/Pagination'
-import QuantitySelect from '@components/atoms/QuantitySelect'
 import RadioBox from '@components/atoms/Radio/RadioBox'
 import RadioSimple from '@components/atoms/Radio/RadioSimple'
 import RadioSimpleGroup from '@components/atoms/Radio/RadioSimpleGroup'
@@ -992,17 +991,6 @@ const Showcase = () => {
                 count={10}
                 selectedPage={paginationSelectedPage}
                 onChange={(page) => setPaginationSelectedPage(page)}
-              />
-            </Stack>
-          </Wrapper>
-
-          <Wrapper title="Quantity select">
-            <Stack>
-              <QuantitySelect
-                minValue={0}
-                maxValue={10}
-                value={quantitySelectValue}
-                onChange={(value) => setQuantitySelectValue(value)}
               />
             </Stack>
           </Wrapper>
