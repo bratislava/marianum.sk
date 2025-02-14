@@ -33,8 +33,8 @@ const Seo = ({
   const fullPathWithDomain = homepage
     ? `https://marianum.sk/`
     : fullPath
-    ? `https://marianum.sk${fullPath}`
-    : null
+      ? `https://marianum.sk${fullPath}`
+      : null
 
   return (
     <Head>

@@ -4,13 +4,19 @@
   "private": true,
   "license": "EUPL-1.2",
   "scripts": {
-    "dev": "yarn develop",
-    "develop": "next dev",
+    "dev": "next dev",
+    "develop": "yarn dev",
     "build": "next build",
     "start": "next start",
     "gen": "graphql-codegen",
     "lint": "eslint components pages utils",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "yarn lint --fix",
+    "update-react-aria": "yarn add @internationalized/date@latest @react-stately/utils@latest react-aria@latest react-stately@latest @react-aria/utils@latest --exact --dev",
+    "update-next": "yarn add next@latest react@latest react-dom@latest sharp@latest --exact && yarn add @types/react@latest @types/react-dom@latest eslint-config-next@latest typescript@latest @next/bundle-analyzer --dev --exact",
+    "update-tailwind": "yarn add tailwind-merge@latest clsx@latest --exact && yarn add tailwindcss@latest autoprefixer@latest postcss@latest prettier-plugin-tailwindcss@latest eslint-plugin-tailwindcss@latest --dev --exact",
+    "update-i18next": "yarn add next-i18next@latest -E && yarn add eslint-plugin-i18next@latest --dev --exact",
+    "update-prettier": "yarn add prettier@latest eslint-config-prettier@latest eslint-plugin-prettier@latest --dev --exact",
+    "update-graphql": "yarn add graphql@latest graphql-request@latest graphql-tag@latest --exact && yarn add @graphql-codegen/cli@latest @graphql-codegen/typescript-graphql-request@latest --dev --exact"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.6",
@@ -34,25 +40,25 @@
     "lodash": "^4.17.21",
     "mapbox-gl": "^2.10.0",
     "meilisearch": "^0.30.0",
-    "next": "^13.0.3",
+    "next": "^14.2.24",
     "next-i18next": "^12.1.0",
-    "next-query-params": "^4.0.0",
+    "next-query-params": "^5.1.0",
     "popmotion": "^11.0.3",
     "prntr": "^2.0.17",
-    "react": "^18.2.0",
+    "react": "18.3.1",
     "react-aria": "3.24.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "18.3.1",
     "react-hook-form": "^7.39.1",
-    "react-input-autosize": "^3.0.0",
     "react-map-gl": "^7.0.19",
     "react-markdown": "^8.0.3",
-    "react-pdf": "^5.7.2",
+    "react-pdf": "^9.2.1",
     "react-popper": "^2.3.0",
     "react-resize-detector": "^7.1.2",
     "react-stately": "^3.16.0",
     "react-turnstile": "^1.0.6",
     "rehype-raw": "^6.1.1",
     "remark-gfm": "^3.0.1",
+    "sharp": "0.32.6",
     "slugify": "^1.6.5",
     "smooth-scroll-into-view-if-needed": "^1.1.33",
     "swiper": "^8.4.4",
@@ -60,7 +66,7 @@
     "tailwind-merge": "^1.14.0",
     "tailwindcss-radix": "^2.8.0",
     "tsafe": "^1.2.1",
-    "use-query-params": "^2.1.2",
+    "use-query-params": "^2.2.1",
     "usehooks-ts": "^2.6.0",
     "yup": "^0.32.11"
   },
@@ -75,11 +81,9 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@types/lodash": "^4.14.182",
     "@types/node": "18.0.0",
-    "@types/react": "^18.0.25",
-    "@types/react-dom": "^18.0.9",
-    "@types/react-input-autosize": "^2.2.1",
+    "@types/react": "18.3.18",
+    "@types/react-dom": "18.3.1",
     "@types/react-instantsearch-dom": "^6.12.3",
-    "@types/react-pdf": "^5.7.2",
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",
     "autoprefixer": "^10.4.7",
@@ -88,7 +92,8 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.1.0",
     "eslint-config-auto": "^0.7.3",
-    "eslint-config-prettier": "^8.9.0",
+    "eslint-config-next": "^14.2.24",
+    "eslint-config-prettier": "10.0.1",
     "eslint-plugin-array-func": "^3.1.8",
     "eslint-plugin-const-case": "^1.2.2",
     "eslint-plugin-eslint-comments": "^3.2.0",
@@ -105,7 +110,7 @@
     "eslint-plugin-no-use-extend-native": "^0.5.0",
     "eslint-plugin-optimize-regex": "^1.2.1",
     "eslint-plugin-pii": "^1.0.2",
-    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-prettier": "5.2.3",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.33.1",
     "eslint-plugin-react-hooks": "^4.6.0",
@@ -120,11 +125,10 @@
     "husky": "^8.0.1",
     "lint-staged": "^13.0.1",
     "postcss": "^8.4.14",
-    "prettier": "^3.0.0",
+    "prettier": "3.5.1",
     "sass": "^1.57.1",
-    "sharp": "^0.31.2",
     "tailwindcss": "^3.3.3",
-    "typescript": "^4.9.3"
+    "typescript": "5.5.4"
   },
   "husky": {
     "hooks": {
@@ -134,7 +138,11 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "yarn run lint:fix"
   },
+  "engines": {
+    "node": ">=20.x.x",
+    "npm": ">=9.8.1"
+  },
   "volta": {
-    "node": "18.17.1"
+    "node": "20.9.0"
   }
 }

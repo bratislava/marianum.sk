@@ -49,12 +49,6 @@
       "scrollToTop": "Scroll to top"
     }
   },
-  "QuantitySelect": {
-    "aria": {
-      "increaseAmount": "Increase amount",
-      "decreaseAmount": "Decrease amount"
-    }
-  },
   "Pagination": {
     "aria": {
       "goToPage": "Go to page {{page}}",

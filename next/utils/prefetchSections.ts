@@ -61,9 +61,8 @@ export async function prefetchSections<
   sectionFetchersList: SectionFetcher<SectionsType, Data, InnerKey>[],
   swr: boolean,
 ) {
-  const filteredSections = sectionFetchersList.filter(
-    (section) =>
-      sections?.some((pageSection) => pageSection?.__typename === section.sectionTypename),
+  const filteredSections = sectionFetchersList.filter((section) =>
+    sections?.some((pageSection) => pageSection?.__typename === section.sectionTypename),
   )
 
   const promises = filteredSections.map(async ({ key, fetcher }) => {

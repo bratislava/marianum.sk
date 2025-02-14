@@ -145,8 +145,8 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
                 previousAnimation === 'forward'
                   ? '-100%'
                   : previousAnimation === 'back'
-                  ? '100%'
-                  : 0,
+                    ? '100%'
+                    : 0,
             }}
           >
             <RenderItems

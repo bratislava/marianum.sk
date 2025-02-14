@@ -449,19 +449,6 @@ const config = (phase, { defaultConfig }) => {
         use: ['@svgr/webpack'],
       })
 
-      // pdf worker must be available through url
-      // => so we have to copy it from node_modules to public folder
-      config.plugins.push(
-        new CopyPlugin({
-          patterns: [
-            {
-              from: require.resolve('pdfjs-dist/build/pdf.worker.min.js'),
-              to: path.join(__dirname, 'public'),
-            },
-          ],
-        }),
-      )
-
       return config
     },
   }
