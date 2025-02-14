@@ -4,13 +4,19 @@
   "private": true,
   "license": "EUPL-1.2",
   "scripts": {
-    "dev": "yarn develop",
-    "develop": "next dev",
+    "dev": "next dev",
+    "develop": "yarn dev",
     "build": "next build",
     "start": "next start",
     "gen": "graphql-codegen",
     "lint": "eslint components pages utils",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "yarn lint --fix",
+    "update-react-aria": "yarn add @internationalized/date@latest @react-stately/utils@latest react-aria@latest react-stately@latest @react-aria/utils@latest --exact --dev",
+    "update-next": "yarn add next@latest react@latest react-dom@latest sharp@latest --exact && yarn add @types/react@latest @types/react-dom@latest eslint-config-next@latest typescript@latest @next/bundle-analyzer --dev --exact",
+    "update-tailwind": "yarn add tailwind-merge@latest clsx@latest --exact && yarn add tailwindcss@latest autoprefixer@latest postcss@latest prettier-plugin-tailwindcss@latest eslint-plugin-tailwindcss@latest --dev --exact",
+    "update-i18next": "yarn add next-i18next@latest -E && yarn add eslint-plugin-i18next@latest --dev --exact",
+    "update-prettier": "yarn add prettier@latest eslint-config-prettier@latest --dev --exact",
+    "update-graphql": "yarn add graphql@latest graphql-request@latest graphql-tag@latest --exact && yarn add @graphql-codegen/cli@latest @graphql-codegen/typescript-graphql-request@latest --dev --exact"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.6",
