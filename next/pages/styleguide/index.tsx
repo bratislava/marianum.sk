@@ -130,7 +130,6 @@ export const Stack = ({ bg, width = null, direction = 'row', children }: StackPr
 
 const Showcase = () => {
   const [paginationSelectedPage, setPaginationSelectedPage] = useState(1)
-  const [quantitySelectValue, setQuantitySelectValue] = useState(1)
   const [radioValue, setRadioValue] = useState('value-1')
   const [checkboxValue, setCheckboxValue] = useState(true)
   const [cardsBorder, setCardsBorder] = useState(true)
