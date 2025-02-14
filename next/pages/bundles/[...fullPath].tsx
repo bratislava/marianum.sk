@@ -47,13 +47,7 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, entity, general }) 
     <>
       {/* TODO: Extract NavigationProvider from PageWrapper */}
       <NavigationProvider navigation={navigation} general={general}>
-        <Seo
-          seo={seo}
-          title={title}
-          description={perex}
-          image={coverMedia?.data}
-          entity={entity}
-        />{' '}
+        <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
       </NavigationProvider>
 
       <BundleLayout navigation={navigation} general={general} bundle={entity}>
