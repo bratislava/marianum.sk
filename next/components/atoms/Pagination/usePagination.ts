@@ -83,8 +83,8 @@ export default function usePagination(props: {
     ...(siblingsStart > boundaryCount + 2
       ? ['start-ellipsis' as const]
       : boundaryCount + 1 < count - boundaryCount
-      ? [boundaryCount + 1]
-      : []),
+        ? [boundaryCount + 1]
+        : []),
 
     // Sibling pages
     ...range(siblingsStart, siblingsEnd),
@@ -94,8 +94,8 @@ export default function usePagination(props: {
     ...(siblingsEnd < count - boundaryCount - 1
       ? ['end-ellipsis' as const]
       : count - boundaryCount > boundaryCount
-      ? [count - boundaryCount]
-      : []),
+        ? [count - boundaryCount]
+        : []),
 
     ...endPages,
     ...(hideNextButton ? [] : ['next' as const]),
