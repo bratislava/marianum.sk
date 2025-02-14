@@ -140,7 +140,11 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "yarn run lint:fix"
   },
+  "engines": {
+    "node": ">=20.x.x",
+    "npm": ">=9.8.1"
+  },
   "volta": {
-    "node": "18.17.1"
+    "node": "20.9.0"
   }
 }
