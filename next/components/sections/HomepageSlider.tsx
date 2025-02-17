@@ -85,6 +85,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                       alt={alternativeText ?? ''}
                       fill
                       className="object-cover mix-blend-multiply"
+                      // TODO remove this loader completely when confirmed that images work without it
                       // loader={customImageLoader}
                     />
                   )}

@@ -39,6 +39,7 @@ const MImage = ({ image, disableBlurPlaceholder = false, ...rest }: MImageProps)
     width={rest.fill ? undefined : image.width ?? undefined}
     height={rest.fill ? undefined : image.height ?? undefined}
     {...rest}
+    // TODO remove this loader completely when confirmed that images work without it
     // loader={customImageLoader}
   />
 )
