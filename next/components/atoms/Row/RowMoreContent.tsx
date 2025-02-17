@@ -7,7 +7,7 @@ type RowMoreContentProps = {
 
 const RowMoreContent = ({ className, children }: PropsWithChildren<RowMoreContentProps>) => {
   return (
-    <div className={twMerge('flex py-3 px-4 md:py-4 md:px-5 border-border border-t', className)}>
+    <div className={twMerge('flex border-t border-border px-4 py-3 md:px-5 md:py-4', className)}>
       {children}
     </div>
   )

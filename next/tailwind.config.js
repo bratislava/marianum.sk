@@ -123,6 +123,5 @@ module.exports = {
     inputNumberArrowsHide,
     customVariants,
     require('tailwindcss-radix')(),
-    require('@tailwindcss/aspect-ratio'),
   ],
 }
