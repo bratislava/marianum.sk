@@ -1,5 +1,4 @@
 import Button from '@components/atoms/Button'
-import { customImageLoader } from '@components/atoms/MImage'
 import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Slider from '@components/molecules/Slider'
 import { CtaFragment } from '@graphql'
@@ -86,7 +85,8 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                       alt={alternativeText ?? ''}
                       fill
                       className="object-cover mix-blend-multiply"
-                      loader={customImageLoader}
+                      // TODO remove this loader completely when confirmed that images work without it
+                      // loader={customImageLoader}
                     />
                   )}
                 </div>
