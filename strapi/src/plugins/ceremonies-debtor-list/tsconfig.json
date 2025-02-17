@@ -5,21 +5,18 @@
     "rootDir": ".",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
   },
   "include": [
     // Include the root directory
     "server",
+    "admin/",
     // Force the JSON files in the src folder to be included
-    "server/**/*.json",
-     "admin/src/**/*",
-    "admin/src/types/*.d.ts"
+    "server/**/*.json"
   ],
   "exclude": [
     "node_modules/",
     "dist/",
-    // Do not include admin files in the server compilation
-    "admin/",
     // Do not include test files
     "**/*.test.ts"
   ]
