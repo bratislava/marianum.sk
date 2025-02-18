@@ -50,7 +50,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                   {/* <CookieConsent banner={CookieBanner} modal={CookieSettingsModal}> */}
                   <ThirdPartyScripts />
                   {process.env.NODE_ENV === 'development' ? (
-                    <GoogleTagManager gtmId="GTM-N9KPZQC9" />
+                    <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || ''} />
                   ) : (
                     ''
                   )}
