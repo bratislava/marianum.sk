@@ -26,6 +26,7 @@ import skCommonNamespace from '../public/locales/sk/common.json'
 assert<Equals<typeof enCommonNamespace, typeof skCommonNamespace>>()
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  console.log('GTM', process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID)
   return (
     <>
       <Head>
