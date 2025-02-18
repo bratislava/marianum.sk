@@ -50,11 +50,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                   {/* TODO when enabling cookies: check if cookie banner is focus as first element on page */}
                   {/* <CookieConsent banner={CookieBanner} modal={CookieSettingsModal}> */}
                   <ThirdPartyScripts />
-                  {process.env.NODE_ENV === 'development' ? (
-                    <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || ''} />
-                  ) : (
-                    ''
-                  )}
+                  <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || ''} />
                   <Component {...pageProps} />
                   {/* </CookieConsent> */}
                 </OverlayProvider>
