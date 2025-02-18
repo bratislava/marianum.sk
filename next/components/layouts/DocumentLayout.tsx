@@ -7,9 +7,8 @@ import Section from '@components/molecules/Section'
 import HeroSection from '@components/sections/HeroSection'
 import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import filesize from 'filesize'
-import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
-import { Fragment, ReactNode, useMemo, useState } from 'react'
+import { Fragment, ReactNode, useMemo } from 'react'
 
 type DocumentLayoutProps = {
   navigation: NavigationItemFragment[]
@@ -52,12 +51,6 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
     return filesize((file?.data?.attributes?.size ?? 0) * 1000, { round: 1, locale: i18n.language })
   }, [file, i18n.language])
 
-  const PDFModalViewer = dynamic(() => import('../atoms/PDFModalViewer'), {
-    ssr: false,
-  })
-
-  const [isPdfModalOpen, setPdfModalOpen] = useState(false)
-
   return (
     <PageWrapper
       navigation={navigation}
@@ -81,33 +74,13 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
                 <span>•</span>
                 <span className="uppercase">{extension}</span>
               </div>
-              <div className="mt-4 flex flex-col gap-4 md:flex-row md:items-center">
-                <Button
-                  target="_blank"
-                  href={file?.data?.attributes?.url ?? ''}
-                  className="md:w-fit"
-                >
-                  {t('downloadFile')}
-                </Button>
-                {file?.data?.attributes?.url && extension === 'pdf' && (
-                  <Button
-                    variant="secondary"
-                    className="md:w-fit"
-                    onPress={() => setPdfModalOpen(true)}
-                  >
-                    {t('showFile')}
-                  </Button>
-                )}
-              </div>
-              <div>
-                {file?.data?.attributes?.url && extension === 'pdf' && (
-                  <PDFModalViewer
-                    onClose={() => setPdfModalOpen(false)}
-                    isOpen={isPdfModalOpen}
-                    url={file?.data?.attributes?.url}
-                  />
-                )}
-              </div>
+              <Button
+                target="_blank"
+                href={file?.data?.attributes?.url ?? ''}
+                className="mt-4 md:w-fit"
+              >
+                {t('downloadFile')}
+              </Button>
             </div>
           </div>
         </Section>

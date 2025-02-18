@@ -70,7 +70,7 @@ const ApplicationStep4 = ({
   }, [cemeteries, step3])
 
   const defaultValues = useMemo(
-    () => ({ cintorin: list.length > 0 ? list[0]?.id ?? null : null }),
+    () => ({ cintorin: list.length > 0 ? (list[0]?.id ?? null) : null }),
     [list],
   )
 

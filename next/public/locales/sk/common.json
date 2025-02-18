@@ -49,12 +49,6 @@
       "scrollToTop": "Prejsť na začiatok"
     }
   },
-  "QuantitySelect": {
-    "aria": {
-      "increaseAmount": "Zvýšiť množstvo",
-      "decreaseAmount": "Znížiť množstvo"
-    }
-  },
   "Pagination": {
     "aria": {
       "goToPage": "Ísť na stranu {{page}}",
@@ -229,7 +223,6 @@
   "DocumentLayout": {
     "createdAt": "Vytvorené",
     "downloadFile": "Stiahnuť",
-    "showFile": "Zobraziť",
     "category": "Kategória",
     "description": "Popis",
     "details": "Detaily"

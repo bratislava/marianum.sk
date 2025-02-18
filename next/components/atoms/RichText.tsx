@@ -1,5 +1,4 @@
 import Divider from '@components/atoms/Divider'
-import { customImageLoader } from '@components/atoms/MImage'
 import MLink from '@components/atoms/MLink'
 import NormalizeText from '@components/atoms/NormalizeText/NormalizeText'
 import { useHorizontalScrollFade } from '@utils/useHorizontalScrollFade'
@@ -66,7 +65,8 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
                 className="w-full"
                 alt={alt}
                 sizes="100vw"
-                loader={customImageLoader}
+                // TODO remove this loader completely when confirmed that images work without it
+                // loader={customImageLoader}
               />
               <figcaption className="text-center text-sm">{caption}</figcaption>
             </figure>

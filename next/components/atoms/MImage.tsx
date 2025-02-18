@@ -36,10 +36,11 @@ const MImage = ({ image, disableBlurPlaceholder = false, ...rest }: MImageProps)
     placeholder={disableBlurPlaceholder || !image.placeholder ? undefined : 'blur'}
     blurDataURL={disableBlurPlaceholder || !image.placeholder ? undefined : image.placeholder}
     // Next shows Image with src "..." and "layout='fill'" has unused properties assigned. Please remove "width" and "height".
-    width={rest.fill ? undefined : image.width ?? undefined}
-    height={rest.fill ? undefined : image.height ?? undefined}
+    width={rest.fill ? undefined : (image.width ?? undefined)}
+    height={rest.fill ? undefined : (image.height ?? undefined)}
     {...rest}
-    loader={customImageLoader}
+    // TODO remove this loader completely when confirmed that images work without it
+    // loader={customImageLoader}
   />
 )
 
