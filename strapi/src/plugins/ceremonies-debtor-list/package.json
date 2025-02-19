@@ -10,14 +10,13 @@
   "dependencies": {
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.37",
-    "xlsx": "^0.18.5",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@strapi/strapi": "4.11.4",
-    "@types/koa": "^2.13.5",
-    "typescript": "^5.7.3",
-    "@types/react": "^18.2.0"
+    "@types/react": "^18.2.0",
+    "@types/web": "0.0.203"
   },
   "author": {
     "name": "A Strapi developer"
