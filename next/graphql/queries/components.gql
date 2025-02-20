@@ -228,6 +228,11 @@ fragment MapSection on ComponentSectionsMapSection {
   title
 }
 
+fragment MapOfManagedObjectsSection on ComponentSectionsMapOfManagedObjects {
+  id
+  title
+}
+
 fragment BundleListing on ComponentSectionsBundleListing {
   id
   title
@@ -406,4 +411,3 @@ fragment IframeSection on ComponentSectionsIframeSection {
   body
   url
 }
-

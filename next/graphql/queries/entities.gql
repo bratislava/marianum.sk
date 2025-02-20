@@ -494,6 +494,10 @@ fragment PageEntity on PageEntity {
         __typename
         ...MapSection
       }
+      ... on ComponentSectionsMapOfManagedObjects {
+        __typename
+        ...MapOfManagedObjectsSection
+      }
       ... on ComponentSectionsOpeningHoursSection {
         __typename
         ...OpeningHoursSection

@@ -1509,6 +1509,12 @@ export type ComponentSectionsManualListingPagesArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
+export type ComponentSectionsMapOfManagedObjects = {
+  __typename?: 'ComponentSectionsMapOfManagedObjects';
+  id: Scalars['ID'];
+  title?: Maybe<Scalars['String']>;
+};
+
 export type ComponentSectionsMapSection = {
   __typename?: 'ComponentSectionsMapSection';
   id: Scalars['ID'];
@@ -2164,6 +2170,7 @@ export type GenericMorph =
   | ComponentSectionsHomepageReviewsSection
   | ComponentSectionsIframeSection
   | ComponentSectionsManualListing
+  | ComponentSectionsMapOfManagedObjects
   | ComponentSectionsMapSection
   | ComponentSectionsMenuListing
   | ComponentSectionsNewsListing
@@ -3249,6 +3256,7 @@ export type PageSectionsDynamicZone =
   | ComponentSectionsGallery
   | ComponentSectionsIframeSection
   | ComponentSectionsManualListing
+  | ComponentSectionsMapOfManagedObjects
   | ComponentSectionsMapSection
   | ComponentSectionsMenuListing
   | ComponentSectionsNewsListing
@@ -4679,6 +4687,12 @@ export type MenuListingFragment = {
 };
 
 export type MapSectionFragment = { __typename?: 'ComponentSectionsMapSection', id: string, title?: string | null };
+
+export type MapOfManagedObjectsSectionFragment = {
+  __typename?: 'ComponentSectionsMapOfManagedObjects',
+  id: string,
+  title?: string | null
+};
 
 export type BundleListingFragment = {
   __typename?: 'ComponentSectionsBundleListing',
@@ -6642,12 +6656,11 @@ export type PageEntityFragment = {
           } | null
         } | null
       } | null> | null
-    } | { __typename: 'ComponentSectionsMapSection', id: string, title?: string | null } | {
-      __typename: 'ComponentSectionsMenuListing',
+    } | { __typename: 'ComponentSectionsMapOfManagedObjects', id: string, title?: string | null } | {
+      __typename: 'ComponentSectionsMapSection',
       id: string,
-      title?: string | null,
-      slug: string
-    } | {
+      title?: string | null
+    } | { __typename: 'ComponentSectionsMenuListing', id: string, title?: string | null, slug: string } | {
       __typename: 'ComponentSectionsNewsListing',
       id: string,
       title?: string | null,
@@ -7915,12 +7928,11 @@ export type PageBySlugQuery = {
               } | null
             } | null
           } | null> | null
-        } | { __typename: 'ComponentSectionsMapSection', id: string, title?: string | null } | {
-          __typename: 'ComponentSectionsMenuListing',
+        } | { __typename: 'ComponentSectionsMapOfManagedObjects', id: string, title?: string | null } | {
+          __typename: 'ComponentSectionsMapSection',
           id: string,
-          title?: string | null,
-          slug: string
-        } | {
+          title?: string | null
+        } | { __typename: 'ComponentSectionsMenuListing', id: string, title?: string | null, slug: string } | {
           __typename: 'ComponentSectionsNewsListing',
           id: string,
           title?: string | null,
@@ -10290,6 +10302,12 @@ export const MapSectionFragmentDoc = gql`
     title
   }
 `
+export const MapOfManagedObjectsSectionFragmentDoc = gql`
+  fragment MapOfManagedObjectsSection on ComponentSectionsMapOfManagedObjects {
+    id
+    title
+  }
+`
 export const OpeningHoursSectionFragmentDoc = gql`
   fragment OpeningHoursSection on ComponentSectionsOpeningHoursSection {
     id
@@ -10421,6 +10439,10 @@ export const PageEntityFragmentDoc = gql`
           __typename
           ...MapSection
         }
+        ... on ComponentSectionsMapOfManagedObjects {
+          __typename
+          ...MapOfManagedObjectsSection
+        }
         ... on ComponentSectionsOpeningHoursSection {
           __typename
           ...OpeningHoursSection
@@ -10502,6 +10524,7 @@ export const PageEntityFragmentDoc = gql`
   ${ManualListingFragmentDoc}
   ${NewsListingFragmentDoc}
   ${MapSectionFragmentDoc}
+  ${MapOfManagedObjectsSectionFragmentDoc}
   ${OpeningHoursSectionFragmentDoc}
   ${CemeteriesOpeningHoursFragmentDoc}
   ${RichtextSectionFragmentDoc}
