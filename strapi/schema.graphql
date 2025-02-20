@@ -2332,6 +2332,14 @@ enum ENUM_DISCLOSURE_TYPE {
   Zmluva
 }
 
+enum ENUM_MANAGEDOBJECT_TYPE {
+  fontana
+  hmlova_fontana
+  pitna_fontana
+  rozprasovac
+  studna
+}
+
 enum ENUM_PAGE_LAYOUT {
   centered
   fullwidth
@@ -2426,7 +2434,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = Application | ApplicationText | Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Application | ApplicationText | Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2628,6 +2636,77 @@ input LongFilterInput {
   startsWith: Long
 }
 
+type ManagedObject {
+  address: String
+  contact: ContactEntityResponse
+  createdAt: DateTime
+  description: String
+  latitude: Float
+  locale: String
+  localizations(filters: ManagedObjectFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ManagedObjectRelationResponseCollection
+  longitude: Float
+  medias(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
+  navigateToLink: String
+  seo: ComponentGeneralSeo
+  slug: String!
+  title: String!
+  type: ENUM_MANAGEDOBJECT_TYPE
+  updatedAt: DateTime
+}
+
+type ManagedObjectEntity {
+  attributes: ManagedObject
+  id: ID
+}
+
+type ManagedObjectEntityResponse {
+  data: ManagedObjectEntity
+}
+
+type ManagedObjectEntityResponseCollection {
+  data: [ManagedObjectEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input ManagedObjectFiltersInput {
+  address: StringFilterInput
+  and: [ManagedObjectFiltersInput]
+  contact: ContactFiltersInput
+  createdAt: DateTimeFilterInput
+  description: StringFilterInput
+  id: IDFilterInput
+  latitude: FloatFilterInput
+  locale: StringFilterInput
+  localizations: ManagedObjectFiltersInput
+  longitude: FloatFilterInput
+  navigateToLink: StringFilterInput
+  not: ManagedObjectFiltersInput
+  or: [ManagedObjectFiltersInput]
+  seo: ComponentGeneralSeoFiltersInput
+  slug: StringFilterInput
+  title: StringFilterInput
+  type: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input ManagedObjectInput {
+  address: String
+  contact: ID
+  description: String
+  latitude: Float
+  longitude: Float
+  medias: [ID]
+  navigateToLink: String
+  seo: ComponentGeneralSeoInput
+  slug: String
+  title: String
+  type: ENUM_MANAGEDOBJECT_TYPE
+}
+
+type ManagedObjectRelationResponseCollection {
+  data: [ManagedObjectEntity!]!
+}
+
 type Mutation {
   """Change user password. Confirm with the current password."""
   changePassword(currentPassword: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
@@ -2653,6 +2732,8 @@ type Mutation {
   createDocumentCategory(data: DocumentCategoryInput!): DocumentCategoryEntityResponse
   createGeneralLocalization(data: GeneralInput, id: ID, locale: I18NLocaleCode): GeneralEntityResponse
   createHomePageLocalization(data: HomePageInput, id: ID, locale: I18NLocaleCode): HomePageEntityResponse
+  createManagedObject(data: ManagedObjectInput!, locale: I18NLocaleCode): ManagedObjectEntityResponse
+  createManagedObjectLocalization(data: ManagedObjectInput, id: ID, locale: I18NLocaleCode): ManagedObjectEntityResponse
   createOffice(data: OfficeInput!, locale: I18NLocaleCode): OfficeEntityResponse
   createOfficeLocalization(data: OfficeInput, id: ID, locale: I18NLocaleCode): OfficeEntityResponse
   createPage(data: PageInput!, locale: I18NLocaleCode): PageEntityResponse
@@ -2686,6 +2767,7 @@ type Mutation {
   deleteDocumentCategory(id: ID!): DocumentCategoryEntityResponse
   deleteGeneral(locale: I18NLocaleCode): GeneralEntityResponse
   deleteHomePage(locale: I18NLocaleCode): HomePageEntityResponse
+  deleteManagedObject(id: ID!, locale: I18NLocaleCode): ManagedObjectEntityResponse
   deleteOffice(id: ID!, locale: I18NLocaleCode): OfficeEntityResponse
   deletePage(id: ID!, locale: I18NLocaleCode): PageEntityResponse
   deletePartner(id: ID!): PartnerEntityResponse
@@ -2734,6 +2816,7 @@ type Mutation {
   updateFileInfo(id: ID!, info: FileInfoInput): UploadFileEntityResponse!
   updateGeneral(data: GeneralInput!, locale: I18NLocaleCode): GeneralEntityResponse
   updateHomePage(data: HomePageInput!, locale: I18NLocaleCode): HomePageEntityResponse
+  updateManagedObject(data: ManagedObjectInput!, id: ID!, locale: I18NLocaleCode): ManagedObjectEntityResponse
   updateOffice(data: OfficeInput!, id: ID!, locale: I18NLocaleCode): OfficeEntityResponse
   updatePage(data: PageInput!, id: ID!, locale: I18NLocaleCode): PageEntityResponse
   updatePartner(data: PartnerInput!, id: ID!): PartnerEntityResponse
@@ -3080,6 +3163,8 @@ type Query {
   homePage(locale: I18NLocaleCode): HomePageEntityResponse
   i18NLocale(id: ID): I18NLocaleEntityResponse
   i18NLocales(filters: I18NLocaleFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): I18NLocaleEntityResponseCollection
+  managedObject(id: ID, locale: I18NLocaleCode): ManagedObjectEntityResponse
+  managedObjects(filters: ManagedObjectFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, sort: [String] = []): ManagedObjectEntityResponseCollection
   me: UsersPermissionsMe
   office(id: ID, locale: I18NLocaleCode): OfficeEntityResponse
   offices(filters: OfficeFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, sort: [String] = []): OfficeEntityResponseCollection

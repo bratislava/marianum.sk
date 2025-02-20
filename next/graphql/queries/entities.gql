@@ -637,6 +637,41 @@ fragment HomepageCeremonyEntity on CeremonyEntity {
   }
 }
 
+fragment ManagedObjectSlugEntity on ManagedObjectEntity {
+  __typename
+  id
+  attributes {
+    slug
+    type
+    locale
+  }
+}
+
+fragment ManagedObjectEntity on ManagedObjectEntity {
+  ...ManagedObjectSlugEntity
+  attributes {
+    title
+    description
+    address
+    navigateToLink
+    latitude
+    longitude
+    medias {
+      data {
+        ...UploadImageEntity
+      }
+    }
+    contact {
+      data {
+        ...ContactEntity
+      }
+    }
+    seo {
+      ...Seo
+    }
+  }
+}
+
 fragment ApplicationText on ApplicationText {
   spracovanieOsobnychUdajov
   spracovanieOsobnychUdajovMarketing

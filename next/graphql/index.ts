@@ -2045,6 +2045,14 @@ export enum Enum_Disclosure_Type {
   Zmluva = 'Zmluva'
 }
 
+export enum Enum_Managedobject_Type {
+  Fontana = 'fontana',
+  HmlovaFontana = 'hmlova_fontana',
+  PitnaFontana = 'pitna_fontana',
+  Rozprasovac = 'rozprasovac',
+  Studna = 'studna'
+}
+
 export enum Enum_Page_Layout {
   Centered = 'centered',
   Fullwidth = 'fullwidth',
@@ -2131,7 +2139,97 @@ export type GeneralRelationResponseCollection = {
   data: Array<GeneralEntity>;
 };
 
-export type GenericMorph = Application | ApplicationText | Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph =
+  Application
+  | ApplicationText
+  | Article
+  | ArticleJobsCategory
+  | ArticleNewsCategory
+  | ArticlePressCategory
+  | Branch
+  | Bundle
+  | Cemetery
+  | Ceremony
+  | ComponentBlocksAccordionItem
+  | ComponentBlocksAccordionItemWithPrice
+  | ComponentBlocksArticleItem
+  | ComponentBlocksBlocksCeremonyArchiveBlock
+  | ComponentBlocksBranchItem
+  | ComponentBlocksBundleContentItem
+  | ComponentBlocksBundleGroup
+  | ComponentBlocksBundleItem
+  | ComponentBlocksButtonLink
+  | ComponentBlocksContactItem
+  | ComponentBlocksCta
+  | ComponentBlocksDocumentItem
+  | ComponentBlocksOfficeItem
+  | ComponentBlocksOpeningHoursItem
+  | ComponentBlocksOpeningHoursUniversal
+  | ComponentBlocksPageItem
+  | ComponentBlocksPriceListItem
+  | ComponentBlocksSidebar
+  | ComponentBlocksSimpleCtaItem
+  | ComponentBlocksSocialItem
+  | ComponentGeneralContacts
+  | ComponentGeneralFooter
+  | ComponentGeneralHeader
+  | ComponentGeneralLinkItem
+  | ComponentGeneralProcedure
+  | ComponentGeneralProcedureItem
+  | ComponentGeneralSeo
+  | ComponentGeneralSocial
+  | ComponentSectionsAccordionGroup
+  | ComponentSectionsArticleJobsListing
+  | ComponentSectionsArticleNewsListing
+  | ComponentSectionsArticlePressListing
+  | ComponentSectionsArticlesManualListing
+  | ComponentSectionsBranchGroup
+  | ComponentSectionsBundleListing
+  | ComponentSectionsBundleListingSimple
+  | ComponentSectionsCemeteriesOpeningHours
+  | ComponentSectionsCeremoniesArchiveSection
+  | ComponentSectionsCeremoniesSection
+  | ComponentSectionsContactGroup
+  | ComponentSectionsCtaSection
+  | ComponentSectionsDebtorsSection
+  | ComponentSectionsDisclosuresSection
+  | ComponentSectionsDivider
+  | ComponentSectionsDocumentGroup
+  | ComponentSectionsDocumentsSection
+  | ComponentSectionsGallery
+  | ComponentSectionsHomepageReviewsSection
+  | ComponentSectionsIframeSection
+  | ComponentSectionsManualListing
+  | ComponentSectionsMapSection
+  | ComponentSectionsMenuListing
+  | ComponentSectionsNewsListing
+  | ComponentSectionsOpeningHoursSection
+  | ComponentSectionsPartnersSection
+  | ComponentSectionsProceduresSection
+  | ComponentSectionsProceduresShortSection
+  | ComponentSectionsPublicDisclosureSection
+  | ComponentSectionsReviewListing
+  | ComponentSectionsRichtext
+  | ComponentSectionsUpcomingCeremoniesSection
+  | Contact
+  | Debtor
+  | Disclosure
+  | Document
+  | DocumentCategory
+  | General
+  | HomePage
+  | I18NLocale
+  | ManagedObject
+  | Office
+  | Page
+  | Partner
+  | Procedure
+  | Review
+  | UploadFile
+  | UploadFolder
+  | UsersPermissionsPermission
+  | UsersPermissionsRole
+  | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -2283,6 +2381,94 @@ export type JsonFilterInput = {
   startsWith?: InputMaybe<Scalars['JSON']>;
 };
 
+export type ManagedObject = {
+  __typename?: 'ManagedObject';
+  address?: Maybe<Scalars['String']>;
+  contact?: Maybe<ContactEntityResponse>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  description?: Maybe<Scalars['String']>;
+  latitude?: Maybe<Scalars['Float']>;
+  locale?: Maybe<Scalars['String']>;
+  localizations?: Maybe<ManagedObjectRelationResponseCollection>;
+  longitude?: Maybe<Scalars['Float']>;
+  medias?: Maybe<UploadFileRelationResponseCollection>;
+  navigateToLink?: Maybe<Scalars['String']>;
+  seo?: Maybe<ComponentGeneralSeo>;
+  slug: Scalars['String'];
+  title: Scalars['String'];
+  type?: Maybe<Enum_Managedobject_Type>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type ManagedObjectLocalizationsArgs = {
+  filters?: InputMaybe<ManagedObjectFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ManagedObjectMediasArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ManagedObjectEntity = {
+  __typename?: 'ManagedObjectEntity';
+  attributes?: Maybe<ManagedObject>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type ManagedObjectEntityResponse = {
+  __typename?: 'ManagedObjectEntityResponse';
+  data?: Maybe<ManagedObjectEntity>;
+};
+
+export type ManagedObjectEntityResponseCollection = {
+  __typename?: 'ManagedObjectEntityResponseCollection';
+  data: Array<ManagedObjectEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type ManagedObjectFiltersInput = {
+  address?: InputMaybe<StringFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<ManagedObjectFiltersInput>>>;
+  contact?: InputMaybe<ContactFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  latitude?: InputMaybe<FloatFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<ManagedObjectFiltersInput>;
+  longitude?: InputMaybe<FloatFilterInput>;
+  navigateToLink?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ManagedObjectFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ManagedObjectFiltersInput>>>;
+  seo?: InputMaybe<ComponentGeneralSeoFiltersInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  type?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type ManagedObjectInput = {
+  address?: InputMaybe<Scalars['String']>;
+  contact?: InputMaybe<Scalars['ID']>;
+  description?: InputMaybe<Scalars['String']>;
+  latitude?: InputMaybe<Scalars['Float']>;
+  longitude?: InputMaybe<Scalars['Float']>;
+  medias?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  navigateToLink?: InputMaybe<Scalars['String']>;
+  seo?: InputMaybe<ComponentGeneralSeoInput>;
+  slug?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Enum_Managedobject_Type>;
+};
+
+export type ManagedObjectRelationResponseCollection = {
+  __typename?: 'ManagedObjectRelationResponseCollection';
+  data: Array<ManagedObjectEntity>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   /** Change user password. Confirm with the current password. */
@@ -2309,6 +2495,8 @@ export type Mutation = {
   createDocumentCategory?: Maybe<DocumentCategoryEntityResponse>;
   createGeneralLocalization?: Maybe<GeneralEntityResponse>;
   createHomePageLocalization?: Maybe<HomePageEntityResponse>;
+  createManagedObject?: Maybe<ManagedObjectEntityResponse>;
+  createManagedObjectLocalization?: Maybe<ManagedObjectEntityResponse>;
   createOffice?: Maybe<OfficeEntityResponse>;
   createOfficeLocalization?: Maybe<OfficeEntityResponse>;
   createPage?: Maybe<PageEntityResponse>;
@@ -2340,6 +2528,7 @@ export type Mutation = {
   deleteDocumentCategory?: Maybe<DocumentCategoryEntityResponse>;
   deleteGeneral?: Maybe<GeneralEntityResponse>;
   deleteHomePage?: Maybe<HomePageEntityResponse>;
+  deleteManagedObject?: Maybe<ManagedObjectEntityResponse>;
   deleteOffice?: Maybe<OfficeEntityResponse>;
   deletePage?: Maybe<PageEntityResponse>;
   deletePartner?: Maybe<PartnerEntityResponse>;
@@ -2380,6 +2569,7 @@ export type Mutation = {
   updateFileInfo: UploadFileEntityResponse;
   updateGeneral?: Maybe<GeneralEntityResponse>;
   updateHomePage?: Maybe<HomePageEntityResponse>;
+  updateManagedObject?: Maybe<ManagedObjectEntityResponse>;
   updateOffice?: Maybe<OfficeEntityResponse>;
   updatePage?: Maybe<PageEntityResponse>;
   updatePartner?: Maybe<PartnerEntityResponse>;
@@ -2527,6 +2717,17 @@ export type MutationCreateGeneralLocalizationArgs = {
 
 export type MutationCreateHomePageLocalizationArgs = {
   data?: InputMaybe<HomePageInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+export type MutationCreateManagedObjectArgs = {
+  data: ManagedObjectInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+export type MutationCreateManagedObjectLocalizationArgs = {
+  data?: InputMaybe<ManagedObjectInput>;
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -2684,6 +2885,11 @@ export type MutationDeleteGeneralArgs = {
 
 
 export type MutationDeleteHomePageArgs = {
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+export type MutationDeleteManagedObjectArgs = {
+  id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
@@ -2884,6 +3090,12 @@ export type MutationUpdateGeneralArgs = {
 
 export type MutationUpdateHomePageArgs = {
   data: HomePageInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+export type MutationUpdateManagedObjectArgs = {
+  data: ManagedObjectInput;
+  id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
@@ -3282,6 +3494,8 @@ export type Query = {
   homePage?: Maybe<HomePageEntityResponse>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
+  managedObject?: Maybe<ManagedObjectEntityResponse>;
+  managedObjects?: Maybe<ManagedObjectEntityResponseCollection>;
   me?: Maybe<UsersPermissionsMe>;
   office?: Maybe<OfficeEntityResponse>;
   offices?: Maybe<OfficeEntityResponseCollection>;
@@ -3503,6 +3717,18 @@ export type QueryI18NLocaleArgs = {
 
 export type QueryI18NLocalesArgs = {
   filters?: InputMaybe<I18NLocaleFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type QueryManagedObjectArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+export type QueryManagedObjectsArgs = {
+  filters?: InputMaybe<ManagedObjectFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
@@ -4236,6 +4462,70 @@ export type ReviewEntityFragment = { __typename?: 'ReviewEntity', id?: string | 
 export type CeremonyEntityFragment = { __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, birthYear?: string | null, type?: string | null, company?: string | null, officiantProvidedBy?: string | null, consentForPrivateFields?: boolean | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, slug: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null }> } | null } | null } | null } | null } | null };
 
 export type HomepageCeremonyEntityFragment = { __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, consentForPrivateFields?: boolean | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string } | null }> } | null } | null } | null } | null } | null };
+
+export type ManagedObjectSlugEntityFragment = {
+  __typename: 'ManagedObjectEntity',
+  id?: string | null,
+  attributes?: {
+    __typename?: 'ManagedObject',
+    slug: string,
+    type?: Enum_Managedobject_Type | null,
+    locale?: string | null
+  } | null
+};
+
+export type ManagedObjectEntityFragment = {
+  __typename: 'ManagedObjectEntity', id?: string | null, attributes?: {
+    __typename?: 'ManagedObject',
+    title: string,
+    description?: string | null,
+    address?: string | null,
+    navigateToLink?: string | null,
+    latitude?: number | null,
+    longitude?: number | null,
+    slug: string,
+    type?: Enum_Managedobject_Type | null,
+    locale?: string | null,
+    medias?: {
+      __typename?: 'UploadFileRelationResponseCollection',
+      data: Array<{
+        __typename?: 'UploadFileEntity',
+        id?: string | null,
+        attributes?: {
+          __typename?: 'UploadFile',
+          url: string,
+          name: string,
+          alternativeText?: string | null,
+          caption?: string | null,
+          size: number,
+          width?: number | null,
+          height?: number | null
+        } | null
+      }>
+    } | null,
+    contact?: {
+      __typename?: 'ContactEntityResponse',
+      data?: {
+        __typename?: 'ContactEntity',
+        id?: string | null,
+        attributes?: {
+          __typename?: 'Contact',
+          title: string,
+          position?: string | null,
+          email?: string | null,
+          phone1?: string | null,
+          phone2?: string | null
+        } | null
+      } | null
+    } | null,
+    seo?: {
+      __typename?: 'ComponentGeneralSeo',
+      metaTitle?: string | null,
+      metaDescription?: string | null,
+      keywords?: string | null
+    } | null
+  } | null
+};
 
 export type ApplicationTextFragment = { __typename?: 'ApplicationText', spracovanieOsobnychUdajov?: string | null, spracovanieOsobnychUdajovMarketing?: string | null, typZiadostiPridelenieTooltip?: string | null, typZiadostiRezervaciaTooltip?: string | null, uviestHroboveCisloAnoTooltip?: string | null, uviestHroboveCisloNieTooltip?: string | null, osobnaPritomnostDescription?: string | null, druhHroboveMiestoTooltip?: string | null, druhUrnoveMiestoTooltip?: string | null, druhUrnoveMiestoVZemiTooltip?: string | null, druhUrnovaStenaTooltip?: string | null };
 
@@ -5620,6 +5910,46 @@ export const HomepageCeremonyEntityFragmentDoc = gql`
   }
 }
     `;
+export const ManagedObjectSlugEntityFragmentDoc = gql`
+  fragment ManagedObjectSlugEntity on ManagedObjectEntity {
+    __typename
+    id
+    attributes {
+      slug
+      type
+      locale
+    }
+  }
+`
+export const ManagedObjectEntityFragmentDoc = gql`
+  fragment ManagedObjectEntity on ManagedObjectEntity {
+    ...ManagedObjectSlugEntity
+    attributes {
+      title
+      description
+      address
+      navigateToLink
+      latitude
+      longitude
+      medias {
+        data {
+          ...UploadImageEntity
+        }
+      }
+      contact {
+        data {
+          ...ContactEntity
+        }
+      }
+      seo {
+        ...Seo
+      }
+    }
+  }
+  ${ManagedObjectSlugEntityFragmentDoc}
+  ${UploadImageEntityFragmentDoc}
+  ${ContactEntityFragmentDoc}
+${SeoFragmentDoc}`
 export const ApplicationTextFragmentDoc = gql`
     fragment ApplicationText on ApplicationText {
   spracovanieOsobnychUdajov
