@@ -83,10 +83,9 @@ const image: UploadFile = {
   provider: 'local',
   provider_metadata: null,
   createdAt: '2022-08-24T20:30:23.750Z',
-  placeholder:
-    'data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUG/8QAIRAAAQQABwEBAAAAAAAAAAAAAQIDBAUABxESEyExBqH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AkZQSpl3UW1bDkphOQqlyZvSyklL7ShwuIV6DtJB1B8696yDWYP08NpEWPYOcLKQ2jV1QO1PQ/BhhgP/Z',
 }
 
+// eslint-disable-next-line const-case/uppercase
 const richText = '# Heading 1'
 
 type WrapperProps = {
