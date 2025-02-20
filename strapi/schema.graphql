@@ -1681,6 +1681,23 @@ input ComponentSectionsManualListingInput {
   title: String
 }
 
+type ComponentSectionsMapOfManagedObjects {
+  id: ID!
+  title: String
+}
+
+input ComponentSectionsMapOfManagedObjectsFiltersInput {
+  and: [ComponentSectionsMapOfManagedObjectsFiltersInput]
+  not: ComponentSectionsMapOfManagedObjectsFiltersInput
+  or: [ComponentSectionsMapOfManagedObjectsFiltersInput]
+  title: StringFilterInput
+}
+
+input ComponentSectionsMapOfManagedObjectsInput {
+  id: ID
+  title: String
+}
+
 type ComponentSectionsMapSection {
   id: ID!
   title: String
@@ -2434,7 +2451,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = Application | ApplicationText | Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Application | ApplicationText | Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -3012,7 +3029,7 @@ type PageRelationResponseCollection {
   data: [PageEntity!]!
 }
 
-union PageSectionsDynamicZone = ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | Error
+union PageSectionsDynamicZone = ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | Error
 
 scalar PageSectionsDynamicZoneInput
 
