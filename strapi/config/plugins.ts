@@ -1,6 +1,6 @@
 import meilisearchConfig from "./plugins.meilisearch.config"
 
-module.exports = ({ env }) => ({
+export default ({ env }) => ({
   // It's important to enable Navigation plugin first, before GraphQL
   navigation: {
     enabled: true,
