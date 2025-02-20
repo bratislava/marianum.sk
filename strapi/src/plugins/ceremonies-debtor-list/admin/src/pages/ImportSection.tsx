@@ -35,7 +35,7 @@ type ImportSectionProps = {
   type: "debtors" | "ceremonies" | "disclosures";
 };
 
-const ImportSection = ({ type }: ImportSectionProps) => {
+const ImportSection: React.FC<ImportSectionProps> = ({ type }) => {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
