@@ -41,7 +41,7 @@ const BundleCard = ({
   return (
     <CardBox {...props}>
       <CardContent largePadding className="grow gap-6">
-        <div className="relative h-[56px] w-[56px] bg-gray">
+        <div className="relative size-[56px] bg-gray">
           {image ? <MImage image={image} fill className="object-cover" /> : <ImagePlaceholder />}
         </div>
 

@@ -138,7 +138,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                   onClick={() => openAtImageIndex(0)}
                   className="relative w-full cursor-pointer border border-border pt-[100%]"
                 >
-                  <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white p-2 text-center font-semibold text-primary">
+                  <div className="absolute top-0 flex size-full items-center justify-center bg-white p-2 text-center font-semibold text-primary">
                     {t('morePhotos', { count: moreImagesCount })}
                   </div>
                 </div>
@@ -178,7 +178,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                   onClick={() => openAtImageIndex(0)}
                   className="relative w-[168px] cursor-pointer pt-[166px]"
                 >
-                  <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white p-8 text-center font-semibold text-primary">
+                  <div className="absolute top-0 flex size-full items-center justify-center bg-white p-8 text-center font-semibold text-primary">
                     {t('showAllPhotos')}
                   </div>
                 </div>

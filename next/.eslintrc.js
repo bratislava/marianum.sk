@@ -21,11 +21,6 @@ module.exports = {
     'no-secrets/no-secrets': ['warn', { ignoreContent: '^http' }],
     /** Not needed */
     'eslint-comments/disable-enable-pair': 'off',
-    /** Use official sorting */
-    'tailwindcss/classnames-order': [
-      'warn',
-      { callees: ['classnames', 'cx'], officialSorting: true },
-    ],
     /** We specify default props in props decomposition */
     'react/require-default-props': 'off',
     /** Do not work in our case */
