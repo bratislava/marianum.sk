@@ -42,7 +42,7 @@ export const cemeteriesInDebtorsFetcher = async (locale: string) => {
           label: getCemeteryInfoInCeremoniesDebtors(cemetery, locale).title ?? '',
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           key: cemetery.id!,
-        } as Option),
+        }) as Option,
     ) ?? ([] as Option[])
   )
 }

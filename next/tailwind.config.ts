@@ -1,6 +1,5 @@
-
 import plugin from 'tailwindcss/plugin'
-import { Config } from "tailwindcss"
+import { Config } from 'tailwindcss'
 
 const scrollBarHide = plugin(function ({ addUtilities }) {
   addUtilities({
@@ -33,14 +32,9 @@ const customVariants = plugin(function ({ addVariant }) {
   addVariant('not-first', '&:not(:first-child)')
 })
 
-const config : Config= {
+const config: Config = {
   content: ['./pages/**/*.{js,jsx,ts,tsx}', './components/**/*.{js,jsx,ts,tsx}'],
-  plugins: [
-    scrollBarHide,
-    inputNumberArrowsHide,
-    customVariants,
-    require('tailwindcss-radix')(),
-  ],
+  plugins: [scrollBarHide, inputNumberArrowsHide, customVariants, require('tailwindcss-radix')()],
   corePlugins: {
     // container: false,
   },
@@ -123,7 +117,7 @@ const config : Config= {
         18: '4.5rem', // 72px
       },
     },
-  }
+  },
 }
 
 export default config
