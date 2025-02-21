@@ -7,6 +7,7 @@ import {
   BundleSlugEntityFragment,
   CemeterySlugEntityFragment,
   DocumentSlugEntityFragment,
+  ManagedObjectSlugEntityFragment,
   NavigationItemFragment,
   Page,
   PageSlugEntityFragment,
@@ -27,6 +28,7 @@ const localPaths = {
   bundlesCremation: '/sluzby/balicky-pohrebov/kremacia',
   bundlesNatural: '/sluzby/balicky-pohrebov/prirodne-obrady',
   cemeteries: '/o-nas/cintoriny-v-sprave',
+  managedObjects: '/o-nas/objekty-v-sprave',
   documents: '/o-nas/dokumenty',
   legislative: '/o-nas/dokumenty/legislativa',
   search: '/vyhladavanie',
@@ -39,6 +41,7 @@ export type UnionSlugEntityType =
   | BundleSlugEntityFragment
   | CemeterySlugEntityFragment
   | DocumentSlugEntityFragment
+  | ManagedObjectSlugEntityFragment
   | null
   | undefined
 
@@ -96,6 +99,10 @@ export const getFullPathFn = (
     return [localPaths.cemeteries, slug].join('/')
   }
 
+  if (entity.__typename === 'ManagedObjectEntity') {
+    return [localPaths.managedObjects, slug].join('/')
+  }
+
   if (entity.__typename === 'DocumentEntity') {
     // TODO add .../dokumenty/legislativa depending on document category
     return [localPaths.documents, slug].join('/')
@@ -133,6 +140,9 @@ export const getFullPathMeiliFn = (navMap: NavMap) => {
   // eslint-disable-next-line sonarjs/cognitive-complexity
   return ((entityType, entity) => {
     const { slug } = entity
+
+    // IMPORTANT: managed object entity was added to `getFullPathFn` function, but it wasn't added here.
+    // This was done on purpose, since we do not want these entities to be indexed in global search.
 
     if (entityType === 'article') {
       // eslint-disable-next-line unicorn/consistent-destructuring
