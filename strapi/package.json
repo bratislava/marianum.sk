@@ -11,9 +11,9 @@
     "dev": "yarn develop",
     "develop": "cross-env ENV_PATH='./.env.local' strapi develop",
     "start": "strapi start",
-    "build": "yarn --cwd ./src/plugins/ceremonies-debtor-list-new/ build && strapi build",
+    "build": "yarn --cwd ./src/plugins/waste-collection-days-import/ build && strapi build",
     "strapi": "strapi",
-    "postinstall": "patch-package && yarn --cwd ./src/plugins/ceremonies-debtor-list-new/ install"
+    "postinstall": "patch-package && yarn --cwd ./src/plugins/waste-collection-days-import/ install"
   },
   "devDependencies": {
     "@babel/core": "7.21.0"

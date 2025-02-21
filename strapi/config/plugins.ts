@@ -43,6 +43,10 @@ export default ({ env }) => ({
     enabled: true,
     resolve: "./src/plugins/ceremonies-debtor-list",
   },
+  "waste-collection-days-import": {
+    enabled: true,
+    resolve: "./src/plugins/waste-collection-days-import",
+  },
   meilisearch: {
     config: meilisearchConfig,
   },
