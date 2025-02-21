@@ -1,4 +1,4 @@
-import { client } from '@services/graphql/gqlClient'
+import { client } from '@/services/graphql/gqlClient'
 
 export const upcomingCeremoniesSwrKey = 'UpcomingCeremonies'
 

@@ -1,11 +1,12 @@
-import Loading from '@components/atoms/Loading'
-import ArticleGroup from '@components/sections/ArticleGroup'
-import { getNewsListingSwrKey, newsListingFetcher } from '@services/fetchers/newsListingFetcher'
-import { isDefined } from '@utils/isDefined'
-import { useGetSwrExtras } from '@utils/useGetSwrExtras'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 import useSWR from 'swr'
+
+import Loading from '@/components/atoms/Loading'
+import ArticleGroup from '@/components/sections/ArticleGroup'
+import { getNewsListingSwrKey, newsListingFetcher } from '@/services/fetchers/newsListingFetcher'
+import { isDefined } from '@/utils/isDefined'
+import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 
 const NewsListing = () => {
   const { i18n } = useTranslation()

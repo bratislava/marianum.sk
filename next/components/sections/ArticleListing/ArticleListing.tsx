@@ -1,29 +1,30 @@
-import Loading from '@components/atoms/Loading'
-import LoadingOverlay from '@components/atoms/LoadingOverlay'
-import ArticleCard from '@components/molecules/Cards/ArticleCard'
-import FilteringSearchInput from '@components/molecules/FilteringSearchInput'
-import FiltersBackgroundWrapper from '@components/molecules/FiltersBackgroundWrapper'
-import { useGetFullPathMeili } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import PaginationMeili from '@components/molecules/PaginationMeili'
-import Section from '@components/molecules/Section'
-import ArticleJobsCategoriesSelect from '@components/sections/ArticleListing/ArticleJobsCategoriesSelect'
-import ArticleNewsCategoriesSelect from '@components/sections/ArticleListing/ArticleNewsCategoriesSelect'
-import ArticlePressCategoriesSelect from '@components/sections/ArticleListing/ArticlePressCategoriesSelect'
+import { SearchResponse } from 'meilisearch'
+import { useTranslation } from 'next-i18next'
+import { useEffect, useRef, useState } from 'react'
+import useSwr from 'swr'
+import { useDebounce } from 'usehooks-ts'
+
+import Loading from '@/components/atoms/Loading'
+import LoadingOverlay from '@/components/atoms/LoadingOverlay'
+import ArticleCard from '@/components/molecules/Cards/ArticleCard'
+import FilteringSearchInput from '@/components/molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '@/components/molecules/FiltersBackgroundWrapper'
+import { useGetFullPathMeili } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import PaginationMeili from '@/components/molecules/PaginationMeili'
+import Section from '@/components/molecules/Section'
+import ArticleJobsCategoriesSelect from '@/components/sections/ArticleListing/ArticleJobsCategoriesSelect'
+import ArticleNewsCategoriesSelect from '@/components/sections/ArticleListing/ArticleNewsCategoriesSelect'
+import ArticlePressCategoriesSelect from '@/components/sections/ArticleListing/ArticlePressCategoriesSelect'
 import {
   articleListingDefaultFilters,
   ArticleListingFilters,
   ArticleListingType,
   getArticleListingFetcher,
   getArticleListingSwrKey,
-} from '@services/fetchers/articleListingFetcher'
-import { ArticleMeili } from '@services/meili/meiliTypes'
-import { useGetSwrExtras } from '@utils/useGetSwrExtras'
-import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
-import { SearchResponse } from 'meilisearch'
-import { useTranslation } from 'next-i18next'
-import { useEffect, useRef, useState } from 'react'
-import useSwr from 'swr'
-import { useDebounce } from 'usehooks-ts'
+} from '@/services/fetchers/articleListingFetcher'
+import { ArticleMeili } from '@/services/meili/meiliTypes'
+import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
+import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
 const Articles = ({
   data,

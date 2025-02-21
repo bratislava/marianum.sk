@@ -1,8 +1,9 @@
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import DocumentRow from '@components/molecules/Row/DocumentRow'
-import { DocumentGroupFragment } from '@graphql'
-import { isDefined } from '@utils/isDefined'
 import { useId, useMemo } from 'react'
+
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import DocumentRow from '@/components/molecules/Row/DocumentRow'
+import { DocumentGroupFragment } from '@/graphql'
+import { isDefined } from '@/utils/isDefined'
 
 const getAriaLabelId = (id: string, index: number) => `document-group-title-${id}-${index}`
 

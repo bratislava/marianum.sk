@@ -1,8 +1,9 @@
-import ImagePlaceholder from '@components/atoms/ImagePlaceholder'
-import { useTailwindBreakpoint } from '@utils/useTailwindBreakpoint'
 import last from 'lodash/last'
 import Image from 'next/image'
 import React, { useMemo } from 'react'
+
+import ImagePlaceholder from '@/components/atoms/ImagePlaceholder'
+import { useTailwindBreakpoint } from '@/utils/useTailwindBreakpoint'
 
 type FooterMapStaticProps = {
   latitude: string | null | undefined

@@ -1,6 +1,7 @@
-import { sectionContext } from '@components/layouts/SectionsWrapper'
 import cx from 'classnames'
 import { HTMLAttributes, PropsWithChildren, useContext } from 'react'
+
+import { sectionContext } from '@/components/layouts/SectionsWrapper'
 
 export type CardBoxProps = {
   border?: boolean

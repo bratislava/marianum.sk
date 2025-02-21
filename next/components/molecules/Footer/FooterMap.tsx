@@ -1,9 +1,10 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-import { MapMarkerMarianumSvg } from '@assets'
-import { Maybe } from '@graphql'
 import { motion } from 'framer-motion'
 import Map, { Marker } from 'react-map-gl'
+
+import { MapMarkerMarianumSvg } from '@/assets'
+import { Maybe } from '@/graphql'
 
 export type FooterMapProps = {
   markerLat?: Maybe<string>

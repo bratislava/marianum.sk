@@ -1,15 +1,16 @@
-import NormalizeText from '@components/atoms/NormalizeText/NormalizeText'
-import PageWrapper from '@components/layouts/PageWrapper'
-import SideBar from '@components/molecules/SideBar'
-import HeroSection from '@components/sections/HeroSection'
+import cx from 'classnames'
+import { ReactNode } from 'react'
+
+import NormalizeText from '@/components/atoms/NormalizeText/NormalizeText'
+import PageWrapper from '@/components/layouts/PageWrapper'
+import SideBar from '@/components/molecules/SideBar'
+import HeroSection from '@/components/sections/HeroSection'
 import {
   Enum_Page_Layout,
   GeneralEntityFragment,
   NavigationItemFragment,
   PageEntityFragment,
-} from '@graphql'
-import cx from 'classnames'
-import { ReactNode } from 'react'
+} from '@/graphql'
 
 type PageLayoutProps = {
   page: PageEntityFragment

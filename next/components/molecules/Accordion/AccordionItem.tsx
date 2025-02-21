@@ -1,9 +1,10 @@
-import { ChevronDownIcon } from '@assets/icons'
-import { AnimateHeight } from '@components/atoms/AnimateHeight'
-import { sectionContext } from '@components/layouts/SectionsWrapper'
 import { Disclosure } from '@headlessui/react'
 import cx from 'classnames'
 import { ReactNode, useContext } from 'react'
+
+import { ChevronDownIcon } from '@/assets/icons'
+import { AnimateHeight } from '@/components/atoms/AnimateHeight'
+import { sectionContext } from '@/components/layouts/SectionsWrapper'
 
 export type AccordionItemProps = {
   title: string | null | undefined | ReactNode

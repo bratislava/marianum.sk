@@ -1,12 +1,12 @@
-import { Option } from '@components/atoms/Select'
-import { client } from '@services/graphql/gqlClient'
-import { meiliClient } from '@services/meili/meiliClient'
-import { getMeilisearchPageOptions } from '@utils/getMeilisearchPageOptions'
-import { isDefined } from '@utils/isDefined'
 import { Key } from 'swr'
 
-import { ArticleMeili } from '../meili/meiliTypes'
-import { SearchIndexWrapped, unwrapFromSearchIndex } from '../meili/searchIndexWrapped'
+import { Option } from '@/components/atoms/Select'
+import { client } from '@/services/graphql/gqlClient'
+import { meiliClient } from '@/services/meili/meiliClient'
+import { ArticleMeili } from '@/services/meili/meiliTypes'
+import { SearchIndexWrapped, unwrapFromSearchIndex } from '@/services/meili/searchIndexWrapped'
+import { getMeilisearchPageOptions } from '@/utils/getMeilisearchPageOptions'
+import { isDefined } from '@/utils/isDefined'
 
 export enum ArticleListingType {
   News,

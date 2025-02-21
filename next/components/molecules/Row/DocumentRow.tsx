@@ -1,9 +1,10 @@
-import { DownloadIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
-import Row from '@components/molecules/Row/Row'
-import { UploadFileEntityFragment } from '@graphql'
-import { useDownloadAriaLabel } from '@utils/useDownloadAriaLabel'
 import { useTranslation } from 'next-i18next'
+
+import { DownloadIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
+import Row from '@/components/molecules/Row/Row'
+import { UploadFileEntityFragment } from '@/graphql'
+import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
 
 type DocumentRowProps = {
   file: UploadFileEntityFragment

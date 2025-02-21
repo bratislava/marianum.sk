@@ -1,11 +1,12 @@
-import { ArrowLeftIcon, ArrowRightIcon } from '@assets/icons'
-import IconButton from '@components/atoms/IconButton'
-import MImage from '@components/atoms/MImage'
-import Modal, { ModalProps } from '@components/atoms/Modal'
-import Slider from '@components/molecules/Slider'
-import { UploadImageEntityFragment } from '@graphql'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useRef } from 'react'
+
+import { ArrowLeftIcon, ArrowRightIcon } from '@/assets/icons'
+import IconButton from '@/components/atoms/IconButton'
+import MImage from '@/components/atoms/MImage'
+import Modal, { ModalProps } from '@/components/atoms/Modal'
+import Slider from '@/components/molecules/Slider'
+import { UploadImageEntityFragment } from '@/graphql'
 
 export type ImageLightBoxProps = {
   images: UploadImageEntityFragment[]

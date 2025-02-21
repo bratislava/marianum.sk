@@ -1,12 +1,13 @@
-import { ArrowLeftIcon, ChevronDownIcon, CloseIcon } from '@assets/icons'
-import IconButton from '@components/atoms/IconButton'
-import MLink from '@components/atoms/MLink'
-import Modal from '@components/atoms/Modal'
-import { NavigationItemFragment } from '@graphql'
-import { isDefined } from '@utils/isDefined'
-import { usePrevious } from '@utils/usePrevious'
 import { motion } from 'framer-motion'
 import { useCallback, useMemo, useState } from 'react'
+
+import { ArrowLeftIcon, ChevronDownIcon, CloseIcon } from '@/assets/icons'
+import IconButton from '@/components/atoms/IconButton'
+import MLink from '@/components/atoms/MLink'
+import Modal from '@/components/atoms/Modal'
+import { NavigationItemFragment } from '@/graphql'
+import { isDefined } from '@/utils/isDefined'
+import { usePrevious } from '@/utils/usePrevious'
 
 export type NavigationMenuMobileProps = {
   items: NavigationItemFragment[]

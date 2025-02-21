@@ -1,8 +1,9 @@
-import Button from '@components/atoms/Button'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { CtaSectionFragment } from '@graphql'
-import { isDefined } from '@utils/isDefined'
 import { useId } from 'react'
+
+import Button from '@/components/atoms/Button'
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { CtaSectionFragment } from '@/graphql'
+import { isDefined } from '@/utils/isDefined'
 
 const getAriaLabelId = (id: string, index: number) => `ctagroup-${id}-${index}`
 

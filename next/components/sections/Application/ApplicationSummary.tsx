@@ -1,7 +1,8 @@
-import { EditIcon } from '@assets/icons'
-import IconButton from '@components/atoms/IconButton'
 import { PropsWithChildren } from 'react'
 import { DeepPartial } from 'react-hook-form'
+
+import { EditIcon } from '@/assets/icons'
+import IconButton from '@/components/atoms/IconButton'
 
 import { ApplicationCemeteries } from './application.types'
 import { ApplicationTypes } from './application-shared.types'

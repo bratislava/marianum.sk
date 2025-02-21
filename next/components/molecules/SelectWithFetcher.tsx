@@ -1,7 +1,8 @@
-import Select, { Option, SelectProps, SingleSelect } from '@components/atoms/Select'
-import { useGetSwrExtras } from '@utils/useGetSwrExtras'
 import { useMemo } from 'react'
 import useSwr, { Key } from 'swr'
+
+import Select, { Option, SelectProps, SingleSelect } from '@/components/atoms/Select'
+import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 
 type SelectWithFetcherProps = {
   swrKey: Key

@@ -1,10 +1,11 @@
+import Head from 'next/head'
+import { useTranslation } from 'next-i18next'
+
 import {
   UnionSlugEntityType,
   useGetFullPath,
-} from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { SeoFragment, UploadImageEntityFragment } from '@graphql'
-import Head from 'next/head'
-import { useTranslation } from 'next-i18next'
+} from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { SeoFragment, UploadImageEntityFragment } from '@/graphql'
 
 interface SeoProps {
   title: string | undefined | null

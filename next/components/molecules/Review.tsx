@@ -1,6 +1,6 @@
-import Avatar from '@components/atoms/Avatar'
-import FormatDate from '@components/atoms/FormatDate'
-import ReviewStars from '@components/atoms/ReviewStars'
+import Avatar from '@/components/atoms/Avatar'
+import FormatDate from '@/components/atoms/FormatDate'
+import ReviewStars from '@/components/atoms/ReviewStars'
 
 type ReviewProps = {
   rating: number

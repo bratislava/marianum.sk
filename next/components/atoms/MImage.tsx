@@ -1,6 +1,7 @@
-import { UploadFile } from '@graphql'
 import Image, { ImageLoader } from 'next/image'
 import { ComponentProps } from 'react'
+
+import { UploadFile } from '@/graphql'
 
 // After update to Next.js, loading images is broken (returns 503 and makes the server crash for a moment), this is a
 // temporary fix.

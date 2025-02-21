@@ -1,10 +1,11 @@
-import { AnimateHeight } from '@components/atoms/AnimateHeight'
-import Button from '@components/atoms/Button'
-import Modal, { ModalProps } from '@components/atoms/Modal'
-import NavigationSearchResults from '@components/molecules/Navigation/NavigationSearch/NavigationSearchResults'
-import Search from '@components/molecules/Search'
-import { SearchData } from '@utils/useSearch'
 import { useTranslation } from 'next-i18next'
+
+import { AnimateHeight } from '@/components/atoms/AnimateHeight'
+import Button from '@/components/atoms/Button'
+import Modal, { ModalProps } from '@/components/atoms/Modal'
+import NavigationSearchResults from '@/components/molecules/Navigation/NavigationSearch/NavigationSearchResults'
+import Search from '@/components/molecules/Search'
+import { SearchData } from '@/utils/useSearch'
 
 type NavigationSearchMobileModalProps = {
   searchQuery: string

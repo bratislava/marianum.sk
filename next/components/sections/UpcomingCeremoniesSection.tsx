@@ -1,21 +1,22 @@
-import FormatDate from '@components/atoms/FormatDate'
-import Loading from '@components/atoms/Loading'
-import MLink from '@components/atoms/MLink'
-import CemeteryLink from '@components/molecules/CemeteryLink'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import Section from '@components/molecules/Section'
-import { UpcomingCeremoniesSectionFragment } from '@graphql'
 import { isSameDay, parseAbsolute } from '@internationalized/date'
-import {
-  upcomingCeremoniesFetcher,
-  upcomingCeremoniesSwrKey,
-} from '@services/fetchers/upcomingCeremoniesFetcher'
-import { bratislavaTimezone } from '@utils/consts'
-import { getCemeteryInfoInCeremoniesDebtors } from '@utils/getCemeteryInfoInCeremoniesDebtors'
-import { useGetSwrExtras } from '@utils/useGetSwrExtras'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 import useSWR from 'swr'
+
+import FormatDate from '@/components/atoms/FormatDate'
+import Loading from '@/components/atoms/Loading'
+import MLink from '@/components/atoms/MLink'
+import CemeteryLink from '@/components/molecules/CemeteryLink'
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Section from '@/components/molecules/Section'
+import { UpcomingCeremoniesSectionFragment } from '@/graphql'
+import {
+  upcomingCeremoniesFetcher,
+  upcomingCeremoniesSwrKey,
+} from '@/services/fetchers/upcomingCeremoniesFetcher'
+import { bratislavaTimezone } from '@/utils/consts'
+import { getCemeteryInfoInCeremoniesDebtors } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
+import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 
 const Table = () => {
   const { t, i18n } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })

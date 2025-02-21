@@ -1,13 +1,14 @@
-import FormatDate from '@components/atoms/FormatDate'
-import MImage from '@components/atoms/MImage'
-import NormalizeText from '@components/atoms/NormalizeText/NormalizeText'
-import PageWrapper from '@components/layouts/PageWrapper'
-import SectionsWrapper from '@components/layouts/SectionsWrapper'
-import HeroSection from '@components/sections/HeroSection'
-import NewsSection from '@components/sections/NewsSection'
-import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import cx from 'classnames'
 import { ReactNode } from 'react'
+
+import FormatDate from '@/components/atoms/FormatDate'
+import MImage from '@/components/atoms/MImage'
+import NormalizeText from '@/components/atoms/NormalizeText/NormalizeText'
+import PageWrapper from '@/components/layouts/PageWrapper'
+import SectionsWrapper from '@/components/layouts/SectionsWrapper'
+import HeroSection from '@/components/sections/HeroSection'
+import NewsSection from '@/components/sections/NewsSection'
+import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
 
 type ArticleLayoutProps = {
   navigation: NavigationItemFragment[]

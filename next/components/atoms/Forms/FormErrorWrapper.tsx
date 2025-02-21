@@ -1,10 +1,11 @@
-import { ErrorIcon } from '@assets/icons'
 import { ErrorMessage } from '@hookform/error-message'
 import fromPairs from 'lodash/fromPairs'
 import get from 'lodash/get'
 import { useTranslation } from 'next-i18next'
 import React, { PropsWithChildren, useMemo } from 'react'
 import { FormState } from 'react-hook-form'
+
+import { ErrorIcon } from '@/assets/icons'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type FormErrorWrapperProps = { formState: FormState<any>; name?: string }

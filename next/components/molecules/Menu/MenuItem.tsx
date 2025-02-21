@@ -1,5 +1,6 @@
-import { ChevronRightIcon } from '@assets/icons'
 import cx from 'classnames'
+
+import { ChevronRightIcon } from '@/assets/icons'
 
 type MenuItemProps = {
   title: string

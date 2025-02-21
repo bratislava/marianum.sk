@@ -1,15 +1,16 @@
-import { ShoppingCartIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
-import CardBox, { CardBoxProps } from '@components/atoms/Card/CardBox'
-import CardContent from '@components/atoms/Card/CardContent'
-import FormatCurrency from '@components/atoms/FormatCurrency'
-import ImagePlaceholder from '@components/atoms/ImagePlaceholder'
-import MImage, { MImageImage } from '@components/atoms/MImage'
-import MLink from '@components/atoms/MLink'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useRef } from 'react'
 import { useHover } from 'usehooks-ts'
+
+import { ShoppingCartIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
+import CardBox, { CardBoxProps } from '@/components/atoms/Card/CardBox'
+import CardContent from '@/components/atoms/Card/CardContent'
+import FormatCurrency from '@/components/atoms/FormatCurrency'
+import ImagePlaceholder from '@/components/atoms/ImagePlaceholder'
+import MImage, { MImageImage } from '@/components/atoms/MImage'
+import MLink from '@/components/atoms/MLink'
 
 type ProductCardProps = {
   image?: MImageImage | null

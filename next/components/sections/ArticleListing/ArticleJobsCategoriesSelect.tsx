@@ -1,10 +1,11 @@
-import SelectWithFetcher from '@components/molecules/SelectWithFetcher'
+import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+
+import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import {
   articleJobsCategoriesSelectFetcher,
   articleJobsCategoriesSelectSwrKey,
-} from '@services/fetchers/articleListingFetcher'
-import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
+} from '@/services/fetchers/articleListingFetcher'
 
 type ArticleJobsCategoriesSelectProps = {
   onCategoryChange: (id: string | null) => void

@@ -1,10 +1,11 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable sonarjs/no-duplicate-string */
-import { AnchorProps, PolymorphicProps } from '@components/atoms/Button'
-import MLink from '@components/atoms/MLink'
 import cx from 'classnames'
 import { forwardRef, RefObject } from 'react'
 import { useButton } from 'react-aria'
+
+import { AnchorProps, PolymorphicProps } from '@/components/atoms/Button'
+import MLink from '@/components/atoms/MLink'
 
 type IconButtonProps = Omit<PolymorphicProps, 'variant' | 'startIcon' | 'endIcon' | 'noPadding'> & {
   variant?:

@@ -1,6 +1,6 @@
-import FormRadioGroup from '@components/atoms/Forms/FormRadioGroup'
-import RadioBox from '@components/atoms/Radio/RadioBox'
-import { ApplicationStepComponentProps } from '@components/sections/Application/application.types'
+import FormRadioGroup from '@/components/atoms/Forms/FormRadioGroup'
+import RadioBox from '@/components/atoms/Radio/RadioBox'
+import { ApplicationStepComponentProps } from '@/components/sections/Application/application.types'
 
 import { ApplicationTypes } from './application-shared.types'
 import { step1YupShape } from './application-shared.yup'

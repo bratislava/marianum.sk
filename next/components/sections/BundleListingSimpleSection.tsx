@@ -1,8 +1,8 @@
-import BundleCard from '@components/molecules/Cards/BundleCard'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import Section, { SectionProps } from '@components/molecules/Section'
-import { BundleListingSimpleFragment } from '@graphql'
-import { isDefined } from '@utils/isDefined'
+import BundleCard from '@/components/molecules/Cards/BundleCard'
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Section, { SectionProps } from '@/components/molecules/Section'
+import { BundleListingSimpleFragment } from '@/graphql'
+import { isDefined } from '@/utils/isDefined'
 
 type BundleListingSimpleSectionProps = Pick<SectionProps, 'background'> & {
   section: BundleListingSimpleFragment

@@ -1,14 +1,15 @@
-import Button from '@components/atoms/Button'
-import FileIcon from '@components/atoms/FileIcon'
-import FormatDate from '@components/atoms/FormatDate'
-import PageWrapper from '@components/layouts/PageWrapper'
-import SectionsWrapper from '@components/layouts/SectionsWrapper'
-import Section from '@components/molecules/Section'
-import HeroSection from '@components/sections/HeroSection'
-import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import filesize from 'filesize'
 import { useTranslation } from 'next-i18next'
 import { Fragment, ReactNode, useMemo } from 'react'
+
+import Button from '@/components/atoms/Button'
+import FileIcon from '@/components/atoms/FileIcon'
+import FormatDate from '@/components/atoms/FormatDate'
+import PageWrapper from '@/components/layouts/PageWrapper'
+import SectionsWrapper from '@/components/layouts/SectionsWrapper'
+import Section from '@/components/molecules/Section'
+import HeroSection from '@/components/sections/HeroSection'
+import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
 
 type DocumentLayoutProps = {
   navigation: NavigationItemFragment[]

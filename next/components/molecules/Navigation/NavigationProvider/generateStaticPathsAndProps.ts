@@ -1,16 +1,17 @@
-import {
-  getFullPathFn,
-  isCurrentPathValid,
-  UnionSlugEntityType,
-} from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { GeneralEntityFragment, NavigationItemFragment } from '@graphql'
-import { client } from '@services/graphql/gqlClient'
-import { isDefined } from '@utils/isDefined'
-import { parseNavigation } from '@utils/parseNavigation'
 import last from 'lodash/last'
 import { GetStaticPathsResult, GetStaticPropsResult } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import {
+  getFullPathFn,
+  isCurrentPathValid,
+  UnionSlugEntityType,
+} from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
+import { isDefined } from '@/utils/isDefined'
+import { parseNavigation } from '@/utils/parseNavigation'
 
 /**
  * Shared function to generate static paths for entities.

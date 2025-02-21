@@ -1,7 +1,8 @@
-import { MailIcon, PhoneIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
-import { getPhoneNumberLink } from '@utils/getPhoneNumberLink'
 import { useTranslation } from 'next-i18next'
+
+import { MailIcon, PhoneIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
+import { getPhoneNumberLink } from '@/utils/getPhoneNumberLink'
 
 type SideBarContactProps = {
   title: string | null | undefined

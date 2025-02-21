@@ -1,14 +1,15 @@
-import MLink from '@components/atoms/MLink'
-import TabItem from '@components/atoms/Tabs/TabItem'
-import Tabs from '@components/atoms/Tabs/Tabs'
-import { sectionContext } from '@components/layouts/SectionsWrapper'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import Section, { SectionProps } from '@components/molecules/Section'
-import { ProcedureFragment, ProceduresShortSectionFragment } from '@graphql'
-import { isDefined } from '@utils/isDefined'
-import { useTailwindBreakpoint } from '@utils/useTailwindBreakpoint'
 import cx from 'classnames'
 import { useContext, useMemo } from 'react'
+
+import MLink from '@/components/atoms/MLink'
+import TabItem from '@/components/atoms/Tabs/TabItem'
+import Tabs from '@/components/atoms/Tabs/Tabs'
+import { sectionContext } from '@/components/layouts/SectionsWrapper'
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Section, { SectionProps } from '@/components/molecules/Section'
+import { ProcedureFragment, ProceduresShortSectionFragment } from '@/graphql'
+import { isDefined } from '@/utils/isDefined'
+import { useTailwindBreakpoint } from '@/utils/useTailwindBreakpoint'
 
 type HomepageProceduresProps = Pick<SectionProps, 'background'> & {
   outsideMedicalFacility: ProcedureFragment | null | undefined

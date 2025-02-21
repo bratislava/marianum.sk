@@ -1,9 +1,10 @@
-import MenuItem from '@components/molecules/Menu/MenuItem'
-import MenuLeaf from '@components/molecules/Menu/MenuLeaf'
-import { NavigationItemFragment } from '@graphql'
 import { SubMenu as ReactSubMenu } from '@szhsin/react-menu'
 import { useRouter } from 'next/router'
 import { MouseEvent } from 'react'
+
+import MenuItem from '@/components/molecules/Menu/MenuItem'
+import MenuLeaf from '@/components/molecules/Menu/MenuLeaf'
+import { NavigationItemFragment } from '@/graphql'
 
 export type SubMenuProps = Pick<NavigationItemFragment, 'title' | 'path' | 'items'>
 

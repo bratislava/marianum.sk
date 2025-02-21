@@ -1,8 +1,8 @@
-import { meiliClient } from '@services/meili/meiliClient'
-import { getMeilisearchPageOptions } from '@utils/getMeilisearchPageOptions'
 import { Key } from 'swr'
 
-import { DisclosureMeili, DisclosureTypeFixed } from '../meili/meiliTypes'
+import { meiliClient } from '@/services/meili/meiliClient'
+import { DisclosureMeili, DisclosureTypeFixed } from '@/services/meili/meiliTypes'
+import { getMeilisearchPageOptions } from '@/utils/getMeilisearchPageOptions'
 
 export type DisclosuresSectionFilters = {
   pageSize: number

@@ -1,9 +1,10 @@
-import RichText from '@components/atoms/RichText'
-import { sectionContext } from '@components/layouts/SectionsWrapper'
-import Section from '@components/molecules/Section'
-import { IframeSectionFragment } from '@graphql'
 import { useContext } from 'react'
 import { useWindowSize } from 'usehooks-ts'
+
+import RichText from '@/components/atoms/RichText'
+import { sectionContext } from '@/components/layouts/SectionsWrapper'
+import Section from '@/components/molecules/Section'
+import { IframeSectionFragment } from '@/graphql'
 
 const IframeSection = ({ section }: { section: IframeSectionFragment }) => {
   const { height } = useWindowSize()

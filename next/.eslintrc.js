@@ -42,6 +42,9 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 'warn',
     'xss/no-mixed-html': 'off',
 
+    /** After using the default @/* alias, we wanted to remove the “missing file extension” error message */
+    'import/extensions': 'off',
+
     /* Formatting rules */
     'prettier/prettier': ['error', { endOfLine: 'auto' }], // TODO revisit, prettier should not be run by eslint
   },

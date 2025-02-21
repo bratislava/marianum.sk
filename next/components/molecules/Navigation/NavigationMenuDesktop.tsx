@@ -1,6 +1,6 @@
-import MLink from '@components/atoms/MLink'
-import Menu from '@components/molecules/Menu/Menu'
-import { NavigationItemFragment } from '@graphql'
+import MLink from '@/components/atoms/MLink'
+import Menu from '@/components/molecules/Menu/Menu'
+import { NavigationItemFragment } from '@/graphql'
 
 export type NavigationMenuDesktopProps = {
   navigationItems: NavigationItemFragment[]

@@ -1,17 +1,18 @@
-import CardBox, { CardBoxProps } from '@components/atoms/Card/CardBox'
-import CardContent from '@components/atoms/Card/CardContent'
-import FormatDate from '@components/atoms/FormatDate'
-import ImagePlaceholder from '@components/atoms/ImagePlaceholder'
-import MImage, { MImageImage } from '@components/atoms/MImage'
-import MLink from '@components/atoms/MLink'
+import cx from 'classnames'
+import React, { useMemo, useRef } from 'react'
+import { useHover } from 'usehooks-ts'
+
+import CardBox, { CardBoxProps } from '@/components/atoms/Card/CardBox'
+import CardContent from '@/components/atoms/Card/CardContent'
+import FormatDate from '@/components/atoms/FormatDate'
+import ImagePlaceholder from '@/components/atoms/ImagePlaceholder'
+import MImage, { MImageImage } from '@/components/atoms/MImage'
+import MLink from '@/components/atoms/MLink'
 import {
   ArticleJobsCategoryEntityFragment,
   ArticleNewsCategoryEntityFragment,
   ArticlePressCategoryEntityFragment,
-} from '@graphql'
-import cx from 'classnames'
-import React, { useMemo, useRef } from 'react'
-import { useHover } from 'usehooks-ts'
+} from '@/graphql'
 
 type ArticleCardProps = {
   image?: MImageImage | null

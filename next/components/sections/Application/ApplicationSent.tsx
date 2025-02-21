@@ -1,6 +1,7 @@
-import { CheckIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
 import React from 'react'
+
+import { CheckIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
 
 const ApplicationSent = () => {
   return (

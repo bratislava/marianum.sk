@@ -1,16 +1,17 @@
 import { ParsedUrlQuery } from 'node:querystring'
 
-import Seo from '@components/atoms/Seo'
-import DocumentLayout from '@components/layouts/DocumentLayout'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { SSRConfig } from 'next-i18next'
+
+import Seo from '@/components/atoms/Seo'
+import DocumentLayout from '@/components/layouts/DocumentLayout'
 import {
   generateStaticPaths,
   generateStaticProps,
-} from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
-import { client } from '@services/graphql/gqlClient'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { SSRConfig } from 'next-i18next'
+} from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
+import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
 
 type DocumentPageProps = {
   navigation: NavigationItemFragment[]

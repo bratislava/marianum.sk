@@ -1,6 +1,6 @@
-import ArticleCard from '@components/molecules/Cards/ArticleCard'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { ArticleCardEntityFragment } from '@graphql'
+import ArticleCard from '@/components/molecules/Cards/ArticleCard'
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { ArticleCardEntityFragment } from '@/graphql'
 
 type ArticleGroupProps = {
   articles: ArticleCardEntityFragment[]

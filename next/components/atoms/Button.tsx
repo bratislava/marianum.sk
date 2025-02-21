@@ -1,9 +1,10 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import MLink from '@components/atoms/MLink'
 import { LinkButtonProps } from '@react-types/button'
 import cx from 'classnames'
 import { forwardRef, ReactNode, Ref, RefObject } from 'react'
 import { AriaButtonProps, useButton } from 'react-aria'
+
+import MLink from '@/components/atoms/MLink'
 
 type ButtonBase = {
   startIcon?: ReactNode

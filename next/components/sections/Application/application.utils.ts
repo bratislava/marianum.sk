@@ -1,6 +1,7 @@
-import { CemeteryInApplicationEntityFragment } from '@graphql'
-import { isDefined } from '@utils/isDefined'
 import { DeepPartial } from 'react-hook-form'
+
+import { CemeteryInApplicationEntityFragment } from '@/graphql'
+import { isDefined } from '@/utils/isDefined'
 
 import { ApplicationCemeteries } from './application.types'
 import { ApplicationTypes } from './application-shared.types'

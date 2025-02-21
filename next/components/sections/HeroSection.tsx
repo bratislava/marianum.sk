@@ -1,17 +1,18 @@
-import { HomeIcon } from '@assets/icons'
-import Breadcrumbs, { BreadcrumbItem } from '@components/atoms/Breadcrumbs'
-import Button from '@components/atoms/Button'
-import FormatCurrency from '@components/atoms/FormatCurrency'
-import NormalizeText from '@components/atoms/NormalizeText/NormalizeText'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { useNavigationContext } from '@components/molecules/Navigation/NavigationProvider/useNavigationContext'
-import { CtaButtonFragment } from '@graphql'
-import { getBreadcrumbs } from '@utils/getBreadcrumbs'
-import { useIsHeroSectionOverlaid } from '@utils/heroSectionContentOverlay'
 import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
+
+import { HomeIcon } from '@/assets/icons'
+import Breadcrumbs, { BreadcrumbItem } from '@/components/atoms/Breadcrumbs'
+import Button from '@/components/atoms/Button'
+import FormatCurrency from '@/components/atoms/FormatCurrency'
+import NormalizeText from '@/components/atoms/NormalizeText/NormalizeText'
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { useNavigationContext } from '@/components/molecules/Navigation/NavigationProvider/useNavigationContext'
+import { CtaButtonFragment } from '@/graphql'
+import { getBreadcrumbs } from '@/utils/getBreadcrumbs'
+import { useIsHeroSectionOverlaid } from '@/utils/heroSectionContentOverlay'
 
 type HeroSectionProps = {
   breadcrumbsMoreItems?: BreadcrumbItem[]

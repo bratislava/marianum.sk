@@ -1,9 +1,10 @@
-import ReviewCard from '@components/molecules/Cards/ReviewCard'
-import Section from '@components/molecules/Section'
-import { HomepageReviewsSectionFragment } from '@graphql'
 import { Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useIsClient } from 'usehooks-ts'
+
+import ReviewCard from '@/components/molecules/Cards/ReviewCard'
+import Section from '@/components/molecules/Section'
+import { HomepageReviewsSectionFragment } from '@/graphql'
 
 type HomepageReviewsSectionProps = {
   section?: HomepageReviewsSectionFragment

@@ -1,14 +1,15 @@
 import '@szhsin/react-menu/dist/core.css'
 
-import { ChevronDownIcon } from '@assets/icons'
-import MLink from '@components/atoms/MLink'
-import MenuLeaf from '@components/molecules/Menu/MenuLeaf'
-import SubMenu from '@components/molecules/Menu/SubMenu'
-import { NavigationItemFragment } from '@graphql'
 import { ControlledMenu as ReactControlledMenu, useMenuState } from '@szhsin/react-menu'
 import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { KeyboardEvent, useEffect } from 'react'
+
+import { ChevronDownIcon } from '@/assets/icons'
+import MLink from '@/components/atoms/MLink'
+import MenuLeaf from '@/components/molecules/Menu/MenuLeaf'
+import SubMenu from '@/components/molecules/Menu/SubMenu'
+import { NavigationItemFragment } from '@/graphql'
 
 export type MenuProps = Pick<NavigationItemFragment, 'title' | 'path' | 'items'>
 

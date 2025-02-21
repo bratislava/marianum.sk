@@ -1,13 +1,14 @@
-import Divider from '@components/atoms/Divider'
-import MLink from '@components/atoms/MLink'
-import NormalizeText from '@components/atoms/NormalizeText/NormalizeText'
-import { useHorizontalScrollFade } from '@utils/useHorizontalScrollFade'
 import cx from 'classnames'
 import Image from 'next/image'
 import { PropsWithChildren, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
+
+import Divider from '@/components/atoms/Divider'
+import MLink from '@/components/atoms/MLink'
+import NormalizeText from '@/components/atoms/NormalizeText/NormalizeText'
+import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
 
 export interface RichTextProps {
   className?: string

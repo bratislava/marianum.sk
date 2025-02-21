@@ -1,8 +1,9 @@
-import { ArrowLeftIcon, ArrowRightIcon } from '@assets/icons'
-import IconButton from '@components/atoms/IconButton'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
+
+import { ArrowLeftIcon, ArrowRightIcon } from '@/assets/icons'
+import IconButton from '@/components/atoms/IconButton'
 
 import usePagination from './usePagination'
 
