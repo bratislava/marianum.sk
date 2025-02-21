@@ -39,9 +39,9 @@ export default ({ env }) => ({
       },
     },
   },
-  "ceremonies-debtor-list-import": {
+  "ceremonies-debtor-list": {
     enabled: true,
-    resolve: "./src/plugins/ceremonies-debtor-list-import",
+    resolve: "./src/plugins/ceremonies-debtor-list",
   },
   meilisearch: {
     config: meilisearchConfig,

@@ -1,4 +1,4 @@
-import { removeCeremoniesTask } from "../src/plugins/ceremonies-debtor-list-import/remove-ceremonies-cron-task"
+import { removeCeremoniesTask } from "../src/plugins/ceremonies-debtor-list/remove-ceremonies-cron-task"
 
 export default ({ env }) => ({
   host: env("HOST", "0.0.0.0"),
