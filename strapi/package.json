@@ -15,9 +15,7 @@
     "strapi": "strapi",
     "postinstall": "patch-package && yarn --cwd ./src/plugins/ceremonies-debtor-list/ install"
   },
-  "devDependencies": {
-    "@babel/core": "7.21.0"
-  },
+  "devDependencies": {},
   "dependencies": {
     "@strapi/plugin-graphql": "4.11.4",
     "@strapi/plugin-i18n": "4.11.4",

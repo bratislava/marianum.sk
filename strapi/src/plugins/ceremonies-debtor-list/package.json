@@ -1,10 +1,10 @@
 {
-  "name": "waste-collection-days",
+  "name": "ceremonies-debtor-list",
   "version": "0.0.0",
   "description": "This is the description of the plugin.",
   "strapi": {
-    "name": "waste-collection-days",
-    "description": "Description of waste-collection-days plugin",
+    "name": "ceremonies-debtor-list",
+    "description": "Description of ceremonies-debtor-list plugin",
     "kind": "plugin"
   },
   "dependencies": {
