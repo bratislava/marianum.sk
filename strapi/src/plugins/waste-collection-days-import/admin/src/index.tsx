@@ -12,7 +12,7 @@ export default {
       icon: PluginIcon,
       intlLabel: {
         id: `${pluginId}.plugin.name`,
-        defaultMessage: 'Import odvozových dní',
+        defaultMessage: 'Import Excel súborov',
       },
       Component: async () => {
         const component = await import('./pages/App')
