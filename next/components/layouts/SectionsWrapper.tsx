@@ -57,9 +57,11 @@ const SectionsWrapper = ({
         if (sectionCount === index + 1) {
           return 'dark'
         }
+
         // otherwise alternate
         return oddOrEven ? oddBackground : evenBackground
       }
+
       return background
     },
     [oddBackground, evenBackground, alternateBackground, background, sectionCount],

@@ -63,6 +63,7 @@ const MapSection = ({ section }: MapSectionProps) => {
           if (address && title && slug && latitude && longitude) {
             return cemetery
           }
+
           return null
         })
         .filter(isDefined) ?? []
@@ -235,6 +236,7 @@ const MapSection = ({ section }: MapSectionProps) => {
                   </Marker>
                 )
               }
+
               return null
             })}
           </Map>

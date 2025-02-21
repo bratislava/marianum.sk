@@ -80,6 +80,7 @@ const Documents = ({
       </div>
     )
   }
+
   return <strong>{t('noDocuments')}</strong>
 }
 

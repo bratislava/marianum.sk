@@ -120,6 +120,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
           e.preventDefault()
           e.stopPropagation()
           goToPrevious()
+
           return
         }
 

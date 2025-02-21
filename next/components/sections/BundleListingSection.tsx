@@ -44,6 +44,7 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
                     additionalItems,
                     slug,
                   } = attributes ?? {}
+
                   return (
                     <BundleCard
                       key={slug}

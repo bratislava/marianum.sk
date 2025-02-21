@@ -66,6 +66,7 @@ const ApplicationStep4 = ({
     ) {
       return cemeteries.urnovaStena
     }
+
     return []
   }, [cemeteries, step3])
 

@@ -32,6 +32,7 @@ const NextPublicEnvsHtmlComment = () => {
 =======================
 -->
 `
+
   return (
     <div
       id="next_public_env_vars"

@@ -55,6 +55,7 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
           const [alt, caption] = altAndCaption.includes('||')
             ? altAndCaption.split('||')
             : [altAndCaption, altAndCaption]
+
           return (
             <figure className="flex flex-col gap-4">
               {/* https://stackoverflow.com/a/73618982 */}
@@ -82,6 +83,7 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
         ),
         a: ({ href, children }) => {
           const isExternal = href?.startsWith('http')
+
           return (
             <MLink
               href={href ?? '#'}

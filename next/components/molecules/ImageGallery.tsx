@@ -40,6 +40,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
         : // variant 'aside'small
           0
     }
+
     // variant 'below' large
     return (containerWidth ?? 0) > 1000
       ? 7

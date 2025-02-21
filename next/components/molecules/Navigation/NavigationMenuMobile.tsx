@@ -86,8 +86,10 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
       if (foundItem && foundItem.items) {
         setTreePreviousItem(current)
         setPreviousItem(current)
+
         return foundItem
       }
+
       return current
     })
   }, [])
