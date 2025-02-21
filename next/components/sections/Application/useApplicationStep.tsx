@@ -66,6 +66,7 @@ export const ApplicationStepWrapper = <T extends FieldValues>({
     [captchaRefreshDate],
   )
 
+  // eslint-disable-next-line no-console
   console.log(
     captchaRefreshDate,
     turnstileRefreshing,

@@ -5,7 +5,7 @@ import { FieldValues, FormState, useController, UseControllerProps } from 'react
 
 type FormRadioGroupProps<T extends FieldValues> = Omit<
   Parameters<typeof RadioGroup>[0],
-  'value' | 'onChange' | 'onBlur'
+  'onChange' | 'onBlur'
 > &
   UseControllerProps<T> & {
     formState: FormState<T>

@@ -34,7 +34,11 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
           const { url, alternativeText } = image?.data?.attributes ?? {}
 
           return (
-            <div className="flex h-full justify-center">
+            <div
+              className="flex h-full justify-center"
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+            >
               <h2 className="sr-only">{t('aria.heading')}</h2>
               <div className="container absolute flex h-full flex-row items-center justify-center lg:justify-start">
                 {/* 60% of container width is not the same as 60% of window (image offset from left), but this setting works fine */}
