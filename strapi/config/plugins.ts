@@ -39,10 +39,6 @@ export default ({ env }) => ({
       },
     },
   },
-  "ceremonies-debtor-list": {
-    enabled: true,
-    resolve: "./src/plugins/ceremonies-debtor-list",
-  },
   "ceremonies-debtor-list-import": {
     enabled: true,
     resolve: "./src/plugins/ceremonies-debtor-list-import",

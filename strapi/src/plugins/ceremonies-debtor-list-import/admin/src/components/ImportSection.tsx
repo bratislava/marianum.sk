@@ -3,9 +3,9 @@ import { Alert, Box, Button, Link, Loader, Stack, Typography } from '@strapi/des
 import axiosInstance from '../utils/axiosInstance'
 
 const updateUrls = {
-  debtors: "/ceremonies-debtor-list/update-debtors",
-  ceremonies: "/ceremonies-debtor-list/update-ceremonies",
-  disclosures: "/ceremonies-debtor-list/update-disclosures",
+  debtors: "/ceremonies-debtor-list-import/update-debtors",
+  ceremonies: "/ceremonies-debtor-list-import/update-ceremonies",
+  disclosures: "/ceremonies-debtor-list-import/update-disclosures",
 };
 
 const headerTexts = {

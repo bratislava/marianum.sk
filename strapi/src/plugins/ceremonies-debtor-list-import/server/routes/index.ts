@@ -1,21 +1,21 @@
 export default {
   admin: {
-    type: 'admin',
+    type: "admin",
     routes: [
       {
-        method: 'PUT',
-        path: '/update-waste-collection-days',
-        handler: 'importXlsxController.updateWasteCollectionDays',
+        method: "PUT",
+        path: "/update-debtors",
+        handler: "importXlsxController.updateDebtors",
       },
       {
-        method: 'POST',
-        path: '/delete-waste-collection-days/:type',
-        handler: 'importXlsxController.deleteWasteCollectionDays',
+        method: "PUT",
+        path: "/update-ceremonies",
+        handler: "importXlsxController.updateCeremonies",
       },
       {
-        method: 'POST',
-        path: '/update-meilisearch-waste-collection-days',
-        handler: 'importXlsxController.updateMeilisearchWasteCollectionDays',
+        method: "PUT",
+        path: "/update-disclosures",
+        handler: "importXlsxController.updateDisclosures",
       },
     ],
   },
