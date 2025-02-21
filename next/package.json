@@ -8,7 +8,7 @@
     "develop": "yarn dev",
     "build": "next build",
     "start": "next start",
-    "gen": "graphql-codegen",
+    "gen": "graphql-codegen && prettier --write graphql/index.ts",
     "lint": "eslint components pages utils",
     "lint:fix": "yarn lint --fix",
     "update-react-aria": "yarn add @internationalized/date@latest @react-stately/utils@latest react-aria@latest react-stately@latest @react-aria/utils@latest --exact --dev",

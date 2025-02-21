@@ -75,6 +75,10 @@ const nextConfig = {
             nextRoute: '/cemeteries',
           },
           {
+            fullPath: '/o-nas/objekty-v-sprave/:slug',
+            nextRoute: '/managed-objects',
+          },
+          {
             fullPath: '/o-nas/dokumenty/:slug',
             nextRoute: '/documents',
           },
