@@ -187,11 +187,16 @@
   "MapSection": {
     "noResults": "Žiadne výsledky",
     "map": "Mapa",
-    "filtering": "Filtrácia",
+    "filtering": "Filtrovanie",
     "filters": {
-      "civil": "Civilné",
-      "historical": "Historické",
-      "war": "Vojnové"
+      "civilny": "Civilné",
+      "historicky": "Historické",
+      "vojensky": "Vojnové",
+      "fontana": "Fontána",
+      "pitna_fontana": "Pitná fontána",
+      "hmlova_fontana": "Hmlová fontána",
+      "studna": "Studňa",
+      "rozprasovac": "Rozprašovač"
     }
   },
   "DebtorsSection": {
