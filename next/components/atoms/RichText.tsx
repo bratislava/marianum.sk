@@ -68,8 +68,6 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
                 className="w-full"
                 alt={alt ?? ''}
                 sizes="100vw"
-                // TODO remove this loader completely when confirmed that images work without it
-                // loader={customImageLoader}
               />
               <figcaption className="text-center text-sm">{caption}</figcaption>
             </figure>
