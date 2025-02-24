@@ -1190,6 +1190,7 @@ export const getStaticProps: GetStaticProps = async ({
   locale = 'sk',
 }): Promise<GetStaticPropsResult<SSRConfig>> => {
   const translations = await serverSideTranslations(locale, ['common'])
+
   return {
     props: {
       ...translations,

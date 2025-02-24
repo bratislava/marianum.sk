@@ -110,7 +110,7 @@ export const ApplicationSection = ({ cemeteries, texts }: ApplicationSectionProp
   )
 
   return (
-    <div className="flex h-full w-full flex-col">
+    <div className="flex size-full flex-col">
       <div className="sticky top-0 col-span-2 flex h-[48px] shrink-0 items-center border-b border-border bg-white md:h-[60px]">
         <div className="ml-4 w-10 md:ml-7">
           {currentStep !== ApplicationTypes.Step.Step1 && !sent ? (
@@ -137,7 +137,7 @@ export const ApplicationSection = ({ cemeteries, texts }: ApplicationSectionProp
                   {sendError ? (
                     <div className="mb-6 flex gap-x-5 bg-error/12 p-5 text-error">
                       <div>
-                        <ErrorIcon className="mt-0.5 h-5 w-5" />
+                        <ErrorIcon className="mt-0.5 size-5" />
                       </div>
                       <span>Žiadosť sa nepodarilo odoslať.</span>
                     </div>

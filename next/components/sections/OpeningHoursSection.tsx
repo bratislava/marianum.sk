@@ -28,6 +28,7 @@ const OpeningHoursSection = ({ section, ...rest }: OpeningHoursSectionProps) => 
               address={branchAddress}
               linkHref={getFullPath(branch?.data) ?? undefined}
               moreContent={openingHours && <OpeningHours openingHours={openingHours} />}
+              key={office.id}
             />
           )
         })}

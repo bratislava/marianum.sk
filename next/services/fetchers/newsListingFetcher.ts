@@ -10,4 +10,4 @@ export const getNewsListingPrefetch = (locale: string) =>
     sectionTypename: 'ComponentSectionsNewsListing',
     key: getNewsListingSwrKey(locale),
     fetcher: newsListingFetcher(locale),
-  } as const)
+  }) as const

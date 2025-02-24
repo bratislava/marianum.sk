@@ -42,7 +42,7 @@ const ProductCard = ({
 
   return (
     <CardBox {...rest} hover={!isButtonHovered}>
-      <div className="aspect-h-1 aspect-w-1 w-full bg-gray">
+      <div className="relative aspect-square w-full bg-gray">
         {image ? <MImage image={image} fill className="object-contain" /> : <ImagePlaceholder />}
       </div>
       <CardContent className="gap-y-2">

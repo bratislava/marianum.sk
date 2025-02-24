@@ -20,6 +20,7 @@ export function useGetSwrExtras<Data = any, Error = any>({
       // eslint-disable-next-line unicorn/no-useless-undefined
       return undefined
     }
+
     return loading ? oldData : data
     // TODO: oldData breaks the hook (returns undefined when listed in deps, examine)
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -24,8 +24,8 @@ const TooltipPopover = ({
       className={twMerge('absolute left-0 top-full -mt-[2px] flex flex-col', className)}
       {...mergeProps(props, tooltipProps)}
     >
-      <div className="mb-[-1px] ml-4 inline-block overflow-hidden">
-        <div className="h-3 w-3 origin-bottom-left rotate-45 bg-background-dark" />
+      <div className="-mb-px ml-4 inline-block overflow-hidden">
+        <div className="size-3 origin-bottom-left rotate-45 bg-background-dark" />
       </div>
 
       <div className="flex flex-col rounded bg-background-dark px-4 py-3 text-white">

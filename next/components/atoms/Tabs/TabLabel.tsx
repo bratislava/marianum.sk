@@ -39,7 +39,7 @@ const TabLabel = <T,>({ item, state, setSessionTabKey }: TabLabelProps<T>) => {
       >
         <h3 className="text-h6 text-current">{rendered}</h3>
         {isSelected && (
-          <div className="absolute -bottom-3 hidden h-6 w-6 rotate-[-39deg] skew-x-12 bg-primary sm:block" />
+          <div className="absolute -bottom-3 hidden size-6 rotate-[-39deg] skew-x-12 bg-primary sm:block" />
         )}
       </div>
     </div>

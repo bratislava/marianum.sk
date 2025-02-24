@@ -37,7 +37,7 @@ const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) =>
       isOpen={isOpen}
       onClose={onClose}
     >
-      <div className="flex h-full w-full flex-col">
+      <div className="flex size-full flex-col">
         <div className="z-50 flex w-full bg-primary py-3 pl-4">
           <Search
             value={searchQuery}

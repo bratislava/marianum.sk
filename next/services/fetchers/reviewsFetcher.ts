@@ -7,4 +7,4 @@ export const getReviewPrefetch = (locale: string) =>
     sectionTypename: 'ComponentSectionsReviewListing',
     key: 'reviews',
     fetcher: reviewsFetcher(locale),
-  } as const)
+  }) as const

@@ -42,5 +42,6 @@ export const useActivateHeroSectionContentOverlay = (value: boolean) => {
  */
 export const useIsHeroSectionOverlaid = () => {
   const context = useContext(Context)
+
   return context.currentValue
 }
