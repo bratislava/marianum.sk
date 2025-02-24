@@ -6,13 +6,14 @@ import {
   BranchEntityFragment,
   CemeteryEntityFragment,
   GeneralEntityFragment,
+  ManagedObjectEntityFragment,
   NavigationItemFragment,
 } from '@graphql'
 import cx from 'classnames'
 import { ReactNode } from 'react'
 
 type BranchCemeteryLayoutProps = {
-  entity: BranchEntityFragment | CemeteryEntityFragment
+  entity: BranchEntityFragment | CemeteryEntityFragment | ManagedObjectEntityFragment
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   children?: ReactNode

@@ -249,6 +249,10 @@
     "aboutCemetery": "O cintoríne",
     "aboutBranch": "O pobočke"
   },
+  "ManagedObjectPage": {
+    "navigate": "Navigovať",
+    "aboutManagedObject": "O spravovanom objekte"
+  },
   "SearchPage": {
     "pageTitle": "Vyhľadávanie",
     "searchResults": "Výsledky vyhľadávania",

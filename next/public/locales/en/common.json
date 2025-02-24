@@ -249,6 +249,10 @@
     "aboutCemetery": "About cemetery",
     "aboutBranch": "About branch"
   },
+  "ManagedObjectPage": {
+    "navigate": "Navigate",
+    "aboutManagedObject": "About managed object"
+  },
   "SearchPage": {
     "pageTitle": "Search",
     "searchResults": "Search results",
