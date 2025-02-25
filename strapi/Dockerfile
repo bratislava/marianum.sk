@@ -15,9 +15,8 @@ COPY ./package.json ./yarn.lock ./
 COPY patches ./patches
 # copy any installation files for Strapi plugins you want to build. For example:
 # COPY src/plugins/<package-name>/package.json src/plugins/<package-name>/yarn.lock ./src/plugins/<package-name>
+COPY src/plugins/ceremonies-debtor-list/package.json src/plugins/ceremonies-debtor-list/yarn.lock ./src/plugins/ceremonies-debtor-list/
 # Or leave empty (do not add anyting) if you don't have any custom plugins (most likely ./plugins directory)
-COPY src/plugins/ceremonies-debtor-list/package.json ./src/plugins/ceremonies-debtor-list/package.json
-COPY src/plugins/ceremonies-debtor-list/yarn.lock ./src/plugins/ceremonies-debtor-list/yarn.lock
 
 FROM build-base AS install-prod
 ENV YARN_CACHE_FOLDER=/build/.cache/yarn
