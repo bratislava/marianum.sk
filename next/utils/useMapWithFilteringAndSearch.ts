@@ -66,7 +66,6 @@ export const useMapWithFilteringAndSearch = (
       return !slugifiedSearchQuery || matchesSearchQuery
     })
 
-    // Check if any type filter is selected
     const isAnyFilterSelected = Object.values(selectedTypes).some(Boolean)
 
     // If no type filter is selected, return search-filtered objects

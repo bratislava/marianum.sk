@@ -26,7 +26,7 @@ type MapOfManagedObjectsSectionProps = {
 }
 
 const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps) => {
-  const { t, i18n } = useTranslation(['common', 'general'])
+  const { t, i18n } = useTranslation()
   const { getFullPath } = useGetFullPath()
 
   const { data, error } = useSWR(
@@ -99,7 +99,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
                         })
                       }
                     >
-                      {t(`MapSection.filters.${type}`)}
+                      {t(`MapSectionFilters.${type}`)}
                     </TagToggle>
                   </li>
                 )

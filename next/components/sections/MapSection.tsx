@@ -23,7 +23,7 @@ import { useMapWithFilteringAndSearch } from '@/utils/useMapWithFilteringAndSear
 type MapSectionProps = { section: MapSectionFragment }
 
 const MapSection = ({ section }: MapSectionProps) => {
-  const { t, i18n } = useTranslation(['common', 'general'])
+  const { t, i18n } = useTranslation()
   const { getFullPath } = useGetFullPath()
 
   const { data, error } = useSWR(
@@ -94,7 +94,7 @@ const MapSection = ({ section }: MapSectionProps) => {
                         })
                       }
                     >
-                      {t(`MapSection.filters.${type}`)}
+                      {t(`MapSectionFilters.${type}`)}
                     </TagToggle>
                   </li>
                 )

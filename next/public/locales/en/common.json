@@ -187,17 +187,17 @@
   "MapSection": {
     "noResults": "No results...",
     "map": "Map",
-    "filtering": "Filtering",
-    "filters": {
-      "civilny": "Civil",
-      "historicky": "Historical",
-      "vojensky": "War",
-      "fontana": "Fountain",
-      "pitna_fontana": "Drinking fountain",
-      "hmlova_fontana": "Mist fountain",
-      "studna": "Well",
-      "rozprasovac": "Sprinkler"
-    }
+    "filtering": "Filtering"
+  },
+  "MapSectionFilters": {
+    "civilny": "Civil",
+    "historicky": "Historical",
+    "vojensky": "War",
+    "fontana": "Fountain",
+    "pitna_fontana": "Drinking fountain",
+    "hmlova_fontana": "Mist fountain",
+    "studna": "Well",
+    "rozprasovac": "Sprinkler"
   },
   "DebtorsSection": {
     "th": {
