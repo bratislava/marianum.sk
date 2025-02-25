@@ -1,7 +1,8 @@
-import { usePrevious } from '@utils/usePrevious'
 import { useMemo } from 'react'
 import { SWRResponse } from 'swr'
 import { useDebounce } from 'usehooks-ts'
+
+import { usePrevious } from '@/utils/usePrevious'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useGetSwrExtras<Data = any, Error = any>({
@@ -20,6 +21,7 @@ export function useGetSwrExtras<Data = any, Error = any>({
       // eslint-disable-next-line unicorn/no-useless-undefined
       return undefined
     }
+
     return loading ? oldData : data
     // TODO: oldData breaks the hook (returns undefined when listed in deps, examine)
     // eslint-disable-next-line react-hooks/exhaustive-deps

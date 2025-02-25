@@ -1,5 +1,6 @@
-import { client } from '@services/graphql/gqlClient'
 import { Key } from 'swr'
+
+import { client } from '@/services/graphql/gqlClient'
 
 export const getNewsListingSwrKey = (locale: string) => ['News', locale] as Key
 
@@ -10,4 +11,4 @@ export const getNewsListingPrefetch = (locale: string) =>
     sectionTypename: 'ComponentSectionsNewsListing',
     key: getNewsListingSwrKey(locale),
     fetcher: newsListingFetcher(locale),
-  } as const)
+  }) as const

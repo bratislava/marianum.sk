@@ -1,13 +1,14 @@
-import { ChevronRightIcon, PlaceIcon } from '@assets/icons'
-import IconButton from '@components/atoms/IconButton'
-import RowBox, { RowBoxProps } from '@components/atoms/Row/RowBox'
-import RowContent from '@components/atoms/Row/RowContent'
-import RowMoreContent from '@components/atoms/Row/RowMoreContent'
-import Tag from '@components/atoms/Tag'
-import { DocumentCategoryEntityFragment } from '@graphql'
 import cx from 'classnames'
 import { Fragment, ReactNode, useRef } from 'react'
 import { useHover } from 'usehooks-ts'
+
+import { ChevronRightIcon, PlaceIcon } from '@/assets/icons'
+import IconButton from '@/components/atoms/IconButton'
+import RowBox, { RowBoxProps } from '@/components/atoms/Row/RowBox'
+import RowContent from '@/components/atoms/Row/RowContent'
+import RowMoreContent from '@/components/atoms/Row/RowMoreContent'
+import Tag from '@/components/atoms/Tag'
+import { DocumentCategoryEntityFragment } from '@/graphql'
 
 export type RowProps = {
   title?: string

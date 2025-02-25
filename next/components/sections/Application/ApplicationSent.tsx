@@ -1,12 +1,13 @@
-import { CheckIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
 import React from 'react'
+
+import { CheckIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
 
 const ApplicationSent = () => {
   return (
     <div className="grid grow place-content-center p-4">
       <div className="flex max-w-2xl flex-col items-center">
-        <div className="mb-8 grid h-24 w-24 place-content-center rounded-full bg-primary-dark text-white">
+        <div className="mb-8 grid size-24 place-content-center rounded-full bg-primary-dark text-white">
           <CheckIcon className="scale-150" />
         </div>
         <h1 className="mb-4 text-h3">Vaša žiadosť bola úspešne odoslaná</h1>

@@ -1,9 +1,10 @@
-import { Option } from '@components/atoms/Select'
 import { parseAbsolute } from '@internationalized/date'
-import { client } from '@services/graphql/gqlClient'
-import { bratislavaTimezone } from '@utils/consts'
-import { getCemeteryInfoInCeremoniesDebtors } from '@utils/getCemeteryInfoInCeremoniesDebtors'
 import { Key } from 'swr'
+
+import { Option } from '@/components/atoms/Select'
+import { client } from '@/services/graphql/gqlClient'
+import { bratislavaTimezone } from '@/utils/consts'
+import { getCemeteryInfoInCeremoniesDebtors } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
 
 export type CeremoniesSectionFilters = {
   cemeteryId: string | null

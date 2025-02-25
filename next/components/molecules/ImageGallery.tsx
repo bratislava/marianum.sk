@@ -2,15 +2,16 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 
-import MImage from '@components/atoms/MImage'
-import ImageLightBox from '@components/molecules/ImageLightBox'
-import { UploadImageEntityFragment } from '@graphql'
-import { onEnterOrSpaceKeyDown } from '@utils/onEnterOrSpaceKeyDown'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 import { useOverlayTriggerState } from 'react-stately'
+
+import MImage from '@/components/atoms/MImage'
+import ImageLightBox from '@/components/molecules/ImageLightBox'
+import { UploadImageEntityFragment } from '@/graphql'
+import { onEnterOrSpaceKeyDown } from '@/utils/onEnterOrSpaceKeyDown'
 
 export type ImageGalleryProps = {
   images: UploadImageEntityFragment[] | undefined
@@ -40,6 +41,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
         : // variant 'aside'small
           0
     }
+
     // variant 'below' large
     return (containerWidth ?? 0) > 1000
       ? 7
@@ -80,7 +82,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
           aria-label={t('aria.openImageGallery')}
           onKeyUp={onEnterOrSpaceKeyDown(() => openAtImageIndex(0))}
           className={cx('cursor-default outline-offset-2 outline-primary focus:outline-4', {
-            'flex flex-col ': variant === 'below',
+            'flex flex-col': variant === 'below',
             'grid grid-cols-[minmax(0,1fr)_auto]': variant === 'aside',
           })}
         >
@@ -138,7 +140,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                   onClick={() => openAtImageIndex(0)}
                   className="relative w-full cursor-pointer border border-border pt-[100%]"
                 >
-                  <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white p-2 text-center font-semibold text-primary">
+                  <div className="absolute top-0 flex size-full items-center justify-center bg-white p-2 text-center font-semibold text-primary">
                     {t('morePhotos', { count: moreImagesCount })}
                   </div>
                 </div>
@@ -178,7 +180,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                   onClick={() => openAtImageIndex(0)}
                   className="relative w-[168px] cursor-pointer pt-[166px]"
                 >
-                  <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white p-8 text-center font-semibold text-primary">
+                  <div className="absolute top-0 flex size-full items-center justify-center bg-white p-8 text-center font-semibold text-primary">
                     {t('showAllPhotos')}
                   </div>
                 </div>

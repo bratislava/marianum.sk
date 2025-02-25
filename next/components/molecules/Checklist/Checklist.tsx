@@ -1,13 +1,20 @@
-import { CheckCircleIcon, CheckIcon, CloseCircleIcon, DownloadIcon, PrintIcon } from '@assets/icons'
-import { AnimateHeight } from '@components/atoms/AnimateHeight'
-import Button from '@components/atoms/Button'
-import { ComponentGeneralProcedureItem, UploadFileEntityFragment } from '@graphql'
 import cx from 'classnames'
 import filesize from 'filesize'
 import { useTranslation } from 'next-i18next'
 import prntr from 'prntr'
 import { useCallback, useId, useMemo } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
+
+import {
+  CheckCircleIcon,
+  CheckIcon,
+  CloseCircleIcon,
+  DownloadIcon,
+  PrintIcon,
+} from '@/assets/icons'
+import { AnimateHeight } from '@/components/atoms/AnimateHeight'
+import Button from '@/components/atoms/Button'
+import { ComponentGeneralProcedureItem, UploadFileEntityFragment } from '@/graphql'
 
 type ChecklistRadioProps = {
   isOpen?: boolean

@@ -1,4 +1,5 @@
-const plugin = require('tailwindcss/plugin')
+import plugin from 'tailwindcss/plugin'
+import { Config } from 'tailwindcss'
 
 const scrollBarHide = plugin(function ({ addUtilities }) {
   addUtilities({
@@ -31,9 +32,12 @@ const customVariants = plugin(function ({ addVariant }) {
   addVariant('not-first', '&:not(:first-child)')
 })
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+const config: Config = {
   content: ['./pages/**/*.{js,jsx,ts,tsx}', './components/**/*.{js,jsx,ts,tsx}'],
+  plugins: [scrollBarHide, inputNumberArrowsHide, customVariants, require('tailwindcss-radix')()],
+  corePlugins: {
+    // container: false,
+  },
   theme: {
     boxShadow: {
       DEFAULT: '0px 4px 12px 0px #00000014',
@@ -109,20 +113,11 @@ module.exports = {
         72: '.72',
       },
       spacing: {
-        1.5: '0.375rem',
-        18: '4.5rem',
+        1.5: '0.375rem', // 6px
+        18: '4.5rem', // 72px
       },
     },
   },
-  corePlugins: {
-    // container: false,
-    aspectRatio: false, // See: https://tailwindcss.com/docs/aspect-ratio#browser-support
-  },
-  plugins: [
-    scrollBarHide,
-    inputNumberArrowsHide,
-    customVariants,
-    require('tailwindcss-radix')(),
-    require('@tailwindcss/aspect-ratio'),
-  ],
 }
+
+export default config

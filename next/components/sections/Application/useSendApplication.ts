@@ -1,5 +1,6 @@
-import { client } from '@services/graphql/gqlClient'
 import { useState } from 'react'
+
+import { client } from '@/services/graphql/gqlClient'
 
 import { ApplicationTypes } from './application-shared.types'
 

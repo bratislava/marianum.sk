@@ -1,11 +1,11 @@
-import { Option } from '@components/atoms/Select'
-import { client } from '@services/graphql/gqlClient'
-import { meiliClient } from '@services/meili/meiliClient'
-import { getCemeteryInfoInCeremoniesDebtors } from '@utils/getCemeteryInfoInCeremoniesDebtors'
-import { getMeilisearchPageOptions } from '@utils/getMeilisearchPageOptions'
 import { Key } from 'swr'
 
-import { DebtorMeili } from '../meili/meiliTypes'
+import { Option } from '@/components/atoms/Select'
+import { client } from '@/services/graphql/gqlClient'
+import { meiliClient } from '@/services/meili/meiliClient'
+import { DebtorMeili } from '@/services/meili/meiliTypes'
+import { getCemeteryInfoInCeremoniesDebtors } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
+import { getMeilisearchPageOptions } from '@/utils/getMeilisearchPageOptions'
 
 export type DebtorsSectionFilters = {
   pageSize: number
@@ -42,7 +42,7 @@ export const cemeteriesInDebtorsFetcher = async (locale: string) => {
           label: getCemeteryInfoInCeremoniesDebtors(cemetery, locale).title ?? '',
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           key: cemetery.id!,
-        } as Option),
+        }) as Option,
     ) ?? ([] as Option[])
   )
 }

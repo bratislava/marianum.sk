@@ -1,11 +1,12 @@
-import Button from '@components/atoms/Button'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import Slider from '@components/molecules/Slider'
-import { CtaFragment } from '@graphql'
 import cx from 'classnames'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 import { useId } from 'react'
+
+import Button from '@/components/atoms/Button'
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Slider from '@/components/molecules/Slider'
+import { CtaFragment } from '@/graphql'
 
 type HomepageSliderProps = {
   slides: CtaFragment[] | null | undefined
@@ -34,11 +35,15 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
           const { url, alternativeText } = image?.data?.attributes ?? {}
 
           return (
-            <div className="flex h-full justify-center">
+            <div
+              className="flex h-full justify-center"
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+            >
               <h2 className="sr-only">{t('aria.heading')}</h2>
               <div className="container absolute flex h-full flex-row items-center justify-center lg:justify-start">
                 {/* 60% of container width is not the same as 60% of window (image offset from left), but this setting works fine */}
-                <div className="flex h-full w-full flex-col items-center pb-16 lg:w-[60%] lg:items-start lg:justify-end lg:pb-[104px]">
+                <div className="flex size-full flex-col items-center pb-16 lg:w-3/5 lg:items-start lg:justify-end lg:pb-[104px]">
                   {/* Mobile image */}
                   <div className="pointer-events-none relative mb-6 h-[228px] w-full select-none bg-black/20 lg:hidden">
                     {url && (
@@ -75,18 +80,16 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
 
               {/* Desktop image */}
               <div key={ctaSlug} className="hidden h-full flex-1 lg:flex">
-                <div className="w-[60%]" />
+                <div className="w-3/5" />
                 {/* gradient overlay */}
                 <div className="absolute left-[60%] z-[1] -ml-px h-full w-[10%] bg-gradient-to-r from-primary-dark" />
-                <div className="pointer-events-none relative h-[228px] w-full select-none bg-black/20 lg:h-full lg:w-[40%]">
+                <div className="pointer-events-none relative h-[228px] w-full select-none bg-black/20 lg:h-full lg:w-2/5">
                   {url && (
                     <Image
                       src={url}
                       alt={alternativeText ?? ''}
                       fill
                       className="object-cover mix-blend-multiply"
-                      // TODO remove this loader completely when confirmed that images work without it
-                      // loader={customImageLoader}
                     />
                   )}
                 </div>
@@ -107,7 +110,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                   aria-label={t('aria.goToSlide', { number: index + 1 })}
                   onClick={() => goToPage(index)}
                 >
-                  <div className="h-2 w-2 rounded-full bg-white" />
+                  <div className="size-2 rounded-full bg-white" />
                 </button>
               ))}
             </div>

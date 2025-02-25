@@ -1,11 +1,12 @@
-import FormErrorWrapper from '@components/atoms/Forms/FormErrorWrapper'
 import { RadioGroup } from '@headlessui/react'
 import React, { PropsWithChildren } from 'react'
 import { FieldValues, FormState, useController, UseControllerProps } from 'react-hook-form'
 
+import FormErrorWrapper from '@/components/atoms/Forms/FormErrorWrapper'
+
 type FormRadioGroupProps<T extends FieldValues> = Omit<
   Parameters<typeof RadioGroup>[0],
-  'value' | 'onChange' | 'onBlur'
+  'onChange' | 'onBlur'
 > &
   UseControllerProps<T> & {
     formState: FormState<T>

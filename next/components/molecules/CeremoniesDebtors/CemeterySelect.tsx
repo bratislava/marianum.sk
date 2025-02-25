@@ -1,14 +1,15 @@
-import SelectWithFetcher from '@components/molecules/SelectWithFetcher'
+import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+
+import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import {
   cemeteriesInCeremoniesFetcher,
   getCemeteriesInCeremoniesKey,
-} from '@services/fetchers/ceremoniesSectionFetcher'
+} from '@/services/fetchers/ceremoniesSectionFetcher'
 import {
   cemeteriesInDebtorsFetcher,
   getCemeteriesInDebtorsKey,
-} from '@services/fetchers/debtorsSectionFetcher'
-import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
+} from '@/services/fetchers/debtorsSectionFetcher'
 
 type CeremoniesDebtorsCemeterySelectProps = {
   label?: string

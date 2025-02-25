@@ -1,18 +1,18 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-import { MapMarkerSvg } from '@assets'
-import { ArrowLeftIcon, PlaceIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
-import Loading from '@components/atoms/Loading'
-import MLink from '@components/atoms/MLink'
-import TagToggle from '@components/atoms/TagToggle'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import Search from '@components/molecules/Search'
-import Section from '@components/molecules/Section'
-import { Enum_Cemetery_Type, MapSectionFragment } from '@graphql'
-import { cemeteriesFetcher, getCemeteriesSwrKey } from '@services/fetchers/cemeteriesFetcher'
-import { useGetSwrExtras } from '@utils/useGetSwrExtras'
-import { useMapWithFilteringAndSearch } from '@utils/useMapWithFilteringAndSearch'
+import { MapMarkerSvg } from '@/assets'
+import { ArrowLeftIcon, PlaceIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
+import Loading from '@/components/atoms/Loading'
+import MLink from '@/components/atoms/MLink'
+import TagToggle from '@/components/atoms/TagToggle'
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Search from '@/components/molecules/Search'
+import Section from '@/components/molecules/Section'
+import { Enum_Cemetery_Type, MapSectionFragment } from '@/graphql'
+import { cemeteriesFetcher, getCemeteriesSwrKey } from '@/services/fetchers/cemeteriesFetcher'
+import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
+import { useMapWithFilteringAndSearch } from '@/utils/useMapWithFilteringAndSearch'
 import cx from 'classnames'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
@@ -138,7 +138,7 @@ const MapSection = ({ section }: MapSectionProps) => {
           </ul>
         </div>
 
-        <div className="h-full w-full flex-1">
+        <div className="size-full flex-1">
           <Map
             ref={mapRef}
             style={{ width: '100%', height: '100%' }}
@@ -182,6 +182,7 @@ const MapSection = ({ section }: MapSectionProps) => {
                   </Marker>
                 )
               }
+
               return null
             })}
           </Map>

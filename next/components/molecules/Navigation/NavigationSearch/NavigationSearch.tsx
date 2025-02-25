@@ -1,9 +1,10 @@
-import NavigationSearchDesktop from '@components/molecules/Navigation/NavigationSearch/NavigationSearchDesktop'
-import NavigationSearchMobile from '@components/molecules/Navigation/NavigationSearch/NavigationSearchMobile'
-import { useSearch } from '@utils/useSearch'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useCallback } from 'react'
+
+import NavigationSearchDesktop from '@/components/molecules/Navigation/NavigationSearch/NavigationSearchDesktop'
+import NavigationSearchMobile from '@/components/molecules/Navigation/NavigationSearch/NavigationSearchMobile'
+import { useSearch } from '@/utils/useSearch'
 
 type NavigationSearchProps = {
   onDesktopSearchOpen: () => void

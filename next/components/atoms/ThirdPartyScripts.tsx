@@ -1,6 +1,7 @@
-import { cookieConsentContext } from '@components/atoms/Cookies/CookieConsent'
 import Script from 'next/script'
 import { useContext } from 'react'
+
+import { cookieConsentContext } from '@/components/atoms/Cookies/CookieConsent'
 
 const ThirdPartyScripts = () => {
   const {

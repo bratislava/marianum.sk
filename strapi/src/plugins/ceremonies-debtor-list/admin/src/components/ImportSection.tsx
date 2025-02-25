@@ -1,14 +1,6 @@
-import React, { useRef, useState } from "react";
-import axiosInstance from "../utils/axiosInstance";
-import {
-  Alert,
-  Box,
-  Button,
-  Link,
-  Loader,
-  Stack,
-  Typography,
-} from "@strapi/design-system";
+import React, { useRef, useState } from 'react'
+import { Alert, Box, Button, Link, Loader, Stack, Typography } from '@strapi/design-system'
+import axiosInstance from '../utils/axiosInstance'
 
 const updateUrls = {
   debtors: "/ceremonies-debtor-list/update-debtors",
@@ -35,38 +27,38 @@ type ImportSectionProps = {
   type: "debtors" | "ceremonies" | "disclosures";
 };
 
-const ImportSection: React.FC<ImportSectionProps> = ({ type }) => {
-  const inputFileRef = useRef<HTMLInputElement>(null);
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(null);
-  const [error, setError] = useState(null);
+const ImportSection = ({ type }: ImportSectionProps) => {
+  const inputFileRef = useRef<HTMLInputElement>(null)
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState<any>(null)
+  const [error, setError] = useState<any>(null)
 
   const handleSubmit = () => {
-    const file = inputFileRef.current.files[0];
+    const file = inputFileRef.current!.files![0] // TODO fix !
 
-    const formData = new FormData();
-    formData.append("file", file);
+    const formData = new FormData()
+    formData.append('file', file)
 
-    setLoading(true);
-    setSuccess(null);
-    setError(null);
+    setLoading(true)
+    setSuccess(null)
+    setError(null)
 
     axiosInstance
       .put(updateUrls[type], formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
       })
       .then((response) => {
-        setSuccess(response);
+        setSuccess(response)
       })
       .catch((error) => {
-        setError(error);
+        setError(error)
       })
       .finally(() => {
-        setLoading(false);
-      });
-  };
+        setLoading(false)
+      })
+  }
 
   return (
     <Box
@@ -88,35 +80,29 @@ const ImportSection: React.FC<ImportSectionProps> = ({ type }) => {
             title="Nahrávanie úspešné"
             action={
               success.data?.importId && (
-                <Link to={importLinks[type](success.data.importId)}>
-                  Zobraziť nahrané data
-                </Link>
+                <Link to={importLinks[type](success.data.importId)}>Zobraziť nahrané dáta</Link>
               )
             }
             variant="success"
             onClose={() => setSuccess(null)}
           >
-            {success.data.message}
+            {success.data.message} ({success.data.executionTime}ms)
           </Alert>
         )}
         {error && (
-          <Alert
-            title="Nahrávanie neúspešné"
-            variant="danger"
-            onClose={() => setError(null)}
-          >
+          <Alert title="Nahrávanie neúspešné" variant="danger" onClose={() => setError(null)}>
             {error?.response?.data?.message ?? error.toString()}
           </Alert>
         )}
         <input type="file" ref={inputFileRef} />
         <div>
-          <Button onClick={handleSubmit} disabled={loading}>
+          <Button onClick={handleSubmit} loading={loading}>
             Nahrať
           </Button>
         </div>
       </Stack>
     </Box>
-  );
-};
+  )
+}
 
-export default ImportSection;
+export default ImportSection

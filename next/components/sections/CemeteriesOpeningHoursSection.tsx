@@ -1,12 +1,13 @@
-import Button from '@components/atoms/Button'
-import { sectionContext } from '@components/layouts/SectionsWrapper'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { useNavigationContext } from '@components/molecules/Navigation/NavigationProvider/useNavigationContext'
-import OpeningHours from '@components/molecules/OpeningHours'
-import Section, { SectionProps } from '@components/molecules/Section'
-import { CemeteriesOpeningHoursFragment } from '@graphql'
 import cx from 'classnames'
 import { useContext } from 'react'
+
+import Button from '@/components/atoms/Button'
+import { sectionContext } from '@/components/layouts/SectionsWrapper'
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { useNavigationContext } from '@/components/molecules/Navigation/NavigationProvider/useNavigationContext'
+import OpeningHours from '@/components/molecules/OpeningHours'
+import Section, { SectionProps } from '@/components/molecules/Section'
+import { CemeteriesOpeningHoursFragment } from '@/graphql'
 
 type CemeteriesOpeningHoursSectionProps = Pick<SectionProps, 'background' | 'title'> & {
   section: CemeteriesOpeningHoursFragment

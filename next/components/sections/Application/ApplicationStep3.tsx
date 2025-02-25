@@ -1,8 +1,9 @@
-import { AnimateHeight } from '@components/atoms/AnimateHeight'
-import FormRadioGroup from '@components/atoms/Forms/FormRadioGroup'
-import RadioBox from '@components/atoms/Radio/RadioBox'
-import { ApplicationStepComponentProps } from '@components/sections/Application/application.types'
 import { useEffect } from 'react'
+
+import { AnimateHeight } from '@/components/atoms/AnimateHeight'
+import FormRadioGroup from '@/components/atoms/Forms/FormRadioGroup'
+import RadioBox from '@/components/atoms/Radio/RadioBox'
+import { ApplicationStepComponentProps } from '@/components/sections/Application/application.types'
 
 import { ApplicationTypes } from './application-shared.types'
 import { step3YupShape } from './application-shared.yup'
@@ -39,6 +40,7 @@ const ApplicationStep3 = ({
         }
       }
     })
+
     return () => subscription.unsubscribe()
   }, [setValue, watch])
 

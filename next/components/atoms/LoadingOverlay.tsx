@@ -1,7 +1,8 @@
-import Loading from '@components/atoms/Loading'
 import cx from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import React, { PropsWithChildren } from 'react'
+
+import Loading from '@/components/atoms/Loading'
 
 type LoadingOverlayProps = { loading: boolean }
 
@@ -19,7 +20,7 @@ const LoadingOverlay = ({ loading, children }: PropsWithChildren<LoadingOverlayP
       {loading ? (
         <AnimatePresence>
           <motion.div
-            className="absolute left-0 top-0 flex h-full w-full flex-col items-center bg-primary-dark/80"
+            className="absolute left-0 top-0 flex size-full flex-col items-center bg-primary-dark/80"
             transition={{ duration: 0.2 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

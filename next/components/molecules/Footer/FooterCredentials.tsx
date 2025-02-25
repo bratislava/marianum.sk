@@ -1,9 +1,10 @@
-// import { cookieConsentContext } from '@components/atoms/Cookies/CookieConsent'
-import MLink from '@components/atoms/MLink'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { CtaButtonFragment } from '@graphql'
+// import { cookieConsentContext } from '@/components/atoms/Cookies/CookieConsent'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
+
+import MLink from '@/components/atoms/MLink'
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { CtaButtonFragment } from '@/graphql'
 
 type FooterCredentialsProps = {
   links: CtaButtonFragment[] | null | undefined

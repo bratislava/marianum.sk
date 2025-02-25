@@ -1,19 +1,20 @@
 import { ParsedUrlQuery } from 'node:querystring'
 
-import RichText from '@components/atoms/RichText'
-import Seo from '@components/atoms/Seo'
-import ArticleLayout from '@components/layouts/ArticleLayout'
-import ImageGallery from '@components/molecules/ImageGallery'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { SSRConfig } from 'next-i18next'
+
+import RichText from '@/components/atoms/RichText'
+import Seo from '@/components/atoms/Seo'
+import ArticleLayout from '@/components/layouts/ArticleLayout'
+import ImageGallery from '@/components/molecules/ImageGallery'
 import {
   generateStaticPaths,
   generateStaticProps,
-} from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
-import { client } from '@services/graphql/gqlClient'
-import { isDefined } from '@utils/isDefined'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { SSRConfig } from 'next-i18next'
+} from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
+import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
+import { isDefined } from '@/utils/isDefined'
 
 type ArticlePageProps = {
   navigation: NavigationItemFragment[]

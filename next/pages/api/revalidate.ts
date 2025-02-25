@@ -1,10 +1,11 @@
-import { getFullPathMeiliFn } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { Branch, Bundle, Page } from '@graphql'
-import { client } from '@services/graphql/gqlClient'
-import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@services/meili/meiliTypes'
-import { isDefined } from '@utils/isDefined'
-import { parseNavigation } from '@utils/parseNavigation'
 import type { NextApiRequest, NextApiResponse } from 'next'
+
+import { getFullPathMeiliFn } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { Branch, Bundle, Page } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
+import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@/services/meili/meiliTypes'
+import { isDefined } from '@/utils/isDefined'
+import { parseNavigation } from '@/utils/parseNavigation'
 
 // https://docs.strapi.io/developer-docs/latest/development/backend-customization/webhooks.html#payloads
 type Response = { revalidated: boolean } | { message: string } | string
@@ -80,6 +81,7 @@ const revalidate = async (req: NextApiRequest, res: NextApiResponse<Response>) =
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log('Error while revalidating ==>', error)
+
     return res.status(500).send('Error revalidating')
   }
 }

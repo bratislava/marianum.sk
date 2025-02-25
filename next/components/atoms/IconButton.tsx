@@ -1,10 +1,11 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable sonarjs/no-duplicate-string */
-import { AnchorProps, PolymorphicProps } from '@components/atoms/Button'
-import MLink from '@components/atoms/MLink'
 import cx from 'classnames'
 import { forwardRef, RefObject } from 'react'
 import { useButton } from 'react-aria'
+
+import { AnchorProps, PolymorphicProps } from '@/components/atoms/Button'
+import MLink from '@/components/atoms/MLink'
 
 type IconButtonProps = Omit<PolymorphicProps, 'variant' | 'startIcon' | 'endIcon' | 'noPadding'> & {
   variant?:
@@ -99,6 +100,7 @@ const IconButton = forwardRef<HTMLAnchorElement | HTMLButtonElement, Polymorphic
     if (rest.href) {
       /* react-aria adds role="button" which we don't want to use for <a>s */
       const buttonPropsFixed = { ...buttonProps, role: undefined }
+
       return (
         <MLink
           ref={ref as RefObject<HTMLAnchorElement>}
@@ -113,6 +115,7 @@ const IconButton = forwardRef<HTMLAnchorElement | HTMLButtonElement, Polymorphic
         </MLink>
       )
     }
+
     return (
       <button
         type="button"

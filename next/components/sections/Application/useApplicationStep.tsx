@@ -1,11 +1,12 @@
-import Button from '@components/atoms/Button'
-import Spinner from '@components/atoms/Spinner'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { PropsWithChildren, useEffect, useMemo, useState } from 'react'
 import { DeepPartial, FieldValues, useForm, UseFormHandleSubmit } from 'react-hook-form'
 import Turnstile from 'react-turnstile'
 import * as yup from 'yup'
 import { AnySchema } from 'yup'
+
+import Button from '@/components/atoms/Button'
+import Spinner from '@/components/atoms/Spinner'
 
 export const useApplicationStep = <T extends FieldValues>({
   yupShape,
@@ -28,6 +29,7 @@ export const useApplicationStep = <T extends FieldValues>({
   useEffect(() => {
     // eslint-disable-next-line security/detect-non-literal-fs-filename
     const subscription = useFormResult.watch((value) => onFormChange(value))
+
     return () => subscription.unsubscribe()
   }, [onFormChange, useFormResult, useFormResult.watch])
 
@@ -65,11 +67,13 @@ export const ApplicationStepWrapper = <T extends FieldValues>({
     [captchaRefreshDate],
   )
 
+  // eslint-disable-next-line no-console
   console.log(
     captchaRefreshDate,
     turnstileRefreshing,
     process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY,
   )
+
   return (
     <form
       // eslint-disable-next-line @typescript-eslint/no-misused-promises

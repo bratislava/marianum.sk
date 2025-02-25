@@ -1,5 +1,5 @@
-import FormTextField from '@components/atoms/Forms/FormTextField'
-import { ApplicationStepComponentProps } from '@components/sections/Application/application.types'
+import FormTextField from '@/components/atoms/Forms/FormTextField'
+import { ApplicationStepComponentProps } from '@/components/sections/Application/application.types'
 
 import { ApplicationTypes } from './application-shared.types'
 import { step6YupShape } from './application-shared.yup'

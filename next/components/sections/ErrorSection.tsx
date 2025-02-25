@@ -1,7 +1,8 @@
-import Button from '@components/atoms/Button'
-import Section from '@components/molecules/Section'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+
+import Button from '@/components/atoms/Button'
+import Section from '@/components/molecules/Section'
 
 type ErrorSectionProps = {
   code: number
@@ -24,7 +25,7 @@ const ErrorSection = ({ code, title, message }: ErrorSectionProps) => {
           <div className="status-code absolute text-[200px] font-bold leading-[200px] text-primary">
             {code}
           </div>
-          <div className="absolute mt-[100px] h-[50%] w-full bg-gradient-to-t from-background-beige" />
+          <div className="absolute mt-[100px] h-1/2 w-full bg-gradient-to-t from-background-beige" />
         </div>
 
         <h1 className="pb-5">{title}</h1>

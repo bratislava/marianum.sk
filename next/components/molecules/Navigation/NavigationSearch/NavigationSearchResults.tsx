@@ -1,8 +1,9 @@
-import MLink from '@components/atoms/MLink'
-import Spinner from '@components/atoms/Spinner'
-import { SearchData } from '@utils/useSearch'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
+
+import MLink from '@/components/atoms/MLink'
+import Spinner from '@/components/atoms/Spinner'
+import { SearchData } from '@/utils/useSearch'
 
 type NavigationSearchResultsProps = {
   searchQuery: string
@@ -20,7 +21,7 @@ const NavigationSearchResults = ({
   return isLoading ? (
     <div className="flex flex-col items-center justify-center py-4 text-primary">
       <motion.div animate={{ scale: 1 }} initial={{ scale: 0 }}>
-        <Spinner className="h-8 w-8" />
+        <Spinner className="size-8" />
       </motion.div>
     </div>
   ) : data && data.hits?.length > 0 ? (

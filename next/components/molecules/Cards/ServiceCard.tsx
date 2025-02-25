@@ -1,10 +1,11 @@
-import CardBox, { CardBoxProps } from '@components/atoms/Card/CardBox'
-import CardContent from '@components/atoms/Card/CardContent'
-import ImagePlaceholder from '@components/atoms/ImagePlaceholder'
-import MImage, { MImageImage } from '@components/atoms/MImage'
-import MLink from '@components/atoms/MLink'
 import { useTranslation } from 'next-i18next'
 import React, { useId } from 'react'
+
+import CardBox, { CardBoxProps } from '@/components/atoms/Card/CardBox'
+import CardContent from '@/components/atoms/Card/CardContent'
+import ImagePlaceholder from '@/components/atoms/ImagePlaceholder'
+import MImage, { MImageImage } from '@/components/atoms/MImage'
+import MLink from '@/components/atoms/MLink'
 
 type ServiceCardProps = {
   image?: MImageImage | null
@@ -24,7 +25,7 @@ const ServiceCard = ({ image, title, linkHref, ...rest }: ServiceCardProps) => {
 
   return (
     <CardBox {...rest}>
-      <div className="aspect-h-1 aspect-w-1 w-full bg-gray">
+      <div className="relative aspect-square w-full bg-gray">
         {image ? <MImage image={image} fill className="object-contain" /> : <ImagePlaceholder />}
       </div>
       <CardContent className="justify-between">

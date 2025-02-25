@@ -1,41 +1,45 @@
 import { ParsedUrlQuery } from 'node:querystring'
 
-import Divider from '@components/atoms/Divider'
-import Seo from '@components/atoms/Seo'
-import PageLayout from '@components/layouts/PageLayout'
-import SectionsWrapper from '@components/layouts/SectionsWrapper'
-import BranchGroup from '@components/molecules/BranchGroup'
-import DisclosureIframe from '@components/molecules/DisclosureIframe'
-import DocumentGroup from '@components/molecules/DocumentGroup'
-import ImageGallery from '@components/molecules/ImageGallery'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { SSRConfig } from 'next-i18next'
+import { SWRConfig } from 'swr'
+
+import Divider from '@/components/atoms/Divider'
+import Seo from '@/components/atoms/Seo'
+import PageLayout from '@/components/layouts/PageLayout'
+import SectionsWrapper from '@/components/layouts/SectionsWrapper'
+import BranchGroup from '@/components/molecules/BranchGroup'
+import DisclosureIframe from '@/components/molecules/DisclosureIframe'
+import DocumentGroup from '@/components/molecules/DocumentGroup'
+import ImageGallery from '@/components/molecules/ImageGallery'
 import {
   generateStaticPaths,
   generateStaticProps,
-} from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import ProcedureTabs from '@components/molecules/ProcedureTabs'
-import Section from '@components/molecules/Section'
-import AccordionGroupSection from '@components/sections/AccordionGroupSection'
-import ArticleListing from '@components/sections/ArticleListing/ArticleListing'
-import BundleListingSection from '@components/sections/BundleListingSection'
-import BundleListingSimpleSection from '@components/sections/BundleListingSimpleSection'
-import CardSection from '@components/sections/CardSection'
-import CemeteriesOpeningHoursSection from '@components/sections/CemeteriesOpeningHoursSection'
-import CeremoniesArchiveSection from '@components/sections/CeremoniesArchiveSection'
-import CeremoniesSection from '@components/sections/CeremoniesSection'
-import ContactsSection from '@components/sections/ContactsSection'
-import DebtorsSection from '@components/sections/DebtorsSection'
-import DisclosuresSection from '@components/sections/DisclosuresSection'
-import DocumentsSection from '@components/sections/DocumentsSection/DocumentsSection'
-import IframeSection from '@components/sections/IframeSection'
-import MapOfManagedObjectsSection from '@components/sections/MapOfManagedObjectsSection'
-import MapSection from '@components/sections/MapSection'
-import MenuListingSection from '@components/sections/MenuListingSection'
-import NewsListing from '@components/sections/NewsSection'
-import OpeningHoursSection from '@components/sections/OpeningHoursSection'
-import PartnersSection from '@components/sections/PartnersSection'
-import ReviewListingSection from '@components/sections/ReviewListingSection'
-import RichTextSection from '@components/sections/RichTextSection'
+} from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
+import ProcedureTabs from '@/components/molecules/ProcedureTabs'
+import Section from '@/components/molecules/Section'
+import AccordionGroupSection from '@/components/sections/AccordionGroupSection'
+import ArticleListing from '@/components/sections/ArticleListing/ArticleListing'
+import BundleListingSection from '@/components/sections/BundleListingSection'
+import BundleListingSimpleSection from '@/components/sections/BundleListingSimpleSection'
+import CardSection from '@/components/sections/CardSection'
+import CemeteriesOpeningHoursSection from '@/components/sections/CemeteriesOpeningHoursSection'
+import CeremoniesArchiveSection from '@/components/sections/CeremoniesArchiveSection'
+import CeremoniesSection from '@/components/sections/CeremoniesSection'
+import ContactsSection from '@/components/sections/ContactsSection'
+import DebtorsSection from '@/components/sections/DebtorsSection'
+import DisclosuresSection from '@/components/sections/DisclosuresSection'
+import DocumentsSection from '@/components/sections/DocumentsSection/DocumentsSection'
+import IframeSection from '@/components/sections/IframeSection'
+import MapOfManagedObjectsSection from '@/components/sections/MapOfManagedObjectsSection'
+import MapSection from '@/components/sections/MapSection'
+import MenuListingSection from '@/components/sections/MenuListingSection'
+import NewsListing from '@/components/sections/NewsSection'
+import OpeningHoursSection from '@/components/sections/OpeningHoursSection'
+import PartnersSection from '@/components/sections/PartnersSection'
+import ReviewListingSection from '@/components/sections/ReviewListingSection'
+import RichTextSection from '@/components/sections/RichTextSection'
 import {
   Enum_Page_Layout,
   GeneralEntityFragment,
@@ -43,27 +47,24 @@ import {
   PageEntityFragment,
   ReviewEntityFragment,
   ReviewsQuery,
-} from '@graphql'
+} from '@/graphql'
 import {
   ArticleListingType,
   getArticleListingNewsPrefetches,
-} from '@services/fetchers/articleListingFetcher'
-import { getMapSectionPrefetch } from '@services/fetchers/cemeteriesFetcher'
-import { ceremoniesArchiveSectionPrefetches } from '@services/fetchers/ceremoniesArchiveSectionFetcher'
-import { getCeremoniesSectionPrefetches } from '@services/fetchers/ceremoniesSectionFetcher'
-import { getDebtorsSectionPrefetches } from '@services/fetchers/debtorsSectionFetcher'
-import { disclosuresSectionPrefetch } from '@services/fetchers/disclosuresSectionFetcher'
-import { documentsSectionPrefetch } from '@services/fetchers/documentsSectionFetcher'
-import { getMapOfManagedObjectsSectionPrefetch } from '@services/fetchers/managedObjectsFetcher'
-import { getNewsListingPrefetch } from '@services/fetchers/newsListingFetcher'
-import { partnersSectionPrefetch } from '@services/fetchers/partnersSectionFetcher'
-import { getProceduresPrefetch } from '@services/fetchers/proceduresFetcher'
-import { getReviewPrefetch } from '@services/fetchers/reviewsFetcher'
-import { client } from '@services/graphql/gqlClient'
-import { prefetchSections } from '@utils/prefetchSections'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { SSRConfig } from 'next-i18next'
-import { SWRConfig } from 'swr'
+} from '@/services/fetchers/articleListingFetcher'
+import { getMapSectionPrefetch } from '@/services/fetchers/cemeteriesFetcher'
+import { ceremoniesArchiveSectionPrefetches } from '@/services/fetchers/ceremoniesArchiveSectionFetcher'
+import { getCeremoniesSectionPrefetches } from '@/services/fetchers/ceremoniesSectionFetcher'
+import { getDebtorsSectionPrefetches } from '@/services/fetchers/debtorsSectionFetcher'
+import { disclosuresSectionPrefetch } from '@/services/fetchers/disclosuresSectionFetcher'
+import { documentsSectionPrefetch } from '@/services/fetchers/documentsSectionFetcher'
+import { getMapOfManagedObjectsSectionPrefetch } from '@/services/fetchers/managedObjectsFetcher'
+import { getNewsListingPrefetch } from '@/services/fetchers/newsListingFetcher'
+import { partnersSectionPrefetch } from '@/services/fetchers/partnersSectionFetcher'
+import { getProceduresPrefetch } from '@/services/fetchers/proceduresFetcher'
+import { getReviewPrefetch } from '@/services/fetchers/reviewsFetcher'
+import { client } from '@/services/graphql/gqlClient'
+import { prefetchSections } from '@/utils/prefetchSections'
 
 type PageProps = {
   navigation: NavigationItemFragment[]
@@ -272,6 +273,7 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
             if (section?.__typename === 'ComponentSectionsIframeSection') {
               return <IframeSection key={`${section.__typename}-${section.id}`} section={section} />
             }
+
             return null
           })}
         </SectionsWrapper>

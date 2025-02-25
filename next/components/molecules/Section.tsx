@@ -1,10 +1,11 @@
-import MLink from '@components/atoms/MLink'
-import { BackgroundColor, sectionContext } from '@components/layouts/SectionsWrapper'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { CtaButtonFragment } from '@graphql'
-import { useActivateHeroSectionContentOverlay } from '@utils/heroSectionContentOverlay'
 import cx from 'classnames'
 import { ReactNode, useContext, useMemo } from 'react'
+
+import MLink from '@/components/atoms/MLink'
+import { BackgroundColor, sectionContext } from '@/components/layouts/SectionsWrapper'
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { CtaButtonFragment } from '@/graphql'
+import { useActivateHeroSectionContentOverlay } from '@/utils/heroSectionContentOverlay'
 
 export type SectionProps = {
   children: ReactNode
@@ -118,7 +119,7 @@ const Section = ({
             {
               '-mb-6 grid gap-6 pb-6 md:grid-cols-2 lg:grid-cols-4': cardGrid === 'cards',
               '-mb-6 grid gap-6 pb-6 md:grid-cols-2 lg:grid-cols-3': cardGrid === 'bundles',
-              '-mb-6 flex gap-6 overflow-x-auto pb-6 md:grid md:grid-cols-2 lg:grid-cols-4':
+              '-mb-6 flex gap-6 overflow-x-auto pb-6 scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-4':
                 cardGrid === 'serviceCards',
             },
             childrenWrapperClassName,

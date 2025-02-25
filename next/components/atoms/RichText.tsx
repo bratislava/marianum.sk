@@ -1,13 +1,14 @@
-import Divider from '@components/atoms/Divider'
-import MLink from '@components/atoms/MLink'
-import NormalizeText from '@components/atoms/NormalizeText/NormalizeText'
-import { useHorizontalScrollFade } from '@utils/useHorizontalScrollFade'
 import cx from 'classnames'
 import Image from 'next/image'
 import { PropsWithChildren, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
+
+import Divider from '@/components/atoms/Divider'
+import MLink from '@/components/atoms/MLink'
+import NormalizeText from '@/components/atoms/NormalizeText/NormalizeText'
+import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
 
 export interface RichTextProps {
   className?: string
@@ -46,15 +47,18 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
         h4: ({ children }) => <h4 className="text-h4 font-bold">{children}</h4>,
         h5: ({ children }) => <h5 className="text-h5 font-bold">{children}</h5>,
         h6: ({ children }) => <h6 className="text-h6 font-bold">{children}</h6>,
-        img: (props) => {
+        img: ({ src, alt: altFromStrapi }) => {
           // Strapi inserts image in markdown like this: ![alt||caption](url)
-          // thank to patch located in patches/@strapi+admin+4.3.8.patch
-          // So here we are extracting alt and caption.
-          // If there is no || symbols then whole alt is used for both properties.
-          const { alt: altAndCaption = '||', src } = props
-          const [alt, caption] = altAndCaption.includes('||')
-            ? altAndCaption.split('||')
-            : [altAndCaption, altAndCaption]
+          // thanks to patch located in patches/@strapi+admin
+          // If there is no || pattern, the whole alt should be used for both properties.
+
+          let alt = altFromStrapi
+          let caption = altFromStrapi
+
+          if (altFromStrapi?.includes('||')) {
+            ;[alt, caption] = altFromStrapi.split('||')
+          }
+
           return (
             <figure className="flex flex-col gap-4">
               {/* https://stackoverflow.com/a/73618982 */}
@@ -63,10 +67,8 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
                 width="0"
                 height="0"
                 className="w-full"
-                alt={alt}
+                alt={alt ?? ''}
                 sizes="100vw"
-                // TODO remove this loader completely when confirmed that images work without it
-                // loader={customImageLoader}
               />
               <figcaption className="text-center text-sm">{caption}</figcaption>
             </figure>
@@ -82,6 +84,7 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
         ),
         a: ({ href, children }) => {
           const isExternal = href?.startsWith('http')
+
           return (
             <MLink
               href={href ?? '#'}

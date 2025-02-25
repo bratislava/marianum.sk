@@ -1,8 +1,9 @@
-import Contact from '@components/molecules/Contact'
-import SectionBoxed from '@components/molecules/SectionBoxed'
-import { OfficeEntityFragment } from '@graphql'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
+
+import Contact from '@/components/molecules/Contact'
+import SectionBoxed from '@/components/molecules/SectionBoxed'
+import { OfficeEntityFragment } from '@/graphql'
 
 type OfficeSectionBoxedProps = {
   office: OfficeEntityFragment

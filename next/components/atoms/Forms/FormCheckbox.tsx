@@ -1,8 +1,9 @@
-import Checkbox from '@components/atoms/Checkbox'
-import FormErrorWrapper from '@components/atoms/Forms/FormErrorWrapper'
 import get from 'lodash/get'
 import React, { ComponentProps, PropsWithChildren } from 'react'
 import { FormState, useController, UseControllerProps } from 'react-hook-form'
+
+import Checkbox from '@/components/atoms/Checkbox'
+import FormErrorWrapper from '@/components/atoms/Forms/FormErrorWrapper'
 
 // Types are not worth the effort.
 type FormCheckboxProps = Omit<

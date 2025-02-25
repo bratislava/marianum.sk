@@ -1,10 +1,11 @@
-import { ApplicationCemeteries } from '@components/sections/Application/application.types'
-import { partitionCemeteries } from '@components/sections/Application/application.utils'
-import { ApplicationSection } from '@components/sections/Application/ApplicationSection'
-import { ApplicationText } from '@graphql'
-import { client } from '@services/graphql/gqlClient'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import { ApplicationCemeteries } from '@/components/sections/Application/application.types'
+import { partitionCemeteries } from '@/components/sections/Application/application.utils'
+import { ApplicationSection } from '@/components/sections/Application/ApplicationSection'
+import { ApplicationText } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
 
 type ApplicationPageProps = {
   cemeteries: ApplicationCemeteries

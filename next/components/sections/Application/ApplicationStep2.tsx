@@ -1,8 +1,9 @@
-import { AnimateHeight } from '@components/atoms/AnimateHeight'
-import FormRadioGroup from '@components/atoms/Forms/FormRadioGroup'
-import FormTextField from '@components/atoms/Forms/FormTextField'
-import RadioBox from '@components/atoms/Radio/RadioBox'
 import { useEffect } from 'react'
+
+import { AnimateHeight } from '@/components/atoms/AnimateHeight'
+import FormRadioGroup from '@/components/atoms/Forms/FormRadioGroup'
+import FormTextField from '@/components/atoms/Forms/FormTextField'
+import RadioBox from '@/components/atoms/Radio/RadioBox'
 
 import { ApplicationStepComponentProps } from './application.types'
 import { ApplicationTypes } from './application-shared.types'
@@ -33,6 +34,7 @@ const ApplicationStep2 = ({
         setValue('hroboveCislo', value.uviestHroboveCislo ? '' : undefined)
       }
     })
+
     return () => subscription.unsubscribe()
   }, [setValue, watch])
 

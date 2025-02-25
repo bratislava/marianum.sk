@@ -1,7 +1,8 @@
-import { EditIcon } from '@assets/icons'
-import IconButton from '@components/atoms/IconButton'
 import { PropsWithChildren } from 'react'
 import { DeepPartial } from 'react-hook-form'
+
+import { EditIcon } from '@/assets/icons'
+import IconButton from '@/components/atoms/IconButton'
 
 import { ApplicationCemeteries } from './application.types'
 import { ApplicationTypes } from './application-shared.types'
@@ -19,7 +20,7 @@ const StepCard = ({
   children,
 }: PropsWithChildren<StepCardProps>) => {
   return (
-    <div className="flex flex-col border border-border bg-white p-3 md:border-0 md:p-4 ">
+    <div className="flex flex-col border border-border bg-white p-3 md:border-0 md:p-4">
       {title ? (
         <div className="mb-4 flex">
           <h3 className="grow text-h6">{title}</h3>

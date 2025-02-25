@@ -1,32 +1,33 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import Seo from '@components/atoms/Seo'
-import PageWrapper from '@components/layouts/PageWrapper'
-import SectionsWrapper from '@components/layouts/SectionsWrapper'
-import CtaGroup from '@components/molecules/CtaGroup'
-import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import Section from '@components/molecules/Section'
-import ArticlesManualListingSection from '@components/sections/ArticlesManualListingSection'
-import CardSection from '@components/sections/CardSection'
-import HomepageProceduresSection from '@components/sections/HomepageProceduresSection'
-import HomepageReviewsSection from '@components/sections/HomepageReviewsSection'
-import HomepageSlider from '@components/sections/HomepageSlider'
-import NewsSection from '@components/sections/NewsSection'
-import UpcomingCeremoniesSection from '@components/sections/UpcomingCeremoniesSection'
+import { GetStaticProps, GetStaticPropsResult } from 'next'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { SWRConfig } from 'swr'
+
+import Seo from '@/components/atoms/Seo'
+import PageWrapper from '@/components/layouts/PageWrapper'
+import SectionsWrapper from '@/components/layouts/SectionsWrapper'
+import CtaGroup from '@/components/molecules/CtaGroup'
+import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
+import Section from '@/components/molecules/Section'
+import ArticlesManualListingSection from '@/components/sections/ArticlesManualListingSection'
+import CardSection from '@/components/sections/CardSection'
+import HomepageProceduresSection from '@/components/sections/HomepageProceduresSection'
+import HomepageReviewsSection from '@/components/sections/HomepageReviewsSection'
+import HomepageSlider from '@/components/sections/HomepageSlider'
+import NewsSection from '@/components/sections/NewsSection'
+import UpcomingCeremoniesSection from '@/components/sections/UpcomingCeremoniesSection'
 import {
   GeneralEntityFragment,
   HomepageCeremoniesQuery,
   HomePageQuery,
   NavigationItemFragment,
-} from '@graphql'
-import { getNewsListingPrefetch } from '@services/fetchers/newsListingFetcher'
-import { upcomingCeremoniesPrefetch } from '@services/fetchers/upcomingCeremoniesFetcher'
-import { client } from '@services/graphql/gqlClient'
-import { isDefined } from '@utils/isDefined'
-import { prefetchSections } from '@utils/prefetchSections'
-import { GetStaticProps, GetStaticPropsResult } from 'next'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { SWRConfig } from 'swr'
+} from '@/graphql'
+import { getNewsListingPrefetch } from '@/services/fetchers/newsListingFetcher'
+import { upcomingCeremoniesPrefetch } from '@/services/fetchers/upcomingCeremoniesFetcher'
+import { client } from '@/services/graphql/gqlClient'
+import { isDefined } from '@/utils/isDefined'
+import { prefetchSections } from '@/utils/prefetchSections'
 
 type HomeProps = {
   navigation: NavigationItemFragment[]
@@ -81,6 +82,7 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
             }
             if (section?.__typename === 'ComponentSectionsProceduresShortSection') {
               const { outsideMedicalFacility, atMedicalFacility } = procedures?.attributes ?? {}
+
               return (
                 <HomepageProceduresSection
                   key={`${section.__typename}-${section.id}`}

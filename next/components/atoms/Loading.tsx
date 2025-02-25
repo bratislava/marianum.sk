@@ -1,7 +1,8 @@
-import Spinner from '@components/atoms/Spinner'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
+
+import Spinner from '@/components/atoms/Spinner'
 
 type LoadingProps = { className?: string }
 
@@ -10,7 +11,7 @@ const Loading = ({ className }: LoadingProps) => {
 
   return (
     <div className={twMerge('flex flex-col items-center gap-4 text-primary', className)}>
-      <Spinner className="h-12 w-12" />
+      <Spinner className="size-12" />
       <div className="shrink-0">{t('loading')}</div>
     </div>
   )

@@ -1,10 +1,11 @@
-import { MapMarkerSvg } from '@assets'
-import FormRadioGroup from '@components/atoms/Forms/FormRadioGroup'
-import RadioCircle from '@components/atoms/Radio/RadioCircle'
-import { CemeteryInApplicationEntityFragment } from '@graphql'
 import { RadioGroup } from '@headlessui/react'
 import { useMemo } from 'react'
 import { DeepPartial } from 'react-hook-form'
+
+import { MapMarkerSvg } from '@/assets'
+import FormRadioGroup from '@/components/atoms/Forms/FormRadioGroup'
+import RadioCircle from '@/components/atoms/Radio/RadioCircle'
+import { CemeteryInApplicationEntityFragment } from '@/graphql'
 
 import { ApplicationCemeteries, ApplicationStepComponentProps } from './application.types'
 import { ApplicationTypes } from './application-shared.types'
@@ -66,6 +67,7 @@ const ApplicationStep4 = ({
     ) {
       return cemeteries.urnovaStena
     }
+
     return []
   }, [cemeteries, step3])
 
@@ -85,7 +87,6 @@ const ApplicationStep4 = ({
     <ApplicationStepWrapper handleSubmit={handleSubmit} onContinue={onContinue}>
       <h3 className="mb-3 md:mb-6">Výber cintorína</h3>
       <FormRadioGroup
-        // @ts-ignore
         value="5"
         name="cintorin"
         control={control}

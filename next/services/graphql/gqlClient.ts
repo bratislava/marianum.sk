@@ -1,4 +1,4 @@
-import { getSdk } from '@graphql'
+import { getSdk } from '@/graphql'
 import { GraphQLClient } from 'graphql-request'
 import getConfig from 'next/config'
 
@@ -22,8 +22,8 @@ const buildUrl = (path: string): string =>
       ? // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         `${protocol}${serverRuntimeConfig.strapiUrl}`
       : isServer()
-      ? ''
-      : window.location.origin
+        ? ''
+        : window.location.origin
   }${path}`
 
 const gql = new GraphQLClient(buildUrl('/graphql'))

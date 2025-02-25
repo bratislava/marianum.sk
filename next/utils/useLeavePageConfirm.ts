@@ -10,6 +10,7 @@ export const useLeavePageConfirm = (enabled: boolean, text?: string) => {
     const handleWindowClose = (e: BeforeUnloadEvent) => {
       if (!enabled) return
       e.preventDefault()
+
       // eslint-disable-next-line consistent-return,no-return-assign
       return (e.returnValue = text)
     }
@@ -22,6 +23,7 @@ export const useLeavePageConfirm = (enabled: boolean, text?: string) => {
     }
     window.addEventListener('beforeunload', handleWindowClose)
     router.events.on('routeChangeStart', handleBrowseAway)
+
     return () => {
       window.removeEventListener('beforeunload', handleWindowClose)
       router.events.off('routeChangeStart', handleBrowseAway)

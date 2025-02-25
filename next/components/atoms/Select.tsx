@@ -1,10 +1,11 @@
-import { ChevronDownIcon } from '@assets/icons'
-import FieldWrapper from '@components/atoms/FieldWrapper'
 import { Listbox } from '@headlessui/react'
-import { isDefined } from '@utils/isDefined'
 import cx from 'classnames'
 import { ReactNode, useCallback, useId, useMemo, useState } from 'react'
 import { usePopper } from 'react-popper'
+
+import { ChevronDownIcon } from '@/assets/icons'
+import FieldWrapper from '@/components/atoms/FieldWrapper'
+import { isDefined } from '@/utils/isDefined'
 
 export interface Option {
   key: string
@@ -133,7 +134,7 @@ const Select = ({
 
       <Listbox.Options
         as="div"
-        ref={setPopperElement as any}
+        ref={setPopperElement as React.Ref<HTMLDivElement>}
         className="z-20 max-h-[240px] w-full flex-col overflow-y-auto border border-border bg-white outline-none"
         style={styles.popper}
         {...attributes.popper}
