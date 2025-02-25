@@ -17,7 +17,7 @@ const ReviewCard = ({ rating, author, date, description, ...rest }: ReviewCardPr
       <CardContent>
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
+            <div className="flex items-start gap-4">
               <Avatar name={author} />
               <div>
                 <div className="line-clamp-2 font-bold">{author}</div>
