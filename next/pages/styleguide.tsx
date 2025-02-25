@@ -21,7 +21,6 @@ import Tabs from '@/components/atoms/Tabs/Tabs'
 import Tag from '@/components/atoms/Tag'
 import TagToggle from '@/components/atoms/TagToggle'
 import TextField from '@/components/atoms/TextField'
-import Tooltip from '@/components/atoms/Tooltip'
 import SectionsWrapper, { SectionsWrapperProps } from '@/components/layouts/SectionsWrapper'
 import AccordionGroup from '@/components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '@/components/molecules/Accordion/AccordionItem'
@@ -29,7 +28,6 @@ import ArticleCard from '@/components/molecules/Cards/ArticleCard'
 import BundleCard from '@/components/molecules/Cards/BundleCard'
 import { CategoryCard, FaqThemeCard } from '@/components/molecules/Cards/CategoryFaqThemeCard'
 import PartnerCard from '@/components/molecules/Cards/PartnerCard'
-import ProductCard from '@/components/molecules/Cards/ProductCard'
 import ServiceCard from '@/components/molecules/Cards/ServiceCard'
 import Checklist from '@/components/molecules/Checklist/Checklist'
 import Review from '@/components/molecules/Review'
@@ -126,7 +124,6 @@ export const Stack = ({ bg, width = null, direction = 'row', children }: StackPr
 
 const Showcase = () => {
   const [paginationSelectedPage, setPaginationSelectedPage] = useState(1)
-  const [radioValue, setRadioValue] = useState('value-1')
   const [checkboxValue, setCheckboxValue] = useState(true)
   const [cardsBorder, setCardsBorder] = useState(true)
 
@@ -440,11 +437,11 @@ const Showcase = () => {
 
           <Wrapper title="Link">
             <Stack>
-              <MLink href="/#">Zobraz viac</MLink>
-              <MLink href="/#" variant="white">
+              <MLink href="/next/public#">Zobraz viac</MLink>
+              <MLink href="/next/public#" variant="white">
                 Zobraz viac
               </MLink>
-              <MLink href="/#" noStyles>
+              <MLink href="/next/public#" noStyles>
                 Zobraz viac
               </MLink>
             </Stack>
@@ -1027,22 +1024,6 @@ const Showcase = () => {
                 date={Date.now()}
                 linkHref="#"
               />
-              <ProductCard
-                linkHref="#"
-                image={image}
-                title="Product card"
-                price={500_011_656_161}
-                border={cardsBorder}
-              />
-              <ProductCard
-                linkHref="#"
-                image={image}
-                title="Product card"
-                showAddToCartButton
-                onAddToCartPress={() => {}}
-                price={50}
-                border={cardsBorder}
-              />
               <CategoryCard border={cardsBorder} title="Category card" linkHref="" />
               <ServiceCard title="Headline" linkHref="#" image={image} border={cardsBorder} />
               <FaqThemeCard border={cardsBorder} title="Faq card" subtitle="Subtitle" linkHref="" />
@@ -1100,10 +1081,6 @@ const Showcase = () => {
               date={new Date()}
               description="Pekne nové priestory, pani čo s nami riešila potrebné veci bola veľmi milá (aj keď ju popri nás stále niekto z kolegou vyrušoval)Vybavia všetky potrebnosti, samozrejme si za to zaplatíte. A nie málo."
             />
-          </Wrapper>
-
-          <Wrapper title="Tooltip">
-            <Tooltip tooltip="Tooltip text">Tooltip trigger</Tooltip>
           </Wrapper>
 
           <div className="h-64" />
