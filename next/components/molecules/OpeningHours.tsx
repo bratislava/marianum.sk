@@ -1,4 +1,4 @@
-import { OpeningHoursFragment } from '@graphql'
+import { OpeningHoursFragment } from '@/graphql'
 
 type OpeningHoursProps = {
   openingHours: OpeningHoursFragment

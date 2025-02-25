@@ -1,8 +1,9 @@
-import Section, { SectionProps } from '@components/molecules/Section'
-import ArticleGroup from '@components/sections/ArticleGroup'
-import { ArticlesManualListingFragment } from '@graphql'
-import { isDefined } from '@utils/isDefined'
 import React from 'react'
+
+import Section, { SectionProps } from '@/components/molecules/Section'
+import ArticleGroup from '@/components/sections/ArticleGroup'
+import { ArticlesManualListingFragment } from '@/graphql'
+import { isDefined } from '@/utils/isDefined'
 
 type ArticlesManualListingSectionProps = Pick<SectionProps, 'background'> & {
   section?: ArticlesManualListingFragment

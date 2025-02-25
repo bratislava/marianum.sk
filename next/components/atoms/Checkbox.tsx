@@ -1,9 +1,10 @@
-import { CheckNoPaddingIcon } from '@assets/icons'
 import { useToggleState } from '@react-stately/toggle'
 import type { AriaCheckboxProps } from '@react-types/checkbox'
 import cx from 'classnames'
 import React, { useRef } from 'react'
 import { mergeProps, useCheckbox, useFocusRing, VisuallyHidden } from 'react-aria'
+
+import { CheckNoPaddingIcon } from '@/assets/icons'
 
 /* eslint-disable react/destructuring-assignment */
 /**

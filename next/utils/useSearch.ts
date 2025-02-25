@@ -1,15 +1,16 @@
-import { useGetFullPathMeili } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { meiliClient } from '@services/meili/meiliClient'
-import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@services/meili/meiliTypes'
-import { SearchIndexWrapped } from '@services/meili/searchIndexWrapped'
-import { getMeilisearchPageOptions } from '@utils/getMeilisearchPageOptions'
-import { useGetSwrExtras } from '@utils/useGetSwrExtras'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 import useSWR from 'swr'
 import { StringParam, useQueryParam, withDefault } from 'use-query-params'
 import { useDebounce } from 'usehooks-ts'
+
+import { useGetFullPathMeili } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { meiliClient } from '@/services/meili/meiliClient'
+import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@/services/meili/meiliTypes'
+import { SearchIndexWrapped } from '@/services/meili/searchIndexWrapped'
+import { getMeilisearchPageOptions } from '@/utils/getMeilisearchPageOptions'
+import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 
 export const allSearchTypes = [
   'page' as const,

@@ -1,8 +1,9 @@
-import { InfoIcon } from '@assets/icons'
-import Tooltip from '@components/atoms/Tooltip'
 import { RadioGroup } from '@headlessui/react'
 import cx from 'classnames'
 import React, { PropsWithChildren, ReactNode } from 'react'
+
+import { InfoIcon } from '@/assets/icons'
+import Tooltip from '@/components/atoms/Tooltip'
 
 import RadioCircle from './RadioCircle'
 

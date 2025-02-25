@@ -1,10 +1,11 @@
-import { AnimateHeight } from '@components/atoms/AnimateHeight'
-import NavigationSearchResults from '@components/molecules/Navigation/NavigationSearch/NavigationSearchResults'
-import Search from '@components/molecules/Search'
-import { SearchData } from '@utils/useSearch'
 import cx from 'classnames'
 import { useEffect, useState } from 'react'
 import { useFocusWithin } from 'react-aria'
+
+import { AnimateHeight } from '@/components/atoms/AnimateHeight'
+import NavigationSearchResults from '@/components/molecules/Navigation/NavigationSearch/NavigationSearchResults'
+import Search from '@/components/molecules/Search'
+import { SearchData } from '@/utils/useSearch'
 
 type NavigationSearchDesktopProps = {
   searchQuery: string

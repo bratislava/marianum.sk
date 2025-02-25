@@ -1,8 +1,9 @@
-import RichText from '@components/atoms/RichText'
-import { ApplicationText } from '@graphql'
-import { client } from '@services/graphql/gqlClient'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import RichText from '@/components/atoms/RichText'
+import { ApplicationText } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
 
 type ApplicationConsentsPageProps = {
   texts: ApplicationText

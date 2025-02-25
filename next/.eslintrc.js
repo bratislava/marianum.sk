@@ -59,6 +59,9 @@ module.exports = {
     '@typescript-eslint/no-unsafe-member-access': 'off',
     '@typescript-eslint/no-unsafe-argument': 'off',
 
+    /** After using the default @/* alias, we wanted to remove the “missing file extension” error message */
+    'import/extensions': 'off',
+
     /* Formatting rules */
     'prettier/prettier': ['error', { endOfLine: 'auto' }], // TODO revisit, prettier should not be run by eslint
     'padding-line-between-statements': ['warn', { blankLine: 'always', prev: '*', next: 'return' }],

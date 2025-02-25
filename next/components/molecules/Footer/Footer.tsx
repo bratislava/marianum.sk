@@ -1,15 +1,16 @@
-import MLink from '@components/atoms/MLink'
-import AccordionGroup from '@components/molecules/Accordion/AccordionGroup'
-import AccordionItem from '@components/molecules/Accordion/AccordionItem'
-import FooterCredentials from '@components/molecules/Footer/FooterCredentials'
-import FooterMapStatic from '@components/molecules/Footer/FooterMapStatic'
-import FooterSocials from '@components/molecules/Footer/FooterSocials'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { ContactFragment, FooterFragment, SocialItemFragment } from '@graphql'
-import { getPhoneNumberLink } from '@utils/getPhoneNumberLink'
-import { isDefined } from '@utils/isDefined'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
+
+import MLink from '@/components/atoms/MLink'
+import AccordionGroup from '@/components/molecules/Accordion/AccordionGroup'
+import AccordionItem from '@/components/molecules/Accordion/AccordionItem'
+import FooterCredentials from '@/components/molecules/Footer/FooterCredentials'
+import FooterMapStatic from '@/components/molecules/Footer/FooterMapStatic'
+import FooterSocials from '@/components/molecules/Footer/FooterSocials'
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { ContactFragment, FooterFragment, SocialItemFragment } from '@/graphql'
+import { getPhoneNumberLink } from '@/utils/getPhoneNumberLink'
+import { isDefined } from '@/utils/isDefined'
 
 export type FooterProps = {
   contact: ContactFragment | null | undefined

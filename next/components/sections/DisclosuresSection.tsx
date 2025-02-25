@@ -1,30 +1,31 @@
-import { DownloadIcon } from '@assets/icons'
-import FormatDate from '@components/atoms/FormatDate'
-import IconButton from '@components/atoms/IconButton'
-import Loading from '@components/atoms/Loading'
-import LoadingOverlay from '@components/atoms/LoadingOverlay'
-import Select from '@components/atoms/Select'
-import FilteringSearchInput from '@components/molecules/FilteringSearchInput'
-import FiltersBackgroundWrapper from '@components/molecules/FiltersBackgroundWrapper'
-import PaginationMeili from '@components/molecules/PaginationMeili'
-import Section from '@components/molecules/Section'
-import {
-  disclosuresSectionDefaultFilters,
-  disclosuresSectionFetcher,
-  DisclosuresSectionFilters,
-  getDisclosuresSectionSwrKey,
-} from '@services/fetchers/disclosuresSectionFetcher'
-import { DisclosureMeili, DisclosureTypeFixed } from '@services/meili/meiliTypes'
-import { useDownloadAriaLabel } from '@utils/useDownloadAriaLabel'
-import { useGetSwrExtras } from '@utils/useGetSwrExtras'
-import { useHorizontalScrollFade } from '@utils/useHorizontalScrollFade'
-import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
 import cx from 'classnames'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
+
+import { DownloadIcon } from '@/assets/icons'
+import FormatDate from '@/components/atoms/FormatDate'
+import IconButton from '@/components/atoms/IconButton'
+import Loading from '@/components/atoms/Loading'
+import LoadingOverlay from '@/components/atoms/LoadingOverlay'
+import Select from '@/components/atoms/Select'
+import FilteringSearchInput from '@/components/molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '@/components/molecules/FiltersBackgroundWrapper'
+import PaginationMeili from '@/components/molecules/PaginationMeili'
+import Section from '@/components/molecules/Section'
+import {
+  disclosuresSectionDefaultFilters,
+  disclosuresSectionFetcher,
+  DisclosuresSectionFilters,
+  getDisclosuresSectionSwrKey,
+} from '@/services/fetchers/disclosuresSectionFetcher'
+import { DisclosureMeili, DisclosureTypeFixed } from '@/services/meili/meiliTypes'
+import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
+import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
+import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
+import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
 const AdditionalData = ({ additionalData }: { additionalData: Record<string, string> }) => {
   const text = useMemo(

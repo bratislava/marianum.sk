@@ -1,7 +1,8 @@
-import { sectionContext } from '@components/layouts/SectionsWrapper'
 import cx from 'classnames'
 import { HTMLAttributes, PropsWithChildren, useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
+
+import { sectionContext } from '@/components/layouts/SectionsWrapper'
 
 export type RowBoxProps = {
   border?: boolean

@@ -1,10 +1,11 @@
-import { getFullPathMeiliFn } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { Branch, Bundle, Page } from '@graphql'
-import { client } from '@services/graphql/gqlClient'
-import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@services/meili/meiliTypes'
-import { isDefined } from '@utils/isDefined'
-import { parseNavigation } from '@utils/parseNavigation'
 import type { NextApiRequest, NextApiResponse } from 'next'
+
+import { getFullPathMeiliFn } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { Branch, Bundle, Page } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
+import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@/services/meili/meiliTypes'
+import { isDefined } from '@/utils/isDefined'
+import { parseNavigation } from '@/utils/parseNavigation'
 
 // https://docs.strapi.io/developer-docs/latest/development/backend-customization/webhooks.html#payloads
 type Response = { revalidated: boolean } | { message: string } | string

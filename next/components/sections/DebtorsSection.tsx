@@ -1,28 +1,29 @@
-import Loading from '@components/atoms/Loading'
-import LoadingOverlay from '@components/atoms/LoadingOverlay'
-import CemeteryLink from '@components/molecules/CemeteryLink'
-import CeremoniesDebtorsCemeterySelect from '@components/molecules/CeremoniesDebtors/CemeterySelect'
-import FilteringSearchInput from '@components/molecules/FilteringSearchInput'
-import FiltersBackgroundWrapper from '@components/molecules/FiltersBackgroundWrapper'
-import PaginationMeili from '@components/molecules/PaginationMeili'
-import Section from '@components/molecules/Section'
-import {
-  debtorsSectionDefaultFilters,
-  debtorsSectionFetcher,
-  DebtorsSectionFilters,
-  getDebtorsSectionSwrKey,
-} from '@services/fetchers/debtorsSectionFetcher'
-import { DebtorMeili } from '@services/meili/meiliTypes'
-import { getCemeteryInfoInCeremoniesDebtorsMeili } from '@utils/getCemeteryInfoInCeremoniesDebtors'
-import { useGetSwrExtras } from '@utils/useGetSwrExtras'
-import { useHorizontalScrollFade } from '@utils/useHorizontalScrollFade'
-import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
 import cx from 'classnames'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
+
+import Loading from '@/components/atoms/Loading'
+import LoadingOverlay from '@/components/atoms/LoadingOverlay'
+import CemeteryLink from '@/components/molecules/CemeteryLink'
+import CeremoniesDebtorsCemeterySelect from '@/components/molecules/CeremoniesDebtors/CemeterySelect'
+import FilteringSearchInput from '@/components/molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '@/components/molecules/FiltersBackgroundWrapper'
+import PaginationMeili from '@/components/molecules/PaginationMeili'
+import Section from '@/components/molecules/Section'
+import {
+  debtorsSectionDefaultFilters,
+  debtorsSectionFetcher,
+  DebtorsSectionFilters,
+  getDebtorsSectionSwrKey,
+} from '@/services/fetchers/debtorsSectionFetcher'
+import { DebtorMeili } from '@/services/meili/meiliTypes'
+import { getCemeteryInfoInCeremoniesDebtorsMeili } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
+import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
+import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
+import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
 const Table = ({
   data,

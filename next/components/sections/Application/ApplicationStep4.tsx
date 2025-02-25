@@ -1,10 +1,11 @@
-import { MapMarkerSvg } from '@assets'
-import FormRadioGroup from '@components/atoms/Forms/FormRadioGroup'
-import RadioCircle from '@components/atoms/Radio/RadioCircle'
-import { CemeteryInApplicationEntityFragment } from '@graphql'
 import { RadioGroup } from '@headlessui/react'
 import { useMemo } from 'react'
 import { DeepPartial } from 'react-hook-form'
+
+import { MapMarkerSvg } from '@/assets'
+import FormRadioGroup from '@/components/atoms/Forms/FormRadioGroup'
+import RadioCircle from '@/components/atoms/Radio/RadioCircle'
+import { CemeteryInApplicationEntityFragment } from '@/graphql'
 
 import { ApplicationCemeteries, ApplicationStepComponentProps } from './application.types'
 import { ApplicationTypes } from './application-shared.types'

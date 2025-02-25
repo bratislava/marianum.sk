@@ -1,5 +1,6 @@
-import { client } from '@services/graphql/gqlClient'
 import { Key } from 'swr'
+
+import { client } from '@/services/graphql/gqlClient'
 
 export const partnersSectionSwrKey = 'PartnersSection' as Key
 

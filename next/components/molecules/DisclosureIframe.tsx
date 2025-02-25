@@ -1,6 +1,7 @@
-import LoadingOverlay from '@components/atoms/LoadingOverlay'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
+
+import LoadingOverlay from '@/components/atoms/LoadingOverlay'
 
 const DisclosureIframe = () => {
   const { t } = useTranslation('common', { keyPrefix: 'DisclosureIframe' })

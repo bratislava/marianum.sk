@@ -1,4 +1,4 @@
-import { MarianumLogoSvg } from '@assets'
+import { MarianumLogoSvg } from '@/assets'
 
 const ImagePlaceholder = () => {
   return (

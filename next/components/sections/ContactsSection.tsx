@@ -1,10 +1,11 @@
-import { sectionContext } from '@components/layouts/SectionsWrapper'
-import Contact from '@components/molecules/Contact'
-import Section, { SectionProps } from '@components/molecules/Section'
-import { ContactGroupFragment } from '@graphql'
-import { isDefined } from '@utils/isDefined'
 import cx from 'classnames'
 import { useContext, useMemo } from 'react'
+
+import { sectionContext } from '@/components/layouts/SectionsWrapper'
+import Contact from '@/components/molecules/Contact'
+import Section, { SectionProps } from '@/components/molecules/Section'
+import { ContactGroupFragment } from '@/graphql'
+import { isDefined } from '@/utils/isDefined'
 
 const ContactsSection = ({
   contacts,

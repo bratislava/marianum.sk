@@ -1,8 +1,9 @@
-import PageWrapper from '@components/layouts/PageWrapper'
-import SideBar from '@components/molecules/SideBar'
-import HeroSection from '@components/sections/HeroSection'
-import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import { ReactNode } from 'react'
+
+import PageWrapper from '@/components/layouts/PageWrapper'
+import SideBar from '@/components/molecules/SideBar'
+import HeroSection from '@/components/sections/HeroSection'
+import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
 
 type BundleLayoutProps = {
   bundle: BundleEntityFragment

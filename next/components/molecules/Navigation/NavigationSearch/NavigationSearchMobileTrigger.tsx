@@ -1,5 +1,5 @@
-import { SearchIcon } from '@assets/icons'
-import IconButton, { PolymorphicIconProps } from '@components/atoms/IconButton'
+import { SearchIcon } from '@/assets/icons'
+import IconButton, { PolymorphicIconProps } from '@/components/atoms/IconButton'
 
 const NavigationSearchMobileTrigger = (props: PolymorphicIconProps) => {
   return (

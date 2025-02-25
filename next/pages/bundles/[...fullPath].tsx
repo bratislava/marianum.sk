@@ -1,24 +1,25 @@
 import { ParsedUrlQuery } from 'node:querystring'
 
-import { CheckNoPaddingIcon } from '@assets/icons'
-import FormatCurrency from '@components/atoms/FormatCurrency'
-import RichText from '@components/atoms/RichText'
-import Seo from '@components/atoms/Seo'
-import BundleLayout from '@components/layouts/BundleLayout'
-import AccordionGroup from '@components/molecules/Accordion/AccordionGroup'
-import AccordionItem from '@components/molecules/Accordion/AccordionItem'
-import DocumentGroup from '@components/molecules/DocumentGroup'
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import { SSRConfig, useTranslation } from 'next-i18next'
+
+import { CheckNoPaddingIcon } from '@/assets/icons'
+import FormatCurrency from '@/components/atoms/FormatCurrency'
+import RichText from '@/components/atoms/RichText'
+import Seo from '@/components/atoms/Seo'
+import BundleLayout from '@/components/layouts/BundleLayout'
+import AccordionGroup from '@/components/molecules/Accordion/AccordionGroup'
+import AccordionItem from '@/components/molecules/Accordion/AccordionItem'
+import DocumentGroup from '@/components/molecules/DocumentGroup'
 import {
   generateStaticPaths,
   generateStaticProps,
-} from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import Section from '@components/molecules/Section'
-import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
-import { client } from '@services/graphql/gqlClient'
-import { isDefined } from '@utils/isDefined'
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import { SSRConfig, useTranslation } from 'next-i18next'
+} from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
+import Section from '@/components/molecules/Section'
+import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
+import { isDefined } from '@/utils/isDefined'
 
 type BundlePageProps = {
   navigation: NavigationItemFragment[]

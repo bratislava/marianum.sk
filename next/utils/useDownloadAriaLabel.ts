@@ -1,7 +1,8 @@
-import { UploadFileEntityFragment } from '@graphql'
 import filesize from 'filesize'
 import { useTranslation } from 'next-i18next'
 import { useCallback } from 'react'
+
+import { UploadFileEntityFragment } from '@/graphql'
 
 export const useDownloadAriaLabel = () => {
   const { t, i18n } = useTranslation('common')

@@ -1,9 +1,9 @@
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import OpeningHours from '@components/molecules/OpeningHours'
-import Row from '@components/molecules/Row/Row'
-import Section, { SectionProps } from '@components/molecules/Section'
-import { OpeningHoursSectionFragment } from '@graphql'
-import { isDefined } from '@utils/isDefined'
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import OpeningHours from '@/components/molecules/OpeningHours'
+import Row from '@/components/molecules/Row/Row'
+import Section, { SectionProps } from '@/components/molecules/Section'
+import { OpeningHoursSectionFragment } from '@/graphql'
+import { isDefined } from '@/utils/isDefined'
 
 type OpeningHoursSectionProps = Pick<SectionProps, 'background' | 'title'> & {
   section: OpeningHoursSectionFragment

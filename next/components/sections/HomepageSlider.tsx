@@ -1,11 +1,12 @@
-import Button from '@components/atoms/Button'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import Slider from '@components/molecules/Slider'
-import { CtaFragment } from '@graphql'
 import cx from 'classnames'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 import { useId } from 'react'
+
+import Button from '@/components/atoms/Button'
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Slider from '@/components/molecules/Slider'
+import { CtaFragment } from '@/graphql'
 
 type HomepageSliderProps = {
   slides: CtaFragment[] | null | undefined

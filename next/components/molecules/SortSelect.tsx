@@ -1,6 +1,7 @@
-import Select from '@components/atoms/Select'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
+
+import Select from '@/components/atoms/Select'
 
 export type Sort = 'newest' | 'oldest'
 

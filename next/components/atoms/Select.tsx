@@ -1,10 +1,11 @@
-import { ChevronDownIcon } from '@assets/icons'
-import FieldWrapper from '@components/atoms/FieldWrapper'
 import { Listbox } from '@headlessui/react'
-import { isDefined } from '@utils/isDefined'
 import cx from 'classnames'
 import { ReactNode, useCallback, useId, useMemo, useState } from 'react'
 import { usePopper } from 'react-popper'
+
+import { ChevronDownIcon } from '@/assets/icons'
+import FieldWrapper from '@/components/atoms/FieldWrapper'
+import { isDefined } from '@/utils/isDefined'
 
 export interface Option {
   key: string

@@ -1,6 +1,7 @@
-import { partitionCemeteries } from '@components/sections/Application/application.utils'
-import { ApplicationText } from '@graphql'
 import { DeepPartial } from 'react-hook-form'
+
+import { partitionCemeteries } from '@/components/sections/Application/application.utils'
+import { ApplicationText } from '@/graphql'
 
 import { ApplicationTypes } from './application-shared.types'
 

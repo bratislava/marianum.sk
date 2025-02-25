@@ -16,14 +16,7 @@
     "incremental": true,
     "baseUrl": "./",
     "paths": {
-      "@utils": ["./utils"],
-      "@utils/*": ["./utils/*"],
-      "@assets": ["./assets"],
-      "@assets/icons": ["./assets/icons"],
-      "@services": ["./services"],
-      "@services/*": ["./services/*"],
-      "@components/*": ["./components/*"],
-      "@graphql": ["./graphql/index.ts"]
+      "@/*": ["./*"]
     }
   },
   "include": [

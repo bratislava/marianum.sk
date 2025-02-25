@@ -1,7 +1,7 @@
-import FormCheckbox from '@components/atoms/Forms/FormCheckbox'
-import MLink from '@components/atoms/MLink'
-import TextField from '@components/atoms/TextField'
-import { ApplicationStepComponentProps } from '@components/sections/Application/application.types'
+import FormCheckbox from '@/components/atoms/Forms/FormCheckbox'
+import MLink from '@/components/atoms/MLink'
+import TextField from '@/components/atoms/TextField'
+import { ApplicationStepComponentProps } from '@/components/sections/Application/application.types'
 
 import { ApplicationTypes } from './application-shared.types'
 import { step7YupShape } from './application-shared.yup'

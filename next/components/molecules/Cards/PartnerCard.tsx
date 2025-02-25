@@ -1,10 +1,11 @@
-import { OpenInNewIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
-import CardBox, { CardBoxProps } from '@components/atoms/Card/CardBox'
-import CardContent from '@components/atoms/Card/CardContent'
-import MImage, { MImageImage } from '@components/atoms/MImage'
 import { useTranslation } from 'next-i18next'
 import { useId } from 'react'
+
+import { OpenInNewIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
+import CardBox, { CardBoxProps } from '@/components/atoms/Card/CardBox'
+import CardContent from '@/components/atoms/Card/CardContent'
+import MImage, { MImageImage } from '@/components/atoms/MImage'
 
 type PartnerCardProps = {
   title: string

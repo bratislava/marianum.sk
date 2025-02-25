@@ -1,13 +1,13 @@
+import { Key } from 'swr'
+
 import {
   cemeteriesInCeremoniesFetcher,
   getCemeteriesInCeremoniesKey,
-} from '@services/fetchers/ceremoniesSectionFetcher'
-import { meiliClient } from '@services/meili/meiliClient'
-import { getMeilisearchPageOptions } from '@utils/getMeilisearchPageOptions'
-import { isDefined } from '@utils/isDefined'
-import { Key } from 'swr'
-
-import { CeremonyMeili } from '../meili/meiliTypes'
+} from '@/services/fetchers/ceremoniesSectionFetcher'
+import { meiliClient } from '@/services/meili/meiliClient'
+import { CeremonyMeili } from '@/services/meili/meiliTypes'
+import { getMeilisearchPageOptions } from '@/utils/getMeilisearchPageOptions'
+import { isDefined } from '@/utils/isDefined'
 
 export type CeremoniesArchiveSectionFilters = {
   pageSize: number

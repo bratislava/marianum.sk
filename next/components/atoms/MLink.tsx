@@ -1,8 +1,9 @@
-import { ArrowRightIcon } from '@assets/icons'
 import cx from 'classnames'
 import NextLink from 'next/link'
 import { ComponentProps, forwardRef, ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
+
+import { ArrowRightIcon } from '@/assets/icons'
 
 export type LinkProps = Omit<ComponentProps<typeof NextLink>, 'as' | 'passHref'> & {
   children: ReactNode
