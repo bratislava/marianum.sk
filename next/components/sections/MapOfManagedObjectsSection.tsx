@@ -53,7 +53,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
     searchQuery,
     setSearchQuery,
     selectedTypes,
-    setSelectedTypes,
+    toggleSelectedTypes,
     hoveredLandmarkSlug: hoveredManagedObjectSlug,
     setHoveredLandmarkSlug: setHoveredManagedObjectSlug,
     isMapOrFiltersDisplayed,
@@ -90,14 +90,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
                   <li key={type}>
                     <TagToggle
                       isSelected={selectedTypes[type]}
-                      onChange={() =>
-                        setSelectedTypes((prevState) => {
-                          return {
-                            ...prevState,
-                            [type]: !prevState[type],
-                          }
-                        })
-                      }
+                      onChange={() => toggleSelectedTypes(type)}
                     >
                       {t(`MapSectionFilters.${type}`)}
                     </TagToggle>

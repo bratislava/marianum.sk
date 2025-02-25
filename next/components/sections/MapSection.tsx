@@ -48,7 +48,7 @@ const MapSection = ({ section }: MapSectionProps) => {
     searchQuery,
     setSearchQuery,
     selectedTypes,
-    setSelectedTypes,
+    toggleSelectedTypes,
     hoveredLandmarkSlug: hoveredCemeterySlug,
     setHoveredLandmarkSlug: setHoveredCemeterySlug,
     isMapOrFiltersDisplayed,
@@ -85,14 +85,7 @@ const MapSection = ({ section }: MapSectionProps) => {
                   <li key={type}>
                     <TagToggle
                       isSelected={selectedTypes[type]}
-                      onChange={() =>
-                        setSelectedTypes((prevState) => {
-                          return {
-                            ...prevState,
-                            [type]: !prevState[type],
-                          }
-                        })
-                      }
+                      onChange={() => toggleSelectedTypes(type)}
                     >
                       {t(`MapSectionFilters.${type}`)}
                     </TagToggle>

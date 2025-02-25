@@ -39,6 +39,15 @@ export const useMapWithFilteringAndSearch = (
 
   const [isMapOrFiltersDisplayed, setMapOrFiltersDisplayed] = useState(false)
 
+  const toggleSelectedTypes = useCallback((selectedType: string) => {
+    setSelectedTypes((prevState) => {
+      return {
+        ...prevState,
+        [selectedType]: !prevState[selectedType],
+      }
+    })
+  }, [])
+
   const validLandmarks = useMemo(() => {
     return (
       landmarks
@@ -111,7 +120,7 @@ export const useMapWithFilteringAndSearch = (
     searchQuery,
     setSearchQuery,
     selectedTypes,
-    setSelectedTypes,
+    toggleSelectedTypes,
     hoveredLandmarkSlug,
     setHoveredLandmarkSlug,
     isMapOrFiltersDisplayed,
