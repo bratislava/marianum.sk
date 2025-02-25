@@ -10,7 +10,7 @@ const ArticleGroup = ({ articles }: ArticleGroupProps) => {
   const { getFullPath } = useGetFullPath()
 
   return (
-    <div className="-mb-6 flex grid-cols-2 gap-4 overflow-x-auto pb-6 md:grid md:gap-6 lg:grid-cols-4">
+    <div className="-mb-6 flex grid-cols-2 gap-4 overflow-x-auto pb-6 scrollbar-hide md:grid md:gap-6 lg:grid-cols-4">
       {articles?.map((article) => {
         const { title, publishedAt, coverMedia, newsCategory } = article.attributes ?? {}
 
