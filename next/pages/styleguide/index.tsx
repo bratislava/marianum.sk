@@ -1,4 +1,3 @@
-import { RadioGroup } from '@headlessui/react'
 import cx from 'classnames'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
@@ -14,9 +13,6 @@ import Checkbox from '@/components/atoms/Checkbox'
 import IconButton from '@/components/atoms/IconButton'
 import MLink from '@/components/atoms/MLink'
 import Pagination from '@/components/atoms/Pagination/Pagination'
-import RadioBox from '@/components/atoms/Radio/RadioBox'
-import RadioSimple from '@/components/atoms/Radio/RadioSimple'
-import RadioSimpleGroup from '@/components/atoms/Radio/RadioSimpleGroup'
 import ReviewStars from '@/components/atoms/ReviewStars'
 import RichText from '@/components/atoms/RichText'
 import Select from '@/components/atoms/Select'
@@ -991,35 +987,6 @@ const Showcase = () => {
                 selectedPage={paginationSelectedPage}
                 onChange={(page) => setPaginationSelectedPage(page)}
               />
-            </Stack>
-          </Wrapper>
-
-          <Wrapper title="Radio">
-            <Stack>
-              <RadioSimpleGroup value={radioValue} onChange={setRadioValue}>
-                <RadioSimple value="value-1">Value 1</RadioSimple>
-                <RadioSimple value="value-2">Value 2</RadioSimple>
-                <RadioSimple value="value-3" disabled>
-                  Value 3
-                </RadioSimple>
-              </RadioSimpleGroup>
-            </Stack>
-            <Stack>
-              <RadioGroup
-                value={radioValue}
-                onChange={setRadioValue}
-                className="flex flex-wrap gap-2"
-              >
-                <RadioBox value="value-1" className="w-[362px]">
-                  Value 1
-                </RadioBox>
-                <RadioBox value="value-2" className="w-[362px]" tooltip="With tooltip">
-                  Value 2
-                </RadioBox>
-                <RadioBox value="value-3" className="w-[362px]" disabled>
-                  Value 3
-                </RadioBox>
-              </RadioGroup>
             </Stack>
           </Wrapper>
 
