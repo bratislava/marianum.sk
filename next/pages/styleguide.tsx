@@ -37,7 +37,7 @@ import Search from '@/components/molecules/Search'
 import Section from '@/components/molecules/Section'
 import { UploadFile } from '@/graphql'
 
-/* eslint-disable no-secrets/no-secrets, sonarjs/no-duplicate-string, unicorn/numeric-separators-style */
+/* eslint-disable sonarjs/no-duplicate-string, unicorn/numeric-separators-style */
 const image: UploadFile = {
   updatedAt: '2022-08-24T20:30:23.750Z',
   name: 'adams family',
