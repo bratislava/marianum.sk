@@ -52,17 +52,7 @@ const Row = ({
       {/* When some other clickable element is hovered, display shadow but not other "hover styles" */}
       <RowContent hover={isLinkHovered}>
         <div className="flex grow flex-col gap-y-1.5">
-          {category?.attributes && (
-            <div className="text-primary">{category.attributes.title}</div>
-            // TODO add proper link for category
-            // <MLink
-            //   href="#"
-            //   noStyles
-            //   className="text-sm z-[1] text-primary underline hover:text-primary-dark"
-            // >
-            //   {category.attributes.title}
-            // </MLink>
-          )}
+          {category?.attributes && <div className="text-primary">{category.attributes.title}</div>}
 
           <div
             className={cx('flex gap-x-4 gap-y-1.5', {

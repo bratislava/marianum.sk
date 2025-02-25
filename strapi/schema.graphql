@@ -39,76 +39,6 @@ type ApplicationRelationResponseCollection {
   data: [ApplicationEntity!]!
 }
 
-type ApplicationText {
-  createdAt: DateTime
-  druhHroboveMiestoTooltip: String
-  druhUrnovaStenaTooltip: String
-  druhUrnoveMiestoTooltip: String
-  druhUrnoveMiestoVZemiTooltip: String
-  osobnaPritomnostDescription: String
-  spracovanieOsobnychUdajov: String
-  spracovanieOsobnychUdajovMarketing: String
-  typZiadostiPridelenieTooltip: String
-  typZiadostiRezervaciaTooltip: String
-  updatedAt: DateTime
-  uviestHroboveCisloAnoTooltip: String
-  uviestHroboveCisloNieTooltip: String
-  zavaznostOdoslanejZiadosti: String
-}
-
-type ApplicationTextEntity {
-  attributes: ApplicationText
-  id: ID
-}
-
-type ApplicationTextEntityResponse {
-  data: ApplicationTextEntity
-}
-
-type ApplicationTextEntityResponseCollection {
-  data: [ApplicationTextEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input ApplicationTextFiltersInput {
-  and: [ApplicationTextFiltersInput]
-  createdAt: DateTimeFilterInput
-  druhHroboveMiestoTooltip: StringFilterInput
-  druhUrnovaStenaTooltip: StringFilterInput
-  druhUrnoveMiestoTooltip: StringFilterInput
-  druhUrnoveMiestoVZemiTooltip: StringFilterInput
-  not: ApplicationTextFiltersInput
-  or: [ApplicationTextFiltersInput]
-  osobnaPritomnostDescription: StringFilterInput
-  spracovanieOsobnychUdajov: StringFilterInput
-  spracovanieOsobnychUdajovMarketing: StringFilterInput
-  typZiadostiPridelenieTooltip: StringFilterInput
-  typZiadostiRezervaciaTooltip: StringFilterInput
-  updatedAt: DateTimeFilterInput
-  uviestHroboveCisloAnoTooltip: StringFilterInput
-  uviestHroboveCisloNieTooltip: StringFilterInput
-  zavaznostOdoslanejZiadosti: StringFilterInput
-}
-
-input ApplicationTextInput {
-  druhHroboveMiestoTooltip: String
-  druhUrnovaStenaTooltip: String
-  druhUrnoveMiestoTooltip: String
-  druhUrnoveMiestoVZemiTooltip: String
-  osobnaPritomnostDescription: String
-  spracovanieOsobnychUdajov: String
-  spracovanieOsobnychUdajovMarketing: String
-  typZiadostiPridelenieTooltip: String
-  typZiadostiRezervaciaTooltip: String
-  uviestHroboveCisloAnoTooltip: String
-  uviestHroboveCisloNieTooltip: String
-  zavaznostOdoslanejZiadosti: String
-}
-
-type ApplicationTextRelationResponseCollection {
-  data: [ApplicationTextEntity!]!
-}
-
 type Article {
   content: String
   coverMedia: UploadFileEntityResponse
@@ -511,9 +441,6 @@ type Cemetery {
   title: String!
   type: ENUM_CEMETERY_TYPE
   updatedAt: DateTime
-  ziadostHroboveMiesto: Boolean!
-  ziadostUrnovaStena: Boolean!
-  ziadostUrnoveMiestoVZemi: Boolean!
 }
 
 type CemeteryEntity {
@@ -552,9 +479,6 @@ input CemeteryFiltersInput {
   title: StringFilterInput
   type: StringFilterInput
   updatedAt: DateTimeFilterInput
-  ziadostHroboveMiesto: BooleanFilterInput
-  ziadostUrnovaStena: BooleanFilterInput
-  ziadostUrnoveMiestoVZemi: BooleanFilterInput
 }
 
 input CemeteryInput {
@@ -572,9 +496,6 @@ input CemeteryInput {
   slug: String
   title: String
   type: ENUM_CEMETERY_TYPE
-  ziadostHroboveMiesto: Boolean
-  ziadostUrnovaStena: Boolean
-  ziadostUrnoveMiestoVZemi: Boolean
 }
 
 type CemeteryRelationResponseCollection {
@@ -2451,7 +2372,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = Application | ApplicationText | Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Application | Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2768,7 +2689,6 @@ type Mutation {
   """Create a new user"""
   createUsersPermissionsUser(data: UsersPermissionsUserInput!): UsersPermissionsUserEntityResponse!
   deleteApplication(id: ID!): ApplicationEntityResponse
-  deleteApplicationText: ApplicationTextEntityResponse
   deleteArticle(id: ID!, locale: I18NLocaleCode): ArticleEntityResponse
   deleteArticleJobsCategory(id: ID!): ArticleJobsCategoryEntityResponse
   deleteArticleNewsCategory(id: ID!): ArticleNewsCategoryEntityResponse
@@ -2816,7 +2736,6 @@ type Mutation {
   """
   resetPassword(code: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
   updateApplication(data: ApplicationInput!, id: ID!): ApplicationEntityResponse
-  updateApplicationText(data: ApplicationTextInput!): ApplicationTextEntityResponse
   updateArticle(data: ArticleInput!, id: ID!, locale: I18NLocaleCode): ArticleEntityResponse
   updateArticleJobsCategory(data: ArticleJobsCategoryInput!, id: ID!): ArticleJobsCategoryEntityResponse
   updateArticleNewsCategory(data: ArticleNewsCategoryInput!, id: ID!): ArticleNewsCategoryEntityResponse
@@ -3147,7 +3066,6 @@ enum PublicationState {
 
 type Query {
   application(id: ID): ApplicationEntityResponse
-  applicationText: ApplicationTextEntityResponse
   applications(filters: ApplicationFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ApplicationEntityResponseCollection
   article(id: ID, locale: I18NLocaleCode): ArticleEntityResponse
   articleJobsCategories(filters: ArticleJobsCategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ArticleJobsCategoryEntityResponseCollection

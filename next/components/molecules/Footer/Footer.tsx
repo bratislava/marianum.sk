@@ -57,15 +57,6 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
           {/* aspect ratios must be in sync with sizes in FooterMapStatic component */}
           <div className="relative aspect-[464/329] px-4 sm:aspect-[576/208] md:aspect-auto">
             <FooterMapStatic latitude={latitude} longitude={longitude} />
-            {/* TODO tmp replaced by static image due to high number of requests exceeding our limits */}
-            {/* <FooterMap */}
-            {/*  onMarkerClick={() => */}
-            {/*    // eslint-disable-next-line security/detect-non-literal-fs-filename */}
-            {/*    window.open(contact?.navigateToLink ?? '', '_blank')?.focus() */}
-            {/*  } */}
-            {/*  markerLat={contact?.latitude} */}
-            {/*  markerLng={contact?.longitude} */}
-            {/* /> */}
           </div>
 
           <div className="flex w-full flex-col gap-4 px-4 py-6 md:col-span-2 md:px-8 lg:col-span-1 lg:gap-8 lg:px-12 lg:py-8">
