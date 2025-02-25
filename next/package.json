@@ -12,7 +12,6 @@
     "lint": "eslint components pages utils",
     "lint:fix": "yarn lint --fix",
     "prettier": "prettier --write .",
-    "gen": "graphql-codegen",
     "update-react-aria": "yarn add @internationalized/date@latest @react-stately/utils@latest react-aria@latest react-stately@latest @react-aria/utils@latest --exact --dev",
     "update-next": "yarn add next@latest react@latest react-dom@latest sharp@latest --exact && yarn add @types/react@latest @types/react-dom@latest eslint-config-next@latest typescript@latest @next/bundle-analyzer --dev --exact",
     "update-tailwind": "yarn add tailwind-merge@latest clsx@latest --exact && yarn add tailwindcss@latest autoprefixer@latest postcss@latest prettier-plugin-tailwindcss@latest eslint-plugin-tailwindcss@latest --dev --exact",
@@ -130,14 +129,6 @@
     "sass": "^1.57.1",
     "tailwindcss": "3.4.10",
     "typescript": "5.5.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "yarn run lint:fix"
   },
   "engines": {
     "node": ">=20.x.x",
