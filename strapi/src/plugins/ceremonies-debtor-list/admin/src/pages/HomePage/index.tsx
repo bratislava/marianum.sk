@@ -1,17 +1,12 @@
 import React from "react";
-import ImportSection from "./ImportSection";
-import {
-  Box,
-  ContentLayout,
-  HeaderLayout,
-  Layout,
-  Stack,
-} from "@strapi/design-system";
+import { Box, ContentLayout, HeaderLayout, Layout, Stack } from '@strapi/design-system'
+import ImportSection from '../../components/ImportSection'
 
 const HomePage = () => {
   return (
-    <Box background="neutral100">
-      <Layout>
+    <div>
+      <Box background="neutral100">
+        <Layout>
         <HeaderLayout title="Import Excel súborov"></HeaderLayout>
         <ContentLayout>
           <Stack spacing={4}>
@@ -21,8 +16,9 @@ const HomePage = () => {
           </Stack>
         </ContentLayout>
       </Layout>
-    </Box>
-  );
-};
+      </Box>
+    </div>
+  )
+}
 
-export default HomePage;
+export default HomePage
