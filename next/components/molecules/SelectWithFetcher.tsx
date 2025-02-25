@@ -26,6 +26,7 @@ const SelectWithFetcher = ({
     if (data) {
       return [defaultOption, ...data]
     }
+
     return [defaultOption]
   }, [data, defaultOption])
 

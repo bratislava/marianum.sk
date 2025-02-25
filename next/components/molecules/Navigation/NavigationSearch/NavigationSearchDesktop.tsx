@@ -40,7 +40,7 @@ const NavigationSearchDesktop = ({
 
   return (
     <div
-      className={cx('relative w-72 text-foreground transition-all duration-500 ', {
+      className={cx('relative w-72 text-foreground transition-all duration-500', {
         'w-[540px]': isOpen,
       })}
       {...focusWithinProps}

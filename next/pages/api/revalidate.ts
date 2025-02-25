@@ -80,6 +80,7 @@ const revalidate = async (req: NextApiRequest, res: NextApiResponse<Response>) =
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log('Error while revalidating ==>', error)
+
     return res.status(500).send('Error revalidating')
   }
 }

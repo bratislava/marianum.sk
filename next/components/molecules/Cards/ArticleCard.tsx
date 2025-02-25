@@ -39,7 +39,7 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
 
   return (
     <CardBox {...rest} hover={isLinkHovered}>
-      <div className="aspect-h-[148] aspect-w-[264] w-full bg-gray">
+      <div className="relative aspect-[264/148] w-full bg-gray">
         {image ? <MImage image={image} fill className="object-cover" /> : <ImagePlaceholder />}
       </div>
       <CardContent className="gap-y-3">

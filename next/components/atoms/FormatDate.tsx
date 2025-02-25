@@ -44,6 +44,7 @@ const FormatDate = ({ value, format = 'default', valueType }: FormatDateProps) =
     if (valueType === 'ISO' || valueType === 'timestamp') {
       return new Date(value)
     }
+
     // valueType === 'date' || valueType === undefined
     return value
   }, [value, valueType])

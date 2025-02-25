@@ -33,6 +33,7 @@ const ApplicationStep2 = ({
         setValue('hroboveCislo', value.uviestHroboveCislo ? '' : undefined)
       }
     })
+
     return () => subscription.unsubscribe()
   }, [setValue, watch])
 

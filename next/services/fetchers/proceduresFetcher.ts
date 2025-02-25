@@ -10,4 +10,4 @@ export const getProceduresPrefetch = (locale: string) =>
     sectionTypename: 'ComponentSectionsProceduresSection',
     key: getProceduresSwrKey(locale),
     fetcher: proceduresFetcher(locale),
-  } as const)
+  }) as const

@@ -10,6 +10,7 @@ const MI18nProvider = ({ children }: PropsWithChildren) => {
        * https://github.com/date-fns/date-fns/issues/1996#issuecomment-984811417 */
       return 'en-IE'
     }
+
     return 'sk-SK'
   }, [i18n])
 

@@ -66,7 +66,7 @@ const Navigation = ({ contact }: NavigationProps) => {
             noArrow
             aria-label={t('home')}
           >
-            <MarianumLogoWithTextSvg className="h-full w-full" />
+            <MarianumLogoWithTextSvg className="size-full" />
           </MLink>
           {/* right side of navigation */}
           <div className="flex items-center gap-4 xl:gap-8">

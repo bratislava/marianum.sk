@@ -55,6 +55,7 @@ const Table = ({
       )
 
       const cemetery = slug ? <CemeteryLink slug={slug} title={title} /> : title
+
       return {
         ...debtor,
         cemetery,

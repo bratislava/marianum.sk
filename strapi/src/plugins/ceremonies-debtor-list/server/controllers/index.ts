@@ -1,44 +1,44 @@
-import { Strapi } from "@strapi/strapi";
-import { parseDebtorsXlsx } from "../helpers/parse-debtors-xlsx";
-import { getCemeteriesSlugIdMap } from "../helpers/get-cemeteries-slug-id-map";
-import { parseCeremoniesXlsx } from "../helpers/parse-ceremonies-xlsx";
-import moment from "moment/moment";
-import "moment-timezone";
-import { parseDisclosuresXlsx } from "../helpers/parse-disclosures-xlsx";
-import { v4 as uuid } from "uuid";
+import { Strapi } from "@strapi/strapi"
+import { parseDebtorsXlsx } from "../helpers/parse-debtors-xlsx"
+import { getCemeteriesSlugIdMap } from "../helpers/get-cemeteries-slug-id-map"
+import { parseCeremoniesXlsx } from "../helpers/parse-ceremonies-xlsx"
+import moment from "moment/moment"
+import "moment-timezone"
+import { parseDisclosuresXlsx } from "../helpers/parse-disclosures-xlsx"
+import { v4 as uuid } from "uuid"
 
 export default {
   importXlsxController: ({ strapi }: { strapi: Strapi }) => ({
     async updateDebtors(ctx) {
-      ctx.request.socket.setTimeout(300000); // 5 minutes
+      ctx.request.socket.setTimeout(300000) // 5 minutes
 
-      const file = ctx.request.files?.file;
+      const file = ctx.request.files?.file
       if (!file) {
-        ctx.status = 400;
+        ctx.status = 400
         ctx.body = {
           message: "Chýba súbor.",
-        };
-        return;
+        }
+        return
       }
 
-      const meilisearch = strapi.plugin("meilisearch").service("meilisearch");
+      const meilisearch = strapi.plugin("meilisearch").service("meilisearch")
 
       try {
         const cemeteriesSlugIdMap = await getCemeteriesSlugIdMap(
           strapi,
           "debtors"
-        );
+        )
 
-        const importId = uuid();
+        const importId = uuid()
         const parsedDebtors = parseDebtorsXlsx(
           file.path,
           cemeteriesSlugIdMap,
           importId
-        );
+        )
 
         // All the debtors are replaced when a new XLSX is uploaded.
         const deleteDebtors = async () => {
-          await strapi.db.query("api::debtor.debtor").deleteMany({});
+          await strapi.db.query("api::debtor.debtor").deleteMany({})
           // `deleteMany` doesn't trigger Meilisearch hooks, so the old debtors stay in its database,
           // also having Meilisearch on while adding debtors triggers the update content hook after
           // every query, therefore the best solution is to turn the Meilisearch off while adding new debtors
@@ -46,10 +46,10 @@ export default {
           // See `strapi/patches/strapi-plugin-meilisearch+0.7.1.patch`.
           await meilisearch.emptyOrDeleteIndex({
             contentType: "api::debtor.debtor",
-          });
-        };
+          })
+        }
 
-        await deleteDebtors();
+        await deleteDebtors()
 
         try {
           for (const debtor of parsedDebtors) {
@@ -57,56 +57,56 @@ export default {
             // https://docs.strapi.io/developer-docs/latest/developer-resources/database-apis-reference/query-engine/bulk-operations.html
             await strapi.entityService.create("api::debtor.debtor", {
               data: debtor,
-            });
+            })
           }
           await meilisearch.updateContentTypeInMeiliSearch({
             contentType: "api::debtor.debtor",
-          });
+          })
         } catch (createDebtorsError) {
           // In case of failure to add some debtor we want to delete all the previously created entries, so we call the
           // delete function but rethrow the error to be caught by the parent try/catch block.
-          await deleteDebtors();
+          await deleteDebtors()
 
-          throw createDebtorsError;
+          throw createDebtorsError
         }
 
         ctx.body = {
           message: `Nahraných ${parsedDebtors.length} dlžníkov.`,
           importId,
-        };
+        }
       } catch (e) {
-        ctx.status = 400;
+        ctx.status = 400
         ctx.body = {
           message: e.toString(),
-        };
+        }
       }
     },
     async updateCeremonies(ctx) {
-      ctx.request.socket.setTimeout(120000);
+      ctx.request.socket.setTimeout(120000)
 
-      const file = ctx.request.files?.file;
+      const file = ctx.request.files?.file
       if (!file) {
-        ctx.status = 400;
+        ctx.status = 400
         ctx.body = {
           message: "Chýba súbor.",
-        };
-        return;
+        }
+        return
       }
 
-      const meilisearch = strapi.plugin("meilisearch").service("meilisearch");
+      const meilisearch = strapi.plugin("meilisearch").service("meilisearch")
 
       try {
         const cemeteriesSlugIdMap = await getCemeteriesSlugIdMap(
           strapi,
           "ceremonies"
-        );
+        )
 
-        const importId = uuid();
+        const importId = uuid()
         const parsedCeremonies = parseCeremoniesXlsx(
           file.path,
           cemeteriesSlugIdMap,
           importId
-        );
+        )
 
         // Only ceremonies in the days that are present in XLSX are deleted and replaced by new one. All the others are
         // kept as they are.
@@ -116,7 +116,7 @@ export default {
             "DD.MM.YYYY",
             true, // Strict mode ensures the date is in correct format.
             "Europe/Bratislava"
-          );
+          )
 
           return {
             $and: [
@@ -131,13 +131,13 @@ export default {
                 },
               },
             ],
-          };
-        });
+          }
+        })
 
         const deleteCeremonies = async () => {
           await strapi.db.query("api::ceremony.ceremony").deleteMany({
             where: { $or: deleteFilters },
-          });
+          })
           // `deleteMany` doesn't trigger Meilisearch hooks, so the old ceremonies stay in its database,
           // also having Meilisearch on while adding ceremonies triggers the update content hook after
           // every query, therefore the best solution is to turn the Meilisearch off while adding new ceremonies
@@ -145,10 +145,10 @@ export default {
           // See `strapi/patches/strapi-plugin-meilisearch+0.7.1.patch`.
           await meilisearch.emptyOrDeleteIndex({
             contentType: "api::ceremony.ceremony",
-          });
-        };
+          })
+        }
 
-        await deleteCeremonies();
+        await deleteCeremonies()
 
         try {
           for (const { data: ceremonies } of parsedCeremonies) {
@@ -157,73 +157,73 @@ export default {
               // https://docs.strapi.io/developer-docs/latest/developer-resources/database-apis-reference/query-engine/bulk-operations.html
               await strapi.entityService.create("api::ceremony.ceremony", {
                 data: ceremony,
-              });
+              })
             }
           }
 
           await meilisearch.updateContentTypeInMeiliSearch({
             contentType: "api::ceremony.ceremony",
-          });
+          })
         } catch (createCeremonyError) {
           // In case of failure to add some ceremony we want to delete all the previously created entries, so we call the
           // delete function but rethrow the error to be caught by the parent try/catch block.
-          await deleteCeremonies();
+          await deleteCeremonies()
 
-          throw createCeremonyError;
+          throw createCeremonyError
         }
 
         const successMessage = parsedCeremonies
           .map(({ day, data }) => `${day} (${data.length})`)
-          .join(", ");
+          .join(", ")
         ctx.body = {
           message: `Nahraných ${successMessage} obradov.`,
           importId,
-        };
+        }
       } catch (e) {
-        ctx.status = 400;
+        ctx.status = 400
         ctx.body = {
           message: e.toString(),
-        };
-        return;
+        }
+        return
       }
     },
     async updateDisclosures(ctx) {
-      ctx.request.socket.setTimeout(120000);
+      ctx.request.socket.setTimeout(120000)
 
-      const file = ctx.request.files?.file;
+      const file = ctx.request.files?.file
       if (!file) {
-        ctx.status = 400;
+        ctx.status = 400
         ctx.body = {
           message: "Chýba súbor.",
-        };
-        return;
+        }
+        return
       }
 
-      const meilisearch = strapi.plugin("meilisearch").service("meilisearch");
+      const meilisearch = strapi.plugin("meilisearch").service("meilisearch")
 
       try {
-        const importId = uuid();
-        const parsedDisclosures = parseDisclosuresXlsx(file.path, importId);
+        const importId = uuid()
+        const parsedDisclosures = parseDisclosuresXlsx(file.path, importId)
 
         await strapi.db
           .query("api::disclosure.disclosure")
-          .createMany({ data: parsedDisclosures });
+          .createMany({ data: parsedDisclosures })
 
         // `createMany` doesn't work with Meilisearch, so the update must be triggered manually.
         await meilisearch.updateContentTypeInMeiliSearch({
           contentType: "api::disclosure.disclosure",
-        });
+        })
 
         ctx.body = {
           message: `Nahraných ${parsedDisclosures.length} zverejňovaní.`,
           importId,
-        };
+        }
       } catch (e) {
-        ctx.status = 400;
+        ctx.status = 400
         ctx.body = {
           message: e.toString(),
-        };
+        }
       }
     },
   }),
-};
+}

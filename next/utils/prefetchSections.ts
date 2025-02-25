@@ -72,6 +72,7 @@ export async function prefetchSections<
       // unnecessarily.
       try {
         const data = await fetcher()
+
         return { [unstable_serialize(key)]: data }
       } catch {
         return {}
@@ -79,10 +80,12 @@ export async function prefetchSections<
     }
 
     const data = await fetcher()
+
     return { [key as string]: data }
   })
 
   // Merge all the fallback objects into a one.
   const fallbacks = await Promise.all(promises)
+
   return Object.assign({}, ...fallbacks)
 }

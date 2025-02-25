@@ -32,7 +32,7 @@ const FormErrorWrapper = ({
       {children}
       {hasError ? (
         <span className="mt-2 block text-error">
-          <ErrorIcon className="mr-2 inline h-5 w-5" />
+          <ErrorIcon className="mr-2 inline size-5" />
           {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
           <ErrorMessage errors={translatedErrors} name={name!} />
         </span>

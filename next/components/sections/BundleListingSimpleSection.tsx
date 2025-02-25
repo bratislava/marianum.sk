@@ -27,6 +27,7 @@ const BundleListingSimpleSection = ({ section, ...rest }: BundleListingSimpleSec
             additionalItems,
             slug,
           } = attributes ?? {}
+
           return (
             <BundleCard
               key={slug}

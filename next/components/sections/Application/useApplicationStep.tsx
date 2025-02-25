@@ -28,6 +28,7 @@ export const useApplicationStep = <T extends FieldValues>({
   useEffect(() => {
     // eslint-disable-next-line security/detect-non-literal-fs-filename
     const subscription = useFormResult.watch((value) => onFormChange(value))
+
     return () => subscription.unsubscribe()
   }, [onFormChange, useFormResult, useFormResult.watch])
 
@@ -65,11 +66,13 @@ export const ApplicationStepWrapper = <T extends FieldValues>({
     [captchaRefreshDate],
   )
 
+  // eslint-disable-next-line no-console
   console.log(
     captchaRefreshDate,
     turnstileRefreshing,
     process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY,
   )
+
   return (
     <form
       // eslint-disable-next-line @typescript-eslint/no-misused-promises

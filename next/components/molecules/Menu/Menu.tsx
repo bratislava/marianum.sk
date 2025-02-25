@@ -32,7 +32,7 @@ const Menu = ({ items, title, path }: MenuProps) => {
   }
 
   return (
-    <div className="relative h-full w-full" onPointerLeave={() => toggleMenu(false)}>
+    <div className="relative size-full" onPointerLeave={() => toggleMenu(false)}>
       <MLink
         onKeyDown={handleKeyDown}
         noStyles
