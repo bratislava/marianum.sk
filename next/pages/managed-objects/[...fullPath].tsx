@@ -1,24 +1,25 @@
 import { ParsedUrlQuery } from 'node:querystring'
 
-import { NavigateIcon, PlaceIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
-import RichText from '@components/atoms/RichText'
-import Seo from '@components/atoms/Seo'
-import BranchCemeteryLayout from '@components/layouts/BranchCemeteryLayout'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { SSRConfig, useTranslation } from 'next-i18next'
+
+import { NavigateIcon, PlaceIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
+import RichText from '@/components/atoms/RichText'
+import Seo from '@/components/atoms/Seo'
+import BranchCemeteryLayout from '@/components/layouts/BranchCemeteryLayout'
 import {
   generateStaticPaths,
   generateStaticProps,
-} from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import SectionBoxed from '@components/molecules/SectionBoxed'
+} from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
+import SectionBoxed from '@/components/molecules/SectionBoxed'
 import {
   GeneralEntityFragment,
   ManagedObjectEntityFragment,
   NavigationItemFragment,
-} from '@graphql'
-import { client } from '@services/graphql/gqlClient'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { SSRConfig, useTranslation } from 'next-i18next'
+} from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
 
 type ManagedObjectPageProps = {
   navigation: NavigationItemFragment[]

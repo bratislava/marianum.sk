@@ -1,5 +1,11 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 
+import cx from 'classnames'
+import { motion } from 'framer-motion'
+import { useTranslation } from 'next-i18next'
+import Map, { Marker } from 'react-map-gl'
+import useSWR from 'swr'
+
 import { MapMarkerSvg } from '@/assets'
 import { ArrowLeftIcon, PlaceIcon } from '@/assets/icons'
 import Button from '@/components/atoms/Button'
@@ -13,11 +19,6 @@ import { Enum_Cemetery_Type, MapSectionFragment } from '@/graphql'
 import { cemeteriesFetcher, getCemeteriesSwrKey } from '@/services/fetchers/cemeteriesFetcher'
 import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 import { useMapWithFilteringAndSearch } from '@/utils/useMapWithFilteringAndSearch'
-import cx from 'classnames'
-import { motion } from 'framer-motion'
-import { useTranslation } from 'next-i18next'
-import Map, { Marker } from 'react-map-gl'
-import useSWR from 'swr'
 
 type MapSectionProps = { section: MapSectionFragment }
 

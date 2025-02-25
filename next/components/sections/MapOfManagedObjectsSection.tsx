@@ -1,24 +1,25 @@
-import { MapMarkerSvg } from '@assets'
-import { ArrowLeftIcon, PlaceIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
-import Loading from '@components/atoms/Loading'
-import MLink from '@components/atoms/MLink'
-import TagToggle from '@components/atoms/TagToggle'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import Search from '@components/molecules/Search'
-import Section from '@components/molecules/Section'
-import { Enum_Managedobject_Type, MapOfManagedObjectsSectionFragment } from '@graphql'
-import {
-  getManagedObjectsSwrKey,
-  managedObjectsFetcher,
-} from '@services/fetchers/managedObjectsFetcher'
-import { useGetSwrExtras } from '@utils/useGetSwrExtras'
-import { useMapWithFilteringAndSearch } from '@utils/useMapWithFilteringAndSearch'
 import cx from 'classnames'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import Map, { Marker } from 'react-map-gl'
 import useSWR from 'swr'
+
+import { MapMarkerSvg } from '@/assets'
+import { ArrowLeftIcon, PlaceIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
+import Loading from '@/components/atoms/Loading'
+import MLink from '@/components/atoms/MLink'
+import TagToggle from '@/components/atoms/TagToggle'
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Search from '@/components/molecules/Search'
+import Section from '@/components/molecules/Section'
+import { Enum_Managedobject_Type, MapOfManagedObjectsSectionFragment } from '@/graphql'
+import {
+  getManagedObjectsSwrKey,
+  managedObjectsFetcher,
+} from '@/services/fetchers/managedObjectsFetcher'
+import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
+import { useMapWithFilteringAndSearch } from '@/utils/useMapWithFilteringAndSearch'
 
 type MapOfManagedObjectsSectionProps = {
   section: MapOfManagedObjectsSectionFragment
@@ -143,7 +144,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
           </ul>
         </div>
 
-        <div className="h-full w-full flex-1">
+        <div className="size-full flex-1">
           <Map
             ref={mapRef}
             style={{ width: '100%', height: '100%' }}
@@ -187,6 +188,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
                   </Marker>
                 )
               }
+
               return null
             })}
           </Map>

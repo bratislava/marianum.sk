@@ -1,8 +1,9 @@
-import { CemeteryEntityFragment, ManagedObjectEntityFragment } from '@graphql'
-import { isDefined } from '@utils/isDefined'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { MapRef } from 'react-map-gl'
 import slugify from 'slugify'
+
+import { CemeteryEntityFragment, ManagedObjectEntityFragment } from '@/graphql'
+import { isDefined } from '@/utils/isDefined'
 
 const slugifyText = (text: string) => {
   return slugify(text, { replacement: ' ', lower: true })
@@ -46,6 +47,7 @@ export const useMapWithFilteringAndSearch = (
           if (address && title && slug && latitude && longitude) {
             return landmark
           }
+
           return null
         })
         .filter(isDefined) ?? []
