@@ -6,7 +6,7 @@ import FormErrorWrapper from '@/components/atoms/Forms/FormErrorWrapper'
 
 type FormRadioGroupProps<T extends FieldValues> = Omit<
   Parameters<typeof RadioGroup>[0],
-  'value' | 'onChange' | 'onBlur'
+  'onChange' | 'onBlur'
 > &
   UseControllerProps<T> & {
     formState: FormState<T>

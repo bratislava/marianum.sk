@@ -87,8 +87,10 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
       if (foundItem && foundItem.items) {
         setTreePreviousItem(current)
         setPreviousItem(current)
+
         return foundItem
       }
+
       return current
     })
   }, [])
@@ -117,7 +119,7 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
       isOpen={isOpen}
       onClose={closeHandler}
     >
-      <div className="fixed top-0 h-full w-full bg-white">
+      <div className="fixed top-0 size-full bg-white">
         {/* header */}
         <div className="flex h-16 items-center justify-between border-b border-border px-4">
           {currentItem.id === rootItem.id ? (
@@ -137,7 +139,7 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
         <nav className="relative">
           {/* previous menu list */}
           <motion.div
-            className="absolute top-0 h-full w-full"
+            className="absolute top-0 size-full"
             transition={{
               duration: isAnimating === 'none' ? 0.5 : 0,
             }}
@@ -158,7 +160,7 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
 
           {/* current menu list */}
           <motion.div
-            className="relative z-20 h-full w-full overflow-auto bg-white"
+            className="relative z-20 size-full overflow-auto bg-white"
             transition={{
               duration: isAnimating === 'none' ? 0.5 : 0,
             }}

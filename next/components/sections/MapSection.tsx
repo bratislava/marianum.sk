@@ -64,6 +64,7 @@ const MapSection = ({ section }: MapSectionProps) => {
           if (address && title && slug && latitude && longitude) {
             return cemetery
           }
+
           return null
         })
         .filter(isDefined) ?? []
@@ -192,7 +193,7 @@ const MapSection = ({ section }: MapSectionProps) => {
             {filteredCemeteries.length === 0 && <div className="p-5">{t('noResults')}</div>}
           </div>
         </div>
-        <div className="h-full w-full flex-1">
+        <div className="size-full flex-1">
           <Map
             ref={mapRef}
             style={{ width: '100%', height: '100%' }}
@@ -236,6 +237,7 @@ const MapSection = ({ section }: MapSectionProps) => {
                   </Marker>
                 )
               }
+
               return null
             })}
           </Map>

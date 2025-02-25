@@ -82,6 +82,7 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
             }
             if (section?.__typename === 'ComponentSectionsProceduresShortSection') {
               const { outsideMedicalFacility, atMedicalFacility } = procedures?.attributes ?? {}
+
               return (
                 <HomepageProceduresSection
                   key={`${section.__typename}-${section.id}`}

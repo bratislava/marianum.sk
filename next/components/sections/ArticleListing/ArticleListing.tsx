@@ -85,6 +85,7 @@ const Articles = ({
       </div>
     )
   }
+
   return <strong>{t('noNews')}</strong>
 }
 

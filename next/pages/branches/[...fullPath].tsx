@@ -70,7 +70,7 @@ const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
               <RichText content={description} coloredTable={false} />
             </SectionBoxed>
           )}
-          {filteredOffices?.map((office) => <OfficeSectionBoxed office={office} />)}
+          {filteredOffices?.map((office) => <OfficeSectionBoxed office={office} key={office.id} />)}
         </div>
       </BranchCemeteryLayout>
     </>

@@ -44,12 +44,10 @@ const ContactsSection = ({
               className={cx('bg-white p-6', {
                 'border border-border': border,
               })}
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
             >
-              <Contact
-                // eslint-disable-next-line react/no-array-index-key
-                key={index}
-                contact={contact}
-              />
+              <Contact contact={contact} />
             </div>
           ))}
         </div>

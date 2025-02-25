@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 
 const RowSkeleton = () => {
   const width = useMemo(() => Math.random() * 300 + 100, [])
+
   return (
     <div className="flex h-[92px] animate-pulse flex-col justify-center gap-2 bg-white px-5">
       <div className="flex items-center gap-3">

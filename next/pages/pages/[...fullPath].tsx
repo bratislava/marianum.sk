@@ -262,6 +262,7 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
             if (section?.__typename === 'ComponentSectionsIframeSection') {
               return <IframeSection key={`${section.__typename}-${section.id}`} section={section} />
             }
+
             return null
           })}
         </SectionsWrapper>

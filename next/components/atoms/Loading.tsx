@@ -11,7 +11,7 @@ const Loading = ({ className }: LoadingProps) => {
 
   return (
     <div className={twMerge('flex flex-col items-center gap-4 text-primary', className)}>
-      <Spinner className="h-12 w-12" />
+      <Spinner className="size-12" />
       <div className="shrink-0">{t('loading')}</div>
     </div>
   )

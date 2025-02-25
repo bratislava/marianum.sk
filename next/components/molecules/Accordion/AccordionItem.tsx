@@ -33,7 +33,7 @@ const AccordionItem = ({
             })}
           >
             <Disclosure.Button
-              className={cx('flex justify-between gap-4 text-left text-h5 ', {
+              className={cx('flex justify-between gap-4 text-left text-h5', {
                 'p-4 sm:p-5 md:p-6': !noBoxStyles,
               })}
             >
@@ -55,7 +55,7 @@ const AccordionItem = ({
             <AnimateHeight isVisible={open}>
               <Disclosure.Panel
                 static
-                className={cx('w-full ', {
+                className={cx('w-full', {
                   'px-4 pb-4 sm:px-5 sm:pb-5 md:px-6 md:pb-6': !noBoxStyles,
                   'pt-4 sm:pt-5 md:pt-6': noBoxStyles,
                 })}

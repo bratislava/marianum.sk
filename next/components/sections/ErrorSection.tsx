@@ -25,7 +25,7 @@ const ErrorSection = ({ code, title, message }: ErrorSectionProps) => {
           <div className="status-code absolute text-[200px] font-bold leading-[200px] text-primary">
             {code}
           </div>
-          <div className="absolute mt-[100px] h-[50%] w-full bg-gradient-to-t from-background-beige" />
+          <div className="absolute mt-[100px] h-1/2 w-full bg-gradient-to-t from-background-beige" />
         </div>
 
         <h1 className="pb-5">{title}</h1>

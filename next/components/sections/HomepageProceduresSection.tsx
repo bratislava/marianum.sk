@@ -56,7 +56,7 @@ const HomepageProceduresSection = ({
             <TabItem key={procedure.key} title={procedure.title}>
               <ol
                 className={cx('flex', {
-                  'w-full gap-4 overflow-x-auto': isMobile,
+                  'w-full gap-4 overflow-x-auto scrollbar-hide': isMobile,
                   'flex-col gap-4': !isMobile,
                 })}
               >

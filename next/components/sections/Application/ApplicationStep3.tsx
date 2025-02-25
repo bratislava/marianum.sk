@@ -40,6 +40,7 @@ const ApplicationStep3 = ({
         }
       }
     })
+
     return () => subscription.unsubscribe()
   }, [setValue, watch])
 

@@ -98,6 +98,7 @@ export const useSearch = ({ filters, isSyncedWithUrlQuery = false }: UseSearchOp
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const dataInner = (hit as any)[type]
           const link = getFullPathMeili(type, dataInner)
+
           return { type, title: dataInner.title, link, data: dataInner } as SearchResult
         })
 

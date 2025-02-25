@@ -27,7 +27,11 @@ type BundlePageProps = {
   entity: BundleEntityFragment
 } & SSRConfig
 
-const BundlePage: NextPage<BundlePageProps> = ({ navigation, entity, general }) => {
+const BundlePage: NextPage<BundlePageProps> = ({
+  navigation,
+  entity,
+  general,
+}: BundlePageProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'BundlePage' })
   const {
     seo,

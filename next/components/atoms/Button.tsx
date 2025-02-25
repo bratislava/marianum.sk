@@ -128,6 +128,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
     if (rest.href) {
       /* react-aria adds role="button" which we don't want to use for <a>s */
       const buttonPropsFixed = { ...buttonProps, role: undefined }
+
       return (
         <MLink
           ref={ref as RefObject<HTMLAnchorElement>}

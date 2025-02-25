@@ -25,7 +25,7 @@ const ServiceCard = ({ image, title, linkHref, ...rest }: ServiceCardProps) => {
 
   return (
     <CardBox {...rest}>
-      <div className="aspect-h-1 aspect-w-1 w-full bg-gray">
+      <div className="relative aspect-square w-full bg-gray">
         {image ? <MImage image={image} fill className="object-contain" /> : <ImagePlaceholder />}
       </div>
       <CardContent className="justify-between">

@@ -24,5 +24,6 @@ export const useDownloadAriaLabel = () => {
     },
     [i18n.language, t],
   )
+
   return { getDownloadAriaLabel }
 }

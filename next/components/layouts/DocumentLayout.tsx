@@ -61,7 +61,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
       <SectionsWrapper alternateBackground className="pb-14">
         <Section background="light">
           <div className="flex flex-col items-center gap-5 md:flex-row md:items-start md:gap-8">
-            <div className="flex h-[96px] w-[96px] shrink-0 items-center justify-center bg-background-beige md:h-[186px] md:w-[186px]">
+            <div className="flex size-[96px] shrink-0 items-center justify-center bg-background-beige md:size-[186px]">
               <FileIcon extension={extension} />
             </div>
             <div className="flex flex-col items-center gap-2 text-sm md:items-start">

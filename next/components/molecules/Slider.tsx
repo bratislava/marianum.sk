@@ -120,6 +120,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
           e.preventDefault()
           e.stopPropagation()
           goToPrevious()
+
           return
         }
 
@@ -143,11 +144,11 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
         onKeyUp={keyUpHandler}
         role="application"
         aria-label={description ?? t('aria.description')}
-        className="relative z-0 flex h-full w-full items-center justify-center overflow-hidden"
+        className="relative z-0 flex size-full items-center justify-center overflow-hidden"
       >
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
-            className="absolute h-full w-full outline-none"
+            className="absolute size-full outline-none"
             key={page}
             custom={direction}
             variants={variants}

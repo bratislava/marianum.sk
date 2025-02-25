@@ -20,7 +20,7 @@ const StepCard = ({
   children,
 }: PropsWithChildren<StepCardProps>) => {
   return (
-    <div className="flex flex-col border border-border bg-white p-3 md:border-0 md:p-4 ">
+    <div className="flex flex-col border border-border bg-white p-3 md:border-0 md:p-4">
       {title ? (
         <div className="mb-4 flex">
           <h3 className="grow text-h6">{title}</h3>

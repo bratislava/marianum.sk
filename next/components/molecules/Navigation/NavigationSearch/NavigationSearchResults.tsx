@@ -21,7 +21,7 @@ const NavigationSearchResults = ({
   return isLoading ? (
     <div className="flex flex-col items-center justify-center py-4 text-primary">
       <motion.div animate={{ scale: 1 }} initial={{ scale: 0 }}>
-        <Spinner className="h-8 w-8" />
+        <Spinner className="size-8" />
       </motion.div>
     </div>
   ) : data && data.hits?.length > 0 ? (

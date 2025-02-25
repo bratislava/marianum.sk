@@ -65,11 +65,13 @@ const PartnersSection = ({
         <div className="flex flex-col gap-6">
           {featuredPartnersTitle && <h2>{featuredPartnersTitle}</h2>}
           <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {mainPartners.map((partner) => (
+            {mainPartners.map((partner, index) => (
               <PartnerCard
                 title={partner.title}
                 linkHref={partner.link}
                 image={partner.logo.data?.attributes}
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
               />
             ))}
           </div>
@@ -82,6 +84,8 @@ const PartnersSection = ({
                 title={partner.title}
                 linkHref={partner.link}
                 titleId={getAriaLabelId(id, index)}
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
               />
             ))}
           </div>

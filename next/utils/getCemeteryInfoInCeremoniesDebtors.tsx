@@ -62,6 +62,7 @@ export const getCemeteryInfoInCeremoniesDebtorsMeili = (
   )
   const localeCemeteryTitle = localeCemetery?.title
   const localeCemeterySlug = localeCemetery?.slug
+
   return {
     title: localeCemeteryTitle ?? skCemeteryTitle,
     slug: locale === 'sk' ? skCemeterySlug : localeCemeterySlug, // For the title we can fallback for SK version, but not for slug - the link wouldn't work.

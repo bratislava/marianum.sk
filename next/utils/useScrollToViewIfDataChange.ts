@@ -33,8 +33,8 @@ export const useScrollToViewIfDataChange = <T extends object | null, K extends o
 
     // scrollMode: 'if-needed' doesn't work as expected
     const topIsNotVisible = elementRef.current.getBoundingClientRect().top < 0
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     if (topIsNotVisible) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       scrollIntoView(elementRef.current, {
         scrollMode: 'if-needed',
         block: 'start',

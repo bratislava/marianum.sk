@@ -11,6 +11,7 @@ const NormalizeText = ({ children }: PropsWithChildren<{}>) => {
     if (i18n?.language === 'sk' && typeof children === 'string') {
       return <>{normalizeSkText(children)}</>
     }
+
     // eslint-disable-next-line react/jsx-no-useless-fragment
     return <>{children}</>
   }, [children, i18n?.language])
