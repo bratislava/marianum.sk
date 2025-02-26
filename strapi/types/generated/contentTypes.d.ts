@@ -922,47 +922,6 @@ export interface ApiApplicationApplication extends Schema.CollectionType {
   };
 }
 
-export interface ApiApplicationTextApplicationText extends Schema.SingleType {
-  collectionName: 'application_texts';
-  info: {
-    singularName: 'application-text';
-    pluralName: 'application-texts';
-    displayName: '\u017Diados\u0165 - texty';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    spracovanieOsobnychUdajov: Attribute.RichText;
-    spracovanieOsobnychUdajovMarketing: Attribute.RichText;
-    zavaznostOdoslanejZiadosti: Attribute.RichText;
-    typZiadostiPridelenieTooltip: Attribute.Text;
-    typZiadostiRezervaciaTooltip: Attribute.Text;
-    uviestHroboveCisloAnoTooltip: Attribute.Text;
-    uviestHroboveCisloNieTooltip: Attribute.Text;
-    osobnaPritomnostDescription: Attribute.Text;
-    druhHroboveMiestoTooltip: Attribute.Text;
-    druhUrnoveMiestoTooltip: Attribute.Text;
-    druhUrnoveMiestoVZemiTooltip: Attribute.Text;
-    druhUrnovaStenaTooltip: Attribute.Text;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::application-text.application-text',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::application-text.application-text',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiArticleArticle extends Schema.CollectionType {
   collectionName: 'articles';
   info: {
@@ -1531,30 +1490,6 @@ export interface ApiCemeteryCemetery extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    ziadostHroboveMiesto: Attribute.Boolean &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }> &
-      Attribute.DefaultTo<false>;
-    ziadostUrnoveMiestoVZemi: Attribute.Boolean &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }> &
-      Attribute.DefaultTo<false>;
-    ziadostUrnovaStena: Attribute.Boolean &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }> &
-      Attribute.DefaultTo<false>;
     overrideOpeningHours: Attribute.Component<'blocks.opening-hours-universal'> &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -2278,7 +2213,6 @@ export interface ApiPagePage extends Schema.CollectionType {
         'sections.ceremonies-section',
         'sections.ceremonies-archive-section',
         'sections.map-section',
-        'sections.public-disclosure-section',
         'sections.documents-section',
         'sections.review-listing',
         'sections.article-news-listing',
@@ -2505,7 +2439,6 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::application.application': ApiApplicationApplication;
-      'api::application-text.application-text': ApiApplicationTextApplicationText;
       'api::article.article': ApiArticleArticle;
       'api::article-jobs-category.article-jobs-category': ApiArticleJobsCategoryArticleJobsCategory;
       'api::article-news-category.article-news-category': ApiArticleNewsCategoryArticleNewsCategory;
