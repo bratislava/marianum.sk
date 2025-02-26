@@ -9,7 +9,6 @@ import Seo from '@/components/atoms/Seo'
 import PageLayout from '@/components/layouts/PageLayout'
 import SectionsWrapper from '@/components/layouts/SectionsWrapper'
 import BranchGroup from '@/components/molecules/BranchGroup'
-import DisclosureIframe from '@/components/molecules/DisclosureIframe'
 import DocumentGroup from '@/components/molecules/DocumentGroup'
 import ImageGallery from '@/components/molecules/ImageGallery'
 import {
@@ -197,13 +196,6 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
             }
             if (section?.__typename === 'ComponentSectionsMapSection') {
               return <MapSection key={`${section.__typename}-${section.id}`} section={section} />
-            }
-            if (section?.__typename === 'ComponentSectionsPublicDisclosureSection') {
-              return (
-                <Section key={`${section.__typename}-${section.id}`}>
-                  <DisclosureIframe />
-                </Section>
-              )
             }
             if (section?.__typename === 'ComponentSectionsDebtorsSection') {
               return (
