@@ -493,10 +493,6 @@ fragment PageEntity on PageEntity {
         __typename
         ...CemeteriesOpeningHours
       }
-      ... on ComponentSectionsPublicDisclosureSection {
-        __typename
-        id
-      }
       ... on ComponentSectionsRichtext {
         __typename
         ...RichtextSection

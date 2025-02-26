@@ -805,15 +805,6 @@ export interface SectionsProceduresShortSection extends Schema.Component {
   };
 }
 
-export interface SectionsPublicDisclosureSection extends Schema.Component {
-  collectionName: 'components_sections_public_disclosure_sections';
-  info: {
-    displayName: 'public disclosure section';
-    icon: 'balance-scale-left';
-  };
-  attributes: {};
-}
-
 export interface SectionsReviewListing extends Schema.Component {
   collectionName: 'components_sections_review_listings';
   info: {
@@ -910,7 +901,6 @@ declare module '@strapi/types' {
       'sections.partners-section': SectionsPartnersSection;
       'sections.procedures-section': SectionsProceduresSection;
       'sections.procedures-short-section': SectionsProceduresShortSection;
-      'sections.public-disclosure-section': SectionsPublicDisclosureSection;
       'sections.review-listing': SectionsReviewListing;
       'sections.richtext': SectionsRichtext;
       'sections.upcoming-ceremonies-section': SectionsUpcomingCeremoniesSection;
