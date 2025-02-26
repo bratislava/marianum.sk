@@ -45,12 +45,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             <MI18nProvider>
               <MotionConfig reducedMotion="user">
                 <OverlayProvider>
-                  {/* Hidden until cookies are used */}
-                  {/* TODO when enabling cookies: check if cookie banner is focus as first element on page */}
-                  {/* <CookieConsent banner={CookieBanner} modal={CookieSettingsModal}> */}
                   <ThirdPartyScripts />
                   <Component {...pageProps} />
-                  {/* </CookieConsent> */}
                 </OverlayProvider>
               </MotionConfig>
             </MI18nProvider>

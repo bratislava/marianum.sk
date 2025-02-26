@@ -21,8 +21,8 @@ module.exports = {
       'error',
       { allow: ['__NEXT_DATA__', '__NEXT_LOADED_PAGES__', '__typename'] },
     ],
-    /** Links get confused for secrets */
-    'no-secrets/no-secrets': ['warn', { ignoreContent: 'http' }],
+    /** Useless, because it does not warn when needed, warns when not needed. */
+    'no-secrets/no-secrets': 'off',
     /** Too tedious */
     'eslint-comments/disable-enable-pair': 'off',
     /** We specify default props in props decomposition */
@@ -51,7 +51,6 @@ module.exports = {
     'react/jsx-no-useless-fragment': [2, { allowExpressions: true }],
 
     // TODO revisit
-    'import/extensions': 'off',
     'react/display-name': 'off',
     '@typescript-eslint/no-unsafe-assignment': 'off',
     '@typescript-eslint/no-unsafe-call': 'off',

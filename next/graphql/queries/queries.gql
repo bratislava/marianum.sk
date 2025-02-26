@@ -309,35 +309,3 @@ query ArticleJobsCategories {
 query DocumentFiletypes {
   documentFiletypes
 }
-
-query CemeteriesInApplication($locale: I18NLocaleCode!) {
-  cemeteries(
-    filters: {
-      or: [
-        { ziadostHroboveMiesto: { eq: true } }
-        { ziadostUrnoveMiestoVZemi: { eq: true } }
-        { ziadostUrnovaStena: { eq: true } }
-      ]
-    }
-    pagination: { limit: -1 }
-    locale: $locale
-  ) {
-    data {
-      ...CemeteryInApplicationEntity
-    }
-  }
-}
-
-mutation CreateApplication($data: JSON!, $captchaToken: String!) {
-  createApplicationCustom(data: $data, captchaToken: $captchaToken)
-}
-
-query ApplicationTexts {
-  applicationText {
-    data {
-      attributes {
-        ...ApplicationText
-      }
-    }
-  }
-}

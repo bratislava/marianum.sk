@@ -57,7 +57,7 @@ const BundlePage: NextPage<BundlePageProps> = ({
 
       <BundleLayout navigation={navigation} general={general} bundle={entity}>
         <div className="flex flex-col">
-          {/* todo: display bundle data */}
+          {/* TODO display bundle data */}
           {claims?.length ? (
             <Section>
               <h2 className="pb-6 text-h3">{t('bundleContent')}</h2>
