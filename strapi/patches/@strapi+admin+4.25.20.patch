@@ -1,0 +1,13 @@
+diff --git a/node_modules/@strapi/admin/dist/_chunks/index-GXbuKv-_.mjs b/node_modules/@strapi/admin/dist/_chunks/index-GXbuKv-_.mjs
+index 4578e2b..0c14b91 100644
+--- a/node_modules/@strapi/admin/dist/_chunks/index-GXbuKv-_.mjs
++++ b/node_modules/@strapi/admin/dist/_chunks/index-GXbuKv-_.mjs
+@@ -12524,7 +12524,7 @@ const Wysiwyg = React.forwardRef(
+     };
+     const handleSelectAssets = (files) => {
+       const formattedFiles = files.map((f) => ({
+-        alt: f.alternativeText || f.name,
++        alt: `${f.alternativeText}||${f.caption}`,
+         url: prefixFileUrlWithBackendUrl(f.url),
+         mime: f.mime
+       }));
