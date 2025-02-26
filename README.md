@@ -43,5 +43,9 @@ curl --request GET \
 
 Then use "Default Admin API Key" for strapi in `strapi/.env.local` as `MEILISEARCH_ADMIN_API_KEY` and "Default Search API Key" in `next/.env.local` file as `NEXT_PUBLIC_MEILISEARCH_SEARCH_API_KEY`.
 
+
 ## Stay in touch
 [https://inovacie.bratislava.sk/](https://inovacie.bratislava.sk/)
+
+----
+Note: We removed a huge part of code that implemented an application form ("žiadosť") in [#473](https://github.com/bratislava/marianum.sk/pull/474). We keep it here as this note for future reference.
