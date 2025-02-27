@@ -1,65 +1,49 @@
 import { Listbox } from '@headlessui/react'
 import cx from 'classnames'
-import { ReactNode, useCallback, useId, useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { usePopper } from 'react-popper'
 
 import { ChevronDownIcon } from '@/assets/icons'
-import FieldWrapper from '@/components/atoms/FieldWrapper'
 import { isDefined } from '@/utils/isDefined'
 
-export interface Option {
-  key: string
-  label: ReactNode | string
-  [key: string]: unknown
-}
+export type SelectOption = { value: string; label: string }
 
 type SelectBase = {
-  id?: string
-  placeholder?: string
-  options?: Option[]
-  disabled?: boolean
-  error?: boolean
-  label?: string
-  required?: boolean
+  placeholder?: string | undefined
+  options?: SelectOption[]
+  isDisabled?: boolean | undefined
 }
 
 export type SingleSelect = {
-  multiple?: false | undefined
-  defaultSelected?: string
-  onSelectionChange?: (selection: string) => void
+  isMulti?: false | undefined
+  defaultValue?: string
+  onChange?: (selection: string) => void
 } & SelectBase
 
 type MultipleSelect = {
-  multiple: true
-  defaultSelected?: string[]
-  onSelectionChange?: (selection: string[]) => void
+  isMulti: true
+  defaultValue?: string[]
+  onChange?: (selection: string[]) => void
 } & SelectBase
 
-export type SelectProps = SingleSelect | MultipleSelect
+export type SelectFieldProps = SingleSelect | MultipleSelect
 
-const Select = ({
-  id,
+const SelectField = ({
   placeholder,
   options = [],
-  disabled = false,
-  error = false,
-  label,
-  required,
-  multiple,
-  defaultSelected,
-  onSelectionChange = () => {},
-}: SelectProps) => {
-  const generatedId = useId()
-  const generatedOrProvidedId = id ?? generatedId
-
-  const defaultSelectedOptions = isDefined(defaultSelected)
-    ? multiple
-      ? (defaultSelected.map((selected) =>
-          options.find((option) => option.key === selected),
-        ) as Option[])
-      : [options.find((option) => option.key === defaultSelected) as Option]
+  isDisabled = false,
+  isMulti,
+  defaultValue,
+  onChange = () => {},
+}: SelectFieldProps) => {
+  const defaultSelectedOptions = isDefined(defaultValue)
+    ? isMulti
+      ? (defaultValue.map((selected) =>
+          options.find((option) => option.value === selected),
+        ) as SelectOption[])
+      : [options.find((option) => option.value === defaultValue) as SelectOption]
     : []
-  const [selectedOptions, setSelectedOptions] = useState<Option[]>(defaultSelectedOptions)
+  const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>(defaultSelectedOptions)
 
   const [referenceElement, setReferenceElement] = useState<HTMLButtonElement | null>(null)
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null)
@@ -74,16 +58,16 @@ const Select = ({
   })
 
   const changeHandler = useCallback(
-    (optionOrOptions: Option | Option[]) => {
+    (optionOrOptions: SelectOption | SelectOption[]) => {
       if (Array.isArray(optionOrOptions)) {
         setSelectedOptions(optionOrOptions)
-        ;(onSelectionChange as (selection: string[]) => void)(optionOrOptions.map((o) => o.key))
+        ;(onChange as (selection: string[]) => void)(optionOrOptions.map((o) => o.value))
       } else {
         setSelectedOptions([optionOrOptions])
-        ;(onSelectionChange as (selection: string) => void)(optionOrOptions.key)
+        ;(onChange as (selection: string) => void)(optionOrOptions.value)
       }
     },
-    [onSelectionChange],
+    [onChange],
   )
 
   const selectedOption = useMemo(() => {
@@ -94,10 +78,10 @@ const Select = ({
     <Listbox
       as="div"
       className="relative flex w-full"
-      value={multiple ? selectedOptions : selectedOption}
+      value={isMulti ? selectedOptions : selectedOption}
       onChange={changeHandler}
-      multiple={multiple}
-      disabled={disabled}
+      multiple={isMulti}
+      disabled={isDisabled}
     >
       <Listbox.Button
         ref={setReferenceElement}
@@ -105,18 +89,11 @@ const Select = ({
         className="group flex w-full outline-none"
       >
         {({ open }) => (
-          <FieldWrapper
-            error={error}
-            disabled={disabled}
-            label={label}
-            required={required}
-            id={generatedOrProvidedId}
-            hasRightSlot
-          >
+          <>
             <div className="flex h-10 w-full min-w-0 cursor-pointer select-none items-center overflow-hidden pl-4">
               {selectedOptions.length > 0 ? (
                 selectedOptions.map((option, index) => (
-                  <div key={option.key} className="flex whitespace-nowrap">
+                  <div key={option.value} className="flex whitespace-nowrap">
                     {index !== 0 && <div className="whitespace-pre-wrap">, </div>}
                     <div>{option.label}</div>
                   </div>
@@ -128,7 +105,7 @@ const Select = ({
             <div className={cx('transform p-2 transition-transform', { 'rotate-180': open })}>
               <ChevronDownIcon />
             </div>
-          </FieldWrapper>
+          </>
         )}
       </Listbox.Button>
 
@@ -140,7 +117,7 @@ const Select = ({
         {...attributes.popper}
       >
         {options.map((option) => (
-          <Listbox.Option as="div" key={option.key} value={option}>
+          <Listbox.Option as="div" key={option.value} value={option}>
             {({ selected, active }) => (
               <div
                 className={cx('flex h-10 cursor-pointer select-none items-center px-4', {
@@ -158,4 +135,4 @@ const Select = ({
   )
 }
 
-export default Select
+export default SelectField

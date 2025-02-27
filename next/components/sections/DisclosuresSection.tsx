@@ -201,26 +201,26 @@ const TypeSelect = ({
 
   return (
     <Select
-      defaultSelected="all"
+      defaultValue="all"
       options={[
         {
-          key: 'all',
+          value: 'all',
           label: t('types.all'),
         },
         {
-          key: DisclosureTypeFixed.Faktura,
+          value: DisclosureTypeFixed.Faktura,
           label: t('types.faktury'),
         },
         {
-          key: DisclosureTypeFixed.Zmluva,
+          value: DisclosureTypeFixed.Zmluva,
           label: t('types.zmluvy'),
         },
         {
-          key: DisclosureTypeFixed.Objednavka,
+          value: DisclosureTypeFixed.Objednavka,
           label: t('types.objednavky'),
         },
       ]}
-      onSelectionChange={(type) => {
+      onChange={(type) => {
         onTypeChange(type === 'all' ? null : (type as DisclosureTypeFixed))
       }}
     />

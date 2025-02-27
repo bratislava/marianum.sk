@@ -16,14 +16,14 @@ const ArticlePressCategoriesSelect = ({
 }: ArticlePressCategoriesSelectProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'ArticleListing' })
 
-  const defaultOption = useMemo(() => ({ label: t('allCategories'), key: '' }), [t])
+  const defaultOption = useMemo(() => ({ value: 'all', label: t('allCategories') }), [t])
 
   return (
     <SelectWithFetcher
       swrKey={articlePressCategoriesSelectSwrKey}
       defaultOption={defaultOption}
       fetcher={articlePressCategoriesSelectFetcher}
-      onSelectionChange={(selection: string) => {
+      onChange={(selection: string) => {
         onCategoryChange(selection === '' ? null : selection)
       }}
     />

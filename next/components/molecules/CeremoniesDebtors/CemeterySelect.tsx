@@ -12,13 +12,11 @@ import {
 } from '@/services/fetchers/debtorsSectionFetcher'
 
 type CeremoniesDebtorsCemeterySelectProps = {
-  label?: string
   type: 'ceremonies' | 'debtors'
   onCemeteryChange: (id: string) => void
 }
 
 const CeremoniesDebtorsCemeterySelect = ({
-  label,
   type,
   onCemeteryChange = () => {},
 }: CeremoniesDebtorsCemeterySelectProps) => {
@@ -44,15 +42,14 @@ const CeremoniesDebtorsCemeterySelect = ({
     }
   }, [type, i18n.language])
 
-  const defaultOption = useMemo(() => ({ label: t('allCemeteries'), key: '' }), [t])
+  const defaultOption = useMemo(() => ({ value: 'all', label: t('allCemeteries') }), [t])
 
   return fetcher ? (
     <SelectWithFetcher
       swrKey={swrKey}
       defaultOption={defaultOption}
       fetcher={fetcher}
-      label={label}
-      onSelectionChange={(selection: string) => {
+      onChange={(selection: string) => {
         onCemeteryChange(selection)
       }}
     />

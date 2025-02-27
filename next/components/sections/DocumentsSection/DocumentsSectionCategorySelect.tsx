@@ -12,9 +12,9 @@ const mappedFetcher = () =>
   client.DocumentCategories().then(
     (data) =>
       data.documentCategories?.data.map((category) => ({
-        label: category.attributes?.title,
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        key: category.id!,
+        value: category.id!,
+        label: category?.attributes?.title ?? '',
       })) ?? [],
   )
 
@@ -23,14 +23,14 @@ const DocumentsSectionCategorySelect = ({
 }: DocumentsSectionCategorySelectProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'DocumentsSection' })
 
-  const defaultOption = useMemo(() => ({ label: t('allCategories'), key: '' }), [t])
+  const defaultOption = useMemo(() => ({ value: 'all', label: t('allCategories') }), [t])
 
   return (
     <SelectWithFetcher
       swrKey="DocumentsSectionCategorySelect"
       defaultOption={defaultOption}
       fetcher={mappedFetcher}
-      onSelectionChange={(selection: string) => {
+      onChange={(selection: string) => {
         onCategoryChange(selection === '' ? null : selection)
       }}
     />

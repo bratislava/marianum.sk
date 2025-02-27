@@ -13,8 +13,8 @@ const mappedFetcher = () =>
   client.DocumentFiletypes().then(
     (data) =>
       data.documentFiletypes?.filter(isDefined).map((filetype) => ({
+        value: filetype,
         label: (filetype.startsWith('.') ? filetype.slice(1) : filetype).toUpperCase(),
-        key: filetype,
       })) ?? [],
   )
 
@@ -23,14 +23,14 @@ const DocumentsSectionFiletypeSelect = ({
 }: DocumentsSectionFiletypeSelectProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'DocumentsSection' })
 
-  const defaultOption = useMemo(() => ({ label: t('allFileTypes'), key: '' }), [t])
+  const defaultOption = useMemo(() => ({ value: 'all', label: t('allFileTypes') }), [t])
 
   return (
     <SelectWithFetcher
       swrKey="DocumentsSectionFiletypeSelect"
       defaultOption={defaultOption}
       fetcher={mappedFetcher}
-      onSelectionChange={(selection: string) => {
+      onChange={(selection: string) => {
         onFiletypeChange(selection === '' ? null : selection)
       }}
     />

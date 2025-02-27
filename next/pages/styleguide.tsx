@@ -842,21 +842,18 @@ const Showcase = () => {
           <Wrapper title="Select">
             <Stack width="full">
               <Select
-                label="Project"
-                required
-                id="select"
                 placeholder="Select one project"
                 options={[
                   {
-                    key: 'marianum',
+                    value: 'marianum',
                     label: '💀 Marianum',
                   },
                   {
-                    key: 'city-library',
+                    value: 'city-library',
                     label: '📖 City library',
                   },
                   {
-                    key: 'homepage',
+                    value: 'homepage',
                     label: '🟥 Homepage',
                   },
                 ]}
@@ -864,22 +861,19 @@ const Showcase = () => {
             </Stack>
             <Stack width="full">
               <Select
-                label="Projects"
-                required
-                id="select"
-                multiple
+                // TODO - isMulti is temporarily disabled, because it is not yet implemented in the component
                 placeholder="Select multiple projects"
                 options={[
                   {
-                    key: 'marianum',
+                    value: 'marianum',
                     label: '💀 Marianum',
                   },
                   {
-                    key: 'city-library',
+                    value: 'city-library',
                     label: '📖 City library',
                   },
                   {
-                    key: 'homepage',
+                    value: 'homepage',
                     label: '🟥 Homepage',
                   },
                 ]}

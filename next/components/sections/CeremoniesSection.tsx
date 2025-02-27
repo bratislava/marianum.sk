@@ -226,8 +226,6 @@ type CeremoniesSectionProps = {
 }
 
 const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })
-
   const [filters, setFilters] = useState<CeremoniesSectionFilters>(ceremoniesSectionDefaultFilters)
 
   const handleCemeteryChange = (cemeteryId: string) => {
@@ -238,7 +236,6 @@ const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
     <Section>
       <div className="mb-6 md:mb-8 md:w-[360px]">
         <CeremoniesDebtorsCemeterySelect
-          label={t('filterBy')}
           type="ceremonies"
           onCemeteryChange={handleCemeteryChange}
         />
