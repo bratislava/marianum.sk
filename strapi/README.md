@@ -70,7 +70,7 @@ yarn patch-package @strapi/admin
 > Note that we use custom syntax, because at that time, we didn't know the proper syntax for caption (=title) in markdown that is `![alt](src "title")`.
 
 ### @strapi/plugin-content-manager
-Strapi transpiled filed for this plugin are located in `./node_modules/@strapi/plugin-content-manager/dist/server` so it's needed to make the changes and run patch-package on every Strapi upgrade.
+Strapi transpiled files for this plugin are located in `./node_modules/@strapi/plugin-content-manager/dist/server` so it's needed to make the changes and run patch-package on every Strapi upgrade.
 
 When using slugify, for example when auto creating slug for pages, 'ä' character is not converted to 'a'.
 We change this behaviour, and convert character 'ä' to 'a' in slug with `customReplacements: [ ['ä', 'a'] ]`
