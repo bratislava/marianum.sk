@@ -1,6 +1,4 @@
-import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
-
+import { SelectOption } from '@/components/atoms/Select'
 import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import {
   articlePressCategoriesSelectFetcher,
@@ -8,24 +6,20 @@ import {
 } from '@/services/fetchers/articleListingFetcher'
 
 type ArticlePressCategoriesSelectProps = {
-  onCategoryChange: (id: string | null) => void
+  defaultOption: SelectOption
+  onCategoryChange: (option: SelectOption | null) => void
 }
 
 const ArticlePressCategoriesSelect = ({
+  defaultOption,
   onCategoryChange = () => {},
 }: ArticlePressCategoriesSelectProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'ArticleListing' })
-
-  const defaultOption = useMemo(() => ({ label: t('allCategories'), key: '' }), [t])
-
   return (
     <SelectWithFetcher
       swrKey={articlePressCategoriesSelectSwrKey}
       defaultOption={defaultOption}
       fetcher={articlePressCategoriesSelectFetcher}
-      onSelectionChange={(selection: string) => {
-        onCategoryChange(selection === '' ? null : selection)
-      }}
+      onChange={onCategoryChange}
     />
   )
 }

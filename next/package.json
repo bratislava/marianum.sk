@@ -20,7 +20,6 @@
     "update-graphql": "yarn add graphql@latest graphql-request@latest graphql-tag@latest --exact && yarn add @graphql-codegen/cli@latest @graphql-codegen/typescript-graphql-request@latest --dev --exact"
   },
   "dependencies": {
-    "@headlessui/react": "^1.6.6",
     "@hookform/error-message": "^2.0.0",
     "@hookform/resolvers": "^2.9.10",
     "@internationalized/date": "^3.0.1",
@@ -52,8 +51,8 @@
     "react-hook-form": "^7.39.1",
     "react-map-gl": "^7.0.19",
     "react-markdown": "^8.0.3",
-    "react-popper": "^2.3.0",
     "react-resize-detector": "^7.1.2",
+    "react-select": "^5.10.0",
     "react-stately": "^3.16.0",
     "react-turnstile": "^1.0.6",
     "rehype-raw": "^6.1.1",

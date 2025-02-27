@@ -8,36 +8,40 @@
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 400;
-    src: local(''),
-    url('/fonts/noto-sans-v27-latin-ext_latin-regular.woff2') format('woff2'),
-    url('/fonts/noto-sans-v27-latin-ext_latin-regular.woff') format('woff');
+    src:
+      local(''),
+      url('/fonts/noto-sans-v27-latin-ext_latin-regular.woff2') format('woff2'),
+      url('/fonts/noto-sans-v27-latin-ext_latin-regular.woff') format('woff');
   }
   /* noto-sans-600 - latin-ext_latin */
   @font-face {
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 600;
-    src: local(''),
-    url('/fonts/noto-sans-v27-latin-ext_latin-600.woff2') format('woff2'),
-    url('/fonts/noto-sans-v27-latin-ext_latin-600.woff') format('woff');
+    src:
+      local(''),
+      url('/fonts/noto-sans-v27-latin-ext_latin-600.woff2') format('woff2'),
+      url('/fonts/noto-sans-v27-latin-ext_latin-600.woff') format('woff');
   }
   /* noto-sans-700 - latin-ext_latin */
   @font-face {
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 700;
-    src: local(''),
-    url('/fonts/noto-sans-v27-latin-ext_latin-700.woff2') format('woff2'),
-    url('/fonts/noto-sans-v27-latin-ext_latin-700.woff') format('woff');
+    src:
+      local(''),
+      url('/fonts/noto-sans-v27-latin-ext_latin-700.woff2') format('woff2'),
+      url('/fonts/noto-sans-v27-latin-ext_latin-700.woff') format('woff');
   }
   /* ABCArizonaFlare-Bold */
   @font-face {
     font-family: 'ABC Arizona Flare';
     font-style: normal;
     font-weight: 700;
-    src: local(''),
-    url('/fonts/ABCArizonaFlare-Bold.woff2') format('woff2'),
-    url('/fonts/ABCArizonaFlare-Bold.woff') format('woff');
+    src:
+      local(''),
+      url('/fonts/ABCArizonaFlare-Bold.woff2') format('woff2'),
+      url('/fonts/ABCArizonaFlare-Bold.woff') format('woff');
   }
 
   @supports (-webkit-text-stroke: 4px #446650) {

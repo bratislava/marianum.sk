@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
+import { SelectOption } from '@/components/atoms/Select'
 import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import {
   cemeteriesInCeremoniesFetcher,
@@ -12,17 +13,17 @@ import {
 } from '@/services/fetchers/debtorsSectionFetcher'
 
 type CeremoniesDebtorsCemeterySelectProps = {
-  label?: string
   type: 'ceremonies' | 'debtors'
-  onCemeteryChange: (id: string) => void
+  defaultOption: SelectOption
+  onCemeteryChange: (option: SelectOption | null) => void
 }
 
 const CeremoniesDebtorsCemeterySelect = ({
-  label,
   type,
+  defaultOption,
   onCemeteryChange = () => {},
 }: CeremoniesDebtorsCemeterySelectProps) => {
-  const { t, i18n } = useTranslation('common', { keyPrefix: 'CemeterySelect' })
+  const { i18n } = useTranslation()
 
   // eslint-disable-next-line consistent-return
   const fetcher = useMemo(() => {
@@ -44,17 +45,12 @@ const CeremoniesDebtorsCemeterySelect = ({
     }
   }, [type, i18n.language])
 
-  const defaultOption = useMemo(() => ({ label: t('allCemeteries'), key: '' }), [t])
-
   return fetcher ? (
     <SelectWithFetcher
       swrKey={swrKey}
       defaultOption={defaultOption}
       fetcher={fetcher}
-      label={label}
-      onSelectionChange={(selection: string) => {
-        onCemeteryChange(selection)
-      }}
+      onChange={onCemeteryChange}
     />
   ) : null
 }

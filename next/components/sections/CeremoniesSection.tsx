@@ -3,13 +3,14 @@ import cx from 'classnames'
 import groupBy from 'lodash/groupBy'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Fragment, PropsWithChildren, useMemo, useRef, useState } from 'react'
+import { Fragment, PropsWithChildren, useEffect, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 
 import FormatDate from '@/components/atoms/FormatDate'
 import Loading from '@/components/atoms/Loading'
 import LoadingOverlay from '@/components/atoms/LoadingOverlay'
 import MLink from '@/components/atoms/MLink'
+import { SelectOption } from '@/components/atoms/Select'
 import CemeteryLink from '@/components/molecules/CemeteryLink'
 import CeremoniesDebtorsCemeterySelect from '@/components/molecules/CeremoniesDebtors/CemeterySelect'
 import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
@@ -226,21 +227,34 @@ type CeremoniesSectionProps = {
 }
 
 const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })
+  const { t } = useTranslation('common', { keyPrefix: 'CemeterySelect' })
 
   const [filters, setFilters] = useState<CeremoniesSectionFilters>(ceremoniesSectionDefaultFilters)
 
-  const handleCemeteryChange = (cemeteryId: string) => {
-    setFilters({ ...filters, cemeteryId })
+  // Selection
+
+  const defaultOption = { value: 'all', label: t('allCemeteries') }
+
+  const [selection, setSelection] = useState(defaultOption.value)
+
+  const handleSelectionChange = (option: SelectOption | null) => {
+    setSelection(option?.value ?? defaultOption.value)
   }
+
+  useEffect(() => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      cemeteryId: selection === 'all' ? null : selection,
+    }))
+  }, [selection])
 
   return (
     <Section>
       <div className="mb-6 md:mb-8 md:w-[360px]">
         <CeremoniesDebtorsCemeterySelect
-          label={t('filterBy')}
           type="ceremonies"
-          onCemeteryChange={handleCemeteryChange}
+          defaultOption={defaultOption}
+          onCemeteryChange={handleSelectionChange}
         />
       </div>
 

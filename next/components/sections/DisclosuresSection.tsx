@@ -10,7 +10,7 @@ import FormatDate from '@/components/atoms/FormatDate'
 import IconButton from '@/components/atoms/IconButton'
 import Loading from '@/components/atoms/Loading'
 import LoadingOverlay from '@/components/atoms/LoadingOverlay'
-import Select from '@/components/atoms/Select'
+import Select, { SelectOption } from '@/components/atoms/Select'
 import FilteringSearchInput from '@/components/molecules/FilteringSearchInput'
 import FiltersBackgroundWrapper from '@/components/molecules/FiltersBackgroundWrapper'
 import PaginationMeili from '@/components/molecules/PaginationMeili'
@@ -192,42 +192,40 @@ const DataWrapper = ({
   )
 }
 
-const TypeSelect = ({
-  onTypeChange,
-}: {
-  onTypeChange: (type: DisclosureTypeFixed | null) => void
-}) => {
+type TypeSelectProps = {
+  defaultOption: SelectOption
+  onTypeChange: (option: SelectOption | null) => void
+}
+
+const TypeSelect = ({ defaultOption, onTypeChange }: TypeSelectProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'DisclosuresSection' })
 
   return (
     <Select
-      defaultSelected="all"
+      defaultValue={defaultOption}
       options={[
+        defaultOption,
         {
-          key: 'all',
-          label: t('types.all'),
-        },
-        {
-          key: DisclosureTypeFixed.Faktura,
+          value: DisclosureTypeFixed.Faktura,
           label: t('types.faktury'),
         },
         {
-          key: DisclosureTypeFixed.Zmluva,
+          value: DisclosureTypeFixed.Zmluva,
           label: t('types.zmluvy'),
         },
         {
-          key: DisclosureTypeFixed.Objednavka,
+          value: DisclosureTypeFixed.Objednavka,
           label: t('types.objednavky'),
         },
       ]}
-      onSelectionChange={(type) => {
-        onTypeChange(type === 'all' ? null : (type as DisclosureTypeFixed))
-      }}
+      onChange={(option) => onTypeChange(option?.value === 'all' ? null : option)}
     />
   )
 }
 
 const DisclosuresSection = () => {
+  const { t } = useTranslation('common', { keyPrefix: 'DisclosuresSection' })
+
   const [filters, setFilters] = useState<DisclosuresSectionFilters>(
     disclosuresSectionDefaultFilters,
   )
@@ -245,15 +243,29 @@ const DisclosuresSection = () => {
     setFilters({ ...filters, page })
   }
 
-  const handleTypeChange = (type: DisclosureTypeFixed | null) => {
-    setFilters({ ...filters, page: 1, type })
+  // Selection
+
+  const defaultOption = { value: 'all', label: t('types.all') }
+
+  const [selection, setSelection] = useState(defaultOption.value)
+
+  const handleSelectionChange = (option: SelectOption | null) => {
+    setSelection(option?.value ?? defaultOption.value)
   }
+
+  useEffect(() => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      page: 1,
+      type: selection === 'all' ? null : (selection as DisclosureTypeFixed),
+    }))
+  }, [selection])
 
   return (
     <Section overlayWithHero>
       <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3">
         <div>
-          <TypeSelect onTypeChange={handleTypeChange} />
+          <TypeSelect defaultOption={defaultOption} onTypeChange={handleSelectionChange} />
         </div>
         <div className="md:col-span-2">
           <FilteringSearchInput
