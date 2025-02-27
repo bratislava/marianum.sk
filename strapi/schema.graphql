@@ -2643,7 +2643,6 @@ type Mutation {
   """Change user password. Confirm with the current password."""
   changePassword(currentPassword: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
   createApplication(data: ApplicationInput!): ApplicationEntityResponse
-  createApplicationCustom(captchaToken: String!, data: JSON!): String
   createArticle(data: ArticleInput!, locale: I18NLocaleCode): ArticleEntityResponse
   createArticleJobsCategory(data: ArticleJobsCategoryInput!): ArticleJobsCategoryEntityResponse
   createArticleLocalization(data: ArticleInput, id: ID, locale: I18NLocaleCode): ArticleEntityResponse

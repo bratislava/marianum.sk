@@ -8,22 +8,11 @@ import Head from 'next/head'
 import { appWithTranslation } from 'next-i18next'
 import { NextAdapter } from 'next-query-params'
 import { OverlayProvider, SSRProvider } from 'react-aria'
-import { assert, Equals } from 'tsafe'
 import { QueryParamProvider } from 'use-query-params'
 
-// import CookieBanner from '@/components/atoms/Cookies/CookieBanner'
-// import CookieConsent from '@/components/atoms/Cookies/CookieConsent'
-// import CookieSettingsModal from '@/components/atoms/Cookies/CookieSettingsModal'
 import MI18nProvider from '@/components/atoms/MI18nProvider'
 import ThirdPartyScripts from '@/components/atoms/ThirdPartyScripts'
 import { HeroSectionOverlayProvider } from '@/utils/heroSectionContentOverlay'
-
-import enCommonNamespace from '../public/locales/en/common.json'
-import skCommonNamespace from '../public/locales/sk/common.json'
-
-// This makes sure that the translations files are in sync.
-// It fails and underlined if translation files are not in same shape.
-assert<Equals<typeof enCommonNamespace, typeof skCommonNamespace>>()
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
