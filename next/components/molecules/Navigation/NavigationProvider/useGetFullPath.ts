@@ -29,7 +29,7 @@ const localPaths = {
   bundlesCremation: '/sluzby/balicky-pohrebov/kremacia',
   bundlesNatural: '/sluzby/balicky-pohrebov/prirodne-obrady',
   cemeteries: '/o-nas/cintoriny-v-sprave',
-  managedObjects: '/o-nas/objekty-v-sprave',
+  managedObjects: '/o-nas/starostlivost-o-mestske-fontany',
   documents: '/o-nas/dokumenty',
   legislative: '/o-nas/dokumenty/legislativa',
   search: '/vyhladavanie',
