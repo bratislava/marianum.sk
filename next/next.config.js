@@ -97,6 +97,11 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/robots.txt',
+        destination: '/api/robots',
+        permanent: true,
+      },
+      {
         source: '/index.php',
         has: [{ type: 'query', key: 'ids1', value: 'katalog' }],
         destination: '/sluzby/katalog-produktov',
