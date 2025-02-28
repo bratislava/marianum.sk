@@ -2341,7 +2341,6 @@ export type Mutation = {
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
   createApplication?: Maybe<ApplicationEntityResponse>;
-  createApplicationCustom?: Maybe<Scalars['String']>;
   createArticle?: Maybe<ArticleEntityResponse>;
   createArticleJobsCategory?: Maybe<ArticleJobsCategoryEntityResponse>;
   createArticleLocalization?: Maybe<ArticleEntityResponse>;
@@ -2459,12 +2458,6 @@ export type MutationChangePasswordArgs = {
 
 export type MutationCreateApplicationArgs = {
   data: ApplicationInput;
-};
-
-
-export type MutationCreateApplicationCustomArgs = {
-  captchaToken: Scalars['String'];
-  data: Scalars['JSON'];
 };
 
 

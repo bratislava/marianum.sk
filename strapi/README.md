@@ -51,6 +51,11 @@ In admin panel, go to Settings > NAVIGATION PLUGIN > Configuration, scroll down 
 
 To add more content types to choose from in navigation, update config for navigation plugin in `/src/config/plugin.ts`. Don't forget to update graphql fragments and queries and generate types (see readme in `next` folder).
 
+## Custom queries
+
+We add `documentFiletypes` custom graphql query that is used in the frontend to filter documents by filetype.
+See `register` function in `src/index.js`.
+
 ## Using `patch-package`
 
 We use `patch-package` to apply patches to dependencies.
