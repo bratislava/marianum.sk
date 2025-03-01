@@ -10,6 +10,7 @@ import {
 } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
 import { client } from '@/services/graphql/gqlClient'
+import { NOT_FOUND } from '@/utils/consts'
 import { isDefined } from '@/utils/isDefined'
 import { parseNavigation } from '@/utils/parseNavigation'
 
@@ -49,10 +50,6 @@ export const generateStaticPaths = async (
   ) as GetStaticPathsResult<{ fullPath: string[] }>['paths']
 }
 
-const notFound = {
-  notFound: true,
-} as const
-
 /**
  * Shared function to generate static path for a specific route.
  *
@@ -82,7 +79,7 @@ export const generateStaticProps = async <T extends UnionSlugEntityType, Additio
   getAdditionalProps?: (entity: T) => Promise<AdditionalProps>
 }) => {
   if (!params?.fullPath) {
-    return notFound
+    return NOT_FOUND
   }
 
   const { fullPath } = params
@@ -90,7 +87,7 @@ export const generateStaticProps = async <T extends UnionSlugEntityType, Additio
   const slug = last(fullPath)
 
   if (!slug) {
-    return notFound
+    return NOT_FOUND
   }
 
   const [{ navigation, general }, entity, translations] = await Promise.all([
@@ -102,7 +99,7 @@ export const generateStaticProps = async <T extends UnionSlugEntityType, Additio
   const filteredNavigation = navigation.filter(isDefined)
 
   if (!entity || !isCurrentPathValid(fullPathString, entity, filteredNavigation)) {
-    return notFound
+    return NOT_FOUND
   }
 
   const additionalProps = getAdditionalProps
