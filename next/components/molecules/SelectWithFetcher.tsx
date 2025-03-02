@@ -1,15 +1,14 @@
 import { useMemo } from 'react'
 import useSwr, { Key } from 'swr'
 
-import Select, { SelectFieldProps, SelectOption, SingleSelect } from '@/components/atoms/Select'
+import Select, { SelectOption, SelectProps } from '@/components/atoms/Select'
 import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 
 type SelectWithFetcherProps = {
   swrKey: Key
   fetcher: () => Promise<SelectOption[]>
   defaultOption: SelectOption
-} & Pick<SelectFieldProps, 'placeholder' | 'isDisabled'> &
-  Pick<SingleSelect, 'onChange'>
+} & Pick<SelectProps, 'placeholder' | 'isDisabled' | 'onChange'>
 
 const SelectWithFetcher = ({
   swrKey,
@@ -34,10 +33,9 @@ const SelectWithFetcher = ({
   return (
     <Select
       options={options}
-      defaultValue={defaultOption.value}
-      isMulti={false}
+      defaultValue={defaultOption}
       isDisabled={loading || error || originalDisabled}
-      onChange={onChange}
+      onChange={(option) => (onChange ? onChange(option?.value === 'all' ? null : option) : null)}
       {...rest}
     />
   )

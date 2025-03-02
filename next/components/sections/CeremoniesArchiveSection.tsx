@@ -2,12 +2,14 @@ import cx from 'classnames'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { SingleValue } from 'react-select'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
 import FormatDate from '@/components/atoms/FormatDate'
 import Loading from '@/components/atoms/Loading'
 import LoadingOverlay from '@/components/atoms/LoadingOverlay'
+import { SelectOption } from '@/components/atoms/Select'
 import CemeteryLink from '@/components/molecules/CemeteryLink'
 import CeremoniesDebtorsCemeterySelect from '@/components/molecules/CeremoniesDebtors/CemeterySelect'
 import FilteringSearchInput from '@/components/molecules/FilteringSearchInput'
@@ -166,11 +168,32 @@ const DataWrapper = ({
 }
 
 const CeremoniesArchiveSection = () => {
+  const { t } = useTranslation('common', { keyPrefix: 'CemeterySelect' })
+
   const [filters, setFilters] = useState<CeremoniesArchiveSectionFilters>(
     ceremoniesArchiveSectionDefaultFilters,
   )
   const [searchInputValue, setSearchInputValue] = useState<string>('')
   const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
+
+  // Selection
+
+  const defaultOption = { value: 'all', label: t('allCemeteries') }
+
+  const [selection, setSelection] = useState(defaultOption.value)
+
+  const handleSelectionChange = (option: SingleValue<SelectOption> | null) => {
+    setSelection(option?.value ?? defaultOption.value)
+  }
+
+  useEffect(() => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      cemeteryId: selection === 'all' ? null : selection,
+    }))
+  }, [selection])
+
+  // Search
 
   useEffect(() => {
     if (filters.search !== debouncedSearchInputValue) {
@@ -186,17 +209,14 @@ const CeremoniesArchiveSection = () => {
     setFilters({ ...filters, page })
   }
 
-  const handleCemeteryChange = (cemeteryId: string) => {
-    setFilters({ ...filters, cemeteryId })
-  }
-
   return (
     <Section overlayWithHero>
       <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3">
         <div>
           <CeremoniesDebtorsCemeterySelect
             type="ceremonies"
-            onCemeteryChange={handleCemeteryChange}
+            defaultOption={defaultOption}
+            onCemeteryChange={handleSelectionChange}
           />
         </div>
         <div className="md:col-span-2">

@@ -1,11 +1,13 @@
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'
+import { SingleValue } from 'react-select'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
 import Loading from '@/components/atoms/Loading'
 import LoadingOverlay from '@/components/atoms/LoadingOverlay'
+import { SelectOption } from '@/components/atoms/Select'
 import ArticleCard from '@/components/molecules/Cards/ArticleCard'
 import FilteringSearchInput from '@/components/molecules/FilteringSearchInput'
 import FiltersBackgroundWrapper from '@/components/molecules/FiltersBackgroundWrapper'
@@ -146,6 +148,8 @@ type ArticleListingProps = {
 }
 
 const ArticleListing = ({ type }: ArticleListingProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'ArticleListing' })
+
   const [filters, setFilters] = useState<ArticleListingFilters>(articleListingDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')
   const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
@@ -161,22 +165,45 @@ const ArticleListing = ({ type }: ArticleListingProps) => {
     setFilters({ ...filters, page })
   }
 
-  const handleCategoryChange = (categoryId: string | null) => {
-    setFilters({ ...filters, page: 1, categoryId })
+  // Selection
+
+  const defaultOption = { value: 'all', label: t('allCategories') }
+
+  const [selection, setSelection] = useState(defaultOption.value)
+
+  const handleSelectionChange = (option: SingleValue<SelectOption> | null) => {
+    setSelection(option?.value ?? defaultOption.value)
   }
+
+  useEffect(() => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      page: 1,
+      categoryId: selection === 'all' ? null : selection,
+    }))
+  }, [selection])
 
   return (
     <Section overlayWithHero>
       <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3">
         <div>
           {type === ArticleListingType.Press ? (
-            <ArticlePressCategoriesSelect onCategoryChange={handleCategoryChange} />
+            <ArticlePressCategoriesSelect
+              defaultOption={defaultOption}
+              onCategoryChange={handleSelectionChange}
+            />
           ) : null}
           {type === ArticleListingType.News ? (
-            <ArticleNewsCategoriesSelect onCategoryChange={handleCategoryChange} />
+            <ArticleNewsCategoriesSelect
+              defaultOption={defaultOption}
+              onCategoryChange={handleSelectionChange}
+            />
           ) : null}
           {type === ArticleListingType.Jobs ? (
-            <ArticleJobsCategoriesSelect onCategoryChange={handleCategoryChange} />
+            <ArticleJobsCategoriesSelect
+              defaultOption={defaultOption}
+              onCategoryChange={handleSelectionChange}
+            />
           ) : null}
         </div>
         <div className="md:col-span-2">

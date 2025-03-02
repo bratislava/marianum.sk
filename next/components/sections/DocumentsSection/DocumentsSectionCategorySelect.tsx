@@ -1,11 +1,12 @@
-import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
+import { SingleValue } from 'react-select'
 
+import { SelectOption } from '@/components/atoms/Select'
 import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import { client } from '@/services/graphql/gqlClient'
 
 type DocumentsSectionCategorySelectProps = {
-  onCategoryChange: (id: string | null) => void
+  defaultOption: SelectOption
+  onCategoryChange: (option: SingleValue<SelectOption> | null) => void
 }
 
 const mappedFetcher = () =>
@@ -19,20 +20,15 @@ const mappedFetcher = () =>
   )
 
 const DocumentsSectionCategorySelect = ({
+  defaultOption,
   onCategoryChange = () => {},
 }: DocumentsSectionCategorySelectProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'DocumentsSection' })
-
-  const defaultOption = useMemo(() => ({ value: 'all', label: t('allCategories') }), [t])
-
   return (
     <SelectWithFetcher
       swrKey="DocumentsSectionCategorySelect"
       defaultOption={defaultOption}
       fetcher={mappedFetcher}
-      onChange={(selection: string) => {
-        onCategoryChange(selection === '' ? null : selection)
-      }}
+      onChange={onCategoryChange}
     />
   )
 }

@@ -2,11 +2,13 @@ import cx from 'classnames'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { SingleValue } from 'react-select'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
 import Loading from '@/components/atoms/Loading'
 import LoadingOverlay from '@/components/atoms/LoadingOverlay'
+import { SelectOption } from '@/components/atoms/Select'
 import CemeteryLink from '@/components/molecules/CemeteryLink'
 import CeremoniesDebtorsCemeterySelect from '@/components/molecules/CeremoniesDebtors/CemeterySelect'
 import FilteringSearchInput from '@/components/molecules/FilteringSearchInput'
@@ -155,6 +157,8 @@ type DebtorsSectionProps = {
 }
 
 const DebtorsSection = ({ description }: DebtorsSectionProps) => {
+  const { t } = useTranslation('common', { keyPrefix: 'CemeterySelect' })
+
   const [filters, setFilters] = useState<DebtorsSectionFilters>(debtorsSectionDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')
   const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
@@ -170,15 +174,33 @@ const DebtorsSection = ({ description }: DebtorsSectionProps) => {
     setFilters({ ...filters, page })
   }
 
-  const handleCemeteryChange = (cemeteryId: string) => {
-    setFilters({ ...filters, page: 1, cemeteryId })
+  // Selection
+
+  const defaultOption = { value: 'all', label: t('allCemeteries') }
+
+  const [selection, setSelection] = useState(defaultOption.value)
+
+  const handleSelectionChange = (option: SingleValue<SelectOption> | null) => {
+    setSelection(option?.value ?? defaultOption.value)
   }
+
+  useEffect(() => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      page: 1,
+      cemeteryId: selection === 'all' ? null : selection,
+    }))
+  }, [selection])
 
   return (
     <Section overlayWithHero>
       <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3">
         <div>
-          <CeremoniesDebtorsCemeterySelect type="debtors" onCemeteryChange={handleCemeteryChange} />
+          <CeremoniesDebtorsCemeterySelect
+            type="debtors"
+            defaultOption={defaultOption}
+            onCemeteryChange={handleSelectionChange}
+          />
         </div>
         <div className="md:col-span-2">
           <FilteringSearchInput

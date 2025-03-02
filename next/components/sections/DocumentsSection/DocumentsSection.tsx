@@ -1,6 +1,7 @@
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'
+import { SingleValue } from 'react-select'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
@@ -8,6 +9,7 @@ import { DownloadIcon } from '@/assets/icons'
 import Button from '@/components/atoms/Button'
 import Loading from '@/components/atoms/Loading'
 import LoadingOverlay from '@/components/atoms/LoadingOverlay'
+import { SelectOption } from '@/components/atoms/Select'
 import FilteringSearchInput from '@/components/molecules/FilteringSearchInput'
 import FiltersBackgroundWrapper from '@/components/molecules/FiltersBackgroundWrapper'
 import { useGetFullPathMeili } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
@@ -138,6 +140,8 @@ type DocumentsSectionProps = {
 }
 
 const DocumentsSection = ({ description }: DocumentsSectionProps) => {
+  const { t } = useTranslation('common')
+
   const [filters, setFilters] = useState<DocumentsSectionFilters>(documentsSectionDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')
   const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
@@ -153,17 +157,47 @@ const DocumentsSection = ({ description }: DocumentsSectionProps) => {
     setFilters({ ...filters, page })
   }
 
-  const handleCategoryChange = (categoryId: string | null) => {
-    setFilters({ ...filters, page: 1, categoryId })
+  // Selection
+
+  const defaultCategoryOption = { value: 'all', label: t('DocumentsSection.allCategories') }
+  const defaultFiletypeOption = { value: 'all', label: t('DocumentsSection.allFileTypes') }
+  const defaultSortOption: SelectOption<Sort> = { value: 'newest', label: t('SortSelect.byNewest') }
+
+  const [categorySelection, setCategorySelection] = useState(defaultCategoryOption.value)
+  const [filetypeSelection, setFiletypeSelection] = useState(defaultFiletypeOption.value)
+  const [sortSelection, setSortSelection] = useState<Sort>(defaultSortOption.value)
+
+  const handleCategoryChange = (option: SingleValue<SelectOption> | null) => {
+    setCategorySelection(option?.value ?? defaultCategoryOption.value)
   }
 
-  const handleFiletypeChange = (filetype: string | null) => {
-    setFilters({ ...filters, page: 1, filetype })
+  const handleFiletypeChange = (option: SingleValue<SelectOption> | null) => {
+    setFiletypeSelection(option?.value ?? defaultFiletypeOption.value)
   }
 
-  const handleSortChange = (sort: Sort) => {
-    setFilters({ ...filters, sort })
+  const handleSortChange = (option: SingleValue<SelectOption> | null) => {
+    setSortSelection((option?.value as Sort) ?? defaultSortOption.value)
   }
+
+  useEffect(() => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      page: 1,
+      categoryId: categorySelection === 'all' ? null : categorySelection,
+    }))
+  }, [categorySelection])
+
+  useEffect(() => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      page: 1,
+      filetype: filetypeSelection === 'all' ? null : filetypeSelection,
+    }))
+  }, [filetypeSelection])
+
+  useEffect(() => {
+    setFilters((prevFilters) => ({ ...prevFilters, sort: sortSelection }))
+  }, [sortSelection])
 
   return (
     <Section overlayWithHero>
@@ -174,9 +208,15 @@ const DocumentsSection = ({ description }: DocumentsSectionProps) => {
             onChange={(value) => setSearchInputValue(value)}
           />
         </div>
-        <DocumentsSectionCategorySelect onCategoryChange={handleCategoryChange} />
-        <DocumentsSectionFiletypeSelect onFiletypeChange={handleFiletypeChange} />
-        <SortSelect onChange={handleSortChange} defaultSelected={filters.sort} />
+        <DocumentsSectionCategorySelect
+          defaultOption={defaultCategoryOption}
+          onCategoryChange={handleCategoryChange}
+        />
+        <DocumentsSectionFiletypeSelect
+          defaultOption={defaultFiletypeOption}
+          onFiletypeChange={handleFiletypeChange}
+        />
+        <SortSelect defaultOption={defaultSortOption} onChange={handleSortChange} />
       </FiltersBackgroundWrapper>
 
       <div>

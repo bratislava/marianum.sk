@@ -2,6 +2,7 @@ import cx from 'classnames'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { SingleValue } from 'react-select'
 import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
@@ -10,7 +11,7 @@ import FormatDate from '@/components/atoms/FormatDate'
 import IconButton from '@/components/atoms/IconButton'
 import Loading from '@/components/atoms/Loading'
 import LoadingOverlay from '@/components/atoms/LoadingOverlay'
-import Select from '@/components/atoms/Select'
+import Select, { SelectOption } from '@/components/atoms/Select'
 import FilteringSearchInput from '@/components/molecules/FilteringSearchInput'
 import FiltersBackgroundWrapper from '@/components/molecules/FiltersBackgroundWrapper'
 import PaginationMeili from '@/components/molecules/PaginationMeili'
@@ -192,21 +193,19 @@ const DataWrapper = ({
   )
 }
 
-const TypeSelect = ({
-  onTypeChange,
-}: {
-  onTypeChange: (type: DisclosureTypeFixed | null) => void
-}) => {
+type TypeSelectProps = {
+  defaultOption: SelectOption
+  onTypeChange: (option: SingleValue<SelectOption> | null) => void
+}
+
+const TypeSelect = ({ defaultOption, onTypeChange }: TypeSelectProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'DisclosuresSection' })
 
   return (
     <Select
-      defaultValue="all"
+      defaultValue={defaultOption}
       options={[
-        {
-          value: 'all',
-          label: t('types.all'),
-        },
+        defaultOption,
         {
           value: DisclosureTypeFixed.Faktura,
           label: t('types.faktury'),
@@ -220,14 +219,14 @@ const TypeSelect = ({
           label: t('types.objednavky'),
         },
       ]}
-      onChange={(type) => {
-        onTypeChange(type === 'all' ? null : (type as DisclosureTypeFixed))
-      }}
+      onChange={(option) => onTypeChange(option?.value === 'all' ? null : option)}
     />
   )
 }
 
 const DisclosuresSection = () => {
+  const { t } = useTranslation('common', { keyPrefix: 'DisclosuresSection' })
+
   const [filters, setFilters] = useState<DisclosuresSectionFilters>(
     disclosuresSectionDefaultFilters,
   )
@@ -245,15 +244,29 @@ const DisclosuresSection = () => {
     setFilters({ ...filters, page })
   }
 
-  const handleTypeChange = (type: DisclosureTypeFixed | null) => {
-    setFilters({ ...filters, page: 1, type })
+  // Selection
+
+  const defaultOption = { value: 'all', label: t('types.all') }
+
+  const [selection, setSelection] = useState(defaultOption.value)
+
+  const handleSelectionChange = (option: SingleValue<SelectOption> | null) => {
+    setSelection(option?.value ?? defaultOption.value)
   }
+
+  useEffect(() => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      page: 1,
+      type: selection === 'all' ? null : (selection as DisclosureTypeFixed),
+    }))
+  }, [selection])
 
   return (
     <Section overlayWithHero>
       <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3">
         <div>
-          <TypeSelect onTypeChange={handleTypeChange} />
+          <TypeSelect defaultOption={defaultOption} onTypeChange={handleSelectionChange} />
         </div>
         <div className="md:col-span-2">
           <FilteringSearchInput

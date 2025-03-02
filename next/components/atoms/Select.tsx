@@ -1,137 +1,110 @@
-import { Listbox } from '@headlessui/react'
 import cx from 'classnames'
-import React, { useCallback, useMemo, useState } from 'react'
-import { usePopper } from 'react-popper'
+import React, { useId } from 'react'
+import Select, {
+  components,
+  DropdownIndicatorProps,
+  OptionProps,
+  Props as ReactSelectProps,
+  SingleValue,
+} from 'react-select'
+import { twMerge } from 'tailwind-merge'
 
 import { ChevronDownIcon } from '@/assets/icons'
-import { isDefined } from '@/utils/isDefined'
 
-export type SelectOption = { value: string; label: string }
+export type SelectOption<T = string> = { value: T; label: string }
 
-type SelectBase = {
-  placeholder?: string | undefined
+export type SelectProps = {
+  value?: SelectOption
   options?: SelectOption[]
-  isDisabled?: boolean | undefined
-}
+  defaultValue?: SelectOption
+  onChange?: (option: SingleValue<SelectOption>) => void
+} & Pick<ReactSelectProps, 'placeholder' | 'isDisabled' | 'isSearchable' | 'className'>
 
-export type SingleSelect = {
-  isMulti?: false | undefined
-  defaultValue?: string
-  onChange?: (selection: string) => void
-} & SelectBase
-
-type MultipleSelect = {
-  isMulti: true
-  defaultValue?: string[]
-  onChange?: (selection: string[]) => void
-} & SelectBase
-
-export type SelectFieldProps = SingleSelect | MultipleSelect
-
-const SelectField = ({
-  placeholder,
-  options = [],
-  isDisabled = false,
-  isMulti,
-  defaultValue,
-  onChange = () => {},
-}: SelectFieldProps) => {
-  const defaultSelectedOptions = isDefined(defaultValue)
-    ? isMulti
-      ? (defaultValue.map((selected) =>
-          options.find((option) => option.value === selected),
-        ) as SelectOption[])
-      : [options.find((option) => option.value === defaultValue) as SelectOption]
-    : []
-  const [selectedOptions, setSelectedOptions] = useState<SelectOption[]>(defaultSelectedOptions)
-
-  const [referenceElement, setReferenceElement] = useState<HTMLButtonElement | null>(null)
-  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null)
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: 'bottom',
-    modifiers: [
-      {
-        name: 'offset',
-        options: { offset: [0, 8] },
-      },
-    ],
-  })
-
-  const changeHandler = useCallback(
-    (optionOrOptions: SelectOption | SelectOption[]) => {
-      if (Array.isArray(optionOrOptions)) {
-        setSelectedOptions(optionOrOptions)
-        ;(onChange as (selection: string[]) => void)(optionOrOptions.map((o) => o.value))
-      } else {
-        setSelectedOptions([optionOrOptions])
-        ;(onChange as (selection: string) => void)(optionOrOptions.value)
-      }
-    },
-    [onChange],
-  )
-
-  const selectedOption = useMemo(() => {
-    return selectedOptions[0]
-  }, [selectedOptions])
+const DropdownIndicator = <IsMulti extends boolean = false>({
+  ...props
+}: DropdownIndicatorProps<SelectOption, IsMulti>) => {
+  const { menuIsOpen, isDisabled } = props.selectProps
 
   return (
-    <Listbox
-      as="div"
-      className="relative flex w-full"
-      value={isMulti ? selectedOptions : selectedOption}
-      onChange={changeHandler}
-      multiple={isMulti}
-      disabled={isDisabled}
-    >
-      <Listbox.Button
-        ref={setReferenceElement}
-        as="button"
-        className="group flex w-full outline-none"
+    <components.DropdownIndicator {...props}>
+      <div
+        className={cx('transform p-2 transition-transform', {
+          'rotate-180': menuIsOpen,
+          'text-content-disabled': isDisabled,
+        })}
       >
-        {({ open }) => (
-          <>
-            <div className="flex h-10 w-full min-w-0 cursor-pointer select-none items-center overflow-hidden pl-4">
-              {selectedOptions.length > 0 ? (
-                selectedOptions.map((option, index) => (
-                  <div key={option.value} className="flex whitespace-nowrap">
-                    {index !== 0 && <div className="whitespace-pre-wrap">, </div>}
-                    <div>{option.label}</div>
-                  </div>
-                ))
-              ) : (
-                <div className="truncate text-foreground-placeholder">{placeholder}</div>
-              )}
-            </div>
-            <div className={cx('transform p-2 transition-transform', { 'rotate-180': open })}>
-              <ChevronDownIcon />
-            </div>
-          </>
-        )}
-      </Listbox.Button>
+        <ChevronDownIcon />
+      </div>
+    </components.DropdownIndicator>
+  )
+}
 
-      <Listbox.Options
-        as="div"
-        ref={setPopperElement as React.Ref<HTMLDivElement>}
-        className="z-20 max-h-[240px] w-full flex-col overflow-y-auto border border-border bg-white outline-none"
-        style={styles.popper}
-        {...attributes.popper}
+const CustomOption = <IsMulti extends boolean = false>({
+  children,
+  ...props
+}: OptionProps<SelectOption, IsMulti>) => {
+  const { isSelected, isFocused } = props
+
+  return (
+    <components.Option {...props}>
+      <div
+        className={cx(
+          'flex h-10 select-none items-center overflow-hidden text-ellipsis whitespace-nowrap px-4 hover:cursor-pointer',
+          {
+            'bg-primary text-white': isSelected,
+            'bg-background-beige': isFocused && !isSelected,
+          },
+        )}
       >
-        {options.map((option) => (
-          <Listbox.Option as="div" key={option.value} value={option}>
-            {({ selected, active }) => (
-              <div
-                className={cx('flex h-10 cursor-pointer select-none items-center px-4', {
-                  'bg-primary text-white': selected,
-                  'bg-background-beige': active && !selected,
-                })}
-              >
-                {option.label}
-              </div>
-            )}
-          </Listbox.Option>
-        ))}
-      </Listbox.Options>
-    </Listbox>
+        <div className="truncate">{children}</div>
+      </div>
+    </components.Option>
+  )
+}
+
+const SelectField = ({
+  value,
+  placeholder,
+  options,
+  defaultValue,
+  isDisabled = false,
+  isSearchable = false,
+  onChange = () => null,
+  className,
+}: SelectProps) => {
+  const id = useId()
+
+  return (
+    <div>
+      <Select
+        id={id}
+        value={value}
+        placeholder={placeholder}
+        options={options}
+        isDisabled={isDisabled}
+        isMulti={false}
+        isSearchable={isSearchable}
+        defaultValue={defaultValue}
+        onChange={onChange}
+        unstyled
+        className={twMerge(cx('w-full', className))}
+        classNames={{
+          container: () => 'md:z-10',
+          // If a card with a link appears on large and medium screens, the link covers the select dropdown. The `md:z-10` ensures the select always precedes the link
+          control: () =>
+            'relative flex h-[42px] w-full min-w-0 border border-border bg-white pl-4 pr-1 hover:cursor-pointer outline-none hover:border-border-dark',
+          menu: () => 'z-20 border border-border bg-white mt-2 outline-none',
+          placeholder: () =>
+            cx('truncate text-foreground-placeholder', {
+              'text-content-disabled': isDisabled,
+            }),
+        }}
+        components={{
+          Option: (props) => <CustomOption {...props} />,
+          DropdownIndicator,
+        }}
+      />
+    </div>
   )
 }
 
