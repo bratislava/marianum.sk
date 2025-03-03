@@ -14,7 +14,7 @@ type PartnerCardProps = {
 } & CardBoxProps
 
 const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'Cards' })
+  const { t } = useTranslation('common')
   const titleId = useId()
 
   return (
@@ -36,7 +36,7 @@ const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
             startIcon={<OpenInNewIcon />}
             className="after:absolute after:inset-0"
           >
-            {t('showMore')}
+            {t('Cards.showMore')}
           </Button>
         </div>
       </CardContent>

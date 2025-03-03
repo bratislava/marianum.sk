@@ -28,7 +28,7 @@ const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) =>
     onSearch,
   } = props
 
-  const { t } = useTranslation('common', { keyPrefix: 'NavigationSearch' })
+  const { t } = useTranslation('common')
 
   return (
     <Modal
@@ -47,7 +47,7 @@ const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) =>
             onSearch={onSearch}
           />
           <Button variant="plain-secondary" className="px-4 !text-white" onPress={onClose}>
-            {t('close')}
+            {t('NavigationSearch.close')}
           </Button>
         </div>
         <AnimateHeight className="bg-white" isVisible>

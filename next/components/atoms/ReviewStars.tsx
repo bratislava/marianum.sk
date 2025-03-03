@@ -47,11 +47,11 @@ type ReviewStarsProps = {
 }
 
 const ReviewStars = ({ value }: ReviewStarsProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'ReviewStars' })
+  const { t } = useTranslation('common')
 
   return (
     <>
-      <div className="sr-only">{t('aria.rating', { rating: value.toFixed(1) })}</div>
+      <div className="sr-only">{t('ReviewStars.aria.rating', { rating: value.toFixed(1) })}</div>
       <div className="flex gap-1">
         {Array.from({ length: 5 }, (_item, index) => (
           <ReviewStar key={index} value={value} index={index} />

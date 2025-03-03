@@ -14,7 +14,7 @@ type ServiceCardProps = {
 } & CardBoxProps
 
 const ServiceCard = ({ image, title, linkHref, ...rest }: ServiceCardProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'Cards' })
+  const { t } = useTranslation('common')
   const titleId = useId()
 
   // eslint-disable-next-line unicorn/consistent-function-scoping
@@ -42,7 +42,7 @@ const ServiceCard = ({ image, title, linkHref, ...rest }: ServiceCardProps) => {
             className="inline-block after:absolute after:inset-0"
             onClick={handleLinkClick}
           >
-            {t('showMore')}
+            {t('Cards.showMore')}
           </MLink>
         </div>
       </CardContent>

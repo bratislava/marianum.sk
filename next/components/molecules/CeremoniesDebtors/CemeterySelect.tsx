@@ -22,7 +22,7 @@ const CeremoniesDebtorsCemeterySelect = ({
   type,
   onCemeteryChange = () => {},
 }: CeremoniesDebtorsCemeterySelectProps) => {
-  const { t, i18n } = useTranslation('common', { keyPrefix: 'CemeterySelect' })
+  const { t, i18n } = useTranslation('common')
 
   // eslint-disable-next-line consistent-return
   const fetcher = useMemo(() => {
@@ -44,7 +44,7 @@ const CeremoniesDebtorsCemeterySelect = ({
     }
   }, [type, i18n.language])
 
-  const defaultOption = useMemo(() => ({ label: t('allCemeteries'), key: '' }), [t])
+  const defaultOption = useMemo(() => ({ label: t('CemeterySelect.allCemeteries'), key: '' }), [t])
 
   return fetcher ? (
     <SelectWithFetcher

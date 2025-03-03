@@ -18,7 +18,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
 
   const { isOpen } = rest
 
-  const { t } = useTranslation('common', { keyPrefix: 'ImageLightBox' })
+  const { t } = useTranslation('common')
 
   const sliderRef = useRef<HTMLDivElement | null>(null)
 
@@ -32,7 +32,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
     <Modal overlayClassName="w-full h-screen pointer-events-none" {...rest}>
       <Slider
         ref={sliderRef}
-        description={t('aria.description')}
+        description={t('ImageLightBox.aria.description')}
         allowKeyboardNavigation={images.length > 1}
         initialPage={initialImageIndex}
         pages={images

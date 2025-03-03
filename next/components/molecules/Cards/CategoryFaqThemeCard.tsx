@@ -19,7 +19,7 @@ const CategoryFaqThemeCard = ({
   linkHref,
   ...rest
 }: CategoryFaqThemeCardProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'Cards' })
+  const { t } = useTranslation('common')
   const titleId = useId()
 
   // eslint-disable-next-line unicorn/consistent-function-scoping
@@ -48,7 +48,7 @@ const CategoryFaqThemeCard = ({
             className="after:absolute after:inset-0"
             onClick={handleLinkClick}
           >
-            {t('showMore')}
+            {t('Cards.showMore')}
           </MLink>
         </div>
       </CardContent>

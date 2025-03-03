@@ -19,7 +19,7 @@ export type FooterProps = {
 }
 
 const Footer = ({ contact, footer, socials }: FooterProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'Footer' })
+  const { t } = useTranslation('common')
   const { getFullPath } = useGetFullPath()
 
   const { phone1, email } = contact?.contact?.data?.attributes ?? {}
@@ -61,7 +61,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
 
           <div className="flex w-full flex-col gap-4 px-4 py-6 md:col-span-2 md:px-8 lg:col-span-1 lg:gap-8 lg:px-12 lg:py-8">
             <div className="relative flex flex-col gap-3">
-              <div className="text-lg font-bold">{t('address')}</div>
+              <div className="text-lg font-bold">{t('Footer.address')}</div>
               {(contact?.addressFirstLine || contact?.address) && (
                 <div className="flex flex-col gap-2 whitespace-pre-wrap font-regular text-white/72">
                   <div>{contact.addressFirstLine}</div>
@@ -73,7 +73,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
                         noStyles
                         className="w-fit text-white/72 underline hover:text-white/100"
                         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                        aria-label={`${t('navigateTo')} ${contact?.address}`}
+                        aria-label={`${t('Footer.navigateTo')} ${contact?.address}`}
                       >
                         {contact.address}
                       </MLink>
@@ -86,14 +86,14 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
               <div className="right-0 top-1 flex md:absolute">
                 {openingHoursPath && (
                   <MLink variant="white" href={openingHoursPath}>
-                    {t('openingHours')}
+                    {t('Footer.openingHours')}
                   </MLink>
                 )}
               </div>
             </div>
             <div className="h-px bg-white/12" />
             <div className="relative flex flex-col gap-3">
-              <div className="text-lg font-bold">{t('contacts')}</div>
+              <div className="text-lg font-bold">{t('Footer.contacts')}</div>
               <div className="flex flex-col gap-2 font-regular">
                 {phone1 && (
                   <MLink
@@ -117,7 +117,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
               <div className="right-0 top-1 flex md:absolute">
                 {contactsPath && (
                   <MLink variant="white" href={contactsPath}>
-                    {t('allContacts')}
+                    {t('Footer.allContacts')}
                   </MLink>
                 )}
               </div>

@@ -26,7 +26,7 @@ type MapOfManagedObjectsSectionProps = {
 }
 
 const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps) => {
-  const { t, i18n } = useTranslation('common', { keyPrefix: 'MapSection' })
+  const { t, i18n } = useTranslation('common')
 
   const { getFullPath } = useGetFullPath()
 
@@ -93,7 +93,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
                       isSelected={selectedTypes[type]}
                       onChange={() => toggleSelectedTypes(type)}
                     >
-                      {t(`filters.${type}`)}
+                      {t(`MapSection.filters.${type}`)}
                     </TagToggle>
                   </li>
                 )
@@ -103,7 +103,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
 
           {/* Results */}
           <ul
-            aria-label={t('results')}
+            aria-label={t('MapSection.results')}
             className="flex-1 overflow-auto"
             onMouseLeave={() => setHoveredManagedObjectSlug(null)}
           >
@@ -132,7 +132,9 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
                 </li>
               )
             })}
-            {filteredManagedObjects.length === 0 && <div className="p-5">{t('noResults')}</div>}
+            {filteredManagedObjects.length === 0 && (
+              <div className="p-5">{t('MapSection.noResults')}</div>
+            )}
           </ul>
         </div>
 
@@ -193,7 +195,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
             onPress={() => setMapOrFiltersDisplayed((map) => !map)}
             startIcon={isMapOrFiltersDisplayed ? <ArrowLeftIcon /> : <PlaceIcon />}
           >
-            {isMapOrFiltersDisplayed ? t('filtering') : t('map')}
+            {isMapOrFiltersDisplayed ? t('MapSection.filtering') : t('MapSection.map')}
           </Button>
         </div>
       </div>

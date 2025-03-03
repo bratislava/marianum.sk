@@ -31,7 +31,7 @@ const Search = ({
   isLarge = false,
   ...rest
 }: SearchProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'SearchField' })
+  const { t } = useTranslation('common')
 
   const [realValue, setRealValue] = useState(value)
 
@@ -75,8 +75,8 @@ const Search = ({
       id="search"
       value={realValue}
       onChange={(e) => handleChange(e.target.value)}
-      placeholder={placeholder ?? t('searchPlaceholder')}
-      aria-label={t('aria.searchField')}
+      placeholder={placeholder ?? t('SearchField.searchPlaceholder')}
+      aria-label={t('SearchField.aria.searchField')}
       onKeyUp={onKeyUpHandler}
       className={className}
       isLarge={isLarge}

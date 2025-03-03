@@ -19,7 +19,7 @@ import { getCemeteryInfoInCeremoniesDebtors } from '@/utils/getCemeteryInfoInCer
 import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 
 const Table = () => {
-  const { t, i18n } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })
+  const { t, i18n } = useTranslation('common')
 
   const { data, error } = useSWR(upcomingCeremoniesSwrKey, upcomingCeremoniesFetcher)
 
@@ -88,7 +88,7 @@ const Table = () => {
   if (ceremonies?.ceremonies.length === 0) {
     return (
       <div>
-        <strong>{t('noCeremonies')}</strong>
+        <strong>{t('CeremoniesSection.noCeremonies')}</strong>
       </div>
     )
   }

@@ -10,10 +10,14 @@ type NewsSectionProps = Pick<SectionProps, 'background'> & {
 }
 
 const NewsSection = ({ section, ...rest }: NewsSectionProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'NewsSection' })
+  const { t } = useTranslation('common')
 
   return (
-    <Section {...rest} title={section?.title ?? t('moreNews')} button={section?.showMoreButton}>
+    <Section
+      {...rest}
+      title={section?.title ?? t('NewsSection.moreNews')}
+      button={section?.showMoreButton}
+    >
       <NewsListing />
     </Section>
   )

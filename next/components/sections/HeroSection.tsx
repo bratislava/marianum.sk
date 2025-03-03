@@ -31,7 +31,7 @@ const HeroSection = ({
   price,
   moreContent,
 }: HeroSectionProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'HeroSection' })
+  const { t } = useTranslation('common')
   const router = useRouter()
 
   const { navMap } = useNavigationContext()
@@ -71,7 +71,7 @@ const HeroSection = ({
           )}
           {price && (
             <div className="mt-6">
-              <div>{t('priceFrom')}</div>
+              <div>{t('HeroSection.priceFrom')}</div>
               <div className="mt-1 text-h4 font-bold text-white">
                 <FormatCurrency value={price} />
               </div>

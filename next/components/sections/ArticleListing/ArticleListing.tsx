@@ -35,7 +35,7 @@ const Articles = ({
   filters: ArticleListingFilters
   type: ArticleListingType
 }) => {
-  const { t } = useTranslation('common', { keyPrefix: 'ArticleListing' })
+  const { t } = useTranslation('common')
 
   const { getFullPathMeili } = useGetFullPathMeili()
   const cardsRef = useRef<HTMLDivElement>(null)
@@ -44,7 +44,7 @@ const Articles = ({
   if (data.hits?.length > 0) {
     return (
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4" ref={cardsRef}>
-        <h2 className="sr-only">{t('aria.results')}</h2>
+        <h2 className="sr-only">{t('ArticleListing.aria.results')}</h2>
         {data.hits.map((article) => {
           const {
             title,
@@ -86,7 +86,7 @@ const Articles = ({
     )
   }
 
-  return <strong>{t('noNews')}</strong>
+  return <strong>{t('ArticleListing.noNews')}</strong>
 }
 
 const DataWrapper = ({
