@@ -171,6 +171,9 @@ fragment CemeteryCardEntity on CemeteryEntity {
     overrideOpeningHours {
       ...OpeningHours
     }
+    documents {
+      ...DocumentGroup
+    }
   }
 }
 

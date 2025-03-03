@@ -27,8 +27,10 @@ type CemeteryPageProps = {
 const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'BranchCemeteryPage' })
 
-  const { seo, title, address, navigateToLink, description, overrideOpeningHours } =
+  const { seo, title, address, navigateToLink, description, overrideOpeningHours, documents } =
     entity.attributes ?? {}
+
+  console.log('documents', documents)
 
   return (
     <>

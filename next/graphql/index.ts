@@ -555,6 +555,7 @@ export type Cemetery = {
   contact?: Maybe<ContactEntityResponse>;
   createdAt?: Maybe<Scalars['DateTime']>;
   description?: Maybe<Scalars['String']>;
+  documents?: Maybe<ComponentSectionsDocumentGroup>;
   latitude?: Maybe<Scalars['Float']>;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<CemeteryRelationResponseCollection>;
@@ -608,6 +609,7 @@ export type CemeteryFiltersInput = {
   contact?: InputMaybe<ContactFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
+  documents?: InputMaybe<ComponentSectionsDocumentGroupFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
   latitude?: InputMaybe<FloatFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
@@ -630,6 +632,7 @@ export type CemeteryInput = {
   allowInDebtors?: InputMaybe<Scalars['Boolean']>;
   contact?: InputMaybe<Scalars['ID']>;
   description?: InputMaybe<Scalars['String']>;
+  documents?: InputMaybe<ComponentSectionsDocumentGroupInput>;
   latitude?: InputMaybe<Scalars['Float']>;
   longitude?: InputMaybe<Scalars['Float']>;
   medias?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
@@ -4280,9 +4283,9 @@ export type BranchEntityFragment = { __typename: 'BranchEntity', id?: string | n
 
 export type CemeterySlugEntityFragment = { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', slug: string, type?: Enum_Cemetery_Type | null, locale?: string | null } | null };
 
-export type CemeteryCardEntityFragment = { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, address?: string | null, slug: string, type?: Enum_Cemetery_Type | null, locale?: string | null, overrideOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null } | null };
+export type CemeteryCardEntityFragment = { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, address?: string | null, slug: string, type?: Enum_Cemetery_Type | null, locale?: string | null, overrideOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, documents?: { __typename?: 'ComponentSectionsDocumentGroup', id: string, title?: string | null, documents?: Array<{ __typename?: 'ComponentBlocksDocumentItem', document?: { __typename?: 'DocumentEntityResponse', data?: { __typename: 'DocumentEntity', id?: string | null, attributes?: { __typename?: 'Document', title: string, publishedAt?: any | null, slug: string, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, documentCategory?: { __typename?: 'DocumentCategoryEntityResponse', data?: { __typename?: 'DocumentCategoryEntity', id?: string | null, attributes?: { __typename?: 'DocumentCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | null } | null };
 
-export type CemeteryEntityFragment = { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', type?: Enum_Cemetery_Type | null, description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, title: string, address?: string | null, slug: string, locale?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, overrideOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null } | null };
+export type CemeteryEntityFragment = { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', type?: Enum_Cemetery_Type | null, description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, title: string, address?: string | null, slug: string, locale?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, overrideOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, documents?: { __typename?: 'ComponentSectionsDocumentGroup', id: string, title?: string | null, documents?: Array<{ __typename?: 'ComponentBlocksDocumentItem', document?: { __typename?: 'DocumentEntityResponse', data?: { __typename: 'DocumentEntity', id?: string | null, attributes?: { __typename?: 'Document', title: string, publishedAt?: any | null, slug: string, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, documentCategory?: { __typename?: 'DocumentCategoryEntityResponse', data?: { __typename?: 'DocumentCategoryEntity', id?: string | null, attributes?: { __typename?: 'DocumentCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | null } | null };
 
 export type CemeteryInCeremoniesDebtorsEntityFragment = { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, locale?: string | null } | null }> } | null } | null };
 
@@ -4396,14 +4399,14 @@ export type CemeteryBySlugQueryVariables = Exact<{
 }>;
 
 
-export type CemeteryBySlugQuery = { __typename?: 'Query', cemeteries?: { __typename?: 'CemeteryEntityResponseCollection', data: Array<{ __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', type?: Enum_Cemetery_Type | null, description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, title: string, address?: string | null, slug: string, locale?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, overrideOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null } | null }> } | null };
+export type CemeteryBySlugQuery = { __typename?: 'Query', cemeteries?: { __typename?: 'CemeteryEntityResponseCollection', data: Array<{ __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', type?: Enum_Cemetery_Type | null, description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, title: string, address?: string | null, slug: string, locale?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, overrideOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, documents?: { __typename?: 'ComponentSectionsDocumentGroup', id: string, title?: string | null, documents?: Array<{ __typename?: 'ComponentBlocksDocumentItem', document?: { __typename?: 'DocumentEntityResponse', data?: { __typename: 'DocumentEntity', id?: string | null, attributes?: { __typename?: 'Document', title: string, publishedAt?: any | null, slug: string, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, documentCategory?: { __typename?: 'DocumentCategoryEntityResponse', data?: { __typename?: 'DocumentCategoryEntity', id?: string | null, attributes?: { __typename?: 'DocumentCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | null } | null }> } | null };
 
 export type CemeteriesQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode'];
 }>;
 
 
-export type CemeteriesQuery = { __typename?: 'Query', cemeteries?: { __typename?: 'CemeteryEntityResponseCollection', data: Array<{ __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', type?: Enum_Cemetery_Type | null, description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, title: string, address?: string | null, slug: string, locale?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, overrideOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null } | null }> } | null };
+export type CemeteriesQuery = { __typename?: 'Query', cemeteries?: { __typename?: 'CemeteryEntityResponseCollection', data: Array<{ __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', type?: Enum_Cemetery_Type | null, description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, title: string, address?: string | null, slug: string, locale?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, overrideOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, documents?: { __typename?: 'ComponentSectionsDocumentGroup', id: string, title?: string | null, documents?: Array<{ __typename?: 'ComponentBlocksDocumentItem', document?: { __typename?: 'DocumentEntityResponse', data?: { __typename: 'DocumentEntity', id?: string | null, attributes?: { __typename?: 'Document', title: string, publishedAt?: any | null, slug: string, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, documentCategory?: { __typename?: 'DocumentCategoryEntityResponse', data?: { __typename?: 'DocumentCategoryEntity', id?: string | null, attributes?: { __typename?: 'DocumentCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | null } | null }> } | null };
 
 export type ManagedObjectBySlugQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode'];
@@ -4911,6 +4914,68 @@ export const OpeningHoursFragmentDoc = gql`
   }
 }
     `;
+export const DocumentCategoryEntityFragmentDoc = gql`
+    fragment DocumentCategoryEntity on DocumentCategoryEntity {
+  id
+  attributes {
+    title
+    slug
+  }
+}
+    `;
+export const DocumentSlugEntityFragmentDoc = gql`
+    fragment DocumentSlugEntity on DocumentEntity {
+  __typename
+  id
+  attributes {
+    slug
+    documentCategory {
+      data {
+        ...DocumentCategoryEntity
+      }
+    }
+  }
+}
+    ${DocumentCategoryEntityFragmentDoc}`;
+export const UploadFileEntityFragmentDoc = gql`
+    fragment UploadFileEntity on UploadFileEntity {
+  id
+  attributes {
+    url
+    name
+    size
+    ext
+  }
+}
+    `;
+export const DocumentCardEntityFragmentDoc = gql`
+    fragment DocumentCardEntity on DocumentEntity {
+  ...DocumentSlugEntity
+  attributes {
+    title
+    publishedAt
+    file {
+      data {
+        ...UploadFileEntity
+      }
+    }
+  }
+}
+    ${DocumentSlugEntityFragmentDoc}
+${UploadFileEntityFragmentDoc}`;
+export const DocumentGroupFragmentDoc = gql`
+    fragment DocumentGroup on ComponentSectionsDocumentGroup {
+  id
+  title
+  documents {
+    document {
+      data {
+        ...DocumentCardEntity
+      }
+    }
+  }
+}
+    ${DocumentCardEntityFragmentDoc}`;
 export const CemeteryCardEntityFragmentDoc = gql`
     fragment CemeteryCardEntity on CemeteryEntity {
   ...CemeterySlugEntity
@@ -4920,10 +4985,14 @@ export const CemeteryCardEntityFragmentDoc = gql`
     overrideOpeningHours {
       ...OpeningHours
     }
+    documents {
+      ...DocumentGroup
+    }
   }
 }
     ${CemeterySlugEntityFragmentDoc}
-${OpeningHoursFragmentDoc}`;
+${OpeningHoursFragmentDoc}
+${DocumentGroupFragmentDoc}`;
 export const CemeteryEntityFragmentDoc = gql`
     fragment CemeteryEntity on CemeteryEntity {
   ...CemeteryCardEntity
@@ -4995,68 +5064,6 @@ export const BundleCardEntityFragmentDoc = gql`
   }
 }
     ${UploadImageEntityFragmentDoc}`;
-export const DocumentCategoryEntityFragmentDoc = gql`
-    fragment DocumentCategoryEntity on DocumentCategoryEntity {
-  id
-  attributes {
-    title
-    slug
-  }
-}
-    `;
-export const DocumentSlugEntityFragmentDoc = gql`
-    fragment DocumentSlugEntity on DocumentEntity {
-  __typename
-  id
-  attributes {
-    slug
-    documentCategory {
-      data {
-        ...DocumentCategoryEntity
-      }
-    }
-  }
-}
-    ${DocumentCategoryEntityFragmentDoc}`;
-export const UploadFileEntityFragmentDoc = gql`
-    fragment UploadFileEntity on UploadFileEntity {
-  id
-  attributes {
-    url
-    name
-    size
-    ext
-  }
-}
-    `;
-export const DocumentCardEntityFragmentDoc = gql`
-    fragment DocumentCardEntity on DocumentEntity {
-  ...DocumentSlugEntity
-  attributes {
-    title
-    publishedAt
-    file {
-      data {
-        ...UploadFileEntity
-      }
-    }
-  }
-}
-    ${DocumentSlugEntityFragmentDoc}
-${UploadFileEntityFragmentDoc}`;
-export const DocumentGroupFragmentDoc = gql`
-    fragment DocumentGroup on ComponentSectionsDocumentGroup {
-  id
-  title
-  documents {
-    document {
-      data {
-        ...DocumentCardEntity
-      }
-    }
-  }
-}
-    ${DocumentCardEntityFragmentDoc}`;
 export const SidebarFragmentDoc = gql`
     fragment Sidebar on ComponentBlocksSidebar {
   title
