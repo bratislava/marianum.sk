@@ -176,7 +176,7 @@ const SearchPage = ({ navigation, general }: SearchPageProps) => {
   return (
     <>
       <Head>
-        <title>{`${t('SearchPage.pageTitle') as string} – Marianum`}</title>
+        <title>{`${t('SearchPage.pageTitle')} – Marianum`}</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <PageWrapper navigation={navigation} general={general}>
@@ -193,7 +193,7 @@ export const getStaticProps: GetStaticProps = async ({
 }): Promise<GetStaticPropsResult<SearchPageProps>> => {
   const [{ navigation, general }, translations] = await Promise.all([
     client.General({ locale }),
-    serverSideTranslations(locale, ['common']),
+    serverSideTranslations(locale),
   ])
 
   const filteredNavigation = navigation.filter(isDefined)

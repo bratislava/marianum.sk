@@ -126,7 +126,7 @@ export const getStaticProps: GetStaticProps = async ({
 
   const [{ navigation, general }, translations, fallback] = await Promise.all([
     client.General({ locale }),
-    serverSideTranslations(locale, ['common']),
+    serverSideTranslations(locale),
     prefetchSections(homePage?.data?.attributes?.sections, sectionFetcherMapSwr, true),
   ])
 
