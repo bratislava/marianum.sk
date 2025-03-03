@@ -29,7 +29,7 @@ const BundleCard = ({
   linkHref,
   ...props
 }: BundleCardProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const titleId = useId()
 

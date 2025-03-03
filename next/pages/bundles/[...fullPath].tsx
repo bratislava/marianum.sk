@@ -32,7 +32,7 @@ const BundlePage: NextPage<BundlePageProps> = ({
   entity,
   general,
 }: BundlePageProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const {
     seo,
     title,

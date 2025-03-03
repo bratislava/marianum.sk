@@ -23,7 +23,7 @@ import { useMapWithFilteringAndSearch } from '@/utils/useMapWithFilteringAndSear
 type MapSectionProps = { section: MapSectionFragment }
 
 const MapSection = ({ section }: MapSectionProps) => {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation()
   const { getFullPath } = useGetFullPath()
 
   const translationMap: Record<string, string> = {

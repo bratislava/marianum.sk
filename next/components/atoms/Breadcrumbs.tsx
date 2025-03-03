@@ -59,7 +59,7 @@ const BreadcrumbChild = ({
 }
 
 const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const { height, ref: breadcrumbsExpandedRef } = useResizeDetector()
   const { height: fullHeight, ref: breadcrumbsExpandedWrappingRef } = useResizeDetector()

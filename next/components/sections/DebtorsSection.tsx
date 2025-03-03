@@ -32,7 +32,7 @@ const Table = ({
   data: SearchResponse<DebtorMeili>
   filters: DebtorsSectionFilters
 }) => {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation()
 
   const tableWrapperRef = useRef<HTMLDivElement>(null)
   const theadRef = useRef<HTMLTableSectionElement>(null)

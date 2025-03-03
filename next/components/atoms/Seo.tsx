@@ -26,7 +26,7 @@ const Seo = ({
   entity,
   homepage = false,
 }: SeoProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const { getFullPath } = useGetFullPath()
 

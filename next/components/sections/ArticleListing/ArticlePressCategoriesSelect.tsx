@@ -14,7 +14,7 @@ type ArticlePressCategoriesSelectProps = {
 const ArticlePressCategoriesSelect = ({
   onCategoryChange = () => {},
 }: ArticlePressCategoriesSelectProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const defaultOption = useMemo(() => ({ label: t('ArticleListing.allCategories'), key: '' }), [t])
 

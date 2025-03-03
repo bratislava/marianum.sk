@@ -21,7 +21,7 @@ import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange
 import { allSearchTypes, SearchFilters, SearchType, useSearch } from '@/utils/useSearch'
 
 const SearchSection = () => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const translationMap = {
     page: t('SearchPage.tags.page'),
@@ -171,7 +171,7 @@ type SearchPageProps = {
 }
 
 const SearchPage = ({ navigation, general }: SearchPageProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   return (
     <>

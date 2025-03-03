@@ -35,7 +35,7 @@ const Documents = ({
   data: SearchResponse<DocumentMeili>
   filters: DocumentsSectionFilters
 }) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
   const documentsRef = useRef<HTMLDivElement>(null)

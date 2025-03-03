@@ -47,7 +47,7 @@ type ReviewStarsProps = {
 }
 
 const ReviewStars = ({ value }: ReviewStarsProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   return (
     <>

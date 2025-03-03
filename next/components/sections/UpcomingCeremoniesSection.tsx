@@ -19,7 +19,7 @@ import { getCemeteryInfoInCeremoniesDebtors } from '@/utils/getCemeteryInfoInCer
 import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 
 const Table = () => {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation()
 
   const { data, error } = useSWR(upcomingCeremoniesSwrKey, upcomingCeremoniesFetcher)
 

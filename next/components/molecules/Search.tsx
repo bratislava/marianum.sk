@@ -31,7 +31,7 @@ const Search = ({
   isLarge = false,
   ...rest
 }: SearchProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const [realValue, setRealValue] = useState(value)
 

@@ -11,7 +11,7 @@ type SideBarProps = {
 }
 
 const SideBar = ({ sidebar }: SideBarProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { getFullPath } = useGetFullPath()
 
   if (!sidebar) {

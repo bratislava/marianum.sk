@@ -7,7 +7,7 @@ import Spinner from '@/components/atoms/Spinner'
 type LoadingProps = { className?: string }
 
 const Loading = ({ className }: LoadingProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   return (
     <div className={twMerge('flex flex-col items-center gap-4 text-primary', className)}>

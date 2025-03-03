@@ -39,7 +39,7 @@ type HomeProps = {
 }
 
 const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const { seo } = page.attributes ?? {}
 

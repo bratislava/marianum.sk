@@ -21,7 +21,7 @@ const mappedFetcher = () =>
 const DocumentsSectionCategorySelect = ({
   onCategoryChange = () => {},
 }: DocumentsSectionCategorySelectProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const defaultOption = useMemo(
     () => ({ label: t('DocumentsSection.allCategories'), key: '' }),

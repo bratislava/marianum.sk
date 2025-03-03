@@ -12,7 +12,7 @@ type SideBarContactProps = {
 }
 
 const SideBarContact = ({ title, phone1, phone2, email }: SideBarContactProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   if (!title && !phone1 && !phone2 && !email) {
     return <aside className="lg:w-[360px]" />

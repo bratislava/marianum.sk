@@ -18,7 +18,7 @@ type DocumentLayoutProps = {
 }
 
 const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) => {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation()
 
   const { title, description, file, publishedAt, documentCategory, slug } =
     document.attributes ?? {}

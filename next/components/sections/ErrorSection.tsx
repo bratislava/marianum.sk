@@ -12,7 +12,7 @@ type ErrorSectionProps = {
 
 const ErrorSection = ({ code, title, message }: ErrorSectionProps) => {
   const router = useRouter()
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const handleGoBack = () => {
     router.back()

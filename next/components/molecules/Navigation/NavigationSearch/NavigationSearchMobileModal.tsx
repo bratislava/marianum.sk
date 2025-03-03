@@ -28,7 +28,7 @@ const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) =>
     onSearch,
   } = props
 
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   return (
     <Modal

@@ -10,7 +10,7 @@ type OfficeSectionBoxedProps = {
 }
 
 const OfficeSectionBoxed = ({ office }: OfficeSectionBoxedProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const { title, openingHours, contacts } = office.attributes ?? {}
 

@@ -19,7 +19,7 @@ export type ImageGalleryProps = {
 }
 
 const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   // all images count
   const imageCount = useMemo(() => {

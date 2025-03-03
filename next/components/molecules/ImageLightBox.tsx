@@ -18,7 +18,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
 
   const { isOpen } = rest
 
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const sliderRef = useRef<HTMLDivElement | null>(null)
 

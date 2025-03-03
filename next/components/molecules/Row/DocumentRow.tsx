@@ -14,7 +14,7 @@ type DocumentRowProps = {
 }
 const DocumentRow = (props: DocumentRowProps) => {
   const { file, title } = props
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
   const DownloadButton = () =>

@@ -8,7 +8,7 @@ import Row, { RowProps } from '@/components/molecules/Row/Row'
 const PartnerRow = (props: Pick<RowProps, 'title' | 'titleId' | 'linkHref' | 'border'>) => {
   const { linkHref, titleId } = props
 
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const LinkButton = () =>
     linkHref ? (

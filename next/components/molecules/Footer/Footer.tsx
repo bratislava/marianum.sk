@@ -19,7 +19,7 @@ export type FooterProps = {
 }
 
 const Footer = ({ contact, footer, socials }: FooterProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { getFullPath } = useGetFullPath()
 
   const { phone1, email } = contact?.contact?.data?.attributes ?? {}

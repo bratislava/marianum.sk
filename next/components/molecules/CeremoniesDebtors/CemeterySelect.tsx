@@ -22,7 +22,7 @@ const CeremoniesDebtorsCemeterySelect = ({
   type,
   onCemeteryChange = () => {},
 }: CeremoniesDebtorsCemeterySelectProps) => {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation()
 
   // eslint-disable-next-line consistent-return
   const fetcher = useMemo(() => {

@@ -9,7 +9,7 @@ export type FilteringSearchInputProps = {
 }
 
 const FilteringSearchInput = ({ value, onChange }: FilteringSearchInputProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const handleCancelClick = () => {
     onChange('')

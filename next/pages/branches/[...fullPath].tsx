@@ -26,7 +26,7 @@ type BranchPageProps = {
 } & SSRConfig
 
 const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const { seo, title, address, navigateToLink, description, offices } = entity.attributes ?? {}
 

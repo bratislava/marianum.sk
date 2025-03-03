@@ -90,7 +90,7 @@ export type ChecklistProps = {
 }
 
 const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: ChecklistProps) => {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation()
 
   // The saved state is valid up until we change anything in procedures in Strapi. Therefore, we can save only indexes
   // instead of keys as when something changes the id will be regenerated.
