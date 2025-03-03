@@ -74,8 +74,6 @@ const SelectField = <Option extends SelectOption<Sort | string>, IsMulti extends
   defaultValue,
   isDisabled = false,
   isSearchable = false,
-  // Incorrect inference of `isMulti` type caused type mismatch errors. An assertion was added to fix this
-  isMulti = false as IsMulti,
   onChange = () => null,
   className,
   ...rest
@@ -90,7 +88,6 @@ const SelectField = <Option extends SelectOption<Sort | string>, IsMulti extends
         placeholder={placeholder}
         options={options}
         isDisabled={isDisabled}
-        isMulti={isMulti}
         isSearchable={isSearchable}
         defaultValue={defaultValue}
         onChange={onChange}
@@ -98,7 +95,7 @@ const SelectField = <Option extends SelectOption<Sort | string>, IsMulti extends
         className={twMerge(cx('w-full', className))}
         {...rest}
         classNames={{
-          container: () => 'md:z-10',
+          container: (state) => cx({ 'md:z-10': state.selectProps.menuIsOpen }),
           // If a card with a link appears on large and medium screens, the link covers the select dropdown. The `md:z-10` ensures the select always precedes the link
           control: () =>
             'relative flex h-[42px] w-full min-w-0 border border-border bg-white pl-4 pr-1 hover:cursor-pointer outline-none hover:border-border-dark',
