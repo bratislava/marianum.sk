@@ -30,6 +30,14 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
 
   const { getFullPath } = useGetFullPath()
 
+  const translationMap: Record<string, string> = {
+    [Enum_Managedobject_Type.Fontana]: t('MapSection.managedObjectsFilter.fontana'),
+    [Enum_Managedobject_Type.PitnaFontana]: t('MapSection.managedObjectsFilter.pitnaFontana'),
+    [Enum_Managedobject_Type.HmlovaFontana]: t('MapSection.managedObjectsFilter.hmlovaFontana'),
+    [Enum_Managedobject_Type.Studna]: t('MapSection.managedObjectsFilter.studna'),
+    [Enum_Managedobject_Type.Rozprasovac]: t('MapSection.managedObjectsFilter.rozprasovac'),
+  } satisfies Record<Enum_Managedobject_Type, string>
+
   const { data, error } = useSWR(
     getManagedObjectsSwrKey(i18n.language),
     managedObjectsFetcher(i18n.language),
@@ -85,7 +93,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
           {/* Search & filtering */}
           <div className="flex flex-col gap-3 border-b border-border p-5">
             <Search value={searchQuery} onSearchQueryChange={setSearchQuery} />
-            <ul aria-label={t('filtering')} className="flex flex-wrap gap-2">
+            <ul aria-label={t('MapSection.filtering')} className="flex flex-wrap gap-2">
               {Object.entries(selectedTypes).map(([type]) => {
                 return (
                   <li key={type}>
@@ -93,7 +101,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
                       isSelected={selectedTypes[type]}
                       onChange={() => toggleSelectedTypes(type)}
                     >
-                      {t(`MapSection.filters.${type}`)}
+                      {translationMap[type]}
                     </TagToggle>
                   </li>
                 )

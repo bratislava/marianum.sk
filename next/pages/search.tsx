@@ -23,6 +23,15 @@ import { allSearchTypes, SearchFilters, SearchType, useSearch } from '@/utils/us
 const SearchSection = () => {
   const { t } = useTranslation('common')
 
+  const translationMap = {
+    page: t('SearchPage.tags.page'),
+    article: t('SearchPage.tags.article'),
+    branch: t('SearchPage.tags.branch'),
+    bundle: t('SearchPage.tags.bundle'),
+    cemetery: t('SearchPage.tags.cemetery'),
+    document: t('SearchPage.tags.document'),
+  } satisfies Record<SearchType, string>
+
   const [filters, setFilters] = useState<SearchFilters>({
     pageSize: 10,
     page: 1,
@@ -131,7 +140,7 @@ const SearchSection = () => {
                       title={title}
                       linkHref={link}
                       showUrl
-                      tags={[t(`SearchPage.tags.${type}`)]}
+                      tags={[translationMap[type]]}
                       border={false}
                     />
                   ))}
