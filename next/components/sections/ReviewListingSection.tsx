@@ -17,7 +17,7 @@ type ReviewListingProps = {
 }
 
 const ReviewListingSection = ({ reviews }: ReviewListingProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'ReviewListingSection' })
+  const { t } = useTranslation('common')
 
   const filteredReviews = useMemo(() => {
     return reviews?.filter(isDefined).filter((review) => review.attributes) ?? []
@@ -61,7 +61,7 @@ const ReviewListingSection = ({ reviews }: ReviewListingProps) => {
                   </motion.div>
                 </AnimatePresence>
               ))}
-              {visibleReviews.length === 0 ? t('noReviews') : null}
+              {visibleReviews.length === 0 ? t('ReviewListingSection.noReviews') : null}
             </LayoutGroup>
           </div>
         </AnimateHeight>

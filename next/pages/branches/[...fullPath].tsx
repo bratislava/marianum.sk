@@ -26,7 +26,7 @@ type BranchPageProps = {
 } & SSRConfig
 
 const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'BranchCemeteryPage' })
+  const { t } = useTranslation('common')
 
   const { seo, title, address, navigateToLink, description, offices } = entity.attributes ?? {}
 
@@ -60,13 +60,13 @@ const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
                   startIcon={<NavigateIcon />}
                   className="-ml-2 md:ml-0"
                 >
-                  {t('navigate')}
+                  {t('BranchCemeteryPage.navigate')}
                 </Button>
               )}
             </div>
           </SectionBoxed>
           {description && (
-            <SectionBoxed title={t('aboutBranch')}>
+            <SectionBoxed title={t('BranchCemeteryPage.aboutBranch')}>
               <RichText content={description} coloredTable={false} />
             </SectionBoxed>
           )}

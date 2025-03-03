@@ -14,7 +14,7 @@ type DocumentRowProps = {
 }
 const DocumentRow = (props: DocumentRowProps) => {
   const { file, title } = props
-  const { t } = useTranslation('common', { keyPrefix: 'DocumentGroup' })
+  const { t } = useTranslation('common')
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
   const DownloadButton = () =>
@@ -26,7 +26,7 @@ const DocumentRow = (props: DocumentRowProps) => {
         aria-label={getDownloadAriaLabel(file, title)}
         startIcon={<DownloadIcon />}
       >
-        {t('download')}
+        {t('DocumentGroup.download')}
       </Button>
     ) : null
 

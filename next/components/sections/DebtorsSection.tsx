@@ -32,7 +32,7 @@ const Table = ({
   data: SearchResponse<DebtorMeili>
   filters: DebtorsSectionFilters
 }) => {
-  const { t, i18n } = useTranslation('common', { keyPrefix: 'DebtorsSection' })
+  const { t, i18n } = useTranslation('common')
 
   const tableWrapperRef = useRef<HTMLDivElement>(null)
   const theadRef = useRef<HTMLTableSectionElement>(null)
@@ -71,14 +71,14 @@ const Table = ({
       <table className="m-table colored">
         <thead ref={theadRef}>
           <tr>
-            <th>{t('th.cemeteryTitle')}</th>
-            <th>{t('th.graveSector')}</th>
-            <th>{t('th.graveNumber')}</th>
-            <th>{t('th.gravePreviousNumber')}</th>
-            <th>{t('th.firstName')}</th>
-            <th>{t('th.lastName')}</th>
-            <th>{t('th.birthDate')}</th>
-            <th>{t('th.deathDate')}</th>
+            <th>{t('DebtorsSection.th.cemeteryTitle')}</th>
+            <th>{t('DebtorsSection.th.graveSector')}</th>
+            <th>{t('DebtorsSection.th.graveNumber')}</th>
+            <th>{t('DebtorsSection.th.gravePreviousNumber')}</th>
+            <th>{t('DebtorsSection.th.firstName')}</th>
+            <th>{t('DebtorsSection.th.lastName')}</th>
+            <th>{t('DebtorsSection.th.birthDate')}</th>
+            <th>{t('DebtorsSection.th.deathDate')}</th>
           </tr>
         </thead>
         <tbody>
@@ -96,7 +96,7 @@ const Table = ({
           ))}
           {debtors?.length === 0 && (
             <tr>
-              <td colSpan={8}>{t('noRecords')}</td>
+              <td colSpan={8}>{t('DebtorsSection.noRecords')}</td>
             </tr>
           )}
         </tbody>

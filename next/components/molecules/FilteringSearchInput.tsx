@@ -9,7 +9,7 @@ export type FilteringSearchInputProps = {
 }
 
 const FilteringSearchInput = ({ value, onChange }: FilteringSearchInputProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'SearchField' })
+  const { t } = useTranslation('common')
 
   const handleCancelClick = () => {
     onChange('')
@@ -27,8 +27,8 @@ const FilteringSearchInput = ({ value, onChange }: FilteringSearchInputProps) =>
           </button>
         ) : null
       }
-      placeholder={t('searchPlaceholder')}
-      aria-label={t('aria.searchField')}
+      placeholder={t('SearchField.searchPlaceholder')}
+      aria-label={t('SearchField.aria.searchField')}
       onChange={(e) => onChange(e.target.value)}
     />
   )

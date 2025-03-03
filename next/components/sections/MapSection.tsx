@@ -23,7 +23,7 @@ import { useMapWithFilteringAndSearch } from '@/utils/useMapWithFilteringAndSear
 type MapSectionProps = { section: MapSectionFragment }
 
 const MapSection = ({ section }: MapSectionProps) => {
-  const { t, i18n } = useTranslation('common', { keyPrefix: 'MapSection' })
+  const { t, i18n } = useTranslation('common')
   const { getFullPath } = useGetFullPath()
 
   const { data, error } = useSWR(
@@ -79,7 +79,7 @@ const MapSection = ({ section }: MapSectionProps) => {
           {/* Search & filtering */}
           <div className="flex flex-col gap-3 border-b border-border p-5">
             <Search value={searchQuery} onSearchQueryChange={setSearchQuery} />
-            <ul aria-label={t('filtering')} className="flex gap-2">
+            <ul aria-label={t('MapSection.filtering')} className="flex gap-2">
               {Object.entries(selectedTypes).map(([type]) => {
                 return (
                   <li key={type}>
@@ -87,7 +87,7 @@ const MapSection = ({ section }: MapSectionProps) => {
                       isSelected={selectedTypes[type]}
                       onChange={() => toggleSelectedTypes(type)}
                     >
-                      {t(`filters.${type}`)}
+                      {t(`MapSection.filters.${type}`)}
                     </TagToggle>
                   </li>
                 )
@@ -97,7 +97,7 @@ const MapSection = ({ section }: MapSectionProps) => {
 
           {/* Results */}
           <ul
-            aria-label={t('results')}
+            aria-label={t('MapSection.results')}
             className="flex-1 overflow-auto"
             onMouseLeave={() => setHoveredCemeterySlug(null)}
           >
@@ -126,7 +126,9 @@ const MapSection = ({ section }: MapSectionProps) => {
                 </li>
               )
             })}
-            {filteredCemeteries.length === 0 && <div className="p-5">{t('noResults')}</div>}
+            {filteredCemeteries.length === 0 && (
+              <div className="p-5">{t('MapSection.noResults')}</div>
+            )}
           </ul>
         </div>
 
@@ -187,7 +189,7 @@ const MapSection = ({ section }: MapSectionProps) => {
             onPress={() => setMapOrFiltersDisplayed((map) => !map)}
             startIcon={isMapOrFiltersDisplayed ? <ArrowLeftIcon /> : <PlaceIcon />}
           >
-            {isMapOrFiltersDisplayed ? t('filtering') : t('map')}
+            {isMapOrFiltersDisplayed ? t('MapSection.filtering') : t('MapSection.map')}
           </Button>
         </div>
       </div>

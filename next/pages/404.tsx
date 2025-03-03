@@ -15,12 +15,16 @@ interface Error404PageProps {
 }
 
 const Error404Page = ({ navigation, general }: Error404PageProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'ErrorPage' })
+  const { t } = useTranslation('common')
 
   return (
     <PageWrapper navigation={navigation} general={general}>
       <SectionsWrapper alternateBackground className="pb-14">
-        <ErrorSection code={404} title={t('title404')} message={t('message404')} />
+        <ErrorSection
+          code={404}
+          title={t('ErrorPage.title404')}
+          message={t('ErrorPage.message404')}
+        />
       </SectionsWrapper>
     </PageWrapper>
   )

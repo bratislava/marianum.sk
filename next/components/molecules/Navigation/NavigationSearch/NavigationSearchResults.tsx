@@ -16,7 +16,7 @@ const NavigationSearchResults = ({
   data,
   isLoading,
 }: NavigationSearchResultsProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'NavigationSearch' })
+  const { t } = useTranslation('common')
 
   return isLoading ? (
     <div className="flex flex-col items-center justify-center py-4 text-primary">
@@ -41,7 +41,7 @@ const NavigationSearchResults = ({
         className="!justify-start px-4 py-2 hover:bg-primary/12 focus:bg-primary/12"
         href={`/search?query=${searchQuery}`}
       >
-        {t('allResults')}
+        {t('NavigationSearch.allResults')}
       </MLink>
     </div>
   ) : null

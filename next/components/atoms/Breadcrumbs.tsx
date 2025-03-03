@@ -59,7 +59,7 @@ const BreadcrumbChild = ({
 }
 
 const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'Breadcrumbs' })
+  const { t } = useTranslation('common')
 
   const { height, ref: breadcrumbsExpandedRef } = useResizeDetector()
   const { height: fullHeight, ref: breadcrumbsExpandedWrappingRef } = useResizeDetector()
@@ -89,7 +89,7 @@ const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
         key={index}
         crumb={crumb}
         noChevron={index === 0}
-        ariaLabel={index === 0 ? t('home') : undefined}
+        ariaLabel={index === 0 ? t('Breadcrumbs.home') : undefined}
         dontShrink={index === 0}
         noLink={index === crumbs.length - 1}
       />
