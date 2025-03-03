@@ -26,6 +26,7 @@ import {
 import { getNewsListingPrefetch } from '@/services/fetchers/newsListingFetcher'
 import { upcomingCeremoniesPrefetch } from '@/services/fetchers/upcomingCeremoniesFetcher'
 import { client } from '@/services/graphql/gqlClient'
+import { NOT_FOUND } from '@/utils/consts'
 import { isDefined } from '@/utils/isDefined'
 import { prefetchSections } from '@/utils/prefetchSections'
 
@@ -132,9 +133,7 @@ export const getStaticProps: GetStaticProps = async ({
   const filteredNavigation = navigation.filter(isDefined)
 
   if (!homePage?.data) {
-    return {
-      notFound: true,
-    }
+    return NOT_FOUND
   }
 
   return {
