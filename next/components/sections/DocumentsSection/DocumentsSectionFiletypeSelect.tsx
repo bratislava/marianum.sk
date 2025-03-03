@@ -21,7 +21,7 @@ const mappedFetcher = () =>
 const DocumentsSectionFiletypeSelect = ({
   onFiletypeChange = () => {},
 }: DocumentsSectionFiletypeSelectProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const defaultOption = useMemo(() => ({ label: t('DocumentsSection.allFileTypes'), key: '' }), [t])
 

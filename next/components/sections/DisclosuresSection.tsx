@@ -52,7 +52,7 @@ const Table = ({
   data: SearchResponse<DisclosureMeili>
   filters: DisclosuresSectionFilters
 }) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
@@ -197,7 +197,7 @@ const TypeSelect = ({
 }: {
   onTypeChange: (type: DisclosureTypeFixed | null) => void
 }) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   return (
     <Select

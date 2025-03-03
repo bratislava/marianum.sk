@@ -14,7 +14,7 @@ type ArticleJobsCategoriesSelectProps = {
 const ArticleJobsCategoriesSelect = ({
   onCategoryChange = () => {},
 }: ArticleJobsCategoriesSelectProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const defaultOption = useMemo(() => ({ label: t('ArticleListing.allCategories'), key: '' }), [t])
 

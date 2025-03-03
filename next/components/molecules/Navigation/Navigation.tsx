@@ -20,7 +20,7 @@ type NavigationProps = {
 }
 
 const Navigation = ({ contact }: NavigationProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
   const [isDesktopSearchOpen, setDesktopSearchOpen] = useState(false)

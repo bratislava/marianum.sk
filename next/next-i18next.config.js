@@ -6,6 +6,6 @@ module.exports = {
     locales: ['sk'],
     localeDetection: false,
   },
-  // defaultNS: ['translation'], // Changed to match the namespace used by i18next-parser
+  defaultNS: ['translation'], // Changed to match the namespace used by i18next-parser
   reloadOnPrerender: process.env.NODE_ENV === 'development',
 }

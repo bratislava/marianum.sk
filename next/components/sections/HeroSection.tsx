@@ -31,7 +31,7 @@ const HeroSection = ({
   price,
   moreContent,
 }: HeroSectionProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const router = useRouter()
 
   const { navMap } = useNavigationContext()

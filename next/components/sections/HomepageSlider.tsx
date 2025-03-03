@@ -15,7 +15,7 @@ type HomepageSliderProps = {
 const getAriaLabelId = (id: string, index: number) => `homepageslider-${id}-${index}`
 
 const HomepageSlider = ({ slides }: HomepageSliderProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const id = useId()
 
   const { getFullPath } = useGetFullPath()

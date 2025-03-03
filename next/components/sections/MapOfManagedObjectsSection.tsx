@@ -26,7 +26,7 @@ type MapOfManagedObjectsSectionProps = {
 }
 
 const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps) => {
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation()
 
   const { getFullPath } = useGetFullPath()
 

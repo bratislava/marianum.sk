@@ -26,7 +26,7 @@ type CemeteryPageProps = {
 } & SSRConfig
 
 const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const { seo, title, address, navigateToLink, description, overrideOpeningHours, gallery } =
     entity.attributes ?? {}

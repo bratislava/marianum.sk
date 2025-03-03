@@ -17,7 +17,7 @@ type ReviewListingProps = {
 }
 
 const ReviewListingSection = ({ reviews }: ReviewListingProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const filteredReviews = useMemo(() => {
     return reviews?.filter(isDefined).filter((review) => review.attributes) ?? []

@@ -35,7 +35,7 @@ const Articles = ({
   filters: ArticleListingFilters
   type: ArticleListingType
 }) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const { getFullPathMeili } = useGetFullPathMeili()
   const cardsRef = useRef<HTMLDivElement>(null)

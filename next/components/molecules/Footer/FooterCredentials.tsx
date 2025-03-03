@@ -10,7 +10,7 @@ type FooterCredentialsProps = {
 }
 
 const FooterCredentials = ({ links }: FooterCredentialsProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const { getFullPath } = useGetFullPath()
 
   const currentYear = useMemo(() => {

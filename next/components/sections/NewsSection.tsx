@@ -10,7 +10,7 @@ type NewsSectionProps = Pick<SectionProps, 'background'> & {
 }
 
 const NewsSection = ({ section, ...rest }: NewsSectionProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   return (
     <Section

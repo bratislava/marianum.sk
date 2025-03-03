@@ -24,7 +24,7 @@ const NavigationSearch = ({ onDesktopSearchOpen, onDesktopSearchClose }: Navigat
 
   const router = useRouter()
 
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const handleSearch = useCallback(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises,@typescript-eslint/restrict-template-expressions

@@ -14,7 +14,7 @@ type ServiceCardProps = {
 } & CardBoxProps
 
 const ServiceCard = ({ image, title, linkHref, ...rest }: ServiceCardProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const titleId = useId()
 
   // eslint-disable-next-line unicorn/consistent-function-scoping

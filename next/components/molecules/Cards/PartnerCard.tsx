@@ -14,7 +14,7 @@ type PartnerCardProps = {
 } & CardBoxProps
 
 const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const titleId = useId()
 
   return (

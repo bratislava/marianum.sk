@@ -28,7 +28,7 @@ type ManagedObjectPageProps = {
 } & SSRConfig
 
 const ManagedObjectPage = ({ navigation, entity, general }: ManagedObjectPageProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const { seo, title, address, navigateToLink, description } = entity.attributes ?? {}
 

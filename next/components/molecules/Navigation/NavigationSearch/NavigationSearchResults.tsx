@@ -16,7 +16,7 @@ const NavigationSearchResults = ({
   data,
   isLoading,
 }: NavigationSearchResultsProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   return isLoading ? (
     <div className="flex flex-col items-center justify-center py-4 text-primary">

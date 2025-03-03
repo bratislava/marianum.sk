@@ -15,7 +15,7 @@ interface Error404PageProps {
 }
 
 const Error404Page = ({ navigation, general }: Error404PageProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   return (
     <PageWrapper navigation={navigation} general={general}>

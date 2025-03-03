@@ -19,7 +19,7 @@ type PaginationProps = {
  * as implemented in @mui/material.
  */
 const Pagination = ({ count, selectedPage, className, onChange = () => {} }: PaginationProps) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const { items } = usePagination({
     count,
