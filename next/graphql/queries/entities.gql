@@ -172,12 +172,7 @@ fragment CemeteryCardEntity on CemeteryEntity {
       ...OpeningHours
     }
     gallery {
-      title
-      medias {
-        data {
-          ...UploadImageEntity
-        }
-      }
+      ...ImageGallery
     }
   }
 }
@@ -461,13 +456,7 @@ fragment PageEntity on PageEntity {
       }
       ... on ComponentSectionsGallery {
         __typename
-        id
-        title
-        medias(pagination: { limit: -1 }) {
-          data {
-            ...UploadImageEntity
-          }
-        }
+        ...ImageGallery
       }
       ... on ComponentSectionsPartnersSection {
         __typename

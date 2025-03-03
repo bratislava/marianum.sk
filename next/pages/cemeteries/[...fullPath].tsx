@@ -8,6 +8,7 @@ import Button from '@/components/atoms/Button'
 import RichText from '@/components/atoms/RichText'
 import Seo from '@/components/atoms/Seo'
 import BranchCemeteryLayout from '@/components/layouts/BranchCemeteryLayout'
+import ImageGallery from '@/components/molecules/ImageGallery'
 import {
   generateStaticPaths,
   generateStaticProps,
@@ -77,7 +78,7 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
           )}
           {gallery && (
             <SectionBoxed title={t('gallery')}>
-              {/* <ImageGallery images={gallery} /> */}
+              <ImageGallery images={gallery.medias?.data} />
             </SectionBoxed>
           )}
         </div>

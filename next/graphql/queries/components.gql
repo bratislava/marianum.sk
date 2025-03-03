@@ -295,6 +295,16 @@ fragment DocumentGroup on ComponentSectionsDocumentGroup {
   }
 }
 
+fragment ImageGallery on ComponentSectionsGallery {
+  id
+  title
+  medias {
+    data {
+      ...UploadImageEntity
+    }
+  }
+}
+
 fragment CtaSection on ComponentSectionsCtaSection {
   id
   title
