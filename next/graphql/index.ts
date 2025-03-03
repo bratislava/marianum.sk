@@ -555,6 +555,7 @@ export type Cemetery = {
   contact?: Maybe<ContactEntityResponse>;
   createdAt?: Maybe<Scalars['DateTime']>;
   description?: Maybe<Scalars['String']>;
+  gallery?: Maybe<ComponentSectionsGallery>;
   latitude?: Maybe<Scalars['Float']>;
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<CemeteryRelationResponseCollection>;
@@ -608,6 +609,7 @@ export type CemeteryFiltersInput = {
   contact?: InputMaybe<ContactFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
+  gallery?: InputMaybe<ComponentSectionsGalleryFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
   latitude?: InputMaybe<FloatFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
@@ -630,6 +632,7 @@ export type CemeteryInput = {
   allowInDebtors?: InputMaybe<Scalars['Boolean']>;
   contact?: InputMaybe<Scalars['ID']>;
   description?: InputMaybe<Scalars['String']>;
+  gallery?: InputMaybe<ComponentSectionsGalleryInput>;
   latitude?: InputMaybe<Scalars['Float']>;
   longitude?: InputMaybe<Scalars['Float']>;
   medias?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
@@ -1446,6 +1449,19 @@ export type ComponentSectionsGalleryMediasArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ComponentSectionsGalleryFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSectionsGalleryFiltersInput>>>;
+  not?: InputMaybe<ComponentSectionsGalleryFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentSectionsGalleryFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentSectionsGalleryInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  medias?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  title?: InputMaybe<Scalars['String']>;
 };
 
 export type ComponentSectionsHomepageReviewsSection = {
