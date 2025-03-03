@@ -26,6 +26,12 @@ const MapSection = ({ section }: MapSectionProps) => {
   const { t, i18n } = useTranslation('common')
   const { getFullPath } = useGetFullPath()
 
+  const translationMap: Record<string, string> = {
+    [Enum_Cemetery_Type.Civilny]: t('MapSection.cemeteriesFilter.civilny'),
+    [Enum_Cemetery_Type.Historicky]: t('MapSection.cemeteriesFilter.historicky'),
+    [Enum_Cemetery_Type.Vojensky]: t('MapSection.cemeteriesFilter.vojensky'),
+  } satisfies Record<Enum_Cemetery_Type, string>
+
   const { data, error } = useSWR(
     getCemeteriesSwrKey(i18n.language),
     cemeteriesFetcher(i18n.language),
@@ -87,7 +93,7 @@ const MapSection = ({ section }: MapSectionProps) => {
                       isSelected={selectedTypes[type]}
                       onChange={() => toggleSelectedTypes(type)}
                     >
-                      {t(`MapSection.filters.${type}`)}
+                      {translationMap[type]}
                     </TagToggle>
                   </li>
                 )
