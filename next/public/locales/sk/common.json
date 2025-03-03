@@ -21,13 +21,8 @@
     "siteName": "Marianum - Pohrebníctvo mesta Bratislavy"
   },
   "Cards": {
-    "showMore": "Zobraziť viac"
-  },
-  "BundleCard": {
+    "showMore": "Zobraziť viac",
     "from": "od"
-  },
-  "ProductCard": {
-    "addToCart": "Pridať do košíka"
   },
   "PartnerRow": {
     "showWebsite": "Zobraziť web"
@@ -106,6 +101,9 @@
     "home": "Domov",
     "menu": "Menu"
   },
+  "Breadcrumbs": {
+    "home": "Domov"
+  },
   "NavigationSearch": {
     "close": "Zavrieť",
     "allResults": "Všetky výsledky"
@@ -183,18 +181,19 @@
   },
   "MapSection": {
     "noResults": "Žiadne výsledky",
+    "results": "Výsledky vyhľadávania",
     "map": "Mapa",
-    "filtering": "Filtrovanie"
-  },
-  "MapSectionFilters": {
-    "civilny": "Civilné",
-    "historicky": "Historické",
-    "vojensky": "Vojnové",
-    "fontana": "Fontána",
-    "pitna_fontana": "Pitná fontána",
-    "hmlova_fontana": "Hmlová fontána",
-    "studna": "Studňa",
-    "rozprasovac": "Rozprašovač"
+    "filtering": "Filtrovanie",
+    "filters": {
+      "civilny": "Civilné",
+      "historicky": "Historické",
+      "vojensky": "Vojnové",
+      "fontana": "Fontána",
+      "pitna_fontana": "Pitná fontána",
+      "hmlova_fontana": "Hmlová fontána",
+      "studna": "Studňa",
+      "rozprasovac": "Rozprašovač"
+    }
   },
   "DebtorsSection": {
     "th": {

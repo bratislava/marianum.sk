@@ -26,7 +26,8 @@ type MapOfManagedObjectsSectionProps = {
 }
 
 const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps) => {
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation('common', { keyPrefix: 'MapSection' })
+
   const { getFullPath } = useGetFullPath()
 
   const { data, error } = useSWR(
@@ -84,7 +85,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
           {/* Search & filtering */}
           <div className="flex flex-col gap-3 border-b border-border p-5">
             <Search value={searchQuery} onSearchQueryChange={setSearchQuery} />
-            <ul aria-label={t('MapSection.filtering')} className="flex flex-wrap gap-2">
+            <ul aria-label={t('filtering')} className="flex flex-wrap gap-2">
               {Object.entries(selectedTypes).map(([type]) => {
                 return (
                   <li key={type}>
@@ -92,7 +93,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
                       isSelected={selectedTypes[type]}
                       onChange={() => toggleSelectedTypes(type)}
                     >
-                      {t(`MapSectionFilters.${type}`)}
+                      {t(`filters.${type}`)}
                     </TagToggle>
                   </li>
                 )
@@ -102,7 +103,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
 
           {/* Results */}
           <ul
-            aria-label={t('general.results')}
+            aria-label={t('results')}
             className="flex-1 overflow-auto"
             onMouseLeave={() => setHoveredManagedObjectSlug(null)}
           >
@@ -131,9 +132,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
                 </li>
               )
             })}
-            {filteredManagedObjects.length === 0 && (
-              <div className="p-5">{t('MapSection.noResults')}</div>
-            )}
+            {filteredManagedObjects.length === 0 && <div className="p-5">{t('noResults')}</div>}
           </ul>
         </div>
 
@@ -194,7 +193,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
             onPress={() => setMapOrFiltersDisplayed((map) => !map)}
             startIcon={isMapOrFiltersDisplayed ? <ArrowLeftIcon /> : <PlaceIcon />}
           >
-            {isMapOrFiltersDisplayed ? t('MapSection.filtering') : t('MapSection.map')}
+            {isMapOrFiltersDisplayed ? t('filtering') : t('map')}
           </Button>
         </div>
       </div>
