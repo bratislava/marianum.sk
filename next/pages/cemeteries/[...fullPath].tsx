@@ -27,7 +27,7 @@ type CemeteryPageProps = {
 const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'BranchCemeteryPage' })
 
-  const { seo, title, address, navigateToLink, description, overrideOpeningHours } =
+  const { seo, title, address, navigateToLink, description, overrideOpeningHours, gallery } =
     entity.attributes ?? {}
 
   return (
@@ -73,6 +73,11 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
               <OpeningHours
                 openingHours={overrideOpeningHours || general?.attributes?.cemeteryOpeningHours}
               />
+            </SectionBoxed>
+          )}
+          {gallery && (
+            <SectionBoxed title={t('gallery')}>
+              {/* <ImageGallery images={gallery} /> */}
             </SectionBoxed>
           )}
         </div>

@@ -171,6 +171,14 @@ fragment CemeteryCardEntity on CemeteryEntity {
     overrideOpeningHours {
       ...OpeningHours
     }
+    gallery {
+      title
+      medias {
+        data {
+          ...UploadImageEntity
+        }
+      }
+    }
   }
 }
 
