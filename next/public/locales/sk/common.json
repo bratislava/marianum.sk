@@ -1,306 +1,182 @@
 {
-  "ArticleListing": {
-    "allCategories": "Všetky kategórie",
-    "aria": {
-      "results": "Vyhľadávané články"
-    },
-    "noNews": "Žiadne novinky na zobrazenie."
-  },
-  "BranchCemeteryPage": {
-    "aboutBranch": "O pobočke",
-    "aboutCemetery": "O cintoríne",
-    "navigate": "Navigovať",
-    "openingHours": "Otváracie hodiny"
-  },
-  "Breadcrumbs": {
-    "home": "Domov"
-  },
-  "BundlePage": {
-    "additionalServices": "Doplnkové služby",
-    "bundleContent": "Obsah balíčka",
-    "priceFrom": "Cena od"
-  },
-  "Cards": {
-    "from": "od",
-    "showMore": "Zobraziť viac"
-  },
-  "CemeterySelect": {
-    "allCemeteries": "Všetky cintoríny"
-  },
-  "CeremoniesSection": {
-    "filterBy": "Filtrovať podľa",
-    "noCeremonies": "Žiadne obrady na zobrazenie.",
-    "privateFieldsDescription": "Objednávateľ obradu neudelil súhlas na zverejnenie osobných údajov a údajov o pohrebnom obrade zosnulého.",
-    "th": {
-      "birthYear": "Rok narodenia",
-      "cemeteryTitle": "Cintorín",
-      "company": "Pohrebná služba",
-      "dateTime": "Dátum a čas",
-      "name": "Meno a priezvisko",
-      "officiantProvidedBy": "Obradníka zabezpečuje",
-      "time": "",
-      "type": "Typ obradu"
-    }
-  },
-  "Checklist": {
-    "aria": {
-      "download": "Stiahnuť súbor",
-      "markAsComplete": "Označiť krok ako vybavený",
-      "markAsUncomplete": "Označiť krok ako nevybavený",
-      "skip": "Preskočiť krok"
-    },
-    "download": "Stiahnuť postup",
-    "markAsComplete": "Vybavené",
-    "markAsUncomplete": "Označiť ako nevybavené",
-    "print": "Vytlačiť postup",
-    "skip": "Preskočiť"
-  },
-  "CookieConsent": {
-    "acceptAll": "Prijať všetko",
-    "aria": {
-      "acceptAllCookies": "Prijať všetky súbory cookies",
-      "dismissCookieBanner": "Zavrieť cookie banner",
-      "dismissCookieSettings": "Zavrieť nastavenia cookies",
-      "openCookieSettings": "Otvoriť nastavenia cookies",
-      "rejectAllCookies": "Odmietnuť všetky súbory cookies",
-      "saveCookieSettings": "Uložiť nastavenia cookies"
-    },
-    "banner": {
-      "description": "Súbory cookie používame na prispôsobenie obsahu a reklám, poskytovanie funkcií sociálnych médií a analýzu návštevnosti. Informácie o vašom používaní stránky zdieľame aj s našimi sociálnymi médiami, reklamnými a analytickými partnermi, ktorí ich môžu skombinovať s inými informáciami, ktoré ste im poskytli alebo ktoré zhromaždili pri vašom používaní ich služieb.",
-      "title": "Táto webová stránka používa súbory cookies"
-    },
-    "modal": {
-      "title": "Nastavenie súborov cookies",
-      "types": {
-        "marketing": {
-          "description": "Marketingové súbory cookie sa používajú na sledovanie návštevníkov na rôznych webových stránkach. Zámerom je zobrazovať reklamy, ktoré sú relevantné a pútavé pre jednotlivých používateľov, a tým hodnotnejšie pre vydavateľov a inzerentov tretích strán.",
-          "title": "Marketingové súbory cookies"
-        },
-        "necessary": {
-          "description": "Nevyhnutné súbory cookie pomáhajú sprístupniť webové stránky tým, že umožňujú základné funkcie, ako je navigácia na stránke a prístup k zabezpečeným oblastiam webovej stránky. Bez týchto cookies nemôže webová stránka správne fungovať.",
-          "title": "Nevyhnutné súbory cookies"
-        },
-        "preference": {
-          "description": "Preferenčné súbory cookie umožňujú webovej stránke zapamätať si informácie, ktoré menia spôsob, akým sa webová lokalita správa alebo vyzerá, ako napríklad preferovaný jazyk alebo región, v ktorom sa nachádzate.",
-          "title": "Preferenčné súbory cookies"
-        },
-        "statistic": {
-          "description": "Štatistické súbory cookie pomáhajú vlastníkom webových stránok pochopiť, ako návštevníci interagujú s webovými stránkami anonymným zhromažďovaním a oznamovaním informácií.",
-          "title": "Štatistické súbory cookies"
-        }
-      }
-    },
-    "rejectAll": "Odmietnuť všetko",
-    "saveSettings": "Uložiť nastavenia",
-    "settings": "Nastavenia cookies"
-  },
-  "DebtorsSection": {
-    "noRecords": "Žiadne záznamy",
-    "th": {
-      "birthDate": "Dátum narodenia",
-      "cemeteryTitle": "Cintorín",
-      "deathDate": "Dátum úmrtia",
-      "firstName": "Meno zosnulého",
-      "graveNumber": "Hr. miesto číslo",
-      "gravePreviousNumber": "Hr. miesto predošlé č.",
-      "graveSector": "Hr. miesto sektor",
-      "lastName": "Priezvisko zosnulého"
-    }
-  },
-  "DisclosuresSection": {
-    "noRecords": "Žiadne záznamy",
-    "th": {
-      "additionalData": "Ďaľšie údaje",
-      "contractNumber": "Číslo zmluvy",
-      "dateOfDelivery": "Dátum doručenia faktúry",
-      "dateOfOrder": "Dátum vyhotovenia objednávky",
-      "description": "Popis fakturovaného plnenia",
-      "files": "Súbory",
-      "internalInvoiceNumber": "Interné číslo faktúry",
-      "invoiceNumberOrVariableSymbol": "Číslo faktúry/variabilný symbol",
-      "invoicedAmount": "Fakturovaná suma",
-      "orderNumber": "Číslo objednávky",
-      "publishedDate": "Zverejnené dňa",
-      "signedBy": "Za objednávateľa podpísal meno + priezvisko",
-      "supplierAddress": "Dodávateľ: adresa/sídlo",
-      "supplierName": "Dodávateľ: meno + priezvisko/obchodný názov",
-      "supplierRegistrationNumber": "Dodávateľ: IČO",
-      "totalValue": "Celková hodnota objednaného plnenia",
-      "type": "Typ dokumentu"
-    },
-    "types": {
-      "all": "Všetky",
-      "faktury": "Faktúry",
-      "objednavky": "Objednávky",
-      "zmluvy": "Zmluvy"
-    }
-  },
-  "DocumentGroup": {
-    "download": "Stiahnuť"
-  },
-  "DocumentLayout": {
-    "category": "Kategória",
-    "createdAt": "Vytvorené",
-    "description": "Popis",
-    "details": "Detaily",
-    "downloadFile": "Stiahnuť"
-  },
-  "DocumentsSection": {
-    "allCategories": "Všetky kategórie",
-    "allFileTypes": "Všetky typy súborov",
-    "aria": {
-      "results": "Vyhľadávané dokumenty"
-    },
-    "download": "Stiahnuť",
-    "noDocuments": "Žiadne dokumenty na zobrazenie."
-  },
-  "ErrorPage": {
-    "home": "Domovská stránka",
-    "message404": "Ľutujeme, ale táto stránka neexistuje. Môžete ísť na domovskú stránku alebo sa vráťte na predošlú stránku.",
-    "messageGeneralError": "Ľutujeme, na stránke sa vyskytla chyba. Skúste navštíviť stránku neskôr. Ak problém pretrváva, kontaktujte prosím administrátora.",
-    "previousPage": "Predošlá stránka",
-    "title404": "Stránka nebola nájdená",
-    "titleGeneralError": "Vyskytla sa chyba"
-  },
-  "Footer": {
-    "address": "Adresa",
-    "allContacts": "Všetky kontakty",
-    "contacts": "Kontakty",
-    "navigateTo": "Navigovať na",
-    "open": "Otvorené",
-    "openingHours": "Otváracie hodiny"
-  },
-  "FooterCredentials": {
-    "allRightsReserved": "Všetky práva vyhradené",
-    "cityBratislava": "Mesto Bratislava",
-    "cookieSettings": "Nastavenia cookies",
-    "founder": "Zriaďovateľ"
-  },
-  "general": {
-    "downloadFile": "Stiahnuť súbor",
-    "downloadFileAriaLabel": "Stiahnuť súbor {{title}}, formát {{ext}}, {{size}}",
-    "results": "Výsledky vyhľadávania",
-    "unknownFormat": "neznámy"
-  },
-  "HeroSection": {
-    "priceFrom": "Cena od"
-  },
-  "HomePage": {
-    "home": "Domov"
-  },
-  "HomepageSlider": {
-    "aria": {
-      "goToSlide": "Ísť na slide {{number}}",
-      "heading": "Posúvač na úvodnej stránke"
-    }
-  },
-  "ImageGallery": {
-    "aria": {
-      "openImageGallery": "Otvoriť galériu obrázkov"
-    },
-    "morePhotos_few": "+{{count}} fotky",
-    "morePhotos_one": "+{{count}} fotka",
-    "morePhotos_other": "+{{count}} fotiek",
-    "showAllPhotos": "Zobraziť všetky fotky"
-  },
-  "ImageLightBox": {
-    "aria": {
-      "description": "Galéria obrázkov. Stlačte šípku vľavo pre zobrazenie predchádzajúceho obrázku. Stlačte šípku vpravo pre zobrazenie nasledujúceho obrázku. Zatvorte stlačením klávesu Escape."
-    }
-  },
-  "Loading": {
-    "loading": "Načítavam…"
-  },
-  "ManagedObjectPage": {
-    "aboutManagedObject": "O spravovanom objekte",
-    "navigate": "Navigovať"
-  },
-  "MapSection": {
-    "filtering": "Filtrovanie",
-    "filters": {
-      "civilny": "Civilné",
-      "fontana": "Fontána",
-      "historicky": "Historické",
-      "hmlova_fontana": "Hmlová fontána",
-      "pitna_fontana": "Pitná fontána",
-      "rozprasovac": "Rozprašovač",
-      "studna": "Studňa",
-      "vojensky": "Vojnové"
-    },
-    "map": "Mapa",
-    "noResults": "Žiadne výsledky",
-    "results": "Výsledky vyhľadávania"
-  },
-  "Navigation": {
-    "home": "Domov",
-    "menu": "Menu"
-  },
-  "NavigationSearch": {
-    "allResults": "Všetky výsledky",
-    "close": "Zavrieť"
-  },
-  "NewsSection": {
-    "allNews": "Všetky novinky",
-    "moreNews": "Ďalšie novinky"
-  },
-  "OfficeSectionBoxed": {
-    "contacts": "Kontakty",
-    "openingHours": "Otváracie hodiny"
-  },
-  "Pagination": {
-    "aria": {
-      "goToNextPage": "Ísť na ďalšiu stranu",
-      "goToPage": "Ísť na stranu {{page}}",
-      "goToPreviousPage": "Ísť na predchádzajúcu stranu"
-    }
-  },
-  "PartnerRow": {
-    "showWebsite": "Zobraziť web"
-  },
-  "paths": {
-    "bundles": "/sluzby/pohrebna-sluzba/balicky-pohrebov",
-    "cemeteries": "/o-nas/cintoriny-v-sprave",
-    "contacts": "/o-nas/kontakty",
-    "documents": "/o-nas/dokumenty",
-    "jobs": "/aktuality/kariera",
-    "legislative": "/o-nas/dokumenty/legislativa",
-    "news": "/aktuality/novinky",
-    "press": "/o-nas/pre-media",
-    "reviews": "/o-nas/referencie",
-    "search": "/vyhladavanie"
-  },
-  "ReviewListingSection": {
-    "noReviews": "Žiadne recenzie na zobrazenie.",
-    "ratings": {
-      "five": "Skvelé",
-      "four": "Výborné",
-      "one": "Zlé",
-      "three": "Dobré",
-      "two": "Nedostatočné"
-    }
-  },
-  "ReviewStars": {
-    "aria": {
-      "rating": "{{rating}} z 5 hviezdičiek"
-    }
-  },
-  "ReviewsFiltering": {
-    "reviewCount_few": "{{count}} recenzie",
-    "reviewCount_one": "{{count}} recenzia",
-    "reviewCount_other": "{{count}} recenzií",
-    "reviewCount_zero": "Žiadne recenzie"
-  },
-  "ScrollToTopButton": {
-    "aria": {
-      "scrollToTop": "Prejsť na začiatok"
-    }
-  },
-  "SearchField": {
-    "aria": {
-      "searchField": "Vyhľadávanie"
-    },
-    "searchPlaceholder": "Hľadať…"
-  },
+  "ArticleListing.allCategories": "Všetky kategórie",
+  "ArticleListing.aria.results": "Vyhľadávané články",
+  "ArticleListing.noNews": "Žiadne novinky na zobrazenie.",
+  "BranchCemeteryPage.aboutBranch": "O pobočke",
+  "BranchCemeteryPage.aboutCemetery": "O cintoríne",
+  "BranchCemeteryPage.navigate": "Navigovať",
+  "BranchCemeteryPage.openingHours": "Otváracie hodiny",
+  "Breadcrumbs.home": "Domov",
+  "BundlePage.additionalServices": "Doplnkové služby",
+  "BundlePage.bundleContent": "Obsah balíčka",
+  "BundlePage.priceFrom": "Cena od",
+  "Cards.from": "od",
+  "Cards.showMore": "Zobraziť viac",
+  "CemeterySelect.allCemeteries": "Všetky cintoríny",
+  "CeremoniesSection.filterBy": "Filtrovať podľa",
+  "CeremoniesSection.noCeremonies": "Žiadne obrady na zobrazenie.",
+  "CeremoniesSection.privateFieldsDescription": "Objednávateľ obradu neudelil súhlas na zverejnenie osobných údajov a údajov o pohrebnom obrade zosnulého.",
+  "CeremoniesSection.th.birthYear": "Rok narodenia",
+  "CeremoniesSection.th.cemeteryTitle": "Cintorín",
+  "CeremoniesSection.th.company": "Pohrebná služba",
+  "CeremoniesSection.th.dateTime": "Dátum a čas",
+  "CeremoniesSection.th.name": "Meno a priezvisko",
+  "CeremoniesSection.th.officiantProvidedBy": "Obradníka zabezpečuje",
+  "CeremoniesSection.th.time": "",
+  "CeremoniesSection.th.type": "Typ obradu",
+  "Checklist.aria.download": "Stiahnuť súbor",
+  "Checklist.aria.markAsComplete": "Označiť krok ako vybavený",
+  "Checklist.aria.markAsUncomplete": "Označiť krok ako nevybavený",
+  "Checklist.aria.skip": "Preskočiť krok",
+  "Checklist.download": "Stiahnuť postup",
+  "Checklist.markAsComplete": "Vybavené",
+  "Checklist.markAsUncomplete": "Označiť ako nevybavené",
+  "Checklist.print": "Vytlačiť postup",
+  "Checklist.skip": "Preskočiť",
+  "CookieConsent.acceptAll": "Prijať všetko",
+  "CookieConsent.aria.acceptAllCookies": "Prijať všetky súbory cookies",
+  "CookieConsent.aria.dismissCookieBanner": "Zavrieť cookie banner",
+  "CookieConsent.aria.dismissCookieSettings": "Zavrieť nastavenia cookies",
+  "CookieConsent.aria.openCookieSettings": "Otvoriť nastavenia cookies",
+  "CookieConsent.aria.rejectAllCookies": "Odmietnuť všetky súbory cookies",
+  "CookieConsent.aria.saveCookieSettings": "Uložiť nastavenia cookies",
+  "CookieConsent.banner.description": "Súbory cookie používame na prispôsobenie obsahu a reklám, poskytovanie funkcií sociálnych médií a analýzu návštevnosti. Informácie o vašom používaní stránky zdieľame aj s našimi sociálnymi médiami, reklamnými a analytickými partnermi, ktorí ich môžu skombinovať s inými informáciami, ktoré ste im poskytli alebo ktoré zhromaždili pri vašom používaní ich služieb.",
+  "CookieConsent.banner.title": "Táto webová stránka používa súbory cookies",
+  "CookieConsent.modal.title": "Nastavenie súborov cookies",
+  "CookieConsent.modal.types.marketing.description": "Marketingové súbory cookie sa používajú na sledovanie návštevníkov na rôznych webových stránkach. Zámerom je zobrazovať reklamy, ktoré sú relevantné a pútavé pre jednotlivých používateľov, a tým hodnotnejšie pre vydavateľov a inzerentov tretích strán.",
+  "CookieConsent.modal.types.marketing.title": "Marketingové súbory cookies",
+  "CookieConsent.modal.types.necessary.description": "Nevyhnutné súbory cookie pomáhajú sprístupniť webové stránky tým, že umožňujú základné funkcie, ako je navigácia na stránke a prístup k zabezpečeným oblastiam webovej stránky. Bez týchto cookies nemôže webová stránka správne fungovať.",
+  "CookieConsent.modal.types.necessary.title": "Nevyhnutné súbory cookies",
+  "CookieConsent.modal.types.preference.description": "Preferenčné súbory cookie umožňujú webovej stránke zapamätať si informácie, ktoré menia spôsob, akým sa webová lokalita správa alebo vyzerá, ako napríklad preferovaný jazyk alebo región, v ktorom sa nachádzate.",
+  "CookieConsent.modal.types.preference.title": "Preferenčné súbory cookies",
+  "CookieConsent.modal.types.statistic.description": "Štatistické súbory cookie pomáhajú vlastníkom webových stránok pochopiť, ako návštevníci interagujú s webovými stránkami anonymným zhromažďovaním a oznamovaním informácií.",
+  "CookieConsent.modal.types.statistic.title": "Štatistické súbory cookies",
+  "CookieConsent.rejectAll": "Odmietnuť všetko",
+  "CookieConsent.saveSettings": "Uložiť nastavenia",
+  "CookieConsent.settings": "Nastavenia cookies",
+  "DebtorsSection.noRecords": "Žiadne záznamy",
+  "DebtorsSection.th.birthDate": "Dátum narodenia",
+  "DebtorsSection.th.cemeteryTitle": "Cintorín",
+  "DebtorsSection.th.deathDate": "Dátum úmrtia",
+  "DebtorsSection.th.firstName": "Meno zosnulého",
+  "DebtorsSection.th.graveNumber": "Hr. miesto číslo",
+  "DebtorsSection.th.gravePreviousNumber": "Hr. miesto predošlé č.",
+  "DebtorsSection.th.graveSector": "Hr. miesto sektor",
+  "DebtorsSection.th.lastName": "Priezvisko zosnulého",
+  "DisclosuresSection.noRecords": "Žiadne záznamy",
+  "DisclosuresSection.th.additionalData": "Ďaľšie údaje",
+  "DisclosuresSection.th.contractNumber": "Číslo zmluvy",
+  "DisclosuresSection.th.dateOfDelivery": "Dátum doručenia faktúry",
+  "DisclosuresSection.th.dateOfOrder": "Dátum vyhotovenia objednávky",
+  "DisclosuresSection.th.description": "Popis fakturovaného plnenia",
+  "DisclosuresSection.th.files": "Súbory",
+  "DisclosuresSection.th.internalInvoiceNumber": "Interné číslo faktúry",
+  "DisclosuresSection.th.invoiceNumberOrVariableSymbol": "Číslo faktúry/variabilný symbol",
+  "DisclosuresSection.th.invoicedAmount": "Fakturovaná suma",
+  "DisclosuresSection.th.orderNumber": "Číslo objednávky",
+  "DisclosuresSection.th.publishedDate": "Zverejnené dňa",
+  "DisclosuresSection.th.signedBy": "Za objednávateľa podpísal meno + priezvisko",
+  "DisclosuresSection.th.supplierAddress": "Dodávateľ: adresa/sídlo",
+  "DisclosuresSection.th.supplierName": "Dodávateľ: meno + priezvisko/obchodný názov",
+  "DisclosuresSection.th.supplierRegistrationNumber": "Dodávateľ: IČO",
+  "DisclosuresSection.th.totalValue": "Celková hodnota objednaného plnenia",
+  "DisclosuresSection.th.type": "Typ dokumentu",
+  "DisclosuresSection.types.all": "Všetky",
+  "DisclosuresSection.types.faktury": "Faktúry",
+  "DisclosuresSection.types.objednavky": "Objednávky",
+  "DisclosuresSection.types.zmluvy": "Zmluvy",
+  "DocumentGroup.download": "Stiahnuť",
+  "DocumentLayout.category": "Kategória",
+  "DocumentLayout.createdAt": "Vytvorené",
+  "DocumentLayout.description": "Popis",
+  "DocumentLayout.details": "Detaily",
+  "DocumentLayout.downloadFile": "Stiahnuť",
+  "DocumentsSection.allCategories": "Všetky kategórie",
+  "DocumentsSection.allFileTypes": "Všetky typy súborov",
+  "DocumentsSection.aria.results": "Vyhľadávané dokumenty",
+  "DocumentsSection.download": "Stiahnuť",
+  "DocumentsSection.noDocuments": "Žiadne dokumenty na zobrazenie.",
+  "ErrorPage.home": "Domovská stránka",
+  "ErrorPage.message404": "Ľutujeme, ale táto stránka neexistuje. Môžete ísť na domovskú stránku alebo sa vráťte na predošlú stránku.",
+  "ErrorPage.messageGeneralError": "Ľutujeme, na stránke sa vyskytla chyba. Skúste navštíviť stránku neskôr. Ak problém pretrváva, kontaktujte prosím administrátora.",
+  "ErrorPage.previousPage": "Predošlá stránka",
+  "ErrorPage.title404": "Stránka nebola nájdená",
+  "ErrorPage.titleGeneralError": "Vyskytla sa chyba",
+  "Footer.address": "Adresa",
+  "Footer.allContacts": "Všetky kontakty",
+  "Footer.contacts": "Kontakty",
+  "Footer.navigateTo": "Navigovať na",
+  "Footer.open": "Otvorené",
+  "Footer.openingHours": "Otváracie hodiny",
+  "FooterCredentials.allRightsReserved": "Všetky práva vyhradené",
+  "FooterCredentials.cityBratislava": "Mesto Bratislava",
+  "FooterCredentials.cookieSettings": "Nastavenia cookies",
+  "FooterCredentials.founder": "Zriaďovateľ",
+  "general.downloadFile": "Stiahnuť súbor",
+  "general.downloadFileAriaLabel": "Stiahnuť súbor {{title}}, formát {{ext}}, {{size}}",
+  "general.results": "Výsledky vyhľadávania",
+  "general.unknownFormat": "neznámy",
+  "HeroSection.priceFrom": "Cena od",
+  "HomePage.home": "Domov",
+  "HomepageSlider.aria.goToSlide": "Ísť na slide {{number}}",
+  "HomepageSlider.aria.heading": "Posúvač na úvodnej stránke",
+  "ImageGallery.aria.openImageGallery": "Otvoriť galériu obrázkov",
+  "ImageGallery.morePhotos_few": "+{{count}} fotky",
+  "ImageGallery.morePhotos_one": "+{{count}} fotka",
+  "ImageGallery.morePhotos_other": "+{{count}} fotiek",
+  "ImageGallery.showAllPhotos": "Zobraziť všetky fotky",
+  "ImageLightBox.aria.description": "Galéria obrázkov. Stlačte šípku vľavo pre zobrazenie predchádzajúceho obrázku. Stlačte šípku vpravo pre zobrazenie nasledujúceho obrázku. Zatvorte stlačením klávesu Escape.",
+  "Loading.loading": "Načítavam…",
+  "ManagedObjectPage.aboutManagedObject": "O spravovanom objekte",
+  "ManagedObjectPage.navigate": "Navigovať",
+  "MapSection.filtering": "Filtrovanie",
+  "MapSection.filters.civilny": "Civilné",
+  "MapSection.filters.fontana": "Fontána",
+  "MapSection.filters.historicky": "Historické",
+  "MapSection.filters.hmlova_fontana": "Hmlová fontána",
+  "MapSection.filters.pitna_fontana": "Pitná fontána",
+  "MapSection.filters.rozprasovac": "Rozprašovač",
+  "MapSection.filters.studna": "Studňa",
+  "MapSection.filters.vojensky": "Vojnové",
+  "MapSection.map": "Mapa",
+  "MapSection.noResults": "Žiadne výsledky",
+  "MapSection.results": "Výsledky vyhľadávania",
+  "Navigation.home": "Domov",
+  "Navigation.menu": "Menu",
+  "NavigationSearch.allResults": "Všetky výsledky",
+  "NavigationSearch.close": "Zavrieť",
+  "NewsSection.allNews": "Všetky novinky",
+  "NewsSection.moreNews": "Ďalšie novinky",
+  "OfficeSectionBoxed.contacts": "Kontakty",
+  "OfficeSectionBoxed.openingHours": "Otváracie hodiny",
+  "Pagination.aria.goToNextPage": "Ísť na ďalšiu stranu",
+  "Pagination.aria.goToPage": "Ísť na stranu {{page}}",
+  "Pagination.aria.goToPreviousPage": "Ísť na predchádzajúcu stranu",
+  "PartnerRow.showWebsite": "Zobraziť web",
+  "paths.bundles": "/sluzby/pohrebna-sluzba/balicky-pohrebov",
+  "paths.cemeteries": "/o-nas/cintoriny-v-sprave",
+  "paths.contacts": "/o-nas/kontakty",
+  "paths.documents": "/o-nas/dokumenty",
+  "paths.jobs": "/aktuality/kariera",
+  "paths.legislative": "/o-nas/dokumenty/legislativa",
+  "paths.news": "/aktuality/novinky",
+  "paths.press": "/o-nas/pre-media",
+  "paths.reviews": "/o-nas/referencie",
+  "paths.search": "/vyhladavanie",
+  "ReviewListingSection.noReviews": "Žiadne recenzie na zobrazenie.",
+  "ReviewListingSection.ratings.five": "Skvelé",
+  "ReviewListingSection.ratings.four": "Výborné",
+  "ReviewListingSection.ratings.one": "Zlé",
+  "ReviewListingSection.ratings.three": "Dobré",
+  "ReviewListingSection.ratings.two": "Nedostatočné",
+  "ReviewStars.aria.rating": "{{rating}} z 5 hviezdičiek",
+  "ReviewsFiltering.reviewCount_few": "{{count}} recenzie",
+  "ReviewsFiltering.reviewCount_one": "{{count}} recenzia",
+  "ReviewsFiltering.reviewCount_other": "{{count}} recenzií",
+  "ReviewsFiltering.reviewCount_zero": "Žiadne recenzie",
+  "ScrollToTopButton.aria.scrollToTop": "Prejsť na začiatok",
+  "SearchField.aria.searchField": "Vyhľadávanie",
+  "SearchField.searchPlaceholder": "Hľadať…",
   "BranchCemeteryPage": {
     "navigate": "Navigovať",
     "openingHours": "Otváracie hodiny",
@@ -312,45 +188,27 @@
     "navigate": "Navigovať",
     "aboutManagedObject": "O spravovanom objekte"
   },
-  "SearchPage": {
-    "allResults": "Všetky výsledky",
-    "pageTitle": "Vyhľadávanie",
-    "resultsFound_few": "Boli nájdené {{count}} výsledky",
-    "resultsFound_one": "Bol nájdený {{count}} výsledok",
-    "resultsFound_other": "Bolo nájdených {{count}} výsledkov",
-    "resultsFound_zero": "Nebol nájdený žiaden výsledok",
-    "searchPlaceholder": "Hľadať",
-    "searchResults": "Výsledky vyhľadávania",
-    "tags": {
-      "article": "Články",
-      "branch": "Pobočky",
-      "bundle": "Balíčky pohrebov",
-      "cemetery": "Cintoríny",
-      "document": "Dokumenty",
-      "page": "Stránky"
-    }
-  },
-  "Seo": {
-    "siteName": "Marianum - Pohrebníctvo mesta Bratislavy"
-  },
-  "SideBar": {
-    "or": "alebo",
-    "orContactUsByEmail": "alebo nás kontaktujte emailom"
-  },
-  "SideBarContact": {
-    "contacts": "Kontakty",
-    "writeMessage": "Napísať správu"
-  },
-  "SkipToContentButton": {
-    "skipToContent": "Preskočiť navigáciu"
-  },
-  "Slider": {
-    "aria": {
-      "description": "Posúvač"
-    }
-  },
-  "SortSelect": {
-    "byNewest": "Od najnovšieho",
-    "byOldest": "Od najstaršieho"
-  }
+  "SearchPage.allResults": "Všetky výsledky",
+  "SearchPage.pageTitle": "Vyhľadávanie",
+  "SearchPage.resultsFound_few": "Boli nájdené {{count}} výsledky",
+  "SearchPage.resultsFound_one": "Bol nájdený {{count}} výsledok",
+  "SearchPage.resultsFound_other": "Bolo nájdených {{count}} výsledkov",
+  "SearchPage.resultsFound_zero": "Nebol nájdený žiaden výsledok",
+  "SearchPage.searchPlaceholder": "Hľadať",
+  "SearchPage.searchResults": "Výsledky vyhľadávania",
+  "SearchPage.tags.article": "Články",
+  "SearchPage.tags.branch": "Pobočky",
+  "SearchPage.tags.bundle": "Balíčky pohrebov",
+  "SearchPage.tags.cemetery": "Cintoríny",
+  "SearchPage.tags.document": "Dokumenty",
+  "SearchPage.tags.page": "Stránky",
+  "Seo.siteName": "Marianum - Pohrebníctvo mesta Bratislavy",
+  "SideBar.or": "alebo",
+  "SideBar.orContactUsByEmail": "alebo nás kontaktujte emailom",
+  "SideBarContact.contacts": "Kontakty",
+  "SideBarContact.writeMessage": "Napísať správu",
+  "SkipToContentButton.skipToContent": "Preskočiť navigáciu",
+  "Slider.aria.description": "Posúvač",
+  "SortSelect.byNewest": "Od najnovšieho",
+  "SortSelect.byOldest": "Od najstaršieho"
 }
