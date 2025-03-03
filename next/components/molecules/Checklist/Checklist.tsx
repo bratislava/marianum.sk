@@ -90,7 +90,7 @@ export type ChecklistProps = {
 }
 
 const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: ChecklistProps) => {
-  const { t, i18n } = useTranslation('common', { keyPrefix: 'Checklist' })
+  const { t, i18n } = useTranslation()
 
   // The saved state is valid up until we change anything in procedures in Strapi. Therefore, we can save only indexes
   // instead of keys as when something changes the id will be regenerated.
@@ -200,14 +200,14 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
                             href={downloadFile.attributes.url}
                             // TODO use hook for filesize
                             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                            aria-label={`${t('aria.download')} ${
+                            aria-label={`${t('Checklist.aria.download')} ${
                               downloadFile.attributes.name
                             } ${filesize(downloadFile.attributes.size * 1000, {
                               round: 1,
                               locale: i18n.language,
                             })}`}
                           >
-                            {t('download')}
+                            {t('Checklist.download')}
                           </Button>
                           {/* we can only print pdf files */}
                           {downloadFile.attributes.ext === '.pdf' && (
@@ -216,7 +216,7 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
                               variant="secondary"
                               onPress={handlePrint}
                             >
-                              {t('print')}
+                              {t('Checklist.print')}
                             </Button>
                           )}
                         </div>
@@ -228,9 +228,9 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
                           onPress={() => handleItemUncomplete(index)}
                           variant="secondary"
                           startIcon={<CloseCircleIcon />}
-                          aria-label={t('aria.markAsUncomplete')}
+                          aria-label={t('Checklist.aria.markAsUncomplete')}
                         >
-                          {t('markAsUncomplete')}
+                          {t('Checklist.markAsUncomplete')}
                         </Button>
                       </div>
                     ) : (
@@ -239,16 +239,16 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
                         <Button
                           onPress={() => handleItemComplete(index)}
                           startIcon={<CheckCircleIcon />}
-                          aria-label={t('aria.markAsComplete')}
+                          aria-label={t('Checklist.aria.markAsComplete')}
                         >
-                          {t('markAsComplete')}
+                          {t('Checklist.markAsComplete')}
                         </Button>
                         <Button
                           onPress={() => handleNextItemOpen()}
                           variant="secondary"
-                          aria-label={t('aria.skip')}
+                          aria-label={t('Checklist.aria.skip')}
                         >
-                          {t('skip')}
+                          {t('Checklist.skip')}
                         </Button>
                       </div>
                     )

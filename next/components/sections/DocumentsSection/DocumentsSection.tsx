@@ -35,7 +35,7 @@ const Documents = ({
   data: SearchResponse<DocumentMeili>
   filters: DocumentsSectionFilters
 }) => {
-  const { t } = useTranslation('common', { keyPrefix: 'DocumentsSection' })
+  const { t } = useTranslation()
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
   const documentsRef = useRef<HTMLDivElement>(null)
@@ -46,7 +46,7 @@ const Documents = ({
   if (data.hits.length > 0) {
     return (
       <div className="grid gap-y-3" ref={documentsRef}>
-        <h2 className="sr-only">{t('aria.results')}</h2>
+        <h2 className="sr-only">{t('DocumentsSection.aria.results')}</h2>
         {data.hits.map((document, index) => (
           // TODO: Use DocumentRow
           <Row
@@ -72,7 +72,7 @@ const Documents = ({
                 href={document.file?.url ?? ''}
                 aria-label={getDownloadAriaLabel({ attributes: document.file }, document.title)}
               >
-                {t('download')}
+                {t('DocumentsSection.download')}
               </Button>
             }
             border={false}
@@ -82,7 +82,7 @@ const Documents = ({
     )
   }
 
-  return <strong>{t('noDocuments')}</strong>
+  return <strong>{t('DocumentsSection.noDocuments')}</strong>
 }
 
 const DataWrapper = ({

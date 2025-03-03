@@ -35,7 +35,7 @@ const Table = ({
   data: SearchResponse<CeremonyMeili>
   filters: CeremoniesArchiveSectionFilters
 }) => {
-  const { t, i18n } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })
+  const { t, i18n } = useTranslation()
 
   const tableWrapperRef = useRef<HTMLDivElement>(null)
   const theadRef = useRef<HTMLTableSectionElement>(null)
@@ -80,13 +80,13 @@ const Table = ({
         <table className="m-table colored">
           <thead ref={theadRef}>
             <tr>
-              <th>{t('th.dateTime')}</th>
-              <th>{t('th.name')}</th>
-              <th>{t('th.birthYear')}</th>
-              <th>{t('th.cemeteryTitle')}</th>
-              <th>{t('th.type')}</th>
-              <th>{t('th.company')}</th>
-              <th>{t('th.officiantProvidedBy')}</th>
+              <th>{t('CeremoniesSection.th.dateTime')}</th>
+              <th>{t('CeremoniesSection.th.name')}</th>
+              <th>{t('CeremoniesSection.th.birthYear')}</th>
+              <th>{t('CeremoniesSection.th.cemeteryTitle')}</th>
+              <th>{t('CeremoniesSection.th.type')}</th>
+              <th>{t('CeremoniesSection.th.company')}</th>
+              <th>{t('CeremoniesSection.th.officiantProvidedBy')}</th>
             </tr>
           </thead>
           <tbody>
@@ -107,14 +107,14 @@ const Table = ({
             ))}
             {ceremonies?.length === 0 && (
               <tr>
-                <td colSpan={7}>{t('noCeremonies')}</td>
+                <td colSpan={7}>{t('CeremoniesSection.noCeremonies')}</td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
       <p>
-        <PrivateField /> {t('privateFieldsDescription')}
+        <PrivateField /> {t('CeremoniesSection.privateFieldsDescription')}
       </p>
     </>
   )

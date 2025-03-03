@@ -10,7 +10,7 @@ const handleScrollToTop = () => {
 }
 
 const ScrollToTopButton = () => {
-  const { t } = useTranslation('common', { keyPrefix: 'ScrollToTopButton' })
+  const { t } = useTranslation()
 
   const [visible, setVisible] = useState(false)
 
@@ -26,7 +26,7 @@ const ScrollToTopButton = () => {
 
   return (
     <IconButton
-      aria-label={t('aria.scrollToTop')}
+      aria-label={t('ScrollToTopButton.aria.scrollToTop')}
       id="scrollToTopButton"
       onPress={handleScrollToTop}
       variant="secondary"

@@ -12,7 +12,7 @@ type ErrorSectionProps = {
 
 const ErrorSection = ({ code, title, message }: ErrorSectionProps) => {
   const router = useRouter()
-  const { t } = useTranslation('common', { keyPrefix: 'ErrorPage' })
+  const { t } = useTranslation()
 
   const handleGoBack = () => {
     router.back()
@@ -33,9 +33,9 @@ const ErrorSection = ({ code, title, message }: ErrorSectionProps) => {
         <div className="lg:px-60 xl:px-80">{message}</div>
 
         <div className="mt-8 flex flex-col items-center justify-center gap-4 md:flex-row">
-          <Button href="/">{t('home')}</Button>
+          <Button href="/">{t('ErrorPage.home')}</Button>
           <Button onPress={handleGoBack} variant="secondary">
-            {t('previousPage')}
+            {t('ErrorPage.previousPage')}
           </Button>
         </div>
       </div>

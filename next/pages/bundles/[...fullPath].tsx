@@ -32,7 +32,7 @@ const BundlePage: NextPage<BundlePageProps> = ({
   entity,
   general,
 }: BundlePageProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'BundlePage' })
+  const { t } = useTranslation()
   const {
     seo,
     title,
@@ -60,7 +60,7 @@ const BundlePage: NextPage<BundlePageProps> = ({
           {/* TODO display bundle data */}
           {claims?.length ? (
             <Section>
-              <h2 className="pb-6 text-h3">{t('bundleContent')}</h2>
+              <h2 className="pb-6 text-h3">{t('BundlePage.bundleContent')}</h2>
               <ul>
                 {claims.map((item, index) => (
                   // eslint-disable-next-line react/no-array-index-key
@@ -89,7 +89,7 @@ const BundlePage: NextPage<BundlePageProps> = ({
 
           {additionalServices?.length ? (
             <Section>
-              <h3 className="pb-4">{t('additionalServices')}</h3>
+              <h3 className="pb-4">{t('BundlePage.additionalServices')}</h3>
               <AccordionGroup>
                 {additionalServices.map((service) => (
                   <AccordionItem
@@ -98,7 +98,7 @@ const BundlePage: NextPage<BundlePageProps> = ({
                     additionalInfo={
                       service?.price ? (
                         <div>
-                          {t('priceFrom')}{' '}
+                          {t('BundlePage.priceFrom')}{' '}
                           <span className="font-bold">
                             <FormatCurrency value={service.price} />
                           </span>

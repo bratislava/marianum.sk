@@ -27,7 +27,16 @@ type MapOfManagedObjectsSectionProps = {
 
 const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps) => {
   const { t, i18n } = useTranslation()
+
   const { getFullPath } = useGetFullPath()
+
+  const translationMap: Record<string, string> = {
+    [Enum_Managedobject_Type.Fontana]: t('MapSection.managedObjectsFilter.fontana'),
+    [Enum_Managedobject_Type.PitnaFontana]: t('MapSection.managedObjectsFilter.pitnaFontana'),
+    [Enum_Managedobject_Type.HmlovaFontana]: t('MapSection.managedObjectsFilter.hmlovaFontana'),
+    [Enum_Managedobject_Type.Studna]: t('MapSection.managedObjectsFilter.studna'),
+    [Enum_Managedobject_Type.Rozprasovac]: t('MapSection.managedObjectsFilter.rozprasovac'),
+  } satisfies Record<Enum_Managedobject_Type, string>
 
   const { data, error } = useSWR(
     getManagedObjectsSwrKey(i18n.language),
@@ -92,7 +101,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
                       isSelected={selectedTypes[type]}
                       onChange={() => toggleSelectedTypes(type)}
                     >
-                      {t(`MapSectionFilters.${type}`)}
+                      {translationMap[type]}
                     </TagToggle>
                   </li>
                 )
@@ -102,7 +111,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
 
           {/* Results */}
           <ul
-            aria-label={t('general.results')}
+            aria-label={t('MapSection.results')}
             className="flex-1 overflow-auto"
             onMouseLeave={() => setHoveredManagedObjectSlug(null)}
           >

@@ -15,7 +15,7 @@ type HomepageSliderProps = {
 const getAriaLabelId = (id: string, index: number) => `homepageslider-${id}-${index}`
 
 const HomepageSlider = ({ slides }: HomepageSliderProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'HomepageSlider' })
+  const { t } = useTranslation()
   const id = useId()
 
   const { getFullPath } = useGetFullPath()
@@ -40,7 +40,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
               // eslint-disable-next-line react/no-array-index-key
               key={index}
             >
-              <h2 className="sr-only">{t('aria.heading')}</h2>
+              <h2 className="sr-only">{t('HomepageSlider.aria.heading')}</h2>
               <div className="container absolute flex h-full flex-row items-center justify-center lg:justify-start">
                 {/* 60% of container width is not the same as 60% of window (image offset from left), but this setting works fine */}
                 <div className="flex size-full flex-col items-center pb-16 lg:w-3/5 lg:items-start lg:justify-end lg:pb-[104px]">
@@ -107,7 +107,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                   })}
                   key={index}
                   type="button"
-                  aria-label={t('aria.goToSlide', { number: index + 1 })}
+                  aria-label={t('HomepageSlider.aria.goToSlide', { number: index + 1 })}
                   onClick={() => goToPage(index)}
                 >
                   <div className="size-2 rounded-full bg-white" />

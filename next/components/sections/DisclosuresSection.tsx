@@ -52,7 +52,7 @@ const Table = ({
   data: SearchResponse<DisclosureMeili>
   filters: DisclosuresSectionFilters
 }) => {
-  const { t } = useTranslation('common', { keyPrefix: 'DisclosuresSection' })
+  const { t } = useTranslation()
 
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
@@ -71,23 +71,23 @@ const Table = ({
       <table className="m-table colored">
         <thead ref={theadRef}>
           <tr>
-            <th>{t('th.publishedDate')}</th>
-            <th>{t('th.type')}</th>
-            <th>{t('th.internalInvoiceNumber')}</th>
-            <th>{t('th.invoiceNumberOrVariableSymbol')}</th>
-            <th>{t('th.orderNumber')}</th>
-            <th>{t('th.contractNumber')}</th>
-            <th>{t('th.description')}</th>
-            <th>{t('th.supplierName')}</th>
-            <th>{t('th.supplierAddress')}</th>
-            <th>{t('th.supplierRegistrationNumber')}</th>
-            <th>{t('th.dateOfOrder')}</th>
-            <th>{t('th.totalValue')}</th>
-            <th>{t('th.invoicedAmount')}</th>
-            <th>{t('th.dateOfDelivery')}</th>
-            <th>{t('th.signedBy')}</th>
-            {hasFiles && <th>{t('th.files')}</th>}
-            {hasAdditionalData && <th>{t('th.additionalData')}</th>}
+            <th>{t('DisclosuresSection.th.publishedDate')}</th>
+            <th>{t('DisclosuresSection.th.type')}</th>
+            <th>{t('DisclosuresSection.th.internalInvoiceNumber')}</th>
+            <th>{t('DisclosuresSection.th.invoiceNumberOrVariableSymbol')}</th>
+            <th>{t('DisclosuresSection.th.orderNumber')}</th>
+            <th>{t('DisclosuresSection.th.contractNumber')}</th>
+            <th>{t('DisclosuresSection.th.description')}</th>
+            <th>{t('DisclosuresSection.th.supplierName')}</th>
+            <th>{t('DisclosuresSection.th.supplierAddress')}</th>
+            <th>{t('DisclosuresSection.th.supplierRegistrationNumber')}</th>
+            <th>{t('DisclosuresSection.th.dateOfOrder')}</th>
+            <th>{t('DisclosuresSection.th.totalValue')}</th>
+            <th>{t('DisclosuresSection.th.invoicedAmount')}</th>
+            <th>{t('DisclosuresSection.th.dateOfDelivery')}</th>
+            <th>{t('DisclosuresSection.th.signedBy')}</th>
+            {hasFiles && <th>{t('DisclosuresSection.th.files')}</th>}
+            {hasAdditionalData && <th>{t('DisclosuresSection.th.additionalData')}</th>}
           </tr>
         </thead>
         <tbody>
@@ -138,7 +138,7 @@ const Table = ({
           ))}
           {data.hits?.length === 0 && (
             <tr>
-              <td colSpan={8}>{t('noRecords')}</td>
+              <td colSpan={8}>{t('DisclosuresSection.noRecords')}</td>
             </tr>
           )}
         </tbody>
@@ -197,7 +197,7 @@ const TypeSelect = ({
 }: {
   onTypeChange: (type: DisclosureTypeFixed | null) => void
 }) => {
-  const { t } = useTranslation('common', { keyPrefix: 'DisclosuresSection' })
+  const { t } = useTranslation()
 
   return (
     <Select
@@ -205,19 +205,19 @@ const TypeSelect = ({
       options={[
         {
           key: 'all',
-          label: t('types.all'),
+          label: t('DisclosuresSection.types.all'),
         },
         {
           key: DisclosureTypeFixed.Faktura,
-          label: t('types.faktury'),
+          label: t('DisclosuresSection.types.faktury'),
         },
         {
           key: DisclosureTypeFixed.Zmluva,
-          label: t('types.zmluvy'),
+          label: t('DisclosuresSection.types.zmluvy'),
         },
         {
           key: DisclosureTypeFixed.Objednavka,
-          label: t('types.objednavky'),
+          label: t('DisclosuresSection.types.objednavky'),
         },
       ]}
       onSelectionChange={(type) => {

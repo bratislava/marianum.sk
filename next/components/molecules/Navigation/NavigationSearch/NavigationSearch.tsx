@@ -24,12 +24,12 @@ const NavigationSearch = ({ onDesktopSearchOpen, onDesktopSearchClose }: Navigat
 
   const router = useRouter()
 
-  const { t: pathsT } = useTranslation('common', { keyPrefix: 'paths' })
+  const { t } = useTranslation()
 
   const handleSearch = useCallback(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises,@typescript-eslint/restrict-template-expressions
-    router.push(`${pathsT('search')}?query=${searchQuery ?? ''}`)
-  }, [router, searchQuery, pathsT])
+    router.push(`${t('paths.search')}?query=${searchQuery ?? ''}`)
+  }, [router, searchQuery, t])
 
   return (
     <>
