@@ -2341,6 +2341,11 @@ export interface PluginUploadFolder extends Schema.CollectionType {
     };
   };
   attributes: {
+    children: Attribute.Relation<
+      'plugin::upload.folder',
+      'oneToMany',
+      'plugin::upload.folder'
+    >;
     createdAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'plugin::upload.folder',
@@ -2352,11 +2357,6 @@ export interface PluginUploadFolder extends Schema.CollectionType {
       'plugin::upload.folder',
       'oneToMany',
       'plugin::upload.file'
-    >;
-    children: Attribute.Relation<
-      'plugin::upload.folder',
-      'oneToMany',
-      'plugin::upload.folder'
     >;
     name: Attribute.String &
       Attribute.Required &
