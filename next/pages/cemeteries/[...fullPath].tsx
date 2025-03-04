@@ -8,6 +8,7 @@ import Button from '@/components/atoms/Button'
 import RichText from '@/components/atoms/RichText'
 import Seo from '@/components/atoms/Seo'
 import BranchCemeteryLayout from '@/components/layouts/BranchCemeteryLayout'
+import ImageGallery from '@/components/molecules/ImageGallery'
 import {
   generateStaticPaths,
   generateStaticProps,
@@ -27,7 +28,7 @@ type CemeteryPageProps = {
 const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'BranchCemeteryPage' })
 
-  const { seo, title, address, navigateToLink, description, overrideOpeningHours } =
+  const { seo, title, address, navigateToLink, description, overrideOpeningHours, gallery } =
     entity.attributes ?? {}
 
   return (
@@ -50,7 +51,7 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
                   {address}
                 </div>
               )}
-              {navigateToLink && (
+              {navigateToLink ? (
                 <Button
                   href={navigateToLink}
                   target="_blank"
@@ -60,21 +61,26 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
                 >
                   {t('navigate')}
                 </Button>
-              )}
+              ) : null}
             </div>
           </SectionBoxed>
-          {description && (
+          {description ? (
             <SectionBoxed title={t('aboutCemetery')}>
               <RichText content={description} coloredTable={false} />
             </SectionBoxed>
-          )}
-          {general?.attributes?.cemeteryOpeningHours && (
+          ) : null}
+          {general?.attributes?.cemeteryOpeningHours ? (
             <SectionBoxed title={t('openingHours')}>
               <OpeningHours
                 openingHours={overrideOpeningHours || general?.attributes?.cemeteryOpeningHours}
               />
             </SectionBoxed>
-          )}
+          ) : null}
+          {gallery ? (
+            <SectionBoxed title={t('gallery')}>
+              <ImageGallery images={gallery.medias?.data} />
+            </SectionBoxed>
+          ) : null}
         </div>
       </BranchCemeteryLayout>
     </>
