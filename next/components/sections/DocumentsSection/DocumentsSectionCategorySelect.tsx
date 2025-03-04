@@ -1,38 +1,32 @@
-import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
-
+import { SelectOption } from '@/components/atoms/Select'
 import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import { client } from '@/services/graphql/gqlClient'
 
 type DocumentsSectionCategorySelectProps = {
-  onCategoryChange: (id: string | null) => void
+  defaultOption: SelectOption
+  onCategoryChange: (option: SelectOption | null) => void
 }
 
 const mappedFetcher = () =>
   client.DocumentCategories().then(
     (data) =>
       data.documentCategories?.data.map((category) => ({
-        label: category.attributes?.title,
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        key: category.id!,
+        value: category.id!,
+        label: category?.attributes?.title ?? '',
       })) ?? [],
   )
 
 const DocumentsSectionCategorySelect = ({
+  defaultOption,
   onCategoryChange = () => {},
 }: DocumentsSectionCategorySelectProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'DocumentsSection' })
-
-  const defaultOption = useMemo(() => ({ label: t('allCategories'), key: '' }), [t])
-
   return (
     <SelectWithFetcher
       swrKey="DocumentsSectionCategorySelect"
       defaultOption={defaultOption}
       fetcher={mappedFetcher}
-      onSelectionChange={(selection: string) => {
-        onCategoryChange(selection === '' ? null : selection)
-      }}
+      onChange={onCategoryChange}
     />
   )
 }

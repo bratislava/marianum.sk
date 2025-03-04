@@ -1,7 +1,7 @@
 import { parseAbsolute } from '@internationalized/date'
 import { Key } from 'swr'
 
-import { Option } from '@/components/atoms/Select'
+import { SelectOption } from '@/components/atoms/Select'
 import { client } from '@/services/graphql/gqlClient'
 import { bratislavaTimezone } from '@/utils/consts'
 import { getCemeteryInfoInCeremoniesDebtors } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
@@ -38,11 +38,11 @@ export const cemeteriesInCeremoniesFetcher = async (locale: string) => {
     result.cemeteries?.data?.map(
       (cemetery) =>
         ({
-          label: getCemeteryInfoInCeremoniesDebtors(cemetery, locale).title ?? '',
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          key: cemetery.id!,
-        }) as Option,
-    ) ?? ([] as Option[])
+          value: cemetery.id!,
+          label: getCemeteryInfoInCeremoniesDebtors(cemetery, locale).title ?? '',
+        }) as SelectOption,
+    ) ?? ([] as SelectOption[])
   )
 }
 

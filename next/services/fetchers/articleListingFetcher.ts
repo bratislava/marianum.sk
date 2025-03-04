@@ -1,6 +1,6 @@
 import { Key } from 'swr'
 
-import { Option } from '@/components/atoms/Select'
+import { SelectOption } from '@/components/atoms/Select'
 import { client } from '@/services/graphql/gqlClient'
 import { meiliClient } from '@/services/meili/meiliClient'
 import { ArticleMeili } from '@/services/meili/meiliTypes'
@@ -76,9 +76,9 @@ const mapSelectFn = (category: {
   id?: string | null
 }) =>
   ({
+    value: category.id,
     label: category.attributes?.title,
-    key: category.id,
-  }) as Option
+  }) as SelectOption
 
 export const articleNewsCategoriesSelectSwrKey = 'ArticleNewsCategoriesSelect'
 export const articleNewsCategoriesSelectFetcher = () =>

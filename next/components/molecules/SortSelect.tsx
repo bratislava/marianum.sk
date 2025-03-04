@@ -1,33 +1,27 @@
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
 
-import Select from '@/components/atoms/Select'
+import Select, { SelectOption } from '@/components/atoms/Select'
 
 export type Sort = 'newest' | 'oldest'
 
 type SortSelectProps = {
-  defaultSelected: Sort
-  onChange?: (sort: Sort) => void
+  defaultOption: SelectOption<Sort>
+  onChange?: (option: SelectOption<Sort> | null) => void
 }
 
-const SortSelect = ({ defaultSelected, onChange = () => {} }: SortSelectProps) => {
+const SortSelect = ({ defaultOption, onChange = () => {} }: SortSelectProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'SortSelect' })
 
-  const options = useMemo(
+  const options: SelectOption<Sort>[] = useMemo(
     () => [
-      { key: 'newest', label: t('byNewest') },
-      { key: 'oldest', label: t('byOldest') },
+      { value: 'newest', label: t('byNewest') },
+      { value: 'oldest', label: t('byOldest') },
     ],
     [t],
   )
 
-  return (
-    <Select
-      options={options}
-      onSelectionChange={onChange as (sort: string) => void}
-      defaultSelected={defaultSelected}
-    />
-  )
+  return <Select options={options} onChange={onChange} defaultValue={defaultOption} />
 }
 
 export default SortSelect
