@@ -8,6 +8,7 @@ import Button from '@/components/atoms/Button'
 import RichText from '@/components/atoms/RichText'
 import Seo from '@/components/atoms/Seo'
 import BranchCemeteryLayout from '@/components/layouts/BranchCemeteryLayout'
+import DocumentGroup from '@/components/molecules/DocumentGroup'
 import {
   generateStaticPaths,
   generateStaticProps,
@@ -27,7 +28,7 @@ type CemeteryPageProps = {
 const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'BranchCemeteryPage' })
 
-  const { seo, title, address, navigateToLink, description, overrideOpeningHours } =
+  const { seo, title, address, navigateToLink, description, overrideOpeningHours, documents } =
     entity.attributes ?? {}
 
   return (
@@ -75,6 +76,16 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
               />
             </SectionBoxed>
           )}
+          {documents ? (
+            <SectionBoxed title={t('documents')}>
+              <DocumentGroup
+                className="gap-0 divide-y-2 divide-solid divide-gray divide-opacity-50"
+                contentClassname="md:px-0"
+                documents={documents.documents}
+                shouldUseHover={false}
+              />
+            </SectionBoxed>
+          ) : null}
         </div>
       </BranchCemeteryLayout>
     </>
