@@ -171,9 +171,6 @@ fragment CemeteryCardEntity on CemeteryEntity {
     overrideOpeningHours {
       ...OpeningHours
     }
-    documents {
-      ...DocumentGroup
-    }
   }
 }
 
@@ -197,6 +194,9 @@ fragment CemeteryEntity on CemeteryEntity {
     longitude
     seo {
       ...Seo
+    }
+    documents {
+      ...DocumentGroup
     }
   }
 }

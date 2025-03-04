@@ -8,6 +8,7 @@ import Button from '@/components/atoms/Button'
 import RichText from '@/components/atoms/RichText'
 import Seo from '@/components/atoms/Seo'
 import BranchCemeteryLayout from '@/components/layouts/BranchCemeteryLayout'
+import DocumentGroup from '@/components/molecules/DocumentGroup'
 import {
   generateStaticPaths,
   generateStaticProps,
@@ -29,8 +30,6 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
 
   const { seo, title, address, navigateToLink, description, overrideOpeningHours, documents } =
     entity.attributes ?? {}
-
-  console.log('documents', documents)
 
   return (
     <>
@@ -75,6 +74,11 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
               <OpeningHours
                 openingHours={overrideOpeningHours || general?.attributes?.cemeteryOpeningHours}
               />
+            </SectionBoxed>
+          )}
+          {documents && (
+            <SectionBoxed title={t('documents')}>
+              <DocumentGroup {...documents} />
             </SectionBoxed>
           )}
         </div>
