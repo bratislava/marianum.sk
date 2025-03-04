@@ -1,6 +1,5 @@
 # VSCode
 .vscode/
-*.code-workspace
 
 # JetBrains IDE
 .idea/
