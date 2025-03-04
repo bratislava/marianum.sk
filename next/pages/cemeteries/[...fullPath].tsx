@@ -79,7 +79,7 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
           {documents ? (
             <SectionBoxed title={t('documents')}>
               <DocumentGroup
-                className="divide-y-2 divide-solid divide-gray divide-opacity-50"
+                className="gap-0 divide-y-2 divide-solid divide-gray divide-opacity-50"
                 contentClassname="md:px-0"
                 documents={documents.documents}
                 shouldUseHover={false}
