@@ -7,11 +7,15 @@ type RowContentProps = {
   className?: string
 }
 
-const RowContent = ({ className, hover = true, children }: PropsWithChildren<RowContentProps>) => {
+const RowContent = ({
+  className = '',
+  hover = true,
+  children,
+}: PropsWithChildren<RowContentProps>) => {
   return (
     <div
       className={twMerge(
-        cx('relative flex grow items-center px-4 py-3 md:px-5 md:py-4', { group: hover }),
+        cx('relative flex grow items-center gap-x-4 px-4 py-3 md:px-5 md:py-4', { group: hover }),
         className,
       )}
     >

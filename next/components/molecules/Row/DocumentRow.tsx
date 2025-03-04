@@ -11,6 +11,8 @@ type DocumentRowProps = {
   title: string
   titleId: string
   linkHref?: string
+  contentClassname?: string
+  shouldUseHover?: boolean
 }
 const DocumentRow = (props: DocumentRowProps) => {
   const { file, title } = props

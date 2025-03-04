@@ -1,3 +1,4 @@
+import cx from 'classnames'
 import { useId, useMemo } from 'react'
 
 import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
@@ -5,9 +6,21 @@ import DocumentRow from '@/components/molecules/Row/DocumentRow'
 import { DocumentGroupFragment } from '@/graphql'
 import { isDefined } from '@/utils/isDefined'
 
+type DocumentGroupProps = {
+  documents: DocumentGroupFragment['documents']
+  className?: string
+  contentClassname?: string
+  shouldUseHover?: boolean
+}
+
 const getAriaLabelId = (id: string, index: number) => `document-group-title-${id}-${index}`
 
-const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
+const DocumentGroup = ({
+  documents,
+  className = '',
+  contentClassname = '',
+  shouldUseHover = true,
+}: DocumentGroupProps) => {
   const id = useId()
   const { getFullPath } = useGetFullPath()
 
@@ -16,7 +29,7 @@ const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
   }, [documents])
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className={cx('flex flex-col gap-4', className)}>
       {filteredDocuments?.map((doc, index) => {
         const { title, slug, file } = doc.attributes ?? {}
 
@@ -29,6 +42,8 @@ const DocumentGroup = ({ documents }: DocumentGroupFragment) => {
             titleId={getAriaLabelId(id, index)}
             linkHref={getFullPath(doc) ?? undefined}
             file={file?.data}
+            contentClassname={contentClassname}
+            shouldUseHover={shouldUseHover}
           />
         )
       })}

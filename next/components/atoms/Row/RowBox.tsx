@@ -7,12 +7,14 @@ import { sectionContext } from '@/components/layouts/SectionsWrapper'
 export type RowBoxProps = {
   border?: boolean
   hover?: boolean
+  shouldUseHover?: boolean
 } & Pick<HTMLAttributes<HTMLDivElement>, 'className' | 'onClick'>
 
 const RowBox = ({
   border,
   className,
   hover = true,
+  shouldUseHover = true,
   children,
   onClick = () => {},
 }: PropsWithChildren<RowBoxProps>) => {
@@ -24,7 +26,7 @@ const RowBox = ({
       className={twMerge(
         cx('flex w-full flex-col bg-white', {
           'border border-border': border ?? contextBorder,
-          'hover:shadow-card': hover,
+          'hover:shadow-card': shouldUseHover ?? hover,
         }),
         className,
       )}
