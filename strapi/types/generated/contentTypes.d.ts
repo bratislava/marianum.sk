@@ -917,6 +917,12 @@ export interface ApiCemeteryCemetery extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    gallery: Attribute.Component<'sections.gallery'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     latitude: Attribute.Float &
       Attribute.SetPluginOptions<{
         i18n: {
