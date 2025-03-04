@@ -976,18 +976,27 @@
   integrity sha512-Ja/Vfqe3HpuzRsG1oBtWTHk2PGZ7GR+2Vz5iYGelAw8dx32K0y7PjVuxK6z1nMpZOqAFsRUPCkK1YjJ56qJlgw==
 
 "@envelop/core@^5.1.0":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@envelop/core/-/core-5.1.1.tgz#b41a7fb1d6c13a2c1a04d86f55d96fa57dc47776"
-  integrity sha512-6+OukzuNsm33DtLnOats3e7VnnHndqINJbp/vlIyIlSGBc/wtgQiTAijNWwHhnozHc7WmCKzTsPSrGObvkJazg==
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@envelop/core/-/core-5.2.0.tgz#f12532217f92c9b675b6ec07f225b48b12ab76b0"
+  integrity sha512-JMrISsiZ4XQXMtJhs5K4MtM64zFfPHAmpWrkLt+d7d3UC4W39rQu9+4ba3kTV9MyohNr39+wfjBdTa13rKTbjA==
   dependencies:
-    "@envelop/types" "^5.1.1"
+    "@envelop/instruments" "^1.0.0"
+    "@envelop/types" "^5.2.0"
     "@whatwg-node/promise-helpers" "^1.0.0"
     tslib "^2.5.0"
 
-"@envelop/types@^5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@envelop/types/-/types-5.1.1.tgz#eff02f70a2e313ab968c277f31d2faac175a45f1"
-  integrity sha512-uJyCPQRSqxH/4q8/TTTY2fMYIK/Tgv1IhOm6aFUUxuE/EI7muJM/UI85iv9Qo1OCpaafthwRLWzufRp20FyXaA==
+"@envelop/instruments@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@envelop/instruments/-/instruments-1.0.0.tgz#7e36926b6212048258ce1939bcf5a52e2a5dbe4d"
+  integrity sha512-f4lHoti7QgUIluIGTM0mG9Wf9/w6zc1mosYmyFkrApeHSP2PIUC6a8fMoqkdk6pgVOps39kLdIhOPF8pIKS8/A==
+  dependencies:
+    "@whatwg-node/promise-helpers" "^1.2.1"
+    tslib "^2.5.0"
+
+"@envelop/types@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@envelop/types/-/types-5.2.0.tgz#a485749ddc846343a26b16ebff5436fb5ca3a6fa"
+  integrity sha512-vCJY6URc8bK1O6p4zVRFpv/ASdyXvLM+Iqn2HP44UfTgEUQLyN4buwLawlkAv/KtzAL7VOeefpF2eKPWk7rHjg==
   dependencies:
     "@whatwg-node/promise-helpers" "^1.0.0"
     tslib "^2.5.0"
@@ -3926,7 +3935,7 @@
     busboy "^1.6.0"
     tslib "^2.6.3"
 
-"@whatwg-node/promise-helpers@^1.0.0":
+"@whatwg-node/promise-helpers@^1.0.0", "@whatwg-node/promise-helpers@^1.2.1":
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@whatwg-node/promise-helpers/-/promise-helpers-1.2.2.tgz#9e26073385086975e65609d6c9b27f9d7f92280d"
   integrity sha512-aPVTGCs/QEYkSTnYcLKE1wyYZykbGjaXsEwXHc0FKbSlojIpdw72BQMJx9aJXzkCs6qy9WfDV0jhV9C2qIYYOA==
@@ -6446,14 +6455,7 @@ graphql-config@^5.1.1:
     string-env-interpolation "^1.0.1"
     tslib "^2.4.0"
 
-graphql-request@7.1.2:
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/graphql-request/-/graphql-request-7.1.2.tgz#52d7fd6d8d08c9f0b00c84a091376ce9fbdfa945"
-  integrity sha512-+XE3iuC55C2di5ZUrB4pjgwe+nIQBuXVIK9J98wrVwojzDW3GMdSBZfxUk8l4j9TieIpjpggclxhNEU9ebGF8w==
-  dependencies:
-    "@graphql-typed-document-node/core" "^3.2.0"
-
-graphql-request@^6.0.0:
+graphql-request@6.1.0, graphql-request@^6.0.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/graphql-request/-/graphql-request-6.1.0.tgz#f4eb2107967af3c7a5907eb3131c671eac89be4f"
   integrity sha512-p+XPfS4q7aIpKVcgmnZKhMNqhltk20hfXtkaIkTfjjmiKMJ5xrt5c743cL03y/K7y1rg3WrIC49xGiEQ4mxdNw==
