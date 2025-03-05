@@ -77,7 +77,7 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
             </SectionBoxed>
           ) : null}
           {gallery ? (
-            <SectionBoxed title={t('gallery')}>
+            <SectionBoxed title={t('BranchCemeteryPage.gallery')}>
               <ImageGallery images={gallery.medias?.data} />
             </SectionBoxed>
           ) : null}
