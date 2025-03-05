@@ -55,7 +55,7 @@
     "react-hook-form": "^7.39.1",
     "react-i18next": "15.4.1",
     "react-map-gl": "^7.0.19",
-    "react-markdown": "^8.0.3",
+    "react-markdown": "^10.0.1",
     "react-popper": "^2.3.0",
     "react-resize-detector": "^7.1.2",
     "react-stately": "^3.16.0",
