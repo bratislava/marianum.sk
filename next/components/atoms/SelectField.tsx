@@ -11,7 +11,7 @@ import Select, {
 } from 'react-select'
 import { twMerge } from 'tailwind-merge'
 
-import { ChevronDownIcon, CloseIcon } from '@/assets/icons'
+import { CheckNoPaddingIcon, ChevronDownIcon, CloseIcon } from '@/assets/icons'
 import { Sort } from '@/components/molecules/SortSelect'
 
 export type SelectOption<T extends Sort | string = string> = { value: T; label: string }
@@ -53,22 +53,31 @@ const CustomOption = <
   children,
   ...props
 }: OptionProps<Option, IsMulti, Group>) => {
-  const { isSelected, isFocused } = props
+  const { isSelected, isFocused, isMulti } = props
 
   return (
-    <components.Option {...props}>
-      <div
-        className={cx(
-          'flex h-10 select-none items-center overflow-hidden text-ellipsis whitespace-nowrap px-4 hover:cursor-pointer',
-          {
-            'bg-primary text-white': isSelected,
-            'bg-background-beige': isFocused && !isSelected,
-          },
-        )}
-      >
-        <div className="truncate">{children}</div>
-      </div>
-    </components.Option>
+    <>
+      <components.Option {...props}>
+        <div
+          className={cx(
+            'flex h-10 select-none items-center overflow-hidden text-ellipsis whitespace-nowrap px-4 hover:cursor-pointer',
+            {
+              'bg-primary text-white': isSelected && !isMulti,
+              'bg-background-beige': (isFocused && !isSelected) || (isFocused && isMulti),
+              'justify-between': isMulti,
+            },
+          )}
+        >
+          <div className="truncate">{children}</div>
+          {isSelected && isMulti ? (
+            <CheckNoPaddingIcon aria-hidden className="text-primary" />
+          ) : null}
+        </div>
+      </components.Option>
+      {isMulti ? (
+        <div className="mx-3 border-[0.5px] border-border last:hidden" aria-hidden />
+      ) : null}
+    </>
   )
 }
 
@@ -97,12 +106,13 @@ const MultiValueRemove = <
 ) => {
   return (
     <components.MultiValueRemove {...props}>
-      <CloseIcon className="scale-[60%]" />
+      <CloseIcon className="scale-[60%] hover:text-error" />
     </components.MultiValueRemove>
   )
 }
 
 /**
+ * Figma: https://www.figma.com/design/aSo4AQ5Rag1TmFc8jmANfP/Marianum?node-id=460-362&m=dev
  * Based on OLO: https://github.com/bratislava/olo.sk/blob/master/next/src/components/lib/Select/Select.tsx
  */
 
@@ -133,6 +143,7 @@ const SelectField = <
       isSearchable={isSearchable}
       isMulti={isMulti}
       onChange={onChange}
+      hideSelectedOptions={false}
       closeMenuOnSelect={!isMulti}
       unstyled
       className={twMerge(cx('w-full', className))}
@@ -146,13 +157,19 @@ const SelectField = <
             {
               'pl-2': isMulti,
               // This styling will be applied to the Control component and its children, such as the placeholder
-              'text-foreground-disabled': isDisabled,
+              'bg-background-disabled text-foreground-disabled': isDisabled,
             },
           ),
         menu: () => 'z-20 border border-border bg-white mt-2 outline-none',
-        multiValue: () =>
-          'items-center gap-0.5 rounded bg-primary hover:bg-primary-dark ml-2 first:ml-0 text-white',
-        multiValueLabel: () => 'px-2 py-1 text-sm',
+        valueContainer: () =>
+          // If there's a long value in select, it stretches the parent element instead of wrapping the text.
+          // `[container-type:inline-size]` fixes this for some reason.
+          cx('gap-x-2 gap-y-1 [container-type:inline-size]', {
+            // if rounded is not applied, the background overflows to the "control"
+            'bg-background-disabled text-foreground-disabled': isDisabled,
+          }),
+        multiValue: () => 'items-center bg-primary bg-opacity-[12%]',
+        multiValueLabel: () => 'px-2 text-sm',
         indicatorsContainer: () => 'flex items-center py-2 justify-center h-10',
         indicatorSeparator: () => cx('mx-1 bg-border', { hidden: !isMulti }),
         placeholder: ({ isFocused }) =>
