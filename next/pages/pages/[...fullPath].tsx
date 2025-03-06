@@ -153,7 +153,7 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
                   title={section.title}
                   titleFontSize="h3"
                 >
-                  <DocumentGroup documents={section.documents} />
+                  <DocumentGroup {...section} />
                 </Section>
               )
             }

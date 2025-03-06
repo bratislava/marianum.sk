@@ -6,10 +6,7 @@ import DocumentRow from '@/components/molecules/Row/DocumentRow'
 import { DocumentGroupFragment } from '@/graphql'
 import { isDefined } from '@/utils/isDefined'
 
-type DocumentGroupProps = {
-  documents: DocumentGroupFragment
-  variant?: 'gaps' | 'dividers'
-}
+type DocumentGroupProps = DocumentGroupFragment & { variant?: 'gaps' | 'dividers' }
 
 const getAriaLabelId = (id: string, index: number) => `document-group-title-${id}-${index}`
 
@@ -18,7 +15,7 @@ const DocumentGroup = ({ documents, variant = 'gaps' }: DocumentGroupProps) => {
   const { getFullPath } = useGetFullPath()
 
   const filteredDocuments = useMemo(() => {
-    return (documents.documents ?? []).map((document) => document?.document?.data).filter(isDefined)
+    return (documents ?? []).map((document) => document?.document?.data).filter(isDefined)
   }, [documents])
 
   return (

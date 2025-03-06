@@ -87,7 +87,7 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
           ) : null}
           {documents ? (
             <SectionBoxed title={documents.title ?? ''}>
-              <DocumentGroup variant="dividers" documents={documents} />
+              <DocumentGroup {...documents} variant="dividers" />
             </SectionBoxed>
           ) : null}
           {gallery ? (
