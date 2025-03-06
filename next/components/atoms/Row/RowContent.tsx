@@ -11,7 +11,7 @@ const RowContent = ({ className, hover = true, children }: PropsWithChildren<Row
   return (
     <div
       className={twMerge(
-        cx('relative flex grow items-center gap-x-4 px-4 py-3 md:px-5 md:py-4', { group: hover }),
+        cx('relative flex grow items-center px-4 py-3 md:px-5 md:py-4', { group: hover }),
         className,
       )}
     >

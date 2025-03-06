@@ -115,7 +115,7 @@ const BundlePage: NextPage<BundlePageProps> = ({
           {documents && (
             <Section>
               {documents.title && <h2 className="pb-6 text-h3">{documents.title}</h2>}
-              <DocumentGroup documents={documents.documents} />
+              <DocumentGroup {...documents} />
             </Section>
           )}
         </div>

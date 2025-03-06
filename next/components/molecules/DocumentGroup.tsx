@@ -7,7 +7,7 @@ import { DocumentGroupFragment } from '@/graphql'
 import { isDefined } from '@/utils/isDefined'
 
 type DocumentGroupProps = {
-  documents: DocumentGroupFragment['documents']
+  documents: DocumentGroupFragment
   variant?: 'gaps' | 'dividers'
 }
 
@@ -18,13 +18,14 @@ const DocumentGroup = ({ documents, variant = 'gaps' }: DocumentGroupProps) => {
   const { getFullPath } = useGetFullPath()
 
   const filteredDocuments = useMemo(() => {
-    return (documents ?? []).map((document) => document?.document?.data).filter(isDefined)
+    return (documents.documents ?? []).map((document) => document?.document?.data).filter(isDefined)
   }, [documents])
 
   return (
     <div
       className={cx('flex flex-col gap-4', {
-        'gap-0 divide-y-2 divide-solid divide-gray divide-opacity-50': variant === 'dividers',
+        'divide-2 gap-0 divide-y divide-solid divide-[#d3d3d3] divide-[1px]':
+          variant === 'dividers',
       })}
     >
       {filteredDocuments?.map((doc, index) => {

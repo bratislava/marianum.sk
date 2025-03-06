@@ -52,7 +52,7 @@ const Row = ({
   return (
     <RowBox hover={variant === 'gaps' && !!linkHref} {...rest}>
       {/* When some other clickable element is hovered, display shadow but not other "hover styles" */}
-      <RowContent hover={isLinkHovered} className={variant === 'dividers' ? 'md:px-0' : ''}>
+      <RowContent hover={isLinkHovered} className={variant === 'dividers' ? 'gap-6 md:px-0' : ''}>
         <div className="flex grow flex-col gap-y-1.5">
           {category?.attributes && <div className="text-primary">{category.attributes.title}</div>}
 
