@@ -255,7 +255,6 @@ input BooleanFilterInput {
   lt: Boolean
   lte: Boolean
   ne: Boolean
-  nei: Boolean
   not: BooleanFilterInput
   notContains: Boolean
   notContainsi: Boolean
@@ -430,7 +429,6 @@ type Cemetery {
   contact: ContactEntityResponse
   createdAt: DateTime
   description: String
-  gallery: ComponentSectionsGallery
   latitude: Float
   locale: String
   localizations(filters: CemeteryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): CemeteryRelationResponseCollection
@@ -467,7 +465,6 @@ input CemeteryFiltersInput {
   contact: ContactFiltersInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
-  gallery: ComponentSectionsGalleryFiltersInput
   id: IDFilterInput
   latitude: FloatFilterInput
   locale: StringFilterInput
@@ -490,7 +487,6 @@ input CemeteryInput {
   allowInDebtors: Boolean
   contact: ID
   description: String
-  gallery: ComponentSectionsGalleryInput
   latitude: Float
   longitude: Float
   medias: [ID]
@@ -1757,6 +1753,20 @@ input ComponentSectionsProceduresShortSectionInput {
   title: String
 }
 
+type ComponentSectionsPublicDisclosureSection {
+  id: ID!
+}
+
+input ComponentSectionsPublicDisclosureSectionFiltersInput {
+  and: [ComponentSectionsPublicDisclosureSectionFiltersInput]
+  not: ComponentSectionsPublicDisclosureSectionFiltersInput
+  or: [ComponentSectionsPublicDisclosureSectionFiltersInput]
+}
+
+input ComponentSectionsPublicDisclosureSectionInput {
+  id: ID
+}
+
 type ComponentSectionsReviewListing {
   id: ID!
 }
@@ -1928,7 +1938,6 @@ input DateFilterInput {
   lt: Date
   lte: Date
   ne: Date
-  nei: Date
   not: DateFilterInput
   notContains: Date
   notContainsi: Date
@@ -1958,7 +1967,6 @@ input DateTimeFilterInput {
   lt: DateTime
   lte: DateTime
   ne: DateTime
-  nei: DateTime
   not: DateTimeFilterInput
   notContains: DateTime
   notContainsi: DateTime
@@ -2301,7 +2309,6 @@ input FloatFilterInput {
   lt: Float
   lte: Float
   ne: Float
-  nei: Float
   not: FloatFilterInput
   notContains: Float
   notContainsi: Float
@@ -2365,7 +2372,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = Application | Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Application | Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2475,7 +2482,6 @@ input IDFilterInput {
   lt: ID
   lte: ID
   ne: ID
-  nei: ID
   not: IDFilterInput
   notContains: ID
   notContainsi: ID
@@ -2500,7 +2506,6 @@ input IntFilterInput {
   lt: Int
   lte: Int
   ne: Int
-  nei: Int
   not: IntFilterInput
   notContains: Int
   notContainsi: Int
@@ -2530,7 +2535,6 @@ input JSONFilterInput {
   lt: JSON
   lte: JSON
   ne: JSON
-  nei: JSON
   not: JSONFilterInput
   notContains: JSON
   notContainsi: JSON
@@ -2560,7 +2564,6 @@ input LongFilterInput {
   lt: Long
   lte: Long
   ne: Long
-  nei: Long
   not: LongFilterInput
   notContains: Long
   notContainsi: Long
@@ -2646,6 +2649,7 @@ type Mutation {
   """Change user password. Confirm with the current password."""
   changePassword(currentPassword: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
   createApplication(data: ApplicationInput!): ApplicationEntityResponse
+  createApplicationCustom(captchaToken: String!, data: JSON!): String
   createArticle(data: ArticleInput!, locale: I18NLocaleCode): ArticleEntityResponse
   createArticleJobsCategory(data: ArticleJobsCategoryInput!): ArticleJobsCategoryEntityResponse
   createArticleLocalization(data: ArticleInput, id: ID, locale: I18NLocaleCode): ArticleEntityResponse
@@ -2944,7 +2948,7 @@ type PageRelationResponseCollection {
   data: [PageEntity!]!
 }
 
-union PageSectionsDynamicZone = ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | Error
+union PageSectionsDynamicZone = ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | Error
 
 scalar PageSectionsDynamicZoneInput
 
@@ -3187,7 +3191,6 @@ input StringFilterInput {
   lt: String
   lte: String
   ne: String
-  nei: String
   not: StringFilterInput
   notContains: String
   notContainsi: String
@@ -3215,7 +3218,6 @@ input TimeFilterInput {
   lt: Time
   lte: Time
   ne: Time
-  nei: Time
   not: TimeFilterInput
   notContains: Time
   notContainsi: Time
