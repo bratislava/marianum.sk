@@ -120,7 +120,7 @@ const SelectField = <
   onChange = () => null,
   className,
   ...rest
-}: ReactSelectProps<Option, IsMulti, Group>) => {
+}: SelectProps<Option, IsMulti, Group>) => {
   const id = useId()
 
   return (
