@@ -16,6 +16,7 @@ import {
 import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
 import OpeningHours from '@/components/molecules/OpeningHours'
 import SectionBoxed from '@/components/molecules/SectionBoxed'
+import IframeSection from '@/components/sections/IframeSection'
 import { CemeteryEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
 import { client } from '@/services/graphql/gqlClient'
 
@@ -28,7 +29,7 @@ type CemeteryPageProps = {
 const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
   const { t } = useTranslation('common', { keyPrefix: 'BranchCemeteryPage' })
 
-  const { seo, title, address, navigateToLink, description, overrideOpeningHours, gallery } =
+  const { seo, title, address, navigateToLink, description, overrideOpeningHours, gallery, video } =
     entity.attributes ?? {}
 
   return (
@@ -79,6 +80,11 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
           {gallery ? (
             <SectionBoxed title={t('gallery')}>
               <ImageGallery images={gallery.medias?.data} />
+            </SectionBoxed>
+          ) : null}
+          {video ? (
+            <SectionBoxed title={video.title ?? ''}>
+              <IframeSection section={video} />
             </SectionBoxed>
           ) : null}
         </div>
