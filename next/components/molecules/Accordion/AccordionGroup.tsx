@@ -5,11 +5,7 @@ export type AccordionProps = {
 }
 
 const AccordionGroup = ({ children }: AccordionProps) => {
-  return (
-    <div role="group" className="flex w-full flex-col gap-5">
-      {children}
-    </div>
-  )
+  return <div className="flex w-full flex-col gap-5">{children}</div>
 }
 
 export default AccordionGroup
