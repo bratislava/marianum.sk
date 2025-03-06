@@ -93,7 +93,7 @@ export const generateStaticProps = async <T extends UnionSlugEntityType, Additio
   const [{ navigation, general }, entity, translations] = await Promise.all([
     client.General({ locale }),
     entityPromiseGetter({ locale, slug }),
-    serverSideTranslations(locale, ['common']),
+    serverSideTranslations(locale),
   ])
 
   const filteredNavigation = navigation.filter(isDefined)

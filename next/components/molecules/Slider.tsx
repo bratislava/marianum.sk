@@ -58,7 +58,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     forwardedRef,
     // eslint-disable-next-line sonarjs/cognitive-complexity
   ) => {
-    const { t } = useTranslation('common', { keyPrefix: 'Slider' })
+    const { t } = useTranslation()
     const [isFocused, setFocused] = useState(false)
 
     const [[page, direction], setPage] = useState([initialPage ?? 0, 0])
@@ -143,7 +143,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
         ref={forwardedRef}
         onKeyUp={keyUpHandler}
         role="application"
-        aria-label={description ?? t('aria.description')}
+        aria-label={description ?? t('Slider.aria.description')}
         className="relative z-0 flex size-full items-center justify-center overflow-hidden"
       >
         <AnimatePresence initial={false} custom={direction}>

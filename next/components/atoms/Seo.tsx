@@ -26,7 +26,7 @@ const Seo = ({
   entity,
   homepage = false,
 }: SeoProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'Seo' })
+  const { t } = useTranslation()
 
   const { getFullPath } = useGetFullPath()
 
@@ -60,7 +60,7 @@ const Seo = ({
       {/* Comments from: https://css-tricks.com/essential-meta-tags-social-media/ */}
       {/* Non-Essential, But Recommended */}
       <meta property="og:description" content={seo?.metaDescription || description || ''} />
-      <meta property="og:site_name" content={t('siteName')} />
+      <meta property="og:site_name" content={t('Seo.siteName')} />
       <meta name="twitter:image:alt" content={image?.attributes?.alternativeText ?? ''} />
 
       {/* Non-Essential, But Required for Analytics */}
