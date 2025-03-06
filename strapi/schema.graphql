@@ -431,6 +431,7 @@ type Cemetery {
   createdAt: DateTime
   description: String
   documents: ComponentSectionsDocumentGroup
+  gallery: ComponentSectionsGallery
   latitude: Float
   locale: String
   localizations(filters: CemeteryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): CemeteryRelationResponseCollection
@@ -468,6 +469,7 @@ input CemeteryFiltersInput {
   createdAt: DateTimeFilterInput
   description: StringFilterInput
   documents: ComponentSectionsDocumentGroupFiltersInput
+  gallery: ComponentSectionsGalleryFiltersInput
   id: IDFilterInput
   latitude: FloatFilterInput
   locale: StringFilterInput
@@ -491,6 +493,7 @@ input CemeteryInput {
   contact: ID
   description: String
   documents: ComponentSectionsDocumentGroupInput
+  gallery: ComponentSectionsGalleryInput
   latitude: Float
   longitude: Float
   medias: [ID]

@@ -19,7 +19,7 @@ type PaginationProps = {
  * as implemented in @mui/material.
  */
 const Pagination = ({ count, selectedPage, className, onChange = () => {} }: PaginationProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'Pagination' })
+  const { t } = useTranslation()
 
   const { items } = usePagination({
     count,
@@ -48,7 +48,7 @@ const Pagination = ({ count, selectedPage, className, onChange = () => {} }: Pag
                   disabled={disabled}
                   onPress={onPress}
                   aria-current={ariaCurrent}
-                  aria-label={t('aria.goToPage', { page })}
+                  aria-label={t('Pagination.aria.goToPage', { page })}
                 >
                   {page}
                 </IconButton>
@@ -58,11 +58,11 @@ const Pagination = ({ count, selectedPage, className, onChange = () => {} }: Pag
               let ariaLabel = ''
               if (type === 'previous') {
                 icon = <ArrowLeftIcon />
-                ariaLabel = t('aria.goToPreviousPage', { page })
+                ariaLabel = t('Pagination.aria.goToPreviousPage', { page })
               }
               if (type === 'next') {
                 icon = <ArrowRightIcon />
-                ariaLabel = t('aria.goToNextPage', { page })
+                ariaLabel = t('Pagination.aria.goToNextPage', { page })
               }
 
               children = (

@@ -28,7 +28,7 @@ type ManagedObjectPageProps = {
 } & SSRConfig
 
 const ManagedObjectPage = ({ navigation, entity, general }: ManagedObjectPageProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'ManagedObjectPage' })
+  const { t } = useTranslation()
 
   const { seo, title, address, navigateToLink, description } = entity.attributes ?? {}
 
@@ -60,13 +60,13 @@ const ManagedObjectPage = ({ navigation, entity, general }: ManagedObjectPagePro
                   startIcon={<NavigateIcon />}
                   className="-ml-2 md:ml-0"
                 >
-                  {t('navigate')}
+                  {t('ManagedObjectPage.navigate')}
                 </Button>
               )}
             </div>
           </SectionBoxed>
           {description && (
-            <SectionBoxed title={t('aboutManagedObject')}>
+            <SectionBoxed title={t('ManagedObjectPage.aboutManagedObject')}>
               <RichText content={description} coloredTable={false} />
             </SectionBoxed>
           )}

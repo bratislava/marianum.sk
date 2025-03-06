@@ -39,7 +39,7 @@ type HomeProps = {
 }
 
 const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'HomePage' })
+  const { t } = useTranslation()
 
   const { seo } = page.attributes ?? {}
 
@@ -47,7 +47,7 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
     <SWRConfig value={{ fallback }}>
       {/* TODO: Extract NavigationProvider from PageWrapper */}
       <NavigationProvider navigation={navigation} general={general}>
-        <Seo seo={seo} title={t('home')} homepage />
+        <Seo seo={seo} title={t('HomePage.home')} homepage />
       </NavigationProvider>
 
       <PageWrapper navigation={navigation} general={general}>
@@ -126,7 +126,7 @@ export const getStaticProps: GetStaticProps = async ({
 
   const [{ navigation, general }, translations, fallback] = await Promise.all([
     client.General({ locale }),
-    serverSideTranslations(locale, ['common']),
+    serverSideTranslations(locale),
     prefetchSections(homePage?.data?.attributes?.sections, sectionFetcherMapSwr, true),
   ])
 

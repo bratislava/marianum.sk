@@ -155,6 +155,16 @@
         }
       },
       "component": "sections.document-group"
+    },
+    "gallery": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.gallery"
     }
   }
 }

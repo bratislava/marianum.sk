@@ -198,6 +198,9 @@ fragment CemeteryEntity on CemeteryEntity {
     documents {
       ...DocumentGroup
     }
+    gallery {
+      ...ImageGallery
+    }
   }
 }
 
@@ -456,13 +459,7 @@ fragment PageEntity on PageEntity {
       }
       ... on ComponentSectionsGallery {
         __typename
-        id
-        title
-        medias(pagination: { limit: -1 }) {
-          data {
-            ...UploadImageEntity
-          }
-        }
+        ...ImageGallery
       }
       ... on ComponentSectionsPartnersSection {
         __typename

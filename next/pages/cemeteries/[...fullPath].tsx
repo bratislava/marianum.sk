@@ -9,6 +9,7 @@ import RichText from '@/components/atoms/RichText'
 import Seo from '@/components/atoms/Seo'
 import BranchCemeteryLayout from '@/components/layouts/BranchCemeteryLayout'
 import DocumentGroup from '@/components/molecules/DocumentGroup'
+import ImageGallery from '@/components/molecules/ImageGallery'
 import {
   generateStaticPaths,
   generateStaticProps,
@@ -26,10 +27,18 @@ type CemeteryPageProps = {
 } & SSRConfig
 
 const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'BranchCemeteryPage' })
+  const { t } = useTranslation()
 
-  const { seo, title, address, navigateToLink, description, overrideOpeningHours, documents } =
-    entity.attributes ?? {}
+  const {
+    seo,
+    title,
+    address,
+    navigateToLink,
+    description,
+    overrideOpeningHours,
+    gallery,
+    documents,
+  } = entity.attributes ?? {}
 
   return (
     <>
@@ -51,7 +60,7 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
                   {address}
                 </div>
               )}
-              {navigateToLink && (
+              {navigateToLink ? (
                 <Button
                   href={navigateToLink}
                   target="_blank"
@@ -59,26 +68,31 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
                   startIcon={<NavigateIcon />}
                   className="-ml-2 md:ml-0"
                 >
-                  {t('navigate')}
+                  {t('BranchCemeteryPage.navigate')}
                 </Button>
-              )}
+              ) : null}
             </div>
           </SectionBoxed>
-          {description && (
-            <SectionBoxed title={t('aboutCemetery')}>
+          {description ? (
+            <SectionBoxed title={t('BranchCemeteryPage.aboutCemetery')}>
               <RichText content={description} coloredTable={false} />
             </SectionBoxed>
-          )}
-          {general?.attributes?.cemeteryOpeningHours && (
-            <SectionBoxed title={t('openingHours')}>
+          ) : null}
+          {general?.attributes?.cemeteryOpeningHours ? (
+            <SectionBoxed title={t('BranchCemeteryPage.openingHours')}>
               <OpeningHours
                 openingHours={overrideOpeningHours || general?.attributes?.cemeteryOpeningHours}
               />
             </SectionBoxed>
-          )}
+          ) : null}
           {documents ? (
             <SectionBoxed title={documents.title ?? ''}>
               <DocumentGroup variant="dividers" documents={documents} />
+            </SectionBoxed>
+          ) : null}
+          {gallery ? (
+            <SectionBoxed title={gallery.title ?? t('BranchCemeteryPage.gallery')}>
+              <ImageGallery images={gallery.medias?.data} />
             </SectionBoxed>
           ) : null}
         </div>

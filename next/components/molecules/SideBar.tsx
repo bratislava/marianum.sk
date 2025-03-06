@@ -11,7 +11,7 @@ type SideBarProps = {
 }
 
 const SideBar = ({ sidebar }: SideBarProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'SideBar' })
+  const { t } = useTranslation()
   const { getFullPath } = useGetFullPath()
 
   if (!sidebar) {
@@ -33,7 +33,7 @@ const SideBar = ({ sidebar }: SideBarProps) => {
           </Button>
           {contact?.data?.attributes && (
             <div className="flex flex-col items-center">
-              <div className="mt-4">{t('or')}</div>
+              <div className="mt-4">{t('SideBar.or')}</div>
               {phone1 && (
                 <Button
                   variant="plain-primary"
@@ -84,7 +84,9 @@ const SideBar = ({ sidebar }: SideBarProps) => {
             )}
             {email && (
               <div className="flex flex-col items-center">
-                {(phone1 || phone2) && <div className="mt-4">{t('orContactUsByEmail')}</div>}
+                {(phone1 || phone2) && (
+                  <div className="mt-4">{t('SideBar.orContactUsByEmail')}</div>
+                )}
                 <Button
                   variant="plain-primary"
                   href={`mailto:${email.replaceAll(' ', '')}`}
