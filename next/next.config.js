@@ -73,7 +73,7 @@ const nextConfig = {
             nextRoute: '/cemeteries',
           },
           {
-            fullPath: '/o-nas/objekty-v-sprave/:slug',
+            fullPath: '/o-nas/starostlivost-o-mestske-fontany/:slug',
             nextRoute: '/managed-objects',
           },
           {
