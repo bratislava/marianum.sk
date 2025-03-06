@@ -443,6 +443,7 @@ type Cemetery {
   title: String!
   type: ENUM_CEMETERY_TYPE
   updatedAt: DateTime
+  video: ComponentSectionsIframeSection
 }
 
 type CemeteryEntity {
@@ -482,6 +483,7 @@ input CemeteryFiltersInput {
   title: StringFilterInput
   type: StringFilterInput
   updatedAt: DateTimeFilterInput
+  video: ComponentSectionsIframeSectionFiltersInput
 }
 
 input CemeteryInput {
@@ -500,6 +502,7 @@ input CemeteryInput {
   slug: String
   title: String
   type: ENUM_CEMETERY_TYPE
+  video: ComponentSectionsIframeSectionInput
 }
 
 type CemeteryRelationResponseCollection {
