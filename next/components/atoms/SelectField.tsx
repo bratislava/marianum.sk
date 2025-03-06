@@ -36,7 +36,7 @@ const DropdownIndicator = <
       <div
         className={cx('transform p-2 transition-transform', {
           'rotate-180': menuIsOpen,
-          'text-content-disabled text-foreground-disabled': isDisabled,
+          'text-foreground-disabled': isDisabled,
         })}
       >
         <ChevronDownIcon />
@@ -114,7 +114,6 @@ const SelectField = <
   value,
   placeholder,
   options,
-  defaultValue,
   isDisabled = false,
   isSearchable = false,
   isMulti,
@@ -133,8 +132,8 @@ const SelectField = <
       isDisabled={isDisabled}
       isSearchable={isSearchable}
       isMulti={isMulti}
-      defaultValue={defaultValue}
       onChange={onChange}
+      closeMenuOnSelect={!isMulti}
       unstyled
       className={twMerge(cx('w-full', className))}
       {...rest}
@@ -147,7 +146,7 @@ const SelectField = <
             {
               'pl-2': isMulti,
               // This styling will be applied to the Control component and its children, such as the placeholder
-              'text-content-disabled text-foreground-disabled': isDisabled,
+              'text-foreground-disabled': isDisabled,
             },
           ),
         menu: () => 'z-20 border border-border bg-white mt-2 outline-none',
