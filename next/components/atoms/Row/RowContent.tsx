@@ -7,11 +7,7 @@ type RowContentProps = {
   className?: string
 }
 
-const RowContent = ({
-  className = '',
-  hover = true,
-  children,
-}: PropsWithChildren<RowContentProps>) => {
+const RowContent = ({ className, hover = true, children }: PropsWithChildren<RowContentProps>) => {
   return (
     <div
       className={twMerge(

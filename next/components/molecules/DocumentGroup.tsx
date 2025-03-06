@@ -8,19 +8,12 @@ import { isDefined } from '@/utils/isDefined'
 
 type DocumentGroupProps = {
   documents: DocumentGroupFragment['documents']
-  className?: string
-  contentClassname?: string
-  shouldUseHover?: boolean
+  variant?: 'gaps' | 'dividers'
 }
 
 const getAriaLabelId = (id: string, index: number) => `document-group-title-${id}-${index}`
 
-const DocumentGroup = ({
-  documents,
-  className = '',
-  contentClassname = '',
-  shouldUseHover = true,
-}: DocumentGroupProps) => {
+const DocumentGroup = ({ documents, variant = 'gaps' }: DocumentGroupProps) => {
   const id = useId()
   const { getFullPath } = useGetFullPath()
 
@@ -29,7 +22,11 @@ const DocumentGroup = ({
   }, [documents])
 
   return (
-    <div className={cx('flex flex-col gap-4', className)}>
+    <div
+      className={cx('flex flex-col gap-4', {
+        'gap-0 divide-y-2 divide-solid divide-gray divide-opacity-50': variant === 'dividers',
+      })}
+    >
       {filteredDocuments?.map((doc, index) => {
         const { title, slug, file } = doc.attributes ?? {}
 
@@ -42,8 +39,7 @@ const DocumentGroup = ({
             titleId={getAriaLabelId(id, index)}
             linkHref={getFullPath(doc) ?? undefined}
             file={file?.data}
-            contentClassname={contentClassname}
-            shouldUseHover={shouldUseHover}
+            variant={variant}
           />
         )
       })}

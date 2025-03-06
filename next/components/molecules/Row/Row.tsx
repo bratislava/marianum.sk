@@ -21,14 +21,13 @@ export type RowProps = {
   category?: DocumentCategoryEntityFragment | null | undefined
   address?: string | null | undefined
   moreContent?: ReactNode
-  contentClassname?: string
   button?: ReactNode
   /*
    * Since linkButton replaces standard link, it must implement the same behavior, especially for accessibility
    * (aria-labelledby={titleId}) and classes to expand link to the whole component ("after:absolute after:inset-0").
    */
   linkButton?: ReactNode
-  shouldUseHover?: boolean
+  variant?: 'gaps' | 'dividers'
 } & RowBoxProps
 
 const Row = ({
@@ -42,19 +41,18 @@ const Row = ({
   category,
   address,
   moreContent,
-  contentClassname,
   button = null,
   linkButton = null,
-  shouldUseHover = true,
+  variant = 'gaps',
   ...rest
 }: RowProps) => {
   const linkRef = useRef<HTMLAnchorElement>(null)
   const isLinkHovered = useHover(linkRef)
 
   return (
-    <RowBox hover={!!linkHref} shouldUseHover={shouldUseHover} {...rest}>
+    <RowBox hover={variant === 'gaps' && !!linkHref} {...rest}>
       {/* When some other clickable element is hovered, display shadow but not other "hover styles" */}
-      <RowContent hover={isLinkHovered} className={contentClassname}>
+      <RowContent hover={isLinkHovered} className={variant === 'dividers' ? 'md:px-0' : ''}>
         <div className="flex grow flex-col gap-y-1.5">
           {category?.attributes && <div className="text-primary">{category.attributes.title}</div>}
 
