@@ -167,6 +167,31 @@ export interface BlocksDocumentItem extends Schema.Component {
   };
 }
 
+export interface BlocksLink extends Schema.Component {
+  collectionName: 'components_items_links';
+  info: {
+    description: '';
+    displayName: 'link';
+    icon: 'link';
+  };
+  attributes: {
+    article: Attribute.Relation<
+      'blocks.link',
+      'oneToOne',
+      'api::article.article'
+    >;
+    document: Attribute.Relation<
+      'blocks.link',
+      'oneToOne',
+      'api::document.document'
+    >;
+    label: Attribute.String;
+    page: Attribute.Relation<'blocks.link', 'oneToOne', 'api::page.page'>;
+    plausibleId: Attribute.String;
+    url: Attribute.String;
+  };
+}
+
 export interface BlocksOfficeItem extends Schema.Component {
   collectionName: 'components_blocks_office_items';
   info: {
@@ -864,6 +889,7 @@ declare module '@strapi/types' {
       'blocks.contact-item': BlocksContactItem;
       'blocks.cta': BlocksCta;
       'blocks.document-item': BlocksDocumentItem;
+      'blocks.link': BlocksLink;
       'blocks.office-item': BlocksOfficeItem;
       'blocks.opening-hours-item': BlocksOpeningHoursItem;
       'blocks.opening-hours-universal': BlocksOpeningHoursUniversal;
