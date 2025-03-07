@@ -20,9 +20,9 @@ const DocumentGroup = ({ documents, variant = 'gaps' }: DocumentGroupProps) => {
 
   return (
     <div
-      className={cx('flex flex-col gap-4', {
-        'divide-2 gap-0 divide-y divide-solid divide-[#d3d3d3] divide-[1px]':
-          variant === 'dividers',
+      className={cx('flex flex-col', {
+        'gap-0 divide-y divide-[1px] divide-border': variant === 'dividers',
+        'gap-4': variant === 'gaps',
       })}
     >
       {filteredDocuments?.map((doc, index) => {
