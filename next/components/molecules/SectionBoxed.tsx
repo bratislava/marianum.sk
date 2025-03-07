@@ -11,6 +11,7 @@ const SectionBoxed = ({ title, children }: SectionBoxedProps) => (
         <h2 className="pb-4 text-h5 md:pb-6">{title}</h2>
       </div>
     )}
+
     <div className="px-4 md:px-6">{children}</div>
   </div>
 )

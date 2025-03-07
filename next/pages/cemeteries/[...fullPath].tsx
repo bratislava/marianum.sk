@@ -8,6 +8,7 @@ import Button from '@/components/atoms/Button'
 import RichText from '@/components/atoms/RichText'
 import Seo from '@/components/atoms/Seo'
 import BranchCemeteryLayout from '@/components/layouts/BranchCemeteryLayout'
+import DocumentGroup from '@/components/molecules/DocumentGroup'
 import ImageGallery from '@/components/molecules/ImageGallery'
 import {
   generateStaticPaths,
@@ -28,8 +29,16 @@ type CemeteryPageProps = {
 const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
   const { t } = useTranslation()
 
-  const { seo, title, address, navigateToLink, description, overrideOpeningHours, gallery } =
-    entity.attributes ?? {}
+  const {
+    seo,
+    title,
+    address,
+    navigateToLink,
+    description,
+    overrideOpeningHours,
+    gallery,
+    documents,
+  } = entity.attributes ?? {}
 
   return (
     <>
@@ -74,6 +83,11 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
               <OpeningHours
                 openingHours={overrideOpeningHours || general?.attributes?.cemeteryOpeningHours}
               />
+            </SectionBoxed>
+          ) : null}
+          {documents ? (
+            <SectionBoxed title={documents.title ?? ''}>
+              <DocumentGroup {...documents} variant="dividers" />
             </SectionBoxed>
           ) : null}
           {gallery ? (

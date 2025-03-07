@@ -11,6 +11,7 @@ type DocumentRowProps = {
   title: string
   titleId: string
   linkHref?: string
+  variant?: 'gaps' | 'dividers'
 }
 const DocumentRow = (props: DocumentRowProps) => {
   const { file, title } = props

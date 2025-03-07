@@ -195,6 +195,9 @@ fragment CemeteryEntity on CemeteryEntity {
     seo {
       ...Seo
     }
+    documents {
+      ...DocumentGroup
+    }
     gallery {
       ...ImageGallery
     }
