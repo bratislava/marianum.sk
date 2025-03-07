@@ -149,11 +149,11 @@ const SelectField = <
       className={twMerge(cx('w-full', className))}
       {...rest}
       classNames={{
-        container: (state) => cx('w-full', { 'md:z-10': state.selectProps.menuIsOpen }),
+        container: (state) => cx('flex w-full', { 'md:z-10': state.selectProps.menuIsOpen }),
         // If a card with a link appears on large and medium screens, the link covers the select dropdown. The `md:z-10` ensures the select always precedes the link
         control: () =>
           cx(
-            'relative flex w-full min-w-0 border border-border bg-white pl-4 pr-2 outline-none hover:cursor-pointer hover:border-border-dark',
+            'relative w-full min-w-0 border border-border bg-white pl-4 pr-2 outline-none hover:cursor-pointer hover:border-border-dark',
             {
               'pl-2': isMulti,
               // This styling will be applied to the Control component and its children, such as the placeholder
@@ -164,13 +164,15 @@ const SelectField = <
         valueContainer: () =>
           // If there's a long value in select, it stretches the parent element instead of wrapping the text.
           // `[container-type:inline-size]` fixes this for some reason.
-          cx('gap-x-2 gap-y-1 [container-type:inline-size]', {
-            // if rounded is not applied, the background overflows to the "control"
-            'bg-background-disabled text-foreground-disabled': isDisabled,
+          cx('gap-x-2 gap-y-1 py-2 [container-type:inline-size]', {
+            // If rounded is not applied, the background overflows to the "control"
           }),
         multiValue: () => 'items-center bg-primary bg-opacity-[12%]',
         multiValueLabel: () => 'px-2 text-sm',
-        indicatorsContainer: () => 'flex items-center py-2 justify-center h-10',
+        indicatorsContainer: () =>
+          cx('h-10 items-center justify-center py-2', {
+            'h-full sm:h-10': isMulti,
+          }),
         indicatorSeparator: () => cx('mx-1 bg-border', { hidden: !isMulti }),
         placeholder: ({ isFocused }) =>
           cx('truncate text-foreground-placeholder', {
