@@ -8,7 +8,7 @@ import { IframeSectionFragment } from '@/graphql'
 
 type IframeSectionProps = {
   section: IframeSectionFragment
-  variant?: 'full' | 'whiteWithoutTitle'
+  variant?: 'full' | 'short'
 }
 
 const IframeSection = ({ section, variant = 'full' }: IframeSectionProps) => {
@@ -17,7 +17,7 @@ const IframeSection = ({ section, variant = 'full' }: IframeSectionProps) => {
 
   return (
     <Section
-      className={variant === 'whiteWithoutTitle' ? 'bg-white' : undefined}
+      className={variant === 'short' ? 'bg-white' : undefined}
       title={variant === 'full' ? section.title : undefined}
     >
       {section.body?.length ? <RichText content={section.body} /> : null}
@@ -26,7 +26,7 @@ const IframeSection = ({ section, variant = 'full' }: IframeSectionProps) => {
           src={section.url}
           title={section.iframeTitle}
           width="100%"
-          style={{ height: height * 0.85 }}
+          style={{ height: variant === 'short' ? height * 0.4 : height * 0.85 }}
           className={border ? 'border border-border' : undefined}
         />
       </div>
