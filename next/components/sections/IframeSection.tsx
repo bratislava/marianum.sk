@@ -6,12 +6,20 @@ import { sectionContext } from '@/components/layouts/SectionsWrapper'
 import Section from '@/components/molecules/Section'
 import { IframeSectionFragment } from '@/graphql'
 
-const IframeSection = ({ section }: { section: IframeSectionFragment }) => {
+type IframeSectionProps = {
+  section: IframeSectionFragment
+  variant?: 'full' | 'whiteWithoutTitle'
+}
+
+const IframeSection = ({ section, variant = 'full' }: IframeSectionProps) => {
   const { height } = useWindowSize()
   const { border } = useContext(sectionContext)
 
   return (
-    <Section title={section.title}>
+    <Section
+      className={variant === 'whiteWithoutTitle' ? 'bg-white' : undefined}
+      title={variant === 'full' ? section.title : undefined}
+    >
       {section.body?.length ? <RichText content={section.body} /> : null}
       <div className="relative not-first:mt-6 not-first:md:mt-8">
         <iframe

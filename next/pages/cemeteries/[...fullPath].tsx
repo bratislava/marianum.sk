@@ -84,7 +84,7 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
           ) : null}
           {video ? (
             <SectionBoxed title={video.title ?? ''}>
-              <IframeSection section={video} />
+              <IframeSection section={video} variant="whiteWithoutTitle" />
             </SectionBoxed>
           ) : null}
         </div>
