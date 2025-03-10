@@ -22,7 +22,7 @@ const TabLabel = <T,>({ item, state, setSessionTabKey }: TabLabelProps<T>) => {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
-      className="flex-1 cursor-pointer outline-none focus:outline-2 focus:outline-primary"
+      className="base-focus-ring flex-1 cursor-pointer outline-none"
       {...tabProps}
       ref={ref}
       onClick={handleTabLabelClick}

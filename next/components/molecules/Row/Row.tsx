@@ -28,6 +28,7 @@ export type RowProps = {
    */
   linkButton?: ReactNode
   variant?: 'gaps' | 'dividers'
+  applyFocusStyles?: boolean
 } & RowBoxProps
 
 const Row = ({

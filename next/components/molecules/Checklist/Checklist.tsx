@@ -161,9 +161,7 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
             <div
               className={cx(
                 'flex w-full flex-col border border-border bg-white outline-offset-2 outline-primary focus:outline-2',
-                {
-                  'cursor-auto': isOpen,
-                },
+                { 'cursor-auto': isOpen },
               )}
             >
               {/* item title */}
@@ -171,7 +169,13 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
                 type="button"
                 onKeyUp={(e) => (e.code === 'Enter' || e.code === 'Space') && handleItemOpen(index)}
                 onClick={() => handleItemOpen(index)}
-                className="flex items-center p-6"
+                className={cx('flex items-center p-6 outline-none', {
+                  'base-focus-ring': !isOpen,
+                  'cursor-default': isOpen,
+                  // When the item is open, the title should not have a cursor pointer because it is not clickable
+                  // The item can only be closed by clicking the ‘Completed’ button
+                })}
+                tabIndex={isOpen ? -1 : 0} // When the item is open, remove this button from the tab order to ensure focus remains on the CTAs
                 aria-expanded={isOpen}
                 aria-controls={getAriaId(id, index)}
               >

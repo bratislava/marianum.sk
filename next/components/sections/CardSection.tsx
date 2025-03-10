@@ -34,6 +34,8 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
         style === Enum_Componentsectionsmanuallisting_Style.Service ? 'serviceCards' : 'cards'
       }
       button={showMoreButton}
+      // Since the wrapper already has a top margin, we subtract the top padding from it to prevent focus rings from being cropped
+      childrenWrapperClassName="px-2 -mx-2 not-first:md:mt-8 not-first:pt-2 not-first:mt-1"
     >
       {filteredPages?.map((page, index) => {
         const { id, attributes } = page ?? {}
