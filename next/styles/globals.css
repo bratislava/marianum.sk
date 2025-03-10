@@ -118,6 +118,12 @@
   }
 }
 
+@layer components {
+  .base-focus-ring {
+    @apply outline-none ring-offset-2 transition focus-visible:ring;
+  }
+}
+
 :root {
   --font-size-small: 14px;
   --font-size-default: 16px;

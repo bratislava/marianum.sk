@@ -22,7 +22,7 @@ const FilteringSearchInput = ({ value, onChange }: FilteringSearchInputProps) =>
       leftSlot={<SearchIcon />}
       rightSlot={
         value ? (
-          <button type="button" className="p-2" onClick={handleCancelClick}>
+          <button type="button" className="base-focus-ring p-2" onClick={handleCancelClick}>
             <CloseCircleIcon />
           </button>
         ) : null
