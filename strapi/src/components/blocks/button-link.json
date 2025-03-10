@@ -24,6 +24,16 @@
       "relation": "oneToOne",
       "target": "api::article.article"
     },
+    "branch": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::branch.branch"
+    },
+    "bundle": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::bundle.bundle"
+    },
     "document": {
       "type": "relation",
       "relation": "oneToOne",

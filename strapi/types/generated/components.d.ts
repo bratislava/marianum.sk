@@ -118,6 +118,16 @@ export interface BlocksButtonLink extends Schema.Component {
       'oneToOne',
       'api::article.article'
     >;
+    branch: Attribute.Relation<
+      'blocks.button-link',
+      'oneToOne',
+      'api::branch.branch'
+    >;
+    bundle: Attribute.Relation<
+      'blocks.button-link',
+      'oneToOne',
+      'api::bundle.bundle'
+    >;
     cemetery: Attribute.Relation<
       'blocks.button-link',
       'oneToOne',

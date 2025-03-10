@@ -44,6 +44,16 @@ fragment CtaButton on ComponentBlocksButtonLink {
       ...ArticleSlugEntity
     }
   }
+  bundle {
+    data {
+      ...BundleSlugEntity
+    }
+  }
+  branch {
+    data {
+      ...BranchSlugEntity
+    }
+  }
   document {
     data {
       ...DocumentSlugEntity

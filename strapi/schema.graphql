@@ -723,6 +723,8 @@ input ComponentBlocksBundleItemInput {
 
 type ComponentBlocksButtonLink {
   article: ArticleEntityResponse
+  branch: BranchEntityResponse
+  bundle: BundleEntityResponse
   cemetery: CemeteryEntityResponse
   document: DocumentEntityResponse
   id: ID!
@@ -735,6 +737,8 @@ type ComponentBlocksButtonLink {
 input ComponentBlocksButtonLinkFiltersInput {
   and: [ComponentBlocksButtonLinkFiltersInput]
   article: ArticleFiltersInput
+  branch: BranchFiltersInput
+  bundle: BundleFiltersInput
   cemetery: CemeteryFiltersInput
   document: DocumentFiltersInput
   label: StringFilterInput
@@ -747,6 +751,8 @@ input ComponentBlocksButtonLinkFiltersInput {
 
 input ComponentBlocksButtonLinkInput {
   article: ID
+  branch: ID
+  bundle: ID
   cemetery: ID
   document: ID
   id: ID
