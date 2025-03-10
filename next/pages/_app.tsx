@@ -12,6 +12,7 @@ import { QueryParamProvider } from 'use-query-params'
 
 import MI18nProvider from '@/components/atoms/MI18nProvider'
 import ThirdPartyScripts from '@/components/atoms/ThirdPartyScripts'
+import BAQueryClientProvider from '@/components/providers/BAQueryClientProvider'
 import { HeroSectionOverlayProvider } from '@/utils/heroSectionContentOverlay'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
@@ -28,20 +29,22 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
         <meta name="theme-color" content="#446650" />
       </Head>
-      <QueryParamProvider adapter={NextAdapter}>
-        <SSRProvider>
-          <HeroSectionOverlayProvider>
-            <MI18nProvider>
-              <MotionConfig reducedMotion="user">
-                <OverlayProvider>
-                  <ThirdPartyScripts />
-                  <Component {...pageProps} />
-                </OverlayProvider>
-              </MotionConfig>
-            </MI18nProvider>
-          </HeroSectionOverlayProvider>
-        </SSRProvider>
-      </QueryParamProvider>
+      <BAQueryClientProvider>
+        <QueryParamProvider adapter={NextAdapter}>
+          <SSRProvider>
+            <HeroSectionOverlayProvider>
+              <MI18nProvider>
+                <MotionConfig reducedMotion="user">
+                  <OverlayProvider>
+                    <ThirdPartyScripts />
+                    <Component {...pageProps} />
+                  </OverlayProvider>
+                </MotionConfig>
+              </MI18nProvider>
+            </HeroSectionOverlayProvider>
+          </SSRProvider>
+        </QueryParamProvider>
+      </BAQueryClientProvider>
     </>
   )
 }
