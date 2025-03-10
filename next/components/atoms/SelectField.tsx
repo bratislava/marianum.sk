@@ -45,6 +45,51 @@ const DropdownIndicator = <
   )
 }
 
+const ClearIndicator = <
+  Option extends SelectOption<Sort | string>,
+  IsMulti extends boolean = false,
+  Group extends GroupBase<Option> = GroupBase<Option>,
+>(
+  props: ClearIndicatorProps<Option, IsMulti, Group>,
+) => {
+  return (
+    <components.ClearIndicator {...props}>
+      <div className="p-2">
+        <CloseIcon className="scale-[80%]" />
+      </div>
+    </components.ClearIndicator>
+  )
+}
+
+const MultiValueRemove = <
+  Option extends SelectOption<Sort | string>,
+  IsMulti extends boolean = false,
+  Group extends GroupBase<Option> = GroupBase<Option>,
+>(
+  props: MultiValueRemoveProps<Option, IsMulti, Group>,
+) => {
+  return (
+    <components.MultiValueRemove {...props}>
+      <CloseIcon className="scale-[60%] hover:text-error" />
+    </components.MultiValueRemove>
+  )
+}
+
+// type CustomCheckboxProps = {
+//   isSelected: boolean
+// }
+//
+// const CustomCheckbox = ({ isSelected }: CustomCheckboxProps) => (
+//   <div
+//     className={cn('size-7 items-center justify-center rounded border-2 border-content-primary', {
+//       'bg-background-primaryInverted text-content-primaryInverted': isSelected,
+//       'group-hover:border-border-hover': !isSelected,
+//     })}
+//   >
+//     {isSelected && <Icon name="fajka" />}
+//   </div>
+// )
+
 const CustomOption = <
   Option extends SelectOption<Sort | string>,
   IsMulti extends boolean = false,
@@ -78,36 +123,6 @@ const CustomOption = <
         <div className="mx-3 border-[0.5px] border-border last:hidden" aria-hidden />
       ) : null}
     </>
-  )
-}
-
-const ClearIndicator = <
-  Option extends SelectOption<Sort | string>,
-  IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>,
->(
-  props: ClearIndicatorProps<Option, IsMulti, Group>,
-) => {
-  return (
-    <components.ClearIndicator {...props}>
-      <div className="p-2">
-        <CloseIcon className="scale-[80%]" />
-      </div>
-    </components.ClearIndicator>
-  )
-}
-
-const MultiValueRemove = <
-  Option extends SelectOption<Sort | string>,
-  IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>,
->(
-  props: MultiValueRemoveProps<Option, IsMulti, Group>,
-) => {
-  return (
-    <components.MultiValueRemove {...props}>
-      <CloseIcon className="scale-[60%] hover:text-error" />
-    </components.MultiValueRemove>
   )
 }
 
@@ -160,7 +175,12 @@ const SelectField = <
               'bg-background-disabled text-foreground-disabled': isDisabled,
             },
           ),
-        menu: () => 'z-20 border border-border bg-white mt-2 outline-none',
+        placeholder: ({ isFocused }) =>
+          cx('truncate text-foreground-placeholder', {
+            // I've noticed that `hide` hides the entire placeholder element, which is not what we want
+            // `invisible` hides the text but keeps the placeholder container visible
+            invisible: isFocused,
+          }),
         valueContainer: () =>
           // If there's a long value in select, it stretches the parent element instead of wrapping the text.
           // `[container-type:inline-size]` fixes this for some reason.
@@ -174,12 +194,7 @@ const SelectField = <
             'h-full sm:h-10': isMulti,
           }),
         indicatorSeparator: () => cx('mx-1 bg-border', { hidden: !isMulti }),
-        placeholder: ({ isFocused }) =>
-          cx('truncate text-foreground-placeholder', {
-            // I've noticed that `hide` hides the entire placeholder element, which is not what we want
-            // `invisible` hides the text but keeps the placeholder container visible
-            invisible: isFocused,
-          }),
+        menu: () => 'z-20 border border-border bg-white mt-2 outline-none',
         groupHeading: () => 'ml-3 mt-2 mb-1 text-content-secondary text-sm',
       }}
       components={{
