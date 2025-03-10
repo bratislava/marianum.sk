@@ -113,12 +113,29 @@ export interface BlocksButtonLink extends Schema.Component {
     icon: 'arrow-right';
   };
   attributes: {
+    article: Attribute.Relation<
+      'blocks.button-link',
+      'oneToOne',
+      'api::article.article'
+    >;
+    cemetery: Attribute.Relation<
+      'blocks.button-link',
+      'oneToOne',
+      'api::cemetery.cemetery'
+    >;
+    document: Attribute.Relation<
+      'blocks.button-link',
+      'oneToOne',
+      'api::document.document'
+    >;
     label: Attribute.String & Attribute.Required;
     page: Attribute.Relation<
       'blocks.button-link',
       'oneToOne',
       'api::page.page'
     >;
+    plausibleId: Attribute.String;
+    url: Attribute.String;
   };
 }
 
@@ -164,31 +181,6 @@ export interface BlocksDocumentItem extends Schema.Component {
       'oneToOne',
       'api::document.document'
     >;
-  };
-}
-
-export interface BlocksLink extends Schema.Component {
-  collectionName: 'components_items_links';
-  info: {
-    description: '';
-    displayName: 'link';
-    icon: 'link';
-  };
-  attributes: {
-    article: Attribute.Relation<
-      'blocks.link',
-      'oneToOne',
-      'api::article.article'
-    >;
-    document: Attribute.Relation<
-      'blocks.link',
-      'oneToOne',
-      'api::document.document'
-    >;
-    label: Attribute.String;
-    page: Attribute.Relation<'blocks.link', 'oneToOne', 'api::page.page'>;
-    plausibleId: Attribute.String;
-    url: Attribute.String;
   };
 }
 
@@ -889,7 +881,6 @@ declare module '@strapi/types' {
       'blocks.contact-item': BlocksContactItem;
       'blocks.cta': BlocksCta;
       'blocks.document-item': BlocksDocumentItem;
-      'blocks.link': BlocksLink;
       'blocks.office-item': BlocksOfficeItem;
       'blocks.opening-hours-item': BlocksOpeningHoursItem;
       'blocks.opening-hours-universal': BlocksOpeningHoursUniversal;

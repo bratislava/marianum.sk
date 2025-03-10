@@ -11,10 +11,31 @@
       "type": "string",
       "required": true
     },
+    "url": {
+      "type": "string"
+    },
     "page": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::page.page"
+    },
+    "article": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::article.article"
+    },
+    "document": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::document.document"
+    },
+    "cemetery": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cemetery.cemetery"
+    },
+    "plausibleId": {
+      "type": "string"
     }
   }
 }

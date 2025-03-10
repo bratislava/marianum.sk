@@ -33,11 +33,28 @@ fragment NavigationItem on NavigationItem {
 
 fragment CtaButton on ComponentBlocksButtonLink {
   label
+  url
   page {
     data {
       ...PageSlugEntity
     }
   }
+  article {
+    data {
+      ...ArticleSlugEntity
+    }
+  }
+  document {
+    data {
+      ...DocumentSlugEntity
+    }
+  }
+  cemetery {
+    data {
+      ...CemeterySlugEntity
+    }
+  }
+  plausibleId
 }
 
 fragment Sidebar on ComponentBlocksSidebar {
