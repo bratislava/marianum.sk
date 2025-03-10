@@ -10,9 +10,9 @@ import { NextAdapter } from 'next-query-params'
 import { OverlayProvider, SSRProvider } from 'react-aria'
 import { QueryParamProvider } from 'use-query-params'
 
-import MI18nProvider from '@/components/atoms/MI18nProvider'
 import ThirdPartyScripts from '@/components/atoms/ThirdPartyScripts'
 import BAQueryClientProvider from '@/components/providers/BAQueryClientProvider'
+import MI18nProvider from '@/components/providers/MI18nProvider'
 import { HeroSectionOverlayProvider } from '@/utils/heroSectionContentOverlay'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
