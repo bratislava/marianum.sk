@@ -139,6 +139,11 @@ export interface BlocksButtonLink extends Schema.Component {
       'api::document.document'
     >;
     label: Attribute.String & Attribute.Required;
+    managed_object: Attribute.Relation<
+      'blocks.button-link',
+      'oneToOne',
+      'api::managed-object.managed-object'
+    >;
     page: Attribute.Relation<
       'blocks.button-link',
       'oneToOne',

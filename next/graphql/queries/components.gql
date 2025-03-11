@@ -64,6 +64,11 @@ fragment CtaButton on ComponentBlocksButtonLink {
       ...CemeterySlugEntity
     }
   }
+  managed_object {
+    data {
+      ...ManagedObjectSlugEntity
+    }
+  }
   plausibleId
 }
 

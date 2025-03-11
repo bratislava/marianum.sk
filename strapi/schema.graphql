@@ -729,6 +729,7 @@ type ComponentBlocksButtonLink {
   document: DocumentEntityResponse
   id: ID!
   label: String!
+  managed_object: ManagedObjectEntityResponse
   page: PageEntityResponse
   plausibleId: String
   url: String
@@ -742,6 +743,7 @@ input ComponentBlocksButtonLinkFiltersInput {
   cemetery: CemeteryFiltersInput
   document: DocumentFiltersInput
   label: StringFilterInput
+  managed_object: ManagedObjectFiltersInput
   not: ComponentBlocksButtonLinkFiltersInput
   or: [ComponentBlocksButtonLinkFiltersInput]
   page: PageFiltersInput
@@ -757,6 +759,7 @@ input ComponentBlocksButtonLinkInput {
   document: ID
   id: ID
   label: String
+  managed_object: ID
   page: ID
   plausibleId: String
   url: String

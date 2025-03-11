@@ -42,6 +42,8 @@ export const useGetLinkProps = () => {
       href = getFullPath(link.bundle.data) ?? '#'
     } else if ('cemetery' in link && link.cemetery?.data?.attributes) {
       href = getFullPath(link.cemetery.data) ?? '#'
+    } else if ('managed_object' in link && link.managed_object?.data?.attributes) {
+      href = getFullPath(link.managed_object.data) ?? '#'
     } else if (link?.url) {
       label = link.label ?? link.url
       href = link.url
