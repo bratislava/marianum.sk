@@ -69,7 +69,6 @@ fragment CtaButton on ComponentBlocksButtonLink {
       ...ManagedObjectSlugEntity
     }
   }
-  plausibleId
 }
 
 fragment Sidebar on ComponentBlocksSidebar {

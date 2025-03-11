@@ -48,9 +48,6 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::managed-object.managed-object"
-    },
-    "plausibleId": {
-      "type": "string"
     }
   }
 }

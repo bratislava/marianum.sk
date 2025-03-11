@@ -731,7 +731,6 @@ type ComponentBlocksButtonLink {
   label: String!
   managed_object: ManagedObjectEntityResponse
   page: PageEntityResponse
-  plausibleId: String
   url: String
 }
 
@@ -747,7 +746,6 @@ input ComponentBlocksButtonLinkFiltersInput {
   not: ComponentBlocksButtonLinkFiltersInput
   or: [ComponentBlocksButtonLinkFiltersInput]
   page: PageFiltersInput
-  plausibleId: StringFilterInput
   url: StringFilterInput
 }
 
@@ -761,7 +759,6 @@ input ComponentBlocksButtonLinkInput {
   label: String
   managed_object: ID
   page: ID
-  plausibleId: String
   url: String
 }
 

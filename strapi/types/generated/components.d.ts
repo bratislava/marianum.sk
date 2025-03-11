@@ -149,7 +149,6 @@ export interface BlocksButtonLink extends Schema.Component {
       'oneToOne',
       'api::page.page'
     >;
-    plausibleId: Attribute.String;
     url: Attribute.String;
   };
 }
