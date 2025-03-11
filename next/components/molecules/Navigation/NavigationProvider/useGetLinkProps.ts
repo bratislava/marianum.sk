@@ -3,16 +3,16 @@ import { ReactNode } from 'react'
 import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { CtaButtonFragment } from '@/graphql'
 
+/*
+ * Based on olo.sk: https://github.com/bratislava/olo.sk/blob/master/next/src/utils/useGetLinkProps.ts 
+*/
+
 // TODO: add analytics props as they are in https://github.com/bratislava/olo.sk/blob/master/next/src/utils/useGetLinkProps.ts
 export type LinkProps = {
   children: ReactNode
   href: string
   target?: '_blank' | '_self'
 }
-
-/*
- * Based on bratislava.sk: https://github.com/bratislava/bratislava.sk/blob/master/next/utils/getCommonLinkProps.ts
- */
 
 export const useGetLinkProps = () => {
   const { getFullPath } = useGetFullPath()
@@ -26,7 +26,7 @@ export const useGetLinkProps = () => {
     let target: '_blank' | '_self' | undefined
 
     if (!link) {
-      return { label: label, href } // TODO
+      return { label, href } // TODO
     }
 
     // TODO: use title from content types when there is none set for link itself

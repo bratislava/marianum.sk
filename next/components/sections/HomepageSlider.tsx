@@ -32,7 +32,6 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
         pages={slides.map(({ title, description, button, image }, index) => {
           const linkProps = getLinkProps(button)
           const { url, alternativeText } = image?.data?.attributes ?? {}
-
           return (
             <div
               className="flex h-full justify-center"
@@ -63,12 +62,12 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                     </div>
                   )}
 
-                  {linkProps && (
+                  {button && (
                     <div className="mt-4 lg:mt-6">
                       <Button
                         variant="white"
-                        href={linkProps.href}
                         aria-labelledby={getAriaLabelId(id, index)}
+                        {...linkProps}
                       >
                         {button?.label}
                       </Button>
