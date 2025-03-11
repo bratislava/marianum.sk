@@ -26,7 +26,7 @@ const IframeSection = ({ section, variant = 'full' }: IframeSectionProps) => {
           src={section.url}
           title={section.iframeTitle}
           width="100%"
-          style={{ height: variant === 'short' ? height * 0.4 : height * 0.85 }}
+          style={{ height: variant === 'short' ? '416px' : height * 0.85 }}
           className={border ? 'border border-border' : undefined}
         />
       </div>
