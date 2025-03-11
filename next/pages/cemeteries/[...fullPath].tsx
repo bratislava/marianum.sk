@@ -38,7 +38,7 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
     description,
     overrideOpeningHours,
     gallery,
-    video, 
+    video,
     documents,
   } = entity.attributes ?? {}
 
