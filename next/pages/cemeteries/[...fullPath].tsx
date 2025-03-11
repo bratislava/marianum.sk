@@ -88,17 +88,17 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
             </SectionBoxed>
           ) : null}
           {documents ? (
-            <SectionBoxed title={documents.title ?? ''}>
+            <SectionBoxed title={documents.title ?? undefined}>
               <DocumentGroup {...documents} variant="dividers" />
             </SectionBoxed>
           ) : null}
           {gallery ? (
-            <SectionBoxed title={gallery.title ?? t('BranchCemeteryPage.gallery')}>
+            <SectionBoxed title={gallery.title ?? undefined}>
               <ImageGallery images={gallery.medias?.data} />
             </SectionBoxed>
           ) : null}
           {video ? (
-            <SectionBoxed title={video.title ?? ''}>
+            <SectionBoxed title={video.title ?? undefined}>
               <IframeSection section={video} variant="short" />
             </SectionBoxed>
           ) : null}
