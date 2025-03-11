@@ -71,7 +71,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
     )
 
     const style = cx(
-      'inline-flex items-center justify-center space-x-2 text-center align-middle text-btn font-bold focus:outline-none',
+      'base-focus-ring inline-flex items-center justify-center space-x-2 text-center align-middle text-btn font-bold',
       className,
       {
         'px-6 py-2':
@@ -98,16 +98,14 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
         'text-foreground': variant === 'plain-secondary',
 
         // bg and border color
-        'border border-primary bg-primary focus:border-primary-dark focus:bg-primary-light':
-          variant === 'primary',
-        'border border-primary focus:border-primary-light focus:text-primary-light':
-          variant === 'secondary',
-        'border border-border-alt focus:text-primary-light': variant === 'tertiary',
-        'border border-white bg-white focus:border-primary-dark focus:text-primary-light':
-          variant === 'white',
-        'focus:bg-primary/8 focus:text-primary-light': variant === 'plain-primary',
-        'focus:bg-foreground/8 focus:text-foreground': variant === 'plain-secondary',
-        // 'hover:bg-white/12 focus:bg-white/8': variant === 'plain-white',
+        'border border-primary bg-primary focus-visible:bg-primary-light': variant === 'primary',
+        'border border-primary focus-visible:text-primary-light': variant === 'secondary',
+        'border border-border-alt focus-visible:text-primary-light': variant === 'tertiary',
+        'border border-white bg-white focus-visible:text-primary-light': variant === 'white',
+        'focus-visible:bg-primary/8 focus-visible:text-primary-light': variant === 'plain-primary',
+        'focus-visible:bg-foreground/8 focus-visible:text-foreground':
+          variant === 'plain-secondary',
+        // 'hover:bg-white/12 focus-visible:bg-white/8': variant === 'plain-white',
 
         // hover
         'hover:border-primary-dark hover:bg-primary-dark': variant === 'primary' && !disabled,
