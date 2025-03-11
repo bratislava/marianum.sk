@@ -29,7 +29,7 @@ const AccordionItem = ({
   return (
     <AnimateHeight
       isVisible
-      className="focus-within:[z-1] relative ring-offset-2 transition focus-within:[&:has(:focus-visible)]:ring"
+      className="relative ring-offset-2 transition focus-within:z-[1] focus-within:[&:has(:focus-visible)]:ring"
     >
       <div>
         <details

@@ -136,13 +136,11 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     return (
       // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
       <div
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-        tabIndex={0}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         ref={forwardedRef}
         onKeyUp={keyUpHandler}
-        role="application"
+        role="region"
         aria-label={description ?? t('Slider.aria.description')}
         className="relative z-0 flex size-full items-center justify-center overflow-hidden"
       >
