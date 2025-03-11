@@ -858,11 +858,48 @@ const Showcase = () => {
                   },
                 ]}
               />
+              <SelectField
+                placeholder="Disabled"
+                isDisabled
+                options={[
+                  {
+                    value: 'marianum',
+                    label: '💀 Marianum',
+                  },
+                  {
+                    value: 'city-library',
+                    label: '📖 City library',
+                  },
+                  {
+                    value: 'homepage',
+                    label: '🟥 Homepage',
+                  },
+                ]}
+              />
             </Stack>
             <Stack width="full">
               <SelectField
                 isMulti
                 placeholder="Select multiple projects"
+                options={[
+                  {
+                    value: 'marianum',
+                    label: '💀 Marianum',
+                  },
+                  {
+                    value: 'city-library',
+                    label: '📖 City library',
+                  },
+                  {
+                    value: 'homepage',
+                    label: '🟥 Homepage',
+                  },
+                ]}
+              />
+              <SelectField
+                isMulti
+                isDisabled
+                placeholder="Disabled multi"
                 options={[
                   {
                     value: 'marianum',

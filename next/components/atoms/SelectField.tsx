@@ -12,18 +12,12 @@ import Select, {
 import { twMerge } from 'tailwind-merge'
 
 import { CheckNoPaddingIcon, ChevronDownIcon, CloseIcon } from '@/assets/icons'
-import { Sort } from '@/components/molecules/SortSelect'
+import Checkbox from '@/components/atoms/Checkbox'
 
-export type SelectOption<T extends Sort | string = string> = { value: T; label: string }
-
-export type SelectProps<
-  Option extends SelectOption<Sort | string> = SelectOption<Sort | string>,
-  IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>,
-> = ReactSelectProps<Option, IsMulti, Group>
+export type SelectOption = { value: string; label: string }
 
 const DropdownIndicator = <
-  Option extends SelectOption<Sort | string>,
+  Option,
   IsMulti extends boolean = false,
   Group extends GroupBase<Option> = GroupBase<Option>,
 >({
@@ -34,7 +28,7 @@ const DropdownIndicator = <
   return (
     <components.DropdownIndicator {...props}>
       <div
-        className={cx('transform p-2 transition-transform', {
+        className={cx('p-2', {
           'rotate-180': menuIsOpen,
           'text-foreground-disabled': isDisabled,
         })}
@@ -46,7 +40,7 @@ const DropdownIndicator = <
 }
 
 const ClearIndicator = <
-  Option extends SelectOption<Sort | string>,
+  Option,
   IsMulti extends boolean = false,
   Group extends GroupBase<Option> = GroupBase<Option>,
 >(
@@ -61,67 +55,37 @@ const ClearIndicator = <
   )
 }
 
-const MultiValueRemove = <
-  Option extends SelectOption<Sort | string>,
-  IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>,
->(
-  props: MultiValueRemoveProps<Option, IsMulti, Group>,
-) => {
+const MultiValueRemove = (props: MultiValueRemoveProps) => {
   return (
     <components.MultiValueRemove {...props}>
-      <CloseIcon className="scale-[60%] hover:text-error" />
+      <CloseIcon />
     </components.MultiValueRemove>
   )
 }
 
-// type CustomCheckboxProps = {
-//   isSelected: boolean
-// }
-//
-// const CustomCheckbox = ({ isSelected }: CustomCheckboxProps) => (
-//   <div
-//     className={cn('size-7 items-center justify-center rounded border-2 border-content-primary', {
-//       'bg-background-primaryInverted text-content-primaryInverted': isSelected,
-//       'group-hover:border-border-hover': !isSelected,
-//     })}
-//   >
-//     {isSelected && <Icon name="fajka" />}
-//   </div>
-// )
-
 const CustomOption = <
-  Option extends SelectOption<Sort | string>,
+  Option extends SelectOption,
   IsMulti extends boolean = false,
   Group extends GroupBase<Option> = GroupBase<Option>,
 >({
   children,
   ...props
 }: OptionProps<Option, IsMulti, Group>) => {
-  const { isSelected, isFocused, isMulti } = props
+  const { isSelected, isMulti } = props
 
   return (
     <>
       <components.Option {...props}>
-        <div
-          className={cx(
-            'flex h-10 select-none items-center overflow-hidden text-ellipsis whitespace-nowrap px-4 hover:cursor-pointer',
-            {
-              'bg-primary text-white': isSelected && !isMulti,
-              'bg-background-beige': (isFocused && !isSelected) || (isFocused && isMulti),
-              'justify-between': isMulti,
-            },
-          )}
-        >
-          <div className="truncate">{children}</div>
-          {isSelected && isMulti ? (
+        <div>{children}</div>
+        <div aria-hidden>
+          {isMulti ? (
+            <Checkbox isSelected={isSelected} />
+          ) : isSelected ? (
             <CheckNoPaddingIcon aria-hidden className="text-primary" />
           ) : null}
         </div>
       </components.Option>
-      {isMulti ? (
-        <div className="mx-3 border-[0.5px] border-border last:hidden" aria-hidden />
-      ) : null}
+      <div className="mx-2 h-px bg-border last:hidden" aria-hidden />
     </>
   )
 }
@@ -132,70 +96,66 @@ const CustomOption = <
  */
 
 const SelectField = <
-  Option extends SelectOption<Sort | string>,
+  Option extends SelectOption,
   IsMulti extends boolean = false,
   Group extends GroupBase<Option> = GroupBase<Option>,
 >({
   value,
-  placeholder,
   options,
-  isDisabled = false,
-  isSearchable = false,
-  isMulti,
   onChange = () => null,
   className,
   ...rest
-}: SelectProps<Option, IsMulti, Group>) => {
+}: ReactSelectProps<Option, IsMulti, Group>) => {
   const id = useId()
 
   return (
     <Select
-      id={id}
-      value={value}
-      placeholder={placeholder}
-      options={options}
-      isDisabled={isDisabled}
-      isSearchable={isSearchable}
-      isMulti={isMulti}
-      onChange={onChange}
-      hideSelectedOptions={false}
-      closeMenuOnSelect={!isMulti}
-      unstyled
-      className={twMerge(cx('w-full', className))}
       {...rest}
+      id={id}
+      unstyled
+      value={value}
+      onChange={onChange}
+      options={options}
+      closeMenuOnSelect={!rest.isMulti}
+      hideSelectedOptions={false}
+      className={twMerge(cx('w-full', className))}
       classNames={{
-        container: (state) => cx('flex w-full', { 'md:z-10': state.selectProps.menuIsOpen }),
-        // If a card with a link appears on large and medium screens, the link covers the select dropdown. The `md:z-10` ensures the select always precedes the link
-        control: () =>
-          cx(
-            'relative w-full min-w-0 border border-border bg-white pl-4 pr-2 outline-none hover:cursor-pointer hover:border-border-dark',
-            {
-              'pl-2': isMulti,
-              // This styling will be applied to the Control component and its children, such as the placeholder
-              'bg-background-disabled text-foreground-disabled': isDisabled,
-            },
-          ),
+        control: ({ isFocused, isDisabled }) =>
+          cx('border border-border bg-white hover:cursor-pointer hover:border-border-dark', {
+            'border-border-disable': isDisabled,
+            'border-border-dark': isFocused && !isDisabled,
+            'border-border-default hover:border-border-hover': !isFocused && !isDisabled,
+          }),
         placeholder: ({ isFocused }) =>
-          cx('truncate text-foreground-placeholder', {
-            // I've noticed that `hide` hides the entire placeholder element, which is not what we want
+          cx('text-foreground-placeholder', {
             // `invisible` hides the text but keeps the placeholder container visible
             invisible: isFocused,
           }),
-        valueContainer: () =>
+        // If a card with a link appears on large and medium screens, the link covers the select dropdown. The `md:z-10` ensures the select always precedes the link
+        valueContainer: ({ isDisabled }) =>
           // If there's a long value in select, it stretches the parent element instead of wrapping the text.
           // `[container-type:inline-size]` fixes this for some reason.
-          cx('gap-x-2 gap-y-1 py-2 [container-type:inline-size]', {
-            // If rounded is not applied, the background overflows to the "control"
+          cx('gap-x-2 gap-y-1 px-3 py-2 [container-type:inline-size]', {
+            'bg-background-disabled text-foreground-disabled': isDisabled,
           }),
-        multiValue: () => 'items-center bg-primary bg-opacity-[12%]',
+        multiValue: ({ isDisabled }) =>
+          cx('items-center', isDisabled ? 'bg-background-disabled' : 'bg-primary/12'),
         multiValueLabel: () => 'px-2 text-sm',
-        indicatorsContainer: () =>
+        multiValueRemove: () => 'hover:text-error h-5 [&>svg]:scale-[60%]',
+        indicatorsContainer: ({ isDisabled }) =>
           cx('h-10 items-center justify-center py-2', {
-            'h-full sm:h-10': isMulti,
+            'bg-background-disabled': isDisabled,
           }),
-        indicatorSeparator: () => cx('mx-1 bg-border', { hidden: !isMulti }),
-        menu: () => 'z-20 border border-border bg-white mt-2 outline-none',
-        groupHeading: () => 'ml-3 mt-2 mb-1 text-content-secondary text-sm',
+
+        indicatorSeparator: ({ hasValue, isMulti }) =>
+          cx('mx-1 bg-border', { hidden: !hasValue || !isMulti }),
+        dropdownIndicator: () => 'p-1.5 -m-1.5',
+        menu: () => 'z-20 border border-border bg-white mt-2',
+        groupHeading: () => 'ml-3 mt-2 mb-1 text-foreground-placeholder text-sm',
+        option: ({ isFocused }) =>
+          cx('!flex items-center justify-between px-3 py-2 hover:cursor-pointer', {
+            'group bg-background-beige': isFocused,
+          }),
       }}
       components={{
         Option: (props) => <CustomOption {...props} />,
