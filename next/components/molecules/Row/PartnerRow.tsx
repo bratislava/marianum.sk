@@ -8,7 +8,7 @@ import Row, { RowProps } from '@/components/molecules/Row/Row'
 const PartnerRow = (props: Pick<RowProps, 'title' | 'titleId' | 'linkHref' | 'border'>) => {
   const { linkHref, titleId } = props
 
-  const { t } = useTranslation('common', { keyPrefix: 'PartnerRow' })
+  const { t } = useTranslation()
 
   const LinkButton = () =>
     linkHref ? (
@@ -21,7 +21,7 @@ const PartnerRow = (props: Pick<RowProps, 'title' | 'titleId' | 'linkHref' | 'bo
           startIcon={<OpenInNewIcon />}
           className="hidden after:absolute after:inset-0 md:flex"
         >
-          {t('showWebsite')}
+          {t('PartnerRow.showWebsite')}
         </Button>
         {/* mobile button */}
         <IconButton

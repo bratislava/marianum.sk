@@ -85,7 +85,7 @@ const TableWrapper = ({ children }: PropsWithChildren) => {
 }
 
 const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSectionFilters }) => {
-  const { t, i18n } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })
+  const { t, i18n } = useTranslation()
 
   const theadRef = useRef<HTMLTableSectionElement>(null)
   useScrollToViewIfDataChange(data, filters, theadRef)
@@ -148,13 +148,13 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
             <table className="m-table">
               <thead ref={theadRef}>
                 <tr>
-                  <th>{t('th.time')}</th>
-                  <th>{t('th.name')}</th>
-                  <th>{t('th.birthYear')}</th>
-                  <th>{t('th.cemeteryTitle')}</th>
-                  <th>{t('th.type')}</th>
-                  <th>{t('th.company')}</th>
-                  <th>{t('th.officiantProvidedBy')}</th>
+                  <th>{t('CeremoniesSection.th.time')}</th>
+                  <th>{t('CeremoniesSection.th.name')}</th>
+                  <th>{t('CeremoniesSection.th.birthYear')}</th>
+                  <th>{t('CeremoniesSection.th.cemeteryTitle')}</th>
+                  <th>{t('CeremoniesSection.th.type')}</th>
+                  <th>{t('CeremoniesSection.th.company')}</th>
+                  <th>{t('CeremoniesSection.th.officiantProvidedBy')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -183,11 +183,11 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
       ))}
       {ceremonies?.length === 0 && (
         <div className="mb-6 md:mb-10">
-          <strong>{t('noCeremonies')}</strong>
+          <strong>{t('CeremoniesSection.noCeremonies')}</strong>
         </div>
       )}
       <p>
-        <PrivateField /> {t('privateFieldsDescription')}
+        <PrivateField /> {t('CeremoniesSection.privateFieldsDescription')}
       </p>
     </div>
   )
@@ -226,7 +226,7 @@ type CeremoniesSectionProps = {
 }
 
 const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })
+  const { t } = useTranslation()
 
   const [filters, setFilters] = useState<CeremoniesSectionFilters>(ceremoniesSectionDefaultFilters)
 
@@ -238,7 +238,7 @@ const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
     <Section>
       <div className="mb-6 md:mb-8 md:w-[360px]">
         <CeremoniesDebtorsCemeterySelect
-          label={t('filterBy')}
+          label={t('CeremoniesSection.filterBy')}
           type="ceremonies"
           onCemeteryChange={handleCemeteryChange}
         />

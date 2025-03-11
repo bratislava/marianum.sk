@@ -20,7 +20,7 @@ type NavigationProps = {
 }
 
 const Navigation = ({ contact }: NavigationProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'Navigation' })
+  const { t } = useTranslation()
 
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
   const [isDesktopSearchOpen, setDesktopSearchOpen] = useState(false)
@@ -65,7 +65,7 @@ const Navigation = ({ contact }: NavigationProps) => {
             href="/"
             noStyles
             noArrow
-            aria-label={t('home')}
+            aria-label={t('Navigation.home')}
           >
             <MarianumLogoWithTextSvg className="size-full" />
           </MLink>
@@ -87,7 +87,7 @@ const Navigation = ({ contact }: NavigationProps) => {
             />
             {/* mobile menu button */}
             <IconButton
-              aria-label={t('menu')}
+              aria-label={t('Navigation.menu')}
               onPressEnd={() => setMobileNavOpen(true)}
               variant="primary"
               className="lg:hidden"

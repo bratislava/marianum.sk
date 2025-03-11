@@ -18,7 +18,7 @@ type DocumentLayoutProps = {
 }
 
 const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) => {
-  const { t, i18n } = useTranslation('common', { keyPrefix: 'DocumentLayout' })
+  const { t, i18n } = useTranslation()
 
   const { title, description, file, publishedAt, documentCategory, slug } =
     document.attributes ?? {}
@@ -29,14 +29,14 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
         ? [
             {
               key: 'category',
-              title: t('category'),
+              title: t('DocumentLayout.category'),
               description: documentCategory.data.attributes.title,
             },
           ]
         : []),
       {
         key: 'createdAt',
-        title: t('createdAt'),
+        title: t('DocumentLayout.createdAt'),
         description: (
           <FormatDate value={publishedAt as string} valueType="ISO" format="articlePage" />
         ),
@@ -66,7 +66,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
             </div>
             <div className="flex flex-col items-center gap-2 text-sm md:items-start">
               <div>
-                {t('createdAt')}{' '}
+                {t('DocumentLayout.createdAt')}{' '}
                 <FormatDate value={publishedAt as string} valueType="ISO" format="articlePage" />
               </div>
               <h1>{title}</h1>
@@ -80,7 +80,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
                 href={file?.data?.attributes?.url ?? ''}
                 className="mt-4 md:w-fit"
               >
-                {t('downloadFile')}
+                {t('DocumentLayout.downloadFile')}
               </Button>
             </div>
           </div>
@@ -89,7 +89,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
         {description ? (
           <Section
             innerClassName="md:pl-[250px] lg:pl-[266px] xl:pl-[294px]"
-            title={t('description')}
+            title={t('DocumentLayout.description')}
             centerTitleOnMobile={false}
           >
             <div className="whitespace-pre-wrap">{description}</div>
@@ -99,7 +99,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
         <Section
           innerClassName="md:pl-[250px] lg:pl-[266px] xl:pl-[294px]"
           dividerClassName="md:ml-[218px]"
-          title={t('details')}
+          title={t('DocumentLayout.details')}
           centerTitleOnMobile={false}
         >
           <dl>

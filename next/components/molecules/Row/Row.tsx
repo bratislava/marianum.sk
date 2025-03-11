@@ -27,6 +27,7 @@ export type RowProps = {
    * (aria-labelledby={titleId}) and classes to expand link to the whole component ("after:absolute after:inset-0").
    */
   linkButton?: ReactNode
+  variant?: 'gaps' | 'dividers'
 } & RowBoxProps
 
 const Row = ({
@@ -42,15 +43,16 @@ const Row = ({
   moreContent,
   button = null,
   linkButton = null,
+  variant = 'gaps',
   ...rest
 }: RowProps) => {
   const linkRef = useRef<HTMLAnchorElement>(null)
   const isLinkHovered = useHover(linkRef)
 
   return (
-    <RowBox hover={!!linkHref} {...rest}>
+    <RowBox hover={variant === 'gaps' && !!linkHref} {...rest}>
       {/* When some other clickable element is hovered, display shadow but not other "hover styles" */}
-      <RowContent hover={isLinkHovered}>
+      <RowContent hover={isLinkHovered} className={variant === 'dividers' ? 'gap-6 md:px-0' : ''}>
         <div className="flex grow flex-col gap-y-1.5">
           {category?.attributes && <div className="text-primary">{category.attributes.title}</div>}
 

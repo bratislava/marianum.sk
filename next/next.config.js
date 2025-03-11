@@ -1,6 +1,4 @@
 const { i18n } = require('./next-i18next.config')
-const CopyPlugin = require('copy-webpack-plugin')
-const path = require('path')
 const {
   generateRedirects,
 } = require('./components/molecules/Navigation/NavigationProvider/generateRedirects')
@@ -75,7 +73,7 @@ const nextConfig = {
             nextRoute: '/cemeteries',
           },
           {
-            fullPath: '/o-nas/objekty-v-sprave/:slug',
+            fullPath: '/o-nas/starostlivost-o-mestske-fontany/:slug',
             nextRoute: '/managed-objects',
           },
           {
