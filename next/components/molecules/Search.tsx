@@ -84,7 +84,7 @@ const Search = ({
       leftSlot={<SearchIcon />}
       rightSlot={
         realValue ? (
-          <button onClick={clearHandler} type="button" className="p-2">
+          <button onClick={clearHandler} type="button" className="base-focus-ring p-2">
             {isLarge ? <CloseIcon /> : <CloseCircleIcon />}
           </button>
         ) : null

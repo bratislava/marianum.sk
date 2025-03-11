@@ -51,7 +51,7 @@ const IconButton = forwardRef<HTMLAnchorElement | HTMLButtonElement, Polymorphic
     )
 
     const style = cx(
-      'flex items-center justify-center rounded-full p-2 text-center align-middle text-btn focus:outline-none',
+      'base-focus-ring flex items-center justify-center rounded-full p-2 text-center align-middle text-btn',
       className,
       {
         'h-[40px] w-[40px]': size === 'default',
@@ -68,17 +68,17 @@ const IconButton = forwardRef<HTMLAnchorElement | HTMLButtonElement, Polymorphic
         'text-foreground': variant === 'plain-secondary' || variant === 'pagination',
 
         // bg and border color
-        'border border-primary bg-primary focus:border-primary-dark focus:bg-primary-light':
-          variant === 'primary',
-        'border border-primary focus:border-primary-light focus:text-primary-light':
+        'border border-primary bg-primary focus-visible:bg-primary-light': variant === 'primary',
+        'border border-primary focus-visible:text-primary-light':
           variant === 'secondary' || variant === 'pagination-selected',
-        'border border-border-alt focus:text-primary-light': variant === 'tertiary',
-        'border border-border bg-white focus:border-primary-dark focus:text-primary-light':
+        'border border-border-alt focus-visible:text-primary-light': variant === 'tertiary',
+        'border border-border bg-white focus-visible:text-primary-light':
           variant === 'white' || variant === 'pagination',
         'border border-primary bg-white': variant === 'pagination-selected',
-        'focus:bg-primary/8 focus:text-primary-light': variant === 'plain-primary',
-        'focus:bg-foreground/8 focus:text-foreground': variant === 'plain-secondary',
-        'focus:bg-white/8': variant === 'plain-white',
+        'focus-visible:bg-primary/8 focus-visible:text-primary-light': variant === 'plain-primary',
+        'focus-visible:bg-foreground/8 focus-visible:text-foreground':
+          variant === 'plain-secondary',
+        'focus-visible:bg-white/8': variant === 'plain-white',
 
         // hover
         'hover:border-primary-dark hover:bg-primary-dark': variant === 'primary' && !disabled,

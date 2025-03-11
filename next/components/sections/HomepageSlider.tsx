@@ -102,15 +102,18 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
             <div className="left-0 -ml-2 flex items-center">
               {Array.from({ length: count }, (element, index) => (
                 <button
-                  className={cx('pointer-events-auto p-2 hover:opacity-100', {
-                    'opacity-50': activeIndex !== index,
-                  })}
                   key={index}
                   type="button"
                   aria-label={t('HomepageSlider.aria.goToSlide', { number: index + 1 })}
                   onClick={() => goToPage(index)}
+                  className="base-focus-ring pointer-events-auto rounded-full p-2"
+                  // Keep the focus ring fully visible regardless of whether the indicator is active or inactive
                 >
-                  <div className="size-2 rounded-full bg-white" />
+                  <div
+                    className={cx('size-2 rounded-full bg-white hover:opacity-100', {
+                      'opacity-50': activeIndex !== index,
+                    })}
+                  />
                 </button>
               ))}
             </div>
