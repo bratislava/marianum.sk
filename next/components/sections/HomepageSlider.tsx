@@ -106,7 +106,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                   type="button"
                   aria-label={t('HomepageSlider.aria.goToSlide', { number: index + 1 })}
                   onClick={() => goToPage(index)}
-                  className="base-focus-ring pointer-events-auto p-2"
+                  className="base-focus-ring pointer-events-auto rounded-full p-2"
                   // Keep the focus ring fully visible regardless of whether the indicator is active or inactive
                 >
                   <div
