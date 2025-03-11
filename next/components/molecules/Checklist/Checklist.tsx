@@ -159,10 +159,9 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
               isCompleted={isCompleted}
             />
             <div
-              className={cx(
-                'flex w-full flex-col border border-border bg-white outline-offset-2 outline-primary focus:outline-2',
-                { 'cursor-auto': isOpen },
-              )}
+              className={cx('flex w-full flex-col border border-border bg-white', {
+                'cursor-auto': isOpen,
+              })}
             >
               {/* item title */}
               <button

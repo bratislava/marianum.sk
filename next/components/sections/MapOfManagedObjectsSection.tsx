@@ -113,6 +113,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
           <ul
             aria-label={t('MapSection.results')}
             className="flex-1 overflow-auto"
+            tabIndex={-1} // We are setting internal state on onMouseLeave, so the list itself does not need keyboard focus
             onMouseLeave={() => setHoveredManagedObjectSlug(null)}
           >
             {filteredManagedObjects.map((managedObject, index) => {
@@ -125,7 +126,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
                     onMouseEnter={() => setHoveredManagedObjectSlug(slug ?? '')}
                     noStyles
                     href={getFullPath(managedObject) ?? ''}
-                    className={cx('flex gap-2 px-5 py-3', {
+                    className={cx('flex gap-2 px-5 py-3 ring-inset ring-offset-0', {
                       'bg-primary/5': slug === hoveredManagedObjectSlug,
                     })}
                   >

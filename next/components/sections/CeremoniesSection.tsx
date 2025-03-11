@@ -6,11 +6,11 @@ import { useTranslation } from 'next-i18next'
 import { Fragment, PropsWithChildren, useMemo, useRef, useState } from 'react'
 import useSwr from 'swr'
 
-import CardBox from '@/components/atoms/Card/CardBox'
 import FormatDate from '@/components/atoms/FormatDate'
 import Loading from '@/components/atoms/Loading'
 import LoadingOverlay from '@/components/atoms/LoadingOverlay'
 import MLink from '@/components/atoms/MLink'
+import RowBox from '@/components/atoms/Row/RowBox'
 import CemeteryLink from '@/components/molecules/CemeteryLink'
 import CeremoniesDebtorsCemeterySelect from '@/components/molecules/CeremoniesDebtors/CemeterySelect'
 import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
@@ -51,7 +51,7 @@ const ArchiveCard = ({
   }
 
   return (
-    <CardBox className="mt-6 md:mt-16">
+    <RowBox hover={false} className="mt-6 cursor-pointer md:mt-16">
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
       <div
         className="flex flex-col items-center gap-y-3 px-8 py-4 md:flex-row md:justify-between md:px-12 md:py-10"
@@ -64,7 +64,7 @@ const ArchiveCard = ({
           </MLink>
         )}
       </div>
-    </CardBox>
+    </RowBox>
   )
 }
 

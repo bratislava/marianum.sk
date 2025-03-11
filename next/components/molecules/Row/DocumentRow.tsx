@@ -31,14 +31,7 @@ const DocumentRow = (props: DocumentRowProps) => {
       </Button>
     ) : null
 
-  return (
-    <Row
-      {...props}
-      button={<DownloadButton />}
-      // The row container itself has no focus styles since each button inside handles its own
-      applyFocusStyles={false}
-    />
-  )
+  return <Row {...props} button={<DownloadButton />} applyFocusStyles={false} />
 }
 
 export default DocumentRow
