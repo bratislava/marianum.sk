@@ -27,14 +27,12 @@ const DropdownIndicator = <
 
   return (
     <components.DropdownIndicator {...props}>
-      <div
-        className={cx('p-2', {
+      <ChevronDownIcon
+        className={cx({
           'rotate-180': menuIsOpen,
           'text-foreground-disabled': isDisabled,
         })}
-      >
-        <ChevronDownIcon />
-      </div>
+      />
     </components.DropdownIndicator>
   )
 }
@@ -48,9 +46,7 @@ const ClearIndicator = <
 ) => {
   return (
     <components.ClearIndicator {...props}>
-      <div className="p-2">
-        <CloseIcon className="scale-[80%]" />
-      </div>
+      <CloseIcon className="scale-[80%]" />
     </components.ClearIndicator>
   )
 }
@@ -71,7 +67,7 @@ const CustomOption = <
   children,
   ...props
 }: OptionProps<Option, IsMulti, Group>) => {
-  const { isSelected, isMulti } = props
+  const { isMulti, isSelected } = props
 
   return (
     <>
@@ -81,7 +77,7 @@ const CustomOption = <
           {isMulti ? (
             <Checkbox isSelected={isSelected} />
           ) : isSelected ? (
-            <CheckNoPaddingIcon aria-hidden className="text-primary" />
+            <CheckNoPaddingIcon className="text-primary" />
           ) : null}
         </div>
       </components.Option>
@@ -122,12 +118,13 @@ const SelectField = <
       classNames={{
         control: ({ isFocused, isDisabled }) =>
           cx('border border-border bg-white hover:cursor-pointer hover:border-border-dark', {
-            'border-border-disable': isDisabled,
+            'border-border': isDisabled,
             'border-border-dark': isFocused && !isDisabled,
             'border-border-default hover:border-border-hover': !isFocused && !isDisabled,
           }),
-        placeholder: ({ isFocused }) =>
+        placeholder: ({ isDisabled, isFocused }) =>
           cx('text-foreground-placeholder', {
+            'text-foreground-disabled': isDisabled,
             // `invisible` hides the text but keeps the placeholder container visible
             invisible: isFocused,
           }),
@@ -143,14 +140,14 @@ const SelectField = <
         multiValueLabel: () => 'px-2 text-sm',
         multiValueRemove: () => 'hover:text-error h-5 [&>svg]:scale-[60%]',
         indicatorsContainer: ({ isDisabled }) =>
-          cx('h-10 items-center justify-center py-2', {
+          cx('gap-3 pr-3', {
             'bg-background-disabled': isDisabled,
           }),
-
+        clearIndicator: () => 'p-1.5 -m-1.5 hover:bg-primary/12',
         indicatorSeparator: ({ hasValue, isMulti }) =>
-          cx('mx-1 bg-border', { hidden: !hasValue || !isMulti }),
+          cx('my-2 bg-border', { hidden: !hasValue || !isMulti }),
         dropdownIndicator: () => 'p-1.5 -m-1.5',
-        menu: () => 'z-20 border border-border bg-white mt-2',
+        menu: () => 'z-20 border border-border-focused bg-white mt-2',
         groupHeading: () => 'ml-3 mt-2 mb-1 text-foreground-placeholder text-sm',
         option: ({ isFocused }) =>
           cx('!flex items-center justify-between px-3 py-2 hover:cursor-pointer', {
