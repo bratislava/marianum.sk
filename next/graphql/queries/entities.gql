@@ -201,6 +201,9 @@ fragment CemeteryEntity on CemeteryEntity {
     gallery {
       ...ImageGallery
     }
+    video {
+      ...IframeSection
+    }
   }
 }
 

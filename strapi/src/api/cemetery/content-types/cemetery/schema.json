@@ -165,6 +165,16 @@
         }
       },
       "component": "sections.gallery"
+    },
+    "video": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.iframe-section"
     }
   }
 }

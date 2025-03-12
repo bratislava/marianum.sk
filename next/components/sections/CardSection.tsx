@@ -1,13 +1,9 @@
-import cx from 'classnames'
-import { useMemo } from 'react'
-
 import { CategoryCard } from '@/components/molecules/Cards/CategoryFaqThemeCard'
 import ServiceCard from '@/components/molecules/Cards/ServiceCard'
 import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section, { SectionProps } from '@/components/molecules/Section'
 import { Enum_Componentsectionsmanuallisting_Style, ManualListingFragment } from '@/graphql'
 import { isDefined } from '@/utils/isDefined'
-import { useTailwindBreakpoint } from '@/utils/useTailwindBreakpoint'
 
 type CardSectionProps = Pick<SectionProps, 'background'> & {
   section: ManualListingFragment
@@ -22,9 +18,6 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
     ?.filter(isDefined)
     .map((page) => page.page?.data)
     .filter((page) => page?.attributes)
-
-  const { isMD } = useTailwindBreakpoint()
-  const isMobile = useMemo(() => !isMD, [isMD])
 
   return (
     <Section
@@ -56,9 +49,7 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
             <ServiceCard
               // eslint-disable-next-line react/no-array-index-key, @typescript-eslint/restrict-template-expressions
               key={`${id}-${index}`}
-              className={cx({
-                'w-[calc(100vw-6rem)] shrink-0 sm:w-[calc(100vw-16rem)]': isMobile,
-              })}
+              className="w-4/5 shrink-0 sm:w-2/5 md:w-full"
               title={cardTitle ?? ''}
               linkHref={fullPath}
               image={coverMedia?.data?.attributes}

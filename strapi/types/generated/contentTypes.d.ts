@@ -998,6 +998,12 @@ export interface ApiCemeteryCemetery extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    video: Attribute.Component<'sections.iframe-section'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
   };
 }
 
