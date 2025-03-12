@@ -2,9 +2,9 @@ import { useTranslation } from 'next-i18next'
 
 import { MailIcon, PhoneIcon } from '@/assets/icons'
 import Button from '@/components/atoms/Button'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { SidebarFragment } from '@/graphql'
 import { getPhoneNumberLink } from '@/utils/getPhoneNumberLink'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 
 type SideBarProps = {
   sidebar: SidebarFragment | null | undefined
@@ -12,23 +12,23 @@ type SideBarProps = {
 
 const SideBar = ({ sidebar }: SideBarProps) => {
   const { t } = useTranslation()
-  const { getFullPath } = useGetFullPath()
+  const { getLinkProps } = useGetLinkProps()
 
   if (!sidebar) {
     return <aside className="lg:w-[360px]" />
   }
 
   const { title, text, ctaButton, contact } = sidebar
-  const ctaSlug = getFullPath(ctaButton?.page?.data)
+  const linkProps = getLinkProps(ctaButton)
   const { phone1, phone2, email } = contact?.data?.attributes ?? {}
 
   return (
     <aside className="flex h-fit flex-col bg-white p-6 lg:w-[360px]">
       {title && <h5 className="whitespace-pre-wrap">{title}</h5>}
       {text && <p className="mt-2 whitespace-pre-wrap">{text}</p>}
-      {ctaSlug ? (
+      {ctaButton ? (
         <>
-          <Button href={ctaSlug} variant="primary" className="mt-6">
+          <Button {...linkProps} variant="primary" className="mt-6">
             {ctaButton?.label}
           </Button>
           {contact?.data?.attributes && (
