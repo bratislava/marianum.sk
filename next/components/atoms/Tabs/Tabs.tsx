@@ -38,7 +38,11 @@ const Tabs = <T extends object>(props: TabListProps<T>) => {
           <TabLabel key={item.key} item={item} state={state} setSessionTabKey={setSessionTabKey} />
         ))}
       </div>
-      <AnimateHeight isVisible>
+      <AnimateHeight
+        isVisible
+        // To prevent focus rings on elements within BundleListingSection and HomepageProceduresSection from being cut off
+        className="flex-1 overflow-visible"
+      >
         <TabPanel key={state.selectedItem?.key} state={state} />
       </AnimateHeight>
     </div>

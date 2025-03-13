@@ -105,6 +105,7 @@ const MapSection = ({ section }: MapSectionProps) => {
           <ul
             aria-label={t('MapSection.results')}
             className="flex-1 overflow-auto"
+            tabIndex={-1} // We are setting internal state on onMouseLeave, so the list itself does not need keyboard focus
             onMouseLeave={() => setHoveredCemeterySlug(null)}
           >
             {filteredCemeteries.map((cemetery, index) => {
@@ -117,7 +118,7 @@ const MapSection = ({ section }: MapSectionProps) => {
                     onMouseEnter={() => setHoveredCemeterySlug(slug ?? '')}
                     noStyles
                     href={getFullPath(cemetery) ?? ''}
-                    className={cx('flex gap-2 px-5 py-3', {
+                    className={cx('flex gap-2 px-5 py-3 ring-inset ring-offset-0', {
                       'bg-primary/5': slug === hoveredCemeterySlug,
                     })}
                   >
