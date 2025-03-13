@@ -230,3 +230,12 @@
   width: 100% !important;
   height: auto !important;
 }
+
+/* Remove native Safari arrows in accordions  */
+details > summary {
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
