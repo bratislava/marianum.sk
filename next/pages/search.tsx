@@ -91,7 +91,7 @@ const SearchSection = () => {
           <Search value={searchQuery ?? ''} onSearchQueryChange={setSearchQuery} />
         </div>
         <div className="flex flex-col-reverse justify-between gap-3 md:flex-row md:items-center">
-          <div className="flex w-full items-center gap-3 overflow-auto pb-3 sm:pb-0">
+          <div className="-m-2 flex w-full items-center gap-3 overflow-auto p-2 pb-3 sm:pb-2 md:overflow-visible">
             <TagToggle isSelected={isNothingSelected} onChange={deselectAll}>
               {t('SearchPage.allResults')}
             </TagToggle>
