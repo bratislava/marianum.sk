@@ -140,6 +140,9 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
         onBlur={() => setFocused(false)}
         ref={forwardedRef}
         onKeyUp={keyUpHandler}
+        // We use role="region" instead of role="application" as it breaks keyboard navigation
+        // Region refers to "an important content that users may want to navigate to"
+        // TODO: OLO uses role="tabpanel" but this implementation would require some refactoring
         role="region"
         aria-label={description ?? t('Slider.aria.description')}
         className="relative z-0 flex size-full items-center justify-center overflow-hidden"
