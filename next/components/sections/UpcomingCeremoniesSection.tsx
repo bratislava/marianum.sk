@@ -7,7 +7,6 @@ import FormatDate from '@/components/atoms/FormatDate'
 import Loading from '@/components/atoms/Loading'
 import MLink from '@/components/atoms/MLink'
 import CemeteryLink from '@/components/molecules/CemeteryLink'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section from '@/components/molecules/Section'
 import { UpcomingCeremoniesSectionFragment } from '@/graphql'
 import {
@@ -17,6 +16,7 @@ import {
 import { bratislavaTimezone } from '@/utils/consts'
 import { getCemeteryInfoInCeremoniesDebtors } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
 import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 
 const Table = () => {
   const { t, i18n } = useTranslation()
@@ -130,12 +130,12 @@ type CeremoniesListingProps = {
 }
 
 const UpcomingCeremoniesSection = ({ section }: CeremoniesListingProps) => {
-  const { getFullPath } = useGetFullPath()
+  const { getLinkProps } = useGetLinkProps()
 
-  const showMoreButtonSlug = getFullPath(section.showMoreButton?.page?.data)
+  const showMore = getLinkProps(section.showMoreButton)
 
-  const showMoreButton = section.showMoreButton && showMoreButtonSlug && (
-    <MLink href={showMoreButtonSlug}>{section.showMoreButton.label}</MLink>
+  const showMoreButton = section.showMoreButton && (
+    <MLink href={showMore.href}>{showMore.label}</MLink>
   )
 
   return (
