@@ -55,7 +55,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
   // number of not displayed images
   // TODO: for gallery in cemeteries this count is not correct
   const moreImagesCount = useMemo(() => {
-    return Math.max(imageCount - thumbnailCount, 0) 
+    return Math.max(imageCount - thumbnailCount, 0)
   }, [imageCount, thumbnailCount])
 
   const smallImages = useMemo(() => {
