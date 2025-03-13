@@ -33,48 +33,6 @@ export type Scalars = {
   Upload: { input: any; output: any; }
 };
 
-export type Application = {
-  __typename?: 'Application';
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type ApplicationEntity = {
-  __typename?: 'ApplicationEntity';
-  attributes?: Maybe<Application>;
-  id?: Maybe<Scalars['ID']['output']>;
-};
-
-export type ApplicationEntityResponse = {
-  __typename?: 'ApplicationEntityResponse';
-  data?: Maybe<ApplicationEntity>;
-};
-
-export type ApplicationEntityResponseCollection = {
-  __typename?: 'ApplicationEntityResponseCollection';
-  data: Array<ApplicationEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type ApplicationFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ApplicationFiltersInput>>>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  data?: InputMaybe<JsonFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  not?: InputMaybe<ApplicationFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ApplicationFiltersInput>>>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type ApplicationInput = {
-  data?: InputMaybe<Scalars['JSON']['input']>;
-};
-
-export type ApplicationRelationResponseCollection = {
-  __typename?: 'ApplicationRelationResponseCollection';
-  data: Array<ApplicationEntity>;
-};
-
 export type Article = {
   __typename?: 'Article';
   content?: Maybe<Scalars['String']['output']>;
@@ -2797,7 +2755,7 @@ export type GeneralRelationResponseCollection = {
   data: Array<GeneralEntity>;
 };
 
-export type GenericMorph = Application | Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -3099,7 +3057,6 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
-  createApplication?: Maybe<ApplicationEntityResponse>;
   createArticle?: Maybe<ArticleEntityResponse>;
   createArticleJobsCategory?: Maybe<ArticleJobsCategoryEntityResponse>;
   createArticleLocalization?: Maybe<ArticleEntityResponse>;
@@ -3136,7 +3093,6 @@ export type Mutation = {
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
-  deleteApplication?: Maybe<ApplicationEntityResponse>;
   deleteArticle?: Maybe<ArticleEntityResponse>;
   deleteArticleJobsCategory?: Maybe<ArticleJobsCategoryEntityResponse>;
   deleteArticleNewsCategory?: Maybe<ArticleNewsCategoryEntityResponse>;
@@ -3175,7 +3131,6 @@ export type Mutation = {
   removeFile?: Maybe<UploadFileEntityResponse>;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
-  updateApplication?: Maybe<ApplicationEntityResponse>;
   updateArticle?: Maybe<ArticleEntityResponse>;
   updateArticleJobsCategory?: Maybe<ArticleJobsCategoryEntityResponse>;
   updateArticleNewsCategory?: Maybe<ArticleNewsCategoryEntityResponse>;
@@ -3212,11 +3167,6 @@ export type MutationChangePasswordArgs = {
   currentPassword: Scalars['String']['input'];
   password: Scalars['String']['input'];
   passwordConfirmation: Scalars['String']['input'];
-};
-
-
-export type MutationCreateApplicationArgs = {
-  data: ApplicationInput;
 };
 
 
@@ -3423,11 +3373,6 @@ export type MutationCreateUsersPermissionsUserArgs = {
 };
 
 
-export type MutationDeleteApplicationArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
 export type MutationDeleteArticleArgs = {
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -3599,12 +3544,6 @@ export type MutationResetPasswordArgs = {
   code: Scalars['String']['input'];
   password: Scalars['String']['input'];
   passwordConfirmation: Scalars['String']['input'];
-};
-
-
-export type MutationUpdateApplicationArgs = {
-  data: ApplicationInput;
-  id: Scalars['ID']['input'];
 };
 
 
@@ -4124,8 +4063,6 @@ export enum PublicationState {
 
 export type Query = {
   __typename?: 'Query';
-  application?: Maybe<ApplicationEntityResponse>;
-  applications?: Maybe<ApplicationEntityResponseCollection>;
   article?: Maybe<ArticleEntityResponse>;
   articleJobsCategories?: Maybe<ArticleJobsCategoryEntityResponseCollection>;
   articleJobsCategory?: Maybe<ArticleJobsCategoryEntityResponse>;
@@ -4179,18 +4116,6 @@ export type Query = {
   usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
   usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>;
   usersPermissionsUsers?: Maybe<UsersPermissionsUserEntityResponseCollection>;
-};
-
-
-export type QueryApplicationArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type QueryApplicationsArgs = {
-  filters?: InputMaybe<ApplicationFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
