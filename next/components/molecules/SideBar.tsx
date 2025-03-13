@@ -27,10 +27,7 @@ const SideBar = ({ sidebar }: SideBarProps) => {
       {title && <h5 className="whitespace-pre-wrap">{title}</h5>}
       {text && <p className="mt-2 whitespace-pre-wrap">{text}</p>}
       {ctaButton ? (
-        <>
-          <Button {...linkProps} variant="primary" className="mt-6">
-            {ctaButton?.label}
-          </Button>
+        <><Button {...linkProps} variant="primary" className="mt-6" >{linkProps.label}</Button>
           {contact?.data?.attributes && (
             <div className="flex flex-col items-center">
               <div className="mt-4">{t('SideBar.or')}</div>

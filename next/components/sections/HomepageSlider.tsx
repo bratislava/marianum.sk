@@ -69,7 +69,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                         aria-labelledby={getAriaLabelId(id, index)}
                         {...linkProps}
                       >
-                        {button?.label}
+                        {linkProps.label}
                       </Button>
                     </div>
                   )}

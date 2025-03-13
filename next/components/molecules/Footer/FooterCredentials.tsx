@@ -2,8 +2,8 @@ import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
 
 import MLink from '@/components/atoms/MLink'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { CtaButtonFragment } from '@/graphql'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 
 type FooterCredentialsProps = {
   links: CtaButtonFragment[] | null | undefined
@@ -11,7 +11,7 @@ type FooterCredentialsProps = {
 
 const FooterCredentials = ({ links }: FooterCredentialsProps) => {
   const { t } = useTranslation()
-  const { getFullPath } = useGetFullPath()
+  const { getLinkProps } = useGetLinkProps()
 
   const currentYear = useMemo(() => {
     return new Date().getFullYear()
@@ -40,17 +40,20 @@ const FooterCredentials = ({ links }: FooterCredentialsProps) => {
           </div>
         </div>
         <div className="flex flex-col items-center gap-2 lg:flex-row lg:gap-4">
-          {links?.map((link, index) => (
-            <MLink
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
-              href={getFullPath(link.page?.data) ?? ''}
-              noStyles
-              className="hover:underline"
-            >
-              {link.label}
-            </MLink>
-          ))}
+          {links?.map((link, index) => {
+            const linkProps = getLinkProps(link)
+            return (
+              <MLink
+                // eslint-disable-next-line react/no-array-index-key
+                {...linkProps}
+                key={index}
+                noStyles
+                className="hover:underline"
+              >
+                {linkProps.label}
+              </MLink>
+            )
+          })}
         </div>
       </div>
     </div>

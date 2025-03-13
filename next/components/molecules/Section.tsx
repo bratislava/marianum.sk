@@ -3,9 +3,9 @@ import { ReactNode, useContext, useMemo } from 'react'
 
 import MLink from '@/components/atoms/MLink'
 import { BackgroundColor, sectionContext } from '@/components/layouts/SectionsWrapper'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { CtaButtonFragment } from '@/graphql'
 import { useActivateHeroSectionContentOverlay } from '@/utils/heroSectionContentOverlay'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 
 export type SectionProps = {
   children: ReactNode
@@ -42,10 +42,11 @@ const Section = ({
   centerTitleOnMobile = true,
   titleFontSize,
 }: SectionProps) => {
-  const { getFullPath } = useGetFullPath()
+  const { getLinkProps } = useGetLinkProps()
 
-  const showMorePath = getFullPath(button?.page?.data) ?? buttonLink?.linkHref
-  const showMoreLabel = button?.label ?? buttonLink?.label
+  const showMore = getLinkProps(button)
+  const showMorePath = showMore.href !== '#' ? showMore.href : buttonLink?.linkHref
+  const showMoreLabel = showMore.label ?? buttonLink?.label
 
   const { background, isDivider, isFirst, alternateBackground } = useContext(sectionContext)
 

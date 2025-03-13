@@ -8,11 +8,11 @@ import Breadcrumbs, { BreadcrumbItem } from '@/components/atoms/Breadcrumbs'
 import Button from '@/components/atoms/Button'
 import FormatCurrency from '@/components/atoms/FormatCurrency'
 import NormalizeText from '@/components/atoms/NormalizeText/NormalizeText'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { useNavigationContext } from '@/components/molecules/Navigation/NavigationProvider/useNavigationContext'
 import { CtaButtonFragment } from '@/graphql'
 import { getBreadcrumbs } from '@/utils/getBreadcrumbs'
 import { useIsHeroSectionOverlaid } from '@/utils/heroSectionContentOverlay'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 
 type HeroSectionProps = {
   breadcrumbsMoreItems?: BreadcrumbItem[]
@@ -33,11 +33,11 @@ const HeroSection = ({
 }: HeroSectionProps) => {
   const { t } = useTranslation()
   const router = useRouter()
+  const { getLinkProps } = useGetLinkProps()
 
   const { navMap } = useNavigationContext()
-  const { getFullPath } = useGetFullPath()
 
-  const ctaSlug = getFullPath(ctaButton?.page?.data)
+  const linkProps = getLinkProps(ctaButton)
 
   const breadcrumbs = [
     { label: <HomeIcon />, path: '/' },
@@ -64,9 +64,9 @@ const HeroSection = ({
               <NormalizeText>{perex}</NormalizeText>
             </p>
           )}
-          {ctaSlug && (
-            <Button href={ctaSlug} className="mt-6">
-              {ctaButton?.label}
+          {ctaButton && (
+            <Button href={linkProps.href} className="mt-6">
+              {linkProps?.label}
             </Button>
           )}
           {price && (

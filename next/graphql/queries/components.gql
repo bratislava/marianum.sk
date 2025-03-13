@@ -182,12 +182,7 @@ fragment Footer on ComponentGeneralFooter {
     ...FooterLinkItem
   }
   bottomLinks {
-    label
-    page {
-      data {
-        ...PageSlugEntity
-      }
-    }
+    ...CtaButton
   }
 }
 
