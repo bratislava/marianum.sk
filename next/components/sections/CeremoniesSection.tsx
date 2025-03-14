@@ -12,7 +12,6 @@ import LoadingOverlay from '@/components/atoms/LoadingOverlay'
 import MLink from '@/components/atoms/MLink'
 import CemeteryLink from '@/components/molecules/CemeteryLink'
 import CeremoniesDebtorsCemeterySelect from '@/components/molecules/CeremoniesDebtors/CemeterySelect'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section from '@/components/molecules/Section'
 import { CeremoniesQuery, CeremoniesSectionFragment } from '@/graphql'
 import {
@@ -26,6 +25,7 @@ import { getCemeteryInfoInCeremoniesDebtors } from '@/utils/getCemeteryInfoInCer
 import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 
 const ArchiveCard = ({
   archive,
@@ -33,7 +33,9 @@ const ArchiveCard = ({
   archive: NonNullable<CeremoniesSectionFragment['archive']>
 }) => {
   const router = useRouter()
-  const { getFullPath } = useGetFullPath()
+  const { getLinkProps } = useGetLinkProps()
+
+  const linkProps = getLinkProps(archive.button)
 
   // eslint-disable-next-line unicorn/consistent-function-scoping
   const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -45,7 +47,7 @@ const ArchiveCard = ({
     const data = archive.button?.page?.data
     if (data) {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      router.push(getFullPath(data) ?? '')
+      router.push(linkProps ?? '')
     }
   }
 
@@ -57,8 +59,8 @@ const ArchiveCard = ({
     >
       <h4>{archive.title}</h4>
       {archive.button?.page?.data?.attributes?.slug && (
-        <MLink href={getFullPath(archive.button.page.data) ?? ''} onClick={handleLinkClick}>
-          {archive.button?.label}
+        <MLink href={linkProps.href ?? ''} onClick={handleLinkClick}>
+          {linkProps.label}
         </MLink>
       )}
     </div>

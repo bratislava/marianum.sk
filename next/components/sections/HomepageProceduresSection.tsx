@@ -5,11 +5,11 @@ import MLink from '@/components/atoms/MLink'
 import TabItem from '@/components/atoms/Tabs/TabItem'
 import Tabs from '@/components/atoms/Tabs/Tabs'
 import { sectionContext } from '@/components/layouts/SectionsWrapper'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section, { SectionProps } from '@/components/molecules/Section'
 import { ProcedureFragment, ProceduresShortSectionFragment } from '@/graphql'
 import { isDefined } from '@/utils/isDefined'
 import { useTailwindBreakpoint } from '@/utils/useTailwindBreakpoint'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 
 type HomepageProceduresProps = Pick<SectionProps, 'background'> & {
   outsideMedicalFacility: ProcedureFragment | null | undefined
@@ -23,14 +23,13 @@ const HomepageProceduresSection = ({
   section,
   ...rest
 }: HomepageProceduresProps) => {
-  const { getFullPath } = useGetFullPath()
+  const { getLinkProps } = useGetLinkProps()
   const { isNull } = useTailwindBreakpoint()
   const isMobile = useMemo(() => isNull, [isNull])
   const { border } = useContext(sectionContext)
 
   const { showMoreButton, title } = section
-
-  const showMoreSlug = getFullPath(showMoreButton?.page?.data)
+  const showMore = getLinkProps(showMoreButton)
 
   const slicedProceduresWithKeys = useMemo(() => {
     return [
@@ -98,9 +97,9 @@ const HomepageProceduresSection = ({
             </TabItem>
           ))}
         </Tabs>
-        {showMoreSlug && (
+        {showMoreButton && (
           <div className="mt-8">
-            <MLink href={showMoreSlug}>{showMoreButton?.label}</MLink>
+            <MLink href={showMore.href}>{showMore.label}</MLink>
           </div>
         )}
       </div>
