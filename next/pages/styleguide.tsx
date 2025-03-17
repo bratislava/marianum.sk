@@ -15,7 +15,7 @@ import MLink from '@/components/atoms/MLink'
 import Pagination from '@/components/atoms/Pagination/Pagination'
 import ReviewStars from '@/components/atoms/ReviewStars'
 import RichText from '@/components/atoms/RichText'
-import Select from '@/components/atoms/Select'
+import SelectField from '@/components/atoms/SelectField'
 import TabItem from '@/components/atoms/Tabs/TabItem'
 import Tabs from '@/components/atoms/Tabs/Tabs'
 import Tag from '@/components/atoms/Tag'
@@ -841,45 +841,76 @@ const Showcase = () => {
 
           <Wrapper title="Select">
             <Stack width="full">
-              <Select
-                label="Project"
-                required
-                id="select"
+              <SelectField
                 placeholder="Select one project"
                 options={[
                   {
-                    key: 'marianum',
+                    value: 'marianum',
                     label: '💀 Marianum',
                   },
                   {
-                    key: 'city-library',
+                    value: 'city-library',
                     label: '📖 City library',
                   },
                   {
-                    key: 'homepage',
+                    value: 'homepage',
+                    label: '🟥 Homepage',
+                  },
+                ]}
+              />
+              <SelectField
+                placeholder="Disabled"
+                isDisabled
+                options={[
+                  {
+                    value: 'marianum',
+                    label: '💀 Marianum',
+                  },
+                  {
+                    value: 'city-library',
+                    label: '📖 City library',
+                  },
+                  {
+                    value: 'homepage',
                     label: '🟥 Homepage',
                   },
                 ]}
               />
             </Stack>
             <Stack width="full">
-              <Select
-                label="Projects"
-                required
-                id="select"
-                multiple
+              <SelectField
+                isMulti
                 placeholder="Select multiple projects"
                 options={[
                   {
-                    key: 'marianum',
+                    value: 'marianum',
                     label: '💀 Marianum',
                   },
                   {
-                    key: 'city-library',
+                    value: 'city-library',
                     label: '📖 City library',
                   },
                   {
-                    key: 'homepage',
+                    value: 'homepage',
+                    label: '🟥 Homepage',
+                  },
+                ]}
+              />
+              <SelectField
+                isMulti
+                isDisabled
+                placeholder="Disabled multi"
+                options={[
+                  {
+                    value: 'marianum',
+                    label: '💀 Marianum',
+                  },
+                  {
+                    value: 'city-library',
+                    label: '📖 City library',
+                  },
+                  {
+                    value: 'homepage',
                     label: '🟥 Homepage',
                   },
                 ]}

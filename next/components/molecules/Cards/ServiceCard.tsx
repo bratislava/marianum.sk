@@ -28,7 +28,7 @@ const ServiceCard = ({ image, title, linkHref, ...rest }: ServiceCardProps) => {
       <div className="relative aspect-square w-full bg-gray">
         {image ? <MImage image={image} fill className="object-contain" /> : <ImagePlaceholder />}
       </div>
-      <CardContent className="justify-between">
+      <CardContent className="h-full justify-between">
         <div>
           <h3 id={titleId} className="line-clamp-3 text-h5 group-hover:underline">
             {title}

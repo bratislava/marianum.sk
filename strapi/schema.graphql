@@ -2,43 +2,6 @@
 ### Do not make changes to this file directly
 
 
-type Application {
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-type ApplicationEntity {
-  attributes: Application
-  id: ID
-}
-
-type ApplicationEntityResponse {
-  data: ApplicationEntity
-}
-
-type ApplicationEntityResponseCollection {
-  data: [ApplicationEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input ApplicationFiltersInput {
-  and: [ApplicationFiltersInput]
-  createdAt: DateTimeFilterInput
-  data: JSONFilterInput
-  id: IDFilterInput
-  not: ApplicationFiltersInput
-  or: [ApplicationFiltersInput]
-  updatedAt: DateTimeFilterInput
-}
-
-input ApplicationInput {
-  data: JSON
-}
-
-type ApplicationRelationResponseCollection {
-  data: [ApplicationEntity!]!
-}
-
 type Article {
   content: String
   coverMedia: UploadFileEntityResponse
@@ -444,6 +407,7 @@ type Cemetery {
   title: String!
   type: ENUM_CEMETERY_TYPE
   updatedAt: DateTime
+  video: ComponentSectionsIframeSection
 }
 
 type CemeteryEntity {
@@ -484,6 +448,7 @@ input CemeteryFiltersInput {
   title: StringFilterInput
   type: StringFilterInput
   updatedAt: DateTimeFilterInput
+  video: ComponentSectionsIframeSectionFiltersInput
 }
 
 input CemeteryInput {
@@ -503,6 +468,7 @@ input CemeteryInput {
   slug: String
   title: String
   type: ENUM_CEMETERY_TYPE
+  video: ComponentSectionsIframeSectionInput
 }
 
 type CemeteryRelationResponseCollection {
@@ -2368,7 +2334,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = Application | Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2648,7 +2614,6 @@ type ManagedObjectRelationResponseCollection {
 type Mutation {
   """Change user password. Confirm with the current password."""
   changePassword(currentPassword: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
-  createApplication(data: ApplicationInput!): ApplicationEntityResponse
   createArticle(data: ArticleInput!, locale: I18NLocaleCode): ArticleEntityResponse
   createArticleJobsCategory(data: ArticleJobsCategoryInput!): ArticleJobsCategoryEntityResponse
   createArticleLocalization(data: ArticleInput, id: ID, locale: I18NLocaleCode): ArticleEntityResponse
@@ -2687,7 +2652,6 @@ type Mutation {
 
   """Create a new user"""
   createUsersPermissionsUser(data: UsersPermissionsUserInput!): UsersPermissionsUserEntityResponse!
-  deleteApplication(id: ID!): ApplicationEntityResponse
   deleteArticle(id: ID!, locale: I18NLocaleCode): ArticleEntityResponse
   deleteArticleJobsCategory(id: ID!): ArticleJobsCategoryEntityResponse
   deleteArticleNewsCategory(id: ID!): ArticleNewsCategoryEntityResponse
@@ -2734,7 +2698,6 @@ type Mutation {
   Reset user password. Confirm with a code (resetToken from forgotPassword)
   """
   resetPassword(code: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
-  updateApplication(data: ApplicationInput!, id: ID!): ApplicationEntityResponse
   updateArticle(data: ArticleInput!, id: ID!, locale: I18NLocaleCode): ArticleEntityResponse
   updateArticleJobsCategory(data: ArticleJobsCategoryInput!, id: ID!): ArticleJobsCategoryEntityResponse
   updateArticleNewsCategory(data: ArticleNewsCategoryInput!, id: ID!): ArticleNewsCategoryEntityResponse
@@ -3064,8 +3027,6 @@ enum PublicationState {
 }
 
 type Query {
-  application(id: ID): ApplicationEntityResponse
-  applications(filters: ApplicationFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ApplicationEntityResponseCollection
   article(id: ID, locale: I18NLocaleCode): ArticleEntityResponse
   articleJobsCategories(filters: ArticleJobsCategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ArticleJobsCategoryEntityResponseCollection
   articleJobsCategory(id: ID): ArticleJobsCategoryEntityResponse

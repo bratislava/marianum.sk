@@ -53,6 +53,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
   }, [containerWidth, variant])
 
   // number of not displayed images
+  // TODO: for gallery in cemeteries this count is not correct
   const moreImagesCount = useMemo(() => {
     return Math.max(imageCount - thumbnailCount, 0)
   }, [imageCount, thumbnailCount])
@@ -141,7 +142,8 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                   className="relative w-full cursor-pointer border border-border pt-[100%]"
                 >
                   <div className="absolute top-0 flex size-full items-center justify-center bg-white p-2 text-center font-semibold text-primary">
-                    {t('ImageGallery.morePhotos', { count: moreImagesCount })}
+                    {/* TODO: before there was also count shown, but it was wrongly calculated t('ImageGallery.morePhotos', { count: moreImagesCount }) */}
+                    {t('ImageGallery.showAllPhotos')}
                   </div>
                 </div>
               )}

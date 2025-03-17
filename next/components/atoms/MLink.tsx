@@ -41,6 +41,7 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
             'text-white hover:opacity-64': variant === 'white',
             'font-semibold text-primary underline hover:text-primary-dark': variant === 'regular',
           }),
+      'base-focus-ring',
       className,
     )
 

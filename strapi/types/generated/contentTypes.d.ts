@@ -362,36 +362,6 @@ export interface AdminUser extends Schema.CollectionType {
   };
 }
 
-export interface ApiApplicationApplication extends Schema.CollectionType {
-  collectionName: 'applications';
-  info: {
-    description: '';
-    displayName: '\u017Diadosti';
-    pluralName: 'applications';
-    singularName: 'application';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::application.application',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    data: Attribute.JSON & Attribute.Required & Attribute.Private;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::application.application',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiArticleJobsCategoryArticleJobsCategory
   extends Schema.CollectionType {
   collectionName: 'article_jobs_categories';
@@ -998,6 +968,12 @@ export interface ApiCemeteryCemetery extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    video: Attribute.Component<'sections.iframe-section'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
   };
 }
 
@@ -2557,7 +2533,6 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::application.application': ApiApplicationApplication;
       'api::article-jobs-category.article-jobs-category': ApiArticleJobsCategoryArticleJobsCategory;
       'api::article-news-category.article-news-category': ApiArticleNewsCategoryArticleNewsCategory;
       'api::article-press-category.article-press-category': ApiArticlePressCategoryArticlePressCategory;
