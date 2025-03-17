@@ -32,7 +32,7 @@ const LoadingOverlay = ({ loading, children }: PropsWithChildren<LoadingOverlayP
           </motion.div>
         </AnimatePresence>
       ) : null}
-      <div className={cx({ 'opacity-15': loading })}>{children}</div>
+      <div className={cx({ 'opacity-20 duration-200': loading })}>{children}</div>
     </div>
   )
 }
