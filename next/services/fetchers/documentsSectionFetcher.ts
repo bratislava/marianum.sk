@@ -23,10 +23,7 @@ export const documentsDefaultFilters: DocumentsFilters = {
   filetype: null,
 }
 
-export const getMeiliDocumentsQueryKey = (filters: DocumentsFilters) => [
-  'DocumentsSection',
-  filters,
-]
+export const getMeiliDocumentsQueryKey = (filters: DocumentsFilters) => ['Documents', filters]
 
 export const meiliDocumentsFetcher = (filters: DocumentsFilters) => {
   return meiliClient

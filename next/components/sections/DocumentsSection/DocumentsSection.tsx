@@ -94,7 +94,7 @@ const DataWrapper = ({
   onPageChange: (page: number) => void
 }) => {
   const { data, isPending, isFetching, isError, error } = useQuery({
-    queryKey: [getMeiliDocumentsQueryKey(filters)],
+    queryKey: getMeiliDocumentsQueryKey(filters),
     queryFn: () => meiliDocumentsFetcher(filters),
     placeholderData: keepPreviousData,
   })
