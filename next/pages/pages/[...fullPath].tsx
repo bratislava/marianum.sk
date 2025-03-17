@@ -47,7 +47,7 @@ import {
   ReviewsQuery,
 } from '@/graphql'
 import {
-  ArticleListingType,
+  ArticleType,
   getArticleListingNewsPrefetches,
 } from '@/services/fetchers/articleListingFetcher'
 import { getMapSectionPrefetch } from '@/services/fetchers/cemeteriesFetcher'
@@ -224,7 +224,7 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
               return (
                 <ArticleListing
                   key={`${section.__typename}-${section.id}`}
-                  type={ArticleListingType.News}
+                  type={ArticleType.News}
                 />
               )
             }
@@ -232,7 +232,7 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
               return (
                 <ArticleListing
                   key={`${section.__typename}-${section.id}`}
-                  type={ArticleListingType.Press}
+                  type={ArticleType.Press}
                 />
               )
             }
@@ -240,7 +240,7 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
               return (
                 <ArticleListing
                   key={`${section.__typename}-${section.id}`}
-                  type={ArticleListingType.Jobs}
+                  type={ArticleType.Jobs}
                 />
               )
             }
