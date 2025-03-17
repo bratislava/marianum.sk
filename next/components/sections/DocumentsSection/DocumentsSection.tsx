@@ -99,11 +99,11 @@ const DataWrapper = ({
     placeholderData: keepPreviousData,
   })
 
-  // TODO replace by proper loading and error
   if (isPending) {
     return <Loading />
   }
 
+  // TODO replace by proper error
   if (isError) {
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
