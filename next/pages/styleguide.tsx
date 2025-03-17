@@ -470,7 +470,7 @@ const Showcase = () => {
               <TextField
                 id="deafault-left-icon"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
@@ -479,7 +479,7 @@ const Showcase = () => {
               <TextField
                 id="deafault-right-icon"
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -488,12 +488,12 @@ const Showcase = () => {
               <TextField
                 id="deafault-both-icons"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -507,7 +507,7 @@ const Showcase = () => {
                 id="with-text-left-icon"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
@@ -517,7 +517,7 @@ const Showcase = () => {
                 id="with-text-right-icon"
                 defaultValue="Input"
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -527,12 +527,12 @@ const Showcase = () => {
                 id="with-text-both-icons"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -547,7 +547,7 @@ const Showcase = () => {
                 error
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
@@ -558,7 +558,7 @@ const Showcase = () => {
                 error
                 defaultValue="Input"
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -569,12 +569,12 @@ const Showcase = () => {
                 error
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -589,7 +589,7 @@ const Showcase = () => {
                 disabled
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2" disabled>
                     <SearchIcon />
                   </button>
                 }
@@ -600,7 +600,7 @@ const Showcase = () => {
                 disabled
                 defaultValue="Input"
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2" disabled>
                     <CloseCircleIcon />
                   </button>
                 }
@@ -611,12 +611,12 @@ const Showcase = () => {
                 disabled
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2" disabled>
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2" disabled>
                     <CloseCircleIcon />
                   </button>
                 }
@@ -631,7 +631,7 @@ const Showcase = () => {
                 id="with-label-left-icon"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
@@ -642,7 +642,7 @@ const Showcase = () => {
                 id="with-label-right-icon"
                 defaultValue="Input"
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -653,12 +653,12 @@ const Showcase = () => {
                 id="with-label-both-icons"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -680,7 +680,7 @@ const Showcase = () => {
                 id="with-label-required-left-icon"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
@@ -692,7 +692,7 @@ const Showcase = () => {
                 id="with-label-required-right-icon"
                 defaultValue="Input"
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -704,12 +704,12 @@ const Showcase = () => {
                 id="with-label-required-both-icons"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
