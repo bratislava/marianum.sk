@@ -1663,7 +1663,6 @@ export interface ApiPagePage extends Schema.CollectionType {
         'sections.branch-group',
         'sections.news-listing',
         'sections.procedures-section',
-        'sections.partners-section',
         'sections.bundle-listing',
         'sections.bundle-listing-simple',
         'sections.debtors-section',
