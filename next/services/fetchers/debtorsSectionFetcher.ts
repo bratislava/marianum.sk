@@ -7,24 +7,23 @@ import { DebtorMeili } from '@/services/meili/meiliTypes'
 import { getCemeteryInfoInCeremoniesDebtors } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
 import { getMeilisearchPageOptions } from '@/utils/getMeilisearchPageOptions'
 
-export type DebtorsSectionFilters = {
+export type DebtorsFilters = {
   pageSize: number
   search: string
   cemeteryId: string | null
   page: number
 }
 
-export const debtorsSectionDefaultFilters: DebtorsSectionFilters = {
+export const debtorsDefaultFilters: DebtorsFilters = {
   pageSize: 20,
   search: '',
   page: 1,
   cemeteryId: null,
 }
 
-export const getDebtorsSectionSwrKey = (filters: DebtorsSectionFilters) =>
-  ['DebtorsSection', filters] as Key
+export const getMeiliDebtorsQueryKey = (filters: DebtorsFilters) => ['DebtorsSection', filters]
 
-export const debtorsSectionFetcher = (filters: DebtorsSectionFilters) => () =>
+export const meiliDebtorsFetcher = (filters: DebtorsFilters) =>
   meiliClient.index('debtor').search<DebtorMeili>(filters.search, {
     ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
     filter: filters.cemeteryId ? [`cemetery.id = ${filters.cemeteryId}`] : [],
@@ -36,14 +35,12 @@ export const cemeteriesInDebtorsFetcher = async (locale: string) => {
   const result = await client.CemeteriesInDebtors()
 
   return (
-    result.cemeteries?.data?.map(
-      (cemetery) =>
-        ({
-          label: getCemeteryInfoInCeremoniesDebtors(cemetery, locale).title ?? '',
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          key: cemetery.id!,
-        }) as Option,
-    ) ?? ([] as Option[])
+    result.cemeteries?.data?.map((cemetery) => {
+      return {
+        label: getCemeteryInfoInCeremoniesDebtors(cemetery, locale).title ?? '',
+        key: cemetery.id,
+      } as Option
+    }) ?? []
   )
 }
 
@@ -55,7 +52,7 @@ export const getDebtorsSectionPrefetches = (locale: string) => [
   } as const,
   {
     sectionTypename: 'ComponentSectionsDebtorsSection',
-    key: getDebtorsSectionSwrKey(debtorsSectionDefaultFilters),
-    fetcher: debtorsSectionFetcher(debtorsSectionDefaultFilters),
+    key: getMeiliDebtorsQueryKey(debtorsDefaultFilters),
+    fetcher: meiliDebtorsFetcher(debtorsDefaultFilters),
   } as const,
 ]

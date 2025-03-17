@@ -115,7 +115,7 @@ const DataWrapper = ({
       </LoadingOverlay>
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
-      {data ? (
+      {data.hits.length > 0 ? (
         <PaginationMeili
           data={data}
           pageSize={filters.pageSize}
