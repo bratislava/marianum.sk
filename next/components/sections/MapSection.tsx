@@ -1,10 +1,10 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import cx from 'classnames'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import Map, { Marker } from 'react-map-gl'
-import useSWR from 'swr'
 
 import { MapMarkerSvg } from '@/assets'
 import { ArrowLeftIcon, PlaceIcon } from '@/assets/icons'
@@ -16,14 +16,18 @@ import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProv
 import Search from '@/components/molecules/Search'
 import Section from '@/components/molecules/Section'
 import { Enum_Cemetery_Type, MapSectionFragment } from '@/graphql'
-import { cemeteriesFetcher, getCemeteriesSwrKey } from '@/services/fetchers/cemeteriesFetcher'
-import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
+import {
+  getGraphqlCemeteriesQueryKey,
+  graphqlCemeteriesFetcher,
+} from '@/services/fetchers/cemeteriesFetcher'
 import { useMapWithFilteringAndSearch } from '@/utils/useMapWithFilteringAndSearch'
 
 type MapSectionProps = { section: MapSectionFragment }
 
 const MapSection = ({ section }: MapSectionProps) => {
   const { t, i18n } = useTranslation()
+  const locale = i18n.language
+
   const { getFullPath } = useGetFullPath()
 
   const translationMap: Record<string, string> = {
@@ -32,14 +36,10 @@ const MapSection = ({ section }: MapSectionProps) => {
     [Enum_Cemetery_Type.Vojensky]: t('MapSection.cemeteriesFilter.vojensky'),
   } satisfies Record<Enum_Cemetery_Type, string>
 
-  const { data, error } = useSWR(
-    getCemeteriesSwrKey(i18n.language),
-    cemeteriesFetcher(i18n.language),
-  )
-
-  const { loadingAndNoDataToDisplay, dataToDisplay } = useGetSwrExtras({
-    data,
-    error,
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: getGraphqlCemeteriesQueryKey(locale),
+    queryFn: () => graphqlCemeteriesFetcher(locale),
+    placeholderData: keepPreviousData,
   })
 
   const defaultFilters = {
@@ -60,15 +60,15 @@ const MapSection = ({ section }: MapSectionProps) => {
     isMapOrFiltersDisplayed,
     setMapOrFiltersDisplayed,
     filteredLandmarks: filteredCemeteries,
-  } = useMapWithFilteringAndSearch(dataToDisplay?.cemeteries?.data, defaultFilters)
+  } = useMapWithFilteringAndSearch(data?.cemeteries?.data, defaultFilters)
 
-  // TODO replace by proper loading and error
-  if (loadingAndNoDataToDisplay) {
+  if (isPending) {
     return <Loading />
   }
 
-  if (error) {
-    return <div>Error: {JSON.stringify(error)}</div>
+  // TODO replace by proper error
+  if (isError) {
+    return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
   return (
