@@ -1,8 +1,8 @@
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import cx from 'classnames'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import useSwr from 'swr'
 import { useDebounce } from 'usehooks-ts'
 
 import FormatDate from '@/components/atoms/FormatDate'
@@ -18,11 +18,10 @@ import {
   ceremoniesArchiveSectionDefaultFilters,
   ceremoniesArchiveSectionFetcher,
   CeremoniesArchiveSectionFilters,
-  getCeremoniesArchiveSectionSwrKey,
+  getCeremoniesArchiveSectionQueryKey,
 } from '@/services/fetchers/ceremoniesArchiveSectionFetcher'
 import { CeremonyMeili } from '@/services/meili/meiliTypes'
 import { getCemeteryInfoInCeremoniesDebtorsMeili } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
-import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
@@ -127,35 +126,30 @@ const DataWrapper = ({
   filters: CeremoniesArchiveSectionFilters
   onPageChange: (page: number) => void
 }) => {
-  const { data, error } = useSwr(
-    getCeremoniesArchiveSectionSwrKey(filters),
-    ceremoniesArchiveSectionFetcher(filters),
-  )
-
-  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useGetSwrExtras({
-    data,
-    error,
+  const { data, isPending, isFetching, isError, error } = useQuery({
+    queryKey: getCeremoniesArchiveSectionQueryKey(filters),
+    queryFn: () => ceremoniesArchiveSectionFetcher(filters),
+    placeholderData: keepPreviousData,
   })
 
-  // TODO replace by proper loading and error
-  if (loadingAndNoDataToDisplay) {
+  if (isPending) {
     return <Loading />
   }
 
-  if (error) {
+  // TODO replace by proper error
+  if (isError) {
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
   return (
     <>
-      <LoadingOverlay loading={delayedLoading}>
-        {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-        <Table data={dataToDisplay!} filters={filters} />
+      <LoadingOverlay loading={isFetching}>
+        <Table data={data} filters={filters} />
       </LoadingOverlay>
 
-      {dataToDisplay ? (
+      {data.hits.length > 0 ? (
         <PaginationMeili
-          data={dataToDisplay}
+          data={data}
           pageSize={filters.pageSize}
           selectedPage={filters.page}
           onPageChange={onPageChange}
