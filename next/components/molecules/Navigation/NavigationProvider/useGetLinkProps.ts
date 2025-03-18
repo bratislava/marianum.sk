@@ -29,20 +29,26 @@ export const useGetLinkProps = () => {
       return { label, href } // TODO
     }
 
-    // TODO: use title from content types when there is none set for link itself
     if ('page' in link && link.page?.data?.attributes) {
       href = getFullPath(link.page.data) ?? '#'
+      label = link.label ?? link.page.data.attributes.title
     } else if ('article' in link && link.article?.data?.attributes) {
       href = getFullPath(link.article.data) ?? '#'
+      label = link.label ?? link.article.data.attributes.title
     } else if ('branch' in link && link.branch?.data?.attributes) {
       href = getFullPath(link.branch.data) ?? '#'
+      label = link.label ?? link.branch.data.attributes.title
     } else if ('document' in link && link.document?.data?.attributes) {
       href = getFullPath(link.document.data) ?? '#'
+      label = link.label ?? link.document.data.attributes.title
     } else if ('bundle' in link && link.bundle?.data?.attributes) {
       href = getFullPath(link.bundle.data) ?? '#'
+      label = link.label ?? link.bundle.data.attributes.title
     } else if ('cemetery' in link && link.cemetery?.data?.attributes) {
       href = getFullPath(link.cemetery.data) ?? '#'
+      label = link.label ?? link.cemetery.data.attributes.title
     } else if ('managed_object' in link && link.managed_object?.data?.attributes) {
+      label = link.label ?? link.managed_object.data.attributes.title
       href = getFullPath(link.managed_object.data) ?? '#'
     } else if (link?.url) {
       label = link.label ?? link.url
