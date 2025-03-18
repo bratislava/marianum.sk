@@ -14,8 +14,6 @@ export type SectionProps = {
   title?: string | null | undefined
   /* use `button` for strapi sections with link to more content */
   button?: CtaButtonFragment | null | undefined
-  /* use `buttonLink` for hardcoded link to more content */
-  buttonLink?: { label: string; linkHref: string | null }
   description?: string | null | undefined
   className?: string
   innerClassName?: string
@@ -32,7 +30,6 @@ const Section = ({
   cardGrid,
   title,
   button,
-  buttonLink,
   description,
   className,
   innerClassName,
@@ -45,9 +42,6 @@ const Section = ({
   const { getLinkProps } = useGetLinkProps()
 
   const showMore = getLinkProps(button)
-  const showMorePath = showMore.href === '#' ? buttonLink?.linkHref : showMore.href
-  const showMoreLabel = showMore.label ?? buttonLink?.label
-
   const { background, isDivider, isFirst, alternateBackground } = useContext(sectionContext)
 
   const resultBackground = useMemo(() => {
@@ -93,7 +87,7 @@ const Section = ({
           innerClassName,
         )}
       >
-        {(title || showMorePath) && (
+        {(title || button) && (
           <div className="flex">
             <h2
               className={cx('grow md:text-left', {
@@ -103,9 +97,9 @@ const Section = ({
             >
               {title}
             </h2>
-            {showMorePath && (
-              <MLink href={showMorePath} target={showMore.target} className="hidden md:inline-flex">
-                {showMoreLabel}
+            {button && (
+              <MLink {...showMore} className="hidden md:inline-flex">
+                {showMore.label}
               </MLink>
             )}
           </div>
@@ -128,11 +122,9 @@ const Section = ({
         >
           {children}
         </div>
-        {showMorePath && (
+        {button && (
           <div className="mt-4 text-center md:hidden">
-            <MLink href={showMorePath} target={showMore.target}>
-              {showMoreLabel}
-            </MLink>
+            <MLink {...showMore}>{showMore.label}</MLink>
           </div>
         )}
       </div>
