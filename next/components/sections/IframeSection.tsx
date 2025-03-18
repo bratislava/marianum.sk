@@ -1,5 +1,4 @@
 import { useContext } from 'react'
-import { useWindowSize } from 'usehooks-ts'
 
 import RichText from '@/components/atoms/RichText'
 import { sectionContext } from '@/components/layouts/SectionsWrapper'
@@ -12,7 +11,6 @@ type IframeSectionProps = {
 }
 
 const IframeSection = ({ section, variant = 'full' }: IframeSectionProps) => {
-  const { height } = useWindowSize()
   const { border } = useContext(sectionContext)
 
   return (
@@ -26,7 +24,8 @@ const IframeSection = ({ section, variant = 'full' }: IframeSectionProps) => {
           src={section.url}
           title={section.iframeTitle}
           width="100%"
-          style={{ height: variant === 'short' ? '416px' : height * 0.85 }}
+          // dvh - viewport height dynamically adjusts based on the visibility of URL bar
+          style={{ height: variant === 'short' ? '416px' : '85dvh' }}
           className={border ? 'border border-border' : undefined}
         />
       </div>
