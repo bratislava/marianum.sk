@@ -2,9 +2,9 @@ import { useTranslation } from 'next-i18next'
 
 import { MailIcon, PhoneIcon } from '@/assets/icons'
 import Button from '@/components/atoms/Button'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import { SidebarFragment } from '@/graphql'
 import { getPhoneNumberLink } from '@/utils/getPhoneNumberLink'
-import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 
 type SideBarProps = {
   sidebar: SidebarFragment | null | undefined
@@ -27,7 +27,10 @@ const SideBar = ({ sidebar }: SideBarProps) => {
       {title && <h5 className="whitespace-pre-wrap">{title}</h5>}
       {text && <p className="mt-2 whitespace-pre-wrap">{text}</p>}
       {ctaButton ? (
-        <><Button {...linkProps} variant="primary" className="mt-6" >{linkProps.label}</Button>
+        <>
+          <Button {...linkProps} variant="primary" className="mt-6">
+            {linkProps.label}
+          </Button>
           {contact?.data?.attributes && (
             <div className="flex flex-col items-center">
               <div className="mt-4">{t('SideBar.or')}</div>

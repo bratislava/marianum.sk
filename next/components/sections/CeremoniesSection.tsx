@@ -12,6 +12,7 @@ import LoadingOverlay from '@/components/atoms/LoadingOverlay'
 import MLink from '@/components/atoms/MLink'
 import CemeteryLink from '@/components/molecules/CemeteryLink'
 import CeremoniesDebtorsCemeterySelect from '@/components/molecules/CeremoniesDebtors/CemeterySelect'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import Section from '@/components/molecules/Section'
 import { CeremoniesQuery, CeremoniesSectionFragment } from '@/graphql'
 import {
@@ -25,7 +26,6 @@ import { getCemeteryInfoInCeremoniesDebtors } from '@/utils/getCemeteryInfoInCer
 import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
-import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 
 const ArchiveCard = ({
   archive,
@@ -44,10 +44,9 @@ const ArchiveCard = ({
   }
 
   const handleCardClick = () => {
-    const data = archive.button?.page?.data
-    if (data) {
+    if (archive.button) {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      router.push(linkProps ?? '')
+      router.push(linkProps.href)
     }
   }
 
@@ -249,7 +248,6 @@ const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
       <div>
         <DataWrapper filters={filters} />
       </div>
-
       {section.archive && <ArchiveCard archive={section.archive} />}
     </Section>
   )

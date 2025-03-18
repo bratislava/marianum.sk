@@ -32,6 +32,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
         pages={slides.map(({ title, description, button, image }, index) => {
           const linkProps = getLinkProps(button)
           const { url, alternativeText } = image?.data?.attributes ?? {}
+
           return (
             <div
               className="flex h-full justify-center"

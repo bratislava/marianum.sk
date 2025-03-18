@@ -8,11 +8,11 @@ import Breadcrumbs, { BreadcrumbItem } from '@/components/atoms/Breadcrumbs'
 import Button from '@/components/atoms/Button'
 import FormatCurrency from '@/components/atoms/FormatCurrency'
 import NormalizeText from '@/components/atoms/NormalizeText/NormalizeText'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import { useNavigationContext } from '@/components/molecules/Navigation/NavigationProvider/useNavigationContext'
 import { CtaButtonFragment } from '@/graphql'
 import { getBreadcrumbs } from '@/utils/getBreadcrumbs'
 import { useIsHeroSectionOverlaid } from '@/utils/heroSectionContentOverlay'
-import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 
 type HeroSectionProps = {
   breadcrumbsMoreItems?: BreadcrumbItem[]
@@ -65,7 +65,7 @@ const HeroSection = ({
             </p>
           )}
           {ctaButton && (
-            <Button href={linkProps.href} className="mt-6">
+            <Button {...linkProps} className="mt-6">
               {linkProps?.label}
             </Button>
           )}

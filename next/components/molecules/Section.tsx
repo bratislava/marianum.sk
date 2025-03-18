@@ -3,9 +3,9 @@ import { ReactNode, useContext, useMemo } from 'react'
 
 import MLink from '@/components/atoms/MLink'
 import { BackgroundColor, sectionContext } from '@/components/layouts/SectionsWrapper'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import { CtaButtonFragment } from '@/graphql'
 import { useActivateHeroSectionContentOverlay } from '@/utils/heroSectionContentOverlay'
-import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 
 export type SectionProps = {
   children: ReactNode
@@ -45,7 +45,7 @@ const Section = ({
   const { getLinkProps } = useGetLinkProps()
 
   const showMore = getLinkProps(button)
-  const showMorePath = showMore.href !== '#' ? showMore.href : buttonLink?.linkHref
+  const showMorePath = showMore.href === '#' ? buttonLink?.linkHref : showMore.href
   const showMoreLabel = showMore.label ?? buttonLink?.label
 
   const { background, isDivider, isFirst, alternateBackground } = useContext(sectionContext)
@@ -104,7 +104,7 @@ const Section = ({
               {title}
             </h2>
             {showMorePath && (
-              <MLink href={showMorePath} className="hidden md:inline-flex">
+              <MLink href={showMorePath} target={showMore.target} className="hidden md:inline-flex">
                 {showMoreLabel}
               </MLink>
             )}
@@ -130,7 +130,9 @@ const Section = ({
         </div>
         {showMorePath && (
           <div className="mt-4 text-center md:hidden">
-            <MLink href={showMorePath}>{showMoreLabel}</MLink>
+            <MLink href={showMorePath} target={showMore.target}>
+              {showMoreLabel}
+            </MLink>
           </div>
         )}
       </div>

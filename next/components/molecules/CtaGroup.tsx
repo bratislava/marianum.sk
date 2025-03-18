@@ -1,9 +1,9 @@
 import { useId } from 'react'
 
 import Button from '@/components/atoms/Button'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import { CtaSectionFragment } from '@/graphql'
 import { isDefined } from '@/utils/isDefined'
-import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 
 const getAriaLabelId = (id: string, index: number) => `ctagroup-${id}-${index}`
 
@@ -30,7 +30,7 @@ const CtaGroup = ({ ctas }: CtaSectionFragment) => {
             <p className="mt-4 grow opacity-72">{description}</p>
             {button && (
               <Button
-                href={linkProps.href}
+                {...linkProps}
                 className="mt-6 w-fit after:absolute after:inset-0"
                 variant="white"
                 aria-labelledby={getAriaLabelId(id, index)}

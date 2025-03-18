@@ -4,8 +4,8 @@ import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProv
 import { CtaButtonFragment } from '@/graphql'
 
 /*
- * Based on olo.sk: https://github.com/bratislava/olo.sk/blob/master/next/src/utils/useGetLinkProps.ts 
-*/
+ * Based on olo.sk: https://github.com/bratislava/olo.sk/blob/master/next/src/utils/useGetLinkProps.ts
+ */
 
 // TODO: add analytics props as they are in https://github.com/bratislava/olo.sk/blob/master/next/src/utils/useGetLinkProps.ts
 export type LinkProps = {
