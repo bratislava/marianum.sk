@@ -2,7 +2,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'
-import { useDebounce } from 'usehooks-ts'
+import { useDebounceValue } from 'usehooks-ts'
 
 import Loading from '@/components/atoms/Loading'
 import LoadingOverlay from '@/components/atoms/LoadingOverlay'
@@ -108,6 +108,8 @@ const DataWrapper = ({
     placeholderData: keepPreviousData,
   })
 
+  const [debouncedIsFetching] = useDebounceValue(isFetching, 1000)
+
   if (isPending) {
     return <Loading />
   }
@@ -119,7 +121,7 @@ const DataWrapper = ({
 
   return (
     <>
-      <LoadingOverlay loading={isFetching}>
+      <LoadingOverlay loading={debouncedIsFetching}>
         <Articles data={data} filters={filters} type={type} />
       </LoadingOverlay>
 
@@ -143,7 +145,7 @@ type ArticleListingProps = {
 const ArticleListing = ({ type }: ArticleListingProps) => {
   const [filters, setFilters] = useState<ArticlesFilters>(articlesDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')
-  const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
+  const [debouncedSearchInputValue] = useDebounceValue<string>(searchInputValue, 300)
 
   useEffect(() => {
     if (filters.search !== debouncedSearchInputValue) {

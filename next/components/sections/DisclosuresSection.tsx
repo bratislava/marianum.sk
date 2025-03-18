@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useDebounce } from 'usehooks-ts'
+import { useDebounceValue } from 'usehooks-ts'
 
 import { DownloadIcon } from '@/assets/icons'
 import FormatDate from '@/components/atoms/FormatDate'
@@ -159,6 +159,8 @@ const DataWrapper = ({
     placeholderData: keepPreviousData,
   })
 
+  const [debouncedIsFetching] = useDebounceValue(isFetching, 1000)
+
   if (isPending) {
     return <Loading />
   }
@@ -170,7 +172,7 @@ const DataWrapper = ({
 
   return (
     <>
-      <LoadingOverlay loading={isFetching}>
+      <LoadingOverlay loading={debouncedIsFetching}>
         <Table data={data} filters={filters} />
       </LoadingOverlay>
 
@@ -224,7 +226,7 @@ const TypeSelect = ({
 const DisclosuresSection = () => {
   const [filters, setFilters] = useState<DisclosuresFilters>(disclosuresSectionDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')
-  const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
+  const [debouncedSearchInputValue] = useDebounceValue<string>(searchInputValue, 300)
 
   useEffect(() => {
     if (filters.search !== debouncedSearchInputValue) {

@@ -99,6 +99,8 @@ const DataWrapper = ({
     placeholderData: keepPreviousData,
   })
 
+  const [debouncedIsFetching] = useDebounceValue(isFetching, 1000)
+
   if (isPending) {
     return <Loading />
   }
@@ -110,7 +112,7 @@ const DataWrapper = ({
 
   return (
     <>
-      <LoadingOverlay loading={isFetching}>
+      <LoadingOverlay loading={debouncedIsFetching}>
         <Documents data={data} filters={filters} />
       </LoadingOverlay>
 
