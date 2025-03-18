@@ -1,5 +1,4 @@
 import { parseAbsolute } from '@internationalized/date'
-import { Key } from 'swr'
 
 import { Option } from '@/components/atoms/Select'
 import { client } from '@/services/graphql/gqlClient'
@@ -31,8 +30,7 @@ export const ceremoniesSectionFetcher = (filters: CeremoniesSectionFilters) => {
   })
 }
 
-export const getCemeteriesInCeremoniesKey = (locale: string) =>
-  ['CemeteriesInCeremonies', locale] as Key
+export const getCemeteriesInCeremoniesKey = (locale: string) => ['CemeteriesInCeremonies', locale]
 
 export const cemeteriesInCeremoniesFetcher = async (locale: string) => {
   const result = await client.CemeteriesInCeremonies()

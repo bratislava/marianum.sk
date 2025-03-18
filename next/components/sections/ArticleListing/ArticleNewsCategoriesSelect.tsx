@@ -20,7 +20,7 @@ const ArticleNewsCategoriesSelect = ({
 
   return (
     <SelectWithFetcher
-      swrKey={articleNewsCategoriesQueryKey}
+      queryKey={articleNewsCategoriesQueryKey}
       defaultOption={defaultOption}
       fetcher={articleNewsCategoriesSelectFetcher}
       onSelectionChange={(selection: string) => {

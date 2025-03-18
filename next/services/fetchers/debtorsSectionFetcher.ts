@@ -1,5 +1,3 @@
-import { Key } from 'swr'
-
 import { Option } from '@/components/atoms/Select'
 import { client } from '@/services/graphql/gqlClient'
 import { meiliClient } from '@/services/meili/meiliClient'
@@ -29,7 +27,7 @@ export const meiliDebtorsFetcher = (filters: DebtorsFilters) =>
     filter: filters.cemeteryId ? [`cemetery.id = ${filters.cemeteryId}`] : [],
   })
 
-export const getCemeteriesInDebtorsKey = (locale: string) => ['CemeteriesInDebtors', locale] as Key
+export const getCemeteriesInDebtorsKey = (locale: string) => ['CemeteriesInDebtors', locale]
 
 export const cemeteriesInDebtorsFetcher = async (locale: string) => {
   const result = await client.CemeteriesInDebtors()
