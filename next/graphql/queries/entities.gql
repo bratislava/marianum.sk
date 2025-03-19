@@ -392,6 +392,7 @@ fragment PartnerEntity on PartnerEntity {
 
 fragment PageSlugEntity on PageEntity {
   __typename
+  id
   attributes {
     title
     slug
@@ -400,10 +401,8 @@ fragment PageSlugEntity on PageEntity {
 }
 
 fragment PageCardEntity on PageEntity {
-  __typename
-  id
+  ...PageSlugEntity
   attributes {
-    slug
     publishedAt
     perex
     coverMedia {
