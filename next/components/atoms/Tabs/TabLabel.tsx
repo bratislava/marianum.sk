@@ -1,7 +1,7 @@
 import { Node } from '@react-types/shared'
 import cx from 'classnames'
 import { Dispatch, SetStateAction, useRef } from 'react'
-import { useTab } from 'react-aria'
+import { useFocusRing, useTab } from 'react-aria'
 import { TabListState } from 'react-stately'
 
 type TabLabelProps<T> = {
@@ -15,6 +15,8 @@ const TabLabel = <T,>({ item, state, setSessionTabKey }: TabLabelProps<T>) => {
   const ref = useRef<HTMLDivElement | null>(null)
   const { tabProps, isSelected } = useTab({ key }, state, ref)
 
+  const { isFocusVisible, focusProps } = useFocusRing()
+
   const handleTabLabelClick = () => {
     setSessionTabKey(key.toString())
   }
@@ -22,10 +24,13 @@ const TabLabel = <T,>({ item, state, setSessionTabKey }: TabLabelProps<T>) => {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
-      className="base-focus-ring flex-1 cursor-pointer"
       {...tabProps}
+      {...focusProps}
       ref={ref}
       onClick={handleTabLabelClick}
+      className={cx('flex-1 cursor-pointer outline-none', {
+        'base-focus-ring': isFocusVisible,
+      })}
     >
       <div
         className={cx(
