@@ -1,44 +1,37 @@
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
-import useSWR from 'swr'
 
 import Loading from '@/components/atoms/Loading'
 import ArticleGroup from '@/components/sections/ArticleGroup'
-import { getNewsListingSwrKey, newsListingFetcher } from '@/services/fetchers/newsListingFetcher'
+import { getGraphqlNewsQueryKey, graphqlNewsFetcher } from '@/services/fetchers/newsListingFetcher'
 import { isDefined } from '@/utils/isDefined'
-import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 
 const NewsListing = () => {
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const locale = i18n.language
 
-  const { data, error } = useSWR(
-    getNewsListingSwrKey(i18n.language),
-    newsListingFetcher(i18n.language),
-  )
-
-  const { loadingAndNoDataToDisplay, dataToDisplay } = useGetSwrExtras({
-    data,
-    error,
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: getGraphqlNewsQueryKey(locale),
+    queryFn: () => graphqlNewsFetcher(locale),
+    placeholderData: keepPreviousData,
+    select: (dataFromQuery) => dataFromQuery.articles?.data.filter(isDefined) ?? [],
   })
 
-  const filteredNews = useMemo(() => {
-    return dataToDisplay?.articles?.data?.filter(isDefined)
-  }, [dataToDisplay?.articles])
-
-  // TODO replace by proper loading and error
-  if (loadingAndNoDataToDisplay) {
+  if (isPending) {
     return <Loading />
   }
 
-  if (error) {
+  // TODO replace by proper error
+  if (isError) {
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
-  if (filteredNews?.length === 0) {
-    return <div>Nothing to show</div>
-  }
-
-  return <ArticleGroup articles={filteredNews ?? []} />
+  return data.length > 0 ? (
+    <ArticleGroup articles={data} />
+  ) : (
+    // TODO replace by proper message
+    <div>{t('NewsListing.nothingToShow')}</div>
+  )
 }
 
 export default NewsListing

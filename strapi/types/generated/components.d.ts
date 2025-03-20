@@ -777,19 +777,6 @@ export interface SectionsOpeningHoursSection extends Schema.Component {
   };
 }
 
-export interface SectionsPartnersSection extends Schema.Component {
-  collectionName: 'components_sections_partners_sections';
-  info: {
-    description: '';
-    displayName: 'partners section';
-    icon: 'handshake';
-  };
-  attributes: {
-    featuredPartnersTitle: Attribute.String & Attribute.Required;
-    otherPartnersTitle: Attribute.String & Attribute.Required;
-  };
-}
-
 export interface SectionsProceduresSection extends Schema.Component {
   collectionName: 'components_sections_procedures_sections';
   info: {
@@ -907,7 +894,6 @@ declare module '@strapi/types' {
       'sections.menu-listing': SectionsMenuListing;
       'sections.news-listing': SectionsNewsListing;
       'sections.opening-hours-section': SectionsOpeningHoursSection;
-      'sections.partners-section': SectionsPartnersSection;
       'sections.procedures-section': SectionsProceduresSection;
       'sections.procedures-short-section': SectionsProceduresShortSection;
       'sections.review-listing': SectionsReviewListing;

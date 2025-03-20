@@ -36,7 +36,6 @@ import MapSection from '@/components/sections/MapSection'
 import MenuListingSection from '@/components/sections/MenuListingSection'
 import NewsListing from '@/components/sections/NewsSection'
 import OpeningHoursSection from '@/components/sections/OpeningHoursSection'
-import PartnersSection from '@/components/sections/PartnersSection'
 import ReviewListingSection from '@/components/sections/ReviewListingSection'
 import RichTextSection from '@/components/sections/RichTextSection'
 import {
@@ -48,7 +47,7 @@ import {
   ReviewsQuery,
 } from '@/graphql'
 import {
-  ArticleListingType,
+  ArticleType,
   getArticleListingNewsPrefetches,
 } from '@/services/fetchers/articleListingFetcher'
 import { getMapSectionPrefetch } from '@/services/fetchers/cemeteriesFetcher'
@@ -59,7 +58,6 @@ import { disclosuresSectionPrefetch } from '@/services/fetchers/disclosuresSecti
 import { documentsSectionPrefetch } from '@/services/fetchers/documentsSectionFetcher'
 import { getMapOfManagedObjectsSectionPrefetch } from '@/services/fetchers/managedObjectsFetcher'
 import { getNewsListingPrefetch } from '@/services/fetchers/newsListingFetcher'
-import { partnersSectionPrefetch } from '@/services/fetchers/partnersSectionFetcher'
 import { getProceduresPrefetch } from '@/services/fetchers/proceduresFetcher'
 import { getReviewPrefetch } from '@/services/fetchers/reviewsFetcher'
 import { client } from '@/services/graphql/gqlClient'
@@ -173,11 +171,6 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
                 />
               )
             }
-            if (section?.__typename === 'ComponentSectionsPartnersSection') {
-              return (
-                <PartnersSection key={`${section.__typename}-${section.id}`} section={section} />
-              )
-            }
             if (section?.__typename === 'ComponentSectionsGallery') {
               return (
                 <Section key={`${section.__typename}-${section.id}`} title={section.title}>
@@ -231,7 +224,7 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
               return (
                 <ArticleListing
                   key={`${section.__typename}-${section.id}`}
-                  type={ArticleListingType.News}
+                  type={ArticleType.News}
                 />
               )
             }
@@ -239,7 +232,7 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
               return (
                 <ArticleListing
                   key={`${section.__typename}-${section.id}`}
-                  type={ArticleListingType.Press}
+                  type={ArticleType.Press}
                 />
               )
             }
@@ -247,7 +240,7 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
               return (
                 <ArticleListing
                   key={`${section.__typename}-${section.id}`}
-                  type={ArticleListingType.Jobs}
+                  type={ArticleType.Jobs}
                 />
               )
             }
@@ -309,7 +302,6 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
     ...ceremoniesArchiveSectionPrefetches,
     documentsSectionPrefetch,
     ...getDebtorsSectionPrefetches(locale),
-    partnersSectionPrefetch,
     disclosuresSectionPrefetch,
   ]
 

@@ -64,21 +64,17 @@ const SearchSection = () => {
     [filters],
   )
 
-  const {
-    searchQuery,
-    setSearchQuery,
-    dataToDisplay,
-    delayedLoading,
-    loadingAndNoDataToDisplay,
-    emptySearchQuery,
-  } = useSearch({ filters, isSyncedWithUrlQuery: true })
+  const { searchQuery, setSearchQuery, data, isPending, emptySearchQuery } = useSearch({
+    filters,
+    isSyncedWithUrlQuery: true,
+  })
 
   const handleChangePage = (page: number) => {
     setFilters({ ...filters, page })
   }
 
   const h1Ref = useRef<HTMLHeadingElement>(null)
-  useScrollToViewIfDataChange(dataToDisplay, filters, h1Ref)
+  useScrollToViewIfDataChange(data, filters, h1Ref)
 
   return (
     <Section>
@@ -107,23 +103,23 @@ const SearchSection = () => {
               )
             })}
           </div>
-          {!loadingAndNoDataToDisplay && !emptySearchQuery && (
+          {!isPending && !emptySearchQuery ? (
             <div className="whitespace-nowrap">
-              {t('SearchPage.resultsFound', { count: dataToDisplay?.estimatedTotalHits ?? 0 })}
+              {t('SearchPage.resultsFound', { count: data?.estimatedTotalHits ?? 0 })}
             </div>
-          )}
+          ) : null}
         </div>
 
         {!emptySearchQuery && (
           <div className="flex flex-col gap-6">
             <AnimateHeight isVisible>
-              {delayedLoading || loadingAndNoDataToDisplay ? (
+              {isPending ? (
                 <div className="flex select-none flex-col gap-3">
                   {Array.from({ length: filters.pageSize }, (_item, index) => (
                     <RowSkeleton key={index} />
                   ))}
                 </div>
-              ) : dataToDisplay?.estimatedTotalHits === 0 ? (
+              ) : data?.estimatedTotalHits === 0 ? (
                 <motion.div
                   initial={{ y: 48 }}
                   animate={{ y: 0 }}
@@ -133,7 +129,7 @@ const SearchSection = () => {
                 </motion.div>
               ) : (
                 <div className="flex flex-col gap-3">
-                  {dataToDisplay?.hits.map(({ title, link, type }, index) => (
+                  {data?.hits.map(({ title, link, type }, index) => (
                     <Row
                       // eslint-disable-next-line react/no-array-index-key
                       key={index}
@@ -147,17 +143,16 @@ const SearchSection = () => {
                 </div>
               )}
             </AnimateHeight>
-            {dataToDisplay?.estimatedTotalHits !== 0 && (
+            {data && data?.estimatedTotalHits !== 0 ? (
               <div className="flex justify-center">
                 <PaginationMeili
-                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                  data={dataToDisplay!}
+                  data={data}
                   selectedPage={filters.page}
                   pageSize={filters.pageSize}
                   onPageChange={handleChangePage}
                 />
               </div>
-            )}
+            ) : null}
           </div>
         )}
       </div>

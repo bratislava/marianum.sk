@@ -1,8 +1,8 @@
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'
-import useSwr from 'swr'
-import { useDebounce } from 'usehooks-ts'
+import { useDebounceValue } from 'usehooks-ts'
 
 import Loading from '@/components/atoms/Loading'
 import LoadingOverlay from '@/components/atoms/LoadingOverlay'
@@ -16,14 +16,13 @@ import ArticleJobsCategoriesSelect from '@/components/sections/ArticleListing/Ar
 import ArticleNewsCategoriesSelect from '@/components/sections/ArticleListing/ArticleNewsCategoriesSelect'
 import ArticlePressCategoriesSelect from '@/components/sections/ArticleListing/ArticlePressCategoriesSelect'
 import {
-  articleListingDefaultFilters,
-  ArticleListingFilters,
-  ArticleListingType,
-  getArticleListingFetcher,
-  getArticleListingSwrKey,
+  articlesDefaultFilters,
+  ArticlesFilters,
+  ArticleType,
+  getMeiliArticlesQueryKey,
+  meiliArticlesFetcher,
 } from '@/services/fetchers/articleListingFetcher'
 import { ArticleMeili } from '@/services/meili/meiliTypes'
-import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
 const Articles = ({
@@ -32,8 +31,8 @@ const Articles = ({
   type,
 }: {
   data: SearchResponse<ArticleMeili>
-  filters: ArticleListingFilters
-  type: ArticleListingType
+  filters: ArticlesFilters
+  type: ArticleType
 }) => {
   const { t } = useTranslation()
 
@@ -57,13 +56,13 @@ const Articles = ({
           } = article
           const category = (() => {
             switch (type) {
-              case ArticleListingType.News:
+              case ArticleType.News:
                 return { attributes: newsCategory }
 
-              case ArticleListingType.Press:
+              case ArticleType.Press:
                 return { attributes: pressCategory }
 
-              case ArticleListingType.Jobs:
+              case ArticleType.Jobs:
                 return { attributes: jobsCategory }
 
               default:
@@ -95,43 +94,39 @@ const DataWrapper = ({
   onPageChange,
   type,
 }: {
-  filters: ArticleListingFilters
+  filters: ArticlesFilters
   description?: string | null
   onPageChange: (page: number) => void
-  type: ArticleListingType
+  type: ArticleType
 }) => {
   const { i18n } = useTranslation()
+  const locale = i18n.language
 
-  const { data, error } = useSwr(
-    getArticleListingSwrKey(filters, type, i18n.language),
-    getArticleListingFetcher(filters, type, i18n.language),
-  )
-
-  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useGetSwrExtras({
-    data,
-    error,
+  const { data, isPending, isFetching, isError, error } = useQuery({
+    queryKey: getMeiliArticlesQueryKey(filters, type, locale),
+    queryFn: () => meiliArticlesFetcher(filters, type, locale),
+    placeholderData: keepPreviousData,
   })
 
-  // TODO replace by proper loading and error
-  if (loadingAndNoDataToDisplay) {
+  if (isPending) {
     return <Loading />
   }
 
-  if (error) {
+  // TODO replace by proper error
+  if (isError) {
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
   return (
     <>
-      <LoadingOverlay loading={delayedLoading}>
-        {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-        <Articles data={dataToDisplay!} filters={filters} type={type} />
+      <LoadingOverlay loading={isFetching}>
+        <Articles data={data} filters={filters} type={type} />
       </LoadingOverlay>
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
-      {dataToDisplay ? (
+      {data.hits.length > 0 ? (
         <PaginationMeili
-          data={dataToDisplay}
+          data={data}
           pageSize={filters.pageSize}
           selectedPage={filters.page}
           onPageChange={onPageChange}
@@ -142,13 +137,13 @@ const DataWrapper = ({
 }
 
 type ArticleListingProps = {
-  type: ArticleListingType
+  type: ArticleType
 }
 
 const ArticleListing = ({ type }: ArticleListingProps) => {
-  const [filters, setFilters] = useState<ArticleListingFilters>(articleListingDefaultFilters)
-  const [searchInputValue, setSearchInputValue] = useState<string>('')
-  const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
+  const [filters, setFilters] = useState(articlesDefaultFilters)
+  const [searchInputValue, setSearchInputValue] = useState('')
+  const [debouncedSearchInputValue] = useDebounceValue(searchInputValue, 300)
 
   useEffect(() => {
     if (filters.search !== debouncedSearchInputValue) {
@@ -169,13 +164,13 @@ const ArticleListing = ({ type }: ArticleListingProps) => {
     <Section overlayWithHero>
       <FiltersBackgroundWrapper className="mb-4 grid grid-cols-1 gap-4 md:mb-6 md:grid-cols-3">
         <div>
-          {type === ArticleListingType.Press ? (
+          {type === ArticleType.Press ? (
             <ArticlePressCategoriesSelect onCategoryChange={handleCategoryChange} />
           ) : null}
-          {type === ArticleListingType.News ? (
+          {type === ArticleType.News ? (
             <ArticleNewsCategoriesSelect onCategoryChange={handleCategoryChange} />
           ) : null}
-          {type === ArticleListingType.Jobs ? (
+          {type === ArticleType.Jobs ? (
             <ArticleJobsCategoriesSelect onCategoryChange={handleCategoryChange} />
           ) : null}
         </div>
