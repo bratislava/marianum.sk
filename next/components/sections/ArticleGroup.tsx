@@ -1,3 +1,5 @@
+import cx from 'classnames'
+
 import ArticleCard from '@/components/molecules/Cards/ArticleCard'
 import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { ArticleCardEntityFragment } from '@/graphql'
