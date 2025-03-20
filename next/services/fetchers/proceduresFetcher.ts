@@ -1,14 +1,13 @@
-import { Key } from 'swr'
-
 import { client } from '@/services/graphql/gqlClient'
 
-export const getProceduresSwrKey = (locale: string) => ['Procedures', locale] as Key
+export const getGraphqlProceduresQueryKey = (locale: string) => ['Procedures', locale]
 
-export const proceduresFetcher = (locale: string) => () => client.Procedures({ locale })
+export const graphqlProceduresFetcher = (locale: string) => client.Procedures({ locale })
 
-export const getProceduresPrefetch = (locale: string) =>
-  ({
+export const getProceduresPrefetch = (locale: string) => {
+  return {
     sectionTypename: 'ComponentSectionsProceduresSection',
-    key: getProceduresSwrKey(locale),
-    fetcher: proceduresFetcher(locale),
-  }) as const
+    key: getGraphqlProceduresQueryKey(locale),
+    fetcher: graphqlProceduresFetcher(locale),
+  } as const
+}

@@ -1,5 +1,4 @@
 import { parseAbsolute } from '@internationalized/date'
-import { Key } from 'swr'
 
 import { Option } from '@/components/atoms/Select'
 import { client } from '@/services/graphql/gqlClient'
@@ -14,10 +13,13 @@ export const ceremoniesSectionDefaultFilters: CeremoniesSectionFilters = {
   cemeteryId: null,
 }
 
-export const getCeremoniesSectionSwrKey = (filters: CeremoniesSectionFilters) =>
-  ['CeremoniesSection', filters] as Key
+export const getCeremoniesSectionQueryKey = (filters: CeremoniesSectionFilters) => [
+  'CeremoniesSection',
+  filters,
+]
 
-export const ceremoniesSectionFetcher = (filters: CeremoniesSectionFilters) => () => {
+// TODO consider unifying fetchers for ceremonies, upcoming ceremonies and archived ceremonies
+export const ceremoniesSectionFetcher = (filters: CeremoniesSectionFilters) => {
   const currentDate = parseAbsolute(new Date().toISOString(), bratislavaTimezone)
   const startOfDay = currentDate.set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
   const startOfDayString = startOfDay.toAbsoluteString()
@@ -28,8 +30,7 @@ export const ceremoniesSectionFetcher = (filters: CeremoniesSectionFilters) => (
   })
 }
 
-export const getCemeteriesInCeremoniesKey = (locale: string) =>
-  ['CemeteriesInCeremonies', locale] as Key
+export const getCemeteriesInCeremoniesKey = (locale: string) => ['CemeteriesInCeremonies', locale]
 
 export const cemeteriesInCeremoniesFetcher = async (locale: string) => {
   const result = await client.CemeteriesInCeremonies()
@@ -54,7 +55,7 @@ export const getCeremoniesSectionPrefetches = (locale: string) => [
   } as const,
   {
     sectionTypename: 'ComponentSectionsCeremoniesSection',
-    key: getCeremoniesSectionSwrKey(ceremoniesSectionDefaultFilters),
+    key: getCeremoniesSectionQueryKey(ceremoniesSectionDefaultFilters),
     fetcher: ceremoniesSectionFetcher(ceremoniesSectionDefaultFilters),
   } as const,
 ]

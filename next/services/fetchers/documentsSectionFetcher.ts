@@ -1,5 +1,3 @@
-import { Key } from 'swr'
-
 import { Sort } from '@/components/molecules/SortSelect'
 import { meiliClient } from '@/services/meili/meiliClient'
 import { DocumentMeili } from '@/services/meili/meiliTypes'
@@ -7,7 +5,7 @@ import { SearchIndexWrapped, unwrapFromSearchIndex } from '@/services/meili/sear
 import { getMeilisearchPageOptions } from '@/utils/getMeilisearchPageOptions'
 import { isDefined } from '@/utils/isDefined'
 
-export type DocumentsSectionFilters = {
+export type DocumentsFilters = {
   pageSize: number
   search: string
   categoryId: string | null
@@ -16,7 +14,7 @@ export type DocumentsSectionFilters = {
   filetype: string | null
 }
 
-export const documentsSectionDefaultFilters: DocumentsSectionFilters = {
+export const documentsDefaultFilters: DocumentsFilters = {
   pageSize: 24,
   search: '',
   page: 1,
@@ -25,10 +23,9 @@ export const documentsSectionDefaultFilters: DocumentsSectionFilters = {
   filetype: null,
 }
 
-export const getDocumentsSectionSwrKey = (filters: DocumentsSectionFilters) =>
-  ['DocumentsSection', filters] as Key
+export const getMeiliDocumentsQueryKey = (filters: DocumentsFilters) => ['Documents', filters]
 
-export const documentsSectionFetcher = (filters: DocumentsSectionFilters) => () => {
+export const meiliDocumentsFetcher = (filters: DocumentsFilters) => {
   return meiliClient
     .index('search_index')
     .search<SearchIndexWrapped<'document', DocumentMeili>>(filters.search, {
@@ -50,6 +47,6 @@ export const documentsSectionFetcher = (filters: DocumentsSectionFilters) => () 
 
 export const documentsSectionPrefetch = {
   sectionTypename: 'ComponentSectionsDocumentsSection',
-  key: getDocumentsSectionSwrKey(documentsSectionDefaultFilters),
-  fetcher: documentsSectionFetcher(documentsSectionDefaultFilters),
+  key: getMeiliDocumentsQueryKey(documentsDefaultFilters),
+  fetcher: meiliDocumentsFetcher(documentsDefaultFilters),
 } as const

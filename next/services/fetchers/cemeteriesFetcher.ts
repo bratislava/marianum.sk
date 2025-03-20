@@ -1,13 +1,11 @@
-import { Key } from 'swr'
-
 import { client } from '@/services/graphql/gqlClient'
 
-export const getCemeteriesSwrKey = (locale: string) => ['Cemeteries', locale] as Key
+export const getGraphqlCemeteriesQueryKey = (locale: string) => ['Cemeteries', locale]
 
-export const cemeteriesFetcher = (locale: string) => () => client.Cemeteries({ locale })
+export const graphqlCemeteriesFetcher = (locale: string) => client.Cemeteries({ locale })
 
 export const getMapSectionPrefetch = (locale: string) => ({
   sectionTypename: 'ComponentSectionsMapSection',
-  key: getCemeteriesSwrKey(locale),
-  fetcher: cemeteriesFetcher(locale),
+  key: getGraphqlCemeteriesQueryKey(locale),
+  fetcher: graphqlCemeteriesFetcher(locale),
 })

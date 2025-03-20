@@ -211,12 +211,6 @@ fragment BranchGroup on ComponentSectionsBranchGroup {
   }
 }
 
-fragment PartnersSection on ComponentSectionsPartnersSection {
-  id
-  featuredPartnersTitle
-  otherPartnersTitle
-}
-
 fragment MenuListing on ComponentSectionsMenuListing {
   id
   title

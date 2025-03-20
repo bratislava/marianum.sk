@@ -15,7 +15,7 @@ import MLink from '@/components/atoms/MLink'
 import Pagination from '@/components/atoms/Pagination/Pagination'
 import ReviewStars from '@/components/atoms/ReviewStars'
 import RichText from '@/components/atoms/RichText'
-import Select from '@/components/atoms/Select'
+import SelectField from '@/components/atoms/SelectField'
 import TabItem from '@/components/atoms/Tabs/TabItem'
 import Tabs from '@/components/atoms/Tabs/Tabs'
 import Tag from '@/components/atoms/Tag'
@@ -470,7 +470,7 @@ const Showcase = () => {
               <TextField
                 id="deafault-left-icon"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
@@ -479,7 +479,7 @@ const Showcase = () => {
               <TextField
                 id="deafault-right-icon"
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -488,12 +488,12 @@ const Showcase = () => {
               <TextField
                 id="deafault-both-icons"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -507,7 +507,7 @@ const Showcase = () => {
                 id="with-text-left-icon"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
@@ -517,7 +517,7 @@ const Showcase = () => {
                 id="with-text-right-icon"
                 defaultValue="Input"
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -527,12 +527,12 @@ const Showcase = () => {
                 id="with-text-both-icons"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -547,7 +547,7 @@ const Showcase = () => {
                 error
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
@@ -558,7 +558,7 @@ const Showcase = () => {
                 error
                 defaultValue="Input"
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -569,12 +569,12 @@ const Showcase = () => {
                 error
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -589,7 +589,7 @@ const Showcase = () => {
                 disabled
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2" disabled>
                     <SearchIcon />
                   </button>
                 }
@@ -600,7 +600,7 @@ const Showcase = () => {
                 disabled
                 defaultValue="Input"
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2" disabled>
                     <CloseCircleIcon />
                   </button>
                 }
@@ -611,12 +611,12 @@ const Showcase = () => {
                 disabled
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2" disabled>
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2" disabled>
                     <CloseCircleIcon />
                   </button>
                 }
@@ -631,7 +631,7 @@ const Showcase = () => {
                 id="with-label-left-icon"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
@@ -642,7 +642,7 @@ const Showcase = () => {
                 id="with-label-right-icon"
                 defaultValue="Input"
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -653,12 +653,12 @@ const Showcase = () => {
                 id="with-label-both-icons"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -680,7 +680,7 @@ const Showcase = () => {
                 id="with-label-required-left-icon"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
@@ -692,7 +692,7 @@ const Showcase = () => {
                 id="with-label-required-right-icon"
                 defaultValue="Input"
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -704,12 +704,12 @@ const Showcase = () => {
                 id="with-label-required-both-icons"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="p-2">
+                  <button type="button" className="base-focus-ring p-2">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -841,45 +841,76 @@ const Showcase = () => {
 
           <Wrapper title="Select">
             <Stack width="full">
-              <Select
-                label="Project"
-                required
-                id="select"
+              <SelectField
                 placeholder="Select one project"
                 options={[
                   {
-                    key: 'marianum',
+                    value: 'marianum',
                     label: '💀 Marianum',
                   },
                   {
-                    key: 'city-library',
+                    value: 'city-library',
                     label: '📖 City library',
                   },
                   {
-                    key: 'homepage',
+                    value: 'homepage',
+                    label: '🟥 Homepage',
+                  },
+                ]}
+              />
+              <SelectField
+                placeholder="Disabled"
+                isDisabled
+                options={[
+                  {
+                    value: 'marianum',
+                    label: '💀 Marianum',
+                  },
+                  {
+                    value: 'city-library',
+                    label: '📖 City library',
+                  },
+                  {
+                    value: 'homepage',
                     label: '🟥 Homepage',
                   },
                 ]}
               />
             </Stack>
             <Stack width="full">
-              <Select
-                label="Projects"
-                required
-                id="select"
-                multiple
+              <SelectField
+                isMulti
                 placeholder="Select multiple projects"
                 options={[
                   {
-                    key: 'marianum',
+                    value: 'marianum',
                     label: '💀 Marianum',
                   },
                   {
-                    key: 'city-library',
+                    value: 'city-library',
                     label: '📖 City library',
                   },
                   {
-                    key: 'homepage',
+                    value: 'homepage',
+                    label: '🟥 Homepage',
+                  },
+                ]}
+              />
+              <SelectField
+                isMulti
+                isDisabled
+                placeholder="Disabled multi"
+                options={[
+                  {
+                    value: 'marianum',
+                    label: '💀 Marianum',
+                  },
+                  {
+                    value: 'city-library',
+                    label: '📖 City library',
+                  },
+                  {
+                    value: 'homepage',
                     label: '🟥 Homepage',
                   },
                 ]}

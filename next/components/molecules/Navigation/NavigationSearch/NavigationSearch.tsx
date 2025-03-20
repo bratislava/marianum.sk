@@ -12,13 +12,7 @@ type NavigationSearchProps = {
 }
 
 const NavigationSearch = ({ onDesktopSearchOpen, onDesktopSearchClose }: NavigationSearchProps) => {
-  const {
-    dataToDisplay,
-    emptySearchQuery,
-    searchQuery,
-    setSearchQuery,
-    loadingAndNoDataToDisplay,
-  } = useSearch({
+  const { data, emptySearchQuery, searchQuery, setSearchQuery, isPending } = useSearch({
     filters: { pageSize: 5, page: 1, selectedTypes: [] },
   })
 
@@ -37,9 +31,9 @@ const NavigationSearch = ({ onDesktopSearchOpen, onDesktopSearchClose }: Navigat
         <NavigationSearchMobile
           searchQuery={searchQuery ?? ''}
           onSearchQueryChange={setSearchQuery}
-          data={dataToDisplay}
+          data={data}
           emptySearchQuery={emptySearchQuery}
-          isLoading={loadingAndNoDataToDisplay}
+          isLoading={isPending}
           onSearch={handleSearch}
         />
       </div>
@@ -48,9 +42,9 @@ const NavigationSearch = ({ onDesktopSearchOpen, onDesktopSearchClose }: Navigat
         <NavigationSearchDesktop
           searchQuery={searchQuery ?? ''}
           onSearchQueryChange={setSearchQuery}
-          data={dataToDisplay}
+          data={data}
           emptySearchQuery={emptySearchQuery}
-          isLoading={loadingAndNoDataToDisplay}
+          isLoading={isPending}
           onSearch={handleSearch}
           onOpen={onDesktopSearchOpen}
           onClose={onDesktopSearchClose}

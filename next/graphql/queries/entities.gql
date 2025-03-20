@@ -201,6 +201,9 @@ fragment CemeteryEntity on CemeteryEntity {
     gallery {
       ...ImageGallery
     }
+    video {
+      ...IframeSection
+    }
   }
 }
 
@@ -460,10 +463,6 @@ fragment PageEntity on PageEntity {
       ... on ComponentSectionsGallery {
         __typename
         ...ImageGallery
-      }
-      ... on ComponentSectionsPartnersSection {
-        __typename
-        ...PartnersSection
       }
       ... on ComponentSectionsMenuListing {
         __typename
