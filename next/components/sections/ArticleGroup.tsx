@@ -10,7 +10,13 @@ const ArticleGroup = ({ articles }: ArticleGroupProps) => {
   const { getFullPath } = useGetFullPath()
 
   return (
-    <div className="-mx-2 -mb-6 -mt-2 flex grid-cols-2 gap-4 overflow-x-auto px-2 pb-6 pt-2 scrollbar-hide md:grid md:gap-6 lg:grid-cols-4">
+    <div
+      className={cx(
+        'flex grid-cols-2 gap-4 overflow-x-auto scrollbar-hide md:grid md:gap-6 lg:grid-cols-4',
+        // add space to show focus rings and hover shadows
+        '-m-2 -mb-6 p-2 pb-6',
+      )}
+    >
       {articles?.map((article) => {
         const { title, publishedAt, coverMedia, newsCategory } = article.attributes ?? {}
 
