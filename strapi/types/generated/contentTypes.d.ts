@@ -2147,6 +2147,7 @@ export interface PluginNavigationNavigationItem extends Schema.CollectionType {
       'oneToMany',
       'plugin::navigation.audience'
     >;
+    autoSync: Attribute.Boolean & Attribute.DefaultTo<true>;
     collapsed: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
