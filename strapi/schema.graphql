@@ -2756,15 +2756,6 @@ type NavigationItem {
   updated_by: String
 }
 
-type NavigationItemAdditionalFieldMedia {
-  height: Int!
-  mime: String!
-  name: String!
-  previewUrl: String
-  url: String!
-  width: Int!
-}
-
 union NavigationItemRelated = Page
 
 type NavigationItemRelatedData {
