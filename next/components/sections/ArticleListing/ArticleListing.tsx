@@ -108,8 +108,6 @@ const DataWrapper = ({
     placeholderData: keepPreviousData,
   })
 
-  const [debouncedIsFetching] = useDebounceValue(isFetching, 1000)
-
   if (isPending) {
     return <Loading />
   }
@@ -121,7 +119,7 @@ const DataWrapper = ({
 
   return (
     <>
-      <LoadingOverlay loading={debouncedIsFetching}>
+      <LoadingOverlay loading={isFetching}>
         <Articles data={data} filters={filters} type={type} />
       </LoadingOverlay>
 
@@ -143,9 +141,9 @@ type ArticleListingProps = {
 }
 
 const ArticleListing = ({ type }: ArticleListingProps) => {
-  const [filters, setFilters] = useState<ArticlesFilters>(articlesDefaultFilters)
-  const [searchInputValue, setSearchInputValue] = useState<string>('')
-  const [debouncedSearchInputValue] = useDebounceValue<string>(searchInputValue, 300)
+  const [filters, setFilters] = useState(articlesDefaultFilters)
+  const [searchInputValue, setSearchInputValue] = useState('')
+  const [debouncedSearchInputValue] = useDebounceValue(searchInputValue, 300)
 
   useEffect(() => {
     if (filters.search !== debouncedSearchInputValue) {

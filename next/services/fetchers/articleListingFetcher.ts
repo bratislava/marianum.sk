@@ -31,7 +31,7 @@ export const getMeiliArticlesQueryKey = (
   filters: ArticlesFilters,
   type: 'all' | ArticleType,
   locale?: string,
-) => ['ArticleListing', filters, type, locale]
+) => ['Articles', filters, type, locale]
 
 export const meiliArticlesFetcher = (
   filters: ArticlesFilters,
@@ -85,19 +85,19 @@ const mapSelectFn = (category: {
   } as Option
 }
 
-export const articleNewsCategoriesQueryKey = 'ArticleNewsCategoriesSelect'
+export const articleNewsCategoriesSelectQueryKey = ['ArticleNewsCategoriesSelect']
 export const articleNewsCategoriesSelectFetcher = () =>
   client
     .ArticleNewsCategories()
     .then((data) => data.articleNewsCategories?.data.map(mapSelectFn) ?? [])
 
-export const articlePressCategoriesQueryKey = 'ArticlePressCategoriesSelect'
+export const articlePressCategoriesSelectQueryKey = ['ArticlePressCategoriesSelect']
 export const articlePressCategoriesSelectFetcher = () =>
   client
     .ArticlePressCategories()
     .then((data) => data.articlePressCategories?.data.map(mapSelectFn) ?? [])
 
-export const articleJobsCategoriesQueryKey = 'ArticleJobsCategoriesSelect'
+export const articleJobsCategoriesSelectQueryKey = ['ArticleJobsCategoriesSelect']
 export const articleJobsCategoriesSelectFetcher = () =>
   client
     .ArticleJobsCategories()
@@ -116,7 +116,7 @@ export const getArticleListingNewsPrefetches = (locale: string) => {
     } as const,
     {
       sectionTypename: 'ComponentSectionsArticleNewsListing',
-      key: articleNewsCategoriesQueryKey,
+      key: articleNewsCategoriesSelectQueryKey,
       fetcher: articleNewsCategoriesSelectFetcher,
     } as const,
     {
@@ -126,7 +126,7 @@ export const getArticleListingNewsPrefetches = (locale: string) => {
     } as const,
     {
       sectionTypename: 'ComponentSectionsArticlePressListing',
-      key: articlePressCategoriesQueryKey,
+      key: articlePressCategoriesSelectQueryKey,
       fetcher: articlePressCategoriesSelectFetcher,
     } as const,
     {
@@ -136,7 +136,7 @@ export const getArticleListingNewsPrefetches = (locale: string) => {
     } as const,
     {
       sectionTypename: 'ComponentSectionsArticleJobsListing',
-      key: articleJobsCategoriesQueryKey,
+      key: articleJobsCategoriesSelectQueryKey,
       fetcher: articleJobsCategoriesSelectFetcher,
     } as const,
   ]

@@ -119,8 +119,6 @@ const DataWrapper = ({
     placeholderData: keepPreviousData,
   })
 
-  const [debouncedIsFetching] = useDebounceValue(isFetching, 1000)
-
   if (isPending) {
     return <Loading />
   }
@@ -132,12 +130,12 @@ const DataWrapper = ({
 
   return (
     <>
-      <LoadingOverlay loading={debouncedIsFetching}>
+      <LoadingOverlay loading={isFetching}>
         <Table data={data} filters={filters} />
       </LoadingOverlay>
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
-      {data.hits?.length > 0 ? (
+      {data.hits.length > 0 ? (
         <PaginationMeili
           data={data}
           pageSize={filters.pageSize}

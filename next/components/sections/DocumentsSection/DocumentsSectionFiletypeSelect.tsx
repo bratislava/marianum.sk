@@ -27,7 +27,7 @@ const DocumentsSectionFiletypeSelect = ({
 
   return (
     <SelectWithFetcher
-      queryKey="DocumentsSectionFiletypeSelect"
+      queryKey={['DocumentsSectionFiletypeSelect']}
       defaultOption={defaultOption}
       fetcher={mappedFetcher}
       onSelectionChange={(selection: string) => {

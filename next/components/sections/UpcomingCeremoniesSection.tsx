@@ -123,11 +123,11 @@ const Table = () => {
   )
 }
 
-type SectionProps = {
+type UpcomingCeremoniesSectionProps = {
   section: UpcomingCeremoniesSectionFragment
 }
 
-const UpcomingCeremoniesSection = ({ section }: SectionProps) => {
+const UpcomingCeremoniesSection = ({ section }: UpcomingCeremoniesSectionProps) => {
   const { getFullPath } = useGetFullPath()
 
   const showMoreButtonSlug = getFullPath(section.showMoreButton?.page?.data)

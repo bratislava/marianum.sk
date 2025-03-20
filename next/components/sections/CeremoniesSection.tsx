@@ -5,7 +5,6 @@ import groupBy from 'lodash/groupBy'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Fragment, PropsWithChildren, useMemo, useRef, useState } from 'react'
-import { useDebounceValue } from 'usehooks-ts'
 
 import FormatDate from '@/components/atoms/FormatDate'
 import Loading from '@/components/atoms/Loading'
@@ -200,8 +199,6 @@ const DataWrapper = ({ filters }: { filters: CeremoniesSectionFilters }) => {
     placeholderData: keepPreviousData,
   })
 
-  const [debouncedIsFetching] = useDebounceValue(isFetching, 1000)
-
   if (isPending) {
     return <Loading />
   }
@@ -212,7 +209,7 @@ const DataWrapper = ({ filters }: { filters: CeremoniesSectionFilters }) => {
   }
 
   return (
-    <LoadingOverlay loading={debouncedIsFetching}>
+    <LoadingOverlay loading={isFetching}>
       <Table data={data} filters={filters} />
     </LoadingOverlay>
   )

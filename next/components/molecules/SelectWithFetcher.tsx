@@ -3,7 +3,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import Select, { Option, SelectProps, SingleSelect } from '@/components/atoms/Select'
 
 type SelectWithFetcherProps = {
-  queryKey: string | string[]
+  queryKey: string[]
   fetcher: () => Promise<Option[]>
   defaultOption: Option
 } & Pick<SelectProps, 'id' | 'placeholder' | 'label' | 'disabled'> &
@@ -18,7 +18,7 @@ const SelectWithFetcher = ({
   ...rest
 }: SelectWithFetcherProps) => {
   const { data, isPending, isFetching, isError, error } = useQuery({
-    queryKey: [queryKey, fetcher],
+    queryKey: [queryKey],
     queryFn: fetcher,
     placeholderData: keepPreviousData,
   })

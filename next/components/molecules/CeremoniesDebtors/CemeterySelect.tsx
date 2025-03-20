@@ -42,7 +42,7 @@ const CeremoniesDebtorsCemeterySelect = ({
       return getCemeteriesInDebtorsKey(i18n.language)
     }
 
-    return ''
+    return ['']
   }, [type, i18n.language])
 
   const defaultOption = useMemo(() => ({ label: t('CemeterySelect.allCemeteries'), key: '' }), [t])

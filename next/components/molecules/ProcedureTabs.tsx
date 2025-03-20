@@ -62,7 +62,7 @@ const ProcedureTabs = () => {
           <div>
             <Checklist
               localStorageId={procedure.key}
-              updatedAt={data?.procedures?.data?.attributes?.updatedAt}
+              updatedAt={data.procedures?.data?.attributes?.updatedAt}
               items={(procedure.steps ?? []).filter(isDefined)}
               downloadFile={procedure.downloadFile?.data}
             />

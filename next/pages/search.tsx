@@ -64,11 +64,10 @@ const SearchSection = () => {
     [filters],
   )
 
-  const { searchQuery, setSearchQuery, data, isPending, debouncedIsFetching, emptySearchQuery } =
-    useSearch({
-      filters,
-      isSyncedWithUrlQuery: true,
-    })
+  const { searchQuery, setSearchQuery, data, isPending, emptySearchQuery } = useSearch({
+    filters,
+    isSyncedWithUrlQuery: true,
+  })
 
   const handleChangePage = (page: number) => {
     setFilters({ ...filters, page })
@@ -114,7 +113,7 @@ const SearchSection = () => {
         {!emptySearchQuery && (
           <div className="flex flex-col gap-6">
             <AnimateHeight isVisible>
-              {debouncedIsFetching || isPending ? (
+              {isPending ? (
                 <div className="flex select-none flex-col gap-3">
                   {Array.from({ length: filters.pageSize }, (_item, index) => (
                     <RowSkeleton key={index} />

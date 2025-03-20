@@ -107,8 +107,6 @@ export const useSearch = ({ filters, isSyncedWithUrlQuery = false }: UseSearchOp
     enabled: !emptySearchQuery,
   })
 
-  const [debouncedIsFetching] = useDebounceValue(isFetching, 1000)
-
   return {
     searchQuery: isSyncedWithUrlQuery ? routerSearchQuery : searchQuery,
     setSearchQuery: isSyncedWithUrlQuery ? setRouterSearchQuery : setSearchQuery,
@@ -116,7 +114,6 @@ export const useSearch = ({ filters, isSyncedWithUrlQuery = false }: UseSearchOp
     data,
     isPending,
     isFetching,
-    debouncedIsFetching,
     isError,
     error,
   }
