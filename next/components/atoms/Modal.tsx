@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import FocusTrap from 'focus-trap-react'
+import { FocusTrap } from 'focus-trap-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ReactNode, useRef } from 'react'
 import {
