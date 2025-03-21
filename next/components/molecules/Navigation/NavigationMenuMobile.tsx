@@ -40,7 +40,7 @@ const RenderItems = ({
             key={id}
             onMouseUp={() => onOpenItem && onOpenItem(id)}
             type="button"
-            className="base-focus-ring flex w-full justify-between px-4 py-3 focus:bg-primary/10"
+            className="base-focus-ring flex w-full justify-between px-4 py-3 active:bg-primary/10"
           >
             <span className="font-semibold">{title}</span>
             <div className="-rotate-90">
@@ -54,7 +54,7 @@ const RenderItems = ({
             key={id}
             noStyles={LinkComponent === 'div' ? undefined : true}
             href={path ?? ''}
-            className="base-focus-ring flex w-full justify-between px-4 py-3 focus:bg-primary/10"
+            className="base-focus-ring flex w-full justify-between px-4 py-3 active:bg-primary/10"
           >
             <span className="font-semibold">{title}</span>
           </LinkComponent>

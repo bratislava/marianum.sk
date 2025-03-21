@@ -23,7 +23,7 @@ const SubMenu = ({ title, items, path }: SubMenuProps) => {
       className="outline-none"
       label={({ open, hover }) => (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-        <div onClick={handleClick} className="-mx-3 px-3 outline-none">
+        <div onClick={handleClick} className="-mx-3 px-3">
           <MenuItem title={title} hover={hover} open={open} isSubmenu />
         </div>
       )}
