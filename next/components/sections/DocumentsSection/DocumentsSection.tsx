@@ -52,6 +52,7 @@ const Documents = ({
             // eslint-disable-next-line react/no-array-index-key
             key={index}
             title={document.title}
+            applyFocusStyles={false}
             category={
               document?.documentCategory
                 ? {

@@ -31,7 +31,7 @@ const DocumentRow = (props: DocumentRowProps) => {
       </Button>
     ) : null
 
-  return <Row {...props} button={<DownloadButton />} />
+  return <Row {...props} button={<DownloadButton />} applyFocusStyles={false} />
 }
 
 export default DocumentRow

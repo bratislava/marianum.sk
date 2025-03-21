@@ -10,6 +10,7 @@ import FormatDate from '@/components/atoms/FormatDate'
 import Loading from '@/components/atoms/Loading'
 import LoadingOverlay from '@/components/atoms/LoadingOverlay'
 import MLink from '@/components/atoms/MLink'
+import RowBox from '@/components/atoms/Row/RowBox'
 import CemeteryLink from '@/components/molecules/CemeteryLink'
 import CeremoniesDebtorsCemeterySelect from '@/components/molecules/CeremoniesDebtors/CemeterySelect'
 import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
@@ -49,18 +50,20 @@ const ArchiveCard = ({
   }
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-    <div
-      className="mt-6 flex cursor-pointer flex-col items-center gap-y-3 bg-white px-8 py-4 md:mt-16 md:flex-row md:justify-between md:px-12 md:py-10"
-      onClick={handleCardClick}
-    >
-      <h4>{archive.title}</h4>
-      {archive.button?.page?.data?.attributes?.slug && (
-        <MLink href={getFullPath(archive.button.page.data) ?? ''} onClick={handleLinkClick}>
-          {archive.button?.label}
-        </MLink>
-      )}
-    </div>
+    <RowBox hover={false} className="mt-6 cursor-pointer md:mt-16">
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+      <div
+        className="flex flex-col items-center gap-y-3 px-8 py-4 md:flex-row md:justify-between md:px-12 md:py-10"
+        onClick={handleCardClick}
+      >
+        <h4>{archive.title}</h4>
+        {archive.button?.page?.data?.attributes?.slug && (
+          <MLink href={getFullPath(archive.button.page.data) ?? ''} onClick={handleLinkClick}>
+            {archive.button?.label}
+          </MLink>
+        )}
+      </div>
+    </RowBox>
   )
 }
 
