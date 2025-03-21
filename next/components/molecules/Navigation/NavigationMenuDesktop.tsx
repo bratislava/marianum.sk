@@ -18,7 +18,7 @@ const NavigationMenuDesktop = ({ navigationItems }: NavigationMenuDesktopProps) 
             <MLink
               noStyles
               href={path ?? ''}
-              className="flex h-full flex-1 items-center justify-center px-4 font-semibold outline-none transition-all hover:bg-primary/10 focus:bg-primary/10"
+              className="flex h-full flex-1 items-center justify-center px-4 font-semibold transition-all hover:bg-primary/10"
             >
               <span>{title}</span>
             </MLink>
