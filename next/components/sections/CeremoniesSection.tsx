@@ -1,15 +1,16 @@
 import { parseAbsolute, parseDate, toCalendarDate } from '@internationalized/date'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import cx from 'classnames'
 import groupBy from 'lodash/groupBy'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Fragment, PropsWithChildren, useMemo, useRef, useState } from 'react'
-import useSwr from 'swr'
 
 import FormatDate from '@/components/atoms/FormatDate'
 import Loading from '@/components/atoms/Loading'
 import LoadingOverlay from '@/components/atoms/LoadingOverlay'
 import MLink from '@/components/atoms/MLink'
+import RowBox from '@/components/atoms/Row/RowBox'
 import CemeteryLink from '@/components/molecules/CemeteryLink'
 import CeremoniesDebtorsCemeterySelect from '@/components/molecules/CeremoniesDebtors/CemeterySelect'
 import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
@@ -19,11 +20,10 @@ import {
   ceremoniesSectionDefaultFilters,
   ceremoniesSectionFetcher,
   CeremoniesSectionFilters,
-  getCeremoniesSectionSwrKey,
+  getCeremoniesSectionQueryKey,
 } from '@/services/fetchers/ceremoniesSectionFetcher'
 import { bratislavaTimezone } from '@/utils/consts'
 import { getCemeteryInfoInCeremoniesDebtors } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
-import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
@@ -51,18 +51,20 @@ const ArchiveCard = ({
   }
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-    <div
-      className="mt-6 flex cursor-pointer flex-col items-center gap-y-3 bg-white px-8 py-4 md:mt-16 md:flex-row md:justify-between md:px-12 md:py-10"
-      onClick={handleCardClick}
-    >
-      <h4>{archive.title}</h4>
-      {archive.button?.page?.data?.attributes?.slug && (
-        <MLink href={linkProps.href ?? ''} onClick={handleLinkClick}>
-          {linkProps.label}
-        </MLink>
-      )}
-    </div>
+    <RowBox hover={false} className="mt-6 cursor-pointer md:mt-16">
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+      <div
+        className="flex flex-col items-center gap-y-3 px-8 py-4 md:flex-row md:justify-between md:px-12 md:py-10"
+        onClick={handleCardClick}
+      >
+        <h4>{archive.title}</h4>
+        {archive.button && (
+          <MLink href={linkProps.href ?? ''} onClick={handleLinkClick}>
+            {linkProps.label}
+          </MLink>
+        )}
+      </div>
+    </RowBox>
   )
 }
 
@@ -195,29 +197,24 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
 }
 
 const DataWrapper = ({ filters }: { filters: CeremoniesSectionFilters }) => {
-  const { data, error } = useSwr(
-    getCeremoniesSectionSwrKey(filters),
-    ceremoniesSectionFetcher(filters),
-  )
-
-  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useGetSwrExtras({
-    data,
-    error,
+  const { data, isPending, isFetching, isError, error } = useQuery({
+    queryKey: getCeremoniesSectionQueryKey(filters),
+    queryFn: () => ceremoniesSectionFetcher(filters),
+    placeholderData: keepPreviousData,
   })
 
-  // TODO replace by proper loading and error
-  if (loadingAndNoDataToDisplay) {
+  if (isPending) {
     return <Loading />
   }
 
-  if (error) {
+  // TODO replace by proper error
+  if (isError) {
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
   return (
-    <LoadingOverlay loading={delayedLoading}>
-      {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-      <Table data={dataToDisplay!} filters={filters} />
+    <LoadingOverlay loading={isFetching}>
+      <Table data={data} filters={filters} />
     </LoadingOverlay>
   )
 }

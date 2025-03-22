@@ -1,5 +1,3 @@
-import { Key } from 'swr'
-
 import {
   cemeteriesInCeremoniesFetcher,
   getCemeteriesInCeremoniesKey,
@@ -23,10 +21,13 @@ export const ceremoniesArchiveSectionDefaultFilters: CeremoniesArchiveSectionFil
   cemeteryId: null,
 }
 
-export const getCeremoniesArchiveSectionSwrKey = (filters: CeremoniesArchiveSectionFilters) =>
-  ['CeremoniesArchiveSection', filters] as Key
+export const getCeremoniesArchiveSectionQueryKey = (filters: CeremoniesArchiveSectionFilters) => [
+  'CeremoniesArchiveSection',
+  filters,
+]
 
-export const ceremoniesArchiveSectionFetcher = (filters: CeremoniesArchiveSectionFilters) => () =>
+// TODO consider unifying fetchers for ceremonies, upcoming ceremonies and archived ceremonies
+export const ceremoniesArchiveSectionFetcher = (filters: CeremoniesArchiveSectionFilters) =>
   meiliClient.index('ceremony').search<CeremonyMeili>(filters.search, {
     ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
     filter: [
@@ -44,7 +45,7 @@ export const ceremoniesArchiveSectionPrefetches = [
   } as const,
   {
     sectionTypename: 'ComponentSectionsCeremoniesArchiveSection',
-    key: getCeremoniesArchiveSectionSwrKey(ceremoniesArchiveSectionDefaultFilters),
+    key: getCeremoniesArchiveSectionQueryKey(ceremoniesArchiveSectionDefaultFilters),
     fetcher: ceremoniesArchiveSectionFetcher(ceremoniesArchiveSectionDefaultFilters),
   } as const,
 ]

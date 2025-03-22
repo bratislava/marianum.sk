@@ -1,8 +1,8 @@
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'
-import useSwr from 'swr'
-import { useDebounce } from 'usehooks-ts'
+import { useDebounceValue } from 'usehooks-ts'
 
 import { DownloadIcon } from '@/assets/icons'
 import Button from '@/components/atoms/Button'
@@ -18,14 +18,13 @@ import SortSelect, { Sort } from '@/components/molecules/SortSelect'
 import DocumentsSectionCategorySelect from '@/components/sections/DocumentsSection/DocumentsSectionCategorySelect'
 import DocumentsSectionFiletypeSelect from '@/components/sections/DocumentsSection/DocumentsSectionFiletypeSelect'
 import {
-  documentsSectionDefaultFilters,
-  documentsSectionFetcher,
-  DocumentsSectionFilters,
-  getDocumentsSectionSwrKey,
+  documentsDefaultFilters,
+  DocumentsFilters,
+  getMeiliDocumentsQueryKey,
+  meiliDocumentsFetcher,
 } from '@/services/fetchers/documentsSectionFetcher'
 import { DocumentMeili } from '@/services/meili/meiliTypes'
 import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
-import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
 const Documents = ({
@@ -33,7 +32,7 @@ const Documents = ({
   filters,
 }: {
   data: SearchResponse<DocumentMeili>
-  filters: DocumentsSectionFilters
+  filters: DocumentsFilters
 }) => {
   const { t } = useTranslation()
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
@@ -53,6 +52,7 @@ const Documents = ({
             // eslint-disable-next-line react/no-array-index-key
             key={index}
             title={document.title}
+            applyFocusStyles={false}
             category={
               document?.documentCategory
                 ? {
@@ -90,40 +90,35 @@ const DataWrapper = ({
   description,
   onPageChange,
 }: {
-  filters: DocumentsSectionFilters
+  filters: DocumentsFilters
   description?: string | null
   onPageChange: (page: number) => void
 }) => {
-  const { data, error } = useSwr(
-    getDocumentsSectionSwrKey(filters),
-    documentsSectionFetcher(filters),
-  )
-
-  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useGetSwrExtras({
-    data,
-    error,
+  const { data, isPending, isFetching, isError, error } = useQuery({
+    queryKey: getMeiliDocumentsQueryKey(filters),
+    queryFn: () => meiliDocumentsFetcher(filters),
+    placeholderData: keepPreviousData,
   })
 
-  // TODO replace by proper loading and error
-  if (loadingAndNoDataToDisplay) {
+  if (isPending) {
     return <Loading />
   }
 
-  if (error) {
+  // TODO replace by proper error
+  if (isError) {
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
   return (
     <>
-      <LoadingOverlay loading={delayedLoading}>
-        {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-        <Documents data={dataToDisplay!} filters={filters} />
+      <LoadingOverlay loading={isFetching}>
+        <Documents data={data} filters={filters} />
       </LoadingOverlay>
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
-      {dataToDisplay ? (
+      {data.hits.length > 0 ? (
         <PaginationMeili
-          data={dataToDisplay}
+          data={data}
           pageSize={filters.pageSize}
           selectedPage={filters.page}
           onPageChange={onPageChange}
@@ -138,9 +133,9 @@ type DocumentsSectionProps = {
 }
 
 const DocumentsSection = ({ description }: DocumentsSectionProps) => {
-  const [filters, setFilters] = useState<DocumentsSectionFilters>(documentsSectionDefaultFilters)
+  const [filters, setFilters] = useState<DocumentsFilters>(documentsDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')
-  const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
+  const [debouncedSearchInputValue] = useDebounceValue<string>(searchInputValue, 300)
 
   useEffect(() => {
     if (filters.search !== debouncedSearchInputValue) {

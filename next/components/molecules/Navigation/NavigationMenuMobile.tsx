@@ -1,3 +1,4 @@
+import cx from 'classnames'
 import { motion } from 'framer-motion'
 import { useCallback, useMemo, useState } from 'react'
 
@@ -40,7 +41,9 @@ const RenderItems = ({
             key={id}
             onMouseUp={() => onOpenItem && onOpenItem(id)}
             type="button"
-            className="flex w-full justify-between px-4 py-3 focus:bg-primary/10"
+            className={cx('flex w-full justify-between px-4 py-3 active:bg-primary/10', {
+              'base-focus-ring': !disableFocusAndScreenReader,
+            })}
           >
             <span className="font-semibold">{title}</span>
             <div className="-rotate-90">
@@ -54,7 +57,9 @@ const RenderItems = ({
             key={id}
             noStyles={LinkComponent === 'div' ? undefined : true}
             href={path ?? ''}
-            className="flex w-full justify-between px-4 py-3 focus:bg-primary/10"
+            className={cx('flex w-full justify-between px-4 py-3 active:bg-primary/10', {
+              'base-focus-ring': !disableFocusAndScreenReader,
+            })}
           >
             <span className="font-semibold">{title}</span>
           </LinkComponent>

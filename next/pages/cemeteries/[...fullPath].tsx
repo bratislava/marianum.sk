@@ -87,11 +87,6 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
               />
             </SectionBoxed>
           ) : null}
-          {documents ? (
-            <SectionBoxed title={documents.title ?? undefined}>
-              <DocumentGroup {...documents} variant="dividers" />
-            </SectionBoxed>
-          ) : null}
           {gallery ? (
             <SectionBoxed title={gallery.title ?? undefined}>
               <ImageGallery images={gallery.medias?.data} />
@@ -100,6 +95,11 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
           {video ? (
             <SectionBoxed title={video.title ?? undefined}>
               <IframeSection section={video} variant="short" />
+            </SectionBoxed>
+          ) : null}
+          {documents ? (
+            <SectionBoxed title={documents.title ?? undefined}>
+              <DocumentGroup {...documents} variant="dividers" />
             </SectionBoxed>
           ) : null}
         </div>

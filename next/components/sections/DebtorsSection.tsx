@@ -1,9 +1,9 @@
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import cx from 'classnames'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import useSwr from 'swr'
-import { useDebounce } from 'usehooks-ts'
+import { useDebounceValue } from 'usehooks-ts'
 
 import Loading from '@/components/atoms/Loading'
 import LoadingOverlay from '@/components/atoms/LoadingOverlay'
@@ -14,14 +14,13 @@ import FiltersBackgroundWrapper from '@/components/molecules/FiltersBackgroundWr
 import PaginationMeili from '@/components/molecules/PaginationMeili'
 import Section from '@/components/molecules/Section'
 import {
-  debtorsSectionDefaultFilters,
-  debtorsSectionFetcher,
-  DebtorsSectionFilters,
-  getDebtorsSectionSwrKey,
+  debtorsDefaultFilters,
+  DebtorsFilters,
+  getMeiliDebtorsQueryKey,
+  meiliDebtorsFetcher,
 } from '@/services/fetchers/debtorsSectionFetcher'
 import { DebtorMeili } from '@/services/meili/meiliTypes'
 import { getCemeteryInfoInCeremoniesDebtorsMeili } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
-import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
@@ -30,7 +29,7 @@ const Table = ({
   filters,
 }: {
   data: SearchResponse<DebtorMeili>
-  filters: DebtorsSectionFilters
+  filters: DebtorsFilters
 }) => {
   const { t, i18n } = useTranslation()
 
@@ -110,37 +109,35 @@ const DataWrapper = ({
   description,
   onPageChange,
 }: {
-  filters: DebtorsSectionFilters
+  filters: DebtorsFilters
   description?: string | null
   onPageChange: (page: number) => void
 }) => {
-  const { data, error } = useSwr(getDebtorsSectionSwrKey(filters), debtorsSectionFetcher(filters))
-
-  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useGetSwrExtras({
-    data,
-    error,
+  const { data, isPending, isFetching, isError, error } = useQuery({
+    queryKey: getMeiliDebtorsQueryKey(filters),
+    queryFn: () => meiliDebtorsFetcher(filters),
+    placeholderData: keepPreviousData,
   })
 
-  // TODO replace by proper loading and error
-  if (loadingAndNoDataToDisplay) {
+  if (isPending) {
     return <Loading />
   }
 
-  if (error) {
+  // TODO replace by proper error
+  if (isError) {
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
   return (
     <>
-      <LoadingOverlay loading={delayedLoading}>
-        {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-        <Table data={dataToDisplay!} filters={filters} />
+      <LoadingOverlay loading={isFetching}>
+        <Table data={data} filters={filters} />
       </LoadingOverlay>
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
-      {dataToDisplay ? (
+      {data.hits.length > 0 ? (
         <PaginationMeili
-          data={dataToDisplay}
+          data={data}
           pageSize={filters.pageSize}
           selectedPage={filters.page}
           onPageChange={onPageChange}
@@ -155,9 +152,9 @@ type DebtorsSectionProps = {
 }
 
 const DebtorsSection = ({ description }: DebtorsSectionProps) => {
-  const [filters, setFilters] = useState<DebtorsSectionFilters>(debtorsSectionDefaultFilters)
+  const [filters, setFilters] = useState<DebtorsFilters>(debtorsDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')
-  const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
+  const [debouncedSearchInputValue] = useDebounceValue<string>(searchInputValue, 300)
 
   useEffect(() => {
     if (filters.search !== debouncedSearchInputValue) {

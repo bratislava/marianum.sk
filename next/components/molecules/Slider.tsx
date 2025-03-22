@@ -136,13 +136,14 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
     return (
       // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
       <div
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-        tabIndex={0}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         ref={forwardedRef}
         onKeyUp={keyUpHandler}
-        role="application"
+        // We use role="region" instead of role="application" as it breaks keyboard navigation
+        // Region refers to "an important content that users may want to navigate to"
+        // TODO: OLO uses role="tabpanel" but this implementation would require some refactoring
+        role="region"
         aria-label={description ?? t('Slider.aria.description')}
         className="relative z-0 flex size-full items-center justify-center overflow-hidden"
       >

@@ -1,6 +1,6 @@
 import cx from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
-import React, { PropsWithChildren } from 'react'
+import { PropsWithChildren } from 'react'
 
 import Loading from '@/components/atoms/Loading'
 
@@ -20,19 +20,19 @@ const LoadingOverlay = ({ loading, children }: PropsWithChildren<LoadingOverlayP
       {loading ? (
         <AnimatePresence>
           <motion.div
-            className="absolute left-0 top-0 flex size-full flex-col items-center bg-primary-dark/80"
+            className="absolute left-0 top-0 flex size-full flex-col items-center"
             transition={{ duration: 0.2 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
             <ShrinkablePadding />
             {/* For some reason it displays behind aspect-w-* elements, so z-index is added. */}
-            <Loading className="z-10 shrink-0 text-white" />
+            <Loading className="z-10 shrink-0 text-primary-dark" />
             <ShrinkablePadding />
           </motion.div>
         </AnimatePresence>
       ) : null}
-      {children}
+      <div className={cx({ 'opacity-20 duration-200': loading })}>{children}</div>
     </div>
   )
 }

@@ -1,8 +1,8 @@
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import cx from 'classnames'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import Map, { Marker } from 'react-map-gl'
-import useSWR from 'swr'
 
 import { MapMarkerSvg } from '@/assets'
 import { ArrowLeftIcon, PlaceIcon } from '@/assets/icons'
@@ -15,10 +15,9 @@ import Search from '@/components/molecules/Search'
 import Section from '@/components/molecules/Section'
 import { Enum_Managedobject_Type, MapOfManagedObjectsSectionFragment } from '@/graphql'
 import {
-  getManagedObjectsSwrKey,
-  managedObjectsFetcher,
+  getGraphqlManagedObjectsQueryKey,
+  graphqlManagedObjectsFetcher,
 } from '@/services/fetchers/managedObjectsFetcher'
-import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 import { useMapWithFilteringAndSearch } from '@/utils/useMapWithFilteringAndSearch'
 
 type MapOfManagedObjectsSectionProps = {
@@ -27,6 +26,7 @@ type MapOfManagedObjectsSectionProps = {
 
 const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps) => {
   const { t, i18n } = useTranslation()
+  const locale = i18n.language
 
   const { getFullPath } = useGetFullPath()
 
@@ -38,14 +38,10 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
     [Enum_Managedobject_Type.Rozprasovac]: t('MapSection.managedObjectsFilter.rozprasovac'),
   } satisfies Record<Enum_Managedobject_Type, string>
 
-  const { data, error } = useSWR(
-    getManagedObjectsSwrKey(i18n.language),
-    managedObjectsFetcher(i18n.language),
-  )
-
-  const { loadingAndNoDataToDisplay, dataToDisplay } = useGetSwrExtras({
-    data,
-    error,
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: getGraphqlManagedObjectsQueryKey(locale),
+    queryFn: () => graphqlManagedObjectsFetcher(locale),
+    placeholderData: keepPreviousData,
   })
 
   const defaultFilters = {
@@ -68,15 +64,19 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
     isMapOrFiltersDisplayed,
     setMapOrFiltersDisplayed,
     filteredLandmarks: filteredManagedObjects,
-  } = useMapWithFilteringAndSearch(dataToDisplay?.managedObjects?.data, defaultFilters)
+  } = useMapWithFilteringAndSearch(data?.managedObjects?.data, defaultFilters)
 
-  // TODO replace by proper loading and error
-  if (loadingAndNoDataToDisplay) {
-    return <Loading />
+  if (isPending) {
+    return (
+      <div className="py-6">
+        <Loading />
+      </div>
+    )
   }
 
-  if (error) {
-    return <div>Error: {JSON.stringify(error)}</div>
+  // TODO replace by proper error
+  if (isError) {
+    return <div className="whitespace-pre py-6">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
   return (
@@ -113,6 +113,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
           <ul
             aria-label={t('MapSection.results')}
             className="flex-1 overflow-auto"
+            tabIndex={-1} // We are setting internal state on onMouseLeave, so the list itself does not need keyboard focus
             onMouseLeave={() => setHoveredManagedObjectSlug(null)}
           >
             {filteredManagedObjects.map((managedObject, index) => {
@@ -125,7 +126,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
                     onMouseEnter={() => setHoveredManagedObjectSlug(slug ?? '')}
                     noStyles
                     href={getFullPath(managedObject) ?? ''}
-                    className={cx('flex gap-2 px-5 py-3', {
+                    className={cx('flex gap-2 px-5 py-3 ring-inset ring-offset-0', {
                       'bg-primary/5': slug === hoveredManagedObjectSlug,
                     })}
                   >

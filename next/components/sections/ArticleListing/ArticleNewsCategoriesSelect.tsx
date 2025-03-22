@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import {
   articleNewsCategoriesSelectFetcher,
-  articleNewsCategoriesSelectSwrKey,
+  articleNewsCategoriesSelectQueryKey,
 } from '@/services/fetchers/articleListingFetcher'
 
 type ArticleNewsCategoriesSelectProps = {
@@ -20,7 +20,7 @@ const ArticleNewsCategoriesSelect = ({
 
   return (
     <SelectWithFetcher
-      swrKey={articleNewsCategoriesSelectSwrKey}
+      queryKey={articleNewsCategoriesSelectQueryKey}
       defaultOption={defaultOption}
       fetcher={articleNewsCategoriesSelectFetcher}
       onSelectionChange={(selection: string) => {

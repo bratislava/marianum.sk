@@ -39,7 +39,7 @@ const Menu = ({ items, title, path }: MenuProps) => {
         noStyles
         href={path ?? ''}
         className={cx(
-          'flex h-full w-full items-center justify-center font-semibold outline-none transition-all focus:bg-primary/10',
+          'flex h-full w-full items-center justify-center font-semibold ring-inset ring-offset-0 transition-all',
           { 'bg-primary/10': isOpen },
         )}
         onPointerEnter={() => toggleMenu(true)}

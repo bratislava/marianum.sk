@@ -28,6 +28,8 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
     <div className="relative h-[412px] bg-primary-dark text-white lg:h-[436px]">
       <Slider
         autoSwipeDuration={5000}
+        // To prevent the screen reader from reading the aria-label twice (Slider component already has a default aria-label)
+        description={t('HomepageSlider.aria.heading')}
         allowKeyboardNavigation
         pages={slides.map(({ title, description, button, image }, index) => {
           const linkProps = getLinkProps(button)
@@ -39,7 +41,6 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
               // eslint-disable-next-line react/no-array-index-key
               key={index}
             >
-              <h2 className="sr-only">{t('HomepageSlider.aria.heading')}</h2>
               <div className="container absolute flex h-full flex-row items-center justify-center lg:justify-start">
                 {/* 60% of container width is not the same as 60% of window (image offset from left), but this setting works fine */}
                 <div className="flex size-full flex-col items-center pb-16 lg:w-3/5 lg:items-start lg:justify-end lg:pb-[104px]">

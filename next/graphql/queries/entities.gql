@@ -460,10 +460,6 @@ fragment PageEntity on PageEntity {
         __typename
         ...ImageGallery
       }
-      ... on ComponentSectionsPartnersSection {
-        __typename
-        ...PartnersSection
-      }
       ... on ComponentSectionsMenuListing {
         __typename
         ...MenuListing

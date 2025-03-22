@@ -1,42 +1,41 @@
-import { useMemo } from 'react'
-import useSwr, { Key } from 'swr'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
 import Select, { Option, SelectProps, SingleSelect } from '@/components/atoms/Select'
-import { useGetSwrExtras } from '@/utils/useGetSwrExtras'
 
 type SelectWithFetcherProps = {
-  swrKey: Key
+  queryKey: string[]
   fetcher: () => Promise<Option[]>
   defaultOption: Option
 } & Pick<SelectProps, 'id' | 'placeholder' | 'label' | 'disabled'> &
   Pick<SingleSelect, 'onSelectionChange'>
 
 const SelectWithFetcher = ({
-  swrKey,
+  queryKey,
   defaultOption,
   fetcher,
   disabled: originalDisabled,
   onSelectionChange,
   ...rest
 }: SelectWithFetcherProps) => {
-  const { data, error } = useSwr(swrKey, fetcher)
+  const { data, isPending, isFetching, isError, error } = useQuery({
+    queryKey: [queryKey],
+    queryFn: fetcher,
+    placeholderData: keepPreviousData,
+  })
 
-  const { loading } = useGetSwrExtras({ data, error })
+  // TODO replace by proper error
+  if (isError) {
+    return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
+  }
 
-  const options = useMemo(() => {
-    if (data) {
-      return [defaultOption, ...data]
-    }
-
-    return [defaultOption]
-  }, [data, defaultOption])
+  const options = isPending ? [defaultOption] : [defaultOption, ...data]
 
   return (
     <Select
       options={options}
       defaultSelected={defaultOption.key}
       multiple={false}
-      disabled={loading || error || originalDisabled}
+      disabled={isFetching || error || originalDisabled}
       onSelectionChange={onSelectionChange}
       {...rest}
     />

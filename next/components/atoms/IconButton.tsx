@@ -68,17 +68,11 @@ const IconButton = forwardRef<HTMLAnchorElement | HTMLButtonElement, Polymorphic
         'text-foreground': variant === 'plain-secondary' || variant === 'pagination',
 
         // bg and border color
-        'border border-primary bg-primary focus-visible:bg-primary-light': variant === 'primary',
-        'border border-primary focus-visible:text-primary-light':
-          variant === 'secondary' || variant === 'pagination-selected',
-        'border border-border-alt focus-visible:text-primary-light': variant === 'tertiary',
-        'border border-border bg-white focus-visible:text-primary-light':
-          variant === 'white' || variant === 'pagination',
+        'border border-primary bg-primary': variant === 'primary',
+        'border border-primary': variant === 'secondary' || variant === 'pagination-selected',
+        'border border-border-alt': variant === 'tertiary',
+        'border border-border bg-white': variant === 'white' || variant === 'pagination',
         'border border-primary bg-white': variant === 'pagination-selected',
-        'focus-visible:bg-primary/8 focus-visible:text-primary-light': variant === 'plain-primary',
-        'focus-visible:bg-foreground/8 focus-visible:text-foreground':
-          variant === 'plain-secondary',
-        'focus-visible:bg-white/8': variant === 'plain-white',
 
         // hover
         'hover:border-primary-dark hover:bg-primary-dark': variant === 'primary' && !disabled,

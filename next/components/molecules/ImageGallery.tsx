@@ -53,6 +53,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
   }, [containerWidth, variant])
 
   // number of not displayed images
+  // TODO: for gallery in cemeteries this count is not correct
   const moreImagesCount = useMemo(() => {
     return Math.max(imageCount - thumbnailCount, 0)
   }, [imageCount, thumbnailCount])
@@ -81,7 +82,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
           tabIndex={0}
           aria-label={t('ImageGallery.aria.openImageGallery')}
           onKeyUp={onEnterOrSpaceKeyDown(() => openAtImageIndex(0))}
-          className={cx('cursor-default outline-offset-2 outline-primary focus:outline-4', {
+          className={cx('base-focus-ring', {
             'flex flex-col': variant === 'below',
             'grid grid-cols-[minmax(0,1fr)_auto]': variant === 'aside',
           })}
@@ -90,7 +91,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
           {firstImage && (
             <div
               onClick={() => openAtImageIndex(0)}
-              className={cx('relative w-full cursor-pointer', {
+              className={cx('relative w-full', {
                 // large 'below' layout
                 'h-[500px]': thumbnailCount > 6 && variant === 'below',
                 // small & middle 'below' layout
@@ -123,7 +124,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                   <div
                     onClick={() => openAtImageIndex(index + 1)}
                     key={image.id}
-                    className="relative w-full cursor-pointer pt-[100%]"
+                    className="relative w-full pt-[100%]"
                   >
                     <MImage
                       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -138,10 +139,11 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
               {moreImagesCount > 0 && (
                 <div
                   onClick={() => openAtImageIndex(0)}
-                  className="relative w-full cursor-pointer border border-border pt-[100%]"
+                  className="relative w-full border border-border pt-[100%]"
                 >
                   <div className="absolute top-0 flex size-full items-center justify-center bg-white p-2 text-center font-semibold text-primary">
-                    {t('ImageGallery.morePhotos', { count: moreImagesCount })}
+                    {/* TODO: before there was also count shown, but it was wrongly calculated t('ImageGallery.morePhotos', { count: moreImagesCount }) */}
+                    {t('ImageGallery.showAllPhotos')}
                   </div>
                 </div>
               )}
@@ -163,7 +165,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                   <div
                     onClick={() => openAtImageIndex(index + 1)}
                     key={image.id}
-                    className="relative w-[168px] cursor-pointer pt-[168px]"
+                    className="relative w-[168px] pt-[168px]"
                   >
                     <MImage
                       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -176,10 +178,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
 
               {/* more images button */}
               {moreImagesCount > 0 && (
-                <div
-                  onClick={() => openAtImageIndex(0)}
-                  className="relative w-[168px] cursor-pointer pt-[166px]"
-                >
+                <div onClick={() => openAtImageIndex(0)} className="relative w-[168px] pt-[166px]">
                   <div className="absolute top-0 flex size-full items-center justify-center bg-white p-8 text-center font-semibold text-primary">
                     {t('ImageGallery.showAllPhotos')}
                   </div>

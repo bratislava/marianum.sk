@@ -23,7 +23,7 @@ const FooterCredentials = ({ links }: FooterCredentialsProps) => {
         <div className="flex flex-col items-center lg:items-start">
           <div className="flex flex-col items-center gap-2 lg:flex-row">
             <span>
-              2015 - {currentYear} © {t('FooterCredentials.allRightsReserved')}
+              {currentYear} © {t('FooterCredentials.allRightsReserved')}
             </span>
             <span className="hidden lg:inline">•</span>
             <span>Marianum - Pohrebníctvo mesta Bratislavy</span>
