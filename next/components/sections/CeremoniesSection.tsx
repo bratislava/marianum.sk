@@ -13,7 +13,7 @@ import MLink from '@/components/atoms/MLink'
 import RowBox from '@/components/atoms/Row/RowBox'
 import CemeteryLink from '@/components/molecules/CemeteryLink'
 import CeremoniesDebtorsCemeterySelect from '@/components/molecules/CeremoniesDebtors/CemeterySelect'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import Section from '@/components/molecules/Section'
 import { CeremoniesQuery, CeremoniesSectionFragment } from '@/graphql'
 import {
@@ -33,7 +33,9 @@ const ArchiveCard = ({
   archive: NonNullable<CeremoniesSectionFragment['archive']>
 }) => {
   const router = useRouter()
-  const { getFullPath } = useGetFullPath()
+  const { getLinkProps } = useGetLinkProps()
+
+  const linkProps = getLinkProps(archive.button)
 
   // eslint-disable-next-line unicorn/consistent-function-scoping
   const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -42,10 +44,9 @@ const ArchiveCard = ({
   }
 
   const handleCardClick = () => {
-    const data = archive.button?.page?.data
-    if (data) {
+    if (archive.button) {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      router.push(getFullPath(data) ?? '')
+      router.push(linkProps.href)
     }
   }
 
@@ -57,9 +58,9 @@ const ArchiveCard = ({
         onClick={handleCardClick}
       >
         <h4>{archive.title}</h4>
-        {archive.button?.page?.data?.attributes?.slug && (
-          <MLink href={getFullPath(archive.button.page.data) ?? ''} onClick={handleLinkClick}>
-            {archive.button?.label}
+        {archive.button && (
+          <MLink href={linkProps.href ?? ''} onClick={handleLinkClick}>
+            {linkProps.label}
           </MLink>
         )}
       </div>
@@ -244,7 +245,6 @@ const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
       <div>
         <DataWrapper filters={filters} />
       </div>
-
       {section.archive && <ArchiveCard archive={section.archive} />}
     </Section>
   )

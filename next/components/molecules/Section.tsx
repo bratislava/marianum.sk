@@ -3,7 +3,7 @@ import { ReactNode, useContext, useMemo } from 'react'
 
 import MLink from '@/components/atoms/MLink'
 import { BackgroundColor, sectionContext } from '@/components/layouts/SectionsWrapper'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import { CtaButtonFragment } from '@/graphql'
 import { useActivateHeroSectionContentOverlay } from '@/utils/heroSectionContentOverlay'
 
@@ -14,8 +14,6 @@ export type SectionProps = {
   title?: string | null | undefined
   /* use `button` for strapi sections with link to more content */
   button?: CtaButtonFragment | null | undefined
-  /* use `buttonLink` for hardcoded link to more content */
-  buttonLink?: { label: string; linkHref: string | null }
   description?: string | null | undefined
   className?: string
   innerClassName?: string
@@ -32,7 +30,6 @@ const Section = ({
   cardGrid,
   title,
   button,
-  buttonLink,
   description,
   className,
   innerClassName,
@@ -42,11 +39,9 @@ const Section = ({
   centerTitleOnMobile = true,
   titleFontSize,
 }: SectionProps) => {
-  const { getFullPath } = useGetFullPath()
+  const { getLinkProps } = useGetLinkProps()
 
-  const showMorePath = getFullPath(button?.page?.data) ?? buttonLink?.linkHref
-  const showMoreLabel = button?.label ?? buttonLink?.label
-
+  const linkProps = getLinkProps(button)
   const { background, isDivider, isFirst, alternateBackground } = useContext(sectionContext)
 
   const resultBackground = useMemo(() => {
@@ -92,7 +87,7 @@ const Section = ({
           innerClassName,
         )}
       >
-        {(title || showMorePath) && (
+        {(title || button) && (
           <div className="flex">
             <h2
               className={cx('grow md:text-left', {
@@ -102,9 +97,9 @@ const Section = ({
             >
               {title}
             </h2>
-            {showMorePath && (
-              <MLink href={showMorePath} className="hidden md:inline-flex">
-                {showMoreLabel}
+            {button && (
+              <MLink {...linkProps} className="hidden md:inline-flex">
+                {linkProps.label}
               </MLink>
             )}
           </div>
@@ -132,9 +127,9 @@ const Section = ({
         >
           {children}
         </div>
-        {showMorePath && (
+        {button && (
           <div className="mt-4 text-center md:hidden">
-            <MLink href={showMorePath}>{showMoreLabel}</MLink>
+            <MLink {...linkProps}>{linkProps.label}</MLink>
           </div>
         )}
       </div>

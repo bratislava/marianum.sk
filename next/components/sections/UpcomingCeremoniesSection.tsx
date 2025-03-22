@@ -7,7 +7,7 @@ import FormatDate from '@/components/atoms/FormatDate'
 import Loading from '@/components/atoms/Loading'
 import MLink from '@/components/atoms/MLink'
 import CemeteryLink from '@/components/molecules/CemeteryLink'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import Section from '@/components/molecules/Section'
 import { UpcomingCeremoniesSectionFragment } from '@/graphql'
 import {
@@ -128,13 +128,11 @@ type UpcomingCeremoniesSectionProps = {
 }
 
 const UpcomingCeremoniesSection = ({ section }: UpcomingCeremoniesSectionProps) => {
-  const { getFullPath } = useGetFullPath()
+  const { getLinkProps } = useGetLinkProps()
 
-  const showMoreButtonSlug = getFullPath(section.showMoreButton?.page?.data)
+  const linkProps = getLinkProps(section.showMoreButton)
 
-  const showMoreButton = section.showMoreButton && showMoreButtonSlug && (
-    <MLink href={showMoreButtonSlug}>{section.showMoreButton.label}</MLink>
-  )
+  const showMoreButton = section.showMoreButton && <MLink {...linkProps}>{linkProps.label}</MLink>
 
   return (
     <Section>
