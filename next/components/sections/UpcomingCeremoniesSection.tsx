@@ -132,9 +132,9 @@ type CeremoniesListingProps = {
 const UpcomingCeremoniesSection = ({ section }: CeremoniesListingProps) => {
   const { getLinkProps } = useGetLinkProps()
 
-  const showMore = getLinkProps(section.showMoreButton)
+  const linkProps = getLinkProps(section.showMoreButton)
 
-  const showMoreButton = section.showMoreButton && <MLink {...showMore}>{showMore.label}</MLink>
+  const showMoreButton = section.showMoreButton && <MLink {...linkProps}>{linkProps.label}</MLink>
 
   return (
     <Section>

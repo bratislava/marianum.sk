@@ -41,7 +41,7 @@ const Section = ({
 }: SectionProps) => {
   const { getLinkProps } = useGetLinkProps()
 
-  const showMore = getLinkProps(button)
+  const linkProps = getLinkProps(button)
   const { background, isDivider, isFirst, alternateBackground } = useContext(sectionContext)
 
   const resultBackground = useMemo(() => {
@@ -98,8 +98,8 @@ const Section = ({
               {title}
             </h2>
             {button && (
-              <MLink {...showMore} className="hidden md:inline-flex">
-                {showMore.label}
+              <MLink {...linkProps} className="hidden md:inline-flex">
+                {linkProps.label}
               </MLink>
             )}
           </div>
@@ -124,7 +124,7 @@ const Section = ({
         </div>
         {button && (
           <div className="mt-4 text-center md:hidden">
-            <MLink {...showMore}>{showMore.label}</MLink>
+            <MLink {...linkProps}>{linkProps.label}</MLink>
           </div>
         )}
       </div>

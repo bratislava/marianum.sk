@@ -29,7 +29,7 @@ const HomepageProceduresSection = ({
   const { border } = useContext(sectionContext)
 
   const { showMoreButton, title } = section
-  const showMore = getLinkProps(showMoreButton)
+  const linkProps = getLinkProps(showMoreButton)
 
   const slicedProceduresWithKeys = useMemo(() => {
     return [
@@ -99,7 +99,7 @@ const HomepageProceduresSection = ({
         </Tabs>
         {showMoreButton && (
           <div className="mt-8">
-            <MLink {...showMore}>{showMore.label}</MLink>
+            <MLink {...linkProps}>{linkProps.label}</MLink>
           </div>
         )}
       </div>
