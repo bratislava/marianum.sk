@@ -33,9 +33,40 @@ fragment NavigationItem on NavigationItem {
 
 fragment CtaButton on ComponentBlocksButtonLink {
   label
+  url
   page {
     data {
       ...PageSlugEntity
+    }
+  }
+  article {
+    data {
+      ...ArticleSlugEntity
+    }
+  }
+  bundle {
+    data {
+      ...BundleSlugEntity
+    }
+  }
+  branch {
+    data {
+      ...BranchSlugEntity
+    }
+  }
+  document {
+    data {
+      ...DocumentSlugEntity
+    }
+  }
+  cemetery {
+    data {
+      ...CemeterySlugEntity
+    }
+  }
+  managed_object {
+    data {
+      ...ManagedObjectSlugEntity
     }
   }
 }
@@ -151,12 +182,7 @@ fragment Footer on ComponentGeneralFooter {
     ...FooterLinkItem
   }
   bottomLinks {
-    label
-    page {
-      data {
-        ...PageSlugEntity
-      }
-    }
+    ...CtaButton
   }
 }
 
