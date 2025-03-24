@@ -2103,6 +2103,22 @@
     react-query "3.39.3"
     react-select "5.7.0"
 
+"@strapi/helper-plugin@4.25.22":
+  version "4.25.22"
+  resolved "https://registry.yarnpkg.com/@strapi/helper-plugin/-/helper-plugin-4.25.22.tgz#b7ff9f4a7434cbab275d83f597054758071b3deb"
+  integrity sha512-xB8akocw1Mwt99564S6NBuHkFwCZNqQoJizzztJbz4OMBpyohWPH5xsyqcSfFlsu9s6BxgFqhmOCrM59I3sLYQ==
+  dependencies:
+    axios "1.8.2"
+    date-fns "2.30.0"
+    formik "2.4.0"
+    immer "9.0.19"
+    lodash "4.17.21"
+    qs "6.11.1"
+    react-helmet "6.1.0"
+    react-intl "6.4.1"
+    react-query "3.39.3"
+    react-select "5.7.0"
+
 "@strapi/icons@1.19.0":
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/@strapi/icons/-/icons-1.19.0.tgz#efa6b553a7de437171512e3549859faa141a145f"
@@ -2207,17 +2223,17 @@
     react-query "3.39.3"
     yup "0.32.9"
 
-"@strapi/plugin-graphql@4.25.20":
-  version "4.25.20"
-  resolved "https://registry.yarnpkg.com/@strapi/plugin-graphql/-/plugin-graphql-4.25.20.tgz#c292679a97c5412aa4c364587a96cbf6e095fdda"
-  integrity sha512-WDDo54/od0LcgOoEGM0xrwepRxTqMethuetyl4jB3Q1hb7cBR6760kDJU43qYrMTY9uny3OK8J8WOXMNErZmjg==
+"@strapi/plugin-graphql@4.25.22":
+  version "4.25.22"
+  resolved "https://registry.yarnpkg.com/@strapi/plugin-graphql/-/plugin-graphql-4.25.22.tgz#98a913ff5ed7d5a6f49346025ed05fe73b627577"
+  integrity sha512-CrXk5u9xm9XQwPHyyW4jbLHbQzCTFnxaLVtgniKJLfORvzU8wThRxjb0SfcTIc7GjRnZ0GmPthLQTlWkrS9e9g==
   dependencies:
     "@graphql-tools/schema" "8.5.1"
     "@graphql-tools/utils" "^8.13.1"
     "@strapi/design-system" "1.19.0"
-    "@strapi/helper-plugin" "4.25.20"
+    "@strapi/helper-plugin" "4.25.22"
     "@strapi/icons" "1.19.0"
-    "@strapi/utils" "4.25.20"
+    "@strapi/utils" "4.25.22"
     apollo-server-core "3.12.1"
     apollo-server-koa "3.10.0"
     graphql "^15.5.1"
@@ -2481,6 +2497,18 @@
     p-map "4.0.0"
     yup "0.32.9"
 
+"@strapi/utils@4.25.22", "@strapi/utils@^4.15.4", "@strapi/utils@^4.5.4":
+  version "4.25.22"
+  resolved "https://registry.yarnpkg.com/@strapi/utils/-/utils-4.25.22.tgz#1074bdb3432be83e282d4dff1f59ed18eea1430b"
+  integrity sha512-hIvhrTv0Fn5hbBGlSgu+UfCiwqe6qABWHyolsHZsnDDlBEW34qJijC89O5q34TOccKvuXFHK/1nUCvmTDbD3PA==
+  dependencies:
+    "@sindresorhus/slugify" "1.1.0"
+    date-fns "2.30.0"
+    http-errors "1.8.1"
+    lodash "4.17.21"
+    p-map "4.0.0"
+    yup "0.32.9"
+
 "@strapi/utils@5.11.3":
   version "5.11.3"
   resolved "https://registry.yarnpkg.com/@strapi/utils/-/utils-5.11.3.tgz#c59cf40ce3d525bd5e4300f00dd2ec002fdfe2d7"
@@ -2496,18 +2524,6 @@
     preferred-pm "3.1.2"
     yup "0.32.9"
     zod "^3.22.4"
-
-"@strapi/utils@^4.15.4", "@strapi/utils@^4.5.4":
-  version "4.25.22"
-  resolved "https://registry.yarnpkg.com/@strapi/utils/-/utils-4.25.22.tgz#1074bdb3432be83e282d4dff1f59ed18eea1430b"
-  integrity sha512-hIvhrTv0Fn5hbBGlSgu+UfCiwqe6qABWHyolsHZsnDDlBEW34qJijC89O5q34TOccKvuXFHK/1nUCvmTDbD3PA==
-  dependencies:
-    "@sindresorhus/slugify" "1.1.0"
-    date-fns "2.30.0"
-    http-errors "1.8.1"
-    lodash "4.17.21"
-    p-map "4.0.0"
-    yup "0.32.9"
 
 "@swc/core-darwin-arm64@1.11.11":
   version "1.11.11"
@@ -3604,6 +3620,15 @@ axios@1.7.4:
   version "1.7.4"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.7.4.tgz#4c8ded1b43683c8dd362973c393f3ede24052aa2"
   integrity sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw==
+  dependencies:
+    follow-redirects "^1.15.6"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
+
+axios@1.8.2:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.8.2.tgz#fabe06e241dfe83071d4edfbcaa7b1c3a40f7979"
+  integrity sha512-ls4GYBm5aig9vWx8AWDSGLpnpDQRtWAfrjU+EuytuODrFBkqesN2RkOQCBzrA1RQNHw1SmRMSDDDSwzNAYQ6Rg==
   dependencies:
     follow-redirects "^1.15.6"
     form-data "^4.0.0"
