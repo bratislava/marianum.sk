@@ -61,7 +61,7 @@
     "react-turnstile": "^1.0.6",
     "rehype-raw": "7.0.0",
     "remark-gfm": "4.0.1",
-    "sharp": "0.32.6",
+    "sharp": "0.33.5",
     "slugify": "^1.6.5",
     "smooth-scroll-into-view-if-needed": "^1.1.33",
     "swiper": "^8.4.4",
