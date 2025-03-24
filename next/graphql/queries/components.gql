@@ -64,7 +64,7 @@ fragment CtaButton on ComponentBlocksButtonLink {
       ...CemeterySlugEntity
     }
   }
-  managed_object {
+  managedObject {
     data {
       ...ManagedObjectSlugEntity
     }

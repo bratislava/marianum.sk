@@ -44,7 +44,7 @@
       "relation": "oneToOne",
       "target": "api::cemetery.cemetery"
     },
-    "managed_object": {
+    "managedObject": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::managed-object.managed-object"
