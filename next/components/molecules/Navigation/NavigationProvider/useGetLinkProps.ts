@@ -49,9 +49,9 @@ export const useGetLinkProps = () => {
     } else if ('cemetery' in link && link.cemetery?.data?.attributes) {
       href = getFullPath(link.cemetery.data) ?? '#'
       // label = link.label ?? link.cemetery.data.attributes.title
-    } else if ('managed_object' in link && link.managed_object?.data?.attributes) {
-      // label = link.label ?? link.managed_object.data.attributes.title
-      href = getFullPath(link.managed_object.data) ?? '#'
+    } else if ('managedObject' in link && link.managedObject?.data?.attributes) {
+      // label = link.label ?? link.managedObject.data.attributes.title
+      href = getFullPath(link.managedObject.data) ?? '#'
     } else if (link?.url) {
       label = link.label ?? link.url
       href = link.url
