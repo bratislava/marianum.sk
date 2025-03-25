@@ -42,19 +42,6 @@ export const cemeteriesInDebtorsFetcher = async (locale: string) => {
   )
 }
 
-export const getDebtorsSectionPrefetches = (locale: string) => [
-  {
-    sectionTypename: 'ComponentSectionsDebtorsSection',
-    key: getCemeteriesInDebtorsKey(locale),
-    fetcher: cemeteriesInDebtorsFetcher,
-  } as const,
-  {
-    sectionTypename: 'ComponentSectionsDebtorsSection',
-    key: getMeiliDebtorsQueryKey(debtorsDefaultFilters),
-    fetcher: meiliDebtorsFetcher(debtorsDefaultFilters),
-  } as const,
-]
-
 export const getCemeteriesInDebtorsQuery = (locale: string) => {
   return {
     queryKey: getCemeteriesInDebtorsKey(locale),

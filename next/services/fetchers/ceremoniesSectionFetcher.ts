@@ -18,7 +18,6 @@ export const getCeremoniesSectionQueryKey = (filters: CeremoniesSectionFilters) 
   filters,
 ]
 
-// TODO consider unifying fetchers for ceremonies, upcoming ceremonies and archived ceremonies
 export const ceremoniesSectionFetcher = (filters: CeremoniesSectionFilters) => {
   const currentDate = parseAbsolute(new Date().toISOString(), bratislavaTimezone)
   const startOfDay = currentDate.set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
@@ -47,20 +46,6 @@ export const cemeteriesInCeremoniesFetcher = async (locale: string) => {
   )
 }
 
-export const getCeremoniesSectionPrefetches = (locale: string) => [
-  {
-    sectionTypename: 'ComponentSectionsCeremoniesSection',
-    key: getCemeteriesInCeremoniesKey(locale),
-    fetcher: cemeteriesInCeremoniesFetcher,
-  } as const,
-  {
-    sectionTypename: 'ComponentSectionsCeremoniesSection',
-    key: getCeremoniesSectionQueryKey(ceremoniesSectionDefaultFilters),
-    fetcher: ceremoniesSectionFetcher(ceremoniesSectionDefaultFilters),
-  } as const,
-]
-
-// TODO: align names in next commit
 export const getGraphqlCeremoniesQuery = (
   filters: CeremoniesSectionFilters = ceremoniesSectionDefaultFilters,
 ) => {
@@ -70,7 +55,6 @@ export const getGraphqlCeremoniesQuery = (
   } as const
 }
 
-// TODO: align names in next commit
 export const getCemeteriesInCeremoniesQuery = (locale: string) => {
   return {
     queryKey: getCemeteriesInCeremoniesKey(locale),

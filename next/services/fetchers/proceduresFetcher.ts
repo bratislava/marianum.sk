@@ -4,14 +4,6 @@ export const getGraphqlProceduresQueryKey = (locale: string) => ['Procedures', l
 
 export const graphqlProceduresFetcher = (locale: string) => client.Procedures({ locale })
 
-export const getProceduresPrefetch = (locale: string) => {
-  return {
-    sectionTypename: 'ComponentSectionsProceduresSection',
-    key: getGraphqlProceduresQueryKey(locale),
-    fetcher: graphqlProceduresFetcher(locale),
-  } as const
-}
-
 export const getGraphqlProceduresQuery = (locale: string) => {
   return {
     queryKey: getGraphqlProceduresQueryKey(locale),

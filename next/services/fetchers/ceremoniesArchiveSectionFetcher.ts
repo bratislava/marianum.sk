@@ -1,7 +1,3 @@
-import {
-  cemeteriesInCeremoniesFetcher,
-  getCemeteriesInCeremoniesKey,
-} from '@/services/fetchers/ceremoniesSectionFetcher'
 import { meiliClient } from '@/services/meili/meiliClient'
 import { CeremonyMeili } from '@/services/meili/meiliTypes'
 import { getMeilisearchPageOptions } from '@/utils/getMeilisearchPageOptions'
@@ -26,7 +22,6 @@ export const getCeremoniesArchiveSectionQueryKey = (filters: CeremoniesArchiveSe
   filters,
 ]
 
-// TODO consider unifying fetchers for ceremonies, upcoming ceremonies and archived ceremonies
 export const ceremoniesArchiveSectionFetcher = (filters: CeremoniesArchiveSectionFilters) =>
   meiliClient.index('ceremony').search<CeremonyMeili>(filters.search, {
     ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
@@ -37,20 +32,6 @@ export const ceremoniesArchiveSectionFetcher = (filters: CeremoniesArchiveSectio
     sort: ['dateTimeTimestamp:desc'],
   })
 
-export const ceremoniesArchiveSectionPrefetches = [
-  {
-    sectionTypename: 'ComponentSectionsCeremoniesArchiveSection',
-    key: getCemeteriesInCeremoniesKey,
-    fetcher: cemeteriesInCeremoniesFetcher,
-  } as const,
-  {
-    sectionTypename: 'ComponentSectionsCeremoniesArchiveSection',
-    key: getCeremoniesArchiveSectionQueryKey(ceremoniesArchiveSectionDefaultFilters),
-    fetcher: ceremoniesArchiveSectionFetcher(ceremoniesArchiveSectionDefaultFilters),
-  } as const,
-]
-
-// TODO: align names in next commit
 export const getCeremoniesArchiveSectionQuery = (
   filters: CeremoniesArchiveSectionFilters = ceremoniesArchiveSectionDefaultFilters,
 ) => {

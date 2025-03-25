@@ -28,12 +28,6 @@ export const meiliDisclosuresFetcher = (filters: DisclosuresFilters) =>
     sort: ['publishedAtTimestamp:desc'],
   })
 
-export const disclosuresSectionPrefetch = {
-  sectionTypename: 'ComponentSectionsDisclosuresSection',
-  key: getMeiliDisclosuresQueryKey(disclosuresSectionDefaultFilters),
-  fetcher: meiliDisclosuresFetcher(disclosuresSectionDefaultFilters),
-} as const
-
 export const getMeiliDisclosuresQuery = (
   filters: DisclosuresFilters = disclosuresSectionDefaultFilters,
 ) => {
