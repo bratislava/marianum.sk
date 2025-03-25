@@ -43,6 +43,8 @@ spec:
                 name: ${BUILD_REPOSITORY_NAME}-mailgun-secret
             - secretRef:
                 name: minio-secret-standalone
+            - secretRef:
+                name: marianum-generics-secret
             - configMapRef:
                 name: ${BUILD_REPOSITORY_NAME}-env
             - configMapRef:
