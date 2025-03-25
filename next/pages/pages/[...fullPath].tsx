@@ -1,8 +1,8 @@
 import { ParsedUrlQuery } from 'node:querystring'
 
+import { DehydratedState, HydrationBoundary } from '@tanstack/react-query'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { SSRConfig } from 'next-i18next'
-import { SWRConfig } from 'swr'
 
 import Divider from '@/components/atoms/Divider'
 import Seo from '@/components/atoms/Seo'
@@ -46,21 +46,10 @@ import {
   ReviewEntityFragment,
   ReviewsQuery,
 } from '@/graphql'
-import {
-  ArticleType,
-  getArticleListingNewsPrefetches,
-} from '@/services/fetchers/articleListingFetcher'
-import { getMapSectionPrefetch } from '@/services/fetchers/cemeteriesFetcher'
-import { ceremoniesArchiveSectionPrefetches } from '@/services/fetchers/ceremoniesArchiveSectionFetcher'
-import { getCeremoniesSectionPrefetches } from '@/services/fetchers/ceremoniesSectionFetcher'
-import { getDebtorsSectionPrefetches } from '@/services/fetchers/debtorsSectionFetcher'
-import { disclosuresSectionPrefetch } from '@/services/fetchers/disclosuresSectionFetcher'
-import { documentsSectionPrefetch } from '@/services/fetchers/documentsSectionFetcher'
-import { getMapOfManagedObjectsSectionPrefetch } from '@/services/fetchers/managedObjectsFetcher'
-import { getNewsListingPrefetch } from '@/services/fetchers/newsListingFetcher'
-import { getProceduresPrefetch } from '@/services/fetchers/proceduresFetcher'
+import { ArticleType } from '@/services/fetchers/articleListingFetcher'
 import { getReviewPrefetch } from '@/services/fetchers/reviewsFetcher'
 import { client } from '@/services/graphql/gqlClient'
+import { prefetchPageSections } from '@/utils/prefetchPageSections'
 import { prefetchSections } from '@/utils/prefetchSections'
 
 type PageProps = {
@@ -68,16 +57,16 @@ type PageProps = {
   general: GeneralEntityFragment | null
   entity: PageEntityFragment
   reviews: ReviewEntityFragment[] | null
-  fallback: Record<string, object>
+  dehydratedState: DehydratedState
 } & SSRConfig
 
-const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => {
+const Slug = ({ navigation, entity, general, reviews, dehydratedState }: PageProps) => {
   const { seo, title, perex, layout, sections, coverMedia } = entity.attributes ?? {}
 
   const isContainer = layout === Enum_Page_Layout.Fullwidth
 
   return (
-    <SWRConfig value={{ fallback }}>
+    <HydrationBoundary state={dehydratedState}>
       {/* TODO: Extract NavigationProvider from PageWrapper */}
       <NavigationProvider navigation={navigation} general={general}>
         <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
@@ -263,7 +252,7 @@ const Slug = ({ navigation, entity, general, reviews, fallback }: PageProps) => 
           })}
         </SectionsWrapper>
       </PageLayout>
-    </SWRConfig>
+    </HydrationBoundary>
   )
 }
 
@@ -290,21 +279,6 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
   // eslint-disable-next-line no-console
   console.log(`Revalidating page ${params?.fullPath.join('/') ?? ''}`)
 
-  const sectionFetcherMap = [getReviewPrefetch(locale)]
-
-  const sectionFetcherMapSwr = [
-    getProceduresPrefetch(locale),
-    getNewsListingPrefetch(locale),
-    getMapSectionPrefetch(locale),
-    getMapOfManagedObjectsSectionPrefetch(locale),
-    ...getArticleListingNewsPrefetches(locale),
-    ...getCeremoniesSectionPrefetches(locale),
-    ...ceremoniesArchiveSectionPrefetches,
-    documentsSectionPrefetch,
-    ...getDebtorsSectionPrefetches(locale),
-    disclosuresSectionPrefetch,
-  ]
-
   return generateStaticProps({
     // TODO: Locales
     locale,
@@ -312,18 +286,19 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
     entityPromiseGetter: ({ slug, locale: localeInner }) =>
       client.PageBySlug({ slug, locale: localeInner }).then((response) => response.pages?.data[0]),
     getAdditionalProps: async (page) => {
-      const [prefetchedSections, fallback] = await Promise.all([
-        prefetchSections(page.attributes?.sections, sectionFetcherMap, false),
-        // TODO fix types
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        prefetchSections(page.attributes?.sections, sectionFetcherMapSwr as any, true),
-      ])
+      const dehydratedState = await prefetchPageSections(page, locale)
+
+      const prefetchedSections = await prefetchSections(
+        page.attributes?.sections,
+        [getReviewPrefetch(locale)],
+        false,
+      )
 
       return {
         // TODO: Fix when types improved in prefetchSections util.
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
         reviews: (prefetchedSections?.reviews as ReviewsQuery)?.reviews?.data ?? null,
-        fallback,
+        dehydratedState,
       }
     },
   })

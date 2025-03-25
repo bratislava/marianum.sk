@@ -49,3 +49,13 @@ export const ceremoniesArchiveSectionPrefetches = [
     fetcher: ceremoniesArchiveSectionFetcher(ceremoniesArchiveSectionDefaultFilters),
   } as const,
 ]
+
+// TODO: align names in next commit
+export const getCeremoniesArchiveSectionQuery = (
+  filters: CeremoniesArchiveSectionFilters = ceremoniesArchiveSectionDefaultFilters,
+) => {
+  return {
+    queryKey: getCeremoniesArchiveSectionQueryKey(filters),
+    queryFn: () => ceremoniesArchiveSectionFetcher(filters),
+  } as const
+}

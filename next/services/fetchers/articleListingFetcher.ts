@@ -27,17 +27,20 @@ export const articlesDefaultFilters: ArticlesFilters = {
   page: 1,
 }
 
-export const getMeiliArticlesQueryKey = (
-  filters: ArticlesFilters,
-  type: 'all' | ArticleType,
-  locale?: string,
-) => ['Articles', filters, type, locale]
+export type ArticlesQueryParameters = {
+  filters: ArticlesFilters
+  type: 'all' | ArticleType
+  locale?: string
+}
 
-export const meiliArticlesFetcher = (
-  filters: ArticlesFilters,
-  type: 'all' | ArticleType,
-  locale?: string,
-) => {
+export const getMeiliArticlesQueryKey = ({ filters, type, locale }: ArticlesQueryParameters) => [
+  'Articles',
+  filters,
+  type,
+  locale,
+]
+
+export const meiliArticlesFetcher = ({ filters, type, locale }: ArticlesQueryParameters) => {
   let sectionFilter: string | null = null
 
   switch (type) {
@@ -75,6 +78,26 @@ export const meiliArticlesFetcher = (
     .then(unwrapFromSearchIndex('article'))
 }
 
+export const getMeiliArticlesQuery = ({
+  filters,
+  type,
+  locale,
+}: Partial<ArticlesQueryParameters>) => {
+  return {
+    queryKey: getMeiliArticlesQueryKey({
+      filters: filters ?? articlesDefaultFilters,
+      type: type ?? 'all',
+      locale,
+    }),
+    queryFn: () =>
+      meiliArticlesFetcher({
+        filters: filters ?? articlesDefaultFilters,
+        type: type ?? 'all',
+        locale,
+      }),
+  } as const
+}
+
 const mapSelectFn = (category: {
   attributes?: { title?: string | null } | null
   id?: string | null
@@ -103,16 +126,37 @@ export const articleJobsCategoriesSelectFetcher = () =>
     .ArticleJobsCategories()
     .then((data) => data.articleJobsCategories?.data.map(mapSelectFn) ?? [])
 
+export const getArticleJobsCategoriesSelectQuery = () => {
+  return {
+    queryKey: articleJobsCategoriesSelectQueryKey,
+    queryFn: () => articleJobsCategoriesSelectFetcher(),
+  } as const
+}
+
+export const getArticleNewsCategoriesSelectQuery = () => {
+  return {
+    queryKey: articleNewsCategoriesSelectQueryKey,
+    queryFn: () => articleNewsCategoriesSelectFetcher(),
+  } as const
+}
+
+export const getArticlePressCategoriesSelectQuery = () => {
+  return {
+    queryKey: articlePressCategoriesSelectQueryKey,
+    queryFn: () => articlePressCategoriesSelectFetcher(),
+  } as const
+}
+
 export const getArticleListingNewsPrefetches = (locale: string) => {
-  const argsNews = [articlesDefaultFilters, ArticleType.News, locale] as const
-  const argsPress = [articlesDefaultFilters, ArticleType.Press, locale] as const
-  const argsJobs = [articlesDefaultFilters, ArticleType.Jobs, locale] as const
+  const argsNews = { filters: articlesDefaultFilters, type: ArticleType.News, locale } as const
+  const argsPress = { filters: articlesDefaultFilters, type: ArticleType.Press, locale } as const
+  const argsJobs = { filters: articlesDefaultFilters, type: ArticleType.Jobs, locale } as const
 
   return [
     {
       sectionTypename: 'ComponentSectionsArticleNewsListing',
-      key: getMeiliArticlesQueryKey(...argsNews),
-      fetcher: meiliArticlesFetcher(...argsNews),
+      key: getMeiliArticlesQueryKey(argsNews),
+      fetcher: meiliArticlesFetcher(argsNews),
     } as const,
     {
       sectionTypename: 'ComponentSectionsArticleNewsListing',
@@ -121,8 +165,8 @@ export const getArticleListingNewsPrefetches = (locale: string) => {
     } as const,
     {
       sectionTypename: 'ComponentSectionsArticlePressListing',
-      key: getMeiliArticlesQueryKey(...argsPress),
-      fetcher: meiliArticlesFetcher(...argsPress),
+      key: getMeiliArticlesQueryKey(argsPress),
+      fetcher: meiliArticlesFetcher(argsPress),
     } as const,
     {
       sectionTypename: 'ComponentSectionsArticlePressListing',
@@ -131,8 +175,8 @@ export const getArticleListingNewsPrefetches = (locale: string) => {
     } as const,
     {
       sectionTypename: 'ComponentSectionsArticleJobsListing',
-      key: getMeiliArticlesQueryKey(...argsJobs),
-      fetcher: meiliArticlesFetcher(...argsJobs),
+      key: getMeiliArticlesQueryKey(argsJobs),
+      fetcher: meiliArticlesFetcher(argsJobs),
     } as const,
     {
       sectionTypename: 'ComponentSectionsArticleJobsListing',

@@ -9,3 +9,10 @@ export const getMapSectionPrefetch = (locale: string) => ({
   key: getGraphqlCemeteriesQueryKey(locale),
   fetcher: graphqlCemeteriesFetcher(locale),
 })
+
+export const getGraphqlCemeteriesQuery = (locale: string) => {
+  return {
+    queryKey: getGraphqlCemeteriesQueryKey(locale),
+    queryFn: () => graphqlCemeteriesFetcher(locale),
+  } as const
+}

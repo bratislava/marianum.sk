@@ -11,3 +11,10 @@ export const getNewsListingPrefetch = (locale: string) => {
     fetcher: () => graphqlNewsFetcher(locale),
   } as const
 }
+
+export const getGraphqlNewsQuery = (locale: string) => {
+  return {
+    queryKey: getGraphqlNewsQueryKey(locale),
+    queryFn: () => graphqlNewsFetcher(locale),
+  } as const
+}

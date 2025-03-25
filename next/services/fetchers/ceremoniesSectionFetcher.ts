@@ -59,3 +59,21 @@ export const getCeremoniesSectionPrefetches = (locale: string) => [
     fetcher: ceremoniesSectionFetcher(ceremoniesSectionDefaultFilters),
   } as const,
 ]
+
+// TODO: align names in next commit
+export const getGraphqlCeremoniesQuery = (
+  filters: CeremoniesSectionFilters = ceremoniesSectionDefaultFilters,
+) => {
+  return {
+    queryKey: getCeremoniesSectionQueryKey(filters),
+    queryFn: () => ceremoniesSectionFetcher(filters),
+  } as const
+}
+
+// TODO: align names in next commit
+export const getCemeteriesInCeremoniesQuery = (locale: string) => {
+  return {
+    queryKey: getCemeteriesInCeremoniesKey(locale),
+    queryFn: () => cemeteriesInCeremoniesFetcher(locale),
+  } as const
+}

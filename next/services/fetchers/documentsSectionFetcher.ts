@@ -50,3 +50,10 @@ export const documentsSectionPrefetch = {
   key: getMeiliDocumentsQueryKey(documentsDefaultFilters),
   fetcher: meiliDocumentsFetcher(documentsDefaultFilters),
 } as const
+
+export const getMeiliDocumentsQuery = (filters: DocumentsFilters = documentsDefaultFilters) => {
+  return {
+    queryKey: getMeiliDocumentsQueryKey(filters),
+    queryFn: () => meiliDocumentsFetcher(filters),
+  } as const
+}

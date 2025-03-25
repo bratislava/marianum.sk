@@ -33,3 +33,12 @@ export const disclosuresSectionPrefetch = {
   key: getMeiliDisclosuresQueryKey(disclosuresSectionDefaultFilters),
   fetcher: meiliDisclosuresFetcher(disclosuresSectionDefaultFilters),
 } as const
+
+export const getMeiliDisclosuresQuery = (
+  filters: DisclosuresFilters = disclosuresSectionDefaultFilters,
+) => {
+  return {
+    queryKey: getMeiliDisclosuresQueryKey(filters),
+    queryFn: () => meiliDisclosuresFetcher(filters),
+  } as const
+}

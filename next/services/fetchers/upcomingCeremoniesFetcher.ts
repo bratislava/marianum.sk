@@ -16,3 +16,10 @@ export const upcomingCeremoniesPrefetch = {
   key: getUpcomingCeremoniesQueryKey().toString(),
   fetcher: () => upcomingCeremoniesFetcher(),
 } as const
+
+export const getUpcomingCeremoniesQuery = () => {
+  return {
+    queryKey: getUpcomingCeremoniesQueryKey(),
+    queryFn: () => upcomingCeremoniesFetcher(),
+  }
+}

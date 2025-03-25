@@ -9,3 +9,10 @@ export const getMapOfManagedObjectsSectionPrefetch = (locale: string) => ({
   key: getGraphqlManagedObjectsQueryKey(locale),
   fetcher: graphqlManagedObjectsFetcher(locale),
 })
+
+export const getGraphqlManagedObjectsQuery = (locale: string) => {
+  return {
+    queryKey: getGraphqlManagedObjectsQueryKey(locale),
+    queryFn: () => graphqlManagedObjectsFetcher(locale),
+  } as const
+}

@@ -54,3 +54,17 @@ export const getDebtorsSectionPrefetches = (locale: string) => [
     fetcher: meiliDebtorsFetcher(debtorsDefaultFilters),
   } as const,
 ]
+
+export const getCemeteriesInDebtorsQuery = (locale: string) => {
+  return {
+    queryKey: getCemeteriesInDebtorsKey(locale),
+    queryFn: () => cemeteriesInDebtorsFetcher,
+  } as const
+}
+
+export const getMeiliDebtorsQuery = (filters: DebtorsFilters = debtorsDefaultFilters) => {
+  return {
+    queryKey: getMeiliDebtorsQueryKey(filters),
+    queryFn: () => meiliDebtorsFetcher(filters),
+  } as const
+}

@@ -11,3 +11,10 @@ export const getProceduresPrefetch = (locale: string) => {
     fetcher: graphqlProceduresFetcher(locale),
   } as const
 }
+
+export const getGraphqlProceduresQuery = (locale: string) => {
+  return {
+    queryKey: getGraphqlProceduresQueryKey(locale),
+    queryFn: () => graphqlProceduresFetcher(locale),
+  } as const
+}
