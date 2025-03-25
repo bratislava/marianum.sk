@@ -53,7 +53,7 @@ export default {
         id: 'Bootstrapped Revalidate',
         name: 'Bootstrapped Revalidate',
         url: `${process.env.REVALIDATE_NEXT_URL}/api/revalidate?secret=${process.env.REVALIDATE_SECRET_TOKEN}`,
-        events: ['entry.create', 'entry.update', 'entry.publish'],
+        events: ['entry.create', 'entry.update', 'entry.publish', 'entry.unpublish', 'entry.delete'],
         headers: {},
         isEnabled: true
       })
