@@ -43,24 +43,19 @@ import {
   GeneralEntityFragment,
   NavigationItemFragment,
   PageEntityFragment,
-  ReviewEntityFragment,
-  ReviewsQuery,
 } from '@/graphql'
 import { ArticleType } from '@/services/fetchers/articleListingFetcher'
-import { getReviewPrefetch } from '@/services/fetchers/reviewsFetcher'
 import { client } from '@/services/graphql/gqlClient'
 import { prefetchPageSections } from '@/utils/prefetchPageSections'
-import { prefetchSections } from '@/utils/prefetchSections'
 
 type PageProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   entity: PageEntityFragment
-  reviews: ReviewEntityFragment[] | null
   dehydratedState: DehydratedState
 } & SSRConfig
 
-const Slug = ({ navigation, entity, general, reviews, dehydratedState }: PageProps) => {
+const Slug = ({ navigation, entity, general, dehydratedState }: PageProps) => {
   const { seo, title, perex, layout, sections, coverMedia } = entity.attributes ?? {}
 
   const isContainer = layout === Enum_Page_Layout.Fullwidth
@@ -234,12 +229,7 @@ const Slug = ({ navigation, entity, general, reviews, dehydratedState }: PagePro
               )
             }
             if (section?.__typename === 'ComponentSectionsReviewListing') {
-              return (
-                <ReviewListingSection
-                  key={`${section.__typename}-${section.id}`}
-                  reviews={reviews}
-                />
-              )
+              return <ReviewListingSection key={`${section.__typename}-${section.id}`} />
             }
             if (section?.__typename === 'ComponentSectionsDisclosuresSection') {
               return <DisclosuresSection key={`${section.__typename}-${section.id}`} />
@@ -266,7 +256,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
     client.PagesStaticPaths({ locale }).then((response) => response.pages?.data),
   )
 
-  // eslint-disable-next-line no-console, @typescript-eslint/restrict-template-expressions
+  // eslint-disable-next-line no-console
   console.log(`Pages: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }
@@ -288,16 +278,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
     getAdditionalProps: async (page) => {
       const dehydratedState = await prefetchPageSections(page, locale)
 
-      const prefetchedSections = await prefetchSections(
-        page.attributes?.sections,
-        [getReviewPrefetch(locale)],
-        false,
-      )
-
       return {
-        // TODO: Fix when types improved in prefetchSections util.
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-        reviews: (prefetchedSections?.reviews as ReviewsQuery)?.reviews?.data ?? null,
         dehydratedState,
       }
     },

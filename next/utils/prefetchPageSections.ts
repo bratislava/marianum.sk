@@ -23,6 +23,7 @@ import { getMeiliDocumentsQuery } from '@/services/fetchers/documentsSectionFetc
 import { getGraphqlManagedObjectsQuery } from '@/services/fetchers/managedObjectsFetcher'
 import { getGraphqlNewsQuery } from '@/services/fetchers/newsListingFetcher'
 import { getGraphqlProceduresQuery } from '@/services/fetchers/proceduresFetcher'
+import { getGraphqlReviewsQuery } from '@/services/fetchers/reviewsFetcher'
 
 export const prefetchPageSections = async (page: PageEntityFragment, locale: string) => {
   const queryClient = new QueryClient()
@@ -81,6 +82,10 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
   if (sectionTypes.includes('ComponentSectionsArticleJobsListing')) {
     await queryClient.prefetchQuery(getMeiliArticlesQuery({ type: ArticleType.Jobs }))
     await queryClient.prefetchQuery(getArticleJobsCategoriesSelectQuery())
+  }
+
+  if (sectionTypes.includes('ComponentSectionsReviewListing')) {
+    await queryClient.prefetchQuery(getGraphqlReviewsQuery(locale))
   }
 
   return dehydrate(queryClient)
