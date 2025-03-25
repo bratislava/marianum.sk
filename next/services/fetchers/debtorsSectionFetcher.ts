@@ -58,7 +58,7 @@ export const getDebtorsSectionPrefetches = (locale: string) => [
 export const getCemeteriesInDebtorsQuery = (locale: string) => {
   return {
     queryKey: getCemeteriesInDebtorsKey(locale),
-    queryFn: () => cemeteriesInDebtorsFetcher,
+    queryFn: () => cemeteriesInDebtorsFetcher(locale),
   } as const
 }
 

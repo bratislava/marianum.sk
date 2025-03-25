@@ -33,12 +33,8 @@ export type ArticlesQueryParameters = {
   locale?: string
 }
 
-export const getMeiliArticlesQueryKey = ({ filters, type, locale }: ArticlesQueryParameters) => [
-  'Articles',
-  filters,
-  type,
-  locale,
-]
+export const getMeiliArticlesQueryKey = ({ filters, type, locale }: ArticlesQueryParameters) =>
+  ['Articles', filters, type, locale].filter(isDefined)
 
 export const meiliArticlesFetcher = ({ filters, type, locale }: ArticlesQueryParameters) => {
   let sectionFilter: string | null = null
