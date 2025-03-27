@@ -38,6 +38,9 @@ type RequestPayload =
 
 /* Webhook returns entry in "REST format" which is equivalent to Meili format, so we can use the same function and types */
 const revalidate = async (req: NextApiRequest, res: NextApiResponse<Response>) => {
+  // eslint-disable-next-line no-console
+  console.log('api/revalidate Revalidate webhook called')
+  // Check for secret to confirm this is a valid request
   if (req.query.secret !== process.env.REVALIDATE_SECRET_TOKEN) {
     return res.status(401).json({ message: 'Invalid token' })
   }

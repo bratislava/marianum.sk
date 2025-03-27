@@ -130,3 +130,6 @@ dist
 .com.apple.timemachine.donotpresent
 .AppleDB
 .AppleDesktop
+
+# bratiska-cli manifest files
+manifest-*.y?ml
