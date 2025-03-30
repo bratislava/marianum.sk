@@ -688,23 +688,44 @@ input ComponentBlocksBundleItemInput {
 }
 
 type ComponentBlocksButtonLink {
+  article: ArticleEntityResponse
+  branch: BranchEntityResponse
+  bundle: BundleEntityResponse
+  cemetery: CemeteryEntityResponse
+  document: DocumentEntityResponse
   id: ID!
   label: String!
+  managedObject: ManagedObjectEntityResponse
   page: PageEntityResponse
+  url: String
 }
 
 input ComponentBlocksButtonLinkFiltersInput {
   and: [ComponentBlocksButtonLinkFiltersInput]
+  article: ArticleFiltersInput
+  branch: BranchFiltersInput
+  bundle: BundleFiltersInput
+  cemetery: CemeteryFiltersInput
+  document: DocumentFiltersInput
   label: StringFilterInput
+  managedObject: ManagedObjectFiltersInput
   not: ComponentBlocksButtonLinkFiltersInput
   or: [ComponentBlocksButtonLinkFiltersInput]
   page: PageFiltersInput
+  url: StringFilterInput
 }
 
 input ComponentBlocksButtonLinkInput {
+  article: ID
+  branch: ID
+  bundle: ID
+  cemetery: ID
+  document: ID
   id: ID
   label: String
+  managedObject: ID
   page: ID
+  url: String
 }
 
 type ComponentBlocksContactItem {

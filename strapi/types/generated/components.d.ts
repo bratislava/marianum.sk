@@ -113,12 +113,43 @@ export interface BlocksButtonLink extends Schema.Component {
     icon: 'arrow-right';
   };
   attributes: {
+    article: Attribute.Relation<
+      'blocks.button-link',
+      'oneToOne',
+      'api::article.article'
+    >;
+    branch: Attribute.Relation<
+      'blocks.button-link',
+      'oneToOne',
+      'api::branch.branch'
+    >;
+    bundle: Attribute.Relation<
+      'blocks.button-link',
+      'oneToOne',
+      'api::bundle.bundle'
+    >;
+    cemetery: Attribute.Relation<
+      'blocks.button-link',
+      'oneToOne',
+      'api::cemetery.cemetery'
+    >;
+    document: Attribute.Relation<
+      'blocks.button-link',
+      'oneToOne',
+      'api::document.document'
+    >;
     label: Attribute.String & Attribute.Required;
+    managedObject: Attribute.Relation<
+      'blocks.button-link',
+      'oneToOne',
+      'api::managed-object.managed-object'
+    >;
     page: Attribute.Relation<
       'blocks.button-link',
       'oneToOne',
       'api::page.page'
     >;
+    url: Attribute.String;
   };
 }
 

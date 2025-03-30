@@ -11,10 +11,43 @@
       "type": "string",
       "required": true
     },
+    "url": {
+      "type": "string"
+    },
     "page": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::page.page"
+    },
+    "article": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::article.article"
+    },
+    "branch": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::branch.branch"
+    },
+    "bundle": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::bundle.bundle"
+    },
+    "document": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::document.document"
+    },
+    "cemetery": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cemetery.cemetery"
+    },
+    "managedObject": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::managed-object.managed-object"
     }
   }
 }

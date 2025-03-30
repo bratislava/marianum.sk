@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { useId } from 'react'
 
 import Button from '@/components/atoms/Button'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import Slider from '@/components/molecules/Slider'
 import { CtaFragment } from '@/graphql'
 
@@ -18,7 +18,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
   const { t } = useTranslation()
   const id = useId()
 
-  const { getFullPath } = useGetFullPath()
+  const { getLinkProps } = useGetLinkProps()
 
   if (!slides) {
     return null
@@ -32,8 +32,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
         description={t('HomepageSlider.aria.heading')}
         allowKeyboardNavigation
         pages={slides.map(({ title, description, button, image }, index) => {
-          const ctaSlug = getFullPath(button?.page?.data)
-
+          const linkProps = getLinkProps(button)
           const { url, alternativeText } = image?.data?.attributes ?? {}
 
           return (
@@ -65,14 +64,14 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                     </div>
                   )}
 
-                  {ctaSlug && (
+                  {button && (
                     <div className="mt-4 lg:mt-6">
                       <Button
                         variant="white"
-                        href={ctaSlug}
                         aria-labelledby={getAriaLabelId(id, index)}
+                        {...linkProps}
                       >
-                        {button?.label}
+                        {linkProps.label}
                       </Button>
                     </div>
                   )}
@@ -80,7 +79,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
               </div>
 
               {/* Desktop image */}
-              <div key={ctaSlug} className="hidden h-full flex-1 lg:flex">
+              <div key={linkProps.href} className="hidden h-full flex-1 lg:flex">
                 <div className="w-3/5" />
                 {/* gradient overlay */}
                 <div className="absolute left-[60%] z-[1] -ml-px h-full w-[10%] bg-gradient-to-r from-primary-dark" />
