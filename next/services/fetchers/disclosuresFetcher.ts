@@ -9,17 +9,14 @@ export type DisclosuresFilters = {
   type: DisclosureTypeFixed | null
 }
 
-export const disclosuresSectionDefaultFilters: DisclosuresFilters = {
+export const disclosuresDefaultFilters: DisclosuresFilters = {
   pageSize: 10,
   search: '',
   page: 1,
   type: null,
 }
 
-export const getMeiliDisclosuresQueryKey = (filters: DisclosuresFilters) => [
-  'DisclosuresSection',
-  filters,
-]
+export const getMeiliDisclosuresQueryKey = (filters: DisclosuresFilters) => ['Disclosures', filters]
 
 export const meiliDisclosuresFetcher = (filters: DisclosuresFilters) =>
   meiliClient.index('disclosure').search<DisclosureMeili>(filters.search, {
@@ -29,7 +26,7 @@ export const meiliDisclosuresFetcher = (filters: DisclosuresFilters) =>
   })
 
 export const getMeiliDisclosuresQuery = (
-  filters: DisclosuresFilters = disclosuresSectionDefaultFilters,
+  filters: DisclosuresFilters = disclosuresDefaultFilters,
 ) => {
   return {
     queryKey: getMeiliDisclosuresQueryKey(filters),

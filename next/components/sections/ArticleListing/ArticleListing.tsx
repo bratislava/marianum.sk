@@ -21,7 +21,7 @@ import {
   ArticleType,
   getMeiliArticlesQueryKey,
   meiliArticlesFetcher,
-} from '@/services/fetchers/articleListingFetcher'
+} from '@/services/fetchers/articles/articlesFetcher'
 import { ArticleMeili } from '@/services/meili/meiliTypes'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 

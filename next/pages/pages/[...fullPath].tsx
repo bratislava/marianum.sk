@@ -44,7 +44,7 @@ import {
   NavigationItemFragment,
   PageEntityFragment,
 } from '@/graphql'
-import { ArticleType } from '@/services/fetchers/articleListingFetcher'
+import { ArticleType } from '@/services/fetchers/articles/articlesFetcher'
 import { client } from '@/services/graphql/gqlClient'
 import { prefetchPageSections } from '@/utils/prefetchPageSections'
 

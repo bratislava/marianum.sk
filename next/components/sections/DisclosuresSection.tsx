@@ -16,11 +16,11 @@ import FiltersBackgroundWrapper from '@/components/molecules/FiltersBackgroundWr
 import PaginationMeili from '@/components/molecules/PaginationMeili'
 import Section from '@/components/molecules/Section'
 import {
+  disclosuresDefaultFilters,
   DisclosuresFilters,
-  disclosuresSectionDefaultFilters,
   getMeiliDisclosuresQueryKey,
   meiliDisclosuresFetcher,
-} from '@/services/fetchers/disclosuresSectionFetcher'
+} from '@/services/fetchers/disclosuresFetcher'
 import { DisclosureMeili, DisclosureTypeFixed } from '@/services/meili/meiliTypes'
 import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
 import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
@@ -222,7 +222,7 @@ const TypeSelect = ({
 }
 
 const DisclosuresSection = () => {
-  const [filters, setFilters] = useState<DisclosuresFilters>(disclosuresSectionDefaultFilters)
+  const [filters, setFilters] = useState<DisclosuresFilters>(disclosuresDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')
   const [debouncedSearchInputValue] = useDebounceValue<string>(searchInputValue, 300)
 

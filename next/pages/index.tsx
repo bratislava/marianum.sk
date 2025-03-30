@@ -18,8 +18,8 @@ import HomepageSlider from '@/components/sections/HomepageSlider'
 import NewsSection from '@/components/sections/NewsSection'
 import UpcomingCeremoniesSection from '@/components/sections/UpcomingCeremoniesSection'
 import { GeneralEntityFragment, HomePageQuery, NavigationItemFragment } from '@/graphql'
-import { getGraphqlNewsQuery } from '@/services/fetchers/newsListingFetcher'
-import { getUpcomingCeremoniesQuery } from '@/services/fetchers/upcomingCeremoniesFetcher'
+import { getGraphqlNewsListingQuery } from '@/services/fetchers/articles/newsListingFetcher'
+import { getUpcomingCeremoniesQuery } from '@/services/fetchers/ceremonies/upcomingCeremoniesFetcher'
 import { client } from '@/services/graphql/gqlClient'
 import { NOT_FOUND } from '@/utils/consts'
 import { isDefined } from '@/utils/isDefined'
@@ -130,7 +130,7 @@ export const getStaticProps: GetStaticProps = async ({
   // Prefetch data
   const queryClient = new QueryClient()
 
-  await queryClient.prefetchQuery(getGraphqlNewsQuery(locale))
+  await queryClient.prefetchQuery(getGraphqlNewsListingQuery(locale))
   await queryClient.prefetchQuery(getUpcomingCeremoniesQuery())
 
   const dehydratedState = dehydrate(queryClient)

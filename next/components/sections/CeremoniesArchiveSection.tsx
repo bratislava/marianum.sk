@@ -19,7 +19,7 @@ import {
   ceremoniesArchiveSectionFetcher,
   CeremoniesArchiveSectionFilters,
   getCeremoniesArchiveSectionQueryKey,
-} from '@/services/fetchers/ceremoniesArchiveSectionFetcher'
+} from '@/services/fetchers/ceremonies/ceremoniesArchiveSectionFetcher'
 import { CeremonyMeili } from '@/services/meili/meiliTypes'
 import { getCemeteryInfoInCeremoniesDebtorsMeili } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
 import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'

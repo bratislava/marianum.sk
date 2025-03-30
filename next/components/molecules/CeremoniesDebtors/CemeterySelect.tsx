@@ -5,11 +5,11 @@ import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import {
   cemeteriesInCeremoniesFetcher,
   getCemeteriesInCeremoniesKey,
-} from '@/services/fetchers/ceremoniesSectionFetcher'
+} from '@/services/fetchers/cemeteries/cemeteriesInCeremoniesFetcher'
 import {
   cemeteriesInDebtorsFetcher,
   getCemeteriesInDebtorsKey,
-} from '@/services/fetchers/debtorsSectionFetcher'
+} from '@/services/fetchers/cemeteries/cemeteriesInDebtorsFetcher'
 
 type CeremoniesDebtorsCemeterySelectProps = {
   label?: string

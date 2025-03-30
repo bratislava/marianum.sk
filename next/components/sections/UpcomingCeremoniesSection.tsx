@@ -13,7 +13,7 @@ import { UpcomingCeremoniesSectionFragment } from '@/graphql'
 import {
   getUpcomingCeremoniesQueryKey,
   upcomingCeremoniesFetcher,
-} from '@/services/fetchers/upcomingCeremoniesFetcher'
+} from '@/services/fetchers/ceremonies/upcomingCeremoniesFetcher'
 import { bratislavaTimezone } from '@/utils/consts'
 import { getCemeteryInfoInCeremoniesDebtors } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
 

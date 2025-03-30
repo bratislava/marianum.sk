@@ -21,7 +21,7 @@ import {
   ceremoniesSectionFetcher,
   CeremoniesSectionFilters,
   getCeremoniesSectionQueryKey,
-} from '@/services/fetchers/ceremoniesSectionFetcher'
+} from '@/services/fetchers/ceremonies/ceremoniesSectionFetcher'
 import { bratislavaTimezone } from '@/utils/consts'
 import { getCemeteryInfoInCeremoniesDebtors } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
 import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'

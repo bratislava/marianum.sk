@@ -2,26 +2,21 @@ import { dehydrate, QueryClient } from '@tanstack/react-query'
 
 import { PageEntityFragment } from '@/graphql'
 import {
-  ArticleType,
   getArticleJobsCategoriesSelectQuery,
   getArticleNewsCategoriesSelectQuery,
   getArticlePressCategoriesSelectQuery,
-  getMeiliArticlesQuery,
-} from '@/services/fetchers/articleListingFetcher'
-import { getGraphqlCemeteriesQuery } from '@/services/fetchers/cemeteriesFetcher'
-import { getCeremoniesArchiveSectionQuery } from '@/services/fetchers/ceremoniesArchiveSectionFetcher'
-import {
-  getCemeteriesInCeremoniesQuery,
-  getGraphqlCeremoniesQuery,
-} from '@/services/fetchers/ceremoniesSectionFetcher'
-import {
-  getCemeteriesInDebtorsQuery,
-  getMeiliDebtorsQuery,
-} from '@/services/fetchers/debtorsSectionFetcher'
-import { getMeiliDisclosuresQuery } from '@/services/fetchers/disclosuresSectionFetcher'
-import { getMeiliDocumentsQuery } from '@/services/fetchers/documentsSectionFetcher'
+} from '@/services/fetchers/articles/articleCategoriesSelectFetcher'
+import { ArticleType, getMeiliArticlesQuery } from '@/services/fetchers/articles/articlesFetcher'
+import { getGraphqlNewsListingQuery } from '@/services/fetchers/articles/newsListingFetcher'
+import { getGraphqlCemeteriesQuery } from '@/services/fetchers/cemeteries/cemeteriesFetcher'
+import { getCemeteriesInCeremoniesQuery } from '@/services/fetchers/cemeteries/cemeteriesInCeremoniesFetcher'
+import { getCemeteriesInDebtorsQuery } from '@/services/fetchers/cemeteries/cemeteriesInDebtorsFetcher'
+import { getCeremoniesArchiveSectionQuery } from '@/services/fetchers/ceremonies/ceremoniesArchiveSectionFetcher'
+import { getGraphqlCeremoniesSectionQuery } from '@/services/fetchers/ceremonies/ceremoniesSectionFetcher'
+import { getMeiliDebtorsQuery } from '@/services/fetchers/debtorsFetcher'
+import { getMeiliDisclosuresQuery } from '@/services/fetchers/disclosuresFetcher'
+import { getMeiliDocumentsQuery } from '@/services/fetchers/documentsFetcher'
 import { getGraphqlManagedObjectsQuery } from '@/services/fetchers/managedObjectsFetcher'
-import { getGraphqlNewsQuery } from '@/services/fetchers/newsListingFetcher'
 import { getGraphqlProceduresQuery } from '@/services/fetchers/proceduresFetcher'
 import { getGraphqlReviewsQuery } from '@/services/fetchers/reviewsFetcher'
 
@@ -39,7 +34,7 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
   }
 
   if (sectionTypes.includes('ComponentSectionsNewsListing')) {
-    await queryClient.prefetchQuery(getGraphqlNewsQuery(locale))
+    await queryClient.prefetchQuery(getGraphqlNewsListingQuery(locale))
   }
 
   if (sectionTypes.includes('ComponentSectionsMapOfManagedObjects')) {
@@ -60,7 +55,7 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
   }
 
   if (sectionTypes.includes('ComponentSectionsCeremoniesSection')) {
-    await queryClient.prefetchQuery(getGraphqlCeremoniesQuery())
+    await queryClient.prefetchQuery(getGraphqlCeremoniesSectionQuery())
     await queryClient.prefetchQuery(getCemeteriesInCeremoniesQuery(locale))
   }
 

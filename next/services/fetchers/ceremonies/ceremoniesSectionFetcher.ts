@@ -1,9 +1,7 @@
 import { parseAbsolute } from '@internationalized/date'
 
-import { Option } from '@/components/atoms/Select'
 import { client } from '@/services/graphql/gqlClient'
 import { bratislavaTimezone } from '@/utils/consts'
-import { getCemeteryInfoInCeremoniesDebtors } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
 
 export type CeremoniesSectionFilters = {
   cemeteryId: string | null
@@ -29,35 +27,11 @@ export const ceremoniesSectionFetcher = (filters: CeremoniesSectionFilters) => {
   })
 }
 
-export const getCemeteriesInCeremoniesKey = (locale: string) => ['CemeteriesInCeremonies', locale]
-
-export const cemeteriesInCeremoniesFetcher = async (locale: string) => {
-  const result = await client.CemeteriesInCeremonies()
-
-  return (
-    result.cemeteries?.data?.map(
-      (cemetery) =>
-        ({
-          label: getCemeteryInfoInCeremoniesDebtors(cemetery, locale).title ?? '',
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          key: cemetery.id!,
-        }) as Option,
-    ) ?? ([] as Option[])
-  )
-}
-
-export const getGraphqlCeremoniesQuery = (
+export const getGraphqlCeremoniesSectionQuery = (
   filters: CeremoniesSectionFilters = ceremoniesSectionDefaultFilters,
 ) => {
   return {
     queryKey: getCeremoniesSectionQueryKey(filters),
     queryFn: () => ceremoniesSectionFetcher(filters),
-  } as const
-}
-
-export const getCemeteriesInCeremoniesQuery = (locale: string) => {
-  return {
-    queryKey: getCemeteriesInCeremoniesKey(locale),
-    queryFn: () => cemeteriesInCeremoniesFetcher(locale),
   } as const
 }
