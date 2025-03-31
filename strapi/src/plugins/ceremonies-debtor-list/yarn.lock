@@ -798,12 +798,12 @@
     prop-types "^15.8.1"
     react-remove-scroll "^2.5.9"
 
-"@strapi/helper-plugin@4.25.19":
-  version "4.25.19"
-  resolved "https://registry.yarnpkg.com/@strapi/helper-plugin/-/helper-plugin-4.25.19.tgz#9fa85bc0149ee6f681d8e2f244a141b6354b0ba6"
-  integrity sha512-Zfg61zyK1Oms9yFCz4rLC/9d+lQeIhIzxnXTgcdzfO/0dypQNYwIX1EiDe0k/StalWPP+bp1XjLzEosqRZcV3g==
+"@strapi/helper-plugin@4.25.22":
+  version "4.25.22"
+  resolved "https://registry.yarnpkg.com/@strapi/helper-plugin/-/helper-plugin-4.25.22.tgz#b7ff9f4a7434cbab275d83f597054758071b3deb"
+  integrity sha512-xB8akocw1Mwt99564S6NBuHkFwCZNqQoJizzztJbz4OMBpyohWPH5xsyqcSfFlsu9s6BxgFqhmOCrM59I3sLYQ==
   dependencies:
-    axios "1.7.4"
+    axios "1.8.2"
     date-fns "2.30.0"
     formik "2.4.0"
     immer "9.0.19"
@@ -819,10 +819,10 @@
   resolved "https://registry.yarnpkg.com/@strapi/icons/-/icons-1.19.0.tgz#efa6b553a7de437171512e3549859faa141a145f"
   integrity sha512-jcS7n3Ps+73fYGadxdaD6owazoDJKN1fHSG9dp8RX4RqkP6BfoHOX5j3aodVLmDX57Ksg6gy5JXf9xEml7nMpQ==
 
-"@strapi/typescript-utils@4.25.19":
-  version "4.25.19"
-  resolved "https://registry.yarnpkg.com/@strapi/typescript-utils/-/typescript-utils-4.25.19.tgz#832e2e09c9af3b27066f8e4492093a54f0849d0f"
-  integrity sha512-N7tVEYlCEARgxeCbYrIOrD9/TGm3/0AZbod7ujCAOE4z2ZzjwVqZJDTDmxqjTPd6gtXxvB8iI74g6nMAY29uEg==
+"@strapi/typescript-utils@4.25.22":
+  version "4.25.22"
+  resolved "https://registry.yarnpkg.com/@strapi/typescript-utils/-/typescript-utils-4.25.22.tgz#03ab9af84e7bf100c85a8a6f903719571611382a"
+  integrity sha512-Mud8Toign2ZRG1mH7qO5+mD9/hLECZosygiU3jOvbJJfqrHExfi5Pz/mCLZdEFxRB73MSZk0Y5INVE8KNuEhxw==
   dependencies:
     chalk "4.1.2"
     cli-table3 "0.6.5"
@@ -1025,10 +1025,10 @@ available-typed-arrays@^1.0.7:
   dependencies:
     possible-typed-array-names "^1.0.0"
 
-axios@1.7.4:
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-1.7.4.tgz#4c8ded1b43683c8dd362973c393f3ede24052aa2"
-  integrity sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw==
+axios@1.8.2:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.8.2.tgz#fabe06e241dfe83071d4edfbcaa7b1c3a40f7979"
+  integrity sha512-ls4GYBm5aig9vWx8AWDSGLpnpDQRtWAfrjU+EuytuODrFBkqesN2RkOQCBzrA1RQNHw1SmRMSDDDSwzNAYQ6Rg==
   dependencies:
     follow-redirects "^1.15.6"
     form-data "^4.0.0"
