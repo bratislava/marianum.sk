@@ -21,7 +21,7 @@
     "@strapi/plugin-i18n": "4.25.22",
     "@strapi/plugin-upload": "4.25.22",
     "@strapi/plugin-users-permissions": "4.25.22",
-    "@strapi/provider-email-mailgun": "^5.6.0",
+    "@strapi/provider-email-mailgun": "4.25.22",
     "@strapi/strapi": "4.25.22",
     "cf-turnstile": "^1.0.8",
     "moment": "^2.29.4",
