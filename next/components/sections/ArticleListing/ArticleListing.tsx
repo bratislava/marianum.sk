@@ -21,7 +21,7 @@ import {
   ArticleType,
   getMeiliArticlesQueryKey,
   meiliArticlesFetcher,
-} from '@/services/fetchers/articleListingFetcher'
+} from '@/services/fetchers/articles/articlesFetcher'
 import { ArticleMeili } from '@/services/meili/meiliTypes'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
@@ -103,8 +103,8 @@ const DataWrapper = ({
   const locale = i18n.language
 
   const { data, isPending, isFetching, isError, error } = useQuery({
-    queryKey: getMeiliArticlesQueryKey(filters, type, locale),
-    queryFn: () => meiliArticlesFetcher(filters, type, locale),
+    queryKey: getMeiliArticlesQueryKey({ filters, type, locale }),
+    queryFn: () => meiliArticlesFetcher({ filters, type, locale }),
     placeholderData: keepPreviousData,
   })
 

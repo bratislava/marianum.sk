@@ -3,7 +3,6 @@ import { ParsedUrlQuery } from 'node:querystring'
 import { DehydratedState, HydrationBoundary } from '@tanstack/react-query'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { SSRConfig } from 'next-i18next'
-import { SWRConfig } from 'swr'
 
 import Divider from '@/components/atoms/Divider'
 import Seo from '@/components/atoms/Seo'
@@ -44,244 +43,205 @@ import {
   GeneralEntityFragment,
   NavigationItemFragment,
   PageEntityFragment,
-  ReviewEntityFragment,
-  ReviewsQuery,
 } from '@/graphql'
-import {
-  ArticleType,
-  getArticleListingNewsPrefetches,
-} from '@/services/fetchers/articleListingFetcher'
-import { getMapSectionPrefetch } from '@/services/fetchers/cemeteriesFetcher'
-import { ceremoniesArchiveSectionPrefetches } from '@/services/fetchers/ceremoniesArchiveSectionFetcher'
-import { getCeremoniesSectionPrefetches } from '@/services/fetchers/ceremoniesSectionFetcher'
-import { getDebtorsSectionPrefetches } from '@/services/fetchers/debtorsSectionFetcher'
-import { disclosuresSectionPrefetch } from '@/services/fetchers/disclosuresSectionFetcher'
-import { documentsSectionPrefetch } from '@/services/fetchers/documentsSectionFetcher'
-import { getMapOfManagedObjectsSectionPrefetch } from '@/services/fetchers/managedObjectsFetcher'
-import { getNewsListingPrefetch } from '@/services/fetchers/newsListingFetcher'
-import { getProceduresPrefetch } from '@/services/fetchers/proceduresFetcher'
-import { getReviewPrefetch } from '@/services/fetchers/reviewsFetcher'
+import { ArticleType } from '@/services/fetchers/articles/articlesFetcher'
 import { client } from '@/services/graphql/gqlClient'
 import { prefetchPageSections } from '@/utils/prefetchPageSections'
-import { prefetchSections } from '@/utils/prefetchSections'
 
 type PageProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   entity: PageEntityFragment
-  reviews: ReviewEntityFragment[] | null
-  fallback: Record<string, object>
   dehydratedState: DehydratedState
 } & SSRConfig
 
-const Slug = ({ navigation, entity, general, reviews, fallback, dehydratedState }: PageProps) => {
+const Slug = ({ navigation, entity, general, dehydratedState }: PageProps) => {
   const { seo, title, perex, layout, sections, coverMedia } = entity.attributes ?? {}
 
   const isContainer = layout === Enum_Page_Layout.Fullwidth
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <SWRConfig value={{ fallback }}>
-        {/* TODO: Extract NavigationProvider from PageWrapper */}
-        <NavigationProvider navigation={navigation} general={general}>
-          <Seo
-            seo={seo}
-            title={title}
-            description={perex}
-            image={coverMedia?.data}
-            entity={entity}
-          />
-        </NavigationProvider>
+      {/* TODO: Extract NavigationProvider from PageWrapper */}
+      <NavigationProvider navigation={navigation} general={general}>
+        <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
+      </NavigationProvider>
 
-        <PageLayout page={entity} navigation={navigation} general={general}>
-          <SectionsWrapper
-            alternateBackground={isContainer}
-            startBackground="light"
-            className="gap-y-6 sm:gap-y-8"
-          >
-            {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
-            {sections?.map((section) => {
-              if (section?.__typename === 'ComponentSectionsProceduresSection') {
-                return (
-                  <Section key={`${section.__typename}-${section.id}`} title={section.title}>
-                    <ProcedureTabs />
-                  </Section>
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsRichtext') {
-                return (
-                  <RichTextSection key={`${section.__typename}-${section.id}`} section={section} />
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsAccordionGroup') {
-                return (
-                  <AccordionGroupSection
-                    key={`${section.__typename}-${section.id}`}
-                    section={section}
-                  />
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsBranchGroup') {
-                return (
-                  <Section key={`${section.__typename}-${section.id}`} title={section.title}>
-                    <BranchGroup {...section} />
-                  </Section>
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsBundleListing') {
-                return (
-                  <BundleListingSection
-                    key={`${section.__typename}-${section.id}`}
-                    section={section}
-                  />
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsBundleListingSimple') {
-                return (
-                  <BundleListingSimpleSection
-                    key={`${section.__typename}-${section.id}`}
-                    section={section}
-                  />
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsContactGroup') {
-                return <ContactsSection key={`${section.__typename}-${section.id}`} {...section} />
-              }
-              if (section?.__typename === 'ComponentSectionsDivider') {
-                return (
-                  <Section key={`${section.__typename}-${section.id}`}>
-                    <Divider color={section.color} />
-                  </Section>
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsDocumentGroup') {
-                return (
-                  <Section
-                    key={`${section.__typename}-${section.id}`}
-                    title={section.title}
-                    titleFontSize="h3"
-                  >
-                    <DocumentGroup {...section} />
-                  </Section>
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsOpeningHoursSection') {
-                return (
-                  <OpeningHoursSection
-                    key={`${section.__typename}-${section.id}`}
-                    section={section}
-                  />
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsCemeteriesOpeningHours') {
-                return (
-                  <CemeteriesOpeningHoursSection
-                    key={`${section.__typename}-${section.id}`}
-                    section={section}
-                  />
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsGallery') {
-                return (
-                  <Section key={`${section.__typename}-${section.id}`} title={section.title}>
-                    <ImageGallery images={section.medias?.data} variant="below" />
-                  </Section>
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsMenuListing') {
-                return (
-                  <MenuListingSection
-                    key={`${section.__typename}-${section.id}`}
-                    section={section}
-                  />
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsManualListing') {
-                return <CardSection key={`${section.__typename}-${section.id}`} section={section} />
-              }
-              if (section?.__typename === 'ComponentSectionsNewsListing') {
-                return <NewsListing key={`${section.__typename}-${section.id}`} section={section} />
-              }
-              if (section?.__typename === 'ComponentSectionsMapSection') {
-                return <MapSection key={`${section.__typename}-${section.id}`} section={section} />
-              }
-              // eslint-disable-next-line no-secrets/no-secrets
-              if (section?.__typename === 'ComponentSectionsMapOfManagedObjects') {
-                return (
-                  <MapOfManagedObjectsSection
-                    key={`${section.__typename}-${section.id}`}
-                    section={section}
-                  />
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsDebtorsSection') {
-                return (
-                  <DebtorsSection
-                    key={`${section.__typename}-${section.id}`}
-                    description={section.description}
-                  />
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsCeremoniesSection') {
-                return (
-                  <CeremoniesSection
-                    key={`${section.__typename}-${section.id}`}
-                    section={section}
-                  />
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsCeremoniesArchiveSection') {
-                return <CeremoniesArchiveSection key={`${section.__typename}-${section.id}`} />
-              }
-              if (section?.__typename === 'ComponentSectionsDocumentsSection') {
-                return <DocumentsSection key={`${section.__typename}-${section.id}`} />
-              }
-              if (section?.__typename === 'ComponentSectionsArticleNewsListing') {
-                return (
-                  <ArticleListing
-                    key={`${section.__typename}-${section.id}`}
-                    type={ArticleType.News}
-                  />
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsArticlePressListing') {
-                return (
-                  <ArticleListing
-                    key={`${section.__typename}-${section.id}`}
-                    type={ArticleType.Press}
-                  />
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsArticleJobsListing') {
-                return (
-                  <ArticleListing
-                    key={`${section.__typename}-${section.id}`}
-                    type={ArticleType.Jobs}
-                  />
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsReviewListing') {
-                return (
-                  <ReviewListingSection
-                    key={`${section.__typename}-${section.id}`}
-                    reviews={reviews}
-                  />
-                )
-              }
-              if (section?.__typename === 'ComponentSectionsDisclosuresSection') {
-                return <DisclosuresSection key={`${section.__typename}-${section.id}`} />
-              }
-              if (section?.__typename === 'ComponentSectionsIframeSection') {
-                return (
-                  <IframeSection key={`${section.__typename}-${section.id}`} section={section} />
-                )
-              }
+      <PageLayout page={entity} navigation={navigation} general={general}>
+        <SectionsWrapper
+          alternateBackground={isContainer}
+          startBackground="light"
+          className="gap-y-6 sm:gap-y-8"
+        >
+          {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
+          {sections?.map((section) => {
+            if (section?.__typename === 'ComponentSectionsProceduresSection') {
+              return (
+                <Section key={`${section.__typename}-${section.id}`} title={section.title}>
+                  <ProcedureTabs />
+                </Section>
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsRichtext') {
+              return (
+                <RichTextSection key={`${section.__typename}-${section.id}`} section={section} />
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsAccordionGroup') {
+              return (
+                <AccordionGroupSection
+                  key={`${section.__typename}-${section.id}`}
+                  section={section}
+                />
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsBranchGroup') {
+              return (
+                <Section key={`${section.__typename}-${section.id}`} title={section.title}>
+                  <BranchGroup {...section} />
+                </Section>
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsBundleListing') {
+              return (
+                <BundleListingSection
+                  key={`${section.__typename}-${section.id}`}
+                  section={section}
+                />
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsBundleListingSimple') {
+              return (
+                <BundleListingSimpleSection
+                  key={`${section.__typename}-${section.id}`}
+                  section={section}
+                />
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsContactGroup') {
+              return <ContactsSection key={`${section.__typename}-${section.id}`} {...section} />
+            }
+            if (section?.__typename === 'ComponentSectionsDivider') {
+              return (
+                <Section key={`${section.__typename}-${section.id}`}>
+                  <Divider color={section.color} />
+                </Section>
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsDocumentGroup') {
+              return (
+                <Section
+                  key={`${section.__typename}-${section.id}`}
+                  title={section.title}
+                  titleFontSize="h3"
+                >
+                  <DocumentGroup {...section} />
+                </Section>
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsOpeningHoursSection') {
+              return (
+                <OpeningHoursSection
+                  key={`${section.__typename}-${section.id}`}
+                  section={section}
+                />
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsCemeteriesOpeningHours') {
+              return (
+                <CemeteriesOpeningHoursSection
+                  key={`${section.__typename}-${section.id}`}
+                  section={section}
+                />
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsGallery') {
+              return (
+                <Section key={`${section.__typename}-${section.id}`} title={section.title}>
+                  <ImageGallery images={section.medias?.data} variant="below" />
+                </Section>
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsMenuListing') {
+              return (
+                <MenuListingSection key={`${section.__typename}-${section.id}`} section={section} />
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsManualListing') {
+              return <CardSection key={`${section.__typename}-${section.id}`} section={section} />
+            }
+            if (section?.__typename === 'ComponentSectionsNewsListing') {
+              return <NewsListing key={`${section.__typename}-${section.id}`} section={section} />
+            }
+            if (section?.__typename === 'ComponentSectionsMapSection') {
+              return <MapSection key={`${section.__typename}-${section.id}`} section={section} />
+            }
+            // eslint-disable-next-line no-secrets/no-secrets
+            if (section?.__typename === 'ComponentSectionsMapOfManagedObjects') {
+              return (
+                <MapOfManagedObjectsSection
+                  key={`${section.__typename}-${section.id}`}
+                  section={section}
+                />
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsDebtorsSection') {
+              return (
+                <DebtorsSection
+                  key={`${section.__typename}-${section.id}`}
+                  description={section.description}
+                />
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsCeremoniesSection') {
+              return (
+                <CeremoniesSection key={`${section.__typename}-${section.id}`} section={section} />
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsCeremoniesArchiveSection') {
+              return <CeremoniesArchiveSection key={`${section.__typename}-${section.id}`} />
+            }
+            if (section?.__typename === 'ComponentSectionsDocumentsSection') {
+              return <DocumentsSection key={`${section.__typename}-${section.id}`} />
+            }
+            if (section?.__typename === 'ComponentSectionsArticleNewsListing') {
+              return (
+                <ArticleListing
+                  key={`${section.__typename}-${section.id}`}
+                  type={ArticleType.News}
+                />
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsArticlePressListing') {
+              return (
+                <ArticleListing
+                  key={`${section.__typename}-${section.id}`}
+                  type={ArticleType.Press}
+                />
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsArticleJobsListing') {
+              return (
+                <ArticleListing
+                  key={`${section.__typename}-${section.id}`}
+                  type={ArticleType.Jobs}
+                />
+              )
+            }
+            if (section?.__typename === 'ComponentSectionsReviewListing') {
+              return <ReviewListingSection key={`${section.__typename}-${section.id}`} />
+            }
+            if (section?.__typename === 'ComponentSectionsDisclosuresSection') {
+              return <DisclosuresSection key={`${section.__typename}-${section.id}`} />
+            }
+            if (section?.__typename === 'ComponentSectionsIframeSection') {
+              return <IframeSection key={`${section.__typename}-${section.id}`} section={section} />
+            }
 
-              return null
-            })}
-          </SectionsWrapper>
-        </PageLayout>
-      </SWRConfig>
+            return null
+          })}
+        </SectionsWrapper>
+      </PageLayout>
     </HydrationBoundary>
   )
 }
@@ -296,7 +256,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
     client.PagesStaticPaths({ locale }).then((response) => response.pages?.data),
   )
 
-  // eslint-disable-next-line no-console, @typescript-eslint/restrict-template-expressions
+  // eslint-disable-next-line no-console
   console.log(`Pages: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }
@@ -309,21 +269,6 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
   // eslint-disable-next-line no-console
   console.log(`Revalidating page ${params?.fullPath.join('/') ?? ''}`)
 
-  const sectionFetcherMap = [getReviewPrefetch(locale)]
-
-  const sectionFetcherMapSwr = [
-    getProceduresPrefetch(locale),
-    getNewsListingPrefetch(locale),
-    getMapSectionPrefetch(locale),
-    getMapOfManagedObjectsSectionPrefetch(locale),
-    ...getArticleListingNewsPrefetches(locale),
-    ...getCeremoniesSectionPrefetches(locale),
-    ...ceremoniesArchiveSectionPrefetches,
-    documentsSectionPrefetch,
-    ...getDebtorsSectionPrefetches(locale),
-    disclosuresSectionPrefetch,
-  ]
-
   return generateStaticProps({
     // TODO: Locales
     locale,
@@ -331,20 +276,9 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
     entityPromiseGetter: ({ slug, locale: localeInner }) =>
       client.PageBySlug({ slug, locale: localeInner }).then((response) => response.pages?.data[0]),
     getAdditionalProps: async (page) => {
-      const [prefetchedSections, fallback] = await Promise.all([
-        prefetchSections(page.attributes?.sections, sectionFetcherMap, false),
-        // TODO fix types
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        prefetchSections(page.attributes?.sections, sectionFetcherMapSwr as any, true),
-      ])
-
       const dehydratedState = await prefetchPageSections(page, locale)
 
       return {
-        // TODO: Fix when types improved in prefetchSections util.
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-        reviews: (prefetchedSections?.reviews as ReviewsQuery)?.reviews?.data ?? null,
-        fallback,
         dehydratedState,
       }
     },

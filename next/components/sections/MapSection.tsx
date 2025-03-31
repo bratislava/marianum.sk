@@ -19,7 +19,7 @@ import { Enum_Cemetery_Type, MapSectionFragment } from '@/graphql'
 import {
   getGraphqlCemeteriesQueryKey,
   graphqlCemeteriesFetcher,
-} from '@/services/fetchers/cemeteriesFetcher'
+} from '@/services/fetchers/cemeteries/cemeteriesFetcher'
 import { useMapWithFilteringAndSearch } from '@/utils/useMapWithFilteringAndSearch'
 
 type MapSectionProps = { section: MapSectionFragment }

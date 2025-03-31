@@ -3,7 +3,10 @@ import { useTranslation } from 'next-i18next'
 
 import Loading from '@/components/atoms/Loading'
 import ArticleGroup from '@/components/sections/ArticleGroup'
-import { getGraphqlNewsQueryKey, graphqlNewsFetcher } from '@/services/fetchers/newsListingFetcher'
+import {
+  getGraphqlNewsListingQueryKey,
+  graphqlNewsListingFetcher,
+} from '@/services/fetchers/articles/newsListingFetcher'
 import { isDefined } from '@/utils/isDefined'
 
 const NewsListing = () => {
@@ -11,8 +14,8 @@ const NewsListing = () => {
   const locale = i18n.language
 
   const { data, isPending, isError, error } = useQuery({
-    queryKey: getGraphqlNewsQueryKey(locale),
-    queryFn: () => graphqlNewsFetcher(locale),
+    queryKey: getGraphqlNewsListingQueryKey(locale),
+    queryFn: () => graphqlNewsListingFetcher(locale),
     placeholderData: keepPreviousData,
     select: (dataFromQuery) => dataFromQuery.articles?.data.filter(isDefined) ?? [],
   })

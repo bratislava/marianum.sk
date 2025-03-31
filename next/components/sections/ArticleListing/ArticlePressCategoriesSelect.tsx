@@ -5,7 +5,7 @@ import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import {
   articlePressCategoriesSelectFetcher,
   articlePressCategoriesSelectQueryKey,
-} from '@/services/fetchers/articleListingFetcher'
+} from '@/services/fetchers/articles/articleCategoriesSelectFetcher'
 
 type ArticlePressCategoriesSelectProps = {
   onCategoryChange: (id: string | null) => void

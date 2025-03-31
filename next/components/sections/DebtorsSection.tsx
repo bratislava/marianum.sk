@@ -18,7 +18,7 @@ import {
   DebtorsFilters,
   getMeiliDebtorsQueryKey,
   meiliDebtorsFetcher,
-} from '@/services/fetchers/debtorsSectionFetcher'
+} from '@/services/fetchers/debtorsFetcher'
 import { DebtorMeili } from '@/services/meili/meiliTypes'
 import { getCemeteryInfoInCeremoniesDebtorsMeili } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
 import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'

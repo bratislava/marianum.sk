@@ -45,8 +45,9 @@ export const meiliDocumentsFetcher = (filters: DocumentsFilters) => {
     .then(unwrapFromSearchIndex('document'))
 }
 
-export const documentsSectionPrefetch = {
-  sectionTypename: 'ComponentSectionsDocumentsSection',
-  key: getMeiliDocumentsQueryKey(documentsDefaultFilters),
-  fetcher: meiliDocumentsFetcher(documentsDefaultFilters),
-} as const
+export const getMeiliDocumentsQuery = (filters: DocumentsFilters = documentsDefaultFilters) => {
+  return {
+    queryKey: getMeiliDocumentsQueryKey(filters),
+    queryFn: () => meiliDocumentsFetcher(filters),
+  } as const
+}

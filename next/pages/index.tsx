@@ -1,8 +1,8 @@
 /* eslint-disable sonarjs/no-duplicate-string */
+import { dehydrate, DehydratedState, HydrationBoundary, QueryClient } from '@tanstack/react-query'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { SWRConfig } from 'swr'
 
 import Seo from '@/components/atoms/Seo'
 import PageWrapper from '@/components/layouts/PageWrapper'
@@ -17,34 +17,28 @@ import HomepageReviewsSection from '@/components/sections/HomepageReviewsSection
 import HomepageSlider from '@/components/sections/HomepageSlider'
 import NewsSection from '@/components/sections/NewsSection'
 import UpcomingCeremoniesSection from '@/components/sections/UpcomingCeremoniesSection'
-import {
-  GeneralEntityFragment,
-  HomepageCeremoniesQuery,
-  HomePageQuery,
-  NavigationItemFragment,
-} from '@/graphql'
-import { getNewsListingPrefetch } from '@/services/fetchers/newsListingFetcher'
-import { upcomingCeremoniesPrefetch } from '@/services/fetchers/upcomingCeremoniesFetcher'
+import { GeneralEntityFragment, HomePageQuery, NavigationItemFragment } from '@/graphql'
+import { getGraphqlNewsListingQuery } from '@/services/fetchers/articles/newsListingFetcher'
+import { getUpcomingCeremoniesQuery } from '@/services/fetchers/ceremonies/upcomingCeremoniesFetcher'
 import { client } from '@/services/graphql/gqlClient'
 import { NOT_FOUND } from '@/utils/consts'
 import { isDefined } from '@/utils/isDefined'
-import { prefetchSections } from '@/utils/prefetchSections'
 
 type HomeProps = {
   navigation: NavigationItemFragment[]
   page: NonNullable<NonNullable<HomePageQuery['homePage']>['data']>
   procedures: NonNullable<HomePageQuery['procedures']>['data']
   general: GeneralEntityFragment | null
-  fallback: { UpcomingCeremonies?: HomepageCeremoniesQuery }
+  dehydratedState: DehydratedState
 }
 
-const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) => {
+const Home = ({ navigation, page, procedures, general, dehydratedState }: HomeProps) => {
   const { t } = useTranslation()
 
   const { seo } = page.attributes ?? {}
 
   return (
-    <SWRConfig value={{ fallback }}>
+    <HydrationBoundary state={dehydratedState}>
       {/* TODO: Extract NavigationProvider from PageWrapper */}
       <NavigationProvider navigation={navigation} general={general}>
         <Seo seo={seo} title={t('HomePage.home')} homepage />
@@ -113,7 +107,7 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
           })}
         </SectionsWrapper>
       </PageWrapper>
-    </SWRConfig>
+    </HydrationBoundary>
   )
 }
 
@@ -122,19 +116,24 @@ export const getStaticProps: GetStaticProps = async ({
 }): Promise<GetStaticPropsResult<HomeProps>> => {
   const { homePage, procedures } = await client.HomePage({ locale })
 
-  const sectionFetcherMapSwr = [upcomingCeremoniesPrefetch, getNewsListingPrefetch(locale)]
+  if (!homePage?.data) {
+    return NOT_FOUND
+  }
 
-  const [{ navigation, general }, translations, fallback] = await Promise.all([
+  const [{ navigation, general }, translations] = await Promise.all([
     client.General({ locale }),
     serverSideTranslations(locale),
-    prefetchSections(homePage?.data?.attributes?.sections, sectionFetcherMapSwr, true),
   ])
 
   const filteredNavigation = navigation.filter(isDefined)
 
-  if (!homePage?.data) {
-    return NOT_FOUND
-  }
+  // Prefetch data
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery(getGraphqlNewsListingQuery(locale))
+  await queryClient.prefetchQuery(getUpcomingCeremoniesQuery())
+
+  const dehydratedState = dehydrate(queryClient)
 
   return {
     props: {
@@ -142,7 +141,7 @@ export const getStaticProps: GetStaticProps = async ({
       general: general?.data ?? null,
       page: homePage?.data ?? null,
       procedures: procedures?.data ?? null,
-      fallback: fallback as { UpcomingCeremonies?: HomepageCeremoniesQuery },
+      dehydratedState,
       ...translations,
     },
     revalidate: 10,

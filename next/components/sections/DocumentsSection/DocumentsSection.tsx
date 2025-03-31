@@ -22,7 +22,7 @@ import {
   DocumentsFilters,
   getMeiliDocumentsQueryKey,
   meiliDocumentsFetcher,
-} from '@/services/fetchers/documentsSectionFetcher'
+} from '@/services/fetchers/documentsFetcher'
 import { DocumentMeili } from '@/services/meili/meiliTypes'
 import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
