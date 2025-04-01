@@ -25,7 +25,7 @@
     "@strapi/strapi": "4.25.22",
     "cf-turnstile": "^1.0.8",
     "moment": "^2.29.4",
-    "moment-timezone": "^0.5.40",
+    "moment-timezone": "^0.5.48",
     "patch-package": "^6.5.1",
     "pg": "8.14.0",
     "postinstall-postinstall": "^2.1.0",
