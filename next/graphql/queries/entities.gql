@@ -86,7 +86,7 @@ fragment ArticleEntity on ArticleEntity {
   ...ArticleCardEntity
   attributes {
     content
-    mediaGallery {
+    mediaGallery(pagination: { limit: -1 }) {
       data {
         ...UploadImageEntity
       }
@@ -139,7 +139,7 @@ fragment BranchEntity on BranchEntity {
         ...ContactEntity
       }
     }
-    medias {
+    medias(pagination: { limit: -1 }) {
       data {
         ...UploadImageEntity
       }
@@ -184,7 +184,7 @@ fragment CemeteryEntity on CemeteryEntity {
         ...ContactEntity
       }
     }
-    medias {
+    medias(pagination: { limit: -1 }) {
       data {
         ...UploadImageEntity
       }
@@ -199,7 +199,7 @@ fragment CemeteryEntity on CemeteryEntity {
       ...DocumentGroup
     }
     gallery {
-      ...ImageGallery
+      ...GallerySection
     }
     video {
       ...IframeSection
@@ -458,7 +458,7 @@ fragment PageEntity on PageEntity {
       }
       ... on ComponentSectionsGallery {
         __typename
-        ...ImageGallery
+        ...GallerySection
       }
       ... on ComponentSectionsMenuListing {
         __typename
@@ -638,7 +638,7 @@ fragment ManagedObjectEntity on ManagedObjectEntity {
     navigateToLink
     latitude
     longitude
-    medias {
+    medias(pagination: { limit: -1 }) {
       data {
         ...UploadImageEntity
       }

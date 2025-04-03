@@ -5006,7 +5006,7 @@ export type ContactGroupFragment = { __typename?: 'ComponentSectionsContactGroup
 
 export type DocumentGroupFragment = { __typename?: 'ComponentSectionsDocumentGroup', id: string, title?: string | null, documents?: Array<{ __typename?: 'ComponentBlocksDocumentItem', document?: { __typename?: 'DocumentEntityResponse', data?: { __typename: 'DocumentEntity', id?: string | null, attributes?: { __typename?: 'Document', publishedAt?: any | null, title: string, slug: string, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, documentCategory?: { __typename?: 'DocumentCategoryEntityResponse', data?: { __typename?: 'DocumentCategoryEntity', id?: string | null, attributes?: { __typename?: 'DocumentCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null };
 
-export type ImageGalleryFragment = { __typename?: 'ComponentSectionsGallery', id: string, title?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null };
+export type GallerySectionFragment = { __typename?: 'ComponentSectionsGallery', id: string, title?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null };
 
 export type CtaSectionFragment = { __typename?: 'ComponentSectionsCtaSection', id: string, title?: string | null, ctas?: Array<{ __typename?: 'ComponentBlocksSimpleCtaItem', id: string, title: string, description?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, document?: { __typename?: 'DocumentEntityResponse', data?: { __typename: 'DocumentEntity', id?: string | null, attributes?: { __typename?: 'Document', title: string, slug: string, documentCategory?: { __typename?: 'DocumentCategoryEntityResponse', data?: { __typename?: 'DocumentCategoryEntity', id?: string | null, attributes?: { __typename?: 'DocumentCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, type?: Enum_Cemetery_Type | null, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, type?: Enum_Managedobject_Type | null, locale?: string | null } | null } | null } | null } | null } | null> | null };
 
@@ -5666,7 +5666,7 @@ export const ArticleEntityFragmentDoc = gql`
   ...ArticleCardEntity
   attributes {
     content
-    mediaGallery {
+    mediaGallery(pagination: {limit: -1}) {
       data {
         ...UploadImageEntity
       }
@@ -5752,7 +5752,7 @@ export const BranchEntityFragmentDoc = gql`
         ...ContactEntity
       }
     }
-    medias {
+    medias(pagination: {limit: -1}) {
       data {
         ...UploadImageEntity
       }
@@ -5827,11 +5827,11 @@ export const DocumentGroupFragmentDoc = gql`
   }
 }
     ${DocumentCardEntityFragmentDoc}`;
-export const ImageGalleryFragmentDoc = gql`
-    fragment ImageGallery on ComponentSectionsGallery {
+export const GallerySectionFragmentDoc = gql`
+    fragment GallerySection on ComponentSectionsGallery {
   id
   title
-  medias {
+  medias(pagination: {limit: -1}) {
     data {
       ...UploadImageEntity
     }
@@ -5858,7 +5858,7 @@ export const CemeteryEntityFragmentDoc = gql`
         ...ContactEntity
       }
     }
-    medias {
+    medias(pagination: {limit: -1}) {
       data {
         ...UploadImageEntity
       }
@@ -5873,7 +5873,7 @@ export const CemeteryEntityFragmentDoc = gql`
       ...DocumentGroup
     }
     gallery {
-      ...ImageGallery
+      ...GallerySection
     }
     video {
       ...IframeSection
@@ -5885,7 +5885,7 @@ ${ContactEntityFragmentDoc}
 ${UploadImageEntityFragmentDoc}
 ${SeoFragmentDoc}
 ${DocumentGroupFragmentDoc}
-${ImageGalleryFragmentDoc}
+${GallerySectionFragmentDoc}
 ${IframeSectionFragmentDoc}`;
 export const CemeteryInCeremoniesDebtorsEntityFragmentDoc = gql`
     fragment CemeteryInCeremoniesDebtorsEntity on CemeteryEntity {
@@ -6337,7 +6337,7 @@ export const PageEntityFragmentDoc = gql`
       }
       ... on ComponentSectionsGallery {
         __typename
-        ...ImageGallery
+        ...GallerySection
       }
       ... on ComponentSectionsMenuListing {
         __typename
@@ -6430,7 +6430,7 @@ ${BundleListingFragmentDoc}
 ${BundleListingSimpleFragmentDoc}
 ${ContactGroupFragmentDoc}
 ${DocumentGroupFragmentDoc}
-${ImageGalleryFragmentDoc}
+${GallerySectionFragmentDoc}
 ${MenuListingFragmentDoc}
 ${ManualListingFragmentDoc}
 ${NewsListingFragmentDoc}
@@ -6536,7 +6536,7 @@ export const ManagedObjectEntityFragmentDoc = gql`
     navigateToLink
     latitude
     longitude
-    medias {
+    medias(pagination: {limit: -1}) {
       data {
         ...UploadImageEntity
       }

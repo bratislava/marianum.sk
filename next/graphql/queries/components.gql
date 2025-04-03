@@ -315,10 +315,10 @@ fragment DocumentGroup on ComponentSectionsDocumentGroup {
   }
 }
 
-fragment ImageGallery on ComponentSectionsGallery {
+fragment GallerySection on ComponentSectionsGallery {
   id
   title
-  medias {
+  medias(pagination: { limit: -1 }) {
     data {
       ...UploadImageEntity
     }
