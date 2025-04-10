@@ -1,5 +1,5 @@
 diff --git a/node_modules/@strapi/admin/dist/_chunks/index-uCIlbOdV.mjs b/node_modules/@strapi/admin/dist/_chunks/index-uCIlbOdV.mjs
-index 95a5860..0f33be1 100644
+index 95a5860..2c5e7a1 100644
 --- a/node_modules/@strapi/admin/dist/_chunks/index-uCIlbOdV.mjs
 +++ b/node_modules/@strapi/admin/dist/_chunks/index-uCIlbOdV.mjs
 @@ -12524,7 +12524,7 @@ const Wysiwyg = React.forwardRef(
@@ -7,7 +7,7 @@ index 95a5860..0f33be1 100644
      const handleSelectAssets = (files) => {
        const formattedFiles = files.map((f) => ({
 -        alt: f.alternativeText || f.name,
-+        alt: `${f.alternativeText}||${f.caption}`,
++        alt: `${f.alternativeText || ''}||${f.caption || ''}`,
          url: prefixFileUrlWithBackendUrl(f.url),
          mime: f.mime
        }));
