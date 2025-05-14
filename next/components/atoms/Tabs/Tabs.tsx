@@ -29,7 +29,7 @@ const Tabs = <T extends object>(props: TabListProps<T>) => {
       state.setSelectedKey(sessionTabKey)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [sessionTabKey])
 
   return (
     <div className="flex flex-col gap-6 md:gap-11">
