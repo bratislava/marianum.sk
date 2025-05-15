@@ -11,17 +11,22 @@ import TabPanel from './TabPanel'
 
 const Tabs = <T extends object>(props: TabListProps<T>) => {
   const ref = useRef<HTMLDivElement | null>(null)
-  const state = useTabListState<T>(props)
   const { isNull: isBreakpointNull } = useTailwindBreakpoint()
-  const { tabListProps } = useTabList(
-    { ...props, orientation: isBreakpointNull ? 'vertical' : 'horizontal' },
-    state,
-    ref,
-  )
 
   const [sessionTabKey, setSessionTabKey] = useSessionStorage<string>(
     'marianum-decease-place-tabs',
     '',
+  )
+
+  const state = useTabListState<T>({
+    ...props,
+    defaultSelectedKey: sessionTabKey,
+  })
+
+  const { tabListProps } = useTabList(
+    { ...props, orientation: isBreakpointNull ? 'vertical' : 'horizontal' },
+    state,
+    ref,
   )
 
   useEffect(() => {
