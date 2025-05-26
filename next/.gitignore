@@ -37,4 +37,5 @@ yarn-error.log*
 # Sentry
 .sentryclirc
 
-
+# local env files
+.env

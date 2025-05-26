@@ -11,9 +11,9 @@
     "dev": "npm develop",
     "develop": "cross-env ENV_PATH='./.env.local' strapi develop",
     "start": "strapi start",
-    "build": "npm --cwd ./src/plugins/ceremonies-debtor-list/ build && strapi build",
+    "build": "npm run --prefix ./src/plugins/ceremonies-debtor-list/ build && strapi build",
     "strapi": "strapi",
-    "postinstall": "patch-package && npm --cwd ./src/plugins/ceremonies-debtor-list/ install"
+    "postinstall": "patch-package && npm --prefix ./src/plugins/ceremonies-debtor-list/ install"
   },
   "dependencies": {
     "@strapi/plugin-graphql": "4.25.22",
@@ -27,7 +27,6 @@
     "moment-timezone": "^0.5.40",
     "patch-package": "^6.5.1",
     "pg": "8.14.0",
-    "postinstall-postinstall": "^2.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "5.3.4",
