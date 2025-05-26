@@ -1,32 +1,25 @@
 FROM node:20.19-alpine AS base
+ENV NEXT_TELEMETRY_DISABLED=1
 
-FROM base AS build-base
+FROM base AS install
 WORKDIR /build
 COPY ./package.json ./package-lock.json ./
+ENV NPM_CONFIG_CACHE=/build/.cache/npm
+RUN --mount=type=cache,target=/build/.cache/npm \
+    npm clean-install --include=dev
 
-FROM build-base AS install-prod
-RUN npm ci --omit-dev --frozen-lockfile
-
-FROM install-prod AS build
+FROM install AS build
 COPY --chown=node:node . ./
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV STRAPI_URL=http://localhost:1337
-ENV NEXT_PUBLIC_MEILISEARCH_HOST=http://localhost:7700/
-ENV NEXT_PUBLIC_MEILISEARCH_SEARCH_API_KEY=ffa52c9fc5911ca501e1b8111de7802e61348c4caaccb2a39c0dbf5494538dfc
-RUN npm ci --frozen-lockfile \
-# rename - for now, compatibility with react 18 is done via new branch with 18 in name,
-# remove in future when supported properly
- && mv /build/node_modules/react-18-input-autosize /build/node_modules/react-input-autosize \
- && npm run build
+RUN --mount=type=cache,target=/build/.cache/npm \
+    npm run build \
+ && npm prune --production
 
 FROM base AS app-base
-RUN apk update \
- && apk add --no-cache tini \
- && mkdir -p /home/node/app \
+RUN apk add --update --no-cache tini
+RUN mkdir -p /home/node/app \
  && chown -R node:node /home/node/app
 USER node
 WORKDIR /home/node/app
-ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 EXPOSE 3000
 ARG GIT_COMMIT="undefined"
@@ -49,7 +42,6 @@ COPY --chown=node:node --from=build /build/.next/static ./.next/static
 # sharp@0.32.6 must be installed for this to work
 # see https://github.com/vercel/next.js/discussions/40125
 COPY --chown=node:node --from=build /build/node_modules/sharp ./node_modules/sharp
-
 ENV NEXT_SHARP_PATH=/home/node/app/node_modules/sharp
 
 CMD [ "sh", "-c", "HOSTNAME=0.0.0.0 node server.js" ]

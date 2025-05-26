@@ -11,15 +11,15 @@
     "gen": "graphql-codegen && prettier --write graphql/index.ts",
     "lint": "eslint components pages utils",
     "lint:fix": "npm lint --fix",
-    "lint:quiet": "yarn lint --quiet",
+    "lint:quiet": "npm lint --quiet",
     "prettier": "prettier --write .",
     "parse-translations": "i18next",
-    "update-react-aria": "yarn add @internationalized/date@latest @react-stately/utils@latest react-aria@latest react-stately@latest @react-aria/utils@latest --exact --dev",
-    "update-next": "yarn add next@latest react@latest react-dom@latest sharp@latest --exact && yarn add @types/react@latest @types/react-dom@latest eslint-config-next@latest typescript@latest @next/bundle-analyzer --dev --exact",
-    "update-tailwind": "yarn add tailwind-merge@latest clsx@latest --exact && yarn add tailwindcss@latest autoprefixer@latest postcss@latest prettier-plugin-tailwindcss@latest eslint-plugin-tailwindcss@latest --dev --exact",
-    "update-i18next": "yarn add next-i18next@latest react-i18next@latest i18next@latest -E && yarn add eslint-plugin-i18next@latest i18next-parser@latest --dev --exact",
-    "update-prettier": "yarn add prettier@latest eslint-config-prettier@latest eslint-plugin-prettier@latest --dev --exact",
-    "update-graphql": "yarn add graphql@latest graphql-request@latest graphql-tag@latest --exact && yarn add @graphql-codegen/cli@latest @graphql-codegen/typescript-graphql-request@latest --dev --exact"
+    "update-react-aria": "npm add @internationalized/date@latest @react-stately/utils@latest react-aria@latest react-stately@latest @react-aria/utils@latest --exact --dev",
+    "update-next": "npm add next@latest react@latest react-dom@latest sharp@latest --exact && npm add @types/react@latest @types/react-dom@latest eslint-config-next@latest typescript@latest @next/bundle-analyzer --dev --exact",
+    "update-tailwind": "npm add tailwind-merge@latest clsx@latest --exact && npm add tailwindcss@latest autoprefixer@latest postcss@latest prettier-plugin-tailwindcss@latest eslint-plugin-tailwindcss@latest --dev --exact",
+    "update-i18next": "npm add next-i18next@latest react-i18next@latest i18next@latest -E && npm add eslint-plugin-i18next@latest i18next-parser@latest --dev --exact",
+    "update-prettier": "npm add prettier@latest eslint-config-prettier@latest eslint-plugin-prettier@latest --dev --exact",
+    "update-graphql": "npm add graphql@latest graphql-request@latest graphql-tag@latest --exact && npm add @graphql-codegen/cli@latest @graphql-codegen/typescript-graphql-request@latest --dev --exact"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.6",
@@ -137,7 +137,6 @@
     "npm": ">=9.8.1"
   },
   "volta": {
-    "node": "20.19.0",
-    "yarn": "1.22.22"
+    "node": "20.19.0"
   }
 }

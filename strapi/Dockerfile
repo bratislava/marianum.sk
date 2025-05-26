@@ -1,6 +1,6 @@
 FROM node:20.19-alpine AS base
 
-FROM base AS build-base
+FROM base AS install
 RUN apk update \
  && apk add --no-cache build-base \
                        gcc \
@@ -19,16 +19,16 @@ COPY patches ./patches
 COPY src/plugins/ceremonies-debtor-list/package.json ./src/plugins/ceremonies-debtor-list/package.json
 COPY src/plugins/ceremonies-debtor-list/package-lock.json ./src/plugins/ceremonies-debtor-list/package-lock.json
 
-FROM build-base AS install-prod
-RUN npm ci --frozen-lockfile
-#  --mount=type=cache,target=/build/.cache/yarn \
-    # yarn config set network-timeout 600000 -g \
+ENV NPM_CONFIG_CACHE=/build/.cache/npm
+RUN --mount=type=cache,target=/build/.cache/npm \
+    npm clean-install --include=dev
 
-FROM install-prod AS build
+FROM install AS build
 WORKDIR /build/app
 COPY --chown=node:node . ./
-RUN npm ci --omit-dev --frozen-lockfile \
- && npm run build
+RUN --mount=type=cache,target=/build/.cache/npm \
+    npm run build \
+ && npm prune --production
 
 FROM base AS app-base
 RUN apk add --no-cache vips-dev \
@@ -51,15 +51,11 @@ ENTRYPOINT [ "/sbin/tini", "--" ]
 FROM app-base AS dev
 ENV NODE_ENV=development
 COPY --chown=node:node --from=build /build/node_modules ./node_modules
-COPY --chown=node:node --from=build /build/app/favicon.ico /build/package.json /build/package-lock.json ./
-COPY --chown=node:node --from=build /build/app/dist ./dist
-COPY --chown=node:node --from=build /build/app/tsconfig.json ./
-RUN mkdir -p /home/node/app/public/uploads
 CMD [ "npm", "run", "develop" ]
 
 FROM app-base AS prod
 COPY --chown=node:node --from=build /build/app/favicon.ico /build/package.json /build/package-lock.json /build/app/tsconfig.json ./
-COPY --chown=node:node --from=install-prod /build/node_modules ./node_modules
+COPY --chown=node:node --from=build /build/node_modules ./node_modules
 COPY --chown=node:node --from=build /build/app/config ./config
 COPY --chown=node:node --from=build /build/app/public ./public
 COPY --chown=node:node --from=build /build/app/dist ./dist
@@ -68,7 +64,7 @@ COPY --chown=node:node --from=build /build/app/dist ./dist
 # - plugins/<name>/package.json
 # - plugins/<name>/dist/
 # - plugins/<name>/*.js
-# Or leave empty (do not add anyting) if you don't have any custom plugins (most likely ./plugins directory)
+# Or leave empty (do not add anything) if you don't have any custom plugins (most likely ./plugins directory)
 COPY --chown=node:node --from=install-prod /build/src/plugins/ceremonies-debtor-list/package-lock.json ./src/plugins/ceremonies-debtor-list/package-lock.json
 COPY --chown=node:node --from=install-prod /build/src/plugins/ceremonies-debtor-list/package.json ./src/plugins/ceremonies-debtor-list/package.json
 COPY --chown=node:node --from=build /build/app/src/plugins/ceremonies-debtor-list/dist ./src/plugins/ceremonies-debtor-list/dist
