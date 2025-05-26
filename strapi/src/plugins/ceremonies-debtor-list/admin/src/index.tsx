@@ -1,17 +1,23 @@
-import pluginId from "./pluginId";
-import { Upload } from "@strapi/icons";
+import pluginPkg from '../../package.json'
+import pluginId from './pluginId'
+import Initializer from './components/Initializer'
+import PluginIcon from './components/PluginIcon'
+
+const name = pluginPkg.strapi.name
 
 export default {
-  register(app) {
+  register(app: any) {
     app.addMenuLink({
       to: `/plugins/${pluginId}`,
-      icon: Upload,
+      icon: PluginIcon,
       intlLabel: {
         id: `${pluginId}.plugin.name`,
-        defaultMessage: "Import Excel súborov",
+        defaultMessage: 'Import Excel súborov',
       },
       Component: async () => {
-        return await import(/* webpackChunkName: "[request]" */ "./pages/App");
+        const component = await import('./pages/App')
+
+        return component
       },
       permissions: [
         // Uncomment to set the permissions of the plugin here
@@ -20,15 +26,16 @@ export default {
         //   subject: null,
         // },
       ],
-    });
+    })
     const plugin = {
       id: pluginId,
-      isReady: true,
+      initializer: Initializer,
+      isReady: false,
       name,
-    };
+    }
 
-    app.registerPlugin(plugin);
+    app.registerPlugin(plugin)
   },
 
-  bootstrap(app) {},
-};
+  bootstrap(app: any) {},
+}

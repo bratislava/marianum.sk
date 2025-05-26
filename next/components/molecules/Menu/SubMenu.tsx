@@ -1,9 +1,10 @@
-import MenuItem from '@components/molecules/Menu/MenuItem'
-import MenuLeaf from '@components/molecules/Menu/MenuLeaf'
-import { NavigationItemFragment } from '@graphql'
 import { SubMenu as ReactSubMenu } from '@szhsin/react-menu'
 import { useRouter } from 'next/router'
 import { MouseEvent } from 'react'
+
+import MenuItem from '@/components/molecules/Menu/MenuItem'
+import MenuLeaf from '@/components/molecules/Menu/MenuLeaf'
+import { NavigationItemFragment } from '@/graphql'
 
 export type SubMenuProps = Pick<NavigationItemFragment, 'title' | 'path' | 'items'>
 
@@ -22,7 +23,7 @@ const SubMenu = ({ title, items, path }: SubMenuProps) => {
       className="outline-none"
       label={({ open, hover }) => (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-        <div onClick={handleClick} className="-mx-3 px-3 outline-none">
+        <div onClick={handleClick} className="-mx-3 px-3">
           <MenuItem title={title} hover={hover} open={open} isSubmenu />
         </div>
       )}

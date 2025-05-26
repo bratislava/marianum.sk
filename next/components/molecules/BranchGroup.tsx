@@ -1,8 +1,9 @@
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import Row from '@components/molecules/Row/Row'
-import { BranchGroupFragment } from '@graphql'
-import { isDefined } from '@utils/isDefined'
 import { useMemo } from 'react'
+
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Row from '@/components/molecules/Row/Row'
+import { BranchGroupFragment } from '@/graphql'
+import { isDefined } from '@/utils/isDefined'
 
 const BranchGroup = ({ branches }: BranchGroupFragment) => {
   const { getFullPath } = useGetFullPath()
@@ -15,6 +16,7 @@ const BranchGroup = ({ branches }: BranchGroupFragment) => {
     <div className="flex flex-col gap-4">
       {filteredBranches?.map((branch) => {
         const { title, slug, address, offices } = branch.attributes ?? {}
+
         return (
           <Row
             key={slug}

@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_sections_map_of_managed_objects",
+  "info": {
+    "displayName": "Map of managed objects section",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}

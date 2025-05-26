@@ -1,14 +1,15 @@
-import SelectWithFetcher from '@components/molecules/SelectWithFetcher'
+import { useTranslation } from 'next-i18next'
+import { useMemo } from 'react'
+
+import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import {
   cemeteriesInCeremoniesFetcher,
   getCemeteriesInCeremoniesKey,
-} from '@services/fetchers/ceremoniesSectionFetcher'
+} from '@/services/fetchers/cemeteries/cemeteriesInCeremoniesFetcher'
 import {
   cemeteriesInDebtorsFetcher,
   getCemeteriesInDebtorsKey,
-} from '@services/fetchers/debtorsSectionFetcher'
-import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
+} from '@/services/fetchers/cemeteries/cemeteriesInDebtorsFetcher'
 
 type CeremoniesDebtorsCemeterySelectProps = {
   label?: string
@@ -21,7 +22,7 @@ const CeremoniesDebtorsCemeterySelect = ({
   type,
   onCemeteryChange = () => {},
 }: CeremoniesDebtorsCemeterySelectProps) => {
-  const { t, i18n } = useTranslation('common', { keyPrefix: 'CemeterySelect' })
+  const { t, i18n } = useTranslation()
 
   // eslint-disable-next-line consistent-return
   const fetcher = useMemo(() => {
@@ -33,21 +34,22 @@ const CeremoniesDebtorsCemeterySelect = ({
     }
   }, [type, i18n.language])
 
-  // eslint-disable-next-line consistent-return
-  const swrKey = useMemo(() => {
+  const queryKey = useMemo(() => {
     if (type === 'ceremonies') {
       return getCemeteriesInCeremoniesKey(i18n.language)
     }
     if (type === 'debtors') {
       return getCemeteriesInDebtorsKey(i18n.language)
     }
+
+    return ['']
   }, [type, i18n.language])
 
-  const defaultOption = useMemo(() => ({ label: t('allCemeteries'), key: '' }), [t])
+  const defaultOption = useMemo(() => ({ label: t('CemeterySelect.allCemeteries'), key: '' }), [t])
 
   return fetcher ? (
     <SelectWithFetcher
-      swrKey={swrKey}
+      queryKey={queryKey}
       defaultOption={defaultOption}
       fetcher={fetcher}
       label={label}

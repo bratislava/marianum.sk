@@ -1,8 +1,12 @@
 {
   "name": "marianum-strapi",
-  "private": true,
   "version": "0.1.0",
-  "description": "A Strapi application",
+  "private": true,
+  "description": "A Strapi CMS for marianum.sk website",
+  "license": "MIT",
+  "author": {
+    "name": "City of Bratislava"
+  },
   "scripts": {
     "dev": "npm develop",
     "develop": "cross-env ENV_PATH='./.env.local' strapi develop",
@@ -12,38 +16,36 @@
     "postinstall": "patch-package && npm --cwd ./src/plugins/ceremonies-debtor-list/ install"
   },
   "dependencies": {
-    "@strapi/plugin-graphql": "4.10.8",
-    "@strapi/plugin-i18n": "4.10.8",
-    "@strapi/plugin-upload": "4.10.8",
-    "@strapi/plugin-users-permissions": "4.10.8",
-    "@strapi/strapi": "4.10.8",
+    "@strapi/plugin-graphql": "4.25.22",
+    "@strapi/plugin-i18n": "4.25.22",
+    "@strapi/plugin-upload": "4.25.22",
+    "@strapi/plugin-users-permissions": "4.25.22",
+    "@strapi/provider-email-mailgun": "4.25.22",
+    "@strapi/strapi": "4.25.22",
     "cf-turnstile": "^1.0.8",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.40",
     "patch-package": "^6.5.1",
-    "pg": "8.6.0",
+    "pg": "8.14.0",
     "postinstall-postinstall": "^2.1.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "5.3.4",
     "strapi-plugin-meilisearch": "^0.9.2",
-    "strapi-plugin-navigation": "^2.2.1",
+    "strapi-plugin-navigation": "2.3.1",
     "strapi-provider-upload-ts-minio": "^3.1.0",
+    "styled-components": "^5.2.1",
     "xlsx": "^0.18.5"
-  },
-  "author": {
-    "name": "The City of Bratislava"
   },
   "strapi": {
     "uuid": "02276e74-d45b-4f22-8469-68326d1ddda3"
   },
   "engines": {
-    "node": ">=18.x.x",
+    "node": ">=20.19.x",
     "npm": ">=9.8.1"
   },
-  "license": "MIT",
   "volta": {
-    "node": "18.17.1",
-    "npm": "10.5.0"
-  },
-  "devDependencies": {
-    "typescript": "^5.4.2"
+    "node": "20.19.0",
+    "yarn": "1.22.22"
   }
 }

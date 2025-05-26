@@ -1,6 +1,7 @@
-import { CloseCircleIcon, SearchIcon } from '@assets/icons'
-import TextField from '@components/atoms/TextField'
 import { useTranslation } from 'next-i18next'
+
+import { CloseCircleIcon, SearchIcon } from '@/assets/icons'
+import TextField from '@/components/atoms/TextField'
 
 export type FilteringSearchInputProps = {
   value: string
@@ -8,7 +9,7 @@ export type FilteringSearchInputProps = {
 }
 
 const FilteringSearchInput = ({ value, onChange }: FilteringSearchInputProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'SearchField' })
+  const { t } = useTranslation()
 
   const handleCancelClick = () => {
     onChange('')
@@ -21,13 +22,13 @@ const FilteringSearchInput = ({ value, onChange }: FilteringSearchInputProps) =>
       leftSlot={<SearchIcon />}
       rightSlot={
         value ? (
-          <button type="button" className="p-2" onClick={handleCancelClick}>
+          <button type="button" className="base-focus-ring p-2" onClick={handleCancelClick}>
             <CloseCircleIcon />
           </button>
         ) : null
       }
-      placeholder={t('searchPlaceholder')}
-      aria-label={t('aria.searchField')}
+      placeholder={t('SearchField.searchPlaceholder')}
+      aria-label={t('SearchField.aria.searchField')}
       onChange={(e) => onChange(e.target.value)}
     />
   )

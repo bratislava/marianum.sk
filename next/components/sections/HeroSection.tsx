@@ -1,17 +1,18 @@
-import { HomeIcon } from '@assets/icons'
-import Breadcrumbs, { BreadcrumbItem } from '@components/atoms/Breadcrumbs'
-import Button from '@components/atoms/Button'
-import FormatCurrency from '@components/atoms/FormatCurrency'
-import NormalizeText from '@components/atoms/NormalizeText/NormalizeText'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { useNavigationContext } from '@components/molecules/Navigation/NavigationProvider/useNavigationContext'
-import { CtaButtonFragment } from '@graphql'
-import { getBreadcrumbs } from '@utils/getBreadcrumbs'
-import { useIsHeroSectionOverlaid } from '@utils/heroSectionContentOverlay'
 import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
+
+import { HomeIcon } from '@/assets/icons'
+import Breadcrumbs, { BreadcrumbItem } from '@/components/atoms/Breadcrumbs'
+import Button from '@/components/atoms/Button'
+import FormatCurrency from '@/components/atoms/FormatCurrency'
+import NormalizeText from '@/components/atoms/NormalizeText/NormalizeText'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
+import { useNavigationContext } from '@/components/molecules/Navigation/NavigationProvider/useNavigationContext'
+import { CtaButtonFragment } from '@/graphql'
+import { getBreadcrumbs } from '@/utils/getBreadcrumbs'
+import { useIsHeroSectionOverlaid } from '@/utils/heroSectionContentOverlay'
 
 type HeroSectionProps = {
   breadcrumbsMoreItems?: BreadcrumbItem[]
@@ -30,13 +31,13 @@ const HeroSection = ({
   price,
   moreContent,
 }: HeroSectionProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'HeroSection' })
+  const { t } = useTranslation()
   const router = useRouter()
+  const { getLinkProps } = useGetLinkProps()
 
   const { navMap } = useNavigationContext()
-  const { getFullPath } = useGetFullPath()
 
-  const ctaSlug = getFullPath(ctaButton?.page?.data)
+  const linkProps = getLinkProps(ctaButton)
 
   const breadcrumbs = [
     { label: <HomeIcon />, path: '/' },
@@ -63,14 +64,14 @@ const HeroSection = ({
               <NormalizeText>{perex}</NormalizeText>
             </p>
           )}
-          {ctaSlug && (
-            <Button href={ctaSlug} className="mt-6">
-              {ctaButton?.label}
+          {ctaButton && (
+            <Button {...linkProps} className="mt-6">
+              {linkProps?.label}
             </Button>
           )}
           {price && (
             <div className="mt-6">
-              <div>{t('priceFrom')}</div>
+              <div>{t('HeroSection.priceFrom')}</div>
               <div className="mt-1 text-h4 font-bold text-white">
                 <FormatCurrency value={price} />
               </div>

@@ -1,29 +1,29 @@
-import FormatDate from '@components/atoms/FormatDate'
-import Loading from '@components/atoms/Loading'
-import LoadingOverlay from '@components/atoms/LoadingOverlay'
-import CemeteryLink from '@components/molecules/CemeteryLink'
-import CeremoniesDebtorsCemeterySelect from '@components/molecules/CeremoniesDebtors/CemeterySelect'
-import FilteringSearchInput from '@components/molecules/FilteringSearchInput'
-import FiltersBackgroundWrapper from '@components/molecules/FiltersBackgroundWrapper'
-import PaginationMeili from '@components/molecules/PaginationMeili'
-import Section from '@components/molecules/Section'
-import {
-  ceremoniesArchiveSectionDefaultFilters,
-  ceremoniesArchiveSectionFetcher,
-  CeremoniesArchiveSectionFilters,
-  getCeremoniesArchiveSectionSwrKey,
-} from '@services/fetchers/ceremoniesArchiveSectionFetcher'
-import { CeremonyMeili } from '@services/meili/meiliTypes'
-import { getCemeteryInfoInCeremoniesDebtorsMeili } from '@utils/getCemeteryInfoInCeremoniesDebtors'
-import { useGetSwrExtras } from '@utils/useGetSwrExtras'
-import { useHorizontalScrollFade } from '@utils/useHorizontalScrollFade'
-import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import cx from 'classnames'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import useSwr from 'swr'
-import { useDebounce } from 'usehooks-ts'
+import { useDebounceValue } from 'usehooks-ts'
+
+import FormatDate from '@/components/atoms/FormatDate'
+import Loading from '@/components/atoms/Loading'
+import LoadingOverlay from '@/components/atoms/LoadingOverlay'
+import CemeteryLink from '@/components/molecules/CemeteryLink'
+import CeremoniesDebtorsCemeterySelect from '@/components/molecules/CeremoniesDebtors/CemeterySelect'
+import FilteringSearchInput from '@/components/molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '@/components/molecules/FiltersBackgroundWrapper'
+import PaginationMeili from '@/components/molecules/PaginationMeili'
+import Section from '@/components/molecules/Section'
+import {
+  ceremoniesArchiveSectionDefaultFilters,
+  ceremoniesArchiveSectionFetcher,
+  CeremoniesArchiveSectionFilters,
+  getCeremoniesArchiveSectionQueryKey,
+} from '@/services/fetchers/ceremonies/ceremoniesArchiveSectionFetcher'
+import { CeremonyMeili } from '@/services/meili/meiliTypes'
+import { getCemeteryInfoInCeremoniesDebtorsMeili } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
+import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
+import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
 const PrivateField = () => <span className="opacity-50">**</span>
 
@@ -34,7 +34,7 @@ const Table = ({
   data: SearchResponse<CeremonyMeili>
   filters: CeremoniesArchiveSectionFilters
 }) => {
-  const { t, i18n } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })
+  const { t, i18n } = useTranslation()
 
   const tableWrapperRef = useRef<HTMLDivElement>(null)
   const theadRef = useRef<HTMLTableSectionElement>(null)
@@ -79,13 +79,13 @@ const Table = ({
         <table className="m-table colored">
           <thead ref={theadRef}>
             <tr>
-              <th>{t('th.dateTime')}</th>
-              <th>{t('th.name')}</th>
-              <th>{t('th.birthYear')}</th>
-              <th>{t('th.cemeteryTitle')}</th>
-              <th>{t('th.type')}</th>
-              <th>{t('th.company')}</th>
-              <th>{t('th.officiantProvidedBy')}</th>
+              <th>{t('CeremoniesSection.th.dateTime')}</th>
+              <th>{t('CeremoniesSection.th.name')}</th>
+              <th>{t('CeremoniesSection.th.birthYear')}</th>
+              <th>{t('CeremoniesSection.th.cemeteryTitle')}</th>
+              <th>{t('CeremoniesSection.th.type')}</th>
+              <th>{t('CeremoniesSection.th.company')}</th>
+              <th>{t('CeremoniesSection.th.officiantProvidedBy')}</th>
             </tr>
           </thead>
           <tbody>
@@ -106,14 +106,14 @@ const Table = ({
             ))}
             {ceremonies?.length === 0 && (
               <tr>
-                <td colSpan={7}>{t('noCeremonies')}</td>
+                <td colSpan={7}>{t('CeremoniesSection.noCeremonies')}</td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
       <p>
-        <PrivateField /> {t('privateFieldsDescription')}
+        <PrivateField /> {t('CeremoniesSection.privateFieldsDescription')}
       </p>
     </>
   )
@@ -126,35 +126,30 @@ const DataWrapper = ({
   filters: CeremoniesArchiveSectionFilters
   onPageChange: (page: number) => void
 }) => {
-  const { data, error } = useSwr(
-    getCeremoniesArchiveSectionSwrKey(filters),
-    ceremoniesArchiveSectionFetcher(filters),
-  )
-
-  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useGetSwrExtras({
-    data,
-    error,
+  const { data, isPending, isFetching, isError, error } = useQuery({
+    queryKey: getCeremoniesArchiveSectionQueryKey(filters),
+    queryFn: () => ceremoniesArchiveSectionFetcher(filters),
+    placeholderData: keepPreviousData,
   })
 
-  // TODO replace by proper loading and error
-  if (loadingAndNoDataToDisplay) {
+  if (isPending) {
     return <Loading />
   }
 
-  if (error) {
+  // TODO replace by proper error
+  if (isError) {
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
   return (
     <>
-      <LoadingOverlay loading={delayedLoading}>
-        {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-        <Table data={dataToDisplay!} filters={filters} />
+      <LoadingOverlay loading={isFetching}>
+        <Table data={data} filters={filters} />
       </LoadingOverlay>
 
-      {dataToDisplay ? (
+      {data.hits.length > 0 ? (
         <PaginationMeili
-          data={dataToDisplay}
+          data={data}
           pageSize={filters.pageSize}
           selectedPage={filters.page}
           onPageChange={onPageChange}
@@ -169,7 +164,7 @@ const CeremoniesArchiveSection = () => {
     ceremoniesArchiveSectionDefaultFilters,
   )
   const [searchInputValue, setSearchInputValue] = useState<string>('')
-  const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
+  const [debouncedSearchInputValue] = useDebounceValue<string>(searchInputValue, 300)
 
   useEffect(() => {
     if (filters.search !== debouncedSearchInputValue) {

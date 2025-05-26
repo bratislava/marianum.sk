@@ -1,6 +1,7 @@
-import FieldWrapper from '@components/atoms/FieldWrapper'
 import cx from 'classnames'
 import { DetailedHTMLProps, forwardRef, InputHTMLAttributes, ReactNode, useId } from 'react'
+
+import FieldWrapper from '@/components/atoms/FieldWrapper'
 
 type AreaOrInputConditionalProps =
   // textarea props
@@ -62,7 +63,7 @@ const TextField = forwardRef<HTMLTextAreaElement & HTMLInputElement, TextFieldPr
             disabled={disabled}
             required={required}
             className={cx(
-              'min-h-10 w-full resize-y bg-transparent px-4 py-[6px] outline-none',
+              'base-focus-ring min-h-10 w-full resize-y bg-transparent px-4 py-[6px]',
               inputClassName,
               {
                 'text-foreground-disabled': disabled,
@@ -113,7 +114,7 @@ const TextField = forwardRef<HTMLTextAreaElement & HTMLInputElement, TextFieldPr
           id={generatedOrProvidedId}
           disabled={disabled}
           required={required}
-          className={cx('w-full bg-transparent outline-none', inputClassName, {
+          className={cx('base-focus-ring w-full bg-transparent', inputClassName, {
             'text-foreground-disabled': disabled,
             'pl-4': !leftSlot,
             'pr-4': !rightSlot,

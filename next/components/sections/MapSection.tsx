@@ -1,138 +1,74 @@
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-import { MapMarkerSvg } from '@assets'
-import { ArrowLeftIcon, PlaceIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
-import Loading from '@components/atoms/Loading'
-import MLink from '@components/atoms/MLink'
-import TagToggle from '@components/atoms/TagToggle'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import Search from '@components/molecules/Search'
-import Section from '@components/molecules/Section'
-import { CemeteryEntityFragment, Enum_Cemetery_Type, MapSectionFragment } from '@graphql'
-import { cemeteriesFetcher, getCemeteriesSwrKey } from '@services/fetchers/cemeteriesFetcher'
-import { isDefined } from '@utils/isDefined'
-import { useGetSwrExtras } from '@utils/useGetSwrExtras'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import cx from 'classnames'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import Map, { MapRef, Marker } from 'react-map-gl'
-import slugify from 'slugify'
-import useSWR from 'swr'
+import Map, { Marker } from 'react-map-gl'
 
-const slugifyText = (text: string) => {
-  return slugify(text, { replacement: ' ', lower: true })
-}
-
-// calculate bounding box for cemeteries
-const getBoundsForCemeteries = (cemeteries: CemeteryEntityFragment[]) => {
-  const cemeteriesLongitude =
-    cemeteries.map((cemetery) => cemetery.attributes?.longitude).filter(isDefined) ?? []
-  const cemeteriesLatitude =
-    cemeteries.map((cemetery) => cemetery.attributes?.latitude).filter(isDefined) ?? []
-
-  return [
-    [Math.min(...cemeteriesLongitude), Math.min(...cemeteriesLatitude)],
-    [Math.max(...cemeteriesLongitude), Math.max(...cemeteriesLatitude)],
-  ] as [[number, number], [number, number]]
-}
+import { MapMarkerSvg } from '@/assets'
+import { ArrowLeftIcon, PlaceIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
+import Loading from '@/components/atoms/Loading'
+import MLink from '@/components/atoms/MLink'
+import TagToggle from '@/components/atoms/TagToggle'
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import Search from '@/components/molecules/Search'
+import Section from '@/components/molecules/Section'
+import { Enum_Cemetery_Type, MapSectionFragment } from '@/graphql'
+import {
+  getGraphqlCemeteriesQueryKey,
+  graphqlCemeteriesFetcher,
+} from '@/services/fetchers/cemeteries/cemeteriesFetcher'
+import { useMapWithFilteringAndSearch } from '@/utils/useMapWithFilteringAndSearch'
 
 type MapSectionProps = { section: MapSectionFragment }
 
 const MapSection = ({ section }: MapSectionProps) => {
-  const { t, i18n } = useTranslation('common', { keyPrefix: 'MapSection' })
+  const { t, i18n } = useTranslation()
+  const locale = i18n.language
 
   const { getFullPath } = useGetFullPath()
 
-  const { data, error } = useSWR(
-    getCemeteriesSwrKey(i18n.language),
-    cemeteriesFetcher(i18n.language),
-  )
+  const translationMap: Record<string, string> = {
+    [Enum_Cemetery_Type.Civilny]: t('MapSection.cemeteriesFilter.civilny'),
+    [Enum_Cemetery_Type.Historicky]: t('MapSection.cemeteriesFilter.historicky'),
+    [Enum_Cemetery_Type.Vojensky]: t('MapSection.cemeteriesFilter.vojensky'),
+  } satisfies Record<Enum_Cemetery_Type, string>
 
-  const { loadingAndNoDataToDisplay, dataToDisplay } = useGetSwrExtras({
-    data,
-    error,
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: getGraphqlCemeteriesQueryKey(locale),
+    queryFn: () => graphqlCemeteriesFetcher(locale),
+    placeholderData: keepPreviousData,
   })
 
-  const validCemeteries = useMemo(() => {
-    return (
-      dataToDisplay?.cemeteries?.data
-        ?.map((cemetery) => {
-          const { address, title, slug, latitude, longitude } = cemetery.attributes ?? {}
-          if (address && title && slug && latitude && longitude) {
-            return cemetery
-          }
-          return null
-        })
-        .filter(isDefined) ?? []
-    )
-  }, [dataToDisplay?.cemeteries])
+  const defaultFilters = {
+    [Enum_Cemetery_Type.Civilny]: false,
+    [Enum_Cemetery_Type.Historicky]: false,
+    [Enum_Cemetery_Type.Vojensky]: false,
+  }
 
-  const [searchQuery, setSearchQuery] = useState('')
+  const {
+    mapRef,
+    initialBounds,
+    searchQuery,
+    setSearchQuery,
+    selectedTypes,
+    toggleSelectedTypes,
+    hoveredLandmarkSlug: hoveredCemeterySlug,
+    setHoveredLandmarkSlug: setHoveredCemeterySlug,
+    isMapOrFiltersDisplayed,
+    setMapOrFiltersDisplayed,
+    filteredLandmarks: filteredCemeteries,
+  } = useMapWithFilteringAndSearch(data?.cemeteries?.data, defaultFilters)
 
-  const slugifiedSearchQuery = useMemo(() => {
-    return slugifyText(searchQuery)
-  }, [searchQuery])
-
-  const [hoveredCemeterySlug, setHoveredCemeterySlug] = useState<string | null>(null)
-
-  const [isCivilChecked, setCivilChecked] = useState(false)
-  const [isHistoricalChecked, setHistoricalChecked] = useState(false)
-  const [isWarChecked, setWarChecked] = useState(false)
-
-  const filteredCemeteries = useMemo(() => {
-    return validCemeteries.filter(
-      (cemetery) =>
-        // search filter for address and title
-        ((slugifyText(cemetery.attributes?.address ?? '').includes(slugifiedSearchQuery) ||
-          slugifyText(cemetery.attributes?.title ?? '').includes(slugifiedSearchQuery)) &&
-          // if no cemetery type selected, show all
-          ((!isCivilChecked && !isHistoricalChecked && !isWarChecked) ||
-            // otherwise
-            // civil cemetery filter
-            (isCivilChecked && cemetery.attributes?.type === Enum_Cemetery_Type.Civilny) ||
-            // historical cemetery filter
-            (isHistoricalChecked && cemetery.attributes?.type === Enum_Cemetery_Type.Historicky) ||
-            // war cemetery filter
-            (isWarChecked && cemetery.attributes?.type === Enum_Cemetery_Type.Vojensky))) ??
-        [],
-    )
-  }, [validCemeteries, slugifiedSearchQuery, isCivilChecked, isHistoricalChecked, isWarChecked])
-
-  const mapRef = useRef<MapRef | null>(null)
-  const initialBounds = useRef(filteredCemeteries && getBoundsForCemeteries(filteredCemeteries))
-
-  const fitCemeteries = useCallback(
-    (duration = 0) => {
-      try {
-        // This code fails when there is no cemeteries in the database.
-        // For that reason there is a try-catch block. It's not clean but it's enough.
-        mapRef.current?.fitBounds(getBoundsForCemeteries(filteredCemeteries), {
-          padding: 100,
-          offset: [0, 10],
-          duration,
-        })
-      } catch {
-        // When it fails, no one cares because there is no cemeteries :)
-      }
-    },
-    [filteredCemeteries],
-  )
-
-  useEffect(() => {
-    fitCemeteries(500)
-  }, [fitCemeteries, filteredCemeteries])
-
-  const [isMapOrFiltersDisplayed, setMapOrFiltersDisplayed] = useState(false)
-
-  // TODO replace by proper loading and error
-  if (loadingAndNoDataToDisplay) {
+  if (isPending) {
     return <Loading />
   }
 
-  if (error) {
-    return <div>Error: {JSON.stringify(error)}</div>
+  // TODO replace by proper error
+  if (isError) {
+    return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
   return (
@@ -146,34 +82,43 @@ const MapSection = ({ section }: MapSectionProps) => {
             },
           )}
         >
-          {/* filtering */}
+          {/* Search & filtering */}
           <div className="flex flex-col gap-3 border-b border-border p-5">
             <Search value={searchQuery} onSearchQueryChange={setSearchQuery} />
-            <div className="flex gap-2">
-              <TagToggle isSelected={isCivilChecked} onChange={setCivilChecked}>
-                {t('filters.civil')}
-              </TagToggle>
-              <TagToggle isSelected={isHistoricalChecked} onChange={setHistoricalChecked}>
-                {t('filters.historical')}
-              </TagToggle>
-              <TagToggle isSelected={isWarChecked} onChange={setWarChecked}>
-                {t('filters.war')}
-              </TagToggle>
-            </div>
+            <ul aria-label={t('MapSection.filtering')} className="flex gap-2">
+              {Object.entries(selectedTypes).map(([type]) => {
+                return (
+                  <li key={type}>
+                    <TagToggle
+                      isSelected={selectedTypes[type]}
+                      onChange={() => toggleSelectedTypes(type)}
+                    >
+                      {translationMap[type]}
+                    </TagToggle>
+                  </li>
+                )
+              })}
+            </ul>
           </div>
-          {/* results */}
-          <div className="flex-1 overflow-auto" onMouseLeave={() => setHoveredCemeterySlug(null)}>
+
+          {/* Results */}
+          <ul
+            aria-label={t('MapSection.results')}
+            className="flex-1 overflow-auto"
+            tabIndex={-1} // We are setting internal state on onMouseLeave, so the list itself does not need keyboard focus
+            onMouseLeave={() => setHoveredCemeterySlug(null)}
+          >
             {filteredCemeteries.map((cemetery, index) => {
               const { title, slug, address } = cemetery.attributes ?? {}
 
               return (
-                <Fragment key={slug}>
+                <li key={slug}>
                   {index !== 0 && <hr className="mx-5 border-border" />}
                   <MLink
                     onMouseEnter={() => setHoveredCemeterySlug(slug ?? '')}
                     noStyles
                     href={getFullPath(cemetery) ?? ''}
-                    className={cx('flex gap-2 px-5 py-3', {
+                    className={cx('flex gap-2 px-5 py-3 ring-inset ring-offset-0', {
                       'bg-primary/5': slug === hoveredCemeterySlug,
                     })}
                   >
@@ -185,13 +130,16 @@ const MapSection = ({ section }: MapSectionProps) => {
                       <div className="text-sm">{address}</div>
                     </div>
                   </MLink>
-                </Fragment>
+                </li>
               )
             })}
-            {filteredCemeteries.length === 0 && <div className="p-5">{t('noResults')}</div>}
-          </div>
+            {filteredCemeteries.length === 0 && (
+              <div className="p-5">{t('MapSection.noResults')}</div>
+            )}
+          </ul>
         </div>
-        <div className="h-full w-full flex-1">
+
+        <div className="size-full flex-1">
           <Map
             ref={mapRef}
             style={{ width: '100%', height: '100%' }}
@@ -235,18 +183,20 @@ const MapSection = ({ section }: MapSectionProps) => {
                   </Marker>
                 )
               }
+
               return null
             })}
           </Map>
         </div>
-        {/* mobile bottom button */}
+
+        {/* Mobile view */}
         <div className="absolute bottom-6 z-[2] md:hidden">
           <Button
             className="rounded-full shadow"
-            onPress={() => setMapOrFiltersDisplayed((m) => !m)}
+            onPress={() => setMapOrFiltersDisplayed((map) => !map)}
             startIcon={isMapOrFiltersDisplayed ? <ArrowLeftIcon /> : <PlaceIcon />}
           >
-            {isMapOrFiltersDisplayed ? t('filtering') : t('map')}
+            {isMapOrFiltersDisplayed ? t('MapSection.filtering') : t('MapSection.map')}
           </Button>
         </div>
       </div>

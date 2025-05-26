@@ -1,21 +1,25 @@
 import { ParsedUrlQuery } from 'node:querystring'
 
-import { NavigateIcon, PlaceIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
-import RichText from '@components/atoms/RichText'
-import Seo from '@components/atoms/Seo'
-import BranchCemeteryLayout from '@components/layouts/BranchCemeteryLayout'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { SSRConfig, useTranslation } from 'next-i18next'
+
+import { NavigateIcon, PlaceIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
+import RichText from '@/components/atoms/RichText'
+import Seo from '@/components/atoms/Seo'
+import BranchCemeteryLayout from '@/components/layouts/BranchCemeteryLayout'
+import DocumentGroup from '@/components/molecules/DocumentGroup'
+import ImageGallery from '@/components/molecules/ImageGallery'
 import {
   generateStaticPaths,
   generateStaticProps,
-} from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import OpeningHours from '@components/molecules/OpeningHours'
-import SectionBoxed from '@components/molecules/SectionBoxed'
-import { CemeteryEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
-import { client } from '@services/graphql/gqlClient'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { SSRConfig, useTranslation } from 'next-i18next'
+} from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
+import OpeningHours from '@/components/molecules/OpeningHours'
+import SectionBoxed from '@/components/molecules/SectionBoxed'
+import IframeSection from '@/components/sections/IframeSection'
+import { CemeteryEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
 
 type CemeteryPageProps = {
   navigation: NavigationItemFragment[]
@@ -24,10 +28,19 @@ type CemeteryPageProps = {
 } & SSRConfig
 
 const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'BranchCemeteryPage' })
+  const { t } = useTranslation()
 
-  const { seo, title, address, navigateToLink, description, overrideOpeningHours } =
-    entity.attributes ?? {}
+  const {
+    seo,
+    title,
+    address,
+    navigateToLink,
+    description,
+    overrideOpeningHours,
+    gallery,
+    video,
+    documents,
+  } = entity.attributes ?? {}
 
   return (
     <>
@@ -49,7 +62,7 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
                   {address}
                 </div>
               )}
-              {navigateToLink && (
+              {navigateToLink ? (
                 <Button
                   href={navigateToLink}
                   target="_blank"
@@ -57,23 +70,38 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
                   startIcon={<NavigateIcon />}
                   className="-ml-2 md:ml-0"
                 >
-                  {t('navigate')}
+                  {t('BranchCemeteryPage.navigate')}
                 </Button>
-              )}
+              ) : null}
             </div>
           </SectionBoxed>
-          {description && (
-            <SectionBoxed title={t('aboutCemetery')}>
+          {description ? (
+            <SectionBoxed title={t('BranchCemeteryPage.aboutCemetery')}>
               <RichText content={description} coloredTable={false} />
             </SectionBoxed>
-          )}
-          {general?.attributes?.cemeteryOpeningHours && (
-            <SectionBoxed title={t('openingHours')}>
+          ) : null}
+          {general?.attributes?.cemeteryOpeningHours ? (
+            <SectionBoxed title={t('BranchCemeteryPage.openingHours')}>
               <OpeningHours
                 openingHours={overrideOpeningHours || general?.attributes?.cemeteryOpeningHours}
               />
             </SectionBoxed>
-          )}
+          ) : null}
+          {gallery ? (
+            <SectionBoxed title={gallery.title ?? undefined}>
+              <ImageGallery images={gallery.medias?.data} />
+            </SectionBoxed>
+          ) : null}
+          {video ? (
+            <SectionBoxed title={video.title ?? undefined}>
+              <IframeSection section={video} variant="short" />
+            </SectionBoxed>
+          ) : null}
+          {documents ? (
+            <SectionBoxed title={documents.title ?? undefined}>
+              <DocumentGroup {...documents} variant="dividers" />
+            </SectionBoxed>
+          ) : null}
         </div>
       </BranchCemeteryLayout>
     </>

@@ -11,7 +11,13 @@ const TabPanel = ({ state, ...props }: TabPanelProps) => {
   const { tabPanelProps } = useTabPanel(props, state, ref)
 
   return (
-    <div className="outline-none" {...tabPanelProps} ref={ref}>
+    <div
+      {...tabPanelProps}
+      // Ensure TabPanel itself isn’t focusable, only its content should be
+      tabIndex={-1}
+      className="outline-none"
+      ref={ref}
+    >
       {state.selectedItem?.props.children}
     </div>
   )

@@ -1,25 +1,26 @@
-import { MarianumLogoWithTextSvg } from '@assets'
-import { MenuIcon, PhoneIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
-import IconButton from '@components/atoms/IconButton'
-import MLink from '@components/atoms/MLink'
-import SkipToContentButton from '@components/atoms/SkipToContentButton'
-import NavigationMenuDesktop from '@components/molecules/Navigation/NavigationMenuDesktop'
-import NavigationMenuMobile from '@components/molecules/Navigation/NavigationMenuMobile'
-import { useNavigationContext } from '@components/molecules/Navigation/NavigationProvider/useNavigationContext'
-import NavigationSearch from '@components/molecules/Navigation/NavigationSearch/NavigationSearch'
-import { ContactEntityFragment } from '@graphql'
-import { getPhoneNumberLink } from '@utils/getPhoneNumberLink'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
+
+import { MarianumLogoWithTextSvg } from '@/assets'
+import { MenuIcon, PhoneIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
+import IconButton from '@/components/atoms/IconButton'
+import MLink from '@/components/atoms/MLink'
+import SkipToContentButton from '@/components/atoms/SkipToContentButton'
+import NavigationMenuDesktop from '@/components/molecules/Navigation/NavigationMenuDesktop'
+import NavigationMenuMobile from '@/components/molecules/Navigation/NavigationMenuMobile'
+import { useNavigationContext } from '@/components/molecules/Navigation/NavigationProvider/useNavigationContext'
+import NavigationSearch from '@/components/molecules/Navigation/NavigationSearch/NavigationSearch'
+import { ContactEntityFragment } from '@/graphql'
+import { getPhoneNumberLink } from '@/utils/getPhoneNumberLink'
 
 type NavigationProps = {
   contact: ContactEntityFragment | null | undefined
 }
 
 const Navigation = ({ contact }: NavigationProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'Navigation' })
+  const { t } = useTranslation()
 
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
   const [isDesktopSearchOpen, setDesktopSearchOpen] = useState(false)
@@ -64,9 +65,9 @@ const Navigation = ({ contact }: NavigationProps) => {
             href="/"
             noStyles
             noArrow
-            aria-label={t('home')}
+            aria-label={t('Navigation.home')}
           >
-            <MarianumLogoWithTextSvg className="h-full w-full" />
+            <MarianumLogoWithTextSvg className="size-full" />
           </MLink>
           {/* right side of navigation */}
           <div className="flex items-center gap-4 xl:gap-8">
@@ -86,7 +87,7 @@ const Navigation = ({ contact }: NavigationProps) => {
             />
             {/* mobile menu button */}
             <IconButton
-              aria-label={t('menu')}
+              aria-label={t('Navigation.menu')}
               onPressEnd={() => setMobileNavOpen(true)}
               variant="primary"
               className="lg:hidden"

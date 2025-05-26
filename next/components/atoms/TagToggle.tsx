@@ -11,12 +11,13 @@ const TagButton = (props: TagButtonProps) => {
   const { buttonProps } = useToggleButton(props, state, ref)
   const { children, className } = props
   const { isSelected } = state
+
   return (
     <button
       ref={ref}
       type="button"
       className={cx(
-        'flex h-8 w-fit cursor-pointer select-none items-center whitespace-nowrap rounded-full border px-3 text-sm font-semibold',
+        'base-focus-ring flex h-8 w-fit select-none items-center whitespace-nowrap rounded-full border px-3 text-sm font-semibold',
         {
           'border-primary bg-primary text-white': isSelected,
           'border-border bg-white hover:text-primary': !isSelected,

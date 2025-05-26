@@ -1,6 +1,6 @@
-import Avatar from '@components/atoms/Avatar'
-import FormatDate from '@components/atoms/FormatDate'
-import ReviewStars from '@components/atoms/ReviewStars'
+import Avatar from '@/components/atoms/Avatar'
+import FormatDate from '@/components/atoms/FormatDate'
+import ReviewStars from '@/components/atoms/ReviewStars'
 
 type ReviewProps = {
   rating: number
@@ -13,7 +13,7 @@ const Review = ({ rating, author, date, description }: ReviewProps) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
+        <div className="flex items-start gap-4">
           <Avatar name={author} />
           <div>
             <div className="font-bold">{author}</div>

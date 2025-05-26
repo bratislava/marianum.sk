@@ -1,6 +1,7 @@
 import meilisearchConfig from "./plugins.meilisearch.config";
+import graphqlConfig from "./plugins.graphql.config";
 
-export default {
+export default ({ env }) => ({
   // It's important to enable Navigation plugin first, before GraphQL
   navigation: {
     enabled: true,
@@ -14,15 +15,24 @@ export default {
       gql: { navigationItemRelated: ["Page"] },
     },
   },
-  graphql: {
-    enabled: true,
+  email: {
     config: {
-      generateArtifacts: true,
-      artifacts: {
-        // When changing schema path, also change watchIgnoreFiles in strapi/config/admin.js
-        schema: true,
+      //  mailgun email provider https://www.npmjs.com/package/@strapi/provider-email-mailgun
+      provider: "mailgun",
+      providerOptions: {
+        key: env("MAILGUN_API_KEY"), // Required
+        domain: env("MAILGUN_DOMAIN"), // Required
+        url: "https://api.eu.mailgun.net", //Optional. If domain region is Europe use 'https://api.eu.mailgun.net'
+      },
+      settings: {
+        defaultFrom: env("MAILGUN_EMAIL"),
+        defaultReplyTo: env("MAILGUN_EMAIL"),
       },
     },
+  },
+  graphql: {
+    enabled: true,
+    config: graphqlConfig,
   },
   "ceremonies-debtor-list": {
     enabled: true,
@@ -31,4 +41,4 @@ export default {
   meilisearch: {
     config: meilisearchConfig,
   },
-};
+});

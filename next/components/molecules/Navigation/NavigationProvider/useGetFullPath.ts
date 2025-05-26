@@ -1,4 +1,6 @@
-import { useNavigationContext } from '@components/molecules/Navigation/NavigationProvider/useNavigationContext'
+import { useMemo } from 'react'
+
+import { useNavigationContext } from '@/components/molecules/Navigation/NavigationProvider/useNavigationContext'
 import {
   ArticleSlugEntityFragment,
   Branch,
@@ -7,14 +9,14 @@ import {
   BundleSlugEntityFragment,
   CemeterySlugEntityFragment,
   DocumentSlugEntityFragment,
+  ManagedObjectSlugEntityFragment,
   NavigationItemFragment,
   Page,
   PageSlugEntityFragment,
-} from '@graphql'
-import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@services/meili/meiliTypes'
-import { isDefined } from '@utils/isDefined'
-import { NavMap, parseNavigation } from '@utils/parseNavigation'
-import { useMemo } from 'react'
+} from '@/graphql'
+import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@/services/meili/meiliTypes'
+import { isDefined } from '@/utils/isDefined'
+import { NavMap, parseNavigation } from '@/utils/parseNavigation'
 
 // TODO move this to separate file and add translation logic
 // IMPORTANT: Keep this in sync with next config rewrites
@@ -27,6 +29,7 @@ const localPaths = {
   bundlesCremation: '/sluzby/balicky-pohrebov/kremacia',
   bundlesNatural: '/sluzby/balicky-pohrebov/prirodne-obrady',
   cemeteries: '/o-nas/cintoriny-v-sprave',
+  managedObjects: '/o-nas/starostlivost-o-mestske-fontany',
   documents: '/o-nas/dokumenty',
   legislative: '/o-nas/dokumenty/legislativa',
   search: '/vyhladavanie',
@@ -39,6 +42,7 @@ export type UnionSlugEntityType =
   | BundleSlugEntityFragment
   | CemeterySlugEntityFragment
   | DocumentSlugEntityFragment
+  | ManagedObjectSlugEntityFragment
   | null
   | undefined
 
@@ -72,6 +76,7 @@ export const getFullPathFn = (
 
   if (entity.__typename === 'PageEntity') {
     const path = navMap?.get(slug)?.path
+
     return path ?? `/${slug}`
   }
 
@@ -93,6 +98,10 @@ export const getFullPathFn = (
 
   if (entity.__typename === 'CemeteryEntity') {
     return [localPaths.cemeteries, slug].join('/')
+  }
+
+  if (entity.__typename === 'ManagedObjectEntity') {
+    return [localPaths.managedObjects, slug].join('/')
   }
 
   if (entity.__typename === 'DocumentEntity') {
@@ -133,6 +142,9 @@ export const getFullPathMeiliFn = (navMap: NavMap) => {
   return ((entityType, entity) => {
     const { slug } = entity
 
+    // IMPORTANT: managed object entity was added to `getFullPathFn` function, but it wasn't added here.
+    // This was done on purpose, since we do not want these entities to be indexed in global search.
+
     if (entityType === 'article') {
       // eslint-disable-next-line unicorn/consistent-destructuring
       if (isDefined(entity.pressCategory)) {
@@ -150,6 +162,7 @@ export const getFullPathMeiliFn = (navMap: NavMap) => {
 
     if (entityType === 'page') {
       const path = navMap?.get(slug)?.path
+
       return path ?? `/${slug}`
     }
 

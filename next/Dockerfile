@@ -1,4 +1,4 @@
-FROM node:18.17-alpine AS base
+FROM node:20.19-alpine AS base
 
 FROM base AS build-base
 WORKDIR /build
@@ -46,4 +46,10 @@ COPY --chown=node:node .env.*.local ./
 COPY --chown=node:node --from=build /build/.next/standalone ./
 COPY --chown=node:node --from=build /build/public ./public
 COPY --chown=node:node --from=build /build/.next/static ./.next/static
-CMD [ "node", "server.js" ]
+# sharp@0.32.6 must be installed for this to work
+# see https://github.com/vercel/next.js/discussions/40125
+COPY --chown=node:node --from=build /build/node_modules/sharp ./node_modules/sharp
+
+ENV NEXT_SHARP_PATH=/home/node/app/node_modules/sharp
+
+CMD [ "sh", "-c", "HOSTNAME=0.0.0.0 node server.js" ]

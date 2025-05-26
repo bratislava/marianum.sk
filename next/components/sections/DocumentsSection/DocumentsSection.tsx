@@ -1,40 +1,40 @@
-import { DownloadIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
-import Loading from '@components/atoms/Loading'
-import LoadingOverlay from '@components/atoms/LoadingOverlay'
-import FilteringSearchInput from '@components/molecules/FilteringSearchInput'
-import FiltersBackgroundWrapper from '@components/molecules/FiltersBackgroundWrapper'
-import { useGetFullPathMeili } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import PaginationMeili from '@components/molecules/PaginationMeili'
-import Row from '@components/molecules/Row/Row'
-import Section from '@components/molecules/Section'
-import SortSelect, { Sort } from '@components/molecules/SortSelect'
-import DocumentsSectionCategorySelect from '@components/sections/DocumentsSection/DocumentsSectionCategorySelect'
-import DocumentsSectionFiletypeSelect from '@components/sections/DocumentsSection/DocumentsSectionFiletypeSelect'
-import {
-  documentsSectionDefaultFilters,
-  documentsSectionFetcher,
-  DocumentsSectionFilters,
-  getDocumentsSectionSwrKey,
-} from '@services/fetchers/documentsSectionFetcher'
-import { DocumentMeili } from '@services/meili/meiliTypes'
-import { useDownloadAriaLabel } from '@utils/useDownloadAriaLabel'
-import { useGetSwrExtras } from '@utils/useGetSwrExtras'
-import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useRef, useState } from 'react'
-import useSwr from 'swr'
-import { useDebounce } from 'usehooks-ts'
+import { useDebounceValue } from 'usehooks-ts'
+
+import { DownloadIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
+import Loading from '@/components/atoms/Loading'
+import LoadingOverlay from '@/components/atoms/LoadingOverlay'
+import FilteringSearchInput from '@/components/molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '@/components/molecules/FiltersBackgroundWrapper'
+import { useGetFullPathMeili } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import PaginationMeili from '@/components/molecules/PaginationMeili'
+import Row from '@/components/molecules/Row/Row'
+import Section from '@/components/molecules/Section'
+import SortSelect, { Sort } from '@/components/molecules/SortSelect'
+import DocumentsSectionCategorySelect from '@/components/sections/DocumentsSection/DocumentsSectionCategorySelect'
+import DocumentsSectionFiletypeSelect from '@/components/sections/DocumentsSection/DocumentsSectionFiletypeSelect'
+import {
+  documentsDefaultFilters,
+  DocumentsFilters,
+  getMeiliDocumentsQueryKey,
+  meiliDocumentsFetcher,
+} from '@/services/fetchers/documentsFetcher'
+import { DocumentMeili } from '@/services/meili/meiliTypes'
+import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
+import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
 const Documents = ({
   data,
   filters,
 }: {
   data: SearchResponse<DocumentMeili>
-  filters: DocumentsSectionFilters
+  filters: DocumentsFilters
 }) => {
-  const { t } = useTranslation('common', { keyPrefix: 'DocumentsSection' })
+  const { t } = useTranslation()
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
   const documentsRef = useRef<HTMLDivElement>(null)
@@ -45,13 +45,14 @@ const Documents = ({
   if (data.hits.length > 0) {
     return (
       <div className="grid gap-y-3" ref={documentsRef}>
-        <h2 className="sr-only">{t('aria.results')}</h2>
+        <h2 className="sr-only">{t('DocumentsSection.aria.results')}</h2>
         {data.hits.map((document, index) => (
           // TODO: Use DocumentRow
           <Row
             // eslint-disable-next-line react/no-array-index-key
             key={index}
             title={document.title}
+            applyFocusStyles={false}
             category={
               document?.documentCategory
                 ? {
@@ -71,7 +72,7 @@ const Documents = ({
                 href={document.file?.url ?? ''}
                 aria-label={getDownloadAriaLabel({ attributes: document.file }, document.title)}
               >
-                {t('download')}
+                {t('DocumentsSection.download')}
               </Button>
             }
             border={false}
@@ -80,7 +81,8 @@ const Documents = ({
       </div>
     )
   }
-  return <strong>{t('noDocuments')}</strong>
+
+  return <strong>{t('DocumentsSection.noDocuments')}</strong>
 }
 
 const DataWrapper = ({
@@ -88,40 +90,35 @@ const DataWrapper = ({
   description,
   onPageChange,
 }: {
-  filters: DocumentsSectionFilters
+  filters: DocumentsFilters
   description?: string | null
   onPageChange: (page: number) => void
 }) => {
-  const { data, error } = useSwr(
-    getDocumentsSectionSwrKey(filters),
-    documentsSectionFetcher(filters),
-  )
-
-  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useGetSwrExtras({
-    data,
-    error,
+  const { data, isPending, isFetching, isError, error } = useQuery({
+    queryKey: getMeiliDocumentsQueryKey(filters),
+    queryFn: () => meiliDocumentsFetcher(filters),
+    placeholderData: keepPreviousData,
   })
 
-  // TODO replace by proper loading and error
-  if (loadingAndNoDataToDisplay) {
+  if (isPending) {
     return <Loading />
   }
 
-  if (error) {
+  // TODO replace by proper error
+  if (isError) {
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
   return (
     <>
-      <LoadingOverlay loading={delayedLoading}>
-        {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-        <Documents data={dataToDisplay!} filters={filters} />
+      <LoadingOverlay loading={isFetching}>
+        <Documents data={data} filters={filters} />
       </LoadingOverlay>
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
-      {dataToDisplay ? (
+      {data.hits.length > 0 ? (
         <PaginationMeili
-          data={dataToDisplay}
+          data={data}
           pageSize={filters.pageSize}
           selectedPage={filters.page}
           onPageChange={onPageChange}
@@ -136,9 +133,9 @@ type DocumentsSectionProps = {
 }
 
 const DocumentsSection = ({ description }: DocumentsSectionProps) => {
-  const [filters, setFilters] = useState<DocumentsSectionFilters>(documentsSectionDefaultFilters)
+  const [filters, setFilters] = useState<DocumentsFilters>(documentsDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')
-  const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
+  const [debouncedSearchInputValue] = useDebounceValue<string>(searchInputValue, 300)
 
   useEffect(() => {
     if (filters.search !== debouncedSearchInputValue) {

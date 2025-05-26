@@ -1,15 +1,15 @@
-import Button from '@components/atoms/Button'
-import FileIcon from '@components/atoms/FileIcon'
-import FormatDate from '@components/atoms/FormatDate'
-import PageWrapper from '@components/layouts/PageWrapper'
-import SectionsWrapper from '@components/layouts/SectionsWrapper'
-import Section from '@components/molecules/Section'
-import HeroSection from '@components/sections/HeroSection'
-import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
 import filesize from 'filesize'
-import dynamic from 'next/dynamic'
 import { useTranslation } from 'next-i18next'
-import { Fragment, ReactNode, useMemo, useState } from 'react'
+import { Fragment, ReactNode, useMemo } from 'react'
+
+import Button from '@/components/atoms/Button'
+import FileIcon from '@/components/atoms/FileIcon'
+import FormatDate from '@/components/atoms/FormatDate'
+import PageWrapper from '@/components/layouts/PageWrapper'
+import SectionsWrapper from '@/components/layouts/SectionsWrapper'
+import Section from '@/components/molecules/Section'
+import HeroSection from '@/components/sections/HeroSection'
+import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
 
 type DocumentLayoutProps = {
   navigation: NavigationItemFragment[]
@@ -18,7 +18,7 @@ type DocumentLayoutProps = {
 }
 
 const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) => {
-  const { t, i18n } = useTranslation('common', { keyPrefix: 'DocumentLayout' })
+  const { t, i18n } = useTranslation()
 
   const { title, description, file, publishedAt, documentCategory, slug } =
     document.attributes ?? {}
@@ -29,14 +29,14 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
         ? [
             {
               key: 'category',
-              title: t('category'),
+              title: t('DocumentLayout.category'),
               description: documentCategory.data.attributes.title,
             },
           ]
         : []),
       {
         key: 'createdAt',
-        title: t('createdAt'),
+        title: t('DocumentLayout.createdAt'),
         description: (
           <FormatDate value={publishedAt as string} valueType="ISO" format="articlePage" />
         ),
@@ -52,12 +52,6 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
     return filesize((file?.data?.attributes?.size ?? 0) * 1000, { round: 1, locale: i18n.language })
   }, [file, i18n.language])
 
-  const PDFModalViewer = dynamic(() => import('../atoms/PDFModalViewer'), {
-    ssr: false,
-  })
-
-  const [isPdfModalOpen, setPdfModalOpen] = useState(false)
-
   return (
     <PageWrapper
       navigation={navigation}
@@ -67,12 +61,12 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
       <SectionsWrapper alternateBackground className="pb-14">
         <Section background="light">
           <div className="flex flex-col items-center gap-5 md:flex-row md:items-start md:gap-8">
-            <div className="flex h-[96px] w-[96px] shrink-0 items-center justify-center bg-background-beige md:h-[186px] md:w-[186px]">
+            <div className="flex size-[96px] shrink-0 items-center justify-center bg-background-beige md:size-[186px]">
               <FileIcon extension={extension} />
             </div>
             <div className="flex flex-col items-center gap-2 text-sm md:items-start">
               <div>
-                {t('createdAt')}{' '}
+                {t('DocumentLayout.createdAt')}{' '}
                 <FormatDate value={publishedAt as string} valueType="ISO" format="articlePage" />
               </div>
               <h1>{title}</h1>
@@ -81,33 +75,13 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
                 <span>•</span>
                 <span className="uppercase">{extension}</span>
               </div>
-              <div className="mt-4 flex flex-col gap-4 md:flex-row md:items-center">
-                <Button
-                  target="_blank"
-                  href={file?.data?.attributes?.url ?? ''}
-                  className="md:w-fit"
-                >
-                  {t('downloadFile')}
-                </Button>
-                {file?.data?.attributes?.url && extension === 'pdf' && (
-                  <Button
-                    variant="secondary"
-                    className="md:w-fit"
-                    onPress={() => setPdfModalOpen(true)}
-                  >
-                    {t('showFile')}
-                  </Button>
-                )}
-              </div>
-              <div>
-                {file?.data?.attributes?.url && extension === 'pdf' && (
-                  <PDFModalViewer
-                    onClose={() => setPdfModalOpen(false)}
-                    isOpen={isPdfModalOpen}
-                    url={file?.data?.attributes?.url}
-                  />
-                )}
-              </div>
+              <Button
+                target="_blank"
+                href={file?.data?.attributes?.url ?? ''}
+                className="mt-4 md:w-fit"
+              >
+                {t('DocumentLayout.downloadFile')}
+              </Button>
             </div>
           </div>
         </Section>
@@ -115,7 +89,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
         {description ? (
           <Section
             innerClassName="md:pl-[250px] lg:pl-[266px] xl:pl-[294px]"
-            title={t('description')}
+            title={t('DocumentLayout.description')}
             centerTitleOnMobile={false}
           >
             <div className="whitespace-pre-wrap">{description}</div>
@@ -125,7 +99,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
         <Section
           innerClassName="md:pl-[250px] lg:pl-[266px] xl:pl-[294px]"
           dividerClassName="md:ml-[218px]"
-          title={t('details')}
+          title={t('DocumentLayout.details')}
           centerTitleOnMobile={false}
         >
           <dl>

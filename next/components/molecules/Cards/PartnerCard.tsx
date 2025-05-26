@@ -1,10 +1,11 @@
-import { OpenInNewIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
-import CardBox, { CardBoxProps } from '@components/atoms/Card/CardBox'
-import CardContent from '@components/atoms/Card/CardContent'
-import MImage, { MImageImage } from '@components/atoms/MImage'
 import { useTranslation } from 'next-i18next'
 import { useId } from 'react'
+
+import { OpenInNewIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
+import CardBox, { CardBoxProps } from '@/components/atoms/Card/CardBox'
+import CardContent from '@/components/atoms/Card/CardContent'
+import MImage, { MImageImage } from '@/components/atoms/MImage'
 
 type PartnerCardProps = {
   title: string
@@ -20,7 +21,7 @@ const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
     <CardBox {...rest}>
       <CardContent className="justify-between gap-y-4">
         {image && (
-          <div className="aspect-h-[72] aspect-w-[240] w-full md:aspect-h-[83] md:aspect-w-[216]">
+          <div className="relative aspect-[240/72] w-full md:aspect-[216/83]">
             <MImage image={image} fill className="object-contain" />
           </div>
         )}

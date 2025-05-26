@@ -1,10 +1,11 @@
 resources:
   - scaler.yml
   - ../../base
+  - ./secrets/cloudflare-turnstile.secret.yml
 
 configMapGenerator:
-- name: ${BUILD_REPOSITORY_NAME}-env
-  namespace: ${NAMESPACE}
-  behavior: merge
-  envs:
-  - .env
+  - name: ${BUILD_REPOSITORY_NAME}-env
+    namespace: ${NAMESPACE}
+    behavior: merge
+    envs:
+      - .env

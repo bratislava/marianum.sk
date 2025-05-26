@@ -33,9 +33,40 @@ fragment NavigationItem on NavigationItem {
 
 fragment CtaButton on ComponentBlocksButtonLink {
   label
+  url
   page {
     data {
       ...PageSlugEntity
+    }
+  }
+  article {
+    data {
+      ...ArticleSlugEntity
+    }
+  }
+  bundle {
+    data {
+      ...BundleSlugEntity
+    }
+  }
+  branch {
+    data {
+      ...BranchSlugEntity
+    }
+  }
+  document {
+    data {
+      ...DocumentSlugEntity
+    }
+  }
+  cemetery {
+    data {
+      ...CemeterySlugEntity
+    }
+  }
+  managedObject {
+    data {
+      ...ManagedObjectSlugEntity
     }
   }
 }
@@ -151,12 +182,7 @@ fragment Footer on ComponentGeneralFooter {
     ...FooterLinkItem
   }
   bottomLinks {
-    label
-    page {
-      data {
-        ...PageSlugEntity
-      }
-    }
+    ...CtaButton
   }
 }
 
@@ -211,12 +237,6 @@ fragment BranchGroup on ComponentSectionsBranchGroup {
   }
 }
 
-fragment PartnersSection on ComponentSectionsPartnersSection {
-  id
-  featuredPartnersTitle
-  otherPartnersTitle
-}
-
 fragment MenuListing on ComponentSectionsMenuListing {
   id
   title
@@ -224,6 +244,11 @@ fragment MenuListing on ComponentSectionsMenuListing {
 }
 
 fragment MapSection on ComponentSectionsMapSection {
+  id
+  title
+}
+
+fragment MapOfManagedObjectsSection on ComponentSectionsMapOfManagedObjects {
   id
   title
 }
@@ -286,6 +311,16 @@ fragment DocumentGroup on ComponentSectionsDocumentGroup {
       data {
         ...DocumentCardEntity
       }
+    }
+  }
+}
+
+fragment GallerySection on ComponentSectionsGallery {
+  id
+  title
+  medias(pagination: { limit: -1 }) {
+    data {
+      ...UploadImageEntity
     }
   }
 }
@@ -406,4 +441,3 @@ fragment IframeSection on ComponentSectionsIframeSection {
   body
   url
 }
-

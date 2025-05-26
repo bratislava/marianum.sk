@@ -1,12 +1,12 @@
-import Button from '@components/atoms/Button'
-import { customImageLoader } from '@components/atoms/MImage'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import Slider from '@components/molecules/Slider'
-import { CtaFragment } from '@graphql'
 import cx from 'classnames'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 import { useId } from 'react'
+
+import Button from '@/components/atoms/Button'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
+import Slider from '@/components/molecules/Slider'
+import { CtaFragment } from '@/graphql'
 
 type HomepageSliderProps = {
   slides: CtaFragment[] | null | undefined
@@ -15,10 +15,10 @@ type HomepageSliderProps = {
 const getAriaLabelId = (id: string, index: number) => `homepageslider-${id}-${index}`
 
 const HomepageSlider = ({ slides }: HomepageSliderProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'HomepageSlider' })
+  const { t } = useTranslation()
   const id = useId()
 
-  const { getFullPath } = useGetFullPath()
+  const { getLinkProps } = useGetLinkProps()
 
   if (!slides) {
     return null
@@ -28,18 +28,22 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
     <div className="relative h-[412px] bg-primary-dark text-white lg:h-[436px]">
       <Slider
         autoSwipeDuration={5000}
+        // To prevent the screen reader from reading the aria-label twice (Slider component already has a default aria-label)
+        description={t('HomepageSlider.aria.heading')}
         allowKeyboardNavigation
         pages={slides.map(({ title, description, button, image }, index) => {
-          const ctaSlug = getFullPath(button?.page?.data)
-
+          const linkProps = getLinkProps(button)
           const { url, alternativeText } = image?.data?.attributes ?? {}
 
           return (
-            <div className="flex h-full justify-center">
-              <h2 className="sr-only">{t('aria.heading')}</h2>
+            <div
+              className="flex h-full justify-center"
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+            >
               <div className="container absolute flex h-full flex-row items-center justify-center lg:justify-start">
                 {/* 60% of container width is not the same as 60% of window (image offset from left), but this setting works fine */}
-                <div className="flex h-full w-full flex-col items-center pb-16 lg:w-[60%] lg:items-start lg:justify-end lg:pb-[104px]">
+                <div className="flex size-full flex-col items-center pb-16 lg:w-3/5 lg:items-start lg:justify-end lg:pb-[104px]">
                   {/* Mobile image */}
                   <div className="pointer-events-none relative mb-6 h-[228px] w-full select-none bg-black/20 lg:hidden">
                     {url && (
@@ -60,14 +64,14 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                     </div>
                   )}
 
-                  {ctaSlug && (
+                  {button && (
                     <div className="mt-4 lg:mt-6">
                       <Button
                         variant="white"
-                        href={ctaSlug}
                         aria-labelledby={getAriaLabelId(id, index)}
+                        {...linkProps}
                       >
-                        {button?.label}
+                        {linkProps.label}
                       </Button>
                     </div>
                   )}
@@ -75,18 +79,17 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
               </div>
 
               {/* Desktop image */}
-              <div key={ctaSlug} className="hidden h-full flex-1 lg:flex">
-                <div className="w-[60%]" />
+              <div key={linkProps.href} className="hidden h-full flex-1 lg:flex">
+                <div className="w-3/5" />
                 {/* gradient overlay */}
                 <div className="absolute left-[60%] z-[1] -ml-px h-full w-[10%] bg-gradient-to-r from-primary-dark" />
-                <div className="pointer-events-none relative h-[228px] w-full select-none bg-black/20 lg:h-full lg:w-[40%]">
+                <div className="pointer-events-none relative h-[228px] w-full select-none bg-black/20 lg:h-full lg:w-2/5">
                   {url && (
                     <Image
                       src={url}
                       alt={alternativeText ?? ''}
                       fill
                       className="object-cover mix-blend-multiply"
-                      loader={customImageLoader}
                     />
                   )}
                 </div>
@@ -99,15 +102,18 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
             <div className="left-0 -ml-2 flex items-center">
               {Array.from({ length: count }, (element, index) => (
                 <button
-                  className={cx('pointer-events-auto p-2 hover:opacity-100', {
-                    'opacity-50': activeIndex !== index,
-                  })}
                   key={index}
                   type="button"
-                  aria-label={t('aria.goToSlide', { number: index + 1 })}
+                  aria-label={t('HomepageSlider.aria.goToSlide', { number: index + 1 })}
                   onClick={() => goToPage(index)}
+                  className="base-focus-ring pointer-events-auto rounded-full p-2"
+                  // Keep the focus ring fully visible regardless of whether the indicator is active or inactive
                 >
-                  <div className="h-2 w-2 rounded-full bg-white" />
+                  <div
+                    className={cx('size-2 rounded-full bg-white hover:opacity-100', {
+                      'opacity-50': activeIndex !== index,
+                    })}
+                  />
                 </button>
               ))}
             </div>

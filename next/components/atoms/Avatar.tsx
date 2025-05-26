@@ -16,7 +16,7 @@ const Avatar = ({ name }: AvatarProps) => {
   )
 
   return (
-    <div className="flex h-12 w-12 items-center justify-center rounded-full border border-border bg-white text-sm font-semibold uppercase">
+    <div className="flex size-12 shrink-0 items-center justify-center rounded-full border border-border bg-white text-sm font-semibold uppercase">
       {initials}
     </div>
   )

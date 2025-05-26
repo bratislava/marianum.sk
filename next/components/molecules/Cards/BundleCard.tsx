@@ -1,12 +1,13 @@
-import { AddIcon, CheckIcon } from '@assets/icons'
-import CardBox, { CardBoxProps } from '@components/atoms/Card/CardBox'
-import CardContent from '@components/atoms/Card/CardContent'
-import FormatCurrency from '@components/atoms/FormatCurrency'
-import ImagePlaceholder from '@components/atoms/ImagePlaceholder'
-import MImage, { MImageImage } from '@components/atoms/MImage'
-import MLink from '@components/atoms/MLink'
 import { useTranslation } from 'next-i18next'
 import { useId } from 'react'
+
+import { AddIcon, CheckIcon } from '@/assets/icons'
+import CardBox, { CardBoxProps } from '@/components/atoms/Card/CardBox'
+import CardContent from '@/components/atoms/Card/CardContent'
+import FormatCurrency from '@/components/atoms/FormatCurrency'
+import ImagePlaceholder from '@/components/atoms/ImagePlaceholder'
+import MImage, { MImageImage } from '@/components/atoms/MImage'
+import MLink from '@/components/atoms/MLink'
 
 type BundleCardProps = {
   image?: MImageImage | null
@@ -41,7 +42,7 @@ const BundleCard = ({
   return (
     <CardBox {...props}>
       <CardContent largePadding className="grow gap-6">
-        <div className="relative h-[56px] w-[56px] bg-gray">
+        <div className="relative size-[56px] bg-gray">
           {image ? <MImage image={image} fill className="object-cover" /> : <ImagePlaceholder />}
         </div>
 
@@ -51,7 +52,7 @@ const BundleCard = ({
           </h4>
           <div className="flex flex-wrap items-center gap-3">
             <div className="whitespace-nowrap font-semibold">
-              {t('BundleCard.from')} <FormatCurrency value={priceFrom} />
+              {t('Cards.from')} <FormatCurrency value={priceFrom} />
             </div>
             {discountText && (
               <div className="rounded-2xl bg-primary/12 px-3 py-1.5 text-sm font-semibold leading-4 text-primary">

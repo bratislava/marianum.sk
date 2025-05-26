@@ -1,5 +1,6 @@
-import { AnimateHeight } from '@components/atoms/AnimateHeight'
 import cx from 'classnames'
+
+import { AnimateHeight } from '@/components/atoms/AnimateHeight'
 
 const ChecklistRadio = () => {
   return (
@@ -35,11 +36,7 @@ const ChecklistSkeleton = () => {
       {Array.from({ length: 6 }, (_item, index) => (
         <div className="flex gap-10" key={index}>
           <ChecklistLineWithRadio hideTopLine={index === 0} hideBottomLine={index + 1 === 6} />
-          <div
-            className={cx(
-              'flex w-full flex-col border border-border bg-white outline-offset-2 outline-primary focus:outline-2',
-            )}
-          >
+          <div className={cx('flex w-full flex-col border border-border bg-white')}>
             {/* item title */}
             <div className="flex items-center p-6">
               <div className="h-6 w-32 rounded bg-gray" />

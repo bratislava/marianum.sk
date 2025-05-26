@@ -1,22 +1,23 @@
 import { ParsedUrlQuery } from 'node:querystring'
 
-import { NavigateIcon, PlaceIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
-import RichText from '@components/atoms/RichText'
-import Seo from '@components/atoms/Seo'
-import BranchCemeteryLayout from '@components/layouts/BranchCemeteryLayout'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { SSRConfig, useTranslation } from 'next-i18next'
+
+import { NavigateIcon, PlaceIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
+import RichText from '@/components/atoms/RichText'
+import Seo from '@/components/atoms/Seo'
+import BranchCemeteryLayout from '@/components/layouts/BranchCemeteryLayout'
 import {
   generateStaticPaths,
   generateStaticProps,
-} from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import SectionBoxed from '@components/molecules/SectionBoxed'
-import OfficeSectionBoxed from '@components/sections/OfficeSectionBoxed'
-import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
-import { client } from '@services/graphql/gqlClient'
-import { isDefined } from '@utils/isDefined'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { SSRConfig, useTranslation } from 'next-i18next'
+} from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
+import SectionBoxed from '@/components/molecules/SectionBoxed'
+import OfficeSectionBoxed from '@/components/sections/OfficeSectionBoxed'
+import { BranchEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
+import { isDefined } from '@/utils/isDefined'
 
 type BranchPageProps = {
   navigation: NavigationItemFragment[]
@@ -25,7 +26,7 @@ type BranchPageProps = {
 } & SSRConfig
 
 const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'BranchCemeteryPage' })
+  const { t } = useTranslation()
 
   const { seo, title, address, navigateToLink, description, offices } = entity.attributes ?? {}
 
@@ -59,17 +60,17 @@ const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
                   startIcon={<NavigateIcon />}
                   className="-ml-2 md:ml-0"
                 >
-                  {t('navigate')}
+                  {t('BranchCemeteryPage.navigate')}
                 </Button>
               )}
             </div>
           </SectionBoxed>
           {description && (
-            <SectionBoxed title={t('aboutBranch')}>
+            <SectionBoxed title={t('BranchCemeteryPage.aboutBranch')}>
               <RichText content={description} coloredTable={false} />
             </SectionBoxed>
           )}
-          {filteredOffices?.map((office) => <OfficeSectionBoxed office={office} />)}
+          {filteredOffices?.map((office) => <OfficeSectionBoxed office={office} key={office.id} />)}
         </div>
       </BranchCemeteryLayout>
     </>

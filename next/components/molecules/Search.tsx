@@ -1,5 +1,3 @@
-import { CloseCircleIcon, CloseIcon, SearchIcon } from '@assets/icons'
-import TextField from '@components/atoms/TextField'
 import { useTranslation } from 'next-i18next'
 import {
   DetailedHTMLProps,
@@ -9,6 +7,9 @@ import {
   useEffect,
   useState,
 } from 'react'
+
+import { CloseCircleIcon, CloseIcon, SearchIcon } from '@/assets/icons'
+import TextField from '@/components/atoms/TextField'
 
 type SearchProps = {
   value?: string
@@ -30,7 +31,7 @@ const Search = ({
   isLarge = false,
   ...rest
 }: SearchProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'SearchField' })
+  const { t } = useTranslation()
 
   const [realValue, setRealValue] = useState(value)
 
@@ -74,8 +75,8 @@ const Search = ({
       id="search"
       value={realValue}
       onChange={(e) => handleChange(e.target.value)}
-      placeholder={placeholder ?? t('searchPlaceholder')}
-      aria-label={t('aria.searchField')}
+      placeholder={placeholder ?? t('SearchField.searchPlaceholder')}
+      aria-label={t('SearchField.aria.searchField')}
       onKeyUp={onKeyUpHandler}
       className={className}
       isLarge={isLarge}
@@ -83,7 +84,7 @@ const Search = ({
       leftSlot={<SearchIcon />}
       rightSlot={
         realValue ? (
-          <button onClick={clearHandler} type="button" className="p-2">
+          <button onClick={clearHandler} type="button" className="base-focus-ring p-2">
             {isLarge ? <CloseIcon /> : <CloseCircleIcon />}
           </button>
         ) : null

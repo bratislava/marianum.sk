@@ -1,10 +1,11 @@
-import SelectWithFetcher from '@components/molecules/SelectWithFetcher'
-import {
-  articlePressCategoriesSelectFetcher,
-  articlePressCategoriesSelectSwrKey,
-} from '@services/fetchers/articleListingFetcher'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
+
+import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
+import {
+  articlePressCategoriesSelectFetcher,
+  articlePressCategoriesSelectQueryKey,
+} from '@/services/fetchers/articles/articleCategoriesSelectFetcher'
 
 type ArticlePressCategoriesSelectProps = {
   onCategoryChange: (id: string | null) => void
@@ -13,13 +14,13 @@ type ArticlePressCategoriesSelectProps = {
 const ArticlePressCategoriesSelect = ({
   onCategoryChange = () => {},
 }: ArticlePressCategoriesSelectProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'ArticleListing' })
+  const { t } = useTranslation()
 
-  const defaultOption = useMemo(() => ({ label: t('allCategories'), key: '' }), [t])
+  const defaultOption = useMemo(() => ({ label: t('ArticleListing.allCategories'), key: '' }), [t])
 
   return (
     <SelectWithFetcher
-      swrKey={articlePressCategoriesSelectSwrKey}
+      queryKey={articlePressCategoriesSelectQueryKey}
       defaultOption={defaultOption}
       fetcher={articlePressCategoriesSelectFetcher}
       onSelectionChange={(selection: string) => {

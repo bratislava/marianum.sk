@@ -1,38 +1,39 @@
-import { MailIcon, PhoneIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { SidebarFragment } from '@graphql'
-import { getPhoneNumberLink } from '@utils/getPhoneNumberLink'
 import { useTranslation } from 'next-i18next'
+
+import { MailIcon, PhoneIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
+import { SidebarFragment } from '@/graphql'
+import { getPhoneNumberLink } from '@/utils/getPhoneNumberLink'
 
 type SideBarProps = {
   sidebar: SidebarFragment | null | undefined
 }
 
 const SideBar = ({ sidebar }: SideBarProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'SideBar' })
-  const { getFullPath } = useGetFullPath()
+  const { t } = useTranslation()
+  const { getLinkProps } = useGetLinkProps()
 
   if (!sidebar) {
     return <aside className="lg:w-[360px]" />
   }
 
   const { title, text, ctaButton, contact } = sidebar
-  const ctaSlug = getFullPath(ctaButton?.page?.data)
+  const linkProps = getLinkProps(ctaButton)
   const { phone1, phone2, email } = contact?.data?.attributes ?? {}
 
   return (
     <aside className="flex h-fit flex-col bg-white p-6 lg:w-[360px]">
       {title && <h5 className="whitespace-pre-wrap">{title}</h5>}
       {text && <p className="mt-2 whitespace-pre-wrap">{text}</p>}
-      {ctaSlug ? (
+      {ctaButton ? (
         <>
-          <Button href={ctaSlug} variant="primary" className="mt-6">
-            {ctaButton?.label}
+          <Button {...linkProps} variant="primary" className="mt-6">
+            {linkProps.label}
           </Button>
           {contact?.data?.attributes && (
             <div className="flex flex-col items-center">
-              <div className="mt-4">{t('or')}</div>
+              <div className="mt-4">{t('SideBar.or')}</div>
               {phone1 && (
                 <Button
                   variant="plain-primary"
@@ -83,7 +84,9 @@ const SideBar = ({ sidebar }: SideBarProps) => {
             )}
             {email && (
               <div className="flex flex-col items-center">
-                {(phone1 || phone2) && <div className="mt-4">{t('orContactUsByEmail')}</div>}
+                {(phone1 || phone2) && (
+                  <div className="mt-4">{t('SideBar.orContactUsByEmail')}</div>
+                )}
                 <Button
                   variant="plain-primary"
                   href={`mailto:${email.replaceAll(' ', '')}`}

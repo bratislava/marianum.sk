@@ -27,7 +27,7 @@ spec:
               memory: ${NEXT_MEMORY_REQUESTS}
           envFrom:
             - secretRef:
-                name: ${BUILD_REPOSITORY_NAME}-general-secret
+                name: marianum-generics-secret  # populated by Strapi
             - secretRef:
                 name: ${BUILD_REPOSITORY_NAME}-cloudflare-turnstile-secret
             - configMapRef:

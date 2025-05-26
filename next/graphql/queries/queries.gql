@@ -94,6 +94,22 @@ query Cemeteries($locale: I18NLocaleCode!) {
   }
 }
 
+query ManagedObjectBySlug($locale: I18NLocaleCode!, $slug: String!) {
+  managedObjects(locale: $locale, filters: { slug: { eq: $slug } }) {
+    data {
+      ...ManagedObjectEntity
+    }
+  }
+}
+
+query ManagedObjects($locale: I18NLocaleCode!) {
+  managedObjects(locale: $locale, sort: ["title:asc"], pagination: { limit: -1 }) {
+    data {
+      ...ManagedObjectEntity
+    }
+  }
+}
+
 query BundleBySlug($locale: I18NLocaleCode!, $slug: String!) {
   bundles(locale: $locale, filters: { slug: { eq: $slug } }) {
     data {
@@ -148,6 +164,14 @@ query CemeteriesStaticPaths($locale: I18NLocaleCode) {
   cemeteries(locale: $locale, pagination: { limit: -1 }) {
     data {
       ...CemeterySlugEntity
+    }
+  }
+}
+
+query ManagedObjectsStaticPaths($locale: I18NLocaleCode) {
+  managedObjects(locale: $locale, pagination: { limit: -1 }) {
+    data {
+      ...ManagedObjectSlugEntity
     }
   }
 }
@@ -285,36 +309,3 @@ query ArticleJobsCategories {
 query DocumentFiletypes {
   documentFiletypes
 }
-
-query CemeteriesInApplication($locale: I18NLocaleCode!) {
-  cemeteries(
-    filters: {
-      or: [
-        { ziadostHroboveMiesto: { eq: true } }
-        { ziadostUrnoveMiestoVZemi: { eq: true } }
-        { ziadostUrnovaStena: { eq: true } }
-      ]
-    }
-    pagination: { limit: -1 }
-    locale: $locale
-  ) {
-    data {
-      ...CemeteryInApplicationEntity
-    }
-  }
-}
-
-mutation CreateApplication($data: JSON!, $captchaToken: String!) {
-  createApplicationCustom(data: $data, captchaToken: $captchaToken)
-}
-
-query ApplicationTexts {
-  applicationText {
-    data {
-      attributes {
-        ...ApplicationText
-      }
-    }
-  }
-}
-

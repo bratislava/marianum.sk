@@ -136,36 +136,6 @@
       },
       "component": "general.seo"
     },
-    "ziadostHroboveMiesto": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "type": "boolean",
-      "default": false,
-      "required": true
-    },
-    "ziadostUrnoveMiestoVZemi": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "type": "boolean",
-      "default": false,
-      "required": true
-    },
-    "ziadostUrnovaStena": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "type": "boolean",
-      "default": false,
-      "required": true
-    },
     "overrideOpeningHours": {
       "type": "component",
       "repeatable": false,
@@ -175,6 +145,36 @@
         }
       },
       "component": "blocks.opening-hours-universal"
+    },
+    "documents": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.document-group"
+    },
+    "gallery": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.gallery"
+    },
+    "video": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.iframe-section"
     }
   }
 }

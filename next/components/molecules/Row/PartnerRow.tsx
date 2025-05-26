@@ -1,13 +1,14 @@
-import { OpenInNewIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
-import IconButton from '@components/atoms/IconButton'
-import Row, { RowProps } from '@components/molecules/Row/Row'
 import { useTranslation } from 'next-i18next'
+
+import { OpenInNewIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
+import IconButton from '@/components/atoms/IconButton'
+import Row, { RowProps } from '@/components/molecules/Row/Row'
 
 const PartnerRow = (props: Pick<RowProps, 'title' | 'titleId' | 'linkHref' | 'border'>) => {
   const { linkHref, titleId } = props
 
-  const { t } = useTranslation('common', { keyPrefix: 'PartnerRow' })
+  const { t } = useTranslation()
 
   const LinkButton = () =>
     linkHref ? (
@@ -20,7 +21,7 @@ const PartnerRow = (props: Pick<RowProps, 'title' | 'titleId' | 'linkHref' | 'bo
           startIcon={<OpenInNewIcon />}
           className="hidden after:absolute after:inset-0 md:flex"
         >
-          {t('showWebsite')}
+          {t('PartnerRow.showWebsite')}
         </Button>
         {/* mobile button */}
         <IconButton

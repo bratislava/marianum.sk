@@ -2,15 +2,16 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 
-import MImage from '@components/atoms/MImage'
-import ImageLightBox from '@components/molecules/ImageLightBox'
-import { UploadImageEntityFragment } from '@graphql'
-import { onEnterOrSpaceKeyDown } from '@utils/onEnterOrSpaceKeyDown'
 import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 import { useOverlayTriggerState } from 'react-stately'
+
+import MImage from '@/components/atoms/MImage'
+import ImageLightBox from '@/components/molecules/ImageLightBox'
+import { UploadImageEntityFragment } from '@/graphql'
+import { onEnterOrSpaceKeyDown } from '@/utils/onEnterOrSpaceKeyDown'
 
 export type ImageGalleryProps = {
   images: UploadImageEntityFragment[] | undefined
@@ -18,7 +19,7 @@ export type ImageGalleryProps = {
 }
 
 const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'ImageGallery' })
+  const { t } = useTranslation()
 
   // all images count
   const imageCount = useMemo(() => {
@@ -40,17 +41,19 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
         : // variant 'aside'small
           0
     }
+
     // variant 'below' large
     return (containerWidth ?? 0) > 1000
       ? 7
       : // variant 'below' middle
-      (containerWidth ?? 0) > 800
-      ? 5
-      : // variant 'below' small
-        3
+        (containerWidth ?? 0) > 800
+        ? 5
+        : // variant 'below' small
+          3
   }, [containerWidth, variant])
 
   // number of not displayed images
+  // TODO: for gallery in cemeteries this count is not correct
   const moreImagesCount = useMemo(() => {
     return Math.max(imageCount - thumbnailCount, 0)
   }, [imageCount, thumbnailCount])
@@ -77,10 +80,10 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
           ref={containerRef}
           role="button"
           tabIndex={0}
-          aria-label={t('aria.openImageGallery')}
+          aria-label={t('ImageGallery.aria.openImageGallery')}
           onKeyUp={onEnterOrSpaceKeyDown(() => openAtImageIndex(0))}
-          className={cx('cursor-default outline-offset-2 outline-primary focus:outline-4', {
-            'flex flex-col ': variant === 'below',
+          className={cx('base-focus-ring', {
+            'flex flex-col': variant === 'below',
             'grid grid-cols-[minmax(0,1fr)_auto]': variant === 'aside',
           })}
         >
@@ -88,7 +91,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
           {firstImage && (
             <div
               onClick={() => openAtImageIndex(0)}
-              className={cx('relative w-full cursor-pointer', {
+              className={cx('relative w-full', {
                 // large 'below' layout
                 'h-[500px]': thumbnailCount > 6 && variant === 'below',
                 // small & middle 'below' layout
@@ -121,7 +124,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                   <div
                     onClick={() => openAtImageIndex(index + 1)}
                     key={image.id}
-                    className="relative w-full cursor-pointer pt-[100%]"
+                    className="relative w-full pt-[100%]"
                   >
                     <MImage
                       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -136,10 +139,11 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
               {moreImagesCount > 0 && (
                 <div
                   onClick={() => openAtImageIndex(0)}
-                  className="relative w-full cursor-pointer border border-border pt-[100%]"
+                  className="relative w-full border border-border pt-[100%]"
                 >
-                  <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white p-2 text-center font-semibold text-primary">
-                    {t('morePhotos', { count: moreImagesCount })}
+                  <div className="absolute top-0 flex size-full items-center justify-center bg-white p-2 text-center font-semibold text-primary">
+                    {/* TODO: before there was also count shown, but it was wrongly calculated t('ImageGallery.morePhotos', { count: moreImagesCount }) */}
+                    {t('ImageGallery.showAllPhotos')}
                   </div>
                 </div>
               )}
@@ -161,7 +165,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                   <div
                     onClick={() => openAtImageIndex(index + 1)}
                     key={image.id}
-                    className="relative w-[168px] cursor-pointer pt-[168px]"
+                    className="relative w-[168px] pt-[168px]"
                   >
                     <MImage
                       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -174,12 +178,9 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
 
               {/* more images button */}
               {moreImagesCount > 0 && (
-                <div
-                  onClick={() => openAtImageIndex(0)}
-                  className="relative w-[168px] cursor-pointer pt-[166px]"
-                >
-                  <div className="absolute top-0 flex h-full w-full items-center justify-center bg-white p-8 text-center font-semibold text-primary">
-                    {t('showAllPhotos')}
+                <div onClick={() => openAtImageIndex(0)} className="relative w-[168px] pt-[166px]">
+                  <div className="absolute top-0 flex size-full items-center justify-center bg-white p-8 text-center font-semibold text-primary">
+                    {t('ImageGallery.showAllPhotos')}
                   </div>
                 </div>
               )}

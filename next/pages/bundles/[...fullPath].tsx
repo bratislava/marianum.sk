@@ -1,24 +1,25 @@
 import { ParsedUrlQuery } from 'node:querystring'
 
-import { CheckNoPaddingIcon } from '@assets/icons'
-import FormatCurrency from '@components/atoms/FormatCurrency'
-import RichText from '@components/atoms/RichText'
-import Seo from '@components/atoms/Seo'
-import BundleLayout from '@components/layouts/BundleLayout'
-import AccordionGroup from '@components/molecules/Accordion/AccordionGroup'
-import AccordionItem from '@components/molecules/Accordion/AccordionItem'
-import DocumentGroup from '@components/molecules/DocumentGroup'
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import { SSRConfig, useTranslation } from 'next-i18next'
+
+import { CheckNoPaddingIcon } from '@/assets/icons'
+import FormatCurrency from '@/components/atoms/FormatCurrency'
+import RichText from '@/components/atoms/RichText'
+import Seo from '@/components/atoms/Seo'
+import BundleLayout from '@/components/layouts/BundleLayout'
+import AccordionGroup from '@/components/molecules/Accordion/AccordionGroup'
+import AccordionItem from '@/components/molecules/Accordion/AccordionItem'
+import DocumentGroup from '@/components/molecules/DocumentGroup'
 import {
   generateStaticPaths,
   generateStaticProps,
-} from '@components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import Section from '@components/molecules/Section'
-import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@graphql'
-import { client } from '@services/graphql/gqlClient'
-import { isDefined } from '@utils/isDefined'
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import { SSRConfig, useTranslation } from 'next-i18next'
+} from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
+import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
+import Section from '@/components/molecules/Section'
+import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
+import { isDefined } from '@/utils/isDefined'
 
 type BundlePageProps = {
   navigation: NavigationItemFragment[]
@@ -26,8 +27,12 @@ type BundlePageProps = {
   entity: BundleEntityFragment
 } & SSRConfig
 
-const BundlePage: NextPage<BundlePageProps> = ({ navigation, entity, general }) => {
-  const { t } = useTranslation('common', { keyPrefix: 'BundlePage' })
+const BundlePage: NextPage<BundlePageProps> = ({
+  navigation,
+  entity,
+  general,
+}: BundlePageProps) => {
+  const { t } = useTranslation()
   const {
     seo,
     title,
@@ -47,15 +52,15 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, entity, general }) 
     <>
       {/* TODO: Extract NavigationProvider from PageWrapper */}
       <NavigationProvider navigation={navigation} general={general}>
-        <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />{' '}
+        <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
       </NavigationProvider>
 
       <BundleLayout navigation={navigation} general={general} bundle={entity}>
         <div className="flex flex-col">
-          {/* todo: display bundle data */}
+          {/* TODO display bundle data */}
           {claims?.length ? (
             <Section>
-              <h2 className="pb-6 text-h3">{t('bundleContent')}</h2>
+              <h2 className="pb-6 text-h3">{t('BundlePage.bundleContent')}</h2>
               <ul>
                 {claims.map((item, index) => (
                   // eslint-disable-next-line react/no-array-index-key
@@ -84,7 +89,7 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, entity, general }) 
 
           {additionalServices?.length ? (
             <Section>
-              <h3 className="pb-4">{t('additionalServices')}</h3>
+              <h3 className="pb-4">{t('BundlePage.additionalServices')}</h3>
               <AccordionGroup>
                 {additionalServices.map((service) => (
                   <AccordionItem
@@ -93,7 +98,7 @@ const BundlePage: NextPage<BundlePageProps> = ({ navigation, entity, general }) 
                     additionalInfo={
                       service?.price ? (
                         <div>
-                          {t('priceFrom')}{' '}
+                          {t('BundlePage.priceFrom')}{' '}
                           <span className="font-bold">
                             <FormatCurrency value={service.price} />
                           </span>

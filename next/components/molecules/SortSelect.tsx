@@ -1,6 +1,7 @@
-import Select from '@components/atoms/Select'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
+
+import Select from '@/components/atoms/Select'
 
 export type Sort = 'newest' | 'oldest'
 
@@ -10,12 +11,12 @@ type SortSelectProps = {
 }
 
 const SortSelect = ({ defaultSelected, onChange = () => {} }: SortSelectProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'SortSelect' })
+  const { t } = useTranslation()
 
   const options = useMemo(
     () => [
-      { key: 'newest', label: t('byNewest') },
-      { key: 'oldest', label: t('byOldest') },
+      { key: 'newest', label: t('SortSelect.byNewest') },
+      { key: 'oldest', label: t('SortSelect.byOldest') },
     ],
     [t],
   )

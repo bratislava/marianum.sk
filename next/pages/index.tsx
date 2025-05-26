@@ -1,51 +1,47 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import Seo from '@components/atoms/Seo'
-import PageWrapper from '@components/layouts/PageWrapper'
-import SectionsWrapper from '@components/layouts/SectionsWrapper'
-import CtaGroup from '@components/molecules/CtaGroup'
-import NavigationProvider from '@components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import Section from '@components/molecules/Section'
-import ArticlesManualListingSection from '@components/sections/ArticlesManualListingSection'
-import CardSection from '@components/sections/CardSection'
-import HomepageProceduresSection from '@components/sections/HomepageProceduresSection'
-import HomepageReviewsSection from '@components/sections/HomepageReviewsSection'
-import HomepageSlider from '@components/sections/HomepageSlider'
-import NewsSection from '@components/sections/NewsSection'
-import UpcomingCeremoniesSection from '@components/sections/UpcomingCeremoniesSection'
-import {
-  GeneralEntityFragment,
-  HomepageCeremoniesQuery,
-  HomePageQuery,
-  NavigationItemFragment,
-} from '@graphql'
-import { getNewsListingPrefetch } from '@services/fetchers/newsListingFetcher'
-import { upcomingCeremoniesPrefetch } from '@services/fetchers/upcomingCeremoniesFetcher'
-import { client } from '@services/graphql/gqlClient'
-import { isDefined } from '@utils/isDefined'
-import { prefetchSections } from '@utils/prefetchSections'
+import { dehydrate, DehydratedState, HydrationBoundary, QueryClient } from '@tanstack/react-query'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { SWRConfig } from 'swr'
+
+import Seo from '@/components/atoms/Seo'
+import PageWrapper from '@/components/layouts/PageWrapper'
+import SectionsWrapper from '@/components/layouts/SectionsWrapper'
+import CtaGroup from '@/components/molecules/CtaGroup'
+import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
+import Section from '@/components/molecules/Section'
+import ArticlesManualListingSection from '@/components/sections/ArticlesManualListingSection'
+import CardSection from '@/components/sections/CardSection'
+import HomepageProceduresSection from '@/components/sections/HomepageProceduresSection'
+import HomepageReviewsSection from '@/components/sections/HomepageReviewsSection'
+import HomepageSlider from '@/components/sections/HomepageSlider'
+import NewsSection from '@/components/sections/NewsSection'
+import UpcomingCeremoniesSection from '@/components/sections/UpcomingCeremoniesSection'
+import { GeneralEntityFragment, HomePageQuery, NavigationItemFragment } from '@/graphql'
+import { getGraphqlNewsListingQuery } from '@/services/fetchers/articles/newsListingFetcher'
+import { getUpcomingCeremoniesQuery } from '@/services/fetchers/ceremonies/upcomingCeremoniesFetcher'
+import { client } from '@/services/graphql/gqlClient'
+import { NOT_FOUND } from '@/utils/consts'
+import { isDefined } from '@/utils/isDefined'
 
 type HomeProps = {
   navigation: NavigationItemFragment[]
   page: NonNullable<NonNullable<HomePageQuery['homePage']>['data']>
   procedures: NonNullable<HomePageQuery['procedures']>['data']
   general: GeneralEntityFragment | null
-  fallback: { UpcomingCeremonies?: HomepageCeremoniesQuery }
+  dehydratedState: DehydratedState
 }
 
-const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'HomePage' })
+const Home = ({ navigation, page, procedures, general, dehydratedState }: HomeProps) => {
+  const { t } = useTranslation()
 
   const { seo } = page.attributes ?? {}
 
   return (
-    <SWRConfig value={{ fallback }}>
+    <HydrationBoundary state={dehydratedState}>
       {/* TODO: Extract NavigationProvider from PageWrapper */}
       <NavigationProvider navigation={navigation} general={general}>
-        <Seo seo={seo} title={t('home')} homepage />
+        <Seo seo={seo} title={t('HomePage.home')} homepage />
       </NavigationProvider>
 
       <PageWrapper navigation={navigation} general={general}>
@@ -81,6 +77,7 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
             }
             if (section?.__typename === 'ComponentSectionsProceduresShortSection') {
               const { outsideMedicalFacility, atMedicalFacility } = procedures?.attributes ?? {}
+
               return (
                 <HomepageProceduresSection
                   key={`${section.__typename}-${section.id}`}
@@ -110,7 +107,7 @@ const Home = ({ navigation, page, procedures, general, fallback }: HomeProps) =>
           })}
         </SectionsWrapper>
       </PageWrapper>
-    </SWRConfig>
+    </HydrationBoundary>
   )
 }
 
@@ -119,21 +116,24 @@ export const getStaticProps: GetStaticProps = async ({
 }): Promise<GetStaticPropsResult<HomeProps>> => {
   const { homePage, procedures } = await client.HomePage({ locale })
 
-  const sectionFetcherMapSwr = [upcomingCeremoniesPrefetch, getNewsListingPrefetch(locale)]
+  if (!homePage?.data) {
+    return NOT_FOUND
+  }
 
-  const [{ navigation, general }, translations, fallback] = await Promise.all([
+  const [{ navigation, general }, translations] = await Promise.all([
     client.General({ locale }),
-    serverSideTranslations(locale, ['common']),
-    prefetchSections(homePage?.data?.attributes?.sections, sectionFetcherMapSwr, true),
+    serverSideTranslations(locale),
   ])
 
   const filteredNavigation = navigation.filter(isDefined)
 
-  if (!homePage?.data) {
-    return {
-      notFound: true,
-    }
-  }
+  // Prefetch data
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery(getGraphqlNewsListingQuery(locale))
+  await queryClient.prefetchQuery(getUpcomingCeremoniesQuery())
+
+  const dehydratedState = dehydrate(queryClient)
 
   return {
     props: {
@@ -141,7 +141,7 @@ export const getStaticProps: GetStaticProps = async ({
       general: general?.data ?? null,
       page: homePage?.data ?? null,
       procedures: procedures?.data ?? null,
-      fallback: fallback as { UpcomingCeremonies?: HomepageCeremoniesQuery },
+      dehydratedState,
       ...translations,
     },
     revalidate: 10,

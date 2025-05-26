@@ -1,11 +1,12 @@
-import { ChevronDownIcon } from '@assets/icons'
-import MLink from '@components/atoms/MLink'
-import { usePrevious } from '@utils/usePrevious'
 import cx from 'classnames'
 import last from 'lodash/last'
 import { useTranslation } from 'next-i18next'
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
+
+import { ChevronDownIcon } from '@/assets/icons'
+import MLink from '@/components/atoms/MLink'
+import { usePrevious } from '@/utils/usePrevious'
 
 import { AnimateHeight } from './AnimateHeight'
 
@@ -35,7 +36,7 @@ const BreadcrumbChild = ({
   ariaLabel,
 }: BreadcrumbChildProps) => {
   return (
-    <div className={cx('flex gap-1 overflow-hidden', { 'shrink-0': dontShrink })}>
+    <div className={cx('-m-2 flex gap-1 overflow-hidden p-2', { 'shrink-0': dontShrink })}>
       {!noChevron && (
         <div className="shrink-0 -rotate-90 pt-[2px]">
           <ChevronDownIcon />
@@ -88,7 +89,7 @@ const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
         key={index}
         crumb={crumb}
         noChevron={index === 0}
-        ariaLabel={index === 0 ? t('Navigation.home') : undefined}
+        ariaLabel={index === 0 ? t('Breadcrumbs.home') : undefined}
         dontShrink={index === 0}
         noLink={index === crumbs.length - 1}
       />

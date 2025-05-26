@@ -28,6 +28,7 @@ export const AnimateHeight = ({
 
   const calculatedDuration = useMemo(() => {
     const constant = (height ?? 0) / 36
+
     return Math.round((4 + 15 * constant ** 0.25 + constant / 5) * 10)
   }, [height])
 
@@ -46,7 +47,7 @@ export const AnimateHeight = ({
       inherit={false}
       transition={{
         ease,
-        duration: shouldReduceMotion ? 0 : duration ?? calculatedDuration / 1000,
+        duration: shouldReduceMotion ? 0 : (duration ?? calculatedDuration / 1000),
       }}
     >
       <div ref={ref}>{children}</div>

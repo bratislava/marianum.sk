@@ -1,7 +1,7 @@
 import { Node } from '@react-types/shared'
 import cx from 'classnames'
 import { Dispatch, SetStateAction, useRef } from 'react'
-import { useTab } from 'react-aria'
+import { useFocusRing, useTab } from 'react-aria'
 import { TabListState } from 'react-stately'
 
 type TabLabelProps<T> = {
@@ -15,6 +15,8 @@ const TabLabel = <T,>({ item, state, setSessionTabKey }: TabLabelProps<T>) => {
   const ref = useRef<HTMLDivElement | null>(null)
   const { tabProps, isSelected } = useTab({ key }, state, ref)
 
+  const { isFocusVisible, focusProps } = useFocusRing()
+
   const handleTabLabelClick = () => {
     setSessionTabKey(key.toString())
   }
@@ -22,10 +24,13 @@ const TabLabel = <T,>({ item, state, setSessionTabKey }: TabLabelProps<T>) => {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
-      className="flex-1 cursor-pointer outline-none focus:outline-2 focus:outline-primary"
       {...tabProps}
+      {...focusProps}
       ref={ref}
       onClick={handleTabLabelClick}
+      className={cx('flex-1 cursor-pointer outline-none', {
+        'base-focus-ring': isFocusVisible,
+      })}
     >
       <div
         className={cx(
@@ -39,7 +44,7 @@ const TabLabel = <T,>({ item, state, setSessionTabKey }: TabLabelProps<T>) => {
       >
         <h3 className="text-h6 text-current">{rendered}</h3>
         {isSelected && (
-          <div className="absolute -bottom-3 hidden h-6 w-6 rotate-[-39deg] skew-x-12 bg-primary sm:block" />
+          <div className="absolute -bottom-3 hidden size-6 rotate-[-39deg] skew-x-12 bg-primary sm:block" />
         )}
       </div>
     </div>

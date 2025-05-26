@@ -1,6 +1,4 @@
 const { i18n } = require('./next-i18next.config')
-const CopyPlugin = require('copy-webpack-plugin')
-const path = require('path')
 const {
   generateRedirects,
 } = require('./components/molecules/Navigation/NavigationProvider/generateRedirects')
@@ -75,6 +73,10 @@ const nextConfig = {
             nextRoute: '/cemeteries',
           },
           {
+            fullPath: '/o-nas/starostlivost-o-mestske-fontany/:slug',
+            nextRoute: '/managed-objects',
+          },
+          {
             fullPath: '/o-nas/dokumenty/:slug',
             nextRoute: '/documents',
           },
@@ -92,6 +94,11 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      {
+        source: '/robots.txt',
+        destination: '/api/robots',
+        permanent: true,
+      },
       {
         source: '/index.php',
         has: [{ type: 'query', key: 'ids1', value: 'katalog' }],
@@ -448,19 +455,6 @@ const config = (phase, { defaultConfig }) => {
         issuer: /\.[jt]sx?$/,
         use: ['@svgr/webpack'],
       })
-
-      // pdf worker must be available through url
-      // => so we have to copy it from node_modules to public folder
-      config.plugins.push(
-        new CopyPlugin({
-          patterns: [
-            {
-              from: require.resolve('pdfjs-dist/build/pdf.worker.min.js'),
-              to: path.join(__dirname, 'public'),
-            },
-          ],
-        }),
-      )
 
       return config
     },

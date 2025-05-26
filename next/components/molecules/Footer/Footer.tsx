@@ -1,15 +1,16 @@
-import MLink from '@components/atoms/MLink'
-import AccordionGroup from '@components/molecules/Accordion/AccordionGroup'
-import AccordionItem from '@components/molecules/Accordion/AccordionItem'
-import FooterCredentials from '@components/molecules/Footer/FooterCredentials'
-import FooterMapStatic from '@components/molecules/Footer/FooterMapStatic'
-import FooterSocials from '@components/molecules/Footer/FooterSocials'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { ContactFragment, FooterFragment, SocialItemFragment } from '@graphql'
-import { getPhoneNumberLink } from '@utils/getPhoneNumberLink'
-import { isDefined } from '@utils/isDefined'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
+
+import MLink from '@/components/atoms/MLink'
+import AccordionGroup from '@/components/molecules/Accordion/AccordionGroup'
+import AccordionItem from '@/components/molecules/Accordion/AccordionItem'
+import FooterCredentials from '@/components/molecules/Footer/FooterCredentials'
+import FooterMapStatic from '@/components/molecules/Footer/FooterMapStatic'
+import FooterSocials from '@/components/molecules/Footer/FooterSocials'
+import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { ContactFragment, FooterFragment, SocialItemFragment } from '@/graphql'
+import { getPhoneNumberLink } from '@/utils/getPhoneNumberLink'
+import { isDefined } from '@/utils/isDefined'
 
 export type FooterProps = {
   contact: ContactFragment | null | undefined
@@ -18,7 +19,7 @@ export type FooterProps = {
 }
 
 const Footer = ({ contact, footer, socials }: FooterProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'Footer' })
+  const { t } = useTranslation()
   const { getFullPath } = useGetFullPath()
 
   const { phone1, email } = contact?.contact?.data?.attributes ?? {}
@@ -54,24 +55,13 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
       <div className="container flex flex-col gap-12">
         <div className="grid bg-primary text-white md:grid-cols-3 lg:grid-cols-2">
           {/* aspect ratios must be in sync with sizes in FooterMapStatic component */}
-          <div className="aspect-h-[329] aspect-w-[464] relative overflow-hidden px-4 sm:aspect-h-[208] sm:aspect-w-[576] md:h-auto md:w-full">
-            <div className="h-full">
-              <FooterMapStatic latitude={latitude} longitude={longitude} />
-              {/* TODO tmp replaced by static image due to high number of requests exceeding our limits */}
-              {/* <FooterMap */}
-              {/*  onMarkerClick={() => */}
-              {/*    // eslint-disable-next-line security/detect-non-literal-fs-filename */}
-              {/*    window.open(contact?.navigateToLink ?? '', '_blank')?.focus() */}
-              {/*  } */}
-              {/*  markerLat={contact?.latitude} */}
-              {/*  markerLng={contact?.longitude} */}
-              {/* /> */}
-            </div>
+          <div className="relative aspect-[464/329] px-4 sm:aspect-[576/208] md:aspect-auto">
+            <FooterMapStatic latitude={latitude} longitude={longitude} />
           </div>
 
           <div className="flex w-full flex-col gap-4 px-4 py-6 md:col-span-2 md:px-8 lg:col-span-1 lg:gap-8 lg:px-12 lg:py-8">
             <div className="relative flex flex-col gap-3">
-              <div className="text-lg font-bold">{t('address')}</div>
+              <div className="text-lg font-bold">{t('Footer.address')}</div>
               {(contact?.addressFirstLine || contact?.address) && (
                 <div className="flex flex-col gap-2 whitespace-pre-wrap font-regular text-white/72">
                   <div>{contact.addressFirstLine}</div>
@@ -83,7 +73,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
                         noStyles
                         className="w-fit text-white/72 underline hover:text-white/100"
                         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                        aria-label={`${t('navigateTo')} ${contact?.address}`}
+                        aria-label={`${t('Footer.navigateTo')} ${contact?.address}`}
                       >
                         {contact.address}
                       </MLink>
@@ -96,14 +86,14 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
               <div className="right-0 top-1 flex md:absolute">
                 {openingHoursPath && (
                   <MLink variant="white" href={openingHoursPath}>
-                    {t('openingHours')}
+                    {t('Footer.openingHours')}
                   </MLink>
                 )}
               </div>
             </div>
-            <div className="h-[1px] bg-white/12" />
+            <div className="h-px bg-white/12" />
             <div className="relative flex flex-col gap-3">
-              <div className="text-lg font-bold">{t('contacts')}</div>
+              <div className="text-lg font-bold">{t('Footer.contacts')}</div>
               <div className="flex flex-col gap-2 font-regular">
                 {phone1 && (
                   <MLink
@@ -127,7 +117,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
               <div className="right-0 top-1 flex md:absolute">
                 {contactsPath && (
                   <MLink variant="white" href={contactsPath}>
-                    {t('allContacts')}
+                    {t('Footer.allContacts')}
                   </MLink>
                 )}
               </div>

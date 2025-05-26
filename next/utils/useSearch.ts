@@ -1,15 +1,15 @@
-import { useGetFullPathMeili } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { meiliClient } from '@services/meili/meiliClient'
-import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@services/meili/meiliTypes'
-import { SearchIndexWrapped } from '@services/meili/searchIndexWrapped'
-import { getMeilisearchPageOptions } from '@utils/getMeilisearchPageOptions'
-import { useGetSwrExtras } from '@utils/useGetSwrExtras'
+import { useQuery } from '@tanstack/react-query'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
-import useSWR from 'swr'
 import { StringParam, useQueryParam, withDefault } from 'use-query-params'
-import { useDebounce } from 'usehooks-ts'
+import { useDebounceValue } from 'usehooks-ts'
+
+import { useGetFullPathMeili } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { meiliClient } from '@/services/meili/meiliClient'
+import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@/services/meili/meiliTypes'
+import { SearchIndexWrapped } from '@/services/meili/searchIndexWrapped'
+import { getMeilisearchPageOptions } from '@/utils/getMeilisearchPageOptions'
 
 export const allSearchTypes = [
   'page' as const,
@@ -57,6 +57,8 @@ export type SearchResult = {
 
 export const useSearch = ({ filters, isSyncedWithUrlQuery = false }: UseSearchOptions) => {
   const { i18n } = useTranslation()
+  const locale = i18n.language
+
   const { getFullPathMeili } = useGetFullPathMeili()
 
   const [searchQuery, setSearchQuery] = useState<string>('')
@@ -68,45 +70,41 @@ export const useSearch = ({ filters, isSyncedWithUrlQuery = false }: UseSearchOp
     },
   )
 
-  const debouncedSearchQuery = useDebounce(
+  const [debouncedSearchQuery] = useDebounceValue(
     isSyncedWithUrlQuery ? routerSearchQuery : searchQuery,
     300,
   )
 
   const emptySearchQuery = !debouncedSearchQuery || debouncedSearchQuery.trim() === ''
 
-  const { data, error } = useSWR(['Search', filters, debouncedSearchQuery], () => {
-    if (emptySearchQuery) {
-      return Promise.resolve(null)
-    }
+  const { data, isPending, isFetching, isError, error } = useQuery({
+    queryKey: ['Search', filters, locale, debouncedSearchQuery],
+    queryFn: async () => {
+      // If no type is selected, no filters are generated, so all of them are displayed.
+      const selectedTypesFilter = filters.selectedTypes.map((type) => `type = ${type}`).join(' OR ')
 
-    // If no type is selected, no filters are generated, so all of them are displayed.
-    const selectedTypesFilter = filters.selectedTypes.map((type) => `type = ${type}`).join(' OR ')
-
-    return meiliClient
-      .index('search_index')
-      .search<Results>(debouncedSearchQuery, {
-        ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        filter: [`locale = ${i18n.language ?? 'sk'} OR locale NOT EXISTS`, selectedTypesFilter],
-      })
-      .then((response) => {
-        const newHits = response.hits.map((hit) => {
-          const { type } = hit
-          // TODO: Fix types, but not worth it.
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const dataInner = (hit as any)[type]
-          const link = getFullPathMeili(type, dataInner)
-          return { type, title: dataInner.title, link, data: dataInner } as SearchResult
+      return meiliClient
+        .index('search_index')
+        .search<Results>(debouncedSearchQuery, {
+          ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+          filter: [`locale = ${locale ?? 'sk'} OR locale NOT EXISTS`, selectedTypesFilter],
         })
+        .then((response) => {
+          const newHits = response.hits.map((hit) => {
+            const { type } = hit
+            // TODO: Fix types, but not worth it.
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const dataInner = (hit as any)[type]
+            const link = getFullPathMeili(type, dataInner)
 
-        return { ...response, hits: newHits }
-      })
-  })
+            return { type, title: dataInner.title, link, data: dataInner } as SearchResult
+          })
 
-  const swrExtras = useGetSwrExtras({
-    data,
-    error,
+          return { ...response, hits: newHits }
+        })
+    },
+    enabled: !emptySearchQuery,
   })
 
   return {
@@ -114,7 +112,9 @@ export const useSearch = ({ filters, isSyncedWithUrlQuery = false }: UseSearchOp
     setSearchQuery: isSyncedWithUrlQuery ? setRouterSearchQuery : setSearchQuery,
     emptySearchQuery,
     data,
+    isPending,
+    isFetching,
+    isError,
     error,
-    ...swrExtras,
   }
 }

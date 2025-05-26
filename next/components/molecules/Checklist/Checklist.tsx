@@ -1,13 +1,20 @@
-import { CheckCircleIcon, CheckIcon, CloseCircleIcon, DownloadIcon, PrintIcon } from '@assets/icons'
-import { AnimateHeight } from '@components/atoms/AnimateHeight'
-import Button from '@components/atoms/Button'
-import { ComponentGeneralProcedureItem, UploadFileEntityFragment } from '@graphql'
 import cx from 'classnames'
 import filesize from 'filesize'
 import { useTranslation } from 'next-i18next'
 import prntr from 'prntr'
 import { useCallback, useId, useMemo } from 'react'
 import { useLocalStorage } from 'usehooks-ts'
+
+import {
+  CheckCircleIcon,
+  CheckIcon,
+  CloseCircleIcon,
+  DownloadIcon,
+  PrintIcon,
+} from '@/assets/icons'
+import { AnimateHeight } from '@/components/atoms/AnimateHeight'
+import Button from '@/components/atoms/Button'
+import { ComponentGeneralProcedureItem, UploadFileEntityFragment } from '@/graphql'
 
 type ChecklistRadioProps = {
   isOpen?: boolean
@@ -83,7 +90,7 @@ export type ChecklistProps = {
 }
 
 const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: ChecklistProps) => {
-  const { t, i18n } = useTranslation('common', { keyPrefix: 'Checklist' })
+  const { t, i18n } = useTranslation()
 
   // The saved state is valid up until we change anything in procedures in Strapi. Therefore, we can save only indexes
   // instead of keys as when something changes the id will be regenerated.
@@ -152,19 +159,22 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
               isCompleted={isCompleted}
             />
             <div
-              className={cx(
-                'flex w-full flex-col border border-border bg-white outline-offset-2 outline-primary focus:outline-2',
-                {
-                  'cursor-auto': isOpen,
-                },
-              )}
+              className={cx('flex w-full flex-col border border-border bg-white', {
+                'cursor-auto': isOpen,
+              })}
             >
               {/* item title */}
               <button
                 type="button"
                 onKeyUp={(e) => (e.code === 'Enter' || e.code === 'Space') && handleItemOpen(index)}
                 onClick={() => handleItemOpen(index)}
-                className="flex items-center p-6"
+                className={cx('flex items-center p-6 outline-none', {
+                  'base-focus-ring': !isOpen,
+                  'cursor-default': isOpen,
+                  // When the item is open, the title should not have a cursor pointer because it is not clickable
+                  // The item can only be closed by clicking the ‘Completed’ button
+                })}
+                tabIndex={isOpen ? -1 : 0} // When the item is open, remove this button from the tab order to ensure focus remains on the CTAs
                 aria-expanded={isOpen}
                 aria-controls={getAriaId(id, index)}
               >
@@ -193,14 +203,14 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
                             href={downloadFile.attributes.url}
                             // TODO use hook for filesize
                             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                            aria-label={`${t('aria.download')} ${
+                            aria-label={`${t('Checklist.aria.download')} ${
                               downloadFile.attributes.name
                             } ${filesize(downloadFile.attributes.size * 1000, {
                               round: 1,
                               locale: i18n.language,
                             })}`}
                           >
-                            {t('download')}
+                            {t('Checklist.download')}
                           </Button>
                           {/* we can only print pdf files */}
                           {downloadFile.attributes.ext === '.pdf' && (
@@ -209,7 +219,7 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
                               variant="secondary"
                               onPress={handlePrint}
                             >
-                              {t('print')}
+                              {t('Checklist.print')}
                             </Button>
                           )}
                         </div>
@@ -221,9 +231,9 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
                           onPress={() => handleItemUncomplete(index)}
                           variant="secondary"
                           startIcon={<CloseCircleIcon />}
-                          aria-label={t('aria.markAsUncomplete')}
+                          aria-label={t('Checklist.aria.markAsUncomplete')}
                         >
-                          {t('markAsUncomplete')}
+                          {t('Checklist.markAsUncomplete')}
                         </Button>
                       </div>
                     ) : (
@@ -232,16 +242,16 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
                         <Button
                           onPress={() => handleItemComplete(index)}
                           startIcon={<CheckCircleIcon />}
-                          aria-label={t('aria.markAsComplete')}
+                          aria-label={t('Checklist.aria.markAsComplete')}
                         >
-                          {t('markAsComplete')}
+                          {t('Checklist.markAsComplete')}
                         </Button>
                         <Button
                           onPress={() => handleNextItemOpen()}
                           variant="secondary"
-                          aria-label={t('aria.skip')}
+                          aria-label={t('Checklist.aria.skip')}
                         >
-                          {t('skip')}
+                          {t('Checklist.skip')}
                         </Button>
                       </div>
                     )

@@ -1,30 +1,30 @@
-import { DownloadIcon } from '@assets/icons'
-import FormatDate from '@components/atoms/FormatDate'
-import IconButton from '@components/atoms/IconButton'
-import Loading from '@components/atoms/Loading'
-import LoadingOverlay from '@components/atoms/LoadingOverlay'
-import Select from '@components/atoms/Select'
-import FilteringSearchInput from '@components/molecules/FilteringSearchInput'
-import FiltersBackgroundWrapper from '@components/molecules/FiltersBackgroundWrapper'
-import PaginationMeili from '@components/molecules/PaginationMeili'
-import Section from '@components/molecules/Section'
-import {
-  disclosuresSectionDefaultFilters,
-  disclosuresSectionFetcher,
-  DisclosuresSectionFilters,
-  getDisclosuresSectionSwrKey,
-} from '@services/fetchers/disclosuresSectionFetcher'
-import { DisclosureMeili, DisclosureTypeFixed } from '@services/meili/meiliTypes'
-import { useDownloadAriaLabel } from '@utils/useDownloadAriaLabel'
-import { useGetSwrExtras } from '@utils/useGetSwrExtras'
-import { useHorizontalScrollFade } from '@utils/useHorizontalScrollFade'
-import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import cx from 'classnames'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import useSwr from 'swr'
-import { useDebounce } from 'usehooks-ts'
+import { useDebounceValue } from 'usehooks-ts'
+
+import { DownloadIcon } from '@/assets/icons'
+import FormatDate from '@/components/atoms/FormatDate'
+import IconButton from '@/components/atoms/IconButton'
+import Loading from '@/components/atoms/Loading'
+import LoadingOverlay from '@/components/atoms/LoadingOverlay'
+import Select from '@/components/atoms/Select'
+import FilteringSearchInput from '@/components/molecules/FilteringSearchInput'
+import FiltersBackgroundWrapper from '@/components/molecules/FiltersBackgroundWrapper'
+import PaginationMeili from '@/components/molecules/PaginationMeili'
+import Section from '@/components/molecules/Section'
+import {
+  disclosuresDefaultFilters,
+  DisclosuresFilters,
+  getMeiliDisclosuresQueryKey,
+  meiliDisclosuresFetcher,
+} from '@/services/fetchers/disclosuresFetcher'
+import { DisclosureMeili, DisclosureTypeFixed } from '@/services/meili/meiliTypes'
+import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
+import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
+import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
 const AdditionalData = ({ additionalData }: { additionalData: Record<string, string> }) => {
   const text = useMemo(
@@ -49,9 +49,9 @@ const Table = ({
   filters,
 }: {
   data: SearchResponse<DisclosureMeili>
-  filters: DisclosuresSectionFilters
+  filters: DisclosuresFilters
 }) => {
-  const { t } = useTranslation('common', { keyPrefix: 'DisclosuresSection' })
+  const { t } = useTranslation()
 
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
@@ -70,23 +70,23 @@ const Table = ({
       <table className="m-table colored">
         <thead ref={theadRef}>
           <tr>
-            <th>{t('th.publishedDate')}</th>
-            <th>{t('th.type')}</th>
-            <th>{t('th.internalInvoiceNumber')}</th>
-            <th>{t('th.invoiceNumberOrVariableSymbol')}</th>
-            <th>{t('th.orderNumber')}</th>
-            <th>{t('th.contractNumber')}</th>
-            <th>{t('th.description')}</th>
-            <th>{t('th.supplierName')}</th>
-            <th>{t('th.supplierAddress')}</th>
-            <th>{t('th.supplierRegistrationNumber')}</th>
-            <th>{t('th.dateOfOrder')}</th>
-            <th>{t('th.totalValue')}</th>
-            <th>{t('th.invoicedAmount')}</th>
-            <th>{t('th.dateOfDelivery')}</th>
-            <th>{t('th.signedBy')}</th>
-            {hasFiles && <th>{t('th.files')}</th>}
-            {hasAdditionalData && <th>{t('th.additionalData')}</th>}
+            <th>{t('DisclosuresSection.th.publishedDate')}</th>
+            <th>{t('DisclosuresSection.th.type')}</th>
+            <th>{t('DisclosuresSection.th.internalInvoiceNumber')}</th>
+            <th>{t('DisclosuresSection.th.invoiceNumberOrVariableSymbol')}</th>
+            <th>{t('DisclosuresSection.th.orderNumber')}</th>
+            <th>{t('DisclosuresSection.th.contractNumber')}</th>
+            <th>{t('DisclosuresSection.th.description')}</th>
+            <th>{t('DisclosuresSection.th.supplierName')}</th>
+            <th>{t('DisclosuresSection.th.supplierAddress')}</th>
+            <th>{t('DisclosuresSection.th.supplierRegistrationNumber')}</th>
+            <th>{t('DisclosuresSection.th.dateOfOrder')}</th>
+            <th>{t('DisclosuresSection.th.totalValue')}</th>
+            <th>{t('DisclosuresSection.th.invoicedAmount')}</th>
+            <th>{t('DisclosuresSection.th.dateOfDelivery')}</th>
+            <th>{t('DisclosuresSection.th.signedBy')}</th>
+            {hasFiles && <th>{t('DisclosuresSection.th.files')}</th>}
+            {hasAdditionalData && <th>{t('DisclosuresSection.th.additionalData')}</th>}
           </tr>
         </thead>
         <tbody>
@@ -137,7 +137,7 @@ const Table = ({
           ))}
           {data.hits?.length === 0 && (
             <tr>
-              <td colSpan={8}>{t('noRecords')}</td>
+              <td colSpan={8}>{t('DisclosuresSection.noRecords')}</td>
             </tr>
           )}
         </tbody>
@@ -150,38 +150,33 @@ const DataWrapper = ({
   filters,
   onPageChange,
 }: {
-  filters: DisclosuresSectionFilters
+  filters: DisclosuresFilters
   onPageChange: (page: number) => void
 }) => {
-  const { data, error } = useSwr(
-    getDisclosuresSectionSwrKey(filters),
-    disclosuresSectionFetcher(filters),
-  )
-
-  const { dataToDisplay, loadingAndNoDataToDisplay, delayedLoading } = useGetSwrExtras({
-    data,
-    error,
+  const { data, isPending, isFetching, isError, error } = useQuery({
+    queryKey: getMeiliDisclosuresQueryKey(filters),
+    queryFn: () => meiliDisclosuresFetcher(filters),
+    placeholderData: keepPreviousData,
   })
 
-  // TODO replace by proper loading and error
-  if (loadingAndNoDataToDisplay) {
+  if (isPending) {
     return <Loading />
   }
 
-  if (error) {
+  // TODO replace by proper error
+  if (isError) {
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
   return (
     <>
-      <LoadingOverlay loading={delayedLoading}>
-        {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion,@typescript-eslint/no-non-null-assertion */}
-        <Table data={dataToDisplay!} filters={filters} />
+      <LoadingOverlay loading={isFetching}>
+        <Table data={data} filters={filters} />
       </LoadingOverlay>
 
-      {dataToDisplay ? (
+      {data.hits.length > 0 ? (
         <PaginationMeili
-          data={dataToDisplay}
+          data={data}
           pageSize={filters.pageSize}
           selectedPage={filters.page}
           onPageChange={onPageChange}
@@ -196,7 +191,7 @@ const TypeSelect = ({
 }: {
   onTypeChange: (type: DisclosureTypeFixed | null) => void
 }) => {
-  const { t } = useTranslation('common', { keyPrefix: 'DisclosuresSection' })
+  const { t } = useTranslation()
 
   return (
     <Select
@@ -204,19 +199,19 @@ const TypeSelect = ({
       options={[
         {
           key: 'all',
-          label: t('types.all'),
+          label: t('DisclosuresSection.types.all'),
         },
         {
           key: DisclosureTypeFixed.Faktura,
-          label: t('types.faktury'),
+          label: t('DisclosuresSection.types.faktury'),
         },
         {
           key: DisclosureTypeFixed.Zmluva,
-          label: t('types.zmluvy'),
+          label: t('DisclosuresSection.types.zmluvy'),
         },
         {
           key: DisclosureTypeFixed.Objednavka,
-          label: t('types.objednavky'),
+          label: t('DisclosuresSection.types.objednavky'),
         },
       ]}
       onSelectionChange={(type) => {
@@ -227,11 +222,9 @@ const TypeSelect = ({
 }
 
 const DisclosuresSection = () => {
-  const [filters, setFilters] = useState<DisclosuresSectionFilters>(
-    disclosuresSectionDefaultFilters,
-  )
+  const [filters, setFilters] = useState<DisclosuresFilters>(disclosuresDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')
-  const debouncedSearchInputValue = useDebounce<string>(searchInputValue, 300)
+  const [debouncedSearchInputValue] = useDebounceValue<string>(searchInputValue, 300)
 
   useEffect(() => {
     if (filters.search !== debouncedSearchInputValue) {

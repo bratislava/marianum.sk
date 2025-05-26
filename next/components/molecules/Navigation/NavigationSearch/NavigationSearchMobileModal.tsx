@@ -1,10 +1,11 @@
-import { AnimateHeight } from '@components/atoms/AnimateHeight'
-import Button from '@components/atoms/Button'
-import Modal, { ModalProps } from '@components/atoms/Modal'
-import NavigationSearchResults from '@components/molecules/Navigation/NavigationSearch/NavigationSearchResults'
-import Search from '@components/molecules/Search'
-import { SearchData } from '@utils/useSearch'
 import { useTranslation } from 'next-i18next'
+
+import { AnimateHeight } from '@/components/atoms/AnimateHeight'
+import Button from '@/components/atoms/Button'
+import Modal, { ModalProps } from '@/components/atoms/Modal'
+import NavigationSearchResults from '@/components/molecules/Navigation/NavigationSearch/NavigationSearchResults'
+import Search from '@/components/molecules/Search'
+import { SearchData } from '@/utils/useSearch'
 
 type NavigationSearchMobileModalProps = {
   searchQuery: string
@@ -27,7 +28,7 @@ const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) =>
     onSearch,
   } = props
 
-  const { t } = useTranslation('common', { keyPrefix: 'NavigationSearch' })
+  const { t } = useTranslation()
 
   return (
     <Modal
@@ -37,7 +38,7 @@ const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) =>
       isOpen={isOpen}
       onClose={onClose}
     >
-      <div className="flex h-full w-full flex-col">
+      <div className="flex size-full flex-col">
         <div className="z-50 flex w-full bg-primary py-3 pl-4">
           <Search
             value={searchQuery}
@@ -46,7 +47,7 @@ const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) =>
             onSearch={onSearch}
           />
           <Button variant="plain-secondary" className="px-4 !text-white" onPress={onClose}>
-            {t('close')}
+            {t('NavigationSearch.close')}
           </Button>
         </div>
         <AnimateHeight className="bg-white" isVisible>

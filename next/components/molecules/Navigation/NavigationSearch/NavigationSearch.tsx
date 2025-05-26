@@ -1,9 +1,10 @@
-import NavigationSearchDesktop from '@components/molecules/Navigation/NavigationSearch/NavigationSearchDesktop'
-import NavigationSearchMobile from '@components/molecules/Navigation/NavigationSearch/NavigationSearchMobile'
-import { useSearch } from '@utils/useSearch'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useCallback } from 'react'
+
+import NavigationSearchDesktop from '@/components/molecules/Navigation/NavigationSearch/NavigationSearchDesktop'
+import NavigationSearchMobile from '@/components/molecules/Navigation/NavigationSearch/NavigationSearchMobile'
+import { useSearch } from '@/utils/useSearch'
 
 type NavigationSearchProps = {
   onDesktopSearchOpen: () => void
@@ -11,24 +12,18 @@ type NavigationSearchProps = {
 }
 
 const NavigationSearch = ({ onDesktopSearchOpen, onDesktopSearchClose }: NavigationSearchProps) => {
-  const {
-    dataToDisplay,
-    emptySearchQuery,
-    searchQuery,
-    setSearchQuery,
-    loadingAndNoDataToDisplay,
-  } = useSearch({
+  const { data, emptySearchQuery, searchQuery, setSearchQuery, isPending } = useSearch({
     filters: { pageSize: 5, page: 1, selectedTypes: [] },
   })
 
   const router = useRouter()
 
-  const { t: pathsT } = useTranslation('common', { keyPrefix: 'paths' })
+  const { t } = useTranslation()
 
   const handleSearch = useCallback(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises,@typescript-eslint/restrict-template-expressions
-    router.push(`${pathsT('search')}?query=${searchQuery ?? ''}`)
-  }, [router, searchQuery, pathsT])
+    router.push(`${t('paths.search')}?query=${searchQuery ?? ''}`)
+  }, [router, searchQuery, t])
 
   return (
     <>
@@ -36,9 +31,9 @@ const NavigationSearch = ({ onDesktopSearchOpen, onDesktopSearchClose }: Navigat
         <NavigationSearchMobile
           searchQuery={searchQuery ?? ''}
           onSearchQueryChange={setSearchQuery}
-          data={dataToDisplay}
+          data={data}
           emptySearchQuery={emptySearchQuery}
-          isLoading={loadingAndNoDataToDisplay}
+          isLoading={isPending}
           onSearch={handleSearch}
         />
       </div>
@@ -47,9 +42,9 @@ const NavigationSearch = ({ onDesktopSearchOpen, onDesktopSearchClose }: Navigat
         <NavigationSearchDesktop
           searchQuery={searchQuery ?? ''}
           onSearchQueryChange={setSearchQuery}
-          data={dataToDisplay}
+          data={data}
           emptySearchQuery={emptySearchQuery}
-          isLoading={loadingAndNoDataToDisplay}
+          isLoading={isPending}
           onSearch={handleSearch}
           onOpen={onDesktopSearchOpen}
           onClose={onDesktopSearchClose}

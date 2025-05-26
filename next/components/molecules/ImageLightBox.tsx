@@ -1,11 +1,12 @@
-import { ArrowLeftIcon, ArrowRightIcon } from '@assets/icons'
-import IconButton from '@components/atoms/IconButton'
-import MImage from '@components/atoms/MImage'
-import Modal, { ModalProps } from '@components/atoms/Modal'
-import Slider from '@components/molecules/Slider'
-import { UploadImageEntityFragment } from '@graphql'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useRef } from 'react'
+
+import { ArrowLeftIcon, ArrowRightIcon } from '@/assets/icons'
+import IconButton from '@/components/atoms/IconButton'
+import MImage from '@/components/atoms/MImage'
+import Modal, { ModalProps } from '@/components/atoms/Modal'
+import Slider from '@/components/molecules/Slider'
+import { UploadImageEntityFragment } from '@/graphql'
 
 export type ImageLightBoxProps = {
   images: UploadImageEntityFragment[]
@@ -17,7 +18,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
 
   const { isOpen } = rest
 
-  const { t } = useTranslation('common', { keyPrefix: 'ImageLightBox' })
+  const { t } = useTranslation()
 
   const sliderRef = useRef<HTMLDivElement | null>(null)
 
@@ -31,7 +32,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
     <Modal overlayClassName="w-full h-screen pointer-events-none" {...rest}>
       <Slider
         ref={sliderRef}
-        description={t('aria.description')}
+        description={t('ImageLightBox.aria.description')}
         allowKeyboardNavigation={images.length > 1}
         initialPage={initialImageIndex}
         pages={images
@@ -39,7 +40,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
           .map(({ id, attributes }) => (
             <div
               key={id}
-              className="container pointer-events-none flex h-full w-full max-w-6xl flex-col items-center justify-center md:px-[88px]"
+              className="container pointer-events-none flex size-full max-w-6xl flex-col items-center justify-center md:px-[88px]"
             >
               <MImage
                 draggable="false"

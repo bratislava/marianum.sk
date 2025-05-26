@@ -49,6 +49,7 @@ fragment ArticleSlugEntity on ArticleEntity {
   __typename
   id
   attributes {
+    title
     slug
     newsCategory {
       data {
@@ -71,7 +72,6 @@ fragment ArticleSlugEntity on ArticleEntity {
 fragment ArticleCardEntity on ArticleEntity {
   ...ArticleSlugEntity
   attributes {
-    title
     perex
     publishedAt
     coverMedia {
@@ -86,7 +86,7 @@ fragment ArticleEntity on ArticleEntity {
   ...ArticleCardEntity
   attributes {
     content
-    mediaGallery {
+    mediaGallery(pagination: { limit: -1 }) {
       data {
         ...UploadImageEntity
       }
@@ -101,6 +101,7 @@ fragment BranchSlugEntity on BranchEntity {
   __typename
   id
   attributes {
+    title
     slug
     locale
   }
@@ -120,7 +121,6 @@ fragment BranchOfficeEntity on BranchEntity {
 fragment BranchCardEntity on BranchEntity {
   ...BranchSlugEntity
   attributes {
-    title
     address
     offices {
       data {
@@ -139,7 +139,7 @@ fragment BranchEntity on BranchEntity {
         ...ContactEntity
       }
     }
-    medias {
+    medias(pagination: { limit: -1 }) {
       data {
         ...UploadImageEntity
       }
@@ -157,6 +157,7 @@ fragment CemeterySlugEntity on CemeteryEntity {
   __typename
   id
   attributes {
+    title
     slug
     type
     locale
@@ -166,7 +167,6 @@ fragment CemeterySlugEntity on CemeteryEntity {
 fragment CemeteryCardEntity on CemeteryEntity {
   ...CemeterySlugEntity
   attributes {
-    title
     address
     overrideOpeningHours {
       ...OpeningHours
@@ -184,7 +184,7 @@ fragment CemeteryEntity on CemeteryEntity {
         ...ContactEntity
       }
     }
-    medias {
+    medias(pagination: { limit: -1 }) {
       data {
         ...UploadImageEntity
       }
@@ -194,6 +194,15 @@ fragment CemeteryEntity on CemeteryEntity {
     longitude
     seo {
       ...Seo
+    }
+    documents {
+      ...DocumentGroup
+    }
+    gallery {
+      ...GallerySection
+    }
+    video {
+      ...IframeSection
     }
   }
 }
@@ -214,28 +223,22 @@ fragment CemeteryInCeremoniesDebtorsEntity on CemeteryEntity {
   }
 }
 
-fragment CemeteryInApplicationEntity on CemeteryEntity {
+fragment BundleSlugEntity on BundleEntity {
   __typename
   id
   attributes {
-    slug
     title
-    address
-    ziadostHroboveMiesto
-    ziadostUrnoveMiestoVZemi
-    ziadostUrnovaStena
+    slug
+    type
+    locale
   }
 }
 
 fragment BundleCardEntity on BundleEntity {
-  __typename
-  id
+  ...BundleSlugEntity
   attributes {
-    title
-    slug
     perex
     price
-    type
     discountTextShort
     discountText
     coverMedia {
@@ -274,16 +277,6 @@ fragment BundleEntity on BundleEntity {
   }
 }
 
-fragment BundleSlugEntity on BundleEntity {
-  __typename
-  id
-  attributes {
-    slug
-    type
-    locale
-  }
-}
-
 fragment ContactEntity on ContactEntity {
   id
   attributes {
@@ -307,6 +300,7 @@ fragment DocumentSlugEntity on DocumentEntity {
   __typename
   id
   attributes {
+    title
     slug
     documentCategory {
       data {
@@ -319,7 +313,6 @@ fragment DocumentSlugEntity on DocumentEntity {
 fragment DocumentCardEntity on DocumentEntity {
   ...DocumentSlugEntity
   attributes {
-    title
     publishedAt
     file {
       data {
@@ -399,18 +392,17 @@ fragment PartnerEntity on PartnerEntity {
 
 fragment PageSlugEntity on PageEntity {
   __typename
+  id
   attributes {
+    title
     slug
     locale
   }
 }
 
 fragment PageCardEntity on PageEntity {
-  __typename
-  id
+  ...PageSlugEntity
   attributes {
-    title
-    slug
     publishedAt
     perex
     coverMedia {
@@ -466,17 +458,7 @@ fragment PageEntity on PageEntity {
       }
       ... on ComponentSectionsGallery {
         __typename
-        id
-        title
-        medias(pagination: { limit: -1 }) {
-          data {
-            ...UploadImageEntity
-          }
-        }
-      }
-      ... on ComponentSectionsPartnersSection {
-        __typename
-        ...PartnersSection
+        ...GallerySection
       }
       ... on ComponentSectionsMenuListing {
         __typename
@@ -494,6 +476,10 @@ fragment PageEntity on PageEntity {
         __typename
         ...MapSection
       }
+      ... on ComponentSectionsMapOfManagedObjects {
+        __typename
+        ...MapOfManagedObjectsSection
+      }
       ... on ComponentSectionsOpeningHoursSection {
         __typename
         ...OpeningHoursSection
@@ -501,10 +487,6 @@ fragment PageEntity on PageEntity {
       ... on ComponentSectionsCemeteriesOpeningHours {
         __typename
         ...CemeteriesOpeningHours
-      }
-      ... on ComponentSectionsPublicDisclosureSection {
-        __typename
-        id
       }
       ... on ComponentSectionsRichtext {
         __typename
@@ -637,16 +619,37 @@ fragment HomepageCeremonyEntity on CeremonyEntity {
   }
 }
 
-fragment ApplicationText on ApplicationText {
-  spracovanieOsobnychUdajov
-  spracovanieOsobnychUdajovMarketing
-  typZiadostiPridelenieTooltip
-  typZiadostiRezervaciaTooltip
-  uviestHroboveCisloAnoTooltip
-  uviestHroboveCisloNieTooltip
-  osobnaPritomnostDescription
-  druhHroboveMiestoTooltip
-  druhUrnoveMiestoTooltip
-  druhUrnoveMiestoVZemiTooltip
-  druhUrnovaStenaTooltip
+fragment ManagedObjectSlugEntity on ManagedObjectEntity {
+  __typename
+  id
+  attributes {
+    slug
+    title
+    type
+    locale
+  }
+}
+
+fragment ManagedObjectEntity on ManagedObjectEntity {
+  ...ManagedObjectSlugEntity
+  attributes {
+    description
+    address
+    navigateToLink
+    latitude
+    longitude
+    medias(pagination: { limit: -1 }) {
+      data {
+        ...UploadImageEntity
+      }
+    }
+    contact {
+      data {
+        ...ContactEntity
+      }
+    }
+    seo {
+      ...Seo
+    }
+  }
 }

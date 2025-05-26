@@ -1,7 +1,8 @@
-import { MailIcon, PhoneIcon } from '@assets/icons'
-import Button from '@components/atoms/Button'
-import { getPhoneNumberLink } from '@utils/getPhoneNumberLink'
 import { useTranslation } from 'next-i18next'
+
+import { MailIcon, PhoneIcon } from '@/assets/icons'
+import Button from '@/components/atoms/Button'
+import { getPhoneNumberLink } from '@/utils/getPhoneNumberLink'
 
 type SideBarContactProps = {
   title: string | null | undefined
@@ -11,7 +12,7 @@ type SideBarContactProps = {
 }
 
 const SideBarContact = ({ title, phone1, phone2, email }: SideBarContactProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'SideBarContact' })
+  const { t } = useTranslation()
 
   if (!title && !phone1 && !phone2 && !email) {
     return <aside className="lg:w-[360px]" />
@@ -19,7 +20,7 @@ const SideBarContact = ({ title, phone1, phone2, email }: SideBarContactProps) =
 
   return (
     <aside className="flex h-fit flex-col bg-white p-6 lg:w-[360px]">
-      <h5>{t('contacts')}</h5>
+      <h5>{t('SideBarContact.contacts')}</h5>
       {title && <p className="mt-6 whitespace-pre-wrap">{title}</p>}
       {phone1 && (
         <Button
@@ -47,7 +48,7 @@ const SideBarContact = ({ title, phone1, phone2, email }: SideBarContactProps) =
             {email}
           </Button>
           <Button href={`mailto:${email.replaceAll(' ', '')}`} variant="primary" className="mt-6">
-            {t('writeMessage')}
+            {t('SideBarContact.writeMessage')}
           </Button>
         </>
       )}

@@ -16,19 +16,11 @@
     "incremental": true,
     "baseUrl": "./",
     "paths": {
-      "@utils": ["./utils"],
-      "@utils/*": ["./utils/*"],
-      "@assets": ["./assets"],
-      "@assets/icons": ["./assets/icons"],
-      "@services": ["./services"],
-      "@services/*": ["./services/*"],
-      "@components/*": ["./components/*"],
-      "@graphql": ["./graphql/index.ts"],
+      "@/*": ["./*"]
     }
   },
   "include": [
     "next-env.d.ts",
-    "react-i18next.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "next-i18next.config.js"

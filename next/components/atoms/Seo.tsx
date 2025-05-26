@@ -1,10 +1,11 @@
+import Head from 'next/head'
+import { useTranslation } from 'next-i18next'
+
 import {
   UnionSlugEntityType,
   useGetFullPath,
-} from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { SeoFragment, UploadImageEntityFragment } from '@graphql'
-import Head from 'next/head'
-import { useTranslation } from 'next-i18next'
+} from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { SeoFragment, UploadImageEntityFragment } from '@/graphql'
 
 interface SeoProps {
   title: string | undefined | null
@@ -25,7 +26,7 @@ const Seo = ({
   entity,
   homepage = false,
 }: SeoProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'Seo' })
+  const { t } = useTranslation()
 
   const { getFullPath } = useGetFullPath()
 
@@ -33,8 +34,8 @@ const Seo = ({
   const fullPathWithDomain = homepage
     ? `https://marianum.sk/`
     : fullPath
-    ? `https://marianum.sk${fullPath}`
-    : null
+      ? `https://marianum.sk${fullPath}`
+      : null
 
   return (
     <Head>
@@ -59,7 +60,7 @@ const Seo = ({
       {/* Comments from: https://css-tricks.com/essential-meta-tags-social-media/ */}
       {/* Non-Essential, But Recommended */}
       <meta property="og:description" content={seo?.metaDescription || description || ''} />
-      <meta property="og:site_name" content={t('siteName')} />
+      <meta property="og:site_name" content={t('Seo.siteName')} />
       <meta name="twitter:image:alt" content={image?.attributes?.alternativeText ?? ''} />
 
       {/* Non-Essential, But Required for Analytics */}

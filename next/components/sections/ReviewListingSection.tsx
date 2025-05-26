@@ -1,40 +1,53 @@
-import { AnimateHeight } from '@components/atoms/AnimateHeight'
-import Pagination from '@components/atoms/Pagination/Pagination'
-import Review from '@components/molecules/Review'
-import Section from '@components/molecules/Section'
-import { ReviewEntityFragment } from '@graphql'
-import { isDefined } from '@utils/isDefined'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import cx from 'classnames'
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
+
+import { AnimateHeight } from '@/components/atoms/AnimateHeight'
+import Loading from '@/components/atoms/Loading'
+import Pagination from '@/components/atoms/Pagination/Pagination'
+import Review from '@/components/molecules/Review'
+import Section from '@/components/molecules/Section'
+import {
+  getGraphqlReviewsQueryKey,
+  graphqlReviewsFetcher,
+} from '@/services/fetchers/reviewsFetcher'
+import { isDefined } from '@/utils/isDefined'
 
 const REVIEWS_PER_PAGE = 10
 
-type ReviewListingProps = {
-  reviews: ReviewEntityFragment[] | null
-}
+const ReviewListingSection = () => {
+  const { t, i18n } = useTranslation()
+  const locale = i18n.language
 
-const ReviewListingSection = ({ reviews }: ReviewListingProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'ReviewListingSection' })
-
-  const filteredReviews = useMemo(() => {
-    return reviews?.filter(isDefined).filter((review) => review.attributes) ?? []
-  }, [reviews])
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: getGraphqlReviewsQueryKey(locale),
+    queryFn: () => graphqlReviewsFetcher(locale),
+    placeholderData: keepPreviousData,
+  })
 
   const [currentPage, setCurrentPage] = useState(1)
 
-  const pageCount = useMemo(() => {
-    return Math.ceil((filteredReviews.length ?? 0) / REVIEWS_PER_PAGE)
-  }, [filteredReviews])
+  if (isPending) {
+    return <Loading />
+  }
+
+  // TODO replace by proper error
+  if (isError) {
+    return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
+  }
+
+  const filteredReviews =
+    data.reviews?.data.filter(isDefined).filter((review) => review.attributes) ?? []
+
+  const pageCount = Math.ceil((filteredReviews.length ?? 0) / REVIEWS_PER_PAGE)
 
   // Currently visible reviews based on current page
-  const visibleReviews = useMemo(() => {
-    return filteredReviews.slice(
-      (currentPage - 1) * REVIEWS_PER_PAGE,
-      currentPage * REVIEWS_PER_PAGE,
-    )
-  }, [currentPage, filteredReviews])
+  const visibleReviews = filteredReviews.slice(
+    (currentPage - 1) * REVIEWS_PER_PAGE,
+    currentPage * REVIEWS_PER_PAGE,
+  )
 
   return (
     <Section>
@@ -60,7 +73,7 @@ const ReviewListingSection = ({ reviews }: ReviewListingProps) => {
                   </motion.div>
                 </AnimatePresence>
               ))}
-              {visibleReviews.length === 0 ? t('noReviews') : null}
+              {visibleReviews.length === 0 ? t('ReviewListingSection.noReviews') : null}
             </LayoutGroup>
           </div>
         </AnimateHeight>

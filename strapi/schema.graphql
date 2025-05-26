@@ -2,113 +2,6 @@
 ### Do not make changes to this file directly
 
 
-type Application {
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-type ApplicationEntity {
-  attributes: Application
-  id: ID
-}
-
-type ApplicationEntityResponse {
-  data: ApplicationEntity
-}
-
-type ApplicationEntityResponseCollection {
-  data: [ApplicationEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input ApplicationFiltersInput {
-  and: [ApplicationFiltersInput]
-  createdAt: DateTimeFilterInput
-  data: JSONFilterInput
-  id: IDFilterInput
-  not: ApplicationFiltersInput
-  or: [ApplicationFiltersInput]
-  updatedAt: DateTimeFilterInput
-}
-
-input ApplicationInput {
-  data: JSON
-}
-
-type ApplicationRelationResponseCollection {
-  data: [ApplicationEntity!]!
-}
-
-type ApplicationText {
-  createdAt: DateTime
-  druhHroboveMiestoTooltip: String
-  druhUrnovaStenaTooltip: String
-  druhUrnoveMiestoTooltip: String
-  druhUrnoveMiestoVZemiTooltip: String
-  osobnaPritomnostDescription: String
-  spracovanieOsobnychUdajov: String
-  spracovanieOsobnychUdajovMarketing: String
-  typZiadostiPridelenieTooltip: String
-  typZiadostiRezervaciaTooltip: String
-  updatedAt: DateTime
-  uviestHroboveCisloAnoTooltip: String
-  uviestHroboveCisloNieTooltip: String
-  zavaznostOdoslanejZiadosti: String
-}
-
-type ApplicationTextEntity {
-  attributes: ApplicationText
-  id: ID
-}
-
-type ApplicationTextEntityResponse {
-  data: ApplicationTextEntity
-}
-
-type ApplicationTextEntityResponseCollection {
-  data: [ApplicationTextEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input ApplicationTextFiltersInput {
-  and: [ApplicationTextFiltersInput]
-  createdAt: DateTimeFilterInput
-  druhHroboveMiestoTooltip: StringFilterInput
-  druhUrnovaStenaTooltip: StringFilterInput
-  druhUrnoveMiestoTooltip: StringFilterInput
-  druhUrnoveMiestoVZemiTooltip: StringFilterInput
-  not: ApplicationTextFiltersInput
-  or: [ApplicationTextFiltersInput]
-  osobnaPritomnostDescription: StringFilterInput
-  spracovanieOsobnychUdajov: StringFilterInput
-  spracovanieOsobnychUdajovMarketing: StringFilterInput
-  typZiadostiPridelenieTooltip: StringFilterInput
-  typZiadostiRezervaciaTooltip: StringFilterInput
-  updatedAt: DateTimeFilterInput
-  uviestHroboveCisloAnoTooltip: StringFilterInput
-  uviestHroboveCisloNieTooltip: StringFilterInput
-  zavaznostOdoslanejZiadosti: StringFilterInput
-}
-
-input ApplicationTextInput {
-  druhHroboveMiestoTooltip: String
-  druhUrnovaStenaTooltip: String
-  druhUrnoveMiestoTooltip: String
-  druhUrnoveMiestoVZemiTooltip: String
-  osobnaPritomnostDescription: String
-  spracovanieOsobnychUdajov: String
-  spracovanieOsobnychUdajovMarketing: String
-  typZiadostiPridelenieTooltip: String
-  typZiadostiRezervaciaTooltip: String
-  uviestHroboveCisloAnoTooltip: String
-  uviestHroboveCisloNieTooltip: String
-  zavaznostOdoslanejZiadosti: String
-}
-
-type ApplicationTextRelationResponseCollection {
-  data: [ApplicationTextEntity!]!
-}
-
 type Article {
   content: String
   coverMedia: UploadFileEntityResponse
@@ -325,6 +218,7 @@ input BooleanFilterInput {
   lt: Boolean
   lte: Boolean
   ne: Boolean
+  nei: Boolean
   not: BooleanFilterInput
   notContains: Boolean
   notContainsi: Boolean
@@ -499,6 +393,8 @@ type Cemetery {
   contact: ContactEntityResponse
   createdAt: DateTime
   description: String
+  documents: ComponentSectionsDocumentGroup
+  gallery: ComponentSectionsGallery
   latitude: Float
   locale: String
   localizations(filters: CemeteryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): CemeteryRelationResponseCollection
@@ -511,9 +407,7 @@ type Cemetery {
   title: String!
   type: ENUM_CEMETERY_TYPE
   updatedAt: DateTime
-  ziadostHroboveMiesto: Boolean!
-  ziadostUrnovaStena: Boolean!
-  ziadostUrnoveMiestoVZemi: Boolean!
+  video: ComponentSectionsIframeSection
 }
 
 type CemeteryEntity {
@@ -538,6 +432,8 @@ input CemeteryFiltersInput {
   contact: ContactFiltersInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
+  documents: ComponentSectionsDocumentGroupFiltersInput
+  gallery: ComponentSectionsGalleryFiltersInput
   id: IDFilterInput
   latitude: FloatFilterInput
   locale: StringFilterInput
@@ -552,9 +448,7 @@ input CemeteryFiltersInput {
   title: StringFilterInput
   type: StringFilterInput
   updatedAt: DateTimeFilterInput
-  ziadostHroboveMiesto: BooleanFilterInput
-  ziadostUrnovaStena: BooleanFilterInput
-  ziadostUrnoveMiestoVZemi: BooleanFilterInput
+  video: ComponentSectionsIframeSectionFiltersInput
 }
 
 input CemeteryInput {
@@ -563,6 +457,8 @@ input CemeteryInput {
   allowInDebtors: Boolean
   contact: ID
   description: String
+  documents: ComponentSectionsDocumentGroupInput
+  gallery: ComponentSectionsGalleryInput
   latitude: Float
   longitude: Float
   medias: [ID]
@@ -572,9 +468,7 @@ input CemeteryInput {
   slug: String
   title: String
   type: ENUM_CEMETERY_TYPE
-  ziadostHroboveMiesto: Boolean
-  ziadostUrnovaStena: Boolean
-  ziadostUrnoveMiestoVZemi: Boolean
+  video: ComponentSectionsIframeSectionInput
 }
 
 type CemeteryRelationResponseCollection {
@@ -794,23 +688,44 @@ input ComponentBlocksBundleItemInput {
 }
 
 type ComponentBlocksButtonLink {
+  article: ArticleEntityResponse
+  branch: BranchEntityResponse
+  bundle: BundleEntityResponse
+  cemetery: CemeteryEntityResponse
+  document: DocumentEntityResponse
   id: ID!
   label: String!
+  managedObject: ManagedObjectEntityResponse
   page: PageEntityResponse
+  url: String
 }
 
 input ComponentBlocksButtonLinkFiltersInput {
   and: [ComponentBlocksButtonLinkFiltersInput]
+  article: ArticleFiltersInput
+  branch: BranchFiltersInput
+  bundle: BundleFiltersInput
+  cemetery: CemeteryFiltersInput
+  document: DocumentFiltersInput
   label: StringFilterInput
+  managedObject: ManagedObjectFiltersInput
   not: ComponentBlocksButtonLinkFiltersInput
   or: [ComponentBlocksButtonLinkFiltersInput]
   page: PageFiltersInput
+  url: StringFilterInput
 }
 
 input ComponentBlocksButtonLinkInput {
+  article: ID
+  branch: ID
+  bundle: ID
+  cemetery: ID
+  document: ID
   id: ID
   label: String
+  managedObject: ID
   page: ID
+  url: String
 }
 
 type ComponentBlocksContactItem {
@@ -1681,6 +1596,23 @@ input ComponentSectionsManualListingInput {
   title: String
 }
 
+type ComponentSectionsMapOfManagedObjects {
+  id: ID!
+  title: String
+}
+
+input ComponentSectionsMapOfManagedObjectsFiltersInput {
+  and: [ComponentSectionsMapOfManagedObjectsFiltersInput]
+  not: ComponentSectionsMapOfManagedObjectsFiltersInput
+  or: [ComponentSectionsMapOfManagedObjectsFiltersInput]
+  title: StringFilterInput
+}
+
+input ComponentSectionsMapOfManagedObjectsInput {
+  id: ID
+  title: String
+}
+
 type ComponentSectionsMapSection {
   id: ID!
   title: String
@@ -1758,26 +1690,6 @@ input ComponentSectionsOpeningHoursSectionInput {
   title: String
 }
 
-type ComponentSectionsPartnersSection {
-  featuredPartnersTitle: String!
-  id: ID!
-  otherPartnersTitle: String!
-}
-
-input ComponentSectionsPartnersSectionFiltersInput {
-  and: [ComponentSectionsPartnersSectionFiltersInput]
-  featuredPartnersTitle: StringFilterInput
-  not: ComponentSectionsPartnersSectionFiltersInput
-  or: [ComponentSectionsPartnersSectionFiltersInput]
-  otherPartnersTitle: StringFilterInput
-}
-
-input ComponentSectionsPartnersSectionInput {
-  featuredPartnersTitle: String
-  id: ID
-  otherPartnersTitle: String
-}
-
 type ComponentSectionsProceduresSection {
   id: ID!
   title: String
@@ -1813,20 +1725,6 @@ input ComponentSectionsProceduresShortSectionInput {
   id: ID
   showMoreButton: ComponentBlocksButtonLinkInput
   title: String
-}
-
-type ComponentSectionsPublicDisclosureSection {
-  id: ID!
-}
-
-input ComponentSectionsPublicDisclosureSectionFiltersInput {
-  and: [ComponentSectionsPublicDisclosureSectionFiltersInput]
-  not: ComponentSectionsPublicDisclosureSectionFiltersInput
-  or: [ComponentSectionsPublicDisclosureSectionFiltersInput]
-}
-
-input ComponentSectionsPublicDisclosureSectionInput {
-  id: ID
 }
 
 type ComponentSectionsReviewListing {
@@ -2000,6 +1898,7 @@ input DateFilterInput {
   lt: Date
   lte: Date
   ne: Date
+  nei: Date
   not: DateFilterInput
   notContains: Date
   notContainsi: Date
@@ -2029,6 +1928,7 @@ input DateTimeFilterInput {
   lt: DateTime
   lte: DateTime
   ne: DateTime
+  nei: DateTime
   not: DateTimeFilterInput
   notContains: DateTime
   notContainsi: DateTime
@@ -2332,6 +2232,14 @@ enum ENUM_DISCLOSURE_TYPE {
   Zmluva
 }
 
+enum ENUM_MANAGEDOBJECT_TYPE {
+  fontana
+  hmlova_fontana
+  pitna_fontana
+  rozprasovac
+  studna
+}
+
 enum ENUM_PAGE_LAYOUT {
   centered
   fullwidth
@@ -2363,6 +2271,7 @@ input FloatFilterInput {
   lt: Float
   lte: Float
   ne: Float
+  nei: Float
   not: FloatFilterInput
   notContains: Float
   notContainsi: Float
@@ -2426,7 +2335,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = Application | ApplicationText | Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2536,6 +2445,7 @@ input IDFilterInput {
   lt: ID
   lte: ID
   ne: ID
+  nei: ID
   not: IDFilterInput
   notContains: ID
   notContainsi: ID
@@ -2560,6 +2470,7 @@ input IntFilterInput {
   lt: Int
   lte: Int
   ne: Int
+  nei: Int
   not: IntFilterInput
   notContains: Int
   notContainsi: Int
@@ -2589,6 +2500,7 @@ input JSONFilterInput {
   lt: JSON
   lte: JSON
   ne: JSON
+  nei: JSON
   not: JSONFilterInput
   notContains: JSON
   notContainsi: JSON
@@ -2618,6 +2530,7 @@ input LongFilterInput {
   lt: Long
   lte: Long
   ne: Long
+  nei: Long
   not: LongFilterInput
   notContains: Long
   notContainsi: Long
@@ -2628,11 +2541,80 @@ input LongFilterInput {
   startsWith: Long
 }
 
+type ManagedObject {
+  address: String
+  contact: ContactEntityResponse
+  createdAt: DateTime
+  description: String
+  latitude: Float
+  locale: String
+  localizations(filters: ManagedObjectFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ManagedObjectRelationResponseCollection
+  longitude: Float
+  medias(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
+  navigateToLink: String
+  seo: ComponentGeneralSeo
+  slug: String!
+  title: String!
+  type: ENUM_MANAGEDOBJECT_TYPE
+  updatedAt: DateTime
+}
+
+type ManagedObjectEntity {
+  attributes: ManagedObject
+  id: ID
+}
+
+type ManagedObjectEntityResponse {
+  data: ManagedObjectEntity
+}
+
+type ManagedObjectEntityResponseCollection {
+  data: [ManagedObjectEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input ManagedObjectFiltersInput {
+  address: StringFilterInput
+  and: [ManagedObjectFiltersInput]
+  contact: ContactFiltersInput
+  createdAt: DateTimeFilterInput
+  description: StringFilterInput
+  id: IDFilterInput
+  latitude: FloatFilterInput
+  locale: StringFilterInput
+  localizations: ManagedObjectFiltersInput
+  longitude: FloatFilterInput
+  navigateToLink: StringFilterInput
+  not: ManagedObjectFiltersInput
+  or: [ManagedObjectFiltersInput]
+  seo: ComponentGeneralSeoFiltersInput
+  slug: StringFilterInput
+  title: StringFilterInput
+  type: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input ManagedObjectInput {
+  address: String
+  contact: ID
+  description: String
+  latitude: Float
+  longitude: Float
+  medias: [ID]
+  navigateToLink: String
+  seo: ComponentGeneralSeoInput
+  slug: String
+  title: String
+  type: ENUM_MANAGEDOBJECT_TYPE
+}
+
+type ManagedObjectRelationResponseCollection {
+  data: [ManagedObjectEntity!]!
+}
+
 type Mutation {
   """Change user password. Confirm with the current password."""
   changePassword(currentPassword: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
-  createApplication(data: ApplicationInput!): ApplicationEntityResponse
-  createApplicationCustom(captchaToken: String!, data: JSON!): String
   createArticle(data: ArticleInput!, locale: I18NLocaleCode): ArticleEntityResponse
   createArticleJobsCategory(data: ArticleJobsCategoryInput!): ArticleJobsCategoryEntityResponse
   createArticleLocalization(data: ArticleInput, id: ID, locale: I18NLocaleCode): ArticleEntityResponse
@@ -2653,6 +2635,8 @@ type Mutation {
   createDocumentCategory(data: DocumentCategoryInput!): DocumentCategoryEntityResponse
   createGeneralLocalization(data: GeneralInput, id: ID, locale: I18NLocaleCode): GeneralEntityResponse
   createHomePageLocalization(data: HomePageInput, id: ID, locale: I18NLocaleCode): HomePageEntityResponse
+  createManagedObject(data: ManagedObjectInput!, locale: I18NLocaleCode): ManagedObjectEntityResponse
+  createManagedObjectLocalization(data: ManagedObjectInput, id: ID, locale: I18NLocaleCode): ManagedObjectEntityResponse
   createOffice(data: OfficeInput!, locale: I18NLocaleCode): OfficeEntityResponse
   createOfficeLocalization(data: OfficeInput, id: ID, locale: I18NLocaleCode): OfficeEntityResponse
   createPage(data: PageInput!, locale: I18NLocaleCode): PageEntityResponse
@@ -2669,8 +2653,6 @@ type Mutation {
 
   """Create a new user"""
   createUsersPermissionsUser(data: UsersPermissionsUserInput!): UsersPermissionsUserEntityResponse!
-  deleteApplication(id: ID!): ApplicationEntityResponse
-  deleteApplicationText: ApplicationTextEntityResponse
   deleteArticle(id: ID!, locale: I18NLocaleCode): ArticleEntityResponse
   deleteArticleJobsCategory(id: ID!): ArticleJobsCategoryEntityResponse
   deleteArticleNewsCategory(id: ID!): ArticleNewsCategoryEntityResponse
@@ -2686,6 +2668,7 @@ type Mutation {
   deleteDocumentCategory(id: ID!): DocumentCategoryEntityResponse
   deleteGeneral(locale: I18NLocaleCode): GeneralEntityResponse
   deleteHomePage(locale: I18NLocaleCode): HomePageEntityResponse
+  deleteManagedObject(id: ID!, locale: I18NLocaleCode): ManagedObjectEntityResponse
   deleteOffice(id: ID!, locale: I18NLocaleCode): OfficeEntityResponse
   deletePage(id: ID!, locale: I18NLocaleCode): PageEntityResponse
   deletePartner(id: ID!): PartnerEntityResponse
@@ -2716,8 +2699,6 @@ type Mutation {
   Reset user password. Confirm with a code (resetToken from forgotPassword)
   """
   resetPassword(code: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
-  updateApplication(data: ApplicationInput!, id: ID!): ApplicationEntityResponse
-  updateApplicationText(data: ApplicationTextInput!): ApplicationTextEntityResponse
   updateArticle(data: ArticleInput!, id: ID!, locale: I18NLocaleCode): ArticleEntityResponse
   updateArticleJobsCategory(data: ArticleJobsCategoryInput!, id: ID!): ArticleJobsCategoryEntityResponse
   updateArticleNewsCategory(data: ArticleNewsCategoryInput!, id: ID!): ArticleNewsCategoryEntityResponse
@@ -2734,6 +2715,7 @@ type Mutation {
   updateFileInfo(id: ID!, info: FileInfoInput): UploadFileEntityResponse!
   updateGeneral(data: GeneralInput!, locale: I18NLocaleCode): GeneralEntityResponse
   updateHomePage(data: HomePageInput!, locale: I18NLocaleCode): HomePageEntityResponse
+  updateManagedObject(data: ManagedObjectInput!, id: ID!, locale: I18NLocaleCode): ManagedObjectEntityResponse
   updateOffice(data: OfficeInput!, id: ID!, locale: I18NLocaleCode): OfficeEntityResponse
   updatePage(data: PageInput!, id: ID!, locale: I18NLocaleCode): PageEntityResponse
   updatePartner(data: PartnerInput!, id: ID!): PartnerEntityResponse
@@ -2929,7 +2911,7 @@ type PageRelationResponseCollection {
   data: [PageEntity!]!
 }
 
-union PageSectionsDynamicZone = ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsPartnersSection | ComponentSectionsProceduresSection | ComponentSectionsPublicDisclosureSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | Error
+union PageSectionsDynamicZone = ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | Error
 
 scalar PageSectionsDynamicZoneInput
 
@@ -3046,9 +3028,6 @@ enum PublicationState {
 }
 
 type Query {
-  application(id: ID): ApplicationEntityResponse
-  applicationText: ApplicationTextEntityResponse
-  applications(filters: ApplicationFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ApplicationEntityResponseCollection
   article(id: ID, locale: I18NLocaleCode): ArticleEntityResponse
   articleJobsCategories(filters: ArticleJobsCategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ArticleJobsCategoryEntityResponseCollection
   articleJobsCategory(id: ID): ArticleJobsCategoryEntityResponse
@@ -3080,6 +3059,8 @@ type Query {
   homePage(locale: I18NLocaleCode): HomePageEntityResponse
   i18NLocale(id: ID): I18NLocaleEntityResponse
   i18NLocales(filters: I18NLocaleFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): I18NLocaleEntityResponseCollection
+  managedObject(id: ID, locale: I18NLocaleCode): ManagedObjectEntityResponse
+  managedObjects(filters: ManagedObjectFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, sort: [String] = []): ManagedObjectEntityResponseCollection
   me: UsersPermissionsMe
   office(id: ID, locale: I18NLocaleCode): OfficeEntityResponse
   offices(filters: OfficeFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, sort: [String] = []): OfficeEntityResponseCollection
@@ -3171,6 +3152,7 @@ input StringFilterInput {
   lt: String
   lte: String
   ne: String
+  nei: String
   not: StringFilterInput
   notContains: String
   notContainsi: String
@@ -3198,6 +3180,7 @@ input TimeFilterInput {
   lt: Time
   lte: Time
   ne: Time
+  nei: Time
   not: TimeFilterInput
   notContains: Time
   notContainsi: Time
@@ -3221,7 +3204,6 @@ type UploadFile {
   height: Int
   mime: String!
   name: String!
-  placeholder: String
   previewUrl: String
   provider: String!
   provider_metadata: JSON
@@ -3262,7 +3244,6 @@ input UploadFileFiltersInput {
   name: StringFilterInput
   not: UploadFileFiltersInput
   or: [UploadFileFiltersInput]
-  placeholder: StringFilterInput
   previewUrl: StringFilterInput
   provider: StringFilterInput
   provider_metadata: JSONFilterInput
@@ -3283,7 +3264,6 @@ input UploadFileInput {
   height: Int
   mime: String
   name: String
-  placeholder: String
   previewUrl: String
   provider: String
   provider_metadata: JSON

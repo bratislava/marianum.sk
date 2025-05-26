@@ -1,17 +1,3 @@
-import { AnimateHeight } from '@components/atoms/AnimateHeight'
-import TagToggle from '@components/atoms/TagToggle'
-import PageWrapper from '@components/layouts/PageWrapper'
-import SectionsWrapper from '@components/layouts/SectionsWrapper'
-import PaginationMeili from '@components/molecules/PaginationMeili'
-import Row from '@components/molecules/Row/Row'
-import RowSkeleton from '@components/molecules/Row/RowSkeleton'
-import Search from '@components/molecules/Search'
-import Section from '@components/molecules/Section'
-import { GeneralEntityFragment, NavigationItemFragment } from '@graphql'
-import { client } from '@services/graphql/gqlClient'
-import { isDefined } from '@utils/isDefined'
-import { useScrollToViewIfDataChange } from '@utils/useScrollToViewIfDataChange'
-import { allSearchTypes, SearchFilters, SearchType, useSearch } from '@utils/useSearch'
 import { motion } from 'framer-motion'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
@@ -19,8 +5,32 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useCallback, useRef, useState } from 'react'
 
+import { AnimateHeight } from '@/components/atoms/AnimateHeight'
+import TagToggle from '@/components/atoms/TagToggle'
+import PageWrapper from '@/components/layouts/PageWrapper'
+import SectionsWrapper from '@/components/layouts/SectionsWrapper'
+import PaginationMeili from '@/components/molecules/PaginationMeili'
+import Row from '@/components/molecules/Row/Row'
+import RowSkeleton from '@/components/molecules/Row/RowSkeleton'
+import Search from '@/components/molecules/Search'
+import Section from '@/components/molecules/Section'
+import { GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
+import { isDefined } from '@/utils/isDefined'
+import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
+import { allSearchTypes, SearchFilters, SearchType, useSearch } from '@/utils/useSearch'
+
 const SearchSection = () => {
-  const { t } = useTranslation('common', { keyPrefix: 'SearchPage' })
+  const { t } = useTranslation()
+
+  const translationMap = {
+    page: t('SearchPage.tags.page'),
+    article: t('SearchPage.tags.article'),
+    branch: t('SearchPage.tags.branch'),
+    bundle: t('SearchPage.tags.bundle'),
+    cemetery: t('SearchPage.tags.cemetery'),
+    document: t('SearchPage.tags.document'),
+  } satisfies Record<SearchType, string>
 
   const [filters, setFilters] = useState<SearchFilters>({
     pageSize: 10,
@@ -54,26 +64,22 @@ const SearchSection = () => {
     [filters],
   )
 
-  const {
-    searchQuery,
-    setSearchQuery,
-    dataToDisplay,
-    delayedLoading,
-    loadingAndNoDataToDisplay,
-    emptySearchQuery,
-  } = useSearch({ filters, isSyncedWithUrlQuery: true })
+  const { searchQuery, setSearchQuery, data, isPending, emptySearchQuery } = useSearch({
+    filters,
+    isSyncedWithUrlQuery: true,
+  })
 
   const handleChangePage = (page: number) => {
     setFilters({ ...filters, page })
   }
 
   const h1Ref = useRef<HTMLHeadingElement>(null)
-  useScrollToViewIfDataChange(dataToDisplay, filters, h1Ref)
+  useScrollToViewIfDataChange(data, filters, h1Ref)
 
   return (
     <Section>
       <div className="flex flex-col gap-3 md:gap-6">
-        <h1 ref={h1Ref}>{t('searchResults')}</h1>
+        <h1 ref={h1Ref}>{t('SearchPage.searchResults')}</h1>
         <div className="hidden md:block">
           <Search isLarge value={searchQuery ?? ''} onSearchQueryChange={setSearchQuery} />
         </div>
@@ -81,9 +87,9 @@ const SearchSection = () => {
           <Search value={searchQuery ?? ''} onSearchQueryChange={setSearchQuery} />
         </div>
         <div className="flex flex-col-reverse justify-between gap-3 md:flex-row md:items-center">
-          <div className="flex w-full items-center gap-3 overflow-auto pb-3 sm:pb-0">
+          <div className="-m-2 flex w-full items-center gap-3 overflow-auto p-2 pb-3 sm:pb-2 md:overflow-visible">
             <TagToggle isSelected={isNothingSelected} onChange={deselectAll}>
-              {t('allResults')}
+              {t('SearchPage.allResults')}
             </TagToggle>
             {allSearchTypes.map((type) => {
               return (
@@ -92,62 +98,61 @@ const SearchSection = () => {
                   onChange={changeTypeSelected(type)}
                   key={type}
                 >
-                  {t(`tags.${type}`)}
+                  {t(`SearchPage.tags.${type}`)}
                 </TagToggle>
               )
             })}
           </div>
-          {!loadingAndNoDataToDisplay && !emptySearchQuery && (
+          {!isPending && !emptySearchQuery ? (
             <div className="whitespace-nowrap">
-              {t('resultsFound', { count: dataToDisplay?.estimatedTotalHits ?? 0 })}
+              {t('SearchPage.resultsFound', { count: data?.estimatedTotalHits ?? 0 })}
             </div>
-          )}
+          ) : null}
         </div>
 
         {!emptySearchQuery && (
           <div className="flex flex-col gap-6">
             <AnimateHeight isVisible>
-              {delayedLoading || loadingAndNoDataToDisplay ? (
+              {isPending ? (
                 <div className="flex select-none flex-col gap-3">
                   {Array.from({ length: filters.pageSize }, (_item, index) => (
                     <RowSkeleton key={index} />
                   ))}
                 </div>
-              ) : dataToDisplay?.estimatedTotalHits === 0 ? (
+              ) : data?.estimatedTotalHits === 0 ? (
                 <motion.div
                   initial={{ y: 48 }}
                   animate={{ y: 0 }}
                   className="flex justify-center py-8 text-lg"
                 >
-                  {t('resultsFound', { count: 0 })}
+                  {t('SearchPage.resultsFound', { count: 0 })}
                 </motion.div>
               ) : (
                 <div className="flex flex-col gap-3">
-                  {dataToDisplay?.hits.map(({ title, link, type }, index) => (
+                  {data?.hits.map(({ title, link, type }, index) => (
                     <Row
                       // eslint-disable-next-line react/no-array-index-key
                       key={index}
                       title={title}
                       linkHref={link}
                       showUrl
-                      tags={[t(`tags.${type}`)]}
+                      tags={[translationMap[type]]}
                       border={false}
                     />
                   ))}
                 </div>
               )}
             </AnimateHeight>
-            {dataToDisplay?.estimatedTotalHits !== 0 && (
+            {data && data?.estimatedTotalHits !== 0 ? (
               <div className="flex justify-center">
                 <PaginationMeili
-                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                  data={dataToDisplay!}
+                  data={data}
                   selectedPage={filters.page}
                   pageSize={filters.pageSize}
                   onPageChange={handleChangePage}
                 />
               </div>
-            )}
+            ) : null}
           </div>
         )}
       </div>
@@ -161,12 +166,12 @@ type SearchPageProps = {
 }
 
 const SearchPage = ({ navigation, general }: SearchPageProps) => {
-  const { t } = useTranslation('common', { keyPrefix: 'SearchPage' })
+  const { t } = useTranslation()
 
   return (
     <>
       <Head>
-        <title>{`${t('pageTitle') as string} – Marianum`}</title>
+        <title>{`${t('SearchPage.pageTitle')} – Marianum`}</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <PageWrapper navigation={navigation} general={general}>
@@ -183,7 +188,7 @@ export const getStaticProps: GetStaticProps = async ({
 }): Promise<GetStaticPropsResult<SearchPageProps>> => {
   const [{ navigation, general }, translations] = await Promise.all([
     client.General({ locale }),
-    serverSideTranslations(locale, ['common']),
+    serverSideTranslations(locale),
   ])
 
   const filteredNavigation = navigation.filter(isDefined)

@@ -1,9 +1,10 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import MLink from '@components/atoms/MLink'
 import { LinkButtonProps } from '@react-types/button'
 import cx from 'classnames'
 import { forwardRef, ReactNode, Ref, RefObject } from 'react'
 import { AriaButtonProps, useButton } from 'react-aria'
+
+import MLink from '@/components/atoms/MLink'
 
 type ButtonBase = {
   startIcon?: ReactNode
@@ -70,7 +71,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
     )
 
     const style = cx(
-      'inline-flex items-center justify-center space-x-2 text-center align-middle text-btn font-bold focus:outline-none',
+      'base-focus-ring inline-flex items-center justify-center space-x-2 text-center align-middle text-btn font-bold',
       className,
       {
         'px-6 py-2':
@@ -97,16 +98,11 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
         'text-foreground': variant === 'plain-secondary',
 
         // bg and border color
-        'border border-primary bg-primary focus:border-primary-dark focus:bg-primary-light':
-          variant === 'primary',
-        'border border-primary focus:border-primary-light focus:text-primary-light':
-          variant === 'secondary',
-        'border border-border-alt focus:text-primary-light': variant === 'tertiary',
-        'border border-white bg-white focus:border-primary-dark focus:text-primary-light':
-          variant === 'white',
-        'focus:bg-primary/8 focus:text-primary-light': variant === 'plain-primary',
-        'focus:bg-foreground/8 focus:text-foreground': variant === 'plain-secondary',
-        // 'hover:bg-white/12 focus:bg-white/8': variant === 'plain-white',
+        'border border-primary bg-primary': variant === 'primary',
+        'border border-primary': variant === 'secondary',
+        'border border-border-alt': variant === 'tertiary',
+        'border border-white bg-white': variant === 'white',
+        // 'hover:bg-white/12': variant === 'plain-white',
 
         // hover
         'hover:border-primary-dark hover:bg-primary-dark': variant === 'primary' && !disabled,
@@ -127,6 +123,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
     if (rest.href) {
       /* react-aria adds role="button" which we don't want to use for <a>s */
       const buttonPropsFixed = { ...buttonProps, role: undefined }
+
       return (
         <MLink
           ref={ref as RefObject<HTMLAnchorElement>}

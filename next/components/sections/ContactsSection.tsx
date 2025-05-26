@@ -1,10 +1,11 @@
-import { sectionContext } from '@components/layouts/SectionsWrapper'
-import Contact from '@components/molecules/Contact'
-import Section, { SectionProps } from '@components/molecules/Section'
-import { ContactGroupFragment } from '@graphql'
-import { isDefined } from '@utils/isDefined'
 import cx from 'classnames'
 import { useContext, useMemo } from 'react'
+
+import { sectionContext } from '@/components/layouts/SectionsWrapper'
+import Contact from '@/components/molecules/Contact'
+import Section, { SectionProps } from '@/components/molecules/Section'
+import { ContactGroupFragment } from '@/graphql'
+import { isDefined } from '@/utils/isDefined'
 
 const ContactsSection = ({
   contacts,
@@ -43,12 +44,10 @@ const ContactsSection = ({
               className={cx('bg-white p-6', {
                 'border border-border': border,
               })}
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
             >
-              <Contact
-                // eslint-disable-next-line react/no-array-index-key
-                key={index}
-                contact={contact}
-              />
+              <Contact contact={contact} />
             </div>
           ))}
         </div>

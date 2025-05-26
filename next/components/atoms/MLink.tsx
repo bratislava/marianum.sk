@@ -1,8 +1,9 @@
-import { ArrowRightIcon } from '@assets/icons'
 import cx from 'classnames'
 import NextLink from 'next/link'
 import { ComponentProps, forwardRef, ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
+
+import { ArrowRightIcon } from '@/assets/icons'
 
 export type LinkProps = Omit<ComponentProps<typeof NextLink>, 'as' | 'passHref'> & {
   children: ReactNode
@@ -40,8 +41,10 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
             'text-white hover:opacity-64': variant === 'white',
             'font-semibold text-primary underline hover:text-primary-dark': variant === 'regular',
           }),
+      'base-focus-ring',
       className,
     )
+
     return (
       <NextLink
         href={href ?? ''}

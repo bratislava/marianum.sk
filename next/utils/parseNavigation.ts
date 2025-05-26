@@ -1,5 +1,5 @@
-import { NavigationItemFragment } from '@graphql'
-import { isDefined } from '@utils/isDefined'
+import { NavigationItemFragment } from '@/graphql'
+import { isDefined } from '@/utils/isDefined'
 
 const navMap = new Map<string, { label: string; path: string }>()
 

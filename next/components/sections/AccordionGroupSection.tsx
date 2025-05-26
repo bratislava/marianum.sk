@@ -1,8 +1,8 @@
-import RichText from '@components/atoms/RichText'
-import AccordionGroup from '@components/molecules/Accordion/AccordionGroup'
-import AccordionItem from '@components/molecules/Accordion/AccordionItem'
-import Section, { SectionProps } from '@components/molecules/Section'
-import { AccordionGroupFragment } from '@graphql'
+import RichText from '@/components/atoms/RichText'
+import AccordionGroup from '@/components/molecules/Accordion/AccordionGroup'
+import AccordionItem from '@/components/molecules/Accordion/AccordionItem'
+import Section, { SectionProps } from '@/components/molecules/Section'
+import { AccordionGroupFragment } from '@/graphql'
 
 type AccordionGroupSectionProps = Pick<SectionProps, 'background'> & {
   section: AccordionGroupFragment

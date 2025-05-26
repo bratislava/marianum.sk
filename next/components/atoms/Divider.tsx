@@ -1,5 +1,6 @@
-import { WavesSvg } from '@assets'
 import cx from 'classnames'
+
+import { WavesSvg } from '@/assets'
 
 type DividerProps = {
   color?: 'default' | 'primary'

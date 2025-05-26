@@ -1,13 +1,14 @@
-import { ChevronRightIcon, PlaceIcon } from '@assets/icons'
-import IconButton from '@components/atoms/IconButton'
-import RowBox, { RowBoxProps } from '@components/atoms/Row/RowBox'
-import RowContent from '@components/atoms/Row/RowContent'
-import RowMoreContent from '@components/atoms/Row/RowMoreContent'
-import Tag from '@components/atoms/Tag'
-import { DocumentCategoryEntityFragment } from '@graphql'
 import cx from 'classnames'
 import { Fragment, ReactNode, useRef } from 'react'
 import { useHover } from 'usehooks-ts'
+
+import { ChevronRightIcon, PlaceIcon } from '@/assets/icons'
+import IconButton from '@/components/atoms/IconButton'
+import RowBox, { RowBoxProps } from '@/components/atoms/Row/RowBox'
+import RowContent from '@/components/atoms/Row/RowContent'
+import RowMoreContent from '@/components/atoms/Row/RowMoreContent'
+import Tag from '@/components/atoms/Tag'
+import { DocumentCategoryEntityFragment } from '@/graphql'
 
 export type RowProps = {
   title?: string
@@ -26,6 +27,7 @@ export type RowProps = {
    * (aria-labelledby={titleId}) and classes to expand link to the whole component ("after:absolute after:inset-0").
    */
   linkButton?: ReactNode
+  variant?: 'gaps' | 'dividers'
 } & RowBoxProps
 
 const Row = ({
@@ -41,27 +43,18 @@ const Row = ({
   moreContent,
   button = null,
   linkButton = null,
+  variant = 'gaps',
   ...rest
 }: RowProps) => {
   const linkRef = useRef<HTMLAnchorElement>(null)
   const isLinkHovered = useHover(linkRef)
 
   return (
-    <RowBox hover={!!linkHref} {...rest}>
+    <RowBox hover={variant === 'gaps' && !!linkHref} {...rest}>
       {/* When some other clickable element is hovered, display shadow but not other "hover styles" */}
-      <RowContent hover={isLinkHovered}>
+      <RowContent hover={isLinkHovered} className={variant === 'dividers' ? 'gap-6 md:px-0' : ''}>
         <div className="flex grow flex-col gap-y-1.5">
-          {category?.attributes && (
-            <div className="text-primary">{category.attributes.title}</div>
-            // TODO add proper link for category
-            // <MLink
-            //   href="#"
-            //   noStyles
-            //   className="text-sm z-[1] text-primary underline hover:text-primary-dark"
-            // >
-            //   {category.attributes.title}
-            // </MLink>
-          )}
+          {category?.attributes && <div className="text-primary">{category.attributes.title}</div>}
 
           <div
             className={cx('flex gap-x-4 gap-y-1.5', {

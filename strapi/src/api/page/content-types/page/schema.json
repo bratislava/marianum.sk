@@ -100,14 +100,12 @@
         "sections.branch-group",
         "sections.news-listing",
         "sections.procedures-section",
-        "sections.partners-section",
         "sections.bundle-listing",
         "sections.bundle-listing-simple",
         "sections.debtors-section",
         "sections.ceremonies-section",
         "sections.ceremonies-archive-section",
         "sections.map-section",
-        "sections.public-disclosure-section",
         "sections.documents-section",
         "sections.review-listing",
         "sections.article-news-listing",
@@ -116,7 +114,8 @@
         "sections.opening-hours-section",
         "sections.disclosures-section",
         "sections.iframe-section",
-        "sections.cemeteries-opening-hours"
+        "sections.cemeteries-opening-hours",
+        "sections.map-of-managed-objects"
       ]
     },
     "sidebar": {

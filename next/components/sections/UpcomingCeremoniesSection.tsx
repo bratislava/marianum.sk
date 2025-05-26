@@ -1,34 +1,33 @@
-import FormatDate from '@components/atoms/FormatDate'
-import Loading from '@components/atoms/Loading'
-import MLink from '@components/atoms/MLink'
-import CemeteryLink from '@components/molecules/CemeteryLink'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import Section from '@components/molecules/Section'
-import { UpcomingCeremoniesSectionFragment } from '@graphql'
 import { isSameDay, parseAbsolute } from '@internationalized/date'
-import {
-  upcomingCeremoniesFetcher,
-  upcomingCeremoniesSwrKey,
-} from '@services/fetchers/upcomingCeremoniesFetcher'
-import { bratislavaTimezone } from '@utils/consts'
-import { getCemeteryInfoInCeremoniesDebtors } from '@utils/getCemeteryInfoInCeremoniesDebtors'
-import { useGetSwrExtras } from '@utils/useGetSwrExtras'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { useMemo } from 'react'
-import useSWR from 'swr'
+
+import FormatDate from '@/components/atoms/FormatDate'
+import Loading from '@/components/atoms/Loading'
+import MLink from '@/components/atoms/MLink'
+import CemeteryLink from '@/components/molecules/CemeteryLink'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
+import Section from '@/components/molecules/Section'
+import { UpcomingCeremoniesSectionFragment } from '@/graphql'
+import {
+  getUpcomingCeremoniesQueryKey,
+  upcomingCeremoniesFetcher,
+} from '@/services/fetchers/ceremonies/upcomingCeremoniesFetcher'
+import { bratislavaTimezone } from '@/utils/consts'
+import { getCemeteryInfoInCeremoniesDebtors } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
 
 const Table = () => {
-  const { t, i18n } = useTranslation('common', { keyPrefix: 'CeremoniesSection' })
+  const { t, i18n } = useTranslation()
 
-  const { data, error } = useSWR(upcomingCeremoniesSwrKey, upcomingCeremoniesFetcher)
-
-  const { loadingAndNoDataToDisplay, dataToDisplay } = useGetSwrExtras({
-    data,
-    error,
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: getUpcomingCeremoniesQueryKey(),
+    queryFn: () => upcomingCeremoniesFetcher(),
+    placeholderData: keepPreviousData,
   })
 
   const ceremonies = useMemo(() => {
-    const ceremoniesData = dataToDisplay?.ceremonies?.data
+    const ceremoniesData = data?.ceremonies?.data
     if (!ceremoniesData) {
       // eslint-disable-next-line unicorn/no-useless-undefined
       return undefined
@@ -73,21 +72,21 @@ const Table = () => {
       }),
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dataToDisplay?.ceremonies])
+  }, [data?.ceremonies])
 
-  // TODO replace by proper loading and error
-  if (loadingAndNoDataToDisplay) {
+  if (isPending) {
     return <Loading />
   }
 
-  if (error) {
+  // TODO replace by proper error
+  if (isError) {
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
   if (ceremonies?.ceremonies.length === 0) {
     return (
       <div>
-        <strong>{t('noCeremonies')}</strong>
+        <strong>{t('CeremoniesSection.noCeremonies')}</strong>
       </div>
     )
   }
@@ -124,18 +123,16 @@ const Table = () => {
   )
 }
 
-type CeremoniesListingProps = {
+type UpcomingCeremoniesSectionProps = {
   section: UpcomingCeremoniesSectionFragment
 }
 
-const UpcomingCeremoniesSection = ({ section }: CeremoniesListingProps) => {
-  const { getFullPath } = useGetFullPath()
+const UpcomingCeremoniesSection = ({ section }: UpcomingCeremoniesSectionProps) => {
+  const { getLinkProps } = useGetLinkProps()
 
-  const showMoreButtonSlug = getFullPath(section.showMoreButton?.page?.data)
+  const linkProps = getLinkProps(section.showMoreButton)
 
-  const showMoreButton = section.showMoreButton && showMoreButtonSlug && (
-    <MLink href={showMoreButtonSlug}>{section.showMoreButton.label}</MLink>
-  )
+  const showMoreButton = section.showMoreButton && <MLink {...linkProps}>{linkProps.label}</MLink>
 
   return (
     <Section>

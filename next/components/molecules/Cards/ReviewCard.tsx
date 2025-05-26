@@ -1,8 +1,8 @@
-import Avatar from '@components/atoms/Avatar'
-import CardBox, { CardBoxProps } from '@components/atoms/Card/CardBox'
-import CardContent from '@components/atoms/Card/CardContent'
-import FormatDate from '@components/atoms/FormatDate'
-import ReviewStars from '@components/atoms/ReviewStars'
+import Avatar from '@/components/atoms/Avatar'
+import CardBox, { CardBoxProps } from '@/components/atoms/Card/CardBox'
+import CardContent from '@/components/atoms/Card/CardContent'
+import FormatDate from '@/components/atoms/FormatDate'
+import ReviewStars from '@/components/atoms/ReviewStars'
 
 type ReviewCardProps = {
   rating: number
@@ -17,7 +17,7 @@ const ReviewCard = ({ rating, author, date, description, ...rest }: ReviewCardPr
       <CardContent>
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
+            <div className="flex items-start gap-4">
               <Avatar name={author} />
               <div>
                 <div className="line-clamp-2 font-bold">{author}</div>

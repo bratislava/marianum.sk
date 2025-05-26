@@ -8,7 +8,9 @@
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 400;
-    src: local(''), url('/fonts/noto-sans-v27-latin-ext_latin-regular.woff2') format('woff2'),
+    src:
+      local(''),
+      url('/fonts/noto-sans-v27-latin-ext_latin-regular.woff2') format('woff2'),
       url('/fonts/noto-sans-v27-latin-ext_latin-regular.woff') format('woff');
   }
   /* noto-sans-600 - latin-ext_latin */
@@ -16,7 +18,9 @@
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 600;
-    src: local(''), url('/fonts/noto-sans-v27-latin-ext_latin-600.woff2') format('woff2'),
+    src:
+      local(''),
+      url('/fonts/noto-sans-v27-latin-ext_latin-600.woff2') format('woff2'),
       url('/fonts/noto-sans-v27-latin-ext_latin-600.woff') format('woff');
   }
   /* noto-sans-700 - latin-ext_latin */
@@ -24,7 +28,9 @@
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 700;
-    src: local(''), url('/fonts/noto-sans-v27-latin-ext_latin-700.woff2') format('woff2'),
+    src:
+      local(''),
+      url('/fonts/noto-sans-v27-latin-ext_latin-700.woff2') format('woff2'),
       url('/fonts/noto-sans-v27-latin-ext_latin-700.woff') format('woff');
   }
   /* ABCArizonaFlare-Bold */
@@ -32,7 +38,9 @@
     font-family: 'ABC Arizona Flare';
     font-style: normal;
     font-weight: 700;
-    src: local(''), url('/fonts/ABCArizonaFlare-Bold.woff2') format('woff2'),
+    src:
+      local(''),
+      url('/fonts/ABCArizonaFlare-Bold.woff2') format('woff2'),
       url('/fonts/ABCArizonaFlare-Bold.woff') format('woff');
   }
 
@@ -57,9 +65,9 @@
   */
   html,
   body,
-  /* next main div */
+    /* next main div */
   #__next,
-  /* <OverlayProvider /> from react-aria */
+    /* <OverlayProvider /> from react-aria */
   #__next > [data-overlay-container='true'] {
     @apply h-full;
   }
@@ -73,7 +81,7 @@
 
   /* style links in richtext */
   .m-link-inline > a {
-    @apply text-primary hover:text-primary-dark underline;
+    @apply text-primary underline hover:text-primary-dark;
   }
 
   h1,
@@ -82,7 +90,7 @@
   h4,
   h5,
   h6 {
-    @apply font-serif text-foreground-heading font-bold;
+    @apply font-serif font-bold text-foreground-heading;
   }
 
   h1 {
@@ -107,6 +115,12 @@
 
   h6 {
     @apply text-h6;
+  }
+}
+
+@layer components {
+  .base-focus-ring {
+    @apply outline-none ring-offset-2 transition focus-visible:ring;
   }
 }
 
@@ -215,4 +229,13 @@
 .full-width-canvas-page canvas {
   width: 100% !important;
   height: auto !important;
+}
+
+/* Remove native Safari arrows in accordions  */
+details > summary {
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
 }

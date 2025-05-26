@@ -1,16 +1,18 @@
-import {
-  getFullPathFn,
-  isCurrentPathValid,
-  UnionSlugEntityType,
-} from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { GeneralEntityFragment, NavigationItemFragment } from '@graphql'
-import { client } from '@services/graphql/gqlClient'
-import { isDefined } from '@utils/isDefined'
-import { parseNavigation } from '@utils/parseNavigation'
 import last from 'lodash/last'
 import { GetStaticPathsResult, GetStaticPropsResult } from 'next'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import {
+  getFullPathFn,
+  isCurrentPathValid,
+  UnionSlugEntityType,
+} from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
+import { GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
+import { NOT_FOUND } from '@/utils/consts'
+import { isDefined } from '@/utils/isDefined'
+import { parseNavigation } from '@/utils/parseNavigation'
 
 /**
  * Shared function to generate static paths for entities.
@@ -42,14 +44,11 @@ export const generateStaticPaths = async (
     isDefined,
   )
   const fullPathsArray = fullPaths.map((path) => path.split('/')?.slice(1))
+
   return fullPathsArray.map(
     (fullPath) => ({ params: { fullPath, locale: 'sk' } }) as const,
   ) as GetStaticPathsResult<{ fullPath: string[] }>['paths']
 }
-
-const notFound = {
-  notFound: true,
-} as const
 
 /**
  * Shared function to generate static path for a specific route.
@@ -80,7 +79,7 @@ export const generateStaticProps = async <T extends UnionSlugEntityType, Additio
   getAdditionalProps?: (entity: T) => Promise<AdditionalProps>
 }) => {
   if (!params?.fullPath) {
-    return notFound
+    return NOT_FOUND
   }
 
   const { fullPath } = params
@@ -88,19 +87,19 @@ export const generateStaticProps = async <T extends UnionSlugEntityType, Additio
   const slug = last(fullPath)
 
   if (!slug) {
-    return notFound
+    return NOT_FOUND
   }
 
   const [{ navigation, general }, entity, translations] = await Promise.all([
     client.General({ locale }),
     entityPromiseGetter({ locale, slug }),
-    serverSideTranslations(locale, ['common']),
+    serverSideTranslations(locale),
   ])
 
   const filteredNavigation = navigation.filter(isDefined)
 
   if (!entity || !isCurrentPathValid(fullPathString, entity, filteredNavigation)) {
-    return notFound
+    return NOT_FOUND
   }
 
   const additionalProps = getAdditionalProps

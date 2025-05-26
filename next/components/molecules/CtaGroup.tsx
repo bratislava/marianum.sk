@@ -1,13 +1,14 @@
-import Button from '@components/atoms/Button'
-import { useGetFullPath } from '@components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { CtaSectionFragment } from '@graphql'
-import { isDefined } from '@utils/isDefined'
 import { useId } from 'react'
+
+import Button from '@/components/atoms/Button'
+import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
+import { CtaSectionFragment } from '@/graphql'
+import { isDefined } from '@/utils/isDefined'
 
 const getAriaLabelId = (id: string, index: number) => `ctagroup-${id}-${index}`
 
 const CtaGroup = ({ ctas }: CtaSectionFragment) => {
-  const { getFullPath } = useGetFullPath()
+  const { getLinkProps } = useGetLinkProps()
 
   const filteredCtas = ctas?.filter(isDefined)
   const id = useId()
@@ -15,7 +16,7 @@ const CtaGroup = ({ ctas }: CtaSectionFragment) => {
   return (
     <div className="grid auto-cols-fr gap-6 md:grid-flow-col">
       {filteredCtas?.map(({ title, description, button }, index) => {
-        const ctaSlug = getFullPath(button?.page?.data)
+        const linkProps = getLinkProps(button)
 
         return (
           <div
@@ -27,14 +28,14 @@ const CtaGroup = ({ ctas }: CtaSectionFragment) => {
               {title}
             </h3>
             <p className="mt-4 grow opacity-72">{description}</p>
-            {ctaSlug && (
+            {button && (
               <Button
-                href={ctaSlug}
+                {...linkProps}
                 className="mt-6 w-fit after:absolute after:inset-0"
                 variant="white"
                 aria-labelledby={getAriaLabelId(id, index)}
               >
-                {button?.label}
+                {linkProps.label}
               </Button>
             )}
           </div>
