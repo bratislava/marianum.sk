@@ -1,6 +1,6 @@
 FROM node:20.19-alpine AS base
 
-FROM base AS build-base
+FROM base AS install
 RUN apk update \
  && apk add --no-cache build-base \
                        gcc \
@@ -10,27 +10,24 @@ RUN apk update \
                        libpng-dev \
                        vips-dev
 WORKDIR /build
-COPY ./package.json ./yarn.lock ./
+COPY ./package.json ./package-lock.json ./
 # Uncomment if you need any to apply any patches
 COPY patches ./patches
 # copy any installation files for Strapi plugins you want to build. For example:
 # COPY src/plugins/<package-name>/package.json src/plugins/<package-name>/yarn.lock ./src/plugins/<package-name>
 # Or leave empty (do not add anyting) if you don't have any custom plugins (most likely ./plugins directory)
 COPY src/plugins/ceremonies-debtor-list/package.json ./src/plugins/ceremonies-debtor-list/package.json
-COPY src/plugins/ceremonies-debtor-list/yarn.lock ./src/plugins/ceremonies-debtor-list/yarn.lock
+COPY src/plugins/ceremonies-debtor-list/package-lock.json ./src/plugins/ceremonies-debtor-list/package-lock.json
 
-FROM build-base AS install-prod
-ENV YARN_CACHE_FOLDER=/build/.cache/yarn
-RUN --mount=type=cache,target=/build/.cache/yarn \
-    yarn config set network-timeout 600000 -g \
- && yarn install --production
+ENV NPM_CONFIG_CACHE=/build/.cache/npm
+RUN --mount=type=cache,target=/build/.cache/npm \
+    npm clean-install --include=dev
 
-FROM install-prod AS build
-WORKDIR /build/app
-COPY ./ .
-RUN --mount=type=cache,target=/build/.cache/yarn \
-    yarn install --development \
- && yarn build
+FROM install AS build
+COPY --chown=node:node . ./
+RUN --mount=type=cache,target=/build/.cache/npm \
+    npm run build \
+ && npm prune --production
 
 FROM base AS app-base
 RUN apk add --no-cache vips-dev \
@@ -52,23 +49,22 @@ ENTRYPOINT [ "/sbin/tini", "--" ]
 
 FROM app-base AS dev
 ENV NODE_ENV=development
-COPY --chown=node:node --from=build /build/node_modules ./node_modules
-CMD [ "yarn", "develop" ]
+COPY --chown=node:node --from=install /build/node_modules ./node_modules
+CMD [ "npm", "run", "develop" ]
 
 FROM app-base AS prod
-COPY --chown=node:node --from=build /build/app/favicon.ico /build/package.json /build/yarn.lock /build/app/tsconfig.json ./
-COPY --chown=node:node --from=install-prod /build/node_modules ./node_modules
-COPY --chown=node:node --from=build /build/app/config ./config
-COPY --chown=node:node --from=build /build/app/public ./public
-COPY --chown=node:node --from=build /build/app/dist ./dist
+COPY --chown=node:node --from=build /build/favicon.ico /build/package.json /build/package-lock.json /build/tsconfig.json ./
+COPY --chown=node:node --from=build /build/node_modules ./node_modules
+COPY --chown=node:node --from=build /build/config ./config
+COPY --chown=node:node --from=build /build/public ./public
+COPY --chown=node:node --from=build /build/dist ./dist
 # COPY to final image any built Strapi plugins. In this stage you will *ONLY* need
 # - plugins/<name>/yarn.lock
 # - plugins/<name>/package.json
 # - plugins/<name>/dist/
 # - plugins/<name>/*.js
-# Or leave empty (do not add anyting) if you don't have any custom plugins (most likely ./plugins directory)
-COPY --chown=node:node --from=install-prod /build/src/plugins/ceremonies-debtor-list/yarn.lock ./src/plugins/ceremonies-debtor-list/yarn.lock
-COPY --chown=node:node --from=install-prod /build/src/plugins/ceremonies-debtor-list/package.json ./src/plugins/ceremonies-debtor-list/package.json
-COPY --chown=node:node --from=build /build/app/src/plugins/ceremonies-debtor-list/dist ./src/plugins/ceremonies-debtor-list/dist
-COPY --chown=node:node --from=build /build/app/src/plugins/ceremonies-debtor-list/*.js ./src/plugins/ceremonies-debtor-list/
+# Or leave empty (do not add anything) if you don't have any custom plugins (most likely ./plugins directory)
+COPY --chown=node:node --from=install /build/src/plugins/ceremonies-debtor-list/package.json /build/src/plugins/ceremonies-debtor-list/package-lock.json ./src/plugins/ceremonies-debtor-list/
+COPY --chown=node:node --from=build /build/src/plugins/ceremonies-debtor-list/dist ./src/plugins/ceremonies-debtor-list/dist
+COPY --chown=node:node --from=build /build/src/plugins/ceremonies-debtor-list/*.js ./src/plugins/ceremonies-debtor-list/
 CMD [ "strapi", "start" ]
