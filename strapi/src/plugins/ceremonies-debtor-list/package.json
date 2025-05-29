@@ -50,5 +50,8 @@
     "develop": "tsc -p tsconfig.server.json -w",
     "build": "tsc -p tsconfig.server.json"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "volta": {
+    "node": "20.19.0"
+  }
 }
