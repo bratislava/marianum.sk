@@ -21,7 +21,7 @@
     "@strapi/plugin-upload": "4.25.22",
     "@strapi/plugin-users-permissions": "4.25.22",
     "@strapi/provider-email-mailgun": "4.25.22",
-    "@strapi/strapi": "4.25.22",
+    "@strapi/strapi": "5.14.0",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.40",
     "patch-package": "^6.5.1",
