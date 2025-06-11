@@ -648,6 +648,7 @@ export type Ceremony = {
   __typename?: 'Ceremony';
   birthYear?: Maybe<Scalars['String']['output']>;
   cemetery?: Maybe<CemeteryEntityResponse>;
+  cemeteryOutsideMarianum?: Maybe<Scalars['String']['output']>;
   company?: Maybe<Scalars['String']['output']>;
   consentForPrivateFields?: Maybe<Scalars['Boolean']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
@@ -679,6 +680,7 @@ export type CeremonyFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<CeremonyFiltersInput>>>;
   birthYear?: InputMaybe<StringFilterInput>;
   cemetery?: InputMaybe<CemeteryFiltersInput>;
+  cemeteryOutsideMarianum?: InputMaybe<StringFilterInput>;
   company?: InputMaybe<StringFilterInput>;
   consentForPrivateFields?: InputMaybe<BooleanFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
@@ -696,6 +698,7 @@ export type CeremonyFiltersInput = {
 export type CeremonyInput = {
   birthYear?: InputMaybe<Scalars['String']['input']>;
   cemetery?: InputMaybe<Scalars['ID']['input']>;
+  cemeteryOutsideMarianum?: InputMaybe<Scalars['String']['input']>;
   company?: InputMaybe<Scalars['String']['input']>;
   consentForPrivateFields?: InputMaybe<Scalars['Boolean']['input']>;
   dateTime?: InputMaybe<Scalars['DateTime']['input']>;
@@ -5096,9 +5099,9 @@ export type ProceduresEntityFragment = { __typename?: 'ProcedureEntity', attribu
 
 export type ReviewEntityFragment = { __typename?: 'ReviewEntity', id?: string | null, attributes?: { __typename?: 'Review', author: string, date: any, rating: number, description: string } | null };
 
-export type CeremonyEntityFragment = { __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, birthYear?: string | null, type?: string | null, company?: string | null, officiantProvidedBy?: string | null, consentForPrivateFields?: boolean | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, slug: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null }> } | null } | null } | null } | null } | null };
+export type CeremonyEntityFragment = { __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, birthYear?: string | null, type?: string | null, company?: string | null, officiantProvidedBy?: string | null, consentForPrivateFields?: boolean | null, cemeteryOutsideMarianum?: string | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, slug: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null }> } | null } | null } | null } | null } | null };
 
-export type HomepageCeremonyEntityFragment = { __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, consentForPrivateFields?: boolean | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string } | null }> } | null } | null } | null } | null } | null };
+export type HomepageCeremonyEntityFragment = { __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, consentForPrivateFields?: boolean | null, cemeteryOutsideMarianum?: string | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string } | null }> } | null } | null } | null } | null } | null };
 
 export type ManagedObjectSlugEntityFragment = { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, type?: Enum_Managedobject_Type | null, locale?: string | null } | null };
 
@@ -5272,7 +5275,7 @@ export type HomepageCeremoniesQueryVariables = Exact<{
 }>;
 
 
-export type HomepageCeremoniesQuery = { __typename?: 'Query', ceremonies?: { __typename?: 'CeremonyEntityResponseCollection', data: Array<{ __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, consentForPrivateFields?: boolean | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string } | null }> } | null } | null } | null } | null } | null }> } | null };
+export type HomepageCeremoniesQuery = { __typename?: 'Query', ceremonies?: { __typename?: 'CeremonyEntityResponseCollection', data: Array<{ __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, consentForPrivateFields?: boolean | null, cemeteryOutsideMarianum?: string | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string } | null }> } | null } | null } | null } | null } | null }> } | null };
 
 export type CeremoniesQueryVariables = Exact<{
   dateTime: Scalars['DateTime']['input'];
@@ -5280,7 +5283,7 @@ export type CeremoniesQueryVariables = Exact<{
 }>;
 
 
-export type CeremoniesQuery = { __typename?: 'Query', ceremonies?: { __typename?: 'CeremonyEntityResponseCollection', data: Array<{ __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, birthYear?: string | null, type?: string | null, company?: string | null, officiantProvidedBy?: string | null, consentForPrivateFields?: boolean | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, slug: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null }> } | null } | null } | null } | null } | null }> } | null };
+export type CeremoniesQuery = { __typename?: 'Query', ceremonies?: { __typename?: 'CeremonyEntityResponseCollection', data: Array<{ __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, birthYear?: string | null, type?: string | null, company?: string | null, officiantProvidedBy?: string | null, consentForPrivateFields?: boolean | null, cemeteryOutsideMarianum?: string | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, slug: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null }> } | null } | null } | null } | null } | null }> } | null };
 
 export type CemeteriesInCeremoniesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6498,6 +6501,7 @@ export const CeremonyEntityFragmentDoc = gql`
         }
       }
     }
+    cemeteryOutsideMarianum
   }
 }
     `;
@@ -6524,6 +6528,7 @@ export const HomepageCeremonyEntityFragmentDoc = gql`
         }
       }
     }
+    cemeteryOutsideMarianum
   }
 }
     `;

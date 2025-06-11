@@ -43,6 +43,9 @@
       "relation": "oneToOne",
       "target": "api::cemetery.cemetery"
     },
+    "cemeteryOutsideMarianum": {
+      "type": "string"
+    },
     "consentForPrivateFields": {
       "type": "boolean"
     },

@@ -591,6 +591,7 @@ fragment CeremonyEntity on CeremonyEntity {
         }
       }
     }
+    cemeteryOutsideMarianum
   }
 }
 
@@ -616,6 +617,7 @@ fragment HomepageCeremonyEntity on CeremonyEntity {
         }
       }
     }
+    cemeteryOutsideMarianum
   }
 }
 

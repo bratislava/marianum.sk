@@ -1003,6 +1003,7 @@ export interface ApiCeremonyCeremony extends Schema.CollectionType {
       'oneToOne',
       'api::cemetery.cemetery'
     >;
+    cemeteryOutsideMarianum: Attribute.String;
     company: Attribute.String;
     consentForPrivateFields: Attribute.Boolean;
     createdAt: Attribute.DateTime;
