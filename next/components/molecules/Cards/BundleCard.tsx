@@ -52,7 +52,7 @@ const BundleCard = ({
           </h4>
           <div className="flex flex-wrap items-center gap-3">
             <div className="whitespace-nowrap font-semibold">
-              {t('Cards.from')} <FormatCurrency value={priceFrom} />
+              <FormatCurrency value={priceFrom} />
             </div>
             {discountText && (
               <div className="rounded-2xl bg-primary/12 px-3 py-1.5 text-sm font-semibold leading-4 text-primary">

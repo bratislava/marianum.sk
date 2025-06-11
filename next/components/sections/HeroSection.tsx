@@ -71,7 +71,7 @@ const HeroSection = ({
           )}
           {price && (
             <div className="mt-6">
-              <div>{t('HeroSection.priceFrom')}</div>
+              <div>{t('HeroSection.price')}</div>
               <div className="mt-1 text-h4 font-bold text-white">
                 <FormatCurrency value={price} />
               </div>

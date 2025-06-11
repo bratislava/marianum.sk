@@ -98,7 +98,7 @@ const BundlePage: NextPage<BundlePageProps> = ({
                     additionalInfo={
                       service?.price ? (
                         <div>
-                          {t('BundlePage.priceFrom')}{' '}
+                          {t('BundlePage.price')}{' '}
                           <span className="font-bold">
                             <FormatCurrency value={service.price} />
                           </span>
