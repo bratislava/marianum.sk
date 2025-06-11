@@ -4,7 +4,6 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { SSRConfig, useTranslation } from 'next-i18next'
 
 import { CheckNoPaddingIcon } from '@/assets/icons'
-import FormatCurrency from '@/components/atoms/FormatCurrency'
 import RichText from '@/components/atoms/RichText'
 import Seo from '@/components/atoms/Seo'
 import BundleLayout from '@/components/layouts/BundleLayout'
@@ -92,20 +91,7 @@ const BundlePage: NextPage<BundlePageProps> = ({
               <h3 className="pb-4">{t('BundlePage.additionalServices')}</h3>
               <AccordionGroup>
                 {additionalServices.map((service) => (
-                  <AccordionItem
-                    key={service?.id}
-                    title={service?.title}
-                    additionalInfo={
-                      service?.price ? (
-                        <div>
-                          {t('BundlePage.price')}{' '}
-                          <span className="font-bold">
-                            <FormatCurrency value={service.price} />
-                          </span>
-                        </div>
-                      ) : null
-                    }
-                  >
+                  <AccordionItem key={service?.id} title={service?.title}>
                     <RichText content={service?.description} />
                   </AccordionItem>
                 ))}
