@@ -74,8 +74,8 @@ export const getCemeteryInfoInCeremoniesDebtorsMeili = (
  * These cemeteries are not kept as a relation to a Cemetery entry in strapi, only their name is set via a separate field
  */
 export const getCemeteryInfoFromCeremony = (ceremony: CeremonyEntityFragment, locale: string) => {
-  if (ceremony.attributes?.cemeteryOutsideMarianum) {
-    return { title: ceremony.attributes?.cemeteryOutsideMarianum, slug: undefined }
+  if (ceremony.attributes?.cemeteryNameIfOutsideMarianum) {
+    return { title: ceremony.attributes?.cemeteryNameIfOutsideMarianum, slug: undefined }
   }
 
   return ceremony?.attributes?.cemetery?.data
@@ -84,8 +84,8 @@ export const getCemeteryInfoFromCeremony = (ceremony: CeremonyEntityFragment, lo
 }
 
 export const getCemeteryInfoFromCeremonyMeili = (ceremony: CeremonyMeili, locale: string) => {
-  if (ceremony.cemeteryOutsideMarianum) {
-    return { title: ceremony.cemeteryOutsideMarianum, slug: undefined }
+  if (ceremony.cemeteryNameIfOutsideMarianum) {
+    return { title: ceremony.cemeteryNameIfOutsideMarianum, slug: undefined }
   }
 
   return ceremony?.cemetery

@@ -43,7 +43,7 @@
       "relation": "oneToOne",
       "target": "api::cemetery.cemetery"
     },
-    "cemeteryOutsideMarianum": {
+    "cemeteryNameIfOutsideMarianum": {
       "type": "string"
     },
     "consentForPrivateFields": {

@@ -478,7 +478,7 @@ type CemeteryRelationResponseCollection {
 type Ceremony {
   birthYear: String
   cemetery: CemeteryEntityResponse
-  cemeteryOutsideMarianum: String
+  cemeteryNameIfOutsideMarianum: String
   company: String
   consentForPrivateFields: Boolean
   createdAt: DateTime
@@ -507,7 +507,7 @@ input CeremonyFiltersInput {
   and: [CeremonyFiltersInput]
   birthYear: StringFilterInput
   cemetery: CemeteryFiltersInput
-  cemeteryOutsideMarianum: StringFilterInput
+  cemeteryNameIfOutsideMarianum: StringFilterInput
   company: StringFilterInput
   consentForPrivateFields: BooleanFilterInput
   createdAt: DateTimeFilterInput
@@ -525,7 +525,7 @@ input CeremonyFiltersInput {
 input CeremonyInput {
   birthYear: String
   cemetery: ID
-  cemeteryOutsideMarianum: String
+  cemeteryNameIfOutsideMarianum: String
   company: String
   consentForPrivateFields: Boolean
   dateTime: DateTime
