@@ -61,6 +61,13 @@ export const parseCeremoniesXlsx = (
       )}\nPrijatá hlavička: ${JSON.stringify(header)}`
     );
 
+    /**
+     * Some imported ceremonies may be related to cemeteries that are not managed by Marianum.
+     * These cemeteries have no Cemetery entries in Strapi, but we allow importing them.
+     * After successful import, we display a message with names of these 'outside Marianum' cemeteries.
+     */
+    const cemeteriesOutsideMarianum = new Set<string>();
+
     const parsedData = data
       .splice(1)
       .filter((row) => row.length !== 0 /* Filter empty rows */)
@@ -102,6 +109,8 @@ export const parseCeremoniesXlsx = (
             : undefined;
 
         const isCemeteryOutsideMarianum = !cemeteryId;
+        if (isCemeteryOutsideMarianum)
+          cemeteriesOutsideMarianum.add(cemeterySlug);
 
         const consentForPrivateFields = consentForPrivateFieldsRaw === "A";
 
@@ -121,6 +130,6 @@ export const parseCeremoniesXlsx = (
         };
       });
 
-    return { day: sheetName, data: parsedData };
+    return { day: sheetName, data: parsedData, cemeteriesOutsideMarianum: [...cemeteriesOutsideMarianum] };
   });
 };

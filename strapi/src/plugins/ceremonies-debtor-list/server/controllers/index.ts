@@ -82,6 +82,8 @@ export default {
       }
     },
     async updateCeremonies(ctx) {
+      const startTime = Date.now()
+
       ctx.request.socket.setTimeout(120000)
 
       const file = ctx.request.files?.file
@@ -175,9 +177,27 @@ export default {
         const successMessage = parsedCeremonies
           .map(({ day, data }) => `${day} (${data.length})`)
           .join(", ")
+
+        const isAnyCemeteryOutsideMarianum = parsedCeremonies.some(
+          (ceremonies) => ceremonies.cemeteriesOutsideMarianum.length > 0
+        )
+
+        const cemeteriesOutsideMarianumMessage = isAnyCemeteryOutsideMarianum
+          ? parsedCeremonies
+              .filter((ceremonies) => {
+                return ceremonies.cemeteriesOutsideMarianum.length > 0;
+              })
+              .map(({ day, cemeteriesOutsideMarianum }) => {
+                return `${cemeteriesOutsideMarianum.join(", ")} (hárok ${day})`;
+              })
+              .join(", ") + "."
+          : undefined
+
         ctx.body = {
           message: `Nahraných ${successMessage} obradov.`,
+          additionalMessage: cemeteriesOutsideMarianumMessage,
           importId,
+          executionTime: Date.now() - startTime,
         }
       } catch (e) {
         ctx.status = 400
