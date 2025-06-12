@@ -590,6 +590,7 @@ fragment CeremonyEntity on CeremonyEntity {
         }
       }
     }
+    cemeteryNameIfOutsideMarianum
   }
 }
 
@@ -615,6 +616,7 @@ fragment HomepageCeremonyEntity on CeremonyEntity {
         }
       }
     }
+    cemeteryNameIfOutsideMarianum
   }
 }
 

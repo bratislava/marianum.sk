@@ -21,7 +21,7 @@ import {
   getCeremoniesArchiveSectionQueryKey,
 } from '@/services/fetchers/ceremonies/ceremoniesArchiveSectionFetcher'
 import { CeremonyMeili } from '@/services/meili/meiliTypes'
-import { getCemeteryInfoInCeremoniesDebtorsMeili } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
+import { getCemeteryInfoFromCeremonyMeili } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
 import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
@@ -52,13 +52,15 @@ const Table = ({
     }
 
     return ceremoniesData.map((ceremony) => {
-      const dateTime = new Date(ceremony.dateTime)
-      const { title, slug } = getCemeteryInfoInCeremoniesDebtorsMeili(
-        ceremony.cemetery,
-        i18n.language,
+      const cemeteryInfo = getCemeteryInfoFromCeremonyMeili(ceremony, i18n.language)
+
+      const cemetery = cemeteryInfo?.slug ? (
+        <CemeteryLink slug={cemeteryInfo.slug} title={cemeteryInfo.title ?? ''} />
+      ) : (
+        cemeteryInfo?.title
       )
 
-      const cemetery = slug ? <CemeteryLink slug={slug} title={title} /> : title
+      const dateTime = new Date(ceremony.dateTime)
 
       return {
         ...ceremony,
@@ -96,6 +98,7 @@ const Table = ({
                     <FormatDate value={ceremony.dateTime} format="ceremoniesArchive" />
                   )}
                 </td>
+                {/* <td>{JSON.stringify(ceremony)}</td> */}
                 <td>{ceremony.consentForPrivateFields ? ceremony.name : <PrivateField />}</td>
                 <td>{ceremony.consentForPrivateFields ? ceremony.birthYear : <PrivateField />}</td>
                 <td>{ceremony.cemetery}</td>
