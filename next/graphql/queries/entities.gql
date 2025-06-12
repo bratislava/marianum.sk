@@ -263,7 +263,6 @@ fragment BundleEntity on BundleEntity {
       id
       title
       description
-      price
     }
     documents {
       ...DocumentGroup
