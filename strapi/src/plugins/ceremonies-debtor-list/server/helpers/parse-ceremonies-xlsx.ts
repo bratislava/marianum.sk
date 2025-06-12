@@ -95,13 +95,14 @@ export const parseCeremoniesXlsx = (
         }
 
         const dateTime = parsedDateTime.toISOString();
-        const cemeteryId = getCemeteryIdBySlug(
-          cemeterySlug,
-          cemeteriesSlugIdMap,
-          `Cintorín na riadku ${
-            index + 3
-          } v zošite "${sheetName}" s "slug" "${cemeterySlug}" neexistuje alebo jeho hodnota "allowInCeremonies" nie je nastavená na "true".`
-        );
+
+        const cemeteryId =
+          cemeterySlug && cemeterySlug in cemeteriesSlugIdMap
+            ? cemeteriesSlugIdMap[cemeterySlug]
+            : undefined;
+
+        const isCemeteryOutsideMarianum = !cemeteryId;
+
         const consentForPrivateFields = consentForPrivateFieldsRaw === "A";
 
         return {
@@ -112,6 +113,9 @@ export const parseCeremoniesXlsx = (
           company,
           officiantProvidedBy,
           cemetery: cemeteryId,
+          cemeteryNameIfOutsideMarianum: isCemeteryOutsideMarianum
+            ? cemeterySlug
+            : undefined,
           consentForPrivateFields,
           importId,
         };
