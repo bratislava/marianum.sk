@@ -15,7 +15,7 @@ import {
   upcomingCeremoniesFetcher,
 } from '@/services/fetchers/ceremonies/upcomingCeremoniesFetcher'
 import { bratislavaTimezone } from '@/utils/consts'
-import { getCemeteryInfoInCeremoniesDebtors } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
+import { getCemeteryInfoFromCeremony } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
 
 const Table = () => {
   const { t, i18n } = useTranslation()
@@ -52,12 +52,10 @@ const Table = () => {
     return {
       day: firstCeremonyDayDateTimeZoned.toDate(),
       ceremonies: filteredCeremonies.map((ceremony) => {
-        const cemeteryInfo = ceremony?.attributes?.cemetery?.data
-          ? getCemeteryInfoInCeremoniesDebtors(ceremony.attributes.cemetery.data, i18n.language)
-          : null
+        const cemeteryInfo = getCemeteryInfoFromCeremony(ceremony, i18n.language)
 
         const cemetery = cemeteryInfo?.slug ? (
-          <CemeteryLink slug={cemeteryInfo?.slug} title={cemeteryInfo?.title ?? ''} />
+          <CemeteryLink slug={cemeteryInfo.slug} title={cemeteryInfo.title ?? ''} />
         ) : (
           cemeteryInfo?.title
         )

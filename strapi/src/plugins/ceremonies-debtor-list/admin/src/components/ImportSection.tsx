@@ -33,6 +33,8 @@ const ImportSection = ({ type }: ImportSectionProps) => {
   const [success, setSuccess] = useState<any>(null)
   const [error, setError] = useState<any>(null)
 
+  const [showAdditionalMessage, setShowAdditionalMessage] = useState(true)
+
   const handleSubmit = () => {
     const file = inputFileRef.current!.files![0] // TODO fix !
 
@@ -76,18 +78,31 @@ const ImportSection = ({ type }: ImportSectionProps) => {
         </Typography>
         {loading && <Loader />}
         {success && (
-          <Alert
-            title="Nahrávanie úspešné"
-            action={
-              success.data?.importId && (
-                <Link to={importLinks[type](success.data.importId)}>Zobraziť nahrané dáta</Link>
-              )
-            }
-            variant="success"
-            onClose={() => setSuccess(null)}
-          >
-            {success.data.message} ({success.data.executionTime}ms)
-          </Alert>
+          <Stack spacing={2}>
+            <Alert
+              title="Nahrávanie úspešné"
+              action={
+                success.data?.importId && (
+                  <Link to={importLinks[type](success.data.importId)}>
+                    Zobraziť nahrané dáta
+                  </Link>
+                )
+              }
+              variant="success"
+              onClose={() => setSuccess(null)}
+            >
+              {success.data.message} ({success.data.executionTime}ms)
+            </Alert>
+            {showAdditionalMessage && success.data.additionalMessage ? (
+              <Alert
+                title="V dátach sa nachádzajú cintoríny bez záznamu v Strapi: "
+                variant="default"
+                onClose={() => setShowAdditionalMessage(false)}
+              >
+                {success.data.additionalMessage}
+              </Alert>
+            ) : null}
+          </Stack>
         )}
         {error && (
           <Alert title="Nahrávanie neúspešné" variant="danger" onClose={() => setError(null)}>

@@ -1,5 +1,5 @@
-import { Maybe } from '@/graphql'
-import { CemeteryMeili } from '@/services/meili/meiliTypes'
+import { CeremonyEntityFragment, Maybe } from '@/graphql'
+import { CemeteryMeili, CeremonyMeili } from '@/services/meili/meiliTypes'
 
 /**
  * As the relation in ceremonies and debtors is always with the Slovak version, we always get the Slovak version as the
@@ -67,4 +67,28 @@ export const getCemeteryInfoInCeremoniesDebtorsMeili = (
     title: localeCemeteryTitle ?? skCemeteryTitle,
     slug: locale === 'sk' ? skCemeterySlug : localeCemeterySlug, // For the title we can fallback for SK version, but not for slug - the link wouldn't work.
   }
+}
+
+/**
+ * Some ceremonies that are uploaded into strapi belong to cemeteries that are not managed by Marianum
+ * These cemeteries are not kept as a relation to a Cemetery entry in strapi, only their name is set via a separate field
+ */
+export const getCemeteryInfoFromCeremony = (ceremony: CeremonyEntityFragment, locale: string) => {
+  if (ceremony.attributes?.cemeteryNameIfOutsideMarianum) {
+    return { title: ceremony.attributes?.cemeteryNameIfOutsideMarianum, slug: undefined }
+  }
+
+  return ceremony?.attributes?.cemetery?.data
+    ? getCemeteryInfoInCeremoniesDebtors(ceremony.attributes.cemetery.data, locale)
+    : null
+}
+
+export const getCemeteryInfoFromCeremonyMeili = (ceremony: CeremonyMeili, locale: string) => {
+  if (ceremony.cemeteryNameIfOutsideMarianum) {
+    return { title: ceremony.cemeteryNameIfOutsideMarianum, slug: undefined }
+  }
+
+  return ceremony?.cemetery
+    ? getCemeteryInfoInCeremoniesDebtorsMeili(ceremony.cemetery, locale)
+    : null
 }

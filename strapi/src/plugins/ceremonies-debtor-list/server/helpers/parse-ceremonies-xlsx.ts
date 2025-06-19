@@ -61,6 +61,13 @@ export const parseCeremoniesXlsx = (
       )}\nPrijatá hlavička: ${JSON.stringify(header)}`
     );
 
+    /**
+     * Some imported ceremonies may be related to cemeteries that are not managed by Marianum.
+     * These cemeteries have no Cemetery entries in Strapi, but we allow importing them.
+     * After successful import, we display a message with names of these 'outside Marianum' cemeteries.
+     */
+    const cemeteriesOutsideMarianum = new Set<string>();
+
     const parsedData = data
       .splice(1)
       .filter((row) => row.length !== 0 /* Filter empty rows */)
@@ -95,13 +102,16 @@ export const parseCeremoniesXlsx = (
         }
 
         const dateTime = parsedDateTime.toISOString();
-        const cemeteryId = getCemeteryIdBySlug(
-          cemeterySlug,
-          cemeteriesSlugIdMap,
-          `Cintorín na riadku ${
-            index + 3
-          } v zošite "${sheetName}" s "slug" "${cemeterySlug}" neexistuje alebo jeho hodnota "allowInCeremonies" nie je nastavená na "true".`
-        );
+
+        const cemeteryId =
+          cemeterySlug && cemeterySlug in cemeteriesSlugIdMap
+            ? cemeteriesSlugIdMap[cemeterySlug]
+            : undefined;
+
+        const isCemeteryOutsideMarianum = !cemeteryId;
+        if (isCemeteryOutsideMarianum)
+          cemeteriesOutsideMarianum.add(cemeterySlug);
+
         const consentForPrivateFields = consentForPrivateFieldsRaw === "A";
 
         return {
@@ -112,11 +122,14 @@ export const parseCeremoniesXlsx = (
           company,
           officiantProvidedBy,
           cemetery: cemeteryId,
+          cemeteryNameIfOutsideMarianum: isCemeteryOutsideMarianum
+            ? cemeterySlug
+            : undefined,
           consentForPrivateFields,
           importId,
         };
       });
 
-    return { day: sheetName, data: parsedData };
+    return { day: sheetName, data: parsedData, cemeteriesOutsideMarianum: [...cemeteriesOutsideMarianum] };
   });
 };

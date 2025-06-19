@@ -23,7 +23,7 @@ import {
   getCeremoniesSectionQueryKey,
 } from '@/services/fetchers/ceremonies/ceremoniesSectionFetcher'
 import { bratislavaTimezone } from '@/utils/consts'
-import { getCemeteryInfoInCeremoniesDebtors } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
+import { getCemeteryInfoFromCeremony } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
 import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
@@ -104,12 +104,10 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
     }
 
     const mappedCeremonies = ceremoniesData.map((ceremony) => {
-      const cemeteryInfo = ceremony?.attributes?.cemetery?.data
-        ? getCemeteryInfoInCeremoniesDebtors(ceremony.attributes.cemetery.data, i18n.language)
-        : null
+      const cemeteryInfo = getCemeteryInfoFromCeremony(ceremony, i18n.language)
 
       const cemetery = cemeteryInfo?.slug ? (
-        <CemeteryLink slug={cemeteryInfo?.slug} title={cemeteryInfo?.title ?? ''} />
+        <CemeteryLink slug={cemeteryInfo.slug} title={cemeteryInfo.title ?? ''} />
       ) : (
         cemeteryInfo?.title
       )
