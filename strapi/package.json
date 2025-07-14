@@ -23,7 +23,7 @@
     "@strapi/provider-email-mailgun": "4.25.22",
     "@strapi/strapi": "4.25.22",
     "moment": "^2.29.4",
-    "moment-timezone": "^0.5.40",
+    "moment-timezone": "^0.6.0",
     "patch-package": "^6.5.1",
     "pg": "8.14.0",
     "react": "18.2.0",
