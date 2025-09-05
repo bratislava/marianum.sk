@@ -1,3 +1,4 @@
+import IframeResizer from '@iframe-resizer/react'
 import { useContext } from 'react'
 
 import RichText from '@/components/atoms/RichText'
@@ -20,12 +21,12 @@ const IframeSection = ({ section, variant = 'full' }: IframeSectionProps) => {
     >
       {section.body?.length ? <RichText content={section.body} /> : null}
       <div className="relative not-first:mt-6 not-first:md:mt-8">
-        <iframe
+        <IframeResizer
+          license="GPLv3"
           src={section.url}
           title={section.iframeTitle}
           width="100%"
-          // dvh - viewport height dynamically adjusts based on the visibility of URL bar
-          style={{ height: variant === 'short' ? '416px' : '85dvh' }}
+          style={{ height: variant === 'short' ? '416px' : '100vh' }}
           className={border ? 'border border-border' : undefined}
         />
       </div>
