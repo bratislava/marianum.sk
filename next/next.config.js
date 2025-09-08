@@ -1,17 +1,33 @@
-const { i18n } = require('./next-i18next.config')
+const i18nextConfig = require('./next-i18next.config')
 const {
   generateRedirects,
 } = require('./components/molecules/Navigation/NavigationProvider/generateRedirects')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  i18n,
+  i18n: i18nextConfig.i18n,
   reactStrictMode: true,
-  images: {
-    domains: ['localhost', 'cdn-api.bratislava.sk', 'api.mapbox.com'],
-  },
   output: 'standalone',
-
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn-api.bratislava.sk',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.s3.bratislava.sk',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.mapbox.com',
+      },
+    ],
+  },
   async rewrites() {
     return {
       beforeFiles: [

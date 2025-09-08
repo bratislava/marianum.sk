@@ -15,6 +15,13 @@ export default ({ env }) => ({
       gql: { navigationItemRelated: ["Page"] },
     },
   },
+  graphql: {
+    enabled: true,
+    config: graphqlConfig,
+  },
+  meilisearch: {
+    config: meilisearchConfig,
+  },
   email: {
     config: {
       //  mailgun email provider https://www.npmjs.com/package/@strapi/provider-email-mailgun
@@ -30,15 +37,8 @@ export default ({ env }) => ({
       },
     },
   },
-  graphql: {
-    enabled: true,
-    config: graphqlConfig,
-  },
   "ceremonies-debtor-list": {
     enabled: true,
     resolve: "./src/plugins/ceremonies-debtor-list",
-  },
-  meilisearch: {
-    config: meilisearchConfig,
   },
 });
