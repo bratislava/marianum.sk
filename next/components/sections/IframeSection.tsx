@@ -21,14 +21,26 @@ const IframeSection = ({ section, variant = 'full' }: IframeSectionProps) => {
     >
       {section.body?.length ? <RichText content={section.body} /> : null}
       <div className="relative not-first:mt-6 not-first:md:mt-8">
-        <IframeResizer
-          license="GPLv3"
-          src={section.url}
-          title={section.iframeTitle}
-          width="100%"
-          style={{ height: variant === 'short' ? '416px' : '100vh' }}
-          className={border ? 'border border-border' : undefined}
-        />
+        {section.url.includes('spominam.sk') ? (
+          <IframeResizer
+            license="GPLv3"
+            src={section.url}
+            title={section.iframeTitle}
+            width="100%"
+            // ignoring variant for "spominam.sk" iframes
+            style={{ height: '100dvh' }}
+            className={border ? 'border border-border' : undefined}
+          />
+        ) : (
+          <iframe
+            src={section.url}
+            title={section.iframeTitle}
+            width="100%"
+            // dvh - viewport height dynamically adjusts based on the visibility of URL bar
+            style={{ height: variant === 'short' ? '416px' : '85dvh' }}
+            className={border ? 'border border-border' : undefined}
+          />
+        )}
       </div>
     </Section>
   )
