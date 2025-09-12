@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "objekty_v_sprave_kategories",
+  "info": {
+    "singularName": "objekty-v-sprave-kategorie",
+    "pluralName": "objekty-v-sprave-kategories",
+    "displayName": "Objekty v správe: kategórie",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "managed_objects": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::managed-object.managed-object",
+      "mappedBy": "managedObjectCategories"
+    }
+  }
+}
