@@ -2645,9 +2645,11 @@ export enum Enum_Disclosure_Type {
 export enum Enum_Managedobject_Type {
   Fontana = 'fontana',
   HmlovaFontana = 'hmlova_fontana',
+  Pamatnik = 'pamatnik',
   PitnaFontana = 'pitna_fontana',
   Rozprasovac = 'rozprasovac',
-  Studna = 'studna'
+  Studna = 'studna',
+  VojnovyHrob = 'vojnovy_hrob'
 }
 
 export enum Enum_Page_Layout {

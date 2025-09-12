@@ -1511,7 +1511,15 @@ export interface ApiManagedObjectManagedObject extends Schema.CollectionType {
         };
       }>;
     type: Attribute.Enumeration<
-      ['fontana', 'pitna fontana', 'hmlova fontana', 'studna', 'rozprasovac']
+      [
+        'fontana',
+        'pitna fontana',
+        'hmlova fontana',
+        'studna',
+        'rozprasovac',
+        'pamatnik',
+        'vojnovy hrob'
+      ]
     > &
       Attribute.SetPluginOptions<{
         i18n: {

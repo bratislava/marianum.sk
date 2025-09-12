@@ -2238,9 +2238,11 @@ enum ENUM_DISCLOSURE_TYPE {
 enum ENUM_MANAGEDOBJECT_TYPE {
   fontana
   hmlova_fontana
+  pamatnik
   pitna_fontana
   rozprasovac
   studna
+  vojnovy_hrob
 }
 
 enum ENUM_PAGE_LAYOUT {
