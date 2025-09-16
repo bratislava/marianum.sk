@@ -2760,7 +2760,7 @@ export type GeneralRelationResponseCollection = {
   data: Array<GeneralEntity>;
 };
 
-export type GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -2978,6 +2978,7 @@ export type ManagedObject = {
   locale?: Maybe<Scalars['String']['output']>;
   localizations?: Maybe<ManagedObjectRelationResponseCollection>;
   longitude?: Maybe<Scalars['Float']['output']>;
+  managedObjectCategory?: Maybe<ManagedObjectCategoryEntityResponse>;
   medias?: Maybe<UploadFileRelationResponseCollection>;
   navigateToLink?: Maybe<Scalars['String']['output']>;
   seo?: Maybe<ComponentGeneralSeo>;
@@ -2999,6 +3000,65 @@ export type ManagedObjectMediasArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type ManagedObjectCategory = {
+  __typename?: 'ManagedObjectCategory';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  managedObjects?: Maybe<ManagedObjectRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type ManagedObjectCategoryManagedObjectsArgs = {
+  filters?: InputMaybe<ManagedObjectFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type ManagedObjectCategoryEntity = {
+  __typename?: 'ManagedObjectCategoryEntity';
+  attributes?: Maybe<ManagedObjectCategory>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type ManagedObjectCategoryEntityResponse = {
+  __typename?: 'ManagedObjectCategoryEntityResponse';
+  data?: Maybe<ManagedObjectCategoryEntity>;
+};
+
+export type ManagedObjectCategoryEntityResponseCollection = {
+  __typename?: 'ManagedObjectCategoryEntityResponseCollection';
+  data: Array<ManagedObjectCategoryEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type ManagedObjectCategoryFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ManagedObjectCategoryFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  managedObjects?: InputMaybe<ManagedObjectFiltersInput>;
+  not?: InputMaybe<ManagedObjectCategoryFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ManagedObjectCategoryFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type ManagedObjectCategoryInput = {
+  managedObjects?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ManagedObjectCategoryRelationResponseCollection = {
+  __typename?: 'ManagedObjectCategoryRelationResponseCollection';
+  data: Array<ManagedObjectCategoryEntity>;
 };
 
 export type ManagedObjectEntity = {
@@ -3029,6 +3089,7 @@ export type ManagedObjectFiltersInput = {
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<ManagedObjectFiltersInput>;
   longitude?: InputMaybe<FloatFilterInput>;
+  managedObjectCategory?: InputMaybe<ManagedObjectCategoryFiltersInput>;
   navigateToLink?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<ManagedObjectFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ManagedObjectFiltersInput>>>;
@@ -3045,6 +3106,7 @@ export type ManagedObjectInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   latitude?: InputMaybe<Scalars['Float']['input']>;
   longitude?: InputMaybe<Scalars['Float']['input']>;
+  managedObjectCategory?: InputMaybe<Scalars['ID']['input']>;
   medias?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   navigateToLink?: InputMaybe<Scalars['String']['input']>;
   seo?: InputMaybe<ComponentGeneralSeoInput>;
@@ -3083,6 +3145,7 @@ export type Mutation = {
   createGeneralLocalization?: Maybe<GeneralEntityResponse>;
   createHomePageLocalization?: Maybe<HomePageEntityResponse>;
   createManagedObject?: Maybe<ManagedObjectEntityResponse>;
+  createManagedObjectCategory?: Maybe<ManagedObjectCategoryEntityResponse>;
   createManagedObjectLocalization?: Maybe<ManagedObjectEntityResponse>;
   createOffice?: Maybe<OfficeEntityResponse>;
   createOfficeLocalization?: Maybe<OfficeEntityResponse>;
@@ -3114,6 +3177,7 @@ export type Mutation = {
   deleteGeneral?: Maybe<GeneralEntityResponse>;
   deleteHomePage?: Maybe<HomePageEntityResponse>;
   deleteManagedObject?: Maybe<ManagedObjectEntityResponse>;
+  deleteManagedObjectCategory?: Maybe<ManagedObjectCategoryEntityResponse>;
   deleteOffice?: Maybe<OfficeEntityResponse>;
   deletePage?: Maybe<PageEntityResponse>;
   deletePartner?: Maybe<PartnerEntityResponse>;
@@ -3153,6 +3217,7 @@ export type Mutation = {
   updateGeneral?: Maybe<GeneralEntityResponse>;
   updateHomePage?: Maybe<HomePageEntityResponse>;
   updateManagedObject?: Maybe<ManagedObjectEntityResponse>;
+  updateManagedObjectCategory?: Maybe<ManagedObjectCategoryEntityResponse>;
   updateOffice?: Maybe<OfficeEntityResponse>;
   updatePage?: Maybe<PageEntityResponse>;
   updatePartner?: Maybe<PartnerEntityResponse>;
@@ -3297,6 +3362,11 @@ export type MutationCreateHomePageLocalizationArgs = {
 export type MutationCreateManagedObjectArgs = {
   data: ManagedObjectInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationCreateManagedObjectCategoryArgs = {
+  data: ManagedObjectCategoryInput;
 };
 
 
@@ -3461,6 +3531,11 @@ export type MutationDeleteHomePageArgs = {
 export type MutationDeleteManagedObjectArgs = {
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationDeleteManagedObjectCategoryArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -3657,6 +3732,12 @@ export type MutationUpdateManagedObjectArgs = {
   data: ManagedObjectInput;
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type MutationUpdateManagedObjectCategoryArgs = {
+  data: ManagedObjectCategoryInput;
+  id: Scalars['ID']['input'];
 };
 
 
@@ -4100,6 +4181,8 @@ export type Query = {
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
   managedObject?: Maybe<ManagedObjectEntityResponse>;
+  managedObjectCategories?: Maybe<ManagedObjectCategoryEntityResponseCollection>;
+  managedObjectCategory?: Maybe<ManagedObjectCategoryEntityResponse>;
   managedObjects?: Maybe<ManagedObjectEntityResponseCollection>;
   me?: Maybe<UsersPermissionsMe>;
   office?: Maybe<OfficeEntityResponse>;
@@ -4318,6 +4401,19 @@ export type QueryI18NLocalesArgs = {
 export type QueryManagedObjectArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+};
+
+
+export type QueryManagedObjectCategoriesArgs = {
+  filters?: InputMaybe<ManagedObjectCategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryManagedObjectCategoryArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
@@ -5105,9 +5201,11 @@ export type CeremonyEntityFragment = { __typename?: 'CeremonyEntity', id?: strin
 
 export type HomepageCeremonyEntityFragment = { __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, consentForPrivateFields?: boolean | null, cemeteryNameIfOutsideMarianum?: string | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string } | null }> } | null } | null } | null } | null } | null };
 
+export type ManagedObjectCategoryEntityFragment = { __typename?: 'ManagedObjectCategoryEntity', id?: string | null, attributes?: { __typename?: 'ManagedObjectCategory', title?: string | null, slug?: string | null } | null };
+
 export type ManagedObjectSlugEntityFragment = { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, type?: Enum_Managedobject_Type | null, locale?: string | null } | null };
 
-export type ManagedObjectEntityFragment = { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', description?: string | null, address?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, slug: string, title: string, type?: Enum_Managedobject_Type | null, locale?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null } | null };
+export type ManagedObjectEntityFragment = { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', description?: string | null, address?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, slug: string, title: string, type?: Enum_Managedobject_Type | null, locale?: string | null, managedObjectCategory?: { __typename?: 'ManagedObjectCategoryEntityResponse', data?: { __typename?: 'ManagedObjectCategoryEntity', id?: string | null, attributes?: { __typename?: 'ManagedObjectCategory', title?: string | null, slug?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null } | null };
 
 export type GeneralQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -5194,14 +5292,14 @@ export type ManagedObjectBySlugQueryVariables = Exact<{
 }>;
 
 
-export type ManagedObjectBySlugQuery = { __typename?: 'Query', managedObjects?: { __typename?: 'ManagedObjectEntityResponseCollection', data: Array<{ __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', description?: string | null, address?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, slug: string, title: string, type?: Enum_Managedobject_Type | null, locale?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null } | null }> } | null };
+export type ManagedObjectBySlugQuery = { __typename?: 'Query', managedObjects?: { __typename?: 'ManagedObjectEntityResponseCollection', data: Array<{ __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', description?: string | null, address?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, slug: string, title: string, type?: Enum_Managedobject_Type | null, locale?: string | null, managedObjectCategory?: { __typename?: 'ManagedObjectCategoryEntityResponse', data?: { __typename?: 'ManagedObjectCategoryEntity', id?: string | null, attributes?: { __typename?: 'ManagedObjectCategory', title?: string | null, slug?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null } | null }> } | null };
 
 export type ManagedObjectsQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
 }>;
 
 
-export type ManagedObjectsQuery = { __typename?: 'Query', managedObjects?: { __typename?: 'ManagedObjectEntityResponseCollection', data: Array<{ __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', description?: string | null, address?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, slug: string, title: string, type?: Enum_Managedobject_Type | null, locale?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null } | null }> } | null };
+export type ManagedObjectsQuery = { __typename?: 'Query', managedObjects?: { __typename?: 'ManagedObjectEntityResponseCollection', data: Array<{ __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', description?: string | null, address?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, slug: string, title: string, type?: Enum_Managedobject_Type | null, locale?: string | null, managedObjectCategory?: { __typename?: 'ManagedObjectCategoryEntityResponse', data?: { __typename?: 'ManagedObjectCategoryEntity', id?: string | null, attributes?: { __typename?: 'ManagedObjectCategory', title?: string | null, slug?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null } | null }> } | null };
 
 export type BundleBySlugQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -5301,6 +5399,11 @@ export type DocumentCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type DocumentCategoriesQuery = { __typename?: 'Query', documentCategories?: { __typename?: 'DocumentCategoryEntityResponseCollection', data: Array<{ __typename?: 'DocumentCategoryEntity', id?: string | null, attributes?: { __typename?: 'DocumentCategory', title: string, slug: string } | null }> } | null };
+
+export type ManagedObjectCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ManagedObjectCategoriesQuery = { __typename?: 'Query', managedObjectCategories?: { __typename?: 'ManagedObjectCategoryEntityResponseCollection', data: Array<{ __typename?: 'ManagedObjectCategoryEntity', id?: string | null, attributes?: { __typename?: 'ManagedObjectCategory', title?: string | null, slug?: string | null } | null }> } | null };
 
 export type ArticleNewsCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6533,6 +6636,15 @@ export const HomepageCeremonyEntityFragmentDoc = gql`
   }
 }
     `;
+export const ManagedObjectCategoryEntityFragmentDoc = gql`
+    fragment ManagedObjectCategoryEntity on ManagedObjectCategoryEntity {
+  id
+  attributes {
+    title
+    slug
+  }
+}
+    `;
 export const ManagedObjectEntityFragmentDoc = gql`
     fragment ManagedObjectEntity on ManagedObjectEntity {
   ...ManagedObjectSlugEntity
@@ -6542,6 +6654,11 @@ export const ManagedObjectEntityFragmentDoc = gql`
     navigateToLink
     latitude
     longitude
+    managedObjectCategory {
+      data {
+        ...ManagedObjectCategoryEntity
+      }
+    }
     medias(pagination: {limit: -1}) {
       data {
         ...UploadImageEntity
@@ -6558,6 +6675,7 @@ export const ManagedObjectEntityFragmentDoc = gql`
   }
 }
     ${ManagedObjectSlugEntityFragmentDoc}
+${ManagedObjectCategoryEntityFragmentDoc}
 ${UploadImageEntityFragmentDoc}
 ${ContactEntityFragmentDoc}
 ${SeoFragmentDoc}`;
@@ -6881,6 +6999,15 @@ export const DocumentCategoriesDocument = gql`
   }
 }
     ${DocumentCategoryEntityFragmentDoc}`;
+export const ManagedObjectCategoriesDocument = gql`
+    query ManagedObjectCategories {
+  managedObjectCategories(pagination: {limit: -1}) {
+    data {
+      ...ManagedObjectCategoryEntity
+    }
+  }
+}
+    ${ManagedObjectCategoryEntityFragmentDoc}`;
 export const ArticleNewsCategoriesDocument = gql`
     query ArticleNewsCategories {
   articleNewsCategories(pagination: {limit: -1}) {
@@ -7004,6 +7131,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     DocumentCategories(variables?: DocumentCategoriesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<DocumentCategoriesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<DocumentCategoriesQuery>(DocumentCategoriesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'DocumentCategories', 'query', variables);
+    },
+    ManagedObjectCategories(variables?: ManagedObjectCategoriesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<ManagedObjectCategoriesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ManagedObjectCategoriesQuery>(ManagedObjectCategoriesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ManagedObjectCategories', 'query', variables);
     },
     ArticleNewsCategories(variables?: ArticleNewsCategoriesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<ArticleNewsCategoriesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ArticleNewsCategoriesQuery>(ArticleNewsCategoriesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ArticleNewsCategories', 'query', variables);

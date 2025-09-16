@@ -620,6 +620,14 @@ fragment HomepageCeremonyEntity on CeremonyEntity {
   }
 }
 
+fragment ManagedObjectCategoryEntity on ManagedObjectCategoryEntity {
+  id
+  attributes {
+    title
+    slug
+  }
+}
+
 fragment ManagedObjectSlugEntity on ManagedObjectEntity {
   __typename
   id
@@ -639,6 +647,11 @@ fragment ManagedObjectEntity on ManagedObjectEntity {
     navigateToLink
     latitude
     longitude
+    managedObjectCategory {
+      data {
+        ...ManagedObjectCategoryEntity
+      }
+    }
     medias(pagination: { limit: -1 }) {
       data {
         ...UploadImageEntity

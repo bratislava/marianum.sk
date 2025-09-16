@@ -282,6 +282,14 @@ query DocumentCategories {
   }
 }
 
+query ManagedObjectCategories {
+  managedObjectCategories(pagination: { limit: -1 }) {
+    data {
+      ...ManagedObjectCategoryEntity
+    }
+  }
+}
+
 query ArticleNewsCategories {
   articleNewsCategories(pagination: { limit: -1 }) {
     data {

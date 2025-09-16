@@ -1419,6 +1419,44 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
   };
 }
 
+export interface ApiManagedObjectCategoryManagedObjectCategory
+  extends Schema.CollectionType {
+  collectionName: 'managed_object_categories';
+  info: {
+    description: '';
+    displayName: 'Objekty v spr\u00E1ve: Kateg\u00F3rie';
+    pluralName: 'managed-object-categories';
+    singularName: 'managed-object-category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::managed-object-category.managed-object-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    managedObjects: Attribute.Relation<
+      'api::managed-object-category.managed-object-category',
+      'oneToMany',
+      'api::managed-object.managed-object'
+    >;
+    publishedAt: Attribute.DateTime;
+    slug: Attribute.UID;
+    title: Attribute.String;
+    updatedAt: Attribute.DateTime;
+    updatedBy: Attribute.Relation<
+      'api::managed-object-category.managed-object-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiManagedObjectManagedObject extends Schema.CollectionType {
   collectionName: 'managed_objects';
   info: {
@@ -1478,10 +1516,10 @@ export interface ApiManagedObjectManagedObject extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    managedObjectCategories: Attribute.Relation<
+    managedObjectCategory: Attribute.Relation<
       'api::managed-object.managed-object',
       'manyToOne',
-      'api::objekty-v-sprave-kategorie.objekty-v-sprave-kategorie'
+      'api::managed-object-category.managed-object-category'
     >;
     medias: Attribute.Media<'images', true> &
       Attribute.SetPluginOptions<{
@@ -1534,44 +1572,6 @@ export interface ApiManagedObjectManagedObject extends Schema.CollectionType {
     updatedAt: Attribute.DateTime;
     updatedBy: Attribute.Relation<
       'api::managed-object.managed-object',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiObjektyVSpraveKategorieObjektyVSpraveKategorie
-  extends Schema.CollectionType {
-  collectionName: 'objekty_v_sprave_kategories';
-  info: {
-    description: '';
-    displayName: 'Objekty v spr\u00E1ve: kateg\u00F3rie';
-    pluralName: 'objekty-v-sprave-kategories';
-    singularName: 'objekty-v-sprave-kategorie';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::objekty-v-sprave-kategorie.objekty-v-sprave-kategorie',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    managed_objects: Attribute.Relation<
-      'api::objekty-v-sprave-kategorie.objekty-v-sprave-kategorie',
-      'oneToMany',
-      'api::managed-object.managed-object'
-    >;
-    publishedAt: Attribute.DateTime;
-    slug: Attribute.UID;
-    title: Attribute.String;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::objekty-v-sprave-kategorie.objekty-v-sprave-kategorie',
       'oneToOne',
       'admin::user'
     > &
@@ -2599,8 +2599,8 @@ declare module '@strapi/types' {
       'api::document.document': ApiDocumentDocument;
       'api::general.general': ApiGeneralGeneral;
       'api::home-page.home-page': ApiHomePageHomePage;
+      'api::managed-object-category.managed-object-category': ApiManagedObjectCategoryManagedObjectCategory;
       'api::managed-object.managed-object': ApiManagedObjectManagedObject;
-      'api::objekty-v-sprave-kategorie.objekty-v-sprave-kategorie': ApiObjektyVSpraveKategorieObjektyVSpraveKategorie;
       'api::office.office': ApiOfficeOffice;
       'api::page.page': ApiPagePage;
       'api::partner.partner': ApiPartnerPartner;

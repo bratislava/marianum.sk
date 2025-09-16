@@ -120,11 +120,11 @@
       },
       "component": "general.seo"
     },
-    "managedObjectCategories": {
+    "managedObjectCategory": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::objekty-v-sprave-kategorie.objekty-v-sprave-kategorie",
-      "inversedBy": "managed_objects"
+      "target": "api::managed-object-category.managed-object-category",
+      "inversedBy": "managedObjects"
     }
   }
 }

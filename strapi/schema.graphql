@@ -2340,7 +2340,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | ObjektyVSpraveKategorie | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2555,7 +2555,7 @@ type ManagedObject {
   locale: String
   localizations(filters: ManagedObjectFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ManagedObjectRelationResponseCollection
   longitude: Float
-  managedObjectCategories: ObjektyVSpraveKategorieEntityResponse
+  managedObjectCategory: ManagedObjectCategoryEntityResponse
   medias(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
   navigateToLink: String
   seo: ComponentGeneralSeo
@@ -2563,6 +2563,53 @@ type ManagedObject {
   title: String!
   type: ENUM_MANAGEDOBJECT_TYPE
   updatedAt: DateTime
+}
+
+type ManagedObjectCategory {
+  createdAt: DateTime
+  managedObjects(filters: ManagedObjectFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ManagedObjectRelationResponseCollection
+  publishedAt: DateTime
+  slug: String
+  title: String
+  updatedAt: DateTime
+}
+
+type ManagedObjectCategoryEntity {
+  attributes: ManagedObjectCategory
+  id: ID
+}
+
+type ManagedObjectCategoryEntityResponse {
+  data: ManagedObjectCategoryEntity
+}
+
+type ManagedObjectCategoryEntityResponseCollection {
+  data: [ManagedObjectCategoryEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input ManagedObjectCategoryFiltersInput {
+  and: [ManagedObjectCategoryFiltersInput]
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  managedObjects: ManagedObjectFiltersInput
+  not: ManagedObjectCategoryFiltersInput
+  or: [ManagedObjectCategoryFiltersInput]
+  publishedAt: DateTimeFilterInput
+  slug: StringFilterInput
+  title: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input ManagedObjectCategoryInput {
+  managedObjects: [ID]
+  publishedAt: DateTime
+  slug: String
+  title: String
+}
+
+type ManagedObjectCategoryRelationResponseCollection {
+  data: [ManagedObjectCategoryEntity!]!
 }
 
 type ManagedObjectEntity {
@@ -2590,7 +2637,7 @@ input ManagedObjectFiltersInput {
   locale: StringFilterInput
   localizations: ManagedObjectFiltersInput
   longitude: FloatFilterInput
-  managedObjectCategories: ObjektyVSpraveKategorieFiltersInput
+  managedObjectCategory: ManagedObjectCategoryFiltersInput
   navigateToLink: StringFilterInput
   not: ManagedObjectFiltersInput
   or: [ManagedObjectFiltersInput]
@@ -2607,7 +2654,7 @@ input ManagedObjectInput {
   description: String
   latitude: Float
   longitude: Float
-  managedObjectCategories: ID
+  managedObjectCategory: ID
   medias: [ID]
   navigateToLink: String
   seo: ComponentGeneralSeoInput
@@ -2644,8 +2691,8 @@ type Mutation {
   createGeneralLocalization(data: GeneralInput, id: ID, locale: I18NLocaleCode): GeneralEntityResponse
   createHomePageLocalization(data: HomePageInput, id: ID, locale: I18NLocaleCode): HomePageEntityResponse
   createManagedObject(data: ManagedObjectInput!, locale: I18NLocaleCode): ManagedObjectEntityResponse
+  createManagedObjectCategory(data: ManagedObjectCategoryInput!): ManagedObjectCategoryEntityResponse
   createManagedObjectLocalization(data: ManagedObjectInput, id: ID, locale: I18NLocaleCode): ManagedObjectEntityResponse
-  createObjektyVSpraveKategorie(data: ObjektyVSpraveKategorieInput!): ObjektyVSpraveKategorieEntityResponse
   createOffice(data: OfficeInput!, locale: I18NLocaleCode): OfficeEntityResponse
   createOfficeLocalization(data: OfficeInput, id: ID, locale: I18NLocaleCode): OfficeEntityResponse
   createPage(data: PageInput!, locale: I18NLocaleCode): PageEntityResponse
@@ -2678,7 +2725,7 @@ type Mutation {
   deleteGeneral(locale: I18NLocaleCode): GeneralEntityResponse
   deleteHomePage(locale: I18NLocaleCode): HomePageEntityResponse
   deleteManagedObject(id: ID!, locale: I18NLocaleCode): ManagedObjectEntityResponse
-  deleteObjektyVSpraveKategorie(id: ID!): ObjektyVSpraveKategorieEntityResponse
+  deleteManagedObjectCategory(id: ID!): ManagedObjectCategoryEntityResponse
   deleteOffice(id: ID!, locale: I18NLocaleCode): OfficeEntityResponse
   deletePage(id: ID!, locale: I18NLocaleCode): PageEntityResponse
   deletePartner(id: ID!): PartnerEntityResponse
@@ -2726,7 +2773,7 @@ type Mutation {
   updateGeneral(data: GeneralInput!, locale: I18NLocaleCode): GeneralEntityResponse
   updateHomePage(data: HomePageInput!, locale: I18NLocaleCode): HomePageEntityResponse
   updateManagedObject(data: ManagedObjectInput!, id: ID!, locale: I18NLocaleCode): ManagedObjectEntityResponse
-  updateObjektyVSpraveKategorie(data: ObjektyVSpraveKategorieInput!, id: ID!): ObjektyVSpraveKategorieEntityResponse
+  updateManagedObjectCategory(data: ManagedObjectCategoryInput!, id: ID!): ManagedObjectCategoryEntityResponse
   updateOffice(data: OfficeInput!, id: ID!, locale: I18NLocaleCode): OfficeEntityResponse
   updatePage(data: PageInput!, id: ID!, locale: I18NLocaleCode): PageEntityResponse
   updatePartner(data: PartnerInput!, id: ID!): PartnerEntityResponse
@@ -2799,53 +2846,6 @@ enum NavigationRenderType {
   FLAT
   RFR
   TREE
-}
-
-type ObjektyVSpraveKategorie {
-  createdAt: DateTime
-  managed_objects(filters: ManagedObjectFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ManagedObjectRelationResponseCollection
-  publishedAt: DateTime
-  slug: String
-  title: String
-  updatedAt: DateTime
-}
-
-type ObjektyVSpraveKategorieEntity {
-  attributes: ObjektyVSpraveKategorie
-  id: ID
-}
-
-type ObjektyVSpraveKategorieEntityResponse {
-  data: ObjektyVSpraveKategorieEntity
-}
-
-type ObjektyVSpraveKategorieEntityResponseCollection {
-  data: [ObjektyVSpraveKategorieEntity!]!
-  meta: ResponseCollectionMeta!
-}
-
-input ObjektyVSpraveKategorieFiltersInput {
-  and: [ObjektyVSpraveKategorieFiltersInput]
-  createdAt: DateTimeFilterInput
-  id: IDFilterInput
-  managed_objects: ManagedObjectFiltersInput
-  not: ObjektyVSpraveKategorieFiltersInput
-  or: [ObjektyVSpraveKategorieFiltersInput]
-  publishedAt: DateTimeFilterInput
-  slug: StringFilterInput
-  title: StringFilterInput
-  updatedAt: DateTimeFilterInput
-}
-
-input ObjektyVSpraveKategorieInput {
-  managed_objects: [ID]
-  publishedAt: DateTime
-  slug: String
-  title: String
-}
-
-type ObjektyVSpraveKategorieRelationResponseCollection {
-  data: [ObjektyVSpraveKategorieEntity!]!
 }
 
 type Office {
@@ -3118,10 +3118,10 @@ type Query {
   i18NLocale(id: ID): I18NLocaleEntityResponse
   i18NLocales(filters: I18NLocaleFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): I18NLocaleEntityResponseCollection
   managedObject(id: ID, locale: I18NLocaleCode): ManagedObjectEntityResponse
+  managedObjectCategories(filters: ManagedObjectCategoryFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ManagedObjectCategoryEntityResponseCollection
+  managedObjectCategory(id: ID): ManagedObjectCategoryEntityResponse
   managedObjects(filters: ManagedObjectFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, sort: [String] = []): ManagedObjectEntityResponseCollection
   me: UsersPermissionsMe
-  objektyVSpraveKategorie(id: ID): ObjektyVSpraveKategorieEntityResponse
-  objektyVSpraveKategories(filters: ObjektyVSpraveKategorieFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ObjektyVSpraveKategorieEntityResponseCollection
   office(id: ID, locale: I18NLocaleCode): OfficeEntityResponse
   offices(filters: OfficeFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, sort: [String] = []): OfficeEntityResponseCollection
   page(id: ID, locale: I18NLocaleCode): PageEntityResponse
