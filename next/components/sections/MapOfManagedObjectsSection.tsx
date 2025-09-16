@@ -36,8 +36,6 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
     [Enum_Managedobject_Type.HmlovaFontana]: t('MapSection.managedObjectsFilter.hmlovaFontana'),
     [Enum_Managedobject_Type.Studna]: t('MapSection.managedObjectsFilter.studna'),
     [Enum_Managedobject_Type.Rozprasovac]: t('MapSection.managedObjectsFilter.rozprasovac'),
-    [Enum_Managedobject_Type.Pamatnik]: t('MapSection.managedObjectsFilter.pamatnik'),
-    [Enum_Managedobject_Type.VojnovyHrob]: t('MapSection.managedObjectsFilter.vojnovyHrob'),
   } satisfies Record<Enum_Managedobject_Type, string>
 
   const { data, isPending, isError, error } = useQuery({
@@ -52,8 +50,6 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
     [Enum_Managedobject_Type.HmlovaFontana]: false,
     [Enum_Managedobject_Type.Studna]: false,
     [Enum_Managedobject_Type.Rozprasovac]: false,
-    [Enum_Managedobject_Type.Pamatnik]: false,
-    [Enum_Managedobject_Type.VojnovyHrob]: false,
   }
 
   const {

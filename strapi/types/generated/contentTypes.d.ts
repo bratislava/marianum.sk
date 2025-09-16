@@ -1429,7 +1429,7 @@ export interface ApiManagedObjectCategoryManagedObjectCategory
     singularName: 'managed-object-category';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     createdAt: Attribute.DateTime;
@@ -1444,7 +1444,6 @@ export interface ApiManagedObjectCategoryManagedObjectCategory
       'oneToMany',
       'api::managed-object.managed-object'
     >;
-    publishedAt: Attribute.DateTime;
     slug: Attribute.UID;
     title: Attribute.String;
     updatedAt: Attribute.DateTime;
@@ -1554,15 +1553,7 @@ export interface ApiManagedObjectManagedObject extends Schema.CollectionType {
         };
       }>;
     type: Attribute.Enumeration<
-      [
-        'fontana',
-        'pitna fontana',
-        'hmlova fontana',
-        'studna',
-        'rozprasovac',
-        'pamatnik',
-        'vojnovy hrob'
-      ]
+      ['fontana', 'pitna fontana', 'hmlova fontana', 'studna', 'rozprasovac']
     > &
       Attribute.SetPluginOptions<{
         i18n: {

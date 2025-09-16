@@ -2238,11 +2238,9 @@ enum ENUM_DISCLOSURE_TYPE {
 enum ENUM_MANAGEDOBJECT_TYPE {
   fontana
   hmlova_fontana
-  pamatnik
   pitna_fontana
   rozprasovac
   studna
-  vojnovy_hrob
 }
 
 enum ENUM_PAGE_LAYOUT {
@@ -2568,7 +2566,6 @@ type ManagedObject {
 type ManagedObjectCategory {
   createdAt: DateTime
   managedObjects(filters: ManagedObjectFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ManagedObjectRelationResponseCollection
-  publishedAt: DateTime
   slug: String
   title: String
   updatedAt: DateTime
@@ -2595,7 +2592,6 @@ input ManagedObjectCategoryFiltersInput {
   managedObjects: ManagedObjectFiltersInput
   not: ManagedObjectCategoryFiltersInput
   or: [ManagedObjectCategoryFiltersInput]
-  publishedAt: DateTimeFilterInput
   slug: StringFilterInput
   title: StringFilterInput
   updatedAt: DateTimeFilterInput
@@ -2603,7 +2599,6 @@ input ManagedObjectCategoryFiltersInput {
 
 input ManagedObjectCategoryInput {
   managedObjects: [ID]
-  publishedAt: DateTime
   slug: String
   title: String
 }
@@ -3118,7 +3113,7 @@ type Query {
   i18NLocale(id: ID): I18NLocaleEntityResponse
   i18NLocales(filters: I18NLocaleFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): I18NLocaleEntityResponseCollection
   managedObject(id: ID, locale: I18NLocaleCode): ManagedObjectEntityResponse
-  managedObjectCategories(filters: ManagedObjectCategoryFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ManagedObjectCategoryEntityResponseCollection
+  managedObjectCategories(filters: ManagedObjectCategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ManagedObjectCategoryEntityResponseCollection
   managedObjectCategory(id: ID): ManagedObjectCategoryEntityResponse
   managedObjects(filters: ManagedObjectFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, sort: [String] = []): ManagedObjectEntityResponseCollection
   me: UsersPermissionsMe

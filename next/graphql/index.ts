@@ -2645,11 +2645,9 @@ export enum Enum_Disclosure_Type {
 export enum Enum_Managedobject_Type {
   Fontana = 'fontana',
   HmlovaFontana = 'hmlova_fontana',
-  Pamatnik = 'pamatnik',
   PitnaFontana = 'pitna_fontana',
   Rozprasovac = 'rozprasovac',
-  Studna = 'studna',
-  VojnovyHrob = 'vojnovy_hrob'
+  Studna = 'studna'
 }
 
 export enum Enum_Page_Layout {
@@ -3006,7 +3004,6 @@ export type ManagedObjectCategory = {
   __typename?: 'ManagedObjectCategory';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   managedObjects?: Maybe<ManagedObjectRelationResponseCollection>;
-  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -3043,7 +3040,6 @@ export type ManagedObjectCategoryFiltersInput = {
   managedObjects?: InputMaybe<ManagedObjectFiltersInput>;
   not?: InputMaybe<ManagedObjectCategoryFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ManagedObjectCategoryFiltersInput>>>;
-  publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -3051,7 +3047,6 @@ export type ManagedObjectCategoryFiltersInput = {
 
 export type ManagedObjectCategoryInput = {
   managedObjects?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
@@ -4407,7 +4402,6 @@ export type QueryManagedObjectArgs = {
 export type QueryManagedObjectCategoriesArgs = {
   filters?: InputMaybe<ManagedObjectCategoryFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
