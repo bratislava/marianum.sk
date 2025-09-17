@@ -1600,18 +1600,21 @@ input ComponentSectionsManualListingInput {
 }
 
 type ComponentSectionsMapOfManagedObjects {
+  categories(filters: ManagedObjectCategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ManagedObjectCategoryRelationResponseCollection
   id: ID!
   title: String
 }
 
 input ComponentSectionsMapOfManagedObjectsFiltersInput {
   and: [ComponentSectionsMapOfManagedObjectsFiltersInput]
+  categories: ManagedObjectCategoryFiltersInput
   not: ComponentSectionsMapOfManagedObjectsFiltersInput
   or: [ComponentSectionsMapOfManagedObjectsFiltersInput]
   title: StringFilterInput
 }
 
 input ComponentSectionsMapOfManagedObjectsInput {
+  categories: [ID]
   id: ID
   title: String
 }

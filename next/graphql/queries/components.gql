@@ -251,6 +251,11 @@ fragment MapSection on ComponentSectionsMapSection {
 fragment MapOfManagedObjectsSection on ComponentSectionsMapOfManagedObjects {
   id
   title
+  categories {
+    data {
+      ...ManagedObjectCategoryEntity
+    }
+  }
 }
 
 fragment BundleListing on ComponentSectionsBundleListing {
