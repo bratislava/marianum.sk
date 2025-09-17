@@ -1419,6 +1419,43 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
   };
 }
 
+export interface ApiManagedObjectCategoryManagedObjectCategory
+  extends Schema.CollectionType {
+  collectionName: 'managed_object_categories';
+  info: {
+    description: '';
+    displayName: 'Objekty v spr\u00E1ve: Kateg\u00F3rie';
+    pluralName: 'managed-object-categories';
+    singularName: 'managed-object-category';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::managed-object-category.managed-object-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    managedObjects: Attribute.Relation<
+      'api::managed-object-category.managed-object-category',
+      'oneToMany',
+      'api::managed-object.managed-object'
+    >;
+    slug: Attribute.UID;
+    title: Attribute.String;
+    updatedAt: Attribute.DateTime;
+    updatedBy: Attribute.Relation<
+      'api::managed-object-category.managed-object-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiManagedObjectManagedObject extends Schema.CollectionType {
   collectionName: 'managed_objects';
   info: {
@@ -1478,6 +1515,11 @@ export interface ApiManagedObjectManagedObject extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    managedObjectCategory: Attribute.Relation<
+      'api::managed-object.managed-object',
+      'manyToOne',
+      'api::managed-object-category.managed-object-category'
+    >;
     medias: Attribute.Media<'images', true> &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -2548,6 +2590,7 @@ declare module '@strapi/types' {
       'api::document.document': ApiDocumentDocument;
       'api::general.general': ApiGeneralGeneral;
       'api::home-page.home-page': ApiHomePageHomePage;
+      'api::managed-object-category.managed-object-category': ApiManagedObjectCategoryManagedObjectCategory;
       'api::managed-object.managed-object': ApiManagedObjectManagedObject;
       'api::office.office': ApiOfficeOffice;
       'api::page.page': ApiPagePage;

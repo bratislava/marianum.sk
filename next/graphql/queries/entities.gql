@@ -620,6 +620,14 @@ fragment HomepageCeremonyEntity on CeremonyEntity {
   }
 }
 
+fragment ManagedObjectCategoryEntity on ManagedObjectCategoryEntity {
+  id
+  attributes {
+    title
+    slug
+  }
+}
+
 fragment ManagedObjectSlugEntity on ManagedObjectEntity {
   __typename
   id
@@ -628,6 +636,11 @@ fragment ManagedObjectSlugEntity on ManagedObjectEntity {
     title
     type
     locale
+    managedObjectCategory {
+      data {
+        ...ManagedObjectCategoryEntity
+      }
+    }
   }
 }
 

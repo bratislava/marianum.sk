@@ -117,6 +117,12 @@
         }
       },
       "component": "general.seo"
+    },
+    "managedObjectCategory": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::managed-object-category.managed-object-category",
+      "inversedBy": "managedObjects"
     }
   }
 }
