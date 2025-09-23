@@ -749,6 +749,11 @@ export interface SectionsMapOfManagedObjects extends Schema.Component {
     displayName: 'Map of managed objects section';
   };
   attributes: {
+    categories: Attribute.Relation<
+      'sections.map-of-managed-objects',
+      'oneToMany',
+      'api::managed-object-category.managed-object-category'
+    >;
     title: Attribute.String;
   };
 }

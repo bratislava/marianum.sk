@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "managed_object_categories",
+  "info": {
+    "singularName": "managed-object-category",
+    "pluralName": "managed-object-categories",
+    "displayName": "Objekty v správe: Kategórie",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "managedObjects": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::managed-object.managed-object",
+      "mappedBy": "managedObjectCategory"
+    }
+  }
+}

@@ -110,6 +110,14 @@ query ManagedObjects($locale: I18NLocaleCode!) {
   }
 }
 
+query ManagedObjectCategories($locale: I18NLocaleCode!) {
+  managedObjectCategories(pagination: { limit: -1 }) {
+    data {
+      ...ManagedObjectCategoryEntity
+    }
+  }
+}
+
 query BundleBySlug($locale: I18NLocaleCode!, $slug: String!) {
   bundles(locale: $locale, filters: { slug: { eq: $slug } }) {
     data {
