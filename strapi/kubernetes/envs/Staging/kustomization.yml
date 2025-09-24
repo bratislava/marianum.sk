@@ -1,5 +1,4 @@
 resources:
-  - scaler.yml
   - ../../base
   - ./secrets/cloudflare-turnstile.secret.yml
   - ./secrets/database.secret.yml
