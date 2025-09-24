@@ -855,8 +855,8 @@ export interface ApiCemeteryCategoryCemeteryCategory
       'admin::user'
     > &
       Attribute.Private;
-    slug: Attribute.UID;
-    title: Attribute.String;
+    slug: Attribute.UID & Attribute.Required;
+    title: Attribute.String & Attribute.Required;
     updatedAt: Attribute.DateTime;
     updatedBy: Attribute.Relation<
       'api::cemetery-category.cemetery-category',
@@ -1486,8 +1486,8 @@ export interface ApiManagedObjectCategoryManagedObjectCategory
       'oneToMany',
       'api::managed-object.managed-object'
     >;
-    slug: Attribute.UID;
-    title: Attribute.String;
+    slug: Attribute.UID & Attribute.Required;
+    title: Attribute.String & Attribute.Required;
     updatedAt: Attribute.DateTime;
     updatedBy: Attribute.Relation<
       'api::managed-object-category.managed-object-category',

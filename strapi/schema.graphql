@@ -414,8 +414,8 @@ type Cemetery {
 type CemeteryCategory {
   cemeteries(filters: CemeteryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): CemeteryRelationResponseCollection
   createdAt: DateTime
-  slug: String
-  title: String
+  slug: String!
+  title: String!
   updatedAt: DateTime
 }
 
@@ -2616,8 +2616,8 @@ type ManagedObject {
 type ManagedObjectCategory {
   createdAt: DateTime
   managedObjects(filters: ManagedObjectFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ManagedObjectRelationResponseCollection
-  slug: String
-  title: String
+  slug: String!
+  title: String!
   updatedAt: DateTime
 }
 
