@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "managed_object_categories",
+  "collectionName": "cemetery_categories",
   "info": {
-    "singularName": "managed-object-category",
-    "pluralName": "managed-object-categories",
-    "displayName": "Objekty v správe: Kategórie",
+    "singularName": "cemetery-category",
+    "pluralName": "cemetery-categories",
+    "displayName": "Cintoríny: Kategórie",
     "description": ""
   },
   "options": {
@@ -20,11 +20,11 @@
       "type": "uid",
       "required": true
     },
-    "managedObjects": {
+    "cemeteries": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::managed-object.managed-object",
-      "mappedBy": "managedObjectCategory"
+      "target": "api::cemetery.cemetery",
+      "mappedBy": "cemeteryCategory"
     }
   }
 }

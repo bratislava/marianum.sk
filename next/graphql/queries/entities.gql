@@ -153,6 +153,14 @@ fragment BranchEntity on BranchEntity {
   }
 }
 
+fragment CemeteryCategoryEntity on CemeteryCategoryEntity {
+  id
+  attributes {
+    title
+    slug
+  }
+}
+
 fragment CemeterySlugEntity on CemeteryEntity {
   __typename
   id
@@ -203,6 +211,11 @@ fragment CemeteryEntity on CemeteryEntity {
     }
     video {
       ...IframeSection
+    }
+    cemeteryCategory {
+      data {
+        ...CemeteryCategoryEntity
+      }
     }
   }
 }
@@ -636,11 +649,6 @@ fragment ManagedObjectSlugEntity on ManagedObjectEntity {
     title
     type
     locale
-    managedObjectCategory {
-      data {
-        ...ManagedObjectCategoryEntity
-      }
-    }
   }
 }
 
@@ -664,6 +672,11 @@ fragment ManagedObjectEntity on ManagedObjectEntity {
     }
     seo {
       ...Seo
+    }
+    managedObjectCategory {
+      data {
+        ...ManagedObjectCategoryEntity
+      }
     }
   }
 }

@@ -175,6 +175,12 @@
         }
       },
       "component": "sections.iframe-section"
+    },
+    "cemeteryCategory": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::cemetery-category.cemetery-category",
+      "inversedBy": "cemeteries"
     }
   }
 }
