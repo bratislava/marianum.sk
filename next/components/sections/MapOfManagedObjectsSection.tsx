@@ -13,7 +13,7 @@ import TagToggle from '@/components/atoms/TagToggle'
 import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Search from '@/components/molecules/Search'
 import Section from '@/components/molecules/Section'
-import { Enum_Managedobject_Type, MapOfManagedObjectsSectionFragment } from '@/graphql'
+import { MapOfManagedObjectsSectionFragment } from '@/graphql'
 import {
   getGraphqlManagedObjectsQueryKey,
   graphqlManagedObjectsFetcher,
@@ -27,16 +27,9 @@ type MapOfManagedObjectsSectionProps = {
 const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps) => {
   const { t, i18n } = useTranslation()
   const locale = i18n.language
+  const { categories } = section
 
   const { getFullPath } = useGetFullPath()
-
-  const translationMap: Record<string, string> = {
-    [Enum_Managedobject_Type.Fontana]: t('MapSection.managedObjectsFilter.fontana'),
-    [Enum_Managedobject_Type.PitnaFontana]: t('MapSection.managedObjectsFilter.pitnaFontana'),
-    [Enum_Managedobject_Type.HmlovaFontana]: t('MapSection.managedObjectsFilter.hmlovaFontana'),
-    [Enum_Managedobject_Type.Studna]: t('MapSection.managedObjectsFilter.studna'),
-    [Enum_Managedobject_Type.Rozprasovac]: t('MapSection.managedObjectsFilter.rozprasovac'),
-  } satisfies Record<Enum_Managedobject_Type, string>
 
   const { data, isPending, isError, error } = useQuery({
     queryKey: getGraphqlManagedObjectsQueryKey(locale),
@@ -44,13 +37,17 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
     placeholderData: keepPreviousData,
   })
 
-  const defaultFilters = {
-    [Enum_Managedobject_Type.Fontana]: false,
-    [Enum_Managedobject_Type.PitnaFontana]: false,
-    [Enum_Managedobject_Type.HmlovaFontana]: false,
-    [Enum_Managedobject_Type.Studna]: false,
-    [Enum_Managedobject_Type.Rozprasovac]: false,
-  }
+  const defaultCategories = categories?.data
+
+  const defaultFilters: Record<string, boolean> = {}
+  const translationMap: Record<string, string> = {}
+
+  defaultCategories?.forEach((category) => {
+    if (category.attributes?.slug) {
+      defaultFilters[category.attributes?.slug] = false
+      translationMap[category.attributes?.slug] = category.attributes?.title || ''
+    }
+  })
 
   const {
     mapRef,
