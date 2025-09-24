@@ -169,11 +169,6 @@ fragment CemeterySlugEntity on CemeteryEntity {
     slug
     type
     locale
-    cemeteryCategory {
-      data {
-        ...CemeteryCategoryEntity
-      }
-    }
   }
 }
 
@@ -216,6 +211,11 @@ fragment CemeteryEntity on CemeteryEntity {
     }
     video {
       ...IframeSection
+    }
+    cemeteryCategory {
+      data {
+        ...CemeteryCategoryEntity
+      }
     }
   }
 }
@@ -649,11 +649,6 @@ fragment ManagedObjectSlugEntity on ManagedObjectEntity {
     title
     type
     locale
-    managedObjectCategory {
-      data {
-        ...ManagedObjectCategoryEntity
-      }
-    }
   }
 }
 
@@ -677,6 +672,11 @@ fragment ManagedObjectEntity on ManagedObjectEntity {
     }
     seo {
       ...Seo
+    }
+    managedObjectCategory {
+      data {
+        ...ManagedObjectCategoryEntity
+      }
     }
   }
 }
