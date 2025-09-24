@@ -94,6 +94,14 @@ query Cemeteries($locale: I18NLocaleCode!) {
   }
 }
 
+query CemeteryCategories($locale: I18NLocaleCode!) {
+  cemeteryCategories(pagination: { limit: -1 }) {
+    data {
+      ...CemeteryCategoryEntity
+    }
+  }
+}
+
 query ManagedObjectBySlug($locale: I18NLocaleCode!, $slug: String!) {
   managedObjects(locale: $locale, filters: { slug: { eq: $slug } }) {
     data {

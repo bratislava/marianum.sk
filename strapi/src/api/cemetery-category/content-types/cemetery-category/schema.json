@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cemetery_categories",
+  "info": {
+    "singularName": "cemetery-category",
+    "pluralName": "cemetery-categories",
+    "displayName": "Cintoríny: Kategórie",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "cemeteries": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cemetery.cemetery",
+      "mappedBy": "cemeteryCategory"
+    }
+  }
+}

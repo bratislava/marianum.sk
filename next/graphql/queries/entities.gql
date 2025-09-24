@@ -153,6 +153,14 @@ fragment BranchEntity on BranchEntity {
   }
 }
 
+fragment CemeteryCategoryEntity on CemeteryCategoryEntity {
+  id
+  attributes {
+    title
+    slug
+  }
+}
+
 fragment CemeterySlugEntity on CemeteryEntity {
   __typename
   id
@@ -161,6 +169,11 @@ fragment CemeterySlugEntity on CemeteryEntity {
     slug
     type
     locale
+    cemeteryCategory {
+      data {
+        ...CemeteryCategoryEntity
+      }
+    }
   }
 }
 

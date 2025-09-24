@@ -390,6 +390,7 @@ type Cemetery {
   address: String
   allowInCeremonies: Boolean!
   allowInDebtors: Boolean!
+  cemeteryCategory: CemeteryCategoryEntityResponse
   contact: ContactEntityResponse
   createdAt: DateTime
   description: String
@@ -408,6 +409,50 @@ type Cemetery {
   type: ENUM_CEMETERY_TYPE
   updatedAt: DateTime
   video: ComponentSectionsIframeSection
+}
+
+type CemeteryCategory {
+  cemeteries(filters: CemeteryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): CemeteryRelationResponseCollection
+  createdAt: DateTime
+  slug: String
+  title: String
+  updatedAt: DateTime
+}
+
+type CemeteryCategoryEntity {
+  attributes: CemeteryCategory
+  id: ID
+}
+
+type CemeteryCategoryEntityResponse {
+  data: CemeteryCategoryEntity
+}
+
+type CemeteryCategoryEntityResponseCollection {
+  data: [CemeteryCategoryEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input CemeteryCategoryFiltersInput {
+  and: [CemeteryCategoryFiltersInput]
+  cemeteries: CemeteryFiltersInput
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  not: CemeteryCategoryFiltersInput
+  or: [CemeteryCategoryFiltersInput]
+  slug: StringFilterInput
+  title: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input CemeteryCategoryInput {
+  cemeteries: [ID]
+  slug: String
+  title: String
+}
+
+type CemeteryCategoryRelationResponseCollection {
+  data: [CemeteryCategoryEntity!]!
 }
 
 type CemeteryEntity {
@@ -429,6 +474,7 @@ input CemeteryFiltersInput {
   allowInCeremonies: BooleanFilterInput
   allowInDebtors: BooleanFilterInput
   and: [CemeteryFiltersInput]
+  cemeteryCategory: CemeteryCategoryFiltersInput
   contact: ContactFiltersInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
@@ -455,6 +501,7 @@ input CemeteryInput {
   address: String
   allowInCeremonies: Boolean
   allowInDebtors: Boolean
+  cemeteryCategory: ID
   contact: ID
   description: String
   documents: ComponentSectionsDocumentGroupInput
@@ -2341,7 +2388,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | CemeteryCategory | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2678,6 +2725,7 @@ type Mutation {
   createBundle(data: BundleInput!, locale: I18NLocaleCode): BundleEntityResponse
   createBundleLocalization(data: BundleInput, id: ID, locale: I18NLocaleCode): BundleEntityResponse
   createCemetery(data: CemeteryInput!, locale: I18NLocaleCode): CemeteryEntityResponse
+  createCemeteryCategory(data: CemeteryCategoryInput!): CemeteryCategoryEntityResponse
   createCemeteryLocalization(data: CemeteryInput, id: ID, locale: I18NLocaleCode): CemeteryEntityResponse
   createCeremony(data: CeremonyInput!): CeremonyEntityResponse
   createContact(data: ContactInput!, locale: I18NLocaleCode): ContactEntityResponse
@@ -2714,6 +2762,7 @@ type Mutation {
   deleteBranch(id: ID!, locale: I18NLocaleCode): BranchEntityResponse
   deleteBundle(id: ID!, locale: I18NLocaleCode): BundleEntityResponse
   deleteCemetery(id: ID!, locale: I18NLocaleCode): CemeteryEntityResponse
+  deleteCemeteryCategory(id: ID!): CemeteryCategoryEntityResponse
   deleteCeremony(id: ID!): CeremonyEntityResponse
   deleteContact(id: ID!, locale: I18NLocaleCode): ContactEntityResponse
   deleteDebtor(id: ID!): DebtorEntityResponse
@@ -2761,6 +2810,7 @@ type Mutation {
   updateBranch(data: BranchInput!, id: ID!, locale: I18NLocaleCode): BranchEntityResponse
   updateBundle(data: BundleInput!, id: ID!, locale: I18NLocaleCode): BundleEntityResponse
   updateCemetery(data: CemeteryInput!, id: ID!, locale: I18NLocaleCode): CemeteryEntityResponse
+  updateCemeteryCategory(data: CemeteryCategoryInput!, id: ID!): CemeteryCategoryEntityResponse
   updateCeremony(data: CeremonyInput!, id: ID!): CeremonyEntityResponse
   updateContact(data: ContactInput!, id: ID!, locale: I18NLocaleCode): ContactEntityResponse
   updateDebtor(data: DebtorInput!, id: ID!): DebtorEntityResponse
@@ -3098,6 +3148,8 @@ type Query {
   bundles(filters: BundleFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BundleEntityResponseCollection
   cemeteries(filters: CemeteryFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, sort: [String] = []): CemeteryEntityResponseCollection
   cemetery(id: ID, locale: I18NLocaleCode): CemeteryEntityResponse
+  cemeteryCategories(filters: CemeteryCategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): CemeteryCategoryEntityResponseCollection
+  cemeteryCategory(id: ID): CemeteryCategoryEntityResponse
   ceremonies(filters: CeremonyFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): CeremonyEntityResponseCollection
   ceremony(id: ID): CeremonyEntityResponse
   contact(id: ID, locale: I18NLocaleCode): ContactEntityResponse

@@ -830,6 +830,43 @@ export interface ApiBundleBundle extends Schema.CollectionType {
   };
 }
 
+export interface ApiCemeteryCategoryCemeteryCategory
+  extends Schema.CollectionType {
+  collectionName: 'cemetery_categories';
+  info: {
+    description: '';
+    displayName: 'Cintor\u00EDny: Kateg\u00F3rie';
+    pluralName: 'cemetery-categories';
+    singularName: 'cemetery-category';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    cemeteries: Attribute.Relation<
+      'api::cemetery-category.cemetery-category',
+      'oneToMany',
+      'api::cemetery.cemetery'
+    >;
+    createdAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::cemetery-category.cemetery-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    slug: Attribute.UID;
+    title: Attribute.String;
+    updatedAt: Attribute.DateTime;
+    updatedBy: Attribute.Relation<
+      'api::cemetery-category.cemetery-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiCemeteryCemetery extends Schema.CollectionType {
   collectionName: 'cemeteries';
   info: {
@@ -869,6 +906,11 @@ export interface ApiCemeteryCemetery extends Schema.CollectionType {
         };
       }> &
       Attribute.DefaultTo<true>;
+    cemeteryCategory: Attribute.Relation<
+      'api::cemetery.cemetery',
+      'manyToOne',
+      'api::cemetery-category.cemetery-category'
+    >;
     contact: Attribute.Relation<
       'api::cemetery.cemetery',
       'oneToOne',
@@ -2581,6 +2623,7 @@ declare module '@strapi/types' {
       'api::article.article': ApiArticleArticle;
       'api::branch.branch': ApiBranchBranch;
       'api::bundle.bundle': ApiBundleBundle;
+      'api::cemetery-category.cemetery-category': ApiCemeteryCategoryCemeteryCategory;
       'api::cemetery.cemetery': ApiCemeteryCemetery;
       'api::ceremony.ceremony': ApiCeremonyCeremony;
       'api::contact.contact': ApiContactContact;
