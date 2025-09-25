@@ -246,6 +246,11 @@ fragment MenuListing on ComponentSectionsMenuListing {
 fragment MapSection on ComponentSectionsMapSection {
   id
   title
+  categories {
+    data {
+      ...CemeteryCategoryEntity
+    }
+  }
 }
 
 fragment MapOfManagedObjectsSection on ComponentSectionsMapOfManagedObjects {

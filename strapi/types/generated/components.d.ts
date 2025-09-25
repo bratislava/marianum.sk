@@ -761,10 +761,16 @@ export interface SectionsMapOfManagedObjects extends Schema.Component {
 export interface SectionsMapSection extends Schema.Component {
   collectionName: 'components_sections_map_sections';
   info: {
+    description: '';
     displayName: 'map section';
     icon: 'map-marked-alt';
   };
   attributes: {
+    categories: Attribute.Relation<
+      'sections.map-section',
+      'oneToMany',
+      'api::cemetery-category.cemetery-category'
+    >;
     title: Attribute.String;
   };
 }

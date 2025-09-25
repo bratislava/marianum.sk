@@ -2,12 +2,18 @@
   "collectionName": "components_sections_map_sections",
   "info": {
     "displayName": "map section",
-    "icon": "map-marked-alt"
+    "icon": "map-marked-alt",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "title": {
       "type": "string"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cemetery-category.cemetery-category"
     }
   }
 }

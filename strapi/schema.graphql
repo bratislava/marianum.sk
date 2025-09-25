@@ -1667,18 +1667,21 @@ input ComponentSectionsMapOfManagedObjectsInput {
 }
 
 type ComponentSectionsMapSection {
+  categories(filters: CemeteryCategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): CemeteryCategoryRelationResponseCollection
   id: ID!
   title: String
 }
 
 input ComponentSectionsMapSectionFiltersInput {
   and: [ComponentSectionsMapSectionFiltersInput]
+  categories: CemeteryCategoryFiltersInput
   not: ComponentSectionsMapSectionFiltersInput
   or: [ComponentSectionsMapSectionFiltersInput]
   title: StringFilterInput
 }
 
 input ComponentSectionsMapSectionInput {
+  categories: [ID]
   id: ID
   title: String
 }
