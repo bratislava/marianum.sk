@@ -33,6 +33,8 @@ const searchIndexSettings = {
     "cemetery.title",
     // Document
     "document.title",
+    // ManagedObject
+    "managed-object.title",
   ],
   filterableAttributes: [
     // All
@@ -46,6 +48,10 @@ const searchIndexSettings = {
     // Document
     "document.documentCategory.id",
     "document.file.ext",
+    //Cemetery
+    "cemetery.cemeteryCategory.id",
+    //Managed Object
+    "managed-object.managedObjectCategory.id",
   ],
   sortableAttributes: [
     // Article
@@ -193,6 +199,15 @@ const config = {
           ? new Date(entry.updatedAt).getTime()
           : undefined,
       }),
+  },
+  "managed-object": {
+    indexName: "search_index",
+    entriesQuery: {
+      locale: "all",
+    },
+    settings: searchIndexSettings,
+    transformEntry: ({ entry }) =>
+      wrapSearchIndexEntry("managed-object", entry),
   },
 };
 
