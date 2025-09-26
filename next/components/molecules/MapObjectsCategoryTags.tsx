@@ -2,6 +2,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 
 import TagToggle from '@/components/atoms/TagToggle'
+import { ManagedObjectCategoryEntityFragment } from '@/graphql'
 
 export type TagProps = {
   title: string
@@ -13,6 +14,7 @@ type MapObjectsCategoryTagsProps = {
   fetcher: () => Promise<TagProps[]>
   toggleSelectedCategory: (category: string) => void
   selectedCategories: Record<string, boolean>
+  defaultCategories: ManagedObjectCategoryEntityFragment[] | undefined
 }
 
 const MapObjectsCategoryTags = ({
@@ -20,6 +22,7 @@ const MapObjectsCategoryTags = ({
   fetcher,
   toggleSelectedCategory,
   selectedCategories,
+  defaultCategories,
 }: MapObjectsCategoryTagsProps) => {
   const { data, isPending, isError, error } = useQuery({
     queryKey: [queryKey],
@@ -34,7 +37,15 @@ const MapObjectsCategoryTags = ({
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
-  const options = isPending ? [] : [...data]
+  const options = isPending
+    ? []
+    : data.filter((fetchedData: TagProps) => {
+        if (!defaultCategories) return true
+
+        return defaultCategories.find(
+          (defaultCategory) => defaultCategory.attributes?.slug === fetchedData.slug,
+        )
+      })
 
   return (
     <ul aria-label={t('MapSection.filtering')} className="flex flex-wrap gap-2">
