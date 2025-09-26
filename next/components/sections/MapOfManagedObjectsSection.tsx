@@ -2,7 +2,9 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import cx from 'classnames'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
+import { useCallback, useEffect, useState } from 'react'
 import Map, { Marker } from 'react-map-gl'
+import { useDebounceValue } from 'usehooks-ts'
 
 import { MapMarkerSvg } from '@/assets'
 import { ArrowLeftIcon, PlaceIcon } from '@/assets/icons'
@@ -10,6 +12,8 @@ import Button from '@/components/atoms/Button'
 import Loading from '@/components/atoms/Loading'
 import MLink from '@/components/atoms/MLink'
 import TagToggle from '@/components/atoms/TagToggle'
+import FilteringSearchInput from '@/components/molecules/FilteringSearchInput'
+import MapObjectsCategoryTags from '@/components/molecules/MapObjectsCategoryTags'
 import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Search from '@/components/molecules/Search'
 import Section from '@/components/molecules/Section'
@@ -17,12 +21,28 @@ import { Enum_Managedobject_Type, MapOfManagedObjectsSectionFragment } from '@/g
 import {
   getGraphqlManagedObjectsQueryKey,
   graphqlManagedObjectsFetcher,
+  managedObjectsDefaultFilters,
+  ManagedObjectsFilters,
 } from '@/services/fetchers/managedObjectsFetcher'
+import { client } from '@/services/graphql/gqlClient'
 import { useMapWithFilteringAndSearch } from '@/utils/useMapWithFilteringAndSearch'
 
 type MapOfManagedObjectsSectionProps = {
   section: MapOfManagedObjectsSectionFragment
 }
+
+const mappedFetcher = () =>
+  client.ManagedObjectCategories().then(
+    (data) =>
+      data.managedObjectCategories?.data
+        .filter((category) => category.attributes)
+        .map((category) => ({
+          title: category.attributes?.title ?? '',
+          slug: category.attributes?.slug ?? '',
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          key: category.id!,
+        })) ?? [],
+  )
 
 const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps) => {
   const { t, i18n } = useTranslation()
@@ -30,6 +50,32 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
 
   const { getFullPath } = useGetFullPath()
 
+  const [filters, setFilters] = useState<ManagedObjectsFilters>(managedObjectsDefaultFilters)
+  const [searchInputValue, setSearchInputValue] = useState<string>('')
+  const [debouncedSearchInputValue] = useDebounceValue<string>(searchInputValue, 300)
+  const [selectedCategories, setSelectedCategory] = useState<Record<string, boolean>>({})
+
+  // const handleCategoryChange = (categoryId: string | null) => {
+  //   setFilters({ ...filters, page: 1, categoryId })
+  // }
+
+  useEffect(() => {
+    if (filters.search !== debouncedSearchInputValue) {
+      setFilters({ ...filters, search: debouncedSearchInputValue, page: 1 })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearchInputValue])
+
+  const toggleSelectedCategory = useCallback((selectedCategory: string) => {
+    setSelectedCategory((prevState) => {
+      return {
+        ...prevState,
+        [selectedCategory]: !prevState[selectedCategory],
+      }
+    })
+  }, [])
+
+  /// //-------------
   const translationMap: Record<string, string> = {
     [Enum_Managedobject_Type.Fontana]: t('MapSection.managedObjectsFilter.fontana'),
     [Enum_Managedobject_Type.PitnaFontana]: t('MapSection.managedObjectsFilter.pitnaFontana'),
@@ -92,7 +138,17 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
         >
           {/* Search & filtering */}
           <div className="flex flex-col gap-3 border-b border-border p-5">
+            <FilteringSearchInput
+              value={searchInputValue}
+              onChange={(value) => setSearchInputValue(value)}
+            />
             <Search value={searchQuery} onSearchQueryChange={setSearchQuery} />
+            <MapObjectsCategoryTags
+              toggleSelectedCategory={toggleSelectedCategory}
+              selectedCategories={selectedCategories}
+              queryKey={['ManagedObjectCategories']}
+              fetcher={mappedFetcher}
+            />
             <ul aria-label={t('MapSection.filtering')} className="flex flex-wrap gap-2">
               {Object.entries(selectedTypes).map(([type]) => {
                 return (

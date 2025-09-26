@@ -5394,9 +5394,7 @@ export type CemeteriesQueryVariables = Exact<{
 
 export type CemeteriesQuery = { __typename?: 'Query', cemeteries?: { __typename?: 'CemeteryEntityResponseCollection', data: Array<{ __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', type?: Enum_Cemetery_Type | null, description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, address?: string | null, title: string, slug: string, locale?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, documents?: { __typename?: 'ComponentSectionsDocumentGroup', id: string, title?: string | null, documents?: Array<{ __typename?: 'ComponentBlocksDocumentItem', document?: { __typename?: 'DocumentEntityResponse', data?: { __typename: 'DocumentEntity', id?: string | null, attributes?: { __typename?: 'Document', publishedAt?: any | null, title: string, slug: string, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, documentCategory?: { __typename?: 'DocumentCategoryEntityResponse', data?: { __typename?: 'DocumentCategoryEntity', id?: string | null, attributes?: { __typename?: 'DocumentCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | null, gallery?: { __typename?: 'ComponentSectionsGallery', id: string, title?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null } | null, video?: { __typename?: 'ComponentSectionsIframeSection', id: string, title?: string | null, iframeTitle: string, body?: string | null, url: string } | null, cemeteryCategory?: { __typename?: 'CemeteryCategoryEntityResponse', data?: { __typename?: 'CemeteryCategoryEntity', id?: string | null, attributes?: { __typename?: 'CemeteryCategory', title: string, slug: string } | null } | null } | null, overrideOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null } | null }> } | null };
 
-export type CemeteryCategoriesQueryVariables = Exact<{
-  locale: Scalars['I18NLocaleCode']['input'];
-}>;
+export type CemeteryCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CemeteryCategoriesQuery = { __typename?: 'Query', cemeteryCategories?: { __typename?: 'CemeteryCategoryEntityResponseCollection', data: Array<{ __typename?: 'CemeteryCategoryEntity', id?: string | null, attributes?: { __typename?: 'CemeteryCategory', title: string, slug: string } | null }> } | null };
@@ -5416,9 +5414,7 @@ export type ManagedObjectsQueryVariables = Exact<{
 
 export type ManagedObjectsQuery = { __typename?: 'Query', managedObjects?: { __typename?: 'ManagedObjectEntityResponseCollection', data: Array<{ __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', description?: string | null, address?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, slug: string, title: string, type?: Enum_Managedobject_Type | null, locale?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, managedObjectCategory?: { __typename?: 'ManagedObjectCategoryEntityResponse', data?: { __typename?: 'ManagedObjectCategoryEntity', id?: string | null, attributes?: { __typename?: 'ManagedObjectCategory', title: string, slug: string } | null } | null } | null } | null }> } | null };
 
-export type ManagedObjectCategoriesQueryVariables = Exact<{
-  locale: Scalars['I18NLocaleCode']['input'];
-}>;
+export type ManagedObjectCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ManagedObjectCategoriesQuery = { __typename?: 'Query', managedObjectCategories?: { __typename?: 'ManagedObjectCategoryEntityResponseCollection', data: Array<{ __typename?: 'ManagedObjectCategoryEntity', id?: string | null, attributes?: { __typename?: 'ManagedObjectCategory', title: string, slug: string } | null }> } | null };
@@ -6930,7 +6926,7 @@ export const CemeteriesDocument = gql`
 }
     ${CemeteryEntityFragmentDoc}`;
 export const CemeteryCategoriesDocument = gql`
-    query CemeteryCategories($locale: I18NLocaleCode!) {
+    query CemeteryCategories {
   cemeteryCategories(pagination: {limit: -1}) {
     data {
       ...CemeteryCategoryEntity
@@ -6957,7 +6953,7 @@ export const ManagedObjectsDocument = gql`
 }
     ${ManagedObjectEntityFragmentDoc}`;
 export const ManagedObjectCategoriesDocument = gql`
-    query ManagedObjectCategories($locale: I18NLocaleCode!) {
+    query ManagedObjectCategories {
   managedObjectCategories(pagination: {limit: -1}) {
     data {
       ...ManagedObjectCategoryEntity
@@ -7232,7 +7228,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     Cemeteries(variables: CemeteriesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CemeteriesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<CemeteriesQuery>(CemeteriesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Cemeteries', 'query', variables);
     },
-    CemeteryCategories(variables: CemeteryCategoriesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CemeteryCategoriesQuery> {
+    CemeteryCategories(variables?: CemeteryCategoriesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CemeteryCategoriesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<CemeteryCategoriesQuery>(CemeteryCategoriesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CemeteryCategories', 'query', variables);
     },
     ManagedObjectBySlug(variables: ManagedObjectBySlugQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<ManagedObjectBySlugQuery> {
@@ -7241,7 +7237,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     ManagedObjects(variables: ManagedObjectsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<ManagedObjectsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ManagedObjectsQuery>(ManagedObjectsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ManagedObjects', 'query', variables);
     },
-    ManagedObjectCategories(variables: ManagedObjectCategoriesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<ManagedObjectCategoriesQuery> {
+    ManagedObjectCategories(variables?: ManagedObjectCategoriesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<ManagedObjectCategoriesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ManagedObjectCategoriesQuery>(ManagedObjectCategoriesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ManagedObjectCategories', 'query', variables);
     },
     BundleBySlug(variables: BundleBySlugQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<BundleBySlugQuery> {

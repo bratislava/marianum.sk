@@ -94,7 +94,7 @@ query Cemeteries($locale: I18NLocaleCode!) {
   }
 }
 
-query CemeteryCategories($locale: I18NLocaleCode!) {
+query CemeteryCategories {
   cemeteryCategories(pagination: { limit: -1 }) {
     data {
       ...CemeteryCategoryEntity
@@ -118,7 +118,7 @@ query ManagedObjects($locale: I18NLocaleCode!) {
   }
 }
 
-query ManagedObjectCategories($locale: I18NLocaleCode!) {
+query ManagedObjectCategories {
   managedObjectCategories(pagination: { limit: -1 }) {
     data {
       ...ManagedObjectCategoryEntity
