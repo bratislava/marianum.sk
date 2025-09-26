@@ -148,6 +148,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
               selectedCategories={selectedCategories}
               queryKey={['ManagedObjectCategories']}
               fetcher={mappedFetcher}
+              defaultCategories={section.categories?.data}
             />
             <ul aria-label={t('MapSection.filtering')} className="flex flex-wrap gap-2">
               {Object.entries(selectedTypes).map(([type]) => {
