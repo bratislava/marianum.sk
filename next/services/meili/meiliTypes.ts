@@ -9,6 +9,7 @@ import {
   Disclosure,
   Document,
   DocumentCategory,
+  ManagedObject,
   UploadFile,
 } from '@/graphql'
 
@@ -47,6 +48,11 @@ export type DocumentMeili = Omit<Document, '__typename' | 'documentCategory' | '
   id: string
   documentCategory: Omit<DocumentCategory, '__typename' | 'documents'>
   file: Omit<UploadFile, '__typename'>
+}
+
+export type ManagedObjectMeili = Omit<ManagedObject, '__typename' | 'localizations'> & {
+  id: string
+  localizations: ManagedObjectMeili[]
 }
 
 /**
