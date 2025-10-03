@@ -2,16 +2,16 @@ name: Strapi/Next deploy pipeline
 on:
   push:
     tags:
-      - 'dev**'
-      - 'staging**'
-      - 'prod**'
+      - "dev**"
+      - "staging**"
+      - "prod**"
     branches:
       - master
 
 jobs:
   conditions:
     name: Check for cluster conditions
-    uses: bratislava/github-actions/.github/workflows/cluster-deploy-conditions.yml@stable
+    uses: bratislava/github-actions/.github/workflows/cluster-deploy-conditions-inhouse.yml@stable
 
   deploy-dev:
     name: after dev Strapi deploy Next
@@ -20,8 +20,8 @@ jobs:
     uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: next/
-      cluster: tkg-innov-dev
-      url: https://tkg.dev.bratislava.sk
+      cluster: development
+      url: https://dev.tkgis.bratislava.sk:6443
       debug: --debug
     secrets:
       service-account: ${{ secrets.DEV_STANDALONE_TOKEN }}
@@ -36,8 +36,8 @@ jobs:
     uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: strapi/
-      cluster: tkg-innov-dev
-      url: https://tkg.dev.bratislava.sk
+      cluster: development
+      url: https://dev.tkgis.bratislava.sk:6443
       debug: --debug
     secrets:
       service-account: ${{ secrets.DEV_STANDALONE_TOKEN }}
@@ -52,8 +52,8 @@ jobs:
     uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: next/
-      cluster: tkg-innov-dev
-      url: https://tkg.dev.bratislava.sk
+      cluster: development
+      url: https://dev.tkgis.bratislava.sk:6443
       debug: --debug
     secrets:
       service-account: ${{ secrets.DEV_STANDALONE_TOKEN }}
@@ -68,8 +68,8 @@ jobs:
     uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: next/
-      cluster: tkg-innov-staging
-      url: https://tkg.staging.bratislava.sk
+      cluster: staging
+      url: https://stage.tkgis.bratislava.sk:6443
       debug: --debug
       flag: --staging
     secrets:
@@ -85,8 +85,8 @@ jobs:
     uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: strapi/
-      cluster: tkg-innov-staging
-      url: https://tkg.staging.bratislava.sk
+      cluster: staging
+      url: https://stage.tkgis.bratislava.sk:6443
       debug: --debug
       flag: --staging
     secrets:
@@ -102,8 +102,8 @@ jobs:
     uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: next/
-      cluster: tkg-innov-staging
-      url: https://tkg.staging.bratislava.sk
+      cluster: staging
+      url: https://stage.tkgis.bratislava.sk:6443
       debug: --debug
       flag: --staging
     secrets:
@@ -119,8 +119,8 @@ jobs:
     uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: next/
-      cluster: tkg-innov-prod
-      url: https://tkg.bratislava.sk
+      cluster: production
+      url: https://prod.tkgis.bratislava.sk:6443
       flag: --production
       debug: --debug
     secrets:
@@ -136,8 +136,8 @@ jobs:
     uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: strapi/
-      cluster: tkg-innov-prod
-      url: https://tkg.bratislava.sk
+      cluster: production
+      url: https://prod.tkgis.bratislava.sk:6443
       flag: --production
       debug: --debug
     secrets:
@@ -153,8 +153,8 @@ jobs:
     uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: next/
-      cluster: tkg-innov-prod
-      url: https://tkg.bratislava.sk
+      cluster: production
+      url: https://prod.tkgis.bratislava.sk:6443
       flag: --production
       debug: --debug
     secrets:
