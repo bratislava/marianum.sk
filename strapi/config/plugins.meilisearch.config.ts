@@ -33,6 +33,8 @@ const searchIndexSettings = {
     "cemetery.title",
     // Document
     "document.title",
+    // Managed Object
+    "managed-object.title",
   ],
   filterableAttributes: [
     // All
@@ -43,15 +45,23 @@ const searchIndexSettings = {
     "article.pressCategory.id",
     "article.newsCategory.id",
     "article.jobsCategory.id",
+    // Cemetery
+    "cemetery.cemeteryCategory.id",
     // Document
     "document.documentCategory.id",
     "document.file.ext",
+    // Managed Object
+    "managed-object.managedObjectCategory.id",
   ],
   sortableAttributes: [
     // Article
     "article.publishedAtTimestamp",
+    // Cemetery
+    "cemetery.title",
     // Document
     "document.updatedAtTimestamp",
+    // Managed Object
+    "managed-object.title",
   ],
   pagination: {
     // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
@@ -193,6 +203,15 @@ const config = {
           ? new Date(entry.updatedAt).getTime()
           : undefined,
       }),
+  },
+  "managed-object": {
+    indexName: "search_index",
+    entriesQuery: {
+      locale: "all",
+    },
+    settings: searchIndexSettings,
+    transformEntry: ({ entry }) =>
+      wrapSearchIndexEntry("managed-object", entry),
   },
 };
 
