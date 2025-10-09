@@ -1,5 +1,3 @@
-import { Option } from '@/components/atoms/Select'
-import { client } from '@/services/graphql/gqlClient'
 import { meiliClient } from '@/services/meili/meiliClient'
 import { ArticleMeili } from '@/services/meili/meiliTypes'
 import { SearchIndexWrapped, unwrapFromSearchIndex } from '@/services/meili/searchIndexWrapped'

@@ -1,4 +1,3 @@
-import { Sort } from '@/components/molecules/SortSelect'
 import { client } from '@/services/graphql/gqlClient'
 import { meiliClient } from '@/services/meili/meiliClient'
 import { ManagedObjectMeili } from '@/services/meili/meiliTypes'
@@ -22,8 +21,6 @@ export type ManagedObjectsFilters = {
   search: string
   categoryIds?: string[]
   page: number
-  sort: Sort
-  filetype: string | null
 }
 
 export const managedObjectsDefaultFilters: ManagedObjectsFilters = {
@@ -31,8 +28,6 @@ export const managedObjectsDefaultFilters: ManagedObjectsFilters = {
   search: '',
   page: 1,
   categoryIds: [],
-  sort: 'newest',
-  filetype: null,
 }
 
 export const getMeiliManagedObjectsQueryKey = (filters: ManagedObjectsFilters) => [

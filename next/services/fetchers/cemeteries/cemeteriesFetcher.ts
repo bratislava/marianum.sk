@@ -1,4 +1,3 @@
-import { Sort } from '@/components/molecules/SortSelect'
 import { client } from '@/services/graphql/gqlClient'
 import { meiliClient } from '@/services/meili/meiliClient'
 import { CemeteryMeili } from '@/services/meili/meiliTypes'
@@ -20,10 +19,8 @@ export const getGraphqlCemeteriesQuery = (locale: string) => {
 export type CemeteriesFilters = {
   pageSize: number
   search: string
-  categoryIds?: string[]
   page: number
-  sort: Sort
-  filetype: string | null
+  categoryIds?: string[]
 }
 
 export const cemeteriesDefaultFilters: CemeteriesFilters = {
@@ -31,8 +28,6 @@ export const cemeteriesDefaultFilters: CemeteriesFilters = {
   search: '',
   page: 1,
   categoryIds: [],
-  sort: 'newest',
-  filetype: null,
 }
 
 export const getMeiliCemeteriesQueryKey = (filters: CemeteriesFilters) => ['Cemeteries', filters]
@@ -48,7 +43,6 @@ export const meiliCemeteriesFetcher = (filters: CemeteriesFilters) => {
           ? `cemetery.cemeteryCategory.id IN [${filters.categoryIds.join(',')}]`
           : null,
       ].filter(isDefined),
-      // sort: ['cemetery.title:asc'],
     })
     .then(unwrapFromSearchIndex('cemetery'))
 }

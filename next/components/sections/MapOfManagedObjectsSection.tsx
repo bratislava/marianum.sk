@@ -22,7 +22,12 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
 
   const categories = section.categories?.data.filter(isDefined) ?? []
 
-  const [filters, setFilters] = useState(managedObjectsDefaultFilters)
+  const defaultCategoryIds = categories.map((category) => category.id).filter(isDefined)
+
+  const [filters, setFilters] = useState({
+    ...managedObjectsDefaultFilters,
+    categoryIds: defaultCategoryIds,
+  })
 
   const { data, isPending, isError, error } = useQuery({
     queryKey: getMeiliManagedObjectsQueryKey(filters),
