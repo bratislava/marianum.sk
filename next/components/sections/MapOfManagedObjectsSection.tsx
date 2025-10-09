@@ -75,7 +75,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
         }}
         landmarks={data.hits
           .map((hit) => {
-            const { title, latitude, longitude } = hit ?? {}
+            const { title, latitude, longitude, address } = hit ?? {}
             const linkHref = getFullPath({
               id: hit.id,
               attributes: hit,
@@ -88,6 +88,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
                 longitude,
                 latitude,
                 linkHref,
+                address: address ?? undefined,
               }
             }
 
