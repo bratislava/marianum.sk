@@ -20,7 +20,7 @@ export const getGraphqlManagedObjectsQuery = (locale: string) => {
 export type ManagedObjectsFilters = {
   pageSize: number
   search: string
-  categoryId: string | null
+  categoryIds?: string[]
   page: number
   sort: Sort
   filetype: string | null
@@ -30,7 +30,7 @@ export const managedObjectsDefaultFilters: ManagedObjectsFilters = {
   pageSize: 24,
   search: '',
   page: 1,
-  categoryId: null,
+  categoryIds: [],
   sort: 'newest',
   filetype: null,
 }
@@ -47,10 +47,10 @@ export const meiliManagedObjectsFetcher = (filters: ManagedObjectsFilters) => {
       ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
       filter: [
         'type = "managed-object"',
-        isDefined(filters.categoryId)
-          ? `managed-object.managedObjectCategory.id = ${filters.categoryId}`
+        filters.categoryIds?.length
+          ? `managed-object.managedObjectCategory.id [${filters.categoryIds.join(',')}]`
           : null,
-      ].filter(Boolean) as string[],
+      ].filter(isDefined),
       sort: ['managed-object.title:asc'],
     })
     .then(unwrapFromSearchIndex('managed-object'))

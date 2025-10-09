@@ -20,7 +20,7 @@ export const getGraphqlCemeteriesQuery = (locale: string) => {
 export type CemeteriesFilters = {
   pageSize: number
   search: string
-  categoryId: string | null
+  categoryIds?: string[]
   page: number
   sort: Sort
   filetype: string | null
@@ -30,7 +30,7 @@ export const cemeteriesDefaultFilters: CemeteriesFilters = {
   pageSize: 24,
   search: '',
   page: 1,
-  categoryId: null,
+  categoryIds: [],
   sort: 'newest',
   filetype: null,
 }
@@ -44,11 +44,11 @@ export const meiliCemeteriesFetcher = (filters: CemeteriesFilters) => {
       ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
       filter: [
         'type = "cemetery"',
-        isDefined(filters.categoryId)
-          ? `cemetery.cemeteryCategory.id = ${filters.categoryId}`
+        filters.categoryIds?.length
+          ? `cemetery.cemeteryCategory.id IN [${filters.categoryIds.join(',')}]`
           : null,
-      ].filter(Boolean) as string[],
-      sort: ['cemetery.title:asc'],
+      ].filter(isDefined),
+      // sort: ['cemetery.title:asc'],
     })
     .then(unwrapFromSearchIndex('cemetery'))
 }
