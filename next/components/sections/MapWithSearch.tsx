@@ -11,7 +11,7 @@ import { ArrowLeftIcon, PlaceIcon } from '@/assets/icons'
 import Button from '@/components/atoms/Button'
 import MLink from '@/components/atoms/MLink'
 import Search from '@/components/molecules/Search'
-import { useMapWithFilteringAndSearch } from '@/utils/useMapWithFilteringAndSearch'
+import { useFitLandmarks } from '@/utils/useFitLandmarks'
 
 type Props = {
   landmarks: {
@@ -41,7 +41,7 @@ const MapWithSearch = ({ landmarks, tags, onSearchChange, onSelectionChange }: P
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [debouncedSearchQuery] = useDebounceValue(searchQuery, 300)
 
-  const { mapRef, initialBounds } = useMapWithFilteringAndSearch(landmarks)
+  const { mapRef, initialBounds } = useFitLandmarks(landmarks)
 
   useEffect(() => {
     onSearchChange?.(debouncedSearchQuery)
