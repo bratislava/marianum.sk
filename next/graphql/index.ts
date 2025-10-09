@@ -5387,13 +5387,6 @@ export type CemeteryBySlugQueryVariables = Exact<{
 
 export type CemeteryBySlugQuery = { __typename?: 'Query', cemeteries?: { __typename?: 'CemeteryEntityResponseCollection', data: Array<{ __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', type?: Enum_Cemetery_Type | null, description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, address?: string | null, title: string, slug: string, locale?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, documents?: { __typename?: 'ComponentSectionsDocumentGroup', id: string, title?: string | null, documents?: Array<{ __typename?: 'ComponentBlocksDocumentItem', document?: { __typename?: 'DocumentEntityResponse', data?: { __typename: 'DocumentEntity', id?: string | null, attributes?: { __typename?: 'Document', publishedAt?: any | null, title: string, slug: string, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, documentCategory?: { __typename?: 'DocumentCategoryEntityResponse', data?: { __typename?: 'DocumentCategoryEntity', id?: string | null, attributes?: { __typename?: 'DocumentCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | null, gallery?: { __typename?: 'ComponentSectionsGallery', id: string, title?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null } | null, video?: { __typename?: 'ComponentSectionsIframeSection', id: string, title?: string | null, iframeTitle: string, body?: string | null, url: string } | null, cemeteryCategory?: { __typename?: 'CemeteryCategoryEntityResponse', data?: { __typename?: 'CemeteryCategoryEntity', id?: string | null, attributes?: { __typename?: 'CemeteryCategory', title: string, slug: string } | null } | null } | null, overrideOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null } | null }> } | null };
 
-export type CemeteriesQueryVariables = Exact<{
-  locale: Scalars['I18NLocaleCode']['input'];
-}>;
-
-
-export type CemeteriesQuery = { __typename?: 'Query', cemeteries?: { __typename?: 'CemeteryEntityResponseCollection', data: Array<{ __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', type?: Enum_Cemetery_Type | null, description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, address?: string | null, title: string, slug: string, locale?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, documents?: { __typename?: 'ComponentSectionsDocumentGroup', id: string, title?: string | null, documents?: Array<{ __typename?: 'ComponentBlocksDocumentItem', document?: { __typename?: 'DocumentEntityResponse', data?: { __typename: 'DocumentEntity', id?: string | null, attributes?: { __typename?: 'Document', publishedAt?: any | null, title: string, slug: string, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, documentCategory?: { __typename?: 'DocumentCategoryEntityResponse', data?: { __typename?: 'DocumentCategoryEntity', id?: string | null, attributes?: { __typename?: 'DocumentCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | null, gallery?: { __typename?: 'ComponentSectionsGallery', id: string, title?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null } | null, video?: { __typename?: 'ComponentSectionsIframeSection', id: string, title?: string | null, iframeTitle: string, body?: string | null, url: string } | null, cemeteryCategory?: { __typename?: 'CemeteryCategoryEntityResponse', data?: { __typename?: 'CemeteryCategoryEntity', id?: string | null, attributes?: { __typename?: 'CemeteryCategory', title: string, slug: string } | null } | null } | null, overrideOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null } | null }> } | null };
-
 export type CemeteryCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -5406,13 +5399,6 @@ export type ManagedObjectBySlugQueryVariables = Exact<{
 
 
 export type ManagedObjectBySlugQuery = { __typename?: 'Query', managedObjects?: { __typename?: 'ManagedObjectEntityResponseCollection', data: Array<{ __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', description?: string | null, address?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, slug: string, title: string, type?: Enum_Managedobject_Type | null, locale?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, managedObjectCategory?: { __typename?: 'ManagedObjectCategoryEntityResponse', data?: { __typename?: 'ManagedObjectCategoryEntity', id?: string | null, attributes?: { __typename?: 'ManagedObjectCategory', title: string, slug: string } | null } | null } | null } | null }> } | null };
-
-export type ManagedObjectsQueryVariables = Exact<{
-  locale: Scalars['I18NLocaleCode']['input'];
-}>;
-
-
-export type ManagedObjectsQuery = { __typename?: 'Query', managedObjects?: { __typename?: 'ManagedObjectEntityResponseCollection', data: Array<{ __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', description?: string | null, address?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, slug: string, title: string, type?: Enum_Managedobject_Type | null, locale?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, managedObjectCategory?: { __typename?: 'ManagedObjectCategoryEntityResponse', data?: { __typename?: 'ManagedObjectCategoryEntity', id?: string | null, attributes?: { __typename?: 'ManagedObjectCategory', title: string, slug: string } | null } | null } | null } | null }> } | null };
 
 export type ManagedObjectCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6916,15 +6902,6 @@ export const CemeteryBySlugDocument = gql`
   }
 }
     ${CemeteryEntityFragmentDoc}`;
-export const CemeteriesDocument = gql`
-    query Cemeteries($locale: I18NLocaleCode!) {
-  cemeteries(locale: $locale, sort: ["title:asc"], pagination: {limit: -1}) {
-    data {
-      ...CemeteryEntity
-    }
-  }
-}
-    ${CemeteryEntityFragmentDoc}`;
 export const CemeteryCategoriesDocument = gql`
     query CemeteryCategories {
   cemeteryCategories(pagination: {limit: -1}) {
@@ -6937,15 +6914,6 @@ export const CemeteryCategoriesDocument = gql`
 export const ManagedObjectBySlugDocument = gql`
     query ManagedObjectBySlug($locale: I18NLocaleCode!, $slug: String!) {
   managedObjects(locale: $locale, filters: {slug: {eq: $slug}}) {
-    data {
-      ...ManagedObjectEntity
-    }
-  }
-}
-    ${ManagedObjectEntityFragmentDoc}`;
-export const ManagedObjectsDocument = gql`
-    query ManagedObjects($locale: I18NLocaleCode!) {
-  managedObjects(locale: $locale, sort: ["title:asc"], pagination: {limit: -1}) {
     data {
       ...ManagedObjectEntity
     }
@@ -7225,17 +7193,11 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     CemeteryBySlug(variables: CemeteryBySlugQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CemeteryBySlugQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<CemeteryBySlugQuery>(CemeteryBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CemeteryBySlug', 'query', variables);
     },
-    Cemeteries(variables: CemeteriesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CemeteriesQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<CemeteriesQuery>(CemeteriesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Cemeteries', 'query', variables);
-    },
     CemeteryCategories(variables?: CemeteryCategoriesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CemeteryCategoriesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<CemeteryCategoriesQuery>(CemeteryCategoriesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'CemeteryCategories', 'query', variables);
     },
     ManagedObjectBySlug(variables: ManagedObjectBySlugQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<ManagedObjectBySlugQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ManagedObjectBySlugQuery>(ManagedObjectBySlugDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ManagedObjectBySlug', 'query', variables);
-    },
-    ManagedObjects(variables: ManagedObjectsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<ManagedObjectsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<ManagedObjectsQuery>(ManagedObjectsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ManagedObjects', 'query', variables);
     },
     ManagedObjectCategories(variables?: ManagedObjectCategoriesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<ManagedObjectCategoriesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ManagedObjectCategoriesQuery>(ManagedObjectCategoriesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'ManagedObjectCategories', 'query', variables);
