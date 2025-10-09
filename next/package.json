@@ -64,7 +64,6 @@
     "rehype-raw": "7.0.0",
     "remark-gfm": "4.0.1",
     "sharp": "0.32.6",
-    "slugify": "^1.6.5",
     "smooth-scroll-into-view-if-needed": "^1.1.33",
     "swiper": "^8.4.4",
     "tailwind-merge": "2.5.2",
