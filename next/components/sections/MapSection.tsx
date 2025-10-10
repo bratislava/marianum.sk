@@ -29,8 +29,6 @@ const MapSection = ({ section }: MapSectionProps) => {
     categoryIds: defaultCategoryIds,
   })
 
-  // console.log('filters', filters)
-
   const { data, isPending, isError, error } = useQuery({
     queryKey: getMeiliCemeteriesQueryKey(filters),
     queryFn: () => meiliCemeteriesFetcher(filters),
@@ -69,10 +67,7 @@ const MapSection = ({ section }: MapSectionProps) => {
             categoryIds:
               selection === 'all'
                 ? defaultCategoryIds
-                : categories
-                    .filter((category) => category.id && selection.has(category.id))
-                    .map((category) => category.id)
-                    .filter(isDefined),
+                : defaultCategoryIds.filter((categoryId) => selection.has(categoryId)),
           }))
         }}
         landmarks={data.hits

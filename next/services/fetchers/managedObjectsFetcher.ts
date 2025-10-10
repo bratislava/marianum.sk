@@ -7,8 +7,8 @@ import { isDefined } from '@/utils/isDefined'
 export type ManagedObjectsFilters = {
   pageSize: number
   search: string
-  categoryIds?: string[]
   page: number
+  categoryIds?: string[]
 }
 
 export const managedObjectsDefaultFilters: ManagedObjectsFilters = {
@@ -31,7 +31,7 @@ export const meiliManagedObjectsFetcher = (filters: ManagedObjectsFilters) => {
       filter: [
         'type = "managed-object"',
         filters.categoryIds?.length
-          ? `managed-object.managedObjectCategory.id [${filters.categoryIds.join(',')}]`
+          ? `managed-object.managedObjectCategory.id IN [${filters.categoryIds.join(',')}]`
           : null,
       ].filter(isDefined),
       sort: ['managed-object.title:asc'],

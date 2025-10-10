@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react'
-import { MapRef } from 'react-map-gl'
+import { LngLatBoundsLike, MapRef } from 'react-map-gl'
 
 type Landmark = {
   latitude: number
@@ -13,7 +13,7 @@ const getBoundsForLandmarks = (landmarks: Landmark[]) => {
   return [
     [Math.min(...longitudes), Math.min(...latitudes)],
     [Math.max(...longitudes), Math.max(...latitudes)],
-  ] as [[number, number], [number, number]]
+  ] satisfies LngLatBoundsLike
 }
 
 export const useFitLandmarks = (landmarks: Landmark[]) => {

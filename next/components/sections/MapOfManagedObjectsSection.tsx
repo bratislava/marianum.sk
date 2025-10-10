@@ -66,11 +66,8 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
             ...prevState,
             categoryIds:
               selection === 'all'
-                ? []
-                : categories
-                    .filter((category) => category.id && selection.has(category.id))
-                    .map((category) => category.id)
-                    .filter(isDefined),
+                ? defaultCategoryIds
+                : defaultCategoryIds.filter((categoryId) => selection.has(categoryId)),
           }))
         }}
         landmarks={data.hits
