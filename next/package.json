@@ -22,7 +22,7 @@
     "update-graphql": "npm install graphql@latest graphql-request@latest graphql-tag@latest --save-exact && npm install @graphql-codegen/cli@latest @graphql-codegen/typescript-graphql-request@latest --save-dev --save-exact"
   },
   "dependencies": {
-    "@headlessui/react": "^1.6.6",
+    "@headlessui/react": "^2.2.9",
     "@iframe-resizer/react": "5.5.5",
     "@internationalized/date": "^3.0.1",
     "@popperjs/core": "^2.11.5",
