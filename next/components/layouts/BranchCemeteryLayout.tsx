@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { ReactNode } from 'react'
 
 import PageWrapper from '@/components/layouts/PageWrapper'
@@ -12,6 +11,7 @@ import {
   ManagedObjectEntityFragment,
   NavigationItemFragment,
 } from '@/graphql'
+import cn from '@/utils/cn'
 
 type BranchCemeteryLayoutProps = {
   entity: BranchEntityFragment | CemeteryEntityFragment | ManagedObjectEntityFragment
@@ -46,7 +46,7 @@ const BranchCemeteryLayout = ({
     >
       <div className="h-full">
         <div
-          className={cx(
+          className={cn(
             'container relative grid h-auto grid-cols-1 gap-6 pb-20 lg:grid-flow-col lg:grid-cols-[minmax(0,1fr)_auto]',
             {
               'pt-24': hasMedias,

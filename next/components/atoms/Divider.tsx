@@ -1,6 +1,5 @@
-import cx from 'classnames'
-
 import { WavesSvg } from '@/assets'
+import cn from '@/utils/cn'
 
 type DividerProps = {
   color?: 'default' | 'primary'
@@ -10,10 +9,14 @@ type DividerProps = {
 const Divider = ({ color = 'default', className }: DividerProps) => {
   return (
     <div
-      className={cx('flex items-center', className, {
-        'text-primary': color === 'primary',
-        'text-border': color === 'default',
-      })}
+      className={cn(
+        'flex items-center',
+        {
+          'text-primary': color === 'primary',
+          'text-border': color === 'default',
+        },
+        className,
+      )}
     >
       <div className="mr-3 h-[2px] grow bg-current" />
       <div className="shrink">

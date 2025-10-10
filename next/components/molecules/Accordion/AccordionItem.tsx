@@ -1,9 +1,9 @@
-import cx from 'classnames'
 import { ReactNode, useContext } from 'react'
 
 import { ChevronDownIcon } from '@/assets/icons'
 import { AnimateHeight } from '@/components/atoms/AnimateHeight'
 import { sectionContext } from '@/components/layouts/SectionsWrapper'
+import cn from '@/utils/cn'
 
 export type AccordionItemProps = {
   title: string | null | undefined | ReactNode
@@ -33,12 +33,12 @@ const AccordionItem = ({
     >
       <div>
         <details
-          className={cx('group flex w-full flex-col bg-white', {
+          className={cn('group flex w-full flex-col bg-white', {
             'border border-border': (border ?? contextBorder) && !noBoxStyles,
           })}
         >
           <summary
-            className={cx(
+            className={cn(
               'flex cursor-pointer justify-between gap-4 text-left text-h5 focus:outline-none',
               { 'p-4 sm:p-5 md:p-6': !noBoxStyles },
             )}
@@ -46,7 +46,7 @@ const AccordionItem = ({
             <h3 className="py-[3px] text-h5">{title}</h3>
             {additionalInfo && <div className="pr-6">{additionalInfo}</div>}
             <div
-              className={cx(
+              className={cn(
                 'flex size-8 shrink-0 items-center justify-center rounded-full bg-white',
                 { 'border border-border': !noBoxStyles },
               )}
@@ -59,7 +59,7 @@ const AccordionItem = ({
           </summary>
 
           <div
-            className={cx('w-full', {
+            className={cn('w-full', {
               'px-4 pb-4 sm:px-5 sm:pb-5 md:px-6 md:pb-6': !noBoxStyles,
               'pt-4 sm:pt-5 md:pt-6': noBoxStyles,
             })}

@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
 
@@ -13,6 +12,7 @@ import NavigationMenuMobile from '@/components/molecules/Navigation/NavigationMe
 import { useNavigationContext } from '@/components/molecules/Navigation/NavigationProvider/useNavigationContext'
 import NavigationSearch from '@/components/molecules/Navigation/NavigationSearch/NavigationSearch'
 import { ContactEntityFragment } from '@/graphql'
+import cn from '@/utils/cn'
 import { getPhoneNumberLink } from '@/utils/getPhoneNumberLink'
 
 type NavigationProps = {
@@ -73,7 +73,7 @@ const Navigation = ({ contact }: NavigationProps) => {
           <div className="flex items-center gap-4 xl:gap-8">
             {/* desktop faq and phone links */}
             <div
-              className={cx('hidden items-center gap-4 opacity-0 xl:flex', {
+              className={cn('hidden items-center gap-4 opacity-0 xl:flex', {
                 'opacity-100 transition-opacity delay-500': !isDesktopSearchOpen,
                 hidden: isDesktopSearchOpen,
               })}

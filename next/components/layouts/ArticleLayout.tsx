@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { ReactNode } from 'react'
 
 import FormatDate from '@/components/atoms/FormatDate'
@@ -9,6 +8,7 @@ import SectionsWrapper from '@/components/layouts/SectionsWrapper'
 import HeroSection from '@/components/sections/HeroSection'
 import NewsSection from '@/components/sections/NewsSection'
 import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import cn from '@/utils/cn'
 
 type ArticleLayoutProps = {
   navigation: NavigationItemFragment[]
@@ -40,7 +40,7 @@ const ArticleLayout = ({ article, navigation, children, general }: ArticleLayout
     >
       <SectionsWrapper alternateBackground className="h-full pb-14">
         <div
-          className={cx('bg-white', {
+          className={cn('bg-white', {
             // Compensate image overlap
             'pt-18': coverImage,
           })}

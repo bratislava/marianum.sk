@@ -1,6 +1,6 @@
-import cx from 'classnames'
 import { PropsWithChildren } from 'react'
-import { twMerge } from 'tailwind-merge'
+
+import cn from '@/utils/cn'
 
 type RowContentProps = {
   hover?: boolean
@@ -10,8 +10,11 @@ type RowContentProps = {
 const RowContent = ({ className, hover = true, children }: PropsWithChildren<RowContentProps>) => {
   return (
     <div
-      className={twMerge(
-        cx('relative flex grow items-center px-4 py-3 md:px-5 md:py-4', { group: hover }),
+      className={cn(
+        'relative flex grow items-center px-4 py-3 md:px-5 md:py-4',
+        {
+          group: hover,
+        },
         className,
       )}
     >

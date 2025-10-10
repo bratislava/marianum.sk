@@ -1,5 +1,4 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import cx from 'classnames'
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import { useState } from 'react'
@@ -13,6 +12,7 @@ import {
   getGraphqlReviewsQueryKey,
   graphqlReviewsFetcher,
 } from '@/services/fetchers/reviewsFetcher'
+import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
 
 const REVIEWS_PER_PAGE = 10
@@ -62,7 +62,7 @@ const ReviewListingSection = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className={cx({ 'border-t border-border pt-6': index !== 0 })}
+                    className={cn({ 'border-t border-border pt-6': index !== 0 })}
                   >
                     <Review
                       author={review.attributes?.author ?? ''}

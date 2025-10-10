@@ -1,7 +1,6 @@
 import '@szhsin/react-menu/dist/core.css'
 
 import { ControlledMenu as ReactControlledMenu, useMenuState } from '@szhsin/react-menu'
-import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { KeyboardEvent, useEffect } from 'react'
 
@@ -10,6 +9,7 @@ import MLink from '@/components/atoms/MLink'
 import MenuLeaf from '@/components/molecules/Menu/MenuLeaf'
 import SubMenu from '@/components/molecules/Menu/SubMenu'
 import { NavigationItemFragment } from '@/graphql'
+import cn from '@/utils/cn'
 
 export type MenuProps = Pick<NavigationItemFragment, 'title' | 'path' | 'items'>
 
@@ -38,13 +38,13 @@ const Menu = ({ items, title, path }: MenuProps) => {
         onKeyDown={handleKeyDown}
         noStyles
         href={path ?? ''}
-        className={cx(
+        className={cn(
           'flex h-full w-full items-center justify-center font-semibold ring-inset ring-offset-0 transition-all',
           { 'bg-primary/10': isOpen },
         )}
         onPointerEnter={() => toggleMenu(true)}
       >
-        <div className={cx('flex h-full flex-1 items-center justify-center gap-1 px-4')}>
+        <div className="flex h-full flex-1 items-center justify-center gap-1 px-4">
           <span>{title}</span>
           <ChevronDownIcon />
         </div>

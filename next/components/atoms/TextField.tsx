@@ -1,7 +1,7 @@
-import cx from 'classnames'
 import { DetailedHTMLProps, forwardRef, InputHTMLAttributes, ReactNode, useId } from 'react'
 
 import FieldWrapper from '@/components/atoms/FieldWrapper'
+import cn from '@/utils/cn'
 
 type AreaOrInputConditionalProps =
   // textarea props
@@ -62,15 +62,15 @@ const TextField = forwardRef<HTMLTextAreaElement & HTMLInputElement, TextFieldPr
             rows={rows}
             disabled={disabled}
             required={required}
-            className={cx(
+            className={cn(
               'base-focus-ring min-h-10 w-full resize-y bg-transparent px-4 py-[6px]',
-              inputClassName,
               {
                 'text-foreground-disabled': disabled,
                 'placeholder:text-foreground-placeholder':
                   !inputClassName?.includes('placeholder:'),
                 'h-16': isLarge,
               },
+              inputClassName,
             )}
             ref={ref}
           />
@@ -105,7 +105,7 @@ const TextField = forwardRef<HTMLTextAreaElement & HTMLInputElement, TextFieldPr
         required={required}
       >
         {leftSlot && (
-          <div className={cx('shrink-0 grow-0', { 'p-3': isLarge, 'p-2': !isLarge })}>
+          <div className={cn('shrink-0 grow-0', { 'p-3': isLarge, 'p-2': !isLarge })}>
             {leftSlot}
           </div>
         )}
@@ -114,17 +114,21 @@ const TextField = forwardRef<HTMLTextAreaElement & HTMLInputElement, TextFieldPr
           id={generatedOrProvidedId}
           disabled={disabled}
           required={required}
-          className={cx('base-focus-ring w-full bg-transparent', inputClassName, {
-            'text-foreground-disabled': disabled,
-            'pl-4': !leftSlot,
-            'pr-4': !rightSlot,
-            'placeholder:text-foreground-placeholder': !inputClassName?.includes('placeholder:'),
-            'h-16': isLarge,
-            'h-10': !isLarge,
-          })}
+          className={cn(
+            'base-focus-ring w-full bg-transparent',
+            {
+              'text-foreground-disabled': disabled,
+              'pl-4': !leftSlot,
+              'pr-4': !rightSlot,
+              'placeholder:text-foreground-placeholder': !inputClassName?.includes('placeholder:'),
+              'h-16': isLarge,
+              'h-10': !isLarge,
+            },
+            inputClassName,
+          )}
           ref={ref}
         />
-        {rightSlot && <div className={cx('shrink-0 grow-0', { 'p-3': isLarge })}>{rightSlot}</div>}
+        {rightSlot && <div className={cn('shrink-0 grow-0', { 'p-3': isLarge })}>{rightSlot}</div>}
       </FieldWrapper>
     )
   },

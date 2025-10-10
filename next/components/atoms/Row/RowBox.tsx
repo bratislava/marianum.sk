@@ -1,8 +1,7 @@
-import cx from 'classnames'
 import { HTMLAttributes, PropsWithChildren, useContext } from 'react'
-import { twMerge } from 'tailwind-merge'
 
 import { sectionContext } from '@/components/layouts/SectionsWrapper'
+import cn from '@/utils/cn'
 
 export type RowBoxProps = {
   border?: boolean
@@ -27,8 +26,9 @@ const RowBox = ({
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
-      className={twMerge(
-        cx('flex w-full flex-col bg-white', {
+      className={cn(
+        'flex w-full flex-col bg-white',
+        {
           'border border-border': border ?? contextBorder,
           'hover:shadow-card': hover,
           // When the card is focused, hide all its descendants’ focus rings (= focus rings of any links within the card) except the card’s focus ring
@@ -37,7 +37,7 @@ const RowBox = ({
             applyFocusStyles, // TODO Temporary workaround to prevent DocumentRow focus styles from applying to the entire row
           // The ideal solution is to refactor DocumentRow to have a single focusable element instead of multiple
           // This would allow us to apply focus styles to the whole card naturally, eliminating the need for this prop
-        }),
+        },
         className,
       )}
       onClick={onClick}

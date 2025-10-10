@@ -1,9 +1,9 @@
-import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
 
 import { ArrowLeftIcon, ArrowRightIcon } from '@/assets/icons'
 import IconButton from '@/components/atoms/IconButton'
+import cn from '@/utils/cn'
 
 import usePagination from './usePagination'
 
@@ -82,7 +82,7 @@ const Pagination = ({ count, selectedPage, className, onChange = () => {} }: Pag
               <li
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
-                className={cx({
+                className={cn({
                   'mx-[14px] text-sm font-semibold':
                     type === 'start-ellipsis' || type === 'end-ellipsis',
                   'mr-2': type === 'previous',

@@ -1,5 +1,4 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import cx from 'classnames'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -20,6 +19,7 @@ import {
   meiliDebtorsFetcher,
 } from '@/services/fetchers/debtorsFetcher'
 import { DebtorMeili } from '@/services/meili/meiliTypes'
+import cn from '@/utils/cn'
 import { getCemeteryInfoInCeremoniesDebtorsMeili } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
 import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
@@ -65,7 +65,7 @@ const Table = ({
   }, [data])
 
   return (
-    <div className={cx('overflow-x-auto', scrollFadeClassNames)} ref={tableWrapperRef}>
+    <div className={cn('overflow-x-auto', scrollFadeClassNames)} ref={tableWrapperRef}>
       {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
       <table className="m-table colored">
         <thead ref={theadRef}>

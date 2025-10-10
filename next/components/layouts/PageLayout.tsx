@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { ReactNode } from 'react'
 
 import NormalizeText from '@/components/atoms/NormalizeText/NormalizeText'
@@ -11,6 +10,7 @@ import {
   NavigationItemFragment,
   PageEntityFragment,
 } from '@/graphql'
+import cn from '@/utils/cn'
 
 type PageLayoutProps = {
   page: PageEntityFragment
@@ -40,7 +40,7 @@ const PageLayout = ({ page, navigation, children, general }: PageLayoutProps) =>
     >
       <div className="h-full pb-14">
         <div
-          className={cx('h-auto', {
+          className={cn('h-auto', {
             // Add container for all layouts except 'fullwidth'
             'container relative py-6 md:pb-20 md:pt-12':
               page.attributes?.layout !== Enum_Page_Layout.Fullwidth,

@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 
-import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
@@ -11,6 +10,7 @@ import { useOverlayTriggerState } from 'react-stately'
 import MImage from '@/components/atoms/MImage'
 import ImageLightBox from '@/components/molecules/ImageLightBox'
 import { UploadImageEntityFragment } from '@/graphql'
+import cn from '@/utils/cn'
 import { onEnterOrSpaceKeyDown } from '@/utils/onEnterOrSpaceKeyDown'
 
 export type ImageGalleryProps = {
@@ -82,7 +82,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
           tabIndex={0}
           aria-label={t('ImageGallery.aria.openImageGallery')}
           onKeyUp={onEnterOrSpaceKeyDown(() => openAtImageIndex(0))}
-          className={cx('base-focus-ring', {
+          className={cn('base-focus-ring', {
             'flex flex-col': variant === 'below',
             'grid grid-cols-[minmax(0,1fr)_auto]': variant === 'aside',
           })}
@@ -91,7 +91,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
           {firstImage && (
             <div
               onClick={() => openAtImageIndex(0)}
-              className={cx('relative w-full', {
+              className={cn('relative w-full', {
                 // large 'below' layout
                 'h-[500px]': thumbnailCount > 6 && variant === 'below',
                 // small & middle 'below' layout
@@ -153,7 +153,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
           {/* aside images */}
           {variant === 'aside' && smallImages.length > 0 && (
             <div
-              className={cx('ml-6 hidden grid-flow-col grid-rows-2 gap-6', {
+              className={cn('ml-6 hidden grid-flow-col grid-rows-2 gap-6', {
                 'grid-cols-2 md:grid': imageCount > 3,
                 'md:grid': imageCount > 1 && imageCount <= 3,
                 hidden: imageCount === 1,

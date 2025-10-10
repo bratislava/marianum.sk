@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import React, { useId } from 'react'
 import Select, {
   ClearIndicatorProps,
@@ -9,10 +8,10 @@ import Select, {
   OptionProps,
   Props as ReactSelectProps,
 } from 'react-select'
-import { twMerge } from 'tailwind-merge'
 
 import { CheckNoPaddingIcon, ChevronDownIcon, CloseIcon } from '@/assets/icons'
 import Checkbox from '@/components/atoms/Checkbox'
+import cn from '@/utils/cn'
 
 export type SelectOption = { value: string; label: string }
 
@@ -28,7 +27,7 @@ const DropdownIndicator = <
   return (
     <components.DropdownIndicator {...props}>
       <ChevronDownIcon
-        className={cx({
+        className={cn({
           'rotate-180': menuIsOpen,
           'text-foreground-disabled': isDisabled,
         })}
@@ -114,16 +113,16 @@ const SelectField = <
       options={options}
       closeMenuOnSelect={!rest.isMulti}
       hideSelectedOptions={false}
-      className={twMerge(cx('w-full', className))}
+      className={cn('w-full', className)}
       classNames={{
         control: ({ isFocused, isDisabled }) =>
-          cx('border border-border bg-white hover:cursor-pointer hover:border-border-dark', {
+          cn('border border-border bg-white hover:cursor-pointer hover:border-border-dark', {
             'border-border': isDisabled,
             'border-border-dark': isFocused && !isDisabled,
             'border-border-default hover:border-border-hover': !isFocused && !isDisabled,
           }),
         placeholder: ({ isDisabled, isFocused }) =>
-          cx('text-foreground-placeholder', {
+          cn('text-foreground-placeholder', {
             'text-foreground-disabled': isDisabled,
             // `invisible` hides the text but keeps the placeholder container visible
             invisible: isFocused,
@@ -132,25 +131,25 @@ const SelectField = <
         valueContainer: ({ isDisabled }) =>
           // If there's a long value in select, it stretches the parent element instead of wrapping the text.
           // `[container-type:inline-size]` fixes this for some reason.
-          cx('gap-x-2 gap-y-1 px-3 py-2 [container-type:inline-size]', {
+          cn('gap-x-2 gap-y-1 px-3 py-2 [container-type:inline-size]', {
             'bg-background-disabled text-foreground-disabled': isDisabled,
           }),
         multiValue: ({ isDisabled }) =>
-          cx('items-center', isDisabled ? 'bg-background-disabled' : 'bg-primary/12'),
+          cn('items-center', isDisabled ? 'bg-background-disabled' : 'bg-primary/12'),
         multiValueLabel: () => 'px-2 text-sm',
         multiValueRemove: () => 'hover:text-error h-5 [&>svg]:scale-[60%]',
         indicatorsContainer: ({ isDisabled }) =>
-          cx('gap-3 pr-3', {
+          cn('gap-3 pr-3', {
             'bg-background-disabled': isDisabled,
           }),
         clearIndicator: () => 'p-1.5 -m-1.5 hover:bg-primary/12',
         indicatorSeparator: ({ hasValue, isMulti }) =>
-          cx('my-2 bg-border', { hidden: !hasValue || !isMulti }),
+          cn('my-2 bg-border', { hidden: !hasValue || !isMulti }),
         dropdownIndicator: () => 'p-1.5 -m-1.5',
         menu: () => 'z-20 border border-border-focused bg-white mt-2',
         groupHeading: () => 'ml-3 mt-2 mb-1 text-foreground-placeholder text-sm',
         option: ({ isFocused }) =>
-          cx('!flex items-center justify-between px-3 py-2 hover:cursor-pointer', {
+          cn('!flex items-center justify-between px-3 py-2 hover:cursor-pointer', {
             'group bg-background-beige': isFocused,
           }),
       }}

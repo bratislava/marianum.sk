@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'next-i18next'
 import React, { useEffect, useState } from 'react'
@@ -11,6 +10,7 @@ import { ArrowLeftIcon, PlaceIcon } from '@/assets/icons'
 import Button from '@/components/atoms/Button'
 import MLink from '@/components/atoms/MLink'
 import Search from '@/components/molecules/Search'
+import cn from '@/utils/cn'
 import { useFitLandmarks } from '@/utils/useFitLandmarks'
 
 type Props = {
@@ -57,7 +57,7 @@ const MapWithSearch = ({ landmarks, tags, onSearchChange, onSelectionChange }: P
   return (
     <div className="relative flex h-[624px] flex-col items-center overflow-hidden md:flex-row md:items-stretch">
       <div
-        className={cx(
+        className={cn(
           'absolute z-[2] flex h-full w-full flex-col bg-white transition-transform duration-500 md:relative md:w-[360px]',
           {
             '-translate-x-full md:translate-x-0': isMapOrFiltersDisplayed,
@@ -80,7 +80,7 @@ const MapWithSearch = ({ landmarks, tags, onSearchChange, onSelectionChange }: P
                     <Tag
                       key={tag.id}
                       id={tag.id}
-                      className={cx(
+                      className={cn(
                         'base-focus-ring flex h-8 w-fit cursor-pointer select-none items-center whitespace-nowrap rounded-full border px-3 text-sm font-semibold',
                         'border-border bg-white hover:bg-background-beige',
                         'data-[selected]:border-primary data-[selected]:bg-primary data-[selected]:text-white data-[selected]:hover:bg-primary-dark',
@@ -112,7 +112,7 @@ const MapWithSearch = ({ landmarks, tags, onSearchChange, onSelectionChange }: P
                   onMouseEnter={() => setHoveredLandmarkId(id)}
                   noStyles
                   href={linkHref} // getFullPath(landmark) ?? ''}
-                  className={cx('flex gap-2 px-5 py-3 ring-inset ring-offset-0', {
+                  className={cn('flex gap-2 px-5 py-3 ring-inset ring-offset-0', {
                     'bg-primary/5': id === hoveredLandmarkId,
                   })}
                 >

@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { useContext, useMemo } from 'react'
 
 import MLink from '@/components/atoms/MLink'
@@ -8,6 +7,7 @@ import { sectionContext } from '@/components/layouts/SectionsWrapper'
 import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import Section, { SectionProps } from '@/components/molecules/Section'
 import { ProcedureFragment, ProceduresShortSectionFragment } from '@/graphql'
+import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
 import { useTailwindBreakpoint } from '@/utils/useTailwindBreakpoint'
 
@@ -54,7 +54,7 @@ const HomepageProceduresSection = ({
           {slicedProceduresWithKeys.map((procedure) => (
             <TabItem key={procedure.key} title={procedure.title}>
               <ol
-                className={cx('flex', {
+                className={cn('flex', {
                   'w-full gap-4 overflow-x-auto scrollbar-hide': isMobile,
                   'flex-col gap-4': !isMobile,
                 })}
@@ -63,7 +63,7 @@ const HomepageProceduresSection = ({
                   isMobile ? (
                     <li
                       key={step.title}
-                      className={cx(
+                      className={cn(
                         'flex w-[calc(100vw-6rem)] shrink-0 flex-col items-center gap-2 bg-white px-6 pb-8 pt-4',
                         {
                           'border border-border': border,
@@ -79,7 +79,7 @@ const HomepageProceduresSection = ({
                   ) : (
                     <li
                       key={step.title}
-                      className={cx('flex items-center bg-white p-6', {
+                      className={cn('flex items-center bg-white p-6', {
                         'border border-border': border,
                       })}
                     >

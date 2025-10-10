@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { ReactNode } from 'react'
@@ -11,6 +10,7 @@ import NormalizeText from '@/components/atoms/NormalizeText/NormalizeText'
 import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import { useNavigationContext } from '@/components/molecules/Navigation/NavigationProvider/useNavigationContext'
 import { CtaButtonFragment } from '@/graphql'
+import cn from '@/utils/cn'
 import { getBreadcrumbs } from '@/utils/getBreadcrumbs'
 import { useIsHeroSectionOverlaid } from '@/utils/heroSectionContentOverlay'
 
@@ -53,7 +53,7 @@ const HeroSection = ({
         <Breadcrumbs crumbs={breadcrumbs} className="sm:pt-8" />
 
         <div
-          className={cx('py-5 empty:hidden md:w-[648px] md:pt-6', {
+          className={cn('py-5 empty:hidden md:w-[648px] md:pt-6', {
             'md:pb-[104px]': isOverlaid,
             'md:pb-14': !isOverlaid,
           })}

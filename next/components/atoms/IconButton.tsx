@@ -1,11 +1,11 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable sonarjs/no-duplicate-string */
-import cx from 'classnames'
 import { forwardRef, RefObject } from 'react'
 import { useButton } from 'react-aria'
 
 import { AnchorProps, PolymorphicProps } from '@/components/atoms/Button'
 import MLink from '@/components/atoms/MLink'
+import cn from '@/utils/cn'
 
 type IconButtonProps = Omit<PolymorphicProps, 'variant' | 'startIcon' | 'endIcon' | 'noPadding'> & {
   variant?:
@@ -50,9 +50,8 @@ const IconButton = forwardRef<HTMLAnchorElement | HTMLButtonElement, Polymorphic
       ref as RefObject<HTMLAnchorElement | HTMLButtonElement>,
     )
 
-    const style = cx(
+    const style = cn(
       'base-focus-ring flex items-center justify-center rounded-full p-2 text-center align-middle text-btn',
-      className,
       {
         'h-[40px] w-[40px]': size === 'default',
         'h-[32px] w-[32px]': size === 'small',
@@ -89,6 +88,7 @@ const IconButton = forwardRef<HTMLAnchorElement | HTMLButtonElement, Polymorphic
         // disabled
         'opacity-50': disabled,
       },
+      className,
     )
 
     if (rest.href) {
