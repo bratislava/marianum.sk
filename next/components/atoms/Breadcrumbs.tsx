@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import last from 'lodash/last'
 import { useTranslation } from 'next-i18next'
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
@@ -6,6 +5,7 @@ import { useResizeDetector } from 'react-resize-detector'
 
 import { ChevronDownIcon } from '@/assets/icons'
 import MLink from '@/components/atoms/MLink'
+import cn from '@/utils/cn'
 import { usePrevious } from '@/utils/usePrevious'
 
 import { AnimateHeight } from './AnimateHeight'
@@ -36,7 +36,11 @@ const BreadcrumbChild = ({
   ariaLabel,
 }: BreadcrumbChildProps) => {
   return (
-    <div className={cx('-m-2 flex gap-1 overflow-hidden p-2', { 'shrink-0': dontShrink })}>
+    <div
+      className={cn('-m-2 flex gap-1 overflow-hidden p-2', {
+        'shrink-0': dontShrink,
+      })}
+    >
       {!noChevron && (
         <div className="shrink-0 -rotate-90 pt-[2px]">
           <ChevronDownIcon />
@@ -102,7 +106,7 @@ const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
   const [isOpen, setOpen] = useState(false)
 
   return (
-    <div className={cx('relative w-full', className)}>
+    <div className={cn('relative w-full', className)}>
       <div>
         {isExpanded || !isCollapsing ? (
           <div className="flex items-center gap-1 py-6">{breadcrumbedChildren}</div>
@@ -123,7 +127,7 @@ const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
               <button className="p-4" type="button" onClick={() => setOpen((o) => !o)}>
                 {/*  h-6 is set to match the height of the preceding text */}
                 <div
-                  className={cx('flex h-6 transform items-center transition-transform', {
+                  className={cn('flex h-6 transform items-center transition-transform', {
                     'rotate-180': isOpen,
                   })}
                 >
@@ -147,9 +151,7 @@ const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
       {/* expanded breadcrumbs for calculation purposes */}
       <div
         ref={breadcrumbsExpandedRef}
-        className={cx(
-          'invisible absolute flex w-full select-none items-center gap-1 overflow-hidden',
-        )}
+        className="invisible absolute flex w-full select-none items-center gap-1 overflow-hidden"
       >
         {breadcrumbedChildren}
       </div>
@@ -157,9 +159,7 @@ const Breadcrumbs = ({ crumbs, className }: BreadcrumbsProps) => {
       {/* expanded wrapping breadcrumbs for calculation purposes */}
       <div
         ref={breadcrumbsExpandedWrappingRef}
-        className={cx(
-          'invisible absolute flex w-full select-none flex-wrap items-center gap-1 overflow-hidden',
-        )}
+        className="invisible absolute flex w-full select-none flex-wrap items-center gap-1 overflow-hidden"
       >
         {breadcrumbedChildren}
       </div>

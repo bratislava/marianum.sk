@@ -1,10 +1,10 @@
-import cx from 'classnames'
 import { useContext, useMemo } from 'react'
 
 import { sectionContext } from '@/components/layouts/SectionsWrapper'
 import Contact from '@/components/molecules/Contact'
 import Section, { SectionProps } from '@/components/molecules/Section'
 import { ContactGroupFragment } from '@/graphql'
+import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
 
 const ContactsSection = ({
@@ -22,7 +22,7 @@ const ContactsSection = ({
     <Section {...rest}>
       {layout === 'condensed' && (
         <div
-          className={cx('flex flex-col gap-4 bg-white p-6', {
+          className={cn('flex flex-col gap-4 bg-white p-6', {
             'border border-border': border,
           })}
         >
@@ -41,7 +41,7 @@ const ContactsSection = ({
         <div className="flex flex-col gap-4">
           {filteredContacts.map((contact, index) => (
             <div
-              className={cx('bg-white p-6', {
+              className={cn('bg-white p-6', {
                 'border border-border': border,
               })}
               // eslint-disable-next-line react/no-array-index-key

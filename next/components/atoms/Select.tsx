@@ -1,10 +1,10 @@
 import { Listbox } from '@headlessui/react'
-import cx from 'classnames'
 import { ReactNode, useCallback, useId, useMemo, useState } from 'react'
 import { usePopper } from 'react-popper'
 
 import { ChevronDownIcon } from '@/assets/icons'
 import FieldWrapper from '@/components/atoms/FieldWrapper'
+import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
 
 export interface Option {
@@ -125,7 +125,7 @@ const Select = ({
                 <div className="truncate text-foreground-placeholder">{placeholder}</div>
               )}
             </div>
-            <div className={cx('transform p-2 transition-transform', { 'rotate-180': open })}>
+            <div className={cn('transform p-2 transition-transform', { 'rotate-180': open })}>
               <ChevronDownIcon />
             </div>
           </FieldWrapper>
@@ -143,7 +143,7 @@ const Select = ({
           <Listbox.Option as="div" key={option.key} value={option}>
             {({ selected, active }) => (
               <div
-                className={cx('flex h-10 cursor-pointer select-none items-center px-4', {
+                className={cn('flex h-10 cursor-pointer select-none items-center px-4', {
                   'bg-primary text-white': selected,
                   'bg-background-beige': active && !selected,
                 })}

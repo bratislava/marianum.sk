@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import filesize from 'filesize'
 import { useTranslation } from 'next-i18next'
 import prntr from 'prntr'
@@ -15,6 +14,7 @@ import {
 import { AnimateHeight } from '@/components/atoms/AnimateHeight'
 import Button from '@/components/atoms/Button'
 import { ComponentGeneralProcedureItem, UploadFileEntityFragment } from '@/graphql'
+import cn from '@/utils/cn'
 
 type ChecklistRadioProps = {
   isOpen?: boolean
@@ -29,7 +29,7 @@ const ChecklistRadio = ({
 }: ChecklistRadioProps) => {
   return (
     <div
-      className={cx(
+      className={cn(
         'relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-primary',
         {
           'border-2': !isCompleted,
@@ -38,13 +38,13 @@ const ChecklistRadio = ({
       )}
     >
       <div
-        className={cx('absolute h-3 w-3 rounded-full bg-primary transition-transform', {
+        className={cn('absolute h-3 w-3 rounded-full bg-primary transition-transform', {
           'scale-0': !isOpen || isCompleted,
           'scale-1': isOpen,
         })}
       />
       <div
-        className={cx(
+        className={cn(
           'absolute flex h-6 w-6 items-center justify-center rounded-full bg-primary text-white transition-transform',
           {
             'scale-0': !isCompleted,
@@ -73,9 +73,9 @@ const ChecklistLineWithRadio = ({
 }: ChecklistLineWithRadioProps) => {
   return (
     <div className="hidden flex-col items-center gap-2 sm:flex">
-      <div className={cx('-mt-6 h-10 w-[2px] bg-primary', { invisible: hideTopLine })} />
+      <div className={cn('-mt-6 h-10 w-[2px] bg-primary', { invisible: hideTopLine })} />
       <ChecklistRadio isOpen={isOpen} isCompleted={isCompleted} />
-      <div className={cx('h-full w-[2px] flex-1 bg-primary', { invisible: hideBottomLine })} />
+      <div className={cn('h-full w-[2px] flex-1 bg-primary', { invisible: hideBottomLine })} />
     </div>
   )
 }
@@ -159,7 +159,7 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
               isCompleted={isCompleted}
             />
             <div
-              className={cx('flex w-full flex-col border border-border bg-white', {
+              className={cn('flex w-full flex-col border border-border bg-white', {
                 'cursor-auto': isOpen,
               })}
             >
@@ -168,7 +168,7 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
                 type="button"
                 onKeyUp={(e) => (e.code === 'Enter' || e.code === 'Space') && handleItemOpen(index)}
                 onClick={() => handleItemOpen(index)}
-                className={cx('flex items-center p-6 outline-none', {
+                className={cn('flex items-center p-6 outline-none', {
                   'base-focus-ring': !isOpen,
                   'cursor-default': isOpen,
                   // When the item is open, the title should not have a cursor pointer because it is not clickable
@@ -179,7 +179,7 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
                 aria-controls={getAriaId(id, index)}
               >
                 <div
-                  className={cx('transition-all sm:hidden', {
+                  className={cn('transition-all sm:hidden', {
                     'opacity-1 w-10 pr-4': isCompleted,
                     'w-0 opacity-0': !isCompleted,
                   })}

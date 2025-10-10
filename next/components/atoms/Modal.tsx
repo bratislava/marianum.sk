@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { FocusTrap } from 'focus-trap-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ReactNode, useRef } from 'react'
@@ -9,11 +8,11 @@ import {
   useOverlay,
   usePreventScroll,
 } from 'react-aria'
-import { twMerge } from 'tailwind-merge'
 import { useIsClient } from 'usehooks-ts'
 
 import { CloseIcon } from '@/assets/icons'
 import IconButton from '@/components/atoms/IconButton'
+import cn from '@/utils/cn'
 
 export type ModalProps = {
   children: ReactNode
@@ -56,15 +55,15 @@ const Modal = (props: ModalProps) => {
           >
             <div
               {...underlayProps}
-              className={twMerge(
+              className={cn(
                 'fixed inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black/40',
                 underlayClassName,
               )}
             >
-              <div className={cx({ 'flex min-h-full items-center': centerVertically })}>
+              <div className={cn({ 'flex min-h-full items-center': centerVertically })}>
                 <FocusTrap>
                   <div
-                    className={twMerge('mx-auto flex w-fit items-center', overlayClassName)}
+                    className={cn('mx-auto flex w-fit items-center', overlayClassName)}
                     {...overlayProps}
                     {...modalProps}
                     ref={ref}

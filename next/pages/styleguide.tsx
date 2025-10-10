@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
@@ -36,6 +35,7 @@ import Row from '@/components/molecules/Row/Row'
 import Search from '@/components/molecules/Search'
 import Section from '@/components/molecules/Section'
 import { UploadFile } from '@/graphql'
+import cn from '@/utils/cn'
 
 /* eslint-disable sonarjs/no-duplicate-string, unicorn/numeric-separators-style */
 const image: UploadFile = {
@@ -107,7 +107,7 @@ type StackProps = {
 export const Stack = ({ bg, width = null, direction = 'row', children }: StackProps) => {
   return (
     <div
-      className={cx('flex', {
+      className={cn('flex', {
         'w-fit': width == null,
         'bg-primary-dark': bg === 'dark',
         'w-[1128px]': width === 'desktop',

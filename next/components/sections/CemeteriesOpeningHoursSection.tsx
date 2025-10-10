@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { useContext } from 'react'
 
 import Button from '@/components/atoms/Button'
@@ -8,6 +7,7 @@ import { useNavigationContext } from '@/components/molecules/Navigation/Navigati
 import OpeningHours from '@/components/molecules/OpeningHours'
 import Section, { SectionProps } from '@/components/molecules/Section'
 import { CemeteriesOpeningHoursFragment } from '@/graphql'
+import cn from '@/utils/cn'
 
 type CemeteriesOpeningHoursSectionProps = Pick<SectionProps, 'background' | 'title'> & {
   section: CemeteriesOpeningHoursFragment
@@ -30,7 +30,7 @@ const CemeteriesOpeningHoursSection = ({
       {...rest}
     >
       <div
-        className={cx('bg-white px-4 py-3 md:px-5 md:py-4', {
+        className={cn('bg-white px-4 py-3 md:px-5 md:py-4', {
           'border border-border': border,
         })}
       >

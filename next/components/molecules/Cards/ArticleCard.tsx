@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import React, { useMemo, useRef } from 'react'
 import { useHover } from 'usehooks-ts'
 
@@ -13,6 +12,7 @@ import {
   ArticleNewsCategoryEntityFragment,
   ArticlePressCategoryEntityFragment,
 } from '@/graphql'
+import cn from '@/utils/cn'
 
 type ArticleCardProps = {
   image?: MImageImage | null
@@ -57,7 +57,7 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
         </span>
 
         <h3
-          className={cx('text-h5', {
+          className={cn('text-h5', {
             'group-hover:underline': isLinkHovered,
           })}
         >

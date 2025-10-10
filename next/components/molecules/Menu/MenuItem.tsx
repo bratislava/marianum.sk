@@ -1,6 +1,5 @@
-import cx from 'classnames'
-
 import { ChevronRightIcon } from '@/assets/icons'
+import cn from '@/utils/cn'
 
 type MenuItemProps = {
   title: string
@@ -12,7 +11,7 @@ type MenuItemProps = {
 const MenuItem = ({ title, hover, open, isSubmenu }: MenuItemProps) => {
   return (
     <div
-      className={cx('flex w-full cursor-pointer select-none justify-between px-6 py-3', {
+      className={cn('flex w-full cursor-pointer select-none justify-between px-6 py-3', {
         'bg-primary/10': open || hover,
       })}
     >

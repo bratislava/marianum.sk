@@ -1,4 +1,4 @@
-import { twMerge } from 'tailwind-merge'
+import cn from '@/utils/cn'
 
 type SpinnerProps = {
   className?: string
@@ -7,7 +7,7 @@ type SpinnerProps = {
 const Spinner = ({ className }: SpinnerProps) => {
   return (
     <svg
-      className={twMerge('h-5 w-5 animate-spin', className)}
+      className={cn('h-5 w-5 animate-spin', className)}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"

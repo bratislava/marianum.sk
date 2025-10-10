@@ -1,5 +1,4 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import cx from 'classnames'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -21,6 +20,7 @@ import {
   getCeremoniesArchiveSectionQueryKey,
 } from '@/services/fetchers/ceremonies/ceremoniesArchiveSectionFetcher'
 import { CeremonyMeili } from '@/services/meili/meiliTypes'
+import cn from '@/utils/cn'
 import { getCemeteryInfoFromCeremonyMeili } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
 import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
@@ -74,7 +74,7 @@ const Table = ({
   return (
     <>
       <div
-        className={cx('mb-6 overflow-x-auto md:mb-10', scrollFadeClassNames)}
+        className={cn('mb-6 overflow-x-auto md:mb-10', scrollFadeClassNames)}
         ref={tableWrapperRef}
       >
         {/* eslint-disable-next-line tailwindcss/no-custom-classname */}

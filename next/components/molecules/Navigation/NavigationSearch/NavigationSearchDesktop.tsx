@@ -1,10 +1,10 @@
-import cx from 'classnames'
 import { useEffect, useState } from 'react'
 import { useFocusWithin } from 'react-aria'
 
 import { AnimateHeight } from '@/components/atoms/AnimateHeight'
 import NavigationSearchResults from '@/components/molecules/Navigation/NavigationSearch/NavigationSearchResults'
 import Search from '@/components/molecules/Search'
+import cn from '@/utils/cn'
 import { SearchData } from '@/utils/useSearch'
 
 type NavigationSearchDesktopProps = {
@@ -41,17 +41,17 @@ const NavigationSearchDesktop = ({
 
   return (
     <div
-      className={cx('relative w-72 text-foreground transition-all duration-500', {
+      className={cn('relative w-72 text-foreground transition-all duration-500', {
         'w-[540px]': isOpen,
       })}
       {...focusWithinProps}
     >
       <Search
-        className={cx('border-transparent', {
+        className={cn('border-transparent', {
           'bg-white text-foreground': isOpen,
           'bg-white/20 text-white': !isOpen,
         })}
-        inputClassName={cx({ 'placeholder:text-white': !isOpen })}
+        inputClassName={cn({ 'placeholder:text-white': !isOpen })}
         value={searchQuery}
         onSearchQueryChange={onSearchQueryChange}
         onSearch={onSearch}

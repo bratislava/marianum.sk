@@ -1,8 +1,8 @@
-import cx from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import { PropsWithChildren } from 'react'
 
 import Loading from '@/components/atoms/Loading'
+import cn from '@/utils/cn'
 
 type LoadingOverlayProps = { loading: boolean }
 
@@ -16,7 +16,7 @@ const ShrinkablePadding = () => <div className="h-20 min-h-[50%-44] shrink" />
 const LoadingOverlay = ({ loading, children }: PropsWithChildren<LoadingOverlayProps>) => {
   return (
     // 88px - height of spinner + loading text
-    <div className={cx('relative', { 'min-h-[88]': loading })}>
+    <div className={cn('relative', { 'min-h-[88]': loading })}>
       {loading ? (
         <AnimatePresence>
           <motion.div
@@ -32,7 +32,7 @@ const LoadingOverlay = ({ loading, children }: PropsWithChildren<LoadingOverlayP
           </motion.div>
         </AnimatePresence>
       ) : null}
-      <div className={cx({ 'opacity-20 duration-200': loading })}>{children}</div>
+      <div className={cn({ 'opacity-20 duration-200': loading })}>{children}</div>
     </div>
   )
 }

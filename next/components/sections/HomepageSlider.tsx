@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 import { useId } from 'react'
@@ -7,6 +6,7 @@ import Button from '@/components/atoms/Button'
 import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import Slider from '@/components/molecules/Slider'
 import { CtaFragment } from '@/graphql'
+import cn from '@/utils/cn'
 
 type HomepageSliderProps = {
   slides: CtaFragment[] | null | undefined
@@ -110,7 +110,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                   // Keep the focus ring fully visible regardless of whether the indicator is active or inactive
                 >
                   <div
-                    className={cx('size-2 rounded-full bg-white hover:opacity-100', {
+                    className={cn('size-2 rounded-full bg-white hover:opacity-100', {
                       'opacity-50': activeIndex !== index,
                     })}
                   />

@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { Fragment, ReactNode, useRef } from 'react'
 import { useHover } from 'usehooks-ts'
 
@@ -9,6 +8,7 @@ import RowContent from '@/components/atoms/Row/RowContent'
 import RowMoreContent from '@/components/atoms/Row/RowMoreContent'
 import Tag from '@/components/atoms/Tag'
 import { DocumentCategoryEntityFragment } from '@/graphql'
+import cn from '@/utils/cn'
 
 export type RowProps = {
   title?: string
@@ -57,14 +57,14 @@ const Row = ({
           {category?.attributes && <div className="text-primary">{category.attributes.title}</div>}
 
           <div
-            className={cx('flex gap-x-4 gap-y-1.5', {
+            className={cn('flex gap-x-4 gap-y-1.5', {
               'flex-col items-start pb-1': tagsPosition === 'under',
               'items-center': tagsPosition === 'beside',
             })}
           >
             {title && (
               <h3
-                className={cx('w-fit text-left text-h5 text-foreground-heading', {
+                className={cn('w-fit text-left text-h5 text-foreground-heading', {
                   'group-hover:underline group-focus:underline': linkHref,
                 })}
                 id={titleId}

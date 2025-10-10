@@ -1,9 +1,9 @@
-import cx from 'classnames'
 import { useId, useMemo } from 'react'
 
 import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import DocumentRow from '@/components/molecules/Row/DocumentRow'
 import { DocumentGroupFragment } from '@/graphql'
+import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
 
 type DocumentGroupProps = DocumentGroupFragment & { variant?: 'gaps' | 'dividers' }
@@ -20,7 +20,7 @@ const DocumentGroup = ({ documents, variant = 'gaps' }: DocumentGroupProps) => {
 
   return (
     <div
-      className={cx('flex flex-col', {
+      className={cn('flex flex-col', {
         'gap-0 divide-y divide-[1px] divide-border': variant === 'dividers',
         'gap-4': variant === 'gaps',
       })}

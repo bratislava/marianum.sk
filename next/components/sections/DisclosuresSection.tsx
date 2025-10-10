@@ -1,5 +1,4 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import cx from 'classnames'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -22,6 +21,7 @@ import {
   meiliDisclosuresFetcher,
 } from '@/services/fetchers/disclosuresFetcher'
 import { DisclosureMeili, DisclosureTypeFixed } from '@/services/meili/meiliTypes'
+import cn from '@/utils/cn'
 import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
 import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
@@ -65,7 +65,7 @@ const Table = ({
   const hasAdditionalData = data.hits.some((disclosure) => disclosure.additionalData)
 
   return (
-    <div className={cx('overflow-x-auto', scrollFadeClassNames)} ref={tableWrapperRef}>
+    <div className={cn('overflow-x-auto', scrollFadeClassNames)} ref={tableWrapperRef}>
       {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
       <table className="m-table colored">
         <thead ref={theadRef}>

@@ -1,6 +1,5 @@
 import { parseAbsolute, parseDate, toCalendarDate } from '@internationalized/date'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import cx from 'classnames'
 import groupBy from 'lodash/groupBy'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -22,6 +21,7 @@ import {
   CeremoniesSectionFilters,
   getCeremoniesSectionQueryKey,
 } from '@/services/fetchers/ceremonies/ceremoniesSectionFetcher'
+import cn from '@/utils/cn'
 import { bratislavaTimezone } from '@/utils/consts'
 import { getCemeteryInfoFromCeremony } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
 import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
@@ -78,7 +78,7 @@ const TableWrapper = ({ children }: PropsWithChildren) => {
   return (
     <div className="relative">
       <div
-        className={cx('mb-6 overflow-x-auto md:mb-10', scrollFadeClassNames)}
+        className={cn('mb-6 overflow-x-auto md:mb-10', scrollFadeClassNames)}
         ref={tableWrapperRef}
       >
         {children}

@@ -1,10 +1,10 @@
-import cx from 'classnames'
 import { ReactNode, useContext, useMemo } from 'react'
 
 import MLink from '@/components/atoms/MLink'
 import { BackgroundColor, sectionContext } from '@/components/layouts/SectionsWrapper'
 import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import { CtaButtonFragment } from '@/graphql'
+import cn from '@/utils/cn'
 import { useActivateHeroSectionContentOverlay } from '@/utils/heroSectionContentOverlay'
 
 export type SectionProps = {
@@ -54,7 +54,7 @@ const Section = ({
 
   return (
     <div
-      className={cx(
+      className={cn(
         'relative',
         {
           'bg-background-beige': resultBackground === 'dark',
@@ -68,7 +68,7 @@ const Section = ({
 
       {isDivider && (
         <div className="container">
-          <div className={cx('h-px bg-border', dividerClassName)} />
+          <div className={cn('h-px bg-border', dividerClassName)} />
         </div>
       )}
       {/*
@@ -79,7 +79,7 @@ const Section = ({
       {shouldOverlayWithHero && <div className="h-px" />}
 
       <div
-        className={cx(
+        className={cn(
           {
             'container py-6 md:py-16': alternateBackground,
             'md:-mt-12 md:pt-0': shouldOverlayWithHero && alternateBackground,
@@ -90,7 +90,7 @@ const Section = ({
         {(title || button) && (
           <div className="flex">
             <h2
-              className={cx('grow md:text-left', {
+              className={cn('grow md:text-left', {
                 'text-center': centerTitleOnMobile,
                 'text-h3': titleFontSize === 'h3',
               })}
@@ -110,7 +110,7 @@ const Section = ({
         <div
           // Added `tabIndex` and `focus:outline-none` to prevent unwanted focus styles (only the individual items should be focusable)
           tabIndex={-1}
-          className={cx(
+          className={cn(
             'focus:outline-none not-first:mt-3 not-first:md:mt-10',
             {
               // 'pb' and '-mb' is here to display shadow properly, otherwise the bottom shadow is cut off

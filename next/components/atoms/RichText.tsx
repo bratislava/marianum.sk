@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import Image from 'next/image'
 import { PropsWithChildren, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
@@ -8,6 +7,7 @@ import remarkGfm from 'remark-gfm'
 import Divider from '@/components/atoms/Divider'
 import MLink from '@/components/atoms/MLink'
 import NormalizeText from '@/components/atoms/NormalizeText/NormalizeText'
+import cn from '@/utils/cn'
 import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
 
 export interface RichTextProps {
@@ -27,8 +27,8 @@ PropsWithChildren<{ colored: boolean } & Record<any, any>>) => {
 
   return (
     <div className="relative">
-      <div className={cx('overflow-x-auto', scrollFadeClassNames)} ref={tableWrapperRef}>
-        <table {...props} className={cx('m-table', { colored })}>
+      <div className={cn('overflow-x-auto', scrollFadeClassNames)} ref={tableWrapperRef}>
+        <table {...props} className={cn('m-table', { colored })}>
           {children}
         </table>
       </div>
@@ -38,7 +38,7 @@ PropsWithChildren<{ colored: boolean } & Record<any, any>>) => {
 
 const RichText = ({ className, content, coloredTable = true }: RichTextProps) => {
   return (
-    <div className={cx('flex flex-col gap-8', className)}>
+    <div className={cn('flex flex-col gap-8', className)}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}

@@ -1,10 +1,10 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { LinkButtonProps } from '@react-types/button'
-import cx from 'classnames'
 import { forwardRef, ReactNode, Ref, RefObject } from 'react'
 import { AriaButtonProps, useButton } from 'react-aria'
 
 import MLink from '@/components/atoms/MLink'
+import cn from '@/utils/cn'
 
 type ButtonBase = {
   startIcon?: ReactNode
@@ -70,9 +70,8 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
       ref as RefObject<HTMLAnchorElement | HTMLButtonElement>,
     )
 
-    const style = cx(
+    const style = cn(
       'base-focus-ring inline-flex items-center justify-center space-x-2 text-center align-middle text-btn font-bold',
-      className,
       {
         'px-6 py-2':
           !noPadding &&
@@ -118,6 +117,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
         // disabled
         'opacity-50': disabled,
       },
+      className,
     )
 
     if (rest.href) {

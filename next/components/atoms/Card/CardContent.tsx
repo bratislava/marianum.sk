@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react'
-import { twMerge } from 'tailwind-merge'
+
+import cn from '@/utils/cn'
 
 type CardContentProps = {
   largePadding?: boolean
@@ -12,9 +13,7 @@ const CardContent = ({
   children,
 }: PropsWithChildren<CardContentProps>) => {
   return (
-    <div className={twMerge('flex flex-col', largePadding ? 'p-6' : 'p-4', className)}>
-      {children}
-    </div>
+    <div className={cn('flex flex-col', largePadding ? 'p-6' : 'p-4', className)}>{children}</div>
   )
 }
 

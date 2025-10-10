@@ -1,10 +1,10 @@
-import cx from 'classnames'
 import { useTranslation } from 'next-i18next'
 import { useId } from 'react'
 
 import CardBox, { CardBoxProps } from '@/components/atoms/Card/CardBox'
 import CardContent from '@/components/atoms/Card/CardContent'
 import MLink from '@/components/atoms/MLink'
+import cn from '@/utils/cn'
 
 type CategoryCardProps = {
   title: string
@@ -32,9 +32,9 @@ const CategoryFaqThemeCard = ({
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <CardBox {...rest}>
       <CardContent
-        className={cx('justify-between', subtitle ? 'md:min-h-[264px]' : 'md:min-h-[240px]')}
+        className={cn('justify-between', subtitle ? 'md:min-h-[264px]' : 'md:min-h-[240px]')}
       >
-        <div className={cx('flex grow', subtitle ? 'mb-[54px]' : 'mb-5')}>
+        <div className={cn('flex grow', subtitle ? 'mb-[54px]' : 'mb-5')}>
           <h3 id={titleId} className="line-clamp-3 flex grow text-h5 group-hover:underline">
             {title}
           </h3>

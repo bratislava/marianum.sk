@@ -1,4 +1,3 @@
-import cx from 'classnames'
 import { motion } from 'framer-motion'
 import { useCallback, useMemo, useState } from 'react'
 
@@ -7,6 +6,7 @@ import IconButton from '@/components/atoms/IconButton'
 import MLink from '@/components/atoms/MLink'
 import Modal from '@/components/atoms/Modal'
 import { NavigationItemFragment } from '@/graphql'
+import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
 import { usePrevious } from '@/utils/usePrevious'
 
@@ -41,7 +41,7 @@ const RenderItems = ({
             key={id}
             onMouseUp={() => onOpenItem && onOpenItem(id)}
             type="button"
-            className={cx('flex w-full justify-between px-4 py-3 active:bg-primary/10', {
+            className={cn('flex w-full justify-between px-4 py-3 active:bg-primary/10', {
               'base-focus-ring': !disableFocusAndScreenReader,
             })}
           >
@@ -57,7 +57,7 @@ const RenderItems = ({
             key={id}
             noStyles={LinkComponent === 'div' ? undefined : true}
             href={path ?? ''}
-            className={cx('flex w-full justify-between px-4 py-3 active:bg-primary/10', {
+            className={cn('flex w-full justify-between px-4 py-3 active:bg-primary/10', {
               'base-focus-ring': !disableFocusAndScreenReader,
             })}
           >
