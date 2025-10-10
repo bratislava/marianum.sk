@@ -86,15 +86,7 @@ query CemeteryBySlug($locale: I18NLocaleCode!, $slug: String!) {
   }
 }
 
-query Cemeteries($locale: I18NLocaleCode!) {
-  cemeteries(locale: $locale, sort: ["title:asc"], pagination: { limit: -1 }) {
-    data {
-      ...CemeteryEntity
-    }
-  }
-}
-
-query CemeteryCategories($locale: I18NLocaleCode!) {
+query CemeteryCategories {
   cemeteryCategories(pagination: { limit: -1 }) {
     data {
       ...CemeteryCategoryEntity
@@ -110,15 +102,7 @@ query ManagedObjectBySlug($locale: I18NLocaleCode!, $slug: String!) {
   }
 }
 
-query ManagedObjects($locale: I18NLocaleCode!) {
-  managedObjects(locale: $locale, sort: ["title:asc"], pagination: { limit: -1 }) {
-    data {
-      ...ManagedObjectEntity
-    }
-  }
-}
-
-query ManagedObjectCategories($locale: I18NLocaleCode!) {
+query ManagedObjectCategories {
   managedObjectCategories(pagination: { limit: -1 }) {
     data {
       ...ManagedObjectCategoryEntity

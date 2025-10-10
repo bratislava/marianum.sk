@@ -8,7 +8,10 @@ import {
 } from '@/services/fetchers/articles/articleCategoriesSelectFetcher'
 import { ArticleType, getMeiliArticlesQuery } from '@/services/fetchers/articles/articlesFetcher'
 import { getGraphqlNewsListingQuery } from '@/services/fetchers/articles/newsListingFetcher'
-import { getGraphqlCemeteriesQuery } from '@/services/fetchers/cemeteries/cemeteriesFetcher'
+import {
+  cemeteriesDefaultFilters,
+  getMeiliCemeteriesQuery,
+} from '@/services/fetchers/cemeteries/cemeteriesFetcher'
 import { getCemeteriesInCeremoniesQuery } from '@/services/fetchers/cemeteries/cemeteriesInCeremoniesFetcher'
 import { getCemeteriesInDebtorsQuery } from '@/services/fetchers/cemeteries/cemeteriesInDebtorsFetcher'
 import { getCeremoniesArchiveSectionQuery } from '@/services/fetchers/ceremonies/ceremoniesArchiveSectionFetcher'
@@ -16,9 +19,13 @@ import { getGraphqlCeremoniesSectionQuery } from '@/services/fetchers/ceremonies
 import { getMeiliDebtorsQuery } from '@/services/fetchers/debtorsFetcher'
 import { getMeiliDisclosuresQuery } from '@/services/fetchers/disclosuresFetcher'
 import { getMeiliDocumentsQuery } from '@/services/fetchers/documentsFetcher'
-import { getGraphqlManagedObjectsQuery } from '@/services/fetchers/managedObjectsFetcher'
+import {
+  getMeiliManagedObjectsQuery,
+  managedObjectsDefaultFilters,
+} from '@/services/fetchers/managedObjectsFetcher'
 import { getGraphqlProceduresQuery } from '@/services/fetchers/proceduresFetcher'
 import { getGraphqlReviewsQuery } from '@/services/fetchers/reviewsFetcher'
+import { isDefined } from '@/utils/isDefined'
 
 export const prefetchPageSections = async (page: PageEntityFragment, locale: string) => {
   const queryClient = new QueryClient()
@@ -26,7 +33,27 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
   const sectionTypes = page?.attributes?.sections?.map((section) => section?.__typename) ?? []
 
   if (sectionTypes.includes('ComponentSectionsMapSection')) {
-    await queryClient.prefetchQuery(getGraphqlCemeteriesQuery(locale))
+    const firstSectionOfType = page?.attributes?.sections?.find(
+      (section) => section?.__typename === 'ComponentSectionsMapSection',
+    )
+    const categoryIds = firstSectionOfType?.categories?.data
+      .map((category) => category.id)
+      .filter(isDefined)
+    await queryClient.prefetchQuery(
+      getMeiliCemeteriesQuery({ ...cemeteriesDefaultFilters, categoryIds }),
+    )
+  }
+
+  if (sectionTypes.includes('ComponentSectionsMapOfManagedObjects')) {
+    const firstSectionOfType = page?.attributes?.sections?.find(
+      (section) => section?.__typename === 'ComponentSectionsMapOfManagedObjects',
+    )
+    const categoryIds = firstSectionOfType?.categories?.data
+      .map((category) => category.id)
+      .filter(isDefined)
+    await queryClient.prefetchQuery(
+      getMeiliManagedObjectsQuery({ ...managedObjectsDefaultFilters, categoryIds }),
+    )
   }
 
   if (sectionTypes.includes('ComponentSectionsProceduresSection')) {
@@ -35,10 +62,6 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
 
   if (sectionTypes.includes('ComponentSectionsNewsListing')) {
     await queryClient.prefetchQuery(getGraphqlNewsListingQuery(locale))
-  }
-
-  if (sectionTypes.includes('ComponentSectionsMapOfManagedObjects')) {
-    await queryClient.prefetchQuery(getGraphqlManagedObjectsQuery(locale))
   }
 
   if (sectionTypes.includes('ComponentSectionsDocumentsSection')) {
