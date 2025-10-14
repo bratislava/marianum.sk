@@ -762,7 +762,7 @@ export interface SectionsMapSection extends Schema.Component {
   collectionName: 'components_sections_map_sections';
   info: {
     description: '';
-    displayName: 'map section';
+    displayName: 'map of cemeteries section';
     icon: 'map-marked-alt';
   };
   attributes: {

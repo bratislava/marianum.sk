@@ -406,7 +406,6 @@ type Cemetery {
   seo: ComponentGeneralSeo
   slug: String!
   title: String!
-  type: ENUM_CEMETERY_TYPE
   updatedAt: DateTime
   video: ComponentSectionsIframeSection
 }
@@ -492,7 +491,6 @@ input CemeteryFiltersInput {
   seo: ComponentGeneralSeoFiltersInput
   slug: StringFilterInput
   title: StringFilterInput
-  type: StringFilterInput
   updatedAt: DateTimeFilterInput
   video: ComponentSectionsIframeSectionFiltersInput
 }
@@ -514,7 +512,6 @@ input CemeteryInput {
   seo: ComponentGeneralSeoInput
   slug: String
   title: String
-  type: ENUM_CEMETERY_TYPE
   video: ComponentSectionsIframeSectionInput
 }
 
@@ -2248,12 +2245,6 @@ enum ENUM_BUNDLE_TYPE {
   prirodne
 }
 
-enum ENUM_CEMETERY_TYPE {
-  civilny
-  historicky
-  vojensky
-}
-
 enum ENUM_COMPONENTBLOCKSSOCIALITEM_ICON {
   facebook
   instagram
@@ -2286,14 +2277,6 @@ enum ENUM_DISCLOSURE_TYPE {
   Faktura
   Objednavka
   Zmluva
-}
-
-enum ENUM_MANAGEDOBJECT_TYPE {
-  fontana
-  hmlova_fontana
-  pitna_fontana
-  rozprasovac
-  studna
 }
 
 enum ENUM_PAGE_LAYOUT {
@@ -2612,7 +2595,6 @@ type ManagedObject {
   seo: ComponentGeneralSeo
   slug: String!
   title: String!
-  type: ENUM_MANAGEDOBJECT_TYPE
   updatedAt: DateTime
 }
 
@@ -2692,7 +2674,6 @@ input ManagedObjectFiltersInput {
   seo: ComponentGeneralSeoFiltersInput
   slug: StringFilterInput
   title: StringFilterInput
-  type: StringFilterInput
   updatedAt: DateTimeFilterInput
 }
 
@@ -2708,7 +2689,6 @@ input ManagedObjectInput {
   seo: ComponentGeneralSeoInput
   slug: String
   title: String
-  type: ENUM_MANAGEDOBJECT_TYPE
 }
 
 type ManagedObjectRelationResponseCollection {
