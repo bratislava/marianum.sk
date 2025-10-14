@@ -17,6 +17,11 @@ import { isDefined } from '@/utils/isDefined'
 
 type MapSectionProps = { section: MapSectionFragment }
 
+export const mapSectionDefaultFilters = {
+  ...cemeteriesDefaultFilters,
+  pageSize: 1000, // Get all results, -1 didn't work
+}
+
 const MapSection = ({ section }: MapSectionProps) => {
   const { getFullPath } = useGetFullPath()
 
@@ -25,9 +30,8 @@ const MapSection = ({ section }: MapSectionProps) => {
   const defaultCategoryIds = categories.map((category) => category.id).filter(isDefined)
 
   const [filters, setFilters] = useState({
-    ...cemeteriesDefaultFilters,
+    ...mapSectionDefaultFilters,
     categoryIds: defaultCategoryIds,
-    pageSize: 1000, // Get all results, -1 didn't work
   })
 
   const { data, isPending, isError, error } = useQuery({

@@ -17,6 +17,11 @@ type MapOfManagedObjectsSectionProps = {
   section: MapOfManagedObjectsSectionFragment
 }
 
+export const mapOfManagedObjectsSectionDefaultFilters = {
+  ...managedObjectsDefaultFilters,
+  pageSize: 1000, // Get all results, -1 didn't work
+}
+
 const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps) => {
   const { getFullPath } = useGetFullPath()
 
@@ -25,9 +30,8 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
   const defaultCategoryIds = categories.map((category) => category.id).filter(isDefined)
 
   const [filters, setFilters] = useState({
-    ...managedObjectsDefaultFilters,
+    ...mapOfManagedObjectsSectionDefaultFilters,
     categoryIds: defaultCategoryIds,
-    pageSize: 1000, // Get all results, -1 didn't work
   })
 
   const { data, isPending, isError, error } = useQuery({

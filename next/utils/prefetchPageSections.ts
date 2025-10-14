@@ -1,5 +1,7 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 
+import { mapOfManagedObjectsSectionDefaultFilters } from '@/components/sections/MapOfManagedObjectsSection'
+import { mapSectionDefaultFilters } from '@/components/sections/MapSection'
 import { PageEntityFragment } from '@/graphql'
 import {
   getArticleJobsCategoriesSelectQuery,
@@ -8,10 +10,7 @@ import {
 } from '@/services/fetchers/articles/articleCategoriesSelectFetcher'
 import { ArticleType, getMeiliArticlesQuery } from '@/services/fetchers/articles/articlesFetcher'
 import { getGraphqlNewsListingQuery } from '@/services/fetchers/articles/newsListingFetcher'
-import {
-  cemeteriesDefaultFilters,
-  getMeiliCemeteriesQuery,
-} from '@/services/fetchers/cemeteries/cemeteriesFetcher'
+import { getMeiliCemeteriesQuery } from '@/services/fetchers/cemeteries/cemeteriesFetcher'
 import { getCemeteriesInCeremoniesQuery } from '@/services/fetchers/cemeteries/cemeteriesInCeremoniesFetcher'
 import { getCemeteriesInDebtorsQuery } from '@/services/fetchers/cemeteries/cemeteriesInDebtorsFetcher'
 import { getCeremoniesArchiveSectionQuery } from '@/services/fetchers/ceremonies/ceremoniesArchiveSectionFetcher'
@@ -19,10 +18,7 @@ import { getGraphqlCeremoniesSectionQuery } from '@/services/fetchers/ceremonies
 import { getMeiliDebtorsQuery } from '@/services/fetchers/debtorsFetcher'
 import { getMeiliDisclosuresQuery } from '@/services/fetchers/disclosuresFetcher'
 import { getMeiliDocumentsQuery } from '@/services/fetchers/documentsFetcher'
-import {
-  getMeiliManagedObjectsQuery,
-  managedObjectsDefaultFilters,
-} from '@/services/fetchers/managedObjectsFetcher'
+import { getMeiliManagedObjectsQuery } from '@/services/fetchers/managedObjectsFetcher'
 import { getGraphqlProceduresQuery } from '@/services/fetchers/proceduresFetcher'
 import { getGraphqlReviewsQuery } from '@/services/fetchers/reviewsFetcher'
 import { isDefined } from '@/utils/isDefined'
@@ -40,7 +36,7 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
       .map((category) => category.id)
       .filter(isDefined)
     await queryClient.prefetchQuery(
-      getMeiliCemeteriesQuery({ ...cemeteriesDefaultFilters, categoryIds }),
+      getMeiliCemeteriesQuery({ ...mapSectionDefaultFilters, categoryIds }),
     )
   }
 
@@ -52,7 +48,7 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
       .map((category) => category.id)
       .filter(isDefined)
     await queryClient.prefetchQuery(
-      getMeiliManagedObjectsQuery({ ...managedObjectsDefaultFilters, categoryIds }),
+      getMeiliManagedObjectsQuery({ ...mapOfManagedObjectsSectionDefaultFilters, categoryIds }),
     )
   }
 
