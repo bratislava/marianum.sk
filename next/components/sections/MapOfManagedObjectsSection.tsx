@@ -27,6 +27,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
   const [filters, setFilters] = useState({
     ...managedObjectsDefaultFilters,
     categoryIds: defaultCategoryIds,
+    pageSize: 1000, // Get all results, -1 didn't work
   })
 
   const { data, isPending, isError, error } = useQuery({

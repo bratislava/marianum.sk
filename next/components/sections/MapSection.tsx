@@ -27,6 +27,7 @@ const MapSection = ({ section }: MapSectionProps) => {
   const [filters, setFilters] = useState({
     ...cemeteriesDefaultFilters,
     categoryIds: defaultCategoryIds,
+    pageSize: 1000, // Get all results, -1 didn't work
   })
 
   const { data, isPending, isError, error } = useQuery({
