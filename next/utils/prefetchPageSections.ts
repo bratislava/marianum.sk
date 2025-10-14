@@ -1,7 +1,7 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 
+import { mapOfCemeteriesSectionDefaultFilters } from '@/components/sections/MapOfCemeteriesSection'
 import { mapOfManagedObjectsSectionDefaultFilters } from '@/components/sections/MapOfManagedObjectsSection'
-import { mapSectionDefaultFilters } from '@/components/sections/MapSection'
 import { PageEntityFragment } from '@/graphql'
 import {
   getArticleJobsCategoriesSelectQuery,
@@ -36,7 +36,7 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
       .map((category) => category.id)
       .filter(isDefined)
     await queryClient.prefetchQuery(
-      getMeiliCemeteriesQuery({ ...mapSectionDefaultFilters, categoryIds }),
+      getMeiliCemeteriesQuery({ ...mapOfCemeteriesSectionDefaultFilters, categoryIds }),
     )
   }
 

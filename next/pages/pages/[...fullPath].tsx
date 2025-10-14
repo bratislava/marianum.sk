@@ -31,8 +31,8 @@ import DebtorsSection from '@/components/sections/DebtorsSection'
 import DisclosuresSection from '@/components/sections/DisclosuresSection'
 import DocumentsSection from '@/components/sections/DocumentsSection/DocumentsSection'
 import IframeSection from '@/components/sections/IframeSection'
+import MapOfCemeteriesSection from '@/components/sections/MapOfCemeteriesSection'
 import MapOfManagedObjectsSection from '@/components/sections/MapOfManagedObjectsSection'
-import MapSection from '@/components/sections/MapSection'
 import MenuListingSection from '@/components/sections/MenuListingSection'
 import NewsListing from '@/components/sections/NewsSection'
 import OpeningHoursSection from '@/components/sections/OpeningHoursSection'
@@ -174,7 +174,12 @@ const Slug = ({ navigation, entity, general, dehydratedState }: PageProps) => {
               return <NewsListing key={`${section.__typename}-${section.id}`} section={section} />
             }
             if (section?.__typename === 'ComponentSectionsMapSection') {
-              return <MapSection key={`${section.__typename}-${section.id}`} section={section} />
+              return (
+                <MapOfCemeteriesSection
+                  key={`${section.__typename}-${section.id}`}
+                  section={section}
+                />
+              )
             }
             // eslint-disable-next-line no-secrets/no-secrets
             if (section?.__typename === 'ComponentSectionsMapOfManagedObjects') {
