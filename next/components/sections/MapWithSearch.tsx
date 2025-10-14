@@ -74,7 +74,7 @@ const MapWithSearch = ({ landmarks, tags, onSearchChange, onSelectionChange }: P
               onSelectionChange={setSelection}
               selectedKeys={selection}
             >
-              <TagList className="flex gap-2">
+              <TagList className="flex flex-wrap gap-2">
                 {tags.map((tag) => {
                   return (
                     <Tag
