@@ -35,21 +35,6 @@
       "targetField": "title",
       "required": true
     },
-    "type": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "type": "enumeration",
-      "enum": [
-        "fontana",
-        "pitna fontana",
-        "hmlova fontana",
-        "studna",
-        "rozprasovac"
-      ]
-    },
     "address": {
       "pluginOptions": {
         "i18n": {

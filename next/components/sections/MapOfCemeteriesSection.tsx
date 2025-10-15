@@ -15,14 +15,17 @@ import {
 } from '@/services/fetchers/cemeteries/cemeteriesFetcher'
 import { isDefined } from '@/utils/isDefined'
 
-type MapSectionProps = { section: MapSectionFragment }
+type MapOfCemeteriesSectionProps = {
+  section: MapSectionFragment
+}
 
-export const mapSectionDefaultFilters = {
+export const mapOfCemeteriesSectionDefaultFilters = {
   ...cemeteriesDefaultFilters,
   pageSize: 1000, // Get all results, -1 didn't work
 }
 
-const MapSection = ({ section }: MapSectionProps) => {
+// Note that this section is called just "Map section" in Strapi
+const MapOfCemeteriesSection = ({ section }: MapOfCemeteriesSectionProps) => {
   const { getFullPath } = useGetFullPath()
 
   const categories = section.categories?.data.filter(isDefined) ?? []
@@ -30,7 +33,7 @@ const MapSection = ({ section }: MapSectionProps) => {
   const defaultCategoryIds = categories.map((category) => category.id).filter(isDefined)
 
   const [filters, setFilters] = useState({
-    ...mapSectionDefaultFilters,
+    ...mapOfCemeteriesSectionDefaultFilters,
     categoryIds: defaultCategoryIds,
   })
 
@@ -109,4 +112,4 @@ const MapSection = ({ section }: MapSectionProps) => {
   )
 }
 
-export default MapSection
+export default MapOfCemeteriesSection

@@ -997,12 +997,6 @@ export interface ApiCemeteryCemetery extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    type: Attribute.Enumeration<['civilny', 'historicky', 'vojensky']> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }>;
     updatedAt: Attribute.DateTime;
     updatedBy: Attribute.Relation<
       'api::cemetery.cemetery',
@@ -1592,14 +1586,6 @@ export interface ApiManagedObjectManagedObject extends Schema.CollectionType {
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
-        };
-      }>;
-    type: Attribute.Enumeration<
-      ['fontana', 'pitna fontana', 'hmlova fontana', 'studna', 'rozprasovac']
-    > &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
         };
       }>;
     updatedAt: Attribute.DateTime;

@@ -167,7 +167,6 @@ fragment CemeterySlugEntity on CemeteryEntity {
   attributes {
     title
     slug
-    type
     locale
   }
 }
@@ -185,7 +184,6 @@ fragment CemeteryCardEntity on CemeteryEntity {
 fragment CemeteryEntity on CemeteryEntity {
   ...CemeteryCardEntity
   attributes {
-    type
     description
     contact {
       data {
@@ -647,7 +645,6 @@ fragment ManagedObjectSlugEntity on ManagedObjectEntity {
   attributes {
     slug
     title
-    type
     locale
   }
 }
