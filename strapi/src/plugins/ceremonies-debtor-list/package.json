@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@strapi/design-system": "^1.6.3",
-    "@strapi/helper-plugin": "4.25.22",
+    "@strapi/helper-plugin": "4.26.0",
     "@strapi/icons": "^1.6.3",
     "assert": "^2.1.0",
     "prop-types": "^15.7.2",
@@ -17,7 +17,7 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "@strapi/typescript-utils": "4.25.22",
+    "@strapi/typescript-utils": "4.26.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@types/react-router-dom": "^5.3.3",
