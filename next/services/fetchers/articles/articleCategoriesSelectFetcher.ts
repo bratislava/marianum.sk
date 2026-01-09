@@ -1,14 +1,16 @@
-import { Option } from '@/components/atoms/Select'
 import { client } from '@/services/graphql/gqlClient'
+import { isDefined } from '@/utils/isDefined'
 
 const mapSelectFn = (category: {
   attributes?: { title?: string | null } | null
   id?: string | null
 }) => {
-  return {
-    label: category.attributes?.title,
-    key: category.id,
-  } as Option
+  return category.id && category.attributes
+    ? {
+        label: category.attributes?.title,
+        key: category.id,
+      }
+    : null
 }
 
 // News
@@ -16,7 +18,7 @@ export const articleNewsCategoriesSelectQueryKey = ['ArticleNewsCategoriesSelect
 export const articleNewsCategoriesSelectFetcher = () =>
   client
     .ArticleNewsCategories()
-    .then((data) => data.articleNewsCategories?.data.map(mapSelectFn) ?? [])
+    .then((data) => data.articleNewsCategories?.data.map(mapSelectFn).filter(isDefined) ?? [])
 
 export const getArticleNewsCategoriesSelectQuery = () => {
   return {
@@ -30,7 +32,7 @@ export const articlePressCategoriesSelectQueryKey = ['ArticlePressCategoriesSele
 export const articlePressCategoriesSelectFetcher = () =>
   client
     .ArticlePressCategories()
-    .then((data) => data.articlePressCategories?.data.map(mapSelectFn) ?? [])
+    .then((data) => data.articlePressCategories?.data.map(mapSelectFn).filter(isDefined) ?? [])
 
 export const getArticlePressCategoriesSelectQuery = () => {
   return {
@@ -44,7 +46,7 @@ export const articleJobsCategoriesSelectQueryKey = ['ArticleJobsCategoriesSelect
 export const articleJobsCategoriesSelectFetcher = () =>
   client
     .ArticleJobsCategories()
-    .then((data) => data.articleJobsCategories?.data.map(mapSelectFn) ?? [])
+    .then((data) => data.articleJobsCategories?.data.map(mapSelectFn).filter(isDefined) ?? [])
 
 export const getArticleJobsCategoriesSelectQuery = () => {
   return {

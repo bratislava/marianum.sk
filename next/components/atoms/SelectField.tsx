@@ -1,165 +1,142 @@
-import React, { useId } from 'react'
-import Select, {
-  ClearIndicatorProps,
-  components,
-  DropdownIndicatorProps,
-  GroupBase,
-  MultiValueRemoveProps,
-  OptionProps,
-  Props as ReactSelectProps,
-} from 'react-select'
+import React, { ReactNode } from 'react'
+import {
+  Button,
+  FieldError,
+  Label,
+  ListBox,
+  ListBoxItem,
+  ListBoxItemProps,
+  Popover,
+  Select,
+  SelectProps,
+  SelectValue,
+  Text,
+  ValidationResult,
+} from 'react-aria-components'
 
-import { CheckNoPaddingIcon, ChevronDownIcon, CloseIcon } from '@/assets/icons'
-import Checkbox from '@/components/atoms/Checkbox'
+import { CheckCircleIcon, ChevronDownIcon } from '@/assets/icons'
 import cn from '@/utils/cn'
 
-export type SelectOption = { value: string; label: string }
+// This component was copied from Enforcement project and updated to use newer react-aria-components version
+// https://github.com/bratislava/enforcement-new/blob/aa888b55c97f756c19dee6cbf0ac8ce1bf6e6c78/components/inputs/select-field.tsx
 
-const DropdownIndicator = <
-  Option,
-  IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>,
->({
-  ...props
-}: DropdownIndicatorProps<Option, IsMulti, Group>) => {
-  const { menuIsOpen, isDisabled } = props.selectProps
-
-  return (
-    <components.DropdownIndicator {...props}>
-      <ChevronDownIcon
-        className={cn({
-          'rotate-180': menuIsOpen,
-          'text-foreground-disabled': isDisabled,
-        })}
-      />
-    </components.DropdownIndicator>
-  )
+// docs: https://react-spectrum.adobe.com/react-aria/Select.html#reusable-wrappers
+export interface SelectFieldProps<T extends object> extends Omit<SelectProps<T>, 'children'> {
+  label?: string
+  description?: string
+  errorMessage?: string | ((validation: ValidationResult) => string)
+  items?: Iterable<T>
+  children: React.ReactNode | ((item: T) => React.ReactNode)
+  innerClassName?: string
+  popperClassName?: string
+  size?: 'small' | 'large'
 }
 
-const ClearIndicator = <
-  Option,
-  IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>,
->(
-  props: ClearIndicatorProps<Option, IsMulti, Group>,
-) => {
-  return (
-    <components.ClearIndicator {...props}>
-      <CloseIcon className="scale-[80%]" />
-    </components.ClearIndicator>
-  )
+type SelectItemProps = Omit<ListBoxItemProps, 'children'> & {
+  label: ReactNode
+  description?: string
+  isDivider?: boolean
 }
 
-const MultiValueRemove = (props: MultiValueRemoveProps) => {
+export const SelectItem = ({ label, description, isDivider = false, ...rest }: SelectItemProps) => {
   return (
-    <components.MultiValueRemove {...props}>
-      <CloseIcon />
-    </components.MultiValueRemove>
-  )
-}
-
-const CustomOption = <
-  Option extends SelectOption,
-  IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>,
->({
-  children,
-  ...props
-}: OptionProps<Option, IsMulti, Group>) => {
-  const { isMulti, isSelected } = props
-
-  return (
-    <>
-      <components.Option {...props}>
-        <div>{children}</div>
-        <div aria-hidden>
-          {isMulti ? (
-            <Checkbox isSelected={isSelected} />
-          ) : isSelected ? (
-            <CheckNoPaddingIcon className="text-primary" />
-          ) : null}
-        </div>
-      </components.Option>
-      <div className="mx-2 h-px bg-border last:hidden" aria-hidden />
-    </>
+    <ListBoxItem
+      {...rest}
+      className={({ isHovered, isFocusVisible }) =>
+        cn('flex cursor-pointer justify-between px-4 py-2 outline-none', {
+          'bg-background-beige': isHovered,
+          'base-focus-ring ring-inset': isFocusVisible,
+          'after:not-last:block after:h-0.5': isDivider,
+        })
+      }
+    >
+      {({ isSelected }) => (
+        <>
+          <div className="flex flex-col items-start gap-1">
+            <Text slot="label">{label}</Text>
+            {description ? <Text slot="description">{description}</Text> : null}
+          </div>
+          <div className={cn('shrink-0', { hidden: !isSelected })}>
+            <CheckCircleIcon />
+          </div>
+        </>
+      )}
+    </ListBoxItem>
   )
 }
 
 /**
- * Figma: https://www.figma.com/design/aSo4AQ5Rag1TmFc8jmANfP/Marianum?node-id=460-362&m=dev
- * Based on OLO: https://github.com/bratislava/olo.sk/blob/master/next/src/components/lib/Select/Select.tsx
+ * Based on bratislava.sk: https://github.com/bratislava/bratislava.sk/blob/master/next/src/components/common/SelectField/SelectField.tsx
  */
-
-const SelectField = <
-  Option extends SelectOption,
-  IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>,
->({
-  value,
-  options,
-  onChange = () => null,
+const SelectField = <T extends object>({
+  label,
+  description,
+  errorMessage,
+  children,
   className,
-  ...rest
-}: ReactSelectProps<Option, IsMulti, Group>) => {
-  const id = useId()
+  innerClassName,
+  popperClassName,
+  items,
+  size = 'small',
+  ...props
+}: SelectFieldProps<T>) => {
+  const disabled = props.isDisabled
+
+  const style = cn(
+    'flex w-full items-center justify-between gap-3 border border-border bg-white outline-none',
+    {
+      // 'px-3 py-2 lg:px-4 lg:py-3': size === 'respo',
+      'px-3 py-2': size === 'small',
+      'px-4 py-3': size === 'large',
+      'hover:border-border-dark': !disabled,
+      'border-error hover:border-error': errorMessage && !disabled,
+      'pointer-events-none bg-background-disabled text-foreground-disabled': disabled,
+    },
+  )
 
   return (
-    <Select
-      {...rest}
-      id={id}
-      unstyled
-      value={value}
-      onChange={onChange}
-      options={options}
-      closeMenuOnSelect={!rest.isMulti}
-      hideSelectedOptions={false}
-      className={cn('w-full', className)}
-      classNames={{
-        control: ({ isFocused, isDisabled }) =>
-          cn('border border-border bg-white hover:cursor-pointer hover:border-border-dark', {
-            'border-border': isDisabled,
-            'border-border-dark': isFocused && !isDisabled,
-            'border-border-default hover:border-border-hover': !isFocused && !isDisabled,
-          }),
-        placeholder: ({ isDisabled, isFocused }) =>
-          cn('text-foreground-placeholder', {
-            'text-foreground-disabled': isDisabled,
-            // `invisible` hides the text but keeps the placeholder container visible
-            invisible: isFocused,
-          }),
-        // If a card with a link appears on large and medium screens, the link covers the select dropdown. The `md:z-10` ensures the select always precedes the link
-        valueContainer: ({ isDisabled }) =>
-          // If there's a long value in select, it stretches the parent element instead of wrapping the text.
-          // `[container-type:inline-size]` fixes this for some reason.
-          cn('gap-x-2 gap-y-1 px-3 py-2 [container-type:inline-size]', {
-            'bg-background-disabled text-foreground-disabled': isDisabled,
-          }),
-        multiValue: ({ isDisabled }) =>
-          cn('items-center', isDisabled ? 'bg-background-disabled' : 'bg-primary/12'),
-        multiValueLabel: () => 'px-2 text-sm',
-        multiValueRemove: () => 'hover:text-error h-5 [&>svg]:scale-[60%]',
-        indicatorsContainer: ({ isDisabled }) =>
-          cn('gap-3 pr-3', {
-            'bg-background-disabled': isDisabled,
-          }),
-        clearIndicator: () => 'p-1.5 -m-1.5 hover:bg-primary/12',
-        indicatorSeparator: ({ hasValue, isMulti }) =>
-          cn('my-2 bg-border', { hidden: !hasValue || !isMulti }),
-        dropdownIndicator: () => 'p-1.5 -m-1.5',
-        menu: () => 'z-20 border border-border-focused bg-white mt-2',
-        groupHeading: () => 'ml-3 mt-2 mb-1 text-foreground-placeholder text-sm',
-        option: ({ isFocused }) =>
-          cn('!flex items-center justify-between px-3 py-2 hover:cursor-pointer', {
-            'group bg-background-beige': isFocused,
-          }),
-      }}
-      components={{
-        Option: (props) => <CustomOption {...props} />,
-        DropdownIndicator,
-        ClearIndicator,
-        MultiValueRemove,
-      }}
-    />
+    <Select {...props} className={cn('flex flex-col gap-1', className)}>
+      {({ isRequired, isInvalid }) => (
+        <>
+          {label ? (
+            <Label className="font-semibold text-foreground-heading">
+              {label}
+              {isRequired ? <span className="text-error"> *</span> : undefined}
+            </Label>
+          ) : null}
+          <Button
+            className={({ isFocusVisible }) =>
+              cn(
+                style,
+                { 'base-focus-ring': isFocusVisible, 'border-error': isInvalid },
+                innerClassName,
+              )
+            }
+          >
+            <SelectValue className="truncate" />
+            <span aria-hidden>
+              <ChevronDownIcon />
+            </span>
+          </Button>
+          {description && (
+            <Text slot="description text-sm text-foreground-secondary">{description}</Text>
+          )}
+          <FieldError className="text-sm text-error">{errorMessage}</FieldError>
+
+          <Popover
+            className={cn(
+              'w-[--trigger-width] overflow-y-auto border bg-white py-2',
+              popperClassName,
+            )}
+            shouldFlip={false}
+          >
+            <ListBox items={items} className="max-h-[400px] outline-none">
+              {children}
+            </ListBox>
+          </Popover>
+        </>
+      )}
+    </Select>
   )
 }
 

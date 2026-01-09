@@ -183,7 +183,7 @@ const CeremoniesArchiveSection = () => {
     setFilters({ ...filters, page })
   }
 
-  const handleCemeteryChange = (cemeteryId: string) => {
+  const handleCemeteryChange = (cemeteryId: string | null) => {
     setFilters({ ...filters, cemeteryId })
   }
 

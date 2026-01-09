@@ -1,22 +1,21 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
-import Select, { Option, SelectProps, SingleSelect } from '@/components/atoms/Select'
+import Select, { SelectFieldProps } from '@/components/atoms/SelectField'
 
-type SelectWithFetcherProps = {
+type SelectWithFetcherProps<T extends object> = {
   queryKey: string[]
-  fetcher: () => Promise<Option[]>
-  defaultOption: Option
-} & Pick<SelectProps, 'id' | 'placeholder' | 'label' | 'disabled'> &
-  Pick<SingleSelect, 'onSelectionChange'>
+  fetcher: () => Promise<T[]>
+  defaultOption: T
+} & SelectFieldProps<T>
 
-const SelectWithFetcher = ({
+const SelectWithFetcher = <T extends object>({
   queryKey,
   defaultOption,
   fetcher,
-  disabled: originalDisabled,
-  onSelectionChange,
+  children,
+  isDisabled,
   ...rest
-}: SelectWithFetcherProps) => {
+}: SelectWithFetcherProps<T>) => {
   const { data, isPending, isFetching, isError, error } = useQuery({
     queryKey: [queryKey],
     queryFn: fetcher,
@@ -31,14 +30,9 @@ const SelectWithFetcher = ({
   const options = isPending ? [defaultOption] : [defaultOption, ...data]
 
   return (
-    <Select
-      options={options}
-      defaultSelected={defaultOption.key}
-      multiple={false}
-      disabled={isFetching || error || originalDisabled}
-      onSelectionChange={onSelectionChange}
-      {...rest}
-    />
+    <Select items={options} isDisabled={isFetching || error || isDisabled} {...rest}>
+      {children}
+    </Select>
   )
 }
 
