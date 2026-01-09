@@ -4,8 +4,8 @@
   "private": true,
   "license": "EUPL-1.2",
   "scripts": {
-    "dev": "npm run develop",
-    "develop": "next dev",
+    "dev": "next dev",
+    "develop": "npm run dev",
     "build": "next build",
     "start": "next start",
     "gen": "graphql-codegen && prettier --write graphql/index.ts",
