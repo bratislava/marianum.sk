@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 
+import { SelectItem } from '@/components/atoms/Select'
 import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import {
   articlePressCategoriesSelectFetcher,
@@ -23,10 +24,12 @@ const ArticlePressCategoriesSelect = ({
       queryKey={articlePressCategoriesSelectQueryKey}
       defaultOption={defaultOption}
       fetcher={articlePressCategoriesSelectFetcher}
-      onSelectionChange={(selection: string) => {
-        onCategoryChange(selection === '' ? null : selection)
+      onChange={(selection) => {
+        onCategoryChange(selection ? (selection as string) : null)
       }}
-    />
+    >
+      {(item) => <SelectItem label={item.label} id={item.key} />}
+    </SelectWithFetcher>
   )
 }
 

@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 
+import { SelectItem } from '@/components/atoms/Select'
 import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import {
   cemeteriesInCeremoniesFetcher,
@@ -14,7 +15,7 @@ import {
 type CeremoniesDebtorsCemeterySelectProps = {
   label?: string
   type: 'ceremonies' | 'debtors'
-  onCemeteryChange: (id: string) => void
+  onCemeteryChange: (id: string | null) => void
 }
 
 const CeremoniesDebtorsCemeterySelect = ({
@@ -53,10 +54,12 @@ const CeremoniesDebtorsCemeterySelect = ({
       defaultOption={defaultOption}
       fetcher={fetcher}
       label={label}
-      onSelectionChange={(selection: string) => {
-        onCemeteryChange(selection)
+      onChange={(selection) => {
+        onCemeteryChange(selection ? (selection as string) : null)
       }}
-    />
+    >
+      {(item) => <SelectItem label={item.label} id={item.key} />}
+    </SelectWithFetcher>
   ) : null
 }
 

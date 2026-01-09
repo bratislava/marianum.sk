@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
 
-import Select from '@/components/atoms/Select'
+import Select, { SelectItem } from '@/components/atoms/Select'
 
 export type Sort = 'newest' | 'oldest'
 
@@ -23,10 +23,12 @@ const SortSelect = ({ defaultSelected, onChange = () => {} }: SortSelectProps) =
 
   return (
     <Select
-      options={options}
-      onSelectionChange={onChange as (sort: string) => void}
-      defaultSelected={defaultSelected}
-    />
+      items={options}
+      onSelectionChange={(selection) => onChange(selection as Sort)}
+      defaultSelectedKey={defaultSelected}
+    >
+      {(item) => <SelectItem label={item.label} id={item.key} />}
+    </Select>
   )
 }
 

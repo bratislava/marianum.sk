@@ -167,7 +167,7 @@ const DebtorsSection = ({ description }: DebtorsSectionProps) => {
     setFilters({ ...filters, page })
   }
 
-  const handleCemeteryChange = (cemeteryId: string) => {
+  const handleCemeteryChange = (cemeteryId: string | null) => {
     setFilters({ ...filters, page: 1, cemeteryId })
   }
 

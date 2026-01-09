@@ -1,161 +1,143 @@
-import { Listbox } from '@headlessui/react'
-import { ReactNode, useCallback, useId, useMemo, useState } from 'react'
-import { usePopper } from 'react-popper'
+import React, { ReactNode } from 'react'
+import {
+  Button,
+  FieldError,
+  Label,
+  ListBox,
+  ListBoxItem,
+  ListBoxItemProps,
+  Popover,
+  Select,
+  SelectProps,
+  SelectValue,
+  Text,
+  ValidationResult,
+} from 'react-aria-components'
 
-import { ChevronDownIcon } from '@/assets/icons'
-import FieldWrapper from '@/components/atoms/FieldWrapper'
+import { CheckCircleIcon, ChevronDownIcon } from '@/assets/icons'
 import cn from '@/utils/cn'
-import { isDefined } from '@/utils/isDefined'
 
-export interface Option {
-  key: string
-  label: ReactNode | string
-  [key: string]: unknown
-}
+// This component was copied from Enforcement project and updated to use newer react-aria-components version
+// https://github.com/bratislava/enforcement-new/blob/aa888b55c97f756c19dee6cbf0ac8ce1bf6e6c78/components/inputs/select-field.tsx
 
-type SelectBase = {
-  id?: string
-  placeholder?: string
-  options?: Option[]
-  disabled?: boolean
-  error?: boolean
+// docs: https://react-spectrum.adobe.com/react-aria/Select.html#reusable-wrappers
+export interface SelectFieldProps<T extends object> extends Omit<SelectProps<T>, 'children'> {
   label?: string
-  required?: boolean
+  description?: string
+  errorMessage?: string | ((validation: ValidationResult) => string)
+  items?: Iterable<T>
+  children: React.ReactNode | ((item: T) => React.ReactNode)
+  innerClassName?: string
+  popperClassName?: string
+  size?: 'small' | 'large'
 }
 
-export type SingleSelect = {
-  multiple?: false | undefined
-  defaultSelected?: string
-  onSelectionChange?: (selection: string) => void
-} & SelectBase
+type SelectItemProps = Omit<ListBoxItemProps, 'children'> & {
+  label: ReactNode
+  description?: string
+  isDivider?: boolean
+}
 
-type MultipleSelect = {
-  multiple: true
-  defaultSelected?: string[]
-  onSelectionChange?: (selection: string[]) => void
-} & SelectBase
-
-export type SelectProps = SingleSelect | MultipleSelect
-
-const Select = ({
-  id,
-  placeholder,
-  options = [],
-  disabled = false,
-  error = false,
-  label,
-  required,
-  multiple,
-  defaultSelected,
-  onSelectionChange = () => {},
-}: SelectProps) => {
-  const generatedId = useId()
-  const generatedOrProvidedId = id ?? generatedId
-
-  const defaultSelectedOptions = isDefined(defaultSelected)
-    ? multiple
-      ? (defaultSelected.map((selected) =>
-          options.find((option) => option.key === selected),
-        ) as Option[])
-      : [options.find((option) => option.key === defaultSelected) as Option]
-    : []
-  const [selectedOptions, setSelectedOptions] = useState<Option[]>(defaultSelectedOptions)
-
-  const [referenceElement, setReferenceElement] = useState<HTMLButtonElement | null>(null)
-  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null)
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: 'bottom',
-    modifiers: [
-      {
-        name: 'offset',
-        options: { offset: [0, 8] },
-      },
-    ],
-  })
-
-  const changeHandler = useCallback(
-    (optionOrOptions: Option | Option[]) => {
-      if (Array.isArray(optionOrOptions)) {
-        setSelectedOptions(optionOrOptions)
-        ;(onSelectionChange as (selection: string[]) => void)(optionOrOptions.map((o) => o.key))
-      } else {
-        setSelectedOptions([optionOrOptions])
-        ;(onSelectionChange as (selection: string) => void)(optionOrOptions.key)
+export const SelectItem = ({ label, description, isDivider = false, ...rest }: SelectItemProps) => {
+  return (
+    <ListBoxItem
+      {...rest}
+      className={({ isHovered, isFocusVisible }) =>
+        cn('flex cursor-pointer justify-between px-4 py-2 outline-none', {
+          'bg-background-beige': isHovered,
+          'base-focus-ring ring-inset': isFocusVisible,
+          'after:not-last:block after:h-0.5': isDivider,
+        })
       }
-    },
-    [onSelectionChange],
+    >
+      {({ isSelected }) => (
+        <>
+          <div className="flex flex-col items-start gap-1">
+            <Text slot="label">{label}</Text>
+            {description ? <Text slot="description">{description}</Text> : null}
+          </div>
+          <div className={cn('shrink-0', { hidden: !isSelected })}>
+            <CheckCircleIcon />
+          </div>
+        </>
+      )}
+    </ListBoxItem>
   )
+}
 
-  const selectedOption = useMemo(() => {
-    return selectedOptions[0]
-  }, [selectedOptions])
+/**
+ * Based on bratislava.sk: https://github.com/bratislava/bratislava.sk/blob/master/next/src/components/common/SelectField/SelectField.tsx
+ */
+const SelectField = <T extends object>({
+  label,
+  description,
+  errorMessage,
+  children,
+  className,
+  innerClassName,
+  popperClassName,
+  items,
+  size = 'small',
+  ...props
+}: SelectFieldProps<T>) => {
+  const disabled = props.isDisabled
+
+  const style = cn(
+    'flex w-full items-center justify-between gap-3 border border-border bg-white outline-none',
+    {
+      // 'px-3 py-2 lg:px-4 lg:py-3': size === 'respo',
+      'px-3 py-2': size === 'small',
+      'px-4 py-3': size === 'large',
+      'hover:border-border-dark': !disabled,
+      'border-error hover:border-error': errorMessage && !disabled,
+      'pointer-events-none bg-background-disabled text-foreground-disabled': disabled,
+    },
+  )
 
   return (
-    <Listbox
-      as="div"
-      className="relative flex w-full"
-      value={multiple ? selectedOptions : selectedOption}
-      onChange={changeHandler}
-      multiple={multiple}
-      disabled={disabled}
-    >
-      <Listbox.Button
-        ref={setReferenceElement}
-        as="button"
-        className="group flex w-full outline-none"
-      >
-        {({ open }) => (
-          <FieldWrapper
-            error={error}
-            disabled={disabled}
-            label={label}
-            required={required}
-            id={generatedOrProvidedId}
-            hasRightSlot
+    <Select {...props} className={cn('flex flex-col gap-1', className)}>
+      {({ isRequired, isInvalid }) => (
+        <>
+          {label ? (
+            <Label className="font-semibold text-foreground-heading">
+              {label}
+              {isRequired ? <span className="text-error"> *</span> : undefined}
+            </Label>
+          ) : null}
+          <Button
+            className={({ isFocusVisible }) =>
+              cn(
+                style,
+                { 'base-focus-ring': isFocusVisible, 'border-error': isInvalid },
+                innerClassName,
+              )
+            }
           >
-            <div className="flex h-10 w-full min-w-0 cursor-pointer select-none items-center overflow-hidden pl-4">
-              {selectedOptions.length > 0 ? (
-                selectedOptions.map((option, index) => (
-                  <div key={option.key} className="flex whitespace-nowrap">
-                    {index !== 0 && <div className="whitespace-pre-wrap">, </div>}
-                    <div>{option.label}</div>
-                  </div>
-                ))
-              ) : (
-                <div className="truncate text-foreground-placeholder">{placeholder}</div>
-              )}
-            </div>
-            <div className={cn('transform p-2 transition-transform', { 'rotate-180': open })}>
+            <SelectValue className="truncate" />
+            <span aria-hidden>
               <ChevronDownIcon />
-            </div>
-          </FieldWrapper>
-        )}
-      </Listbox.Button>
+            </span>
+          </Button>
+          {description && (
+            <Text slot="description text-sm text-foreground-secondary">{description}</Text>
+          )}
+          <FieldError className="text-sm text-error">{errorMessage}</FieldError>
 
-      <Listbox.Options
-        as="div"
-        ref={setPopperElement as React.Ref<HTMLDivElement>}
-        className="z-20 max-h-[240px] w-full flex-col overflow-y-auto border border-border bg-white outline-none"
-        style={styles.popper}
-        {...attributes.popper}
-      >
-        {options.map((option) => (
-          <Listbox.Option as="div" key={option.key} value={option}>
-            {({ selected, active }) => (
-              <div
-                className={cn('flex h-10 cursor-pointer select-none items-center px-4', {
-                  'bg-primary text-white': selected,
-                  'bg-background-beige': active && !selected,
-                })}
-              >
-                {option.label}
-              </div>
+          <Popover
+            className={cn(
+              'w-[--trigger-width] overflow-y-auto border bg-white py-2',
+              popperClassName,
             )}
-          </Listbox.Option>
-        ))}
-      </Listbox.Options>
-    </Listbox>
+            shouldFlip={false}
+          >
+            <ListBox items={items} className="max-h-[400px] outline-none">
+              {children}
+            </ListBox>
+          </Popover>
+        </>
+      )}
+    </Select>
   )
 }
 
-export default Select
+export default SelectField

@@ -9,7 +9,7 @@ import FormatDate from '@/components/atoms/FormatDate'
 import IconButton from '@/components/atoms/IconButton'
 import Loading from '@/components/atoms/Loading'
 import LoadingOverlay from '@/components/atoms/LoadingOverlay'
-import Select from '@/components/atoms/Select'
+import Select, { SelectItem } from '@/components/atoms/Select'
 import FilteringSearchInput from '@/components/molecules/FilteringSearchInput'
 import FiltersBackgroundWrapper from '@/components/molecules/FiltersBackgroundWrapper'
 import PaginationMeili from '@/components/molecules/PaginationMeili'
@@ -193,31 +193,35 @@ const TypeSelect = ({
 }) => {
   const { t } = useTranslation()
 
+  const options = [
+    {
+      key: 'all',
+      label: t('DisclosuresSection.types.all'),
+    },
+    {
+      key: DisclosureTypeFixed.Faktura,
+      label: t('DisclosuresSection.types.faktury'),
+    },
+    {
+      key: DisclosureTypeFixed.Zmluva,
+      label: t('DisclosuresSection.types.zmluvy'),
+    },
+    {
+      key: DisclosureTypeFixed.Objednavka,
+      label: t('DisclosuresSection.types.objednavky'),
+    },
+  ]
+
   return (
     <Select
-      defaultSelected="all"
-      options={[
-        {
-          key: 'all',
-          label: t('DisclosuresSection.types.all'),
-        },
-        {
-          key: DisclosureTypeFixed.Faktura,
-          label: t('DisclosuresSection.types.faktury'),
-        },
-        {
-          key: DisclosureTypeFixed.Zmluva,
-          label: t('DisclosuresSection.types.zmluvy'),
-        },
-        {
-          key: DisclosureTypeFixed.Objednavka,
-          label: t('DisclosuresSection.types.objednavky'),
-        },
-      ]}
-      onSelectionChange={(type) => {
-        onTypeChange(type === 'all' ? null : (type as DisclosureTypeFixed))
+      items={options}
+      defaultSelectedKey="all"
+      onSelectionChange={(selection) => {
+        onTypeChange(selection === 'all' ? null : (selection as DisclosureTypeFixed))
       }}
-    />
+    >
+      {(item) => <SelectItem label={item.label} id={item.key} />}
+    </Select>
   )
 }
 

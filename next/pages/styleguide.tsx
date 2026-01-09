@@ -2,7 +2,7 @@ import { GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
 import { SSRConfig } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { ReactNode, useMemo, useState } from 'react'
+import React, { ReactNode, useMemo, useState } from 'react'
 
 import { AddIcon, ArrowRightIcon, CloseCircleIcon, DownloadIcon, SearchIcon } from '@/assets/icons'
 import Avatar from '@/components/atoms/Avatar'
@@ -14,7 +14,7 @@ import MLink from '@/components/atoms/MLink'
 import Pagination from '@/components/atoms/Pagination/Pagination'
 import ReviewStars from '@/components/atoms/ReviewStars'
 import RichText from '@/components/atoms/RichText'
-import SelectField from '@/components/atoms/SelectField'
+import SelectField, { SelectItem } from '@/components/atoms/Select'
 import TabItem from '@/components/atoms/Tabs/TabItem'
 import Tabs from '@/components/atoms/Tabs/Tabs'
 import Tag from '@/components/atoms/Tag'
@@ -113,8 +113,8 @@ export const Stack = ({ bg, width = null, direction = 'row', children }: StackPr
         'w-[1128px]': width === 'desktop',
         'w-[288px]': width === 'mobile',
         'w-full': width === 'full',
-        'flex-col space-y-2': direction === 'column',
-        'flex-row space-x-2': direction === 'row',
+        'flex-col gap-y-2': direction === 'column',
+        'flex-row gap-x-2': direction === 'row',
       })}
     >
       {children}
@@ -754,6 +754,60 @@ const Showcase = () => {
             </Stack>
           </Wrapper>
 
+          <Wrapper title="Search">
+            <Stack width="full">
+              <Search
+                placeholder="Search..."
+                // eslint-disable-next-line no-alert,@typescript-eslint/restrict-template-expressions
+                onSearch={(value) => alert(`Searching for: ${value}`)}
+              />
+            </Stack>
+          </Wrapper>
+
+          <Wrapper title="Select">
+            <Stack width="full">
+              <SelectField
+                label="Select one project"
+                items={[
+                  {
+                    value: 'marianum',
+                    label: '💀 Marianum',
+                  },
+                  {
+                    value: 'city-library',
+                    label: '📖 City library',
+                  },
+                  {
+                    value: 'homepage',
+                    label: '🟥 Homepage',
+                  },
+                ]}
+              >
+                {(item) => <SelectItem label={item.label} id={item.value} />}
+              </SelectField>
+              <SelectField
+                label="Disabled"
+                isDisabled
+                items={[
+                  {
+                    value: 'marianum',
+                    label: '💀 Marianum',
+                  },
+                  {
+                    value: 'city-library',
+                    label: '📖 City library',
+                  },
+                  {
+                    value: 'homepage',
+                    label: '🟥 Homepage',
+                  },
+                ]}
+              >
+                {(item) => <SelectItem label={item.label} id={item.value} />}
+              </SelectField>
+            </Stack>
+          </Wrapper>
+
           <Wrapper title="Row">
             <Checkbox isSelected={cardsBorder} onChange={setCardsBorder}>
               Show border
@@ -826,95 +880,6 @@ const Showcase = () => {
                   </div>
                 </TabItem>
               </Tabs>
-            </Stack>
-          </Wrapper>
-
-          <Wrapper title="Search">
-            <Stack width="full">
-              <Search
-                placeholder="Search..."
-                // eslint-disable-next-line no-alert,@typescript-eslint/restrict-template-expressions
-                onSearch={(value) => alert(`Searching for: ${value}`)}
-              />
-            </Stack>
-          </Wrapper>
-
-          <Wrapper title="Select">
-            <Stack width="full">
-              <SelectField
-                placeholder="Select one project"
-                options={[
-                  {
-                    value: 'marianum',
-                    label: '💀 Marianum',
-                  },
-                  {
-                    value: 'city-library',
-                    label: '📖 City library',
-                  },
-                  {
-                    value: 'homepage',
-                    label: '🟥 Homepage',
-                  },
-                ]}
-              />
-              <SelectField
-                placeholder="Disabled"
-                isDisabled
-                options={[
-                  {
-                    value: 'marianum',
-                    label: '💀 Marianum',
-                  },
-                  {
-                    value: 'city-library',
-                    label: '📖 City library',
-                  },
-                  {
-                    value: 'homepage',
-                    label: '🟥 Homepage',
-                  },
-                ]}
-              />
-            </Stack>
-            <Stack width="full">
-              <SelectField
-                isMulti
-                placeholder="Select multiple projects"
-                options={[
-                  {
-                    value: 'marianum',
-                    label: '💀 Marianum',
-                  },
-                  {
-                    value: 'city-library',
-                    label: '📖 City library',
-                  },
-                  {
-                    value: 'homepage',
-                    label: '🟥 Homepage',
-                  },
-                ]}
-              />
-              <SelectField
-                isMulti
-                isDisabled
-                placeholder="Disabled multi"
-                options={[
-                  {
-                    value: 'marianum',
-                    label: '💀 Marianum',
-                  },
-                  {
-                    value: 'city-library',
-                    label: '📖 City library',
-                  },
-                  {
-                    value: 'homepage',
-                    label: '🟥 Homepage',
-                  },
-                ]}
-              />
             </Stack>
           </Wrapper>
 
