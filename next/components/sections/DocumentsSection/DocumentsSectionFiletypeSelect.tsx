@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
 
-import { SelectItem } from '@/components/atoms/Select'
+import { SelectItem } from '@/components/atoms/SelectField'
 import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import { client } from '@/services/graphql/gqlClient'
 import { isDefined } from '@/utils/isDefined'

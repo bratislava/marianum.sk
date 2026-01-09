@@ -1,6 +1,6 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
-import Select, { SelectFieldProps } from '@/components/atoms/Select'
+import Select, { SelectFieldProps } from '@/components/atoms/SelectField'
 
 type SelectWithFetcherProps<T extends object> = {
   queryKey: string[]
