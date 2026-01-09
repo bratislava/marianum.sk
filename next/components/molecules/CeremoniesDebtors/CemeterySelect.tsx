@@ -35,6 +35,7 @@ const CeremoniesDebtorsCemeterySelect = ({
     }
   }, [type, i18n.language])
 
+  // eslint-disable-next-line consistent-return
   const queryKey = useMemo(() => {
     if (type === 'ceremonies') {
       return getCemeteriesInCeremoniesKey(i18n.language)
@@ -42,15 +43,13 @@ const CeremoniesDebtorsCemeterySelect = ({
     if (type === 'debtors') {
       return getCemeteriesInDebtorsKey(i18n.language)
     }
-
-    return ['']
   }, [type, i18n.language])
 
   const defaultOption = useMemo(() => ({ label: t('CemeterySelect.allCemeteries'), key: '' }), [t])
 
   return fetcher ? (
     <SelectWithFetcher
-      queryKey={queryKey}
+      queryKey={queryKey ?? []}
       defaultOption={defaultOption}
       fetcher={fetcher}
       label={label}

@@ -215,8 +215,8 @@ const TypeSelect = ({
   return (
     <Select
       items={options}
-      defaultSelectedKey="all"
-      onSelectionChange={(selection) => {
+      defaultValue="all"
+      onChange={(selection) => {
         onTypeChange(selection === 'all' ? null : (selection as DisclosureTypeFixed))
       }}
     >
