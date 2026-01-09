@@ -64,7 +64,7 @@
     "tailwindcss-radix": "^2.8.0",
     "tailwindcss-react-aria-components": "1.2.0",
     "use-query-params": "^2.2.1",
-    "usehooks-ts": "^2.16.0",
+    "usehooks-ts": "3.1.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {
