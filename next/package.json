@@ -36,7 +36,6 @@
     "graphql": "16.10.0",
     "graphql-request": "6.1.0",
     "graphql-tag": "2.12.6",
-    "html-react-parser": "^3.0.4",
     "i18next": "24.2.2",
     "lodash": "^4.17.21",
     "mapbox-gl": "^2.10.0",
