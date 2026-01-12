@@ -6,11 +6,11 @@ import Select, { SelectItem } from '@/components/atoms/SelectField'
 export type Sort = 'newest' | 'oldest'
 
 type SortSelectProps = {
-  defaultSelected: Sort
-  onChange?: (sort: Sort) => void
+  defaultSort: Sort
+  onChange: (sort: Sort) => void
 }
 
-const SortSelect = ({ defaultSelected, onChange = () => {} }: SortSelectProps) => {
+const SortSelect = ({ defaultSort, onChange }: SortSelectProps) => {
   const { t } = useTranslation()
 
   const options = useMemo(
@@ -24,8 +24,8 @@ const SortSelect = ({ defaultSelected, onChange = () => {} }: SortSelectProps) =
   return (
     <Select
       items={options}
-      onSelectionChange={(selection) => onChange(selection as Sort)}
-      defaultSelectedKey={defaultSelected}
+      onChange={(selection) => onChange(selection as Sort)}
+      value={defaultSort}
     >
       {(item) => <SelectItem label={item.label} id={item.key} />}
     </Select>
