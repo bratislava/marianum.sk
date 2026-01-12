@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 
+import { SelectItem } from '@/components/atoms/SelectField'
 import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import {
   articleNewsCategoriesSelectFetcher,
@@ -11,9 +12,7 @@ type ArticleNewsCategoriesSelectProps = {
   onCategoryChange: (id: string | null) => void
 }
 
-const ArticleNewsCategoriesSelect = ({
-  onCategoryChange = () => {},
-}: ArticleNewsCategoriesSelectProps) => {
+const ArticleNewsCategoriesSelect = ({ onCategoryChange }: ArticleNewsCategoriesSelectProps) => {
   const { t } = useTranslation()
 
   const defaultOption = useMemo(() => ({ label: t('ArticleListing.allCategories'), key: '' }), [t])
@@ -22,11 +21,14 @@ const ArticleNewsCategoriesSelect = ({
     <SelectWithFetcher
       queryKey={articleNewsCategoriesSelectQueryKey}
       defaultOption={defaultOption}
+      defaultValue={defaultOption.key}
       fetcher={articleNewsCategoriesSelectFetcher}
-      onSelectionChange={(selection: string) => {
-        onCategoryChange(selection === '' ? null : selection)
+      onChange={(selection) => {
+        onCategoryChange(selection ? (selection as string) : null)
       }}
-    />
+    >
+      {(item) => <SelectItem label={item.label} id={item.key} />}
+    </SelectWithFetcher>
   )
 }
 

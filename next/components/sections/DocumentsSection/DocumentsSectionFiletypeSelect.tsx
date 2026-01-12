@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 
+import { SelectItem } from '@/components/atoms/SelectField'
 import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import { client } from '@/services/graphql/gqlClient'
 import { isDefined } from '@/utils/isDefined'
@@ -29,11 +30,14 @@ const DocumentsSectionFiletypeSelect = ({
     <SelectWithFetcher
       queryKey={['DocumentsSectionFiletypeSelect']}
       defaultOption={defaultOption}
+      defaultValue={defaultOption.key}
       fetcher={mappedFetcher}
-      onSelectionChange={(selection: string) => {
-        onFiletypeChange(selection === '' ? null : selection)
+      onChange={(selection) => {
+        onFiletypeChange(selection ? (selection as string) : null)
       }}
-    />
+    >
+      {(item) => <SelectItem label={item.label} id={item.key} />}
+    </SelectWithFetcher>
   )
 }
 

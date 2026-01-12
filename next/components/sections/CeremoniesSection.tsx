@@ -226,7 +226,7 @@ const CeremoniesSection = ({ section }: CeremoniesSectionProps) => {
 
   const [filters, setFilters] = useState<CeremoniesSectionFilters>(ceremoniesSectionDefaultFilters)
 
-  const handleCemeteryChange = (cemeteryId: string) => {
+  const handleCemeteryChange = (cemeteryId: string | null) => {
     setFilters({ ...filters, cemeteryId })
   }
 

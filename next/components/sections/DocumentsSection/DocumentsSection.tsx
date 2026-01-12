@@ -171,7 +171,7 @@ const DocumentsSection = ({ description }: DocumentsSectionProps) => {
         </div>
         <DocumentsSectionCategorySelect onCategoryChange={handleCategoryChange} />
         <DocumentsSectionFiletypeSelect onFiletypeChange={handleFiletypeChange} />
-        <SortSelect onChange={handleSortChange} defaultSelected={filters.sort} />
+        <SortSelect onChange={handleSortChange} defaultSort={filters.sort} />
       </FiltersBackgroundWrapper>
 
       <div>

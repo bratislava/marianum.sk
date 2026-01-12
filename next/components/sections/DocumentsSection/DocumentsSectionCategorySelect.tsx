@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 
+import { SelectItem } from '@/components/atoms/SelectField'
 import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import { client } from '@/services/graphql/gqlClient'
 
@@ -32,11 +33,14 @@ const DocumentsSectionCategorySelect = ({
     <SelectWithFetcher
       queryKey={['DocumentsSectionCategorySelect']}
       defaultOption={defaultOption}
+      defaultValue={defaultOption.key}
       fetcher={mappedFetcher}
-      onSelectionChange={(selection: string) => {
-        onCategoryChange(selection === '' ? null : selection)
+      onChange={(selection) => {
+        onCategoryChange(selection ? (selection as string) : null)
       }}
-    />
+    >
+      {(item) => <SelectItem label={item.label} id={item.key} />}
+    </SelectWithFetcher>
   )
 }
 
