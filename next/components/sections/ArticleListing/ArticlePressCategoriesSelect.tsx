@@ -23,6 +23,7 @@ const ArticlePressCategoriesSelect = ({
     <SelectWithFetcher
       queryKey={articlePressCategoriesSelectQueryKey}
       defaultOption={defaultOption}
+      defaultValue={defaultOption.key}
       fetcher={articlePressCategoriesSelectFetcher}
       onChange={(selection) => {
         onCategoryChange(selection ? (selection as string) : null)

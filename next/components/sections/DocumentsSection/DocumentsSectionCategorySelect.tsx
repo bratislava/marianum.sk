@@ -33,6 +33,7 @@ const DocumentsSectionCategorySelect = ({
     <SelectWithFetcher
       queryKey={['DocumentsSectionCategorySelect']}
       defaultOption={defaultOption}
+      defaultValue={defaultOption.key}
       fetcher={mappedFetcher}
       onChange={(selection) => {
         onCategoryChange(selection ? (selection as string) : null)

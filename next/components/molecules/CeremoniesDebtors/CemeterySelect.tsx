@@ -51,6 +51,7 @@ const CeremoniesDebtorsCemeterySelect = ({
     <SelectWithFetcher
       queryKey={queryKey ?? []}
       defaultOption={defaultOption}
+      defaultValue={defaultOption.key}
       fetcher={fetcher}
       label={label}
       onChange={(selection) => {

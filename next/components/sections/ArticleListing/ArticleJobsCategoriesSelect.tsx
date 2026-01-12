@@ -21,6 +21,7 @@ const ArticleJobsCategoriesSelect = ({ onCategoryChange }: ArticleJobsCategories
     <SelectWithFetcher
       queryKey={articleJobsCategoriesSelectQueryKey}
       defaultOption={defaultOption}
+      defaultValue={defaultOption.key}
       fetcher={articleJobsCategoriesSelectFetcher}
       onChange={(selection) => {
         onCategoryChange(selection ? (selection as string) : null)
