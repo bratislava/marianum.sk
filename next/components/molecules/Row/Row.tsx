@@ -1,4 +1,4 @@
-import { Fragment, ReactNode, useRef } from 'react'
+import { Fragment, ReactNode, RefObject, useRef } from 'react'
 import { useHover } from 'usehooks-ts'
 
 import { ChevronRightIcon, PlaceIcon } from '@/assets/icons'
@@ -47,7 +47,8 @@ const Row = ({
   ...rest
 }: RowProps) => {
   const linkRef = useRef<HTMLAnchorElement>(null)
-  const isLinkHovered = useHover(linkRef)
+  // TODO Remove temporary type fix when usehooks-ts accept React 19 refs: https://github.com/juliencrn/usehooks-ts/pull/680
+  const isLinkHovered = useHover(linkRef as RefObject<HTMLAnchorElement>)
 
   return (
     <RowBox hover={variant === 'gaps' && !!linkHref} {...rest}>

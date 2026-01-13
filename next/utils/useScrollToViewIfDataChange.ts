@@ -5,7 +5,7 @@ import { useIsomorphicLayoutEffect } from 'usehooks-ts'
 export const useScrollToViewIfDataChange = <T extends object | null, K extends object>(
   data: T | undefined,
   filters: K,
-  elementRef: RefObject<HTMLElement>,
+  elementRef: RefObject<HTMLElement | null>,
 ) => {
   // Relying on data change is not sufficient, first filters are changed and then data are asynchronously fetched.
   // Therefore, we mark filters as changed to scroll when needed. However, sometimes data change without any filter change
