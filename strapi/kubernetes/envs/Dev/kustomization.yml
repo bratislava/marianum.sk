@@ -7,6 +7,14 @@ resources:
   - ./secrets/strapi.secret.yml
   - ./secrets/generics.secret.yml
   - ./secrets/minio.secret.yml
+patches:
+  - target:
+      kind: Ingress
+      name: ${BUILD_REPOSITORY_NAME}-ingress
+    patch: |-
+      - op: add
+        path: /spec/ingressClassName
+        value: nginx
 generatorOptions:
   disableNameSuffixHash: true
 configMapGenerator:
