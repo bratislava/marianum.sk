@@ -32,10 +32,10 @@ const nextConfig = {
     return {
       beforeFiles: [
         // Graphql Proxy
-        {
-          source: '/graphql',
-          destination: `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`,
-        },
+        // {
+        //   source: '/graphql',
+        //   destination: `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`,
+        // },
         // Media proxy for getting media from Strapi
         {
           source: '/uploads/:file',
