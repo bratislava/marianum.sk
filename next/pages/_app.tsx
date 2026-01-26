@@ -7,7 +7,7 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { appWithTranslation } from 'next-i18next'
 import { NextAdapter } from 'next-query-params'
-import { OverlayProvider, SSRProvider } from 'react-aria'
+import { OverlayProvider } from 'react-aria'
 import { QueryParamProvider } from 'use-query-params'
 
 import ThirdPartyScripts from '@/components/atoms/ThirdPartyScripts'
@@ -31,18 +31,16 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </Head>
       <BAQueryClientProvider>
         <QueryParamProvider adapter={NextAdapter}>
-          <SSRProvider>
-            <HeroSectionOverlayProvider>
-              <MI18nProvider>
-                <MotionConfig reducedMotion="user">
-                  <OverlayProvider>
-                    <ThirdPartyScripts />
-                    <Component {...pageProps} />
-                  </OverlayProvider>
-                </MotionConfig>
-              </MI18nProvider>
-            </HeroSectionOverlayProvider>
-          </SSRProvider>
+          <HeroSectionOverlayProvider>
+            <MI18nProvider>
+              <MotionConfig reducedMotion="user">
+                <OverlayProvider>
+                  <ThirdPartyScripts />
+                  <Component {...pageProps} />
+                </OverlayProvider>
+              </MotionConfig>
+            </MI18nProvider>
+          </HeroSectionOverlayProvider>
         </QueryParamProvider>
       </BAQueryClientProvider>
     </>

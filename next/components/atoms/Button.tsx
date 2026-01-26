@@ -1,6 +1,6 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { LinkButtonProps } from '@react-types/button'
-import { forwardRef, ReactNode, Ref, RefObject } from 'react'
+import { forwardRef, type JSX, ReactNode, Ref, RefObject } from 'react'
 import { AriaButtonProps, useButton } from 'react-aria'
 
 import MLink from '@/components/atoms/MLink'
@@ -67,7 +67,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
         elementType: rest.href ? 'a' : 'button',
         isDisabled: disabled,
       },
-      ref as RefObject<HTMLAnchorElement | HTMLButtonElement>,
+      ref as RefObject<HTMLAnchorElement | HTMLButtonElement | null>,
     )
 
     const style = cn(
@@ -126,7 +126,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
 
       return (
         <MLink
-          ref={ref as RefObject<HTMLAnchorElement>}
+          ref={ref as RefObject<HTMLAnchorElement | null>}
           href={rest.href}
           tabIndex={tabIndex}
           noArrow
@@ -144,7 +144,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
     return (
       <button
         type="button"
-        ref={ref as RefObject<HTMLButtonElement>}
+        ref={ref as RefObject<HTMLButtonElement | null>}
         tabIndex={tabIndex}
         className={style}
         {...buttonProps}

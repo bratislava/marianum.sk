@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react'
+import React, { RefObject, useMemo, useRef } from 'react'
 import { useHover } from 'usehooks-ts'
 
 import CardBox, { CardBoxProps } from '@/components/atoms/Card/CardBox'
@@ -29,7 +29,8 @@ type ArticleCardProps = {
 
 const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: ArticleCardProps) => {
   const linkRef = useRef<HTMLAnchorElement>(null)
-  const isLinkHovered = useHover(linkRef)
+  // TODO Remove temporary type fix when usehooks-ts accept React 19 refs: https://github.com/juliencrn/usehooks-ts/pull/680
+  const isLinkHovered = useHover(linkRef as RefObject<HTMLAnchorElement>)
 
   const formattedDate = useMemo(() => new Date(date), [date])
 

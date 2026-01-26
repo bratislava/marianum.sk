@@ -11,7 +11,7 @@ export const useHorizontalScrollFade = ({
   classNameRight = 'scroll-fade-right',
   classNameRightOpaque = 'scroll-fade-right-opaque',
 }: {
-  ref: RefObject<HTMLElement>
+  ref: RefObject<HTMLElement | null>
   classNameLeft?: string
   classNameLeftOpaque?: string
   classNameRight?: string
@@ -35,7 +35,8 @@ export const useHorizontalScrollFade = ({
 
   // Also triggers the function on the mount, so no need for useEffect.
   useResizeDetector({ targetRef: ref, onResize: () => handleScrollOrResize() })
-  useEventListener('scroll', handleScrollOrResize, ref)
+  // TODO Remove temporary type fix when usehooks-ts accept React 19 refs: https://github.com/juliencrn/usehooks-ts/pull/680
+  useEventListener('scroll', handleScrollOrResize, { current: ref.current! })
 
   return {
     scrollFadeClassNames: cn(classNameLeft, classNameRight, {
