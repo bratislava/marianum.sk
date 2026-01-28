@@ -41,7 +41,6 @@ const Table = ({
   const debtors = useMemo(() => {
     const debtorsData = data.hits
     if (!debtorsData) {
-      // eslint-disable-next-line unicorn/no-useless-undefined
       return undefined
     }
     if (debtorsData?.length === 0) {

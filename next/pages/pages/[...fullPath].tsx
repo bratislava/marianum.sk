@@ -181,7 +181,6 @@ const Slug = ({ navigation, entity, general, dehydratedState }: PageProps) => {
                 />
               )
             }
-            // eslint-disable-next-line no-secrets/no-secrets
             if (section?.__typename === 'ComponentSectionsMapOfManagedObjects') {
               return (
                 <MapOfManagedObjectsSection

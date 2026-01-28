@@ -37,7 +37,6 @@ const ArchiveCard = ({
 
   const linkProps = getLinkProps(archive.button)
 
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     // Don't trigger the `handleCardClick` function when link clicked.
     event.stopPropagation()
@@ -96,7 +95,6 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
   const ceremonies = useMemo(() => {
     const ceremoniesData = data?.ceremonies?.data
     if (!ceremoniesData) {
-      // eslint-disable-next-line unicorn/no-useless-undefined
       return undefined
     }
     if (ceremoniesData?.length === 0) {
@@ -124,7 +122,6 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
       }
     })
 
-    // eslint-disable-next-line lodash/prop-shorthand
     const groupedByDate = groupBy(mappedCeremonies, (ceremony) => ceremony.calendarDate)
 
     return Object.entries(groupedByDate).map(([date, list]) => ({

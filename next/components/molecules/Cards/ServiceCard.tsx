@@ -17,7 +17,6 @@ const ServiceCard = ({ image, title, linkHref, ...rest }: ServiceCardProps) => {
   const { t } = useTranslation()
   const titleId = useId()
 
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     // Don't trigger the `handleCardClick` function when link clicked.
     event.stopPropagation()
