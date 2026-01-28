@@ -10,7 +10,6 @@ const Context = createContext<{ currentValue: boolean; changeValue: (v: boolean)
   changeValue: () => {},
 })
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export const HeroSectionOverlayProvider = ({ children }: PropsWithChildren<{}>) => {
   const [currentValue, setCurrentValue] = useState(false)
 
