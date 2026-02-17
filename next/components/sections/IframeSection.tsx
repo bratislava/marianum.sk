@@ -1,5 +1,5 @@
 import IframeResizer from '@iframe-resizer/react'
-import { useContext } from 'react'
+import { useContext, useMemo } from 'react'
 
 import RichText from '@/components/atoms/RichText'
 import { sectionContext } from '@/components/layouts/SectionsWrapper'
@@ -13,6 +13,9 @@ type IframeSectionProps = {
 
 const IframeSection = ({ section, variant = 'full' }: IframeSectionProps) => {
   const { border } = useContext(sectionContext)
+
+  const urlOrigin = useMemo(() => new URL(section.url).origin, [section.url])
+  const allowGeolocation = urlOrigin === 'https://hrobovemiesta.marianum.sk'
 
   return (
     <Section
@@ -39,6 +42,7 @@ const IframeSection = ({ section, variant = 'full' }: IframeSectionProps) => {
             // dvh - viewport height dynamically adjusts based on the visibility of URL bar
             style={{ height: variant === 'short' ? '416px' : '85dvh' }}
             className={border ? 'border border-border' : undefined}
+            allow={allowGeolocation ? 'geolocation' : undefined}
           />
         )}
       </div>
