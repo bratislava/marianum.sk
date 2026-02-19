@@ -44,7 +44,6 @@ const Table = ({
   const ceremonies = useMemo(() => {
     const ceremoniesData = data.hits
     if (!ceremoniesData) {
-      // eslint-disable-next-line unicorn/no-useless-undefined
       return undefined
     }
     if (ceremoniesData?.length === 0) {

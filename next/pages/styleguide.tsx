@@ -37,7 +37,7 @@ import Section from '@/components/molecules/Section'
 import { UploadFile } from '@/graphql'
 import cn from '@/utils/cn'
 
-/* eslint-disable sonarjs/no-duplicate-string, unicorn/numeric-separators-style */
+/* eslint-disable sonarjs/no-duplicate-string */
 const image: UploadFile = {
   updatedAt: '2022-08-24T20:30:23.750Z',
   name: 'adams family',
@@ -80,7 +80,6 @@ const image: UploadFile = {
   createdAt: '2022-08-24T20:30:23.750Z',
 }
 
-// eslint-disable-next-line const-case/uppercase
 const richText = '# Heading 1'
 
 type WrapperProps = {

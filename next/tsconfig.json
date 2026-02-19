@@ -23,7 +23,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "next-i18next.config.js"
+    "next-i18next.config.js",
+    "components/molecules/Navigation/NavigationProvider/generateRedirects.js"
   ],
   "exclude": ["node_modules"]
 }

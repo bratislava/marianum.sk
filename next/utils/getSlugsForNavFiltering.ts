@@ -17,7 +17,6 @@ export const getSlugsForNavFiltering = (wholeSlug: string | null | undefined) =>
 
   const slugs: string[] = []
   split.forEach((slugPart, index) =>
-    // eslint-disable-next-line unicorn/prefer-at
     index === 0 ? slugs.push(slugPart) : slugs.push(`${slugs[slugs.length - 1]}${slugPart}`),
   )
 
