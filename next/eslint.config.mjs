@@ -23,8 +23,7 @@ export default [
       '@typescript-eslint/no-unused-vars': 'warn', // 20 violations
       '@typescript-eslint/no-unsafe-enum-comparison': 'warn', // 15 violations
       'sonarjs/no-redundant-optional': 'warn', // 13 violations
-      'require-await': 'warn', // 9 violations
-      'no-implicit-coercion': 'warn', // 5 violations
+      'no-implicit-coercion': ['warn', { boolean: false }], // 5 violations
       'react-hooks/refs': 'warn', // 4 violations
       '@typescript-eslint/no-useless-default-assignment': 'warn', // 4 violations
       'react-hooks/static-components': 'warn', // 4 violations
