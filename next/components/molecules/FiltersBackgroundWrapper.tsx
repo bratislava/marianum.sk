@@ -3,8 +3,6 @@ import React, { PropsWithChildren, useContext } from 'react'
 import { sectionContext } from '@/components/layouts/SectionsWrapper'
 import cn from '@/utils/cn'
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-
 type FiltersBackgroundWrapperProps = { className: string }
 
 /**

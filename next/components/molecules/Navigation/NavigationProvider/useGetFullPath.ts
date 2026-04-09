@@ -146,15 +146,12 @@ export const getFullPathMeiliFn = (navMap: NavMap) => {
     // This was done on purpose, since we do not want these entities to be indexed in global search.
 
     if (entityType === 'article') {
-      // eslint-disable-next-line unicorn/consistent-destructuring
       if (isDefined(entity.pressCategory)) {
         return [localPaths.press, slug].join('/')
       }
-      // eslint-disable-next-line unicorn/consistent-destructuring
       if (isDefined(entity.newsCategory)) {
         return [localPaths.news, slug].join('/')
       }
-      // eslint-disable-next-line unicorn/consistent-destructuring
       if (isDefined(entity.jobsCategory)) {
         return [localPaths.jobs, slug].join('/')
       }
