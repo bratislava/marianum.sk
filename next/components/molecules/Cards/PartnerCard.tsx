@@ -21,7 +21,7 @@ const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
     <CardBox {...rest}>
       <CardContent className="justify-between gap-y-4">
         {image && (
-          <div className="relative aspect-[240/72] w-full md:aspect-[216/83]">
+          <div className="relative aspect-240/72 w-full md:aspect-216/83">
             <MImage image={image} fill className="object-contain" />
           </div>
         )}

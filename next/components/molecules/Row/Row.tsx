@@ -111,7 +111,7 @@ const Row = ({
         </div>
 
         <div className="flex gap-x-5">
-          {button && <div className="z-[1] hidden md:flex">{button}</div>}
+          {button && <div className="z-1 hidden md:flex">{button}</div>}
           {linkHref &&
             (linkButton || (
               <IconButton

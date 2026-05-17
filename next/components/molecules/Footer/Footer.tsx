@@ -55,7 +55,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
       <div className="container flex flex-col gap-12">
         <div className="grid bg-primary text-white md:grid-cols-3 lg:grid-cols-2">
           {/* aspect ratios must be in sync with sizes in FooterMapStatic component */}
-          <div className="relative aspect-[464/329] px-4 sm:aspect-[576/208] md:aspect-auto">
+          <div className="relative aspect-464/329 px-4 sm:aspect-576/208 md:aspect-auto">
             <FooterMapStatic latitude={latitude} longitude={longitude} />
           </div>
 
@@ -71,7 +71,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
                         href={contact.navigateToLink}
                         target="_blank"
                         noStyles
-                        className="w-fit text-white/72 underline hover:text-white/100"
+                        className="w-fit text-white/72 underline hover:text-white"
                         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                         aria-label={`${t('Footer.navigateTo')} ${contact?.address}`}
                       >

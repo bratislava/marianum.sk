@@ -82,7 +82,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
               <div key={linkProps.href} className="hidden h-full flex-1 lg:flex">
                 <div className="w-3/5" />
                 {/* gradient overlay */}
-                <div className="absolute left-[60%] z-[1] -ml-px h-full w-[10%] bg-gradient-to-r from-primary-dark" />
+                <div className="absolute left-[60%] z-1 -ml-px h-full w-[10%] bg-linear-to-r from-primary-dark" />
                 <div className="pointer-events-none relative h-[228px] w-full select-none bg-black/20 lg:h-full lg:w-2/5">
                   {url && (
                     <Image

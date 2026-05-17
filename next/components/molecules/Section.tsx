@@ -59,7 +59,7 @@ const Section = ({
         {
           'bg-background-beige': resultBackground === 'dark',
           'bg-white': resultBackground === 'light',
-          'not-first:mt-6 not-first:md:mt-8': !alternateBackground,
+          'not-first:mt-6 md:not-first:mt-8': !alternateBackground,
         },
         className,
       )}
@@ -105,13 +105,13 @@ const Section = ({
           </div>
         )}
         {description && (
-          <div className="max-w-[744px] not-first:mt-3 not-first:md:mt-4">{description}</div>
+          <div className="max-w-[744px] not-first:mt-3 md:not-first:mt-4">{description}</div>
         )}
         <div
-          // Added `tabIndex` and `focus:outline-none` to prevent unwanted focus styles (only the individual items should be focusable)
+          // Added `tabIndex` and `focus:outline-hidden` to prevent unwanted focus styles (only the individual items should be focusable)
           tabIndex={-1}
           className={cn(
-            'focus:outline-none not-first:mt-3 not-first:md:mt-10',
+            'focus:outline-hidden not-first:mt-3 md:not-first:mt-10',
             {
               // 'pb' and '-mb' is here to display shadow properly, otherwise the bottom shadow is cut off
               '-mb-6 grid gap-6 pb-6 md:grid-cols-2 lg:grid-cols-4': cardGrid === 'cards',
@@ -119,7 +119,7 @@ const Section = ({
               '-mb-6 flex gap-6 overflow-x-auto pb-6 scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-4':
                 cardGrid === 'serviceCards',
               // Since the wrapper already has a top margin, we subtract the top padding from it to prevent focus rings from being cropped
-              '-mx-2 px-2 not-first:mt-1 not-first:pt-2 not-first:md:mt-8':
+              '-mx-2 px-2 not-first:mt-1 not-first:pt-2 md:not-first:mt-8':
                 cardGrid === 'cards' || cardGrid === 'serviceCards',
             },
             childrenWrapperClassName,

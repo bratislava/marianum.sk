@@ -168,7 +168,7 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
                 type="button"
                 onKeyUp={(e) => (e.code === 'Enter' || e.code === 'Space') && handleItemOpen(index)}
                 onClick={() => handleItemOpen(index)}
-                className={cn('flex items-center p-6 outline-none', {
+                className={cn('flex items-center p-6 outline-hidden', {
                   'base-focus-ring': !isOpen,
                   'cursor-default': isOpen,
                   // When the item is open, the title should not have a cursor pointer because it is not clickable

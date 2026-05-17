@@ -29,13 +29,13 @@ const TabLabel = <T,>({ item, state, setSessionTabKey }: TabLabelProps<T>) => {
       {...focusProps}
       ref={ref}
       onClick={handleTabLabelClick}
-      className={cn('flex-1 cursor-pointer outline-none', {
+      className={cn('flex-1 cursor-pointer outline-hidden', {
         'base-focus-ring': isFocusVisible,
       })}
     >
       <div
         className={cn(
-          'relative flex h-full items-center justify-center px-8 pb-[14px] pt-4 text-center xl:px-16',
+          'relative flex h-full items-center justify-center px-8 pb-3.5 pt-4 text-center xl:px-16',
           {
             'border border-border bg-background-beige px-6 py-5 text-[18px] font-bold': !isSelected,
             'border border-primary bg-primary px-6 py-5 text-[18px] font-bold text-white':
