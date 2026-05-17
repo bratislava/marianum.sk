@@ -2,8 +2,41 @@
 import { type ClassValue, clsx } from 'clsx'
 import { extendTailwindMerge } from 'tailwind-merge'
 
+// NEED TO CHANGE
+
 const twMerge = extendTailwindMerge({
   extend: {
+    // Add custom theme values, keep in sync with globals.css
+    theme: {
+      // Custom breakpoints
+      breakpoint: ['xs', 'sm', 'md', 'lg', 'xl', '2xl'],
+      // Custom colors
+      color: [
+        'transparen',
+        'curren',
+        'white',
+        'gray',
+        'black',
+        'error',
+        'primary',
+        'primary-light',
+        'primary-dark',
+        'background-dark',
+        'background-disabled',
+        'background-beige',
+        'border',
+        'border-dark',
+        'border-alt',
+        'border-alt-dark',
+        'foreground',
+        'foreground-dark',
+        'foreground-placeholder',
+        'foreground-disabled',
+        'foreground-heading',
+      ],
+      // Custom shadows
+      shadow: ['card'],
+    },
     classGroups: {
       // Keep in sync with utility classes in globals.css
       'font-size': [
