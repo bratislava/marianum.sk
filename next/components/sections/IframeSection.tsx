@@ -5,6 +5,7 @@ import RichText from '@/components/atoms/RichText'
 import { sectionContext } from '@/components/layouts/SectionsWrapper'
 import Section from '@/components/molecules/Section'
 import { IframeSectionFragment } from '@/graphql'
+import cn from '@/utils/cn'
 
 type IframeSectionProps = {
   section: IframeSectionFragment
@@ -30,9 +31,10 @@ const IframeSection = ({ section, variant = 'full' }: IframeSectionProps) => {
             src={section.url}
             title={section.iframeTitle}
             width="100%"
-            // ignoring variant for "spominam.sk" iframes
-            style={{ height: '100dvh' }}
-            className={border ? 'border border-border' : undefined}
+            scrolling={true}
+            className={cn('h-[100dvh] bg-white p-6', {
+              'border border-border': border,
+            })}
           />
         ) : (
           <iframe
@@ -41,8 +43,10 @@ const IframeSection = ({ section, variant = 'full' }: IframeSectionProps) => {
             width="100%"
             // dvh - viewport height dynamically adjusts based on the visibility of URL bar
             style={{ height: variant === 'short' ? '416px' : '85dvh' }}
-            className={border ? 'border border-border' : undefined}
             allow={allowGeolocation ? 'geolocation' : undefined}
+            className={cn('', {
+              'border border-border': border,
+            })}
           />
         )}
       </div>
