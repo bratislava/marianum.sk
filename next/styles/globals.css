@@ -416,6 +416,13 @@
   }
 }
 
+@utility text-style-status-code {
+  @supports (-webkit-text-stroke: 4px #446650) {
+    -webkit-text-stroke: 4px #446650;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
 /* NATIVE STYLE OVERRIDES */
 
 /* Remove native Safari arrows in accordions  */
@@ -438,11 +445,4 @@ input[type='number'] {
   /* Firefox */
   -moz-appearance: textfield;
   appearance: textfield;
-}
-
-@supports (-webkit-text-stroke: 4px #446650) {
-  .status-code {
-    -webkit-text-stroke: 4px #446650;
-    -webkit-text-fill-color: transparent;
-  }
 }

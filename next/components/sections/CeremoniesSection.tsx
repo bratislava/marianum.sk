@@ -141,7 +141,7 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
             <FormatDate value={parsedDate} format="ceremoniesDate" />
           </span>
           <TableWrapper>
-            <table className="m-table">
+            <table className="marianum-table-base">
               <thead ref={theadRef}>
                 <tr>
                   <th>{t('CeremoniesSection.th.time')}</th>

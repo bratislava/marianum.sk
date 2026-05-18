@@ -22,7 +22,7 @@ const ErrorSection = ({ code, title, message }: ErrorSectionProps) => {
     <Section className="flex flex-col items-center justify-center text-center">
       <div className="py-20">
         <div className="relative flex h-50 justify-center">
-          <div className="status-code absolute text-[200px] font-bold leading-50 text-primary">
+          <div className="absolute text-[200px]/50 font-bold text-primary text-style-status-code">
             {code}
           </div>
           <div className="absolute mt-25 h-1/2 w-full bg-linear-to-t from-background-beige" />

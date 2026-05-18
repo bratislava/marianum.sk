@@ -4,10 +4,25 @@ export default [
   ...createNextConfig({
     ignores: ['services/graphql/**'],
   }),
+  // https://github.com/bratislava/eslint-config/blob/b17b3028c67e639cf5cef183817f9087d6281d7e/packages/next/README.md#tailwind-css
+  {
+    settings: {
+      'better-tailwindcss': {
+        entryPoint: './styles/globals.css',
+        callees: ['cx', 'classnames', 'clsx', 'cn', 'twMerge', 'tw'],
+      },
+    },
+  },
 
   // Project-specific rule overrides
   {
     rules: {
+      'better-tailwindcss/enforce-consistent-line-wrapping': 'off',
+
+      // TODO good rules, require work to fix and were skipped over in eslint v9 upgrade
+      '@typescript-eslint/consistent-type-definitions': 'off', // 95 violations
+
+      // TODO think these through
       'arrow-body-style': 'off',
       'jsx-a11y/anchor-is-valid': 'off',
       'jsx-a11y/img-redundant-alt': 'warn',
@@ -16,8 +31,9 @@ export default [
       '@typescript-eslint/no-unsafe-return': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unsafe-argument': 'off',
+
+      // TODO fix and enable
       '@typescript-eslint/no-unnecessary-condition': 'warn', // 109 violations
-      '@typescript-eslint/consistent-type-definitions': 'warn', // 95 violations
       'i18next/no-literal-string': 'warn', // 84 violations
       '@typescript-eslint/promise-function-async': 'warn', // 31 violations
       '@typescript-eslint/no-unused-vars': 'warn', // 20 violations
