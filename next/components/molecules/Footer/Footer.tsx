@@ -55,13 +55,13 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
       <div className="container flex flex-col gap-12">
         <div className="grid bg-primary text-white md:grid-cols-3 lg:grid-cols-2">
           {/* aspect ratios must be in sync with sizes in FooterMapStatic component */}
-          <div className="relative aspect-[464/329] px-4 sm:aspect-[576/208] md:aspect-auto">
+          <div className="relative aspect-464/329 px-4 sm:aspect-576/208 md:aspect-auto">
             <FooterMapStatic latitude={latitude} longitude={longitude} />
           </div>
 
           <div className="flex w-full flex-col gap-4 px-4 py-6 md:col-span-2 md:px-8 lg:col-span-1 lg:gap-8 lg:px-12 lg:py-8">
             <div className="relative flex flex-col gap-3">
-              <div className="text-lg font-bold">{t('Footer.address')}</div>
+              <div className="text-size-p-large font-bold">{t('Footer.address')}</div>
               {(contact?.addressFirstLine || contact?.address) && (
                 <div className="flex flex-col gap-2 whitespace-pre-wrap font-regular text-white/72">
                   <div>{contact.addressFirstLine}</div>
@@ -71,7 +71,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
                         href={contact.navigateToLink}
                         target="_blank"
                         noStyles
-                        className="w-fit text-white/72 underline hover:text-white/100"
+                        className="w-fit text-white/72 underline hover:text-white"
                         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                         aria-label={`${t('Footer.navigateTo')} ${contact?.address}`}
                       >
@@ -93,7 +93,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
             </div>
             <div className="h-px bg-white/12" />
             <div className="relative flex flex-col gap-3">
-              <div className="text-lg font-bold">{t('Footer.contacts')}</div>
+              <div className="text-size-p-large font-bold">{t('Footer.contacts')}</div>
               <div className="flex flex-col gap-2 font-regular">
                 {phone1 && (
                   <MLink

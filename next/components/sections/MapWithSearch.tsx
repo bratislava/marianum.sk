@@ -58,7 +58,7 @@ const MapWithSearch = ({ landmarks, tags, onSearchChange, onSelectionChange }: P
     <div className="relative flex h-[624px] flex-col items-center overflow-hidden md:flex-row md:items-stretch">
       <div
         className={cn(
-          'absolute z-[2] flex h-full w-full flex-col bg-white transition-transform duration-500 md:relative md:w-[360px]',
+          'absolute z-2 flex h-full w-full flex-col bg-white transition-transform duration-500 md:relative md:w-[360px]',
           {
             '-translate-x-full md:translate-x-0': isMapOrFiltersDisplayed,
           },
@@ -81,9 +81,9 @@ const MapWithSearch = ({ landmarks, tags, onSearchChange, onSelectionChange }: P
                       key={tag.id}
                       id={tag.id}
                       className={cn(
-                        'base-focus-ring flex h-8 w-fit cursor-pointer select-none items-center whitespace-nowrap rounded-full border px-3 text-sm font-semibold',
+                        'flex h-8 w-fit cursor-pointer items-center rounded-full border px-3 text-size-p-small font-semibold whitespace-nowrap base-focus-ring select-none',
                         'border-border bg-white hover:bg-background-beige',
-                        'data-[selected]:border-primary data-[selected]:bg-primary data-[selected]:text-white data-[selected]:hover:bg-primary-dark',
+                        'selected:border-primary selected:bg-primary selected:text-white selected:hover:bg-primary-dark',
                       )}
                     >
                       {tag.title}
@@ -112,7 +112,7 @@ const MapWithSearch = ({ landmarks, tags, onSearchChange, onSelectionChange }: P
                   onMouseEnter={() => setHoveredLandmarkId(id)}
                   noStyles
                   href={linkHref} // getFullPath(landmark) ?? ''}
-                  className={cn('flex gap-2 px-5 py-3 ring-inset ring-offset-0', {
+                  className={cn('flex gap-2 px-5 py-3 ring-offset-0 ring-inset', {
                     'bg-primary/5': id === hoveredLandmarkId,
                   })}
                 >
@@ -121,7 +121,7 @@ const MapWithSearch = ({ landmarks, tags, onSearchChange, onSelectionChange }: P
                   </div>
                   <div className="flex flex-col">
                     <div className="font-semibold text-primary">{title}</div>
-                    <div className="text-sm">{address}</div>
+                    <div className="text-size-p-small">{address}</div>
                   </div>
                 </MLink>
               </li>
@@ -183,7 +183,7 @@ const MapWithSearch = ({ landmarks, tags, onSearchChange, onSelectionChange }: P
       </div>
 
       {/* Mobile view */}
-      <div className="absolute bottom-6 z-[2] md:hidden">
+      <div className="absolute bottom-6 z-2 md:hidden">
         <Button
           className="rounded-full shadow"
           onPress={() => setMapOrFiltersDisplayed((map) => !map)}

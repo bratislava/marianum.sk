@@ -1,56 +1,143 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import './table.css';
 
-@layer base {
-  /* noto-sans-regular - latin-ext_latin */
-  @font-face {
-    font-family: 'Noto Sans';
-    font-style: normal;
-    font-weight: 400;
-    src:
-      local(''),
-      url('/fonts/noto-sans-v27-latin-ext_latin-regular.woff2') format('woff2'),
-      url('/fonts/noto-sans-v27-latin-ext_latin-regular.woff') format('woff');
-  }
-  /* noto-sans-600 - latin-ext_latin */
-  @font-face {
-    font-family: 'Noto Sans';
-    font-style: normal;
-    font-weight: 600;
-    src:
-      local(''),
-      url('/fonts/noto-sans-v27-latin-ext_latin-600.woff2') format('woff2'),
-      url('/fonts/noto-sans-v27-latin-ext_latin-600.woff') format('woff');
-  }
-  /* noto-sans-700 - latin-ext_latin */
-  @font-face {
-    font-family: 'Noto Sans';
-    font-style: normal;
-    font-weight: 700;
-    src:
-      local(''),
-      url('/fonts/noto-sans-v27-latin-ext_latin-700.woff2') format('woff2'),
-      url('/fonts/noto-sans-v27-latin-ext_latin-700.woff') format('woff');
-  }
-  /* ABCArizonaFlare-Bold */
-  @font-face {
-    font-family: 'ABC Arizona Flare';
-    font-style: normal;
-    font-weight: 700;
-    src:
-      local(''),
-      url('/fonts/ABCArizonaFlare-Bold.woff2') format('woff2'),
-      url('/fonts/ABCArizonaFlare-Bold.woff') format('woff');
-  }
+@plugin 'tailwindcss-radix';
+@plugin 'tailwindcss-react-aria-components';
+@plugin 'tailwind-scrollbar-hide';
 
-  @supports (-webkit-text-stroke: 4px #446650) {
-    .status-code {
-      -webkit-text-stroke: 4px #446650;
-      -webkit-text-fill-color: transparent;
+/* When updating the theme don't forget to update the `twMerge` implementation in `cn.ts`. */
+
+@theme inline {
+  --font-sans: Noto Sans, sans-serif;
+  --font-serif: ABC Arizona Flare, serif;
+}
+
+@theme {
+  /* BREAKPOINTS - Keep in sync with screens.ts */
+  
+  --breakpoint-xs: initial;
+  --breakpoint-sm: 40rem; /* 640px  - phone landscape */
+  --breakpoint-md: 48rem; /* 768px  - iPad portrait   */
+  --breakpoint-lg: 64rem; /* 1024px - iPad landscape  */
+  --breakpoint-xl: 80rem; /* 1280px - small desktop   */
+  --breakpoint-2xl: initial;
+
+  /* COLORS */
+
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-white: #ffffff;
+  --color-gray: #c4c4c4;
+  --color-black: #000000;
+  --color-error: #ef4823;
+
+  --color-primary: #446650;
+  --color-primary-light: #567d64;
+  --color-primary-dark: #365240;
+
+  --color-background-dark: #2b2e2c;
+  --color-background-disabled: #e8e8e8;
+  --color-background-beige: #f5f4f2;
+
+  --color-border: #dddddd;
+  --color-border-dark: #c1c0c0;
+  --color-border-alt: #e0ddd5;
+  --color-border-alt-dark: #cecbc4;
+
+  --color-foreground: #494e4a;
+  --color-foreground-dark: #323532;
+  --color-foreground-placeholder: #999c9a;
+  --color-foreground-disabled: #b5b6b5;
+  --color-foreground-heading: #2b2e2c;
+
+  /* TEXT */
+
+  --font-weight-normal: 400;
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --text-h1: 48px;
+  --leading-h1: 56px;
+  --text-h1-r: 32px;
+  --leading-h1-r: 48px;
+
+  --text-h2: 36px;
+  --leading-h2: 40px;
+  --text-h2-r: 28px;
+  --leading-h2-r: 36px;
+
+  --text-h4: 24px;
+  --leading-h4: 32px;
+  --text-h4-r: 20px;
+  --leading-h4-r: 28px;
+
+  --text-h3: 28px;
+  --leading-h3: 36px;
+  --text-h3-r: 24px;
+  --leading-h3-r: 32px;
+
+  --text-h5: 20px;
+  --leading-h5: 28px;
+  --text-h5-r: 18px;
+  --leading-h5-r: 26px;
+
+  --text-h6: 18px;
+  --leading-h6: 24px;
+  --text-h6-r: 16px;
+  --leading-h6-r: 24px;
+
+  --text-p-large: 20px;
+  --leading-p-large: 32px;
+
+  --text-p-default: 16px;
+  --leading-p-default: 24px;
+
+  --text-p-small: 14px;
+  --leading-p-small: 24px;
+
+  --text-button: 16px;
+  --leading-button: 24px;
+  --text-button-r: 14px;
+  --leading-button-r: 24px;
+
+  /* SHADOWS */
+
+  --shadow: 0px 4px 12px 0px #00000014;
+  --shadow-card: 0px 4px 16px #00000014;
+
+  /* ANIMATIONS */
+
+  @keyframes szh-menu-show-slide-left {
+    from {
+      opacity: 0;
+      transform: translateX(0.75rem);
     }
   }
 
+  @keyframes szh-menu-show-slide-right {
+    from {
+      opacity: 0;
+      transform: translateX(-0.75rem);
+    }
+  }
+
+  @keyframes szh-menu-show-slide-top {
+    from {
+      opacity: 0;
+      transform: translateY(0.75rem);
+    }
+  }
+
+  @keyframes szh-menu-show-slide-bottom {
+    from {
+      opacity: 0;
+      transform: translateY(-0.75rem);
+    }
+  }
+}
+
+@layer base {
   html,
   body {
     padding: 0;
@@ -59,29 +146,17 @@
     @apply text-foreground;
   }
 
-  /*
-    make all of the following elements full height
-    so we can sticky the footer to bottom of the page
-  */
   html,
   body,
     /* next main div */
   #__next,
     /* <OverlayProvider /> from react-aria */
   #__next > [data-overlay-container='true'] {
+    /*
+    make all of the following elements full height
+    so we can sticky the footer to bottom of the page
+    */
     @apply h-full;
-  }
-
-  /*
-    globaly disable outline for menu item
-  */
-  .szh-menu__item:focus-visible {
-    @apply outline-none outline-transparent !important;
-  }
-
-  /* style links in richtext */
-  .m-link-inline > a {
-    @apply text-primary underline hover:text-primary-dark;
   }
 
   h1,
@@ -94,142 +169,261 @@
   }
 
   h1 {
-    @apply text-h1;
+    @apply text-size-h1-r lg:text-size-h1;
   }
 
   h2 {
-    @apply text-h2;
+    @apply text-size-h2-r lg:text-size-h2;
   }
 
   h3 {
-    @apply text-h3;
+    @apply text-size-h3-r lg:text-size-h3;
   }
 
   h4 {
-    @apply text-h4;
+    @apply text-size-h4-r lg:text-size-h4;
   }
 
   h5 {
-    @apply text-h5;
+    @apply text-size-h5-r lg:text-size-h5;
   }
 
   h6 {
-    @apply text-h6;
+    @apply text-size-h6-r lg:text-size-h6;
+  }
+
+  /* noto-sans-regular - latin-ext_latin */
+  @font-face {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    src:
+      local(''),
+      url('/fonts/noto-sans-v27-latin-ext_latin-regular.woff2') format('woff2'),
+      url('/fonts/noto-sans-v27-latin-ext_latin-regular.woff') format('woff');
+  }
+
+  /* noto-sans-600 - latin-ext_latin */
+  @font-face {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 600;
+    src:
+      local(''),
+      url('/fonts/noto-sans-v27-latin-ext_latin-600.woff2') format('woff2'),
+      url('/fonts/noto-sans-v27-latin-ext_latin-600.woff') format('woff');
+  }
+
+  /* noto-sans-700 - latin-ext_latin */
+  @font-face {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 700;
+    src:
+      local(''),
+      url('/fonts/noto-sans-v27-latin-ext_latin-700.woff2') format('woff2'),
+      url('/fonts/noto-sans-v27-latin-ext_latin-700.woff') format('woff');
+  }
+
+  /* ABCArizonaFlare-Bold */
+  @font-face {
+    font-family: 'ABC Arizona Flare';
+    font-style: normal;
+    font-weight: 700;
+    src:
+      local(''),
+      url('/fonts/ABCArizonaFlare-Bold.woff2') format('woff2'),
+      url('/fonts/ABCArizonaFlare-Bold.woff') format('woff');
+  }
+
+  /* TAILWIND OVERRIDES */
+
+  /* Set default border color: https://tailwindcss.com/docs/upgrade-guide#default-border-color */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  /* button cursor is not set to pointer on default in Tailwind v4, we do it manually */
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
   }
 }
 
 @layer components {
-  .base-focus-ring {
-    @apply outline-none ring-offset-2 transition focus-visible:ring;
+  /* React menu override style */
+  .szh-menu {
+    width: 100% !important;
+    background-color: transparent !important;
+    border: none !important;
+  }
+
+  .szh-menu-container {
+    width: 100%;
+  }
+
+  /* globaly disable outline for menu item */
+  .szh-menu__item:focus-visible {
+    @apply bg-amber-100! outline-hidden! outline-transparent!;
+  }
+
+  .szh-menu--state-open.szh-menu--dir-left {
+    animation: szh-menu-show-slide-left 0.15s ease-out;
+  }
+
+  .szh-menu--state-open.szh-menu--dir-right {
+    animation: szh-menu-show-slide-right 0.15s ease-out;
+  }
+
+  .szh-menu--state-open.szh-menu--dir-top {
+    animation: szh-menu-show-slide-top 0.15s ease-out;
+  }
+
+  .szh-menu--state-open.szh-menu--dir-bottom {
+    animation: szh-menu-show-slide-bottom 0.15s ease-out;
+  }
+
+  /* style links in richtext */
+  .m-link-inline > a {
+    @apply text-primary underline hover:text-primary-dark;
+  }
+
+  .full-width-canvas-page canvas {
+    width: 100% !important;
+    height: auto !important;
   }
 }
 
-:root {
-  --font-size-small: 14px;
-  --font-size-default: 16px;
-  --font-size-large: 20px;
-  --line-height-small: 24px;
-  --line-height-default: 24px;
-  --line-height-large: 32px;
+/* UTILITIES - TEXT */
 
-  --font-size-h6: 16px;
-  --font-size-h5: 18px;
-  --font-size-h4: 20px;
-  --font-size-h3: 24px;
-  --font-size-h2: 28px;
-  --font-size-h1: 32px;
-  --line-height-h6: 24px;
-  --line-height-h5: 26px;
-  --line-height-h4: 28px;
-  --line-height-h3: 32px;
-  --line-height-h2: 36px;
-  --line-height-h1: 48px;
-
-  --font-size-button: 14px;
-  --line-height-button: 24px;
+@utility text-size-h1 {
+  @apply text-h1 leading-h1
 }
 
-@screen md {
-  :root {
-    --font-size-h6: 18px;
-    --font-size-h5: 20px;
-    --font-size-h4: 24px;
-    --font-size-h3: 28px;
-    --font-size-h2: 36px;
-    --font-size-h1: 48px;
-    --line-height-h6: 24px;
-    --line-height-h5: 28px;
-    --line-height-h4: 32px;
-    --line-height-h3: 36px;
-    --line-height-h2: 40px;
-    --line-height-h1: 56px;
+@utility text-size-h1-r {
+  @apply text-h1-r leading-h1-r
+}
 
-    --font-size-button: 16px;
-    --line-height-button: 24px;
+@utility text-size-h2 {
+  @apply text-h2 leading-h2
+}
+
+@utility text-size-h2-r {
+  @apply text-h2-r leading-h2-r
+}
+
+@utility text-size-h3 {
+  @apply text-h3 leading-h3
+}
+
+@utility text-size-h3-r {
+  @apply text-h3-r leading-h3-r
+}
+
+@utility text-size-h4 {
+  @apply text-h4 leading-h4
+}
+
+@utility text-size-h4-r {
+  @apply text-h4-r leading-h4-r
+}
+
+@utility text-size-h5 {
+  @apply text-h5 leading-h5
+}
+
+@utility text-size-h5-r {
+  @apply text-h5-r leading-h5-r
+}
+
+@utility text-size-h6 {
+  @apply text-h6 leading-h6
+}
+
+@utility text-size-h6-r {
+  @apply text-h6-r leading-h6-r
+}
+
+@utility text-size-p-large {
+  @apply text-p-large leading-p-large
+}
+
+@utility text-size-p-default {
+  @apply text-p-default leading-p-default
+}
+
+@utility text-size-p-small {
+  @apply text-p-small leading-p-small
+}
+
+@utility text-size-button {
+  @apply text-button leading-button
+}
+
+@utility text-size-button-r {
+  @apply text-button-r leading-button-r
+}
+
+/* UTILITIES - SCROLL FADE - next/utils/useHorizontalScrollFade.ts */
+
+@utility scroll-fade-left {
+  &::before {
+    @apply pointer-events-none absolute top-0 z-1 block h-full w-[25px] from-foreground/25 to-transparent opacity-0 transition-opacity duration-200 ease-in-out content-[''];
+    @apply left-0 bg-linear-to-r;
   }
 }
 
-/* React menu override style */
-.szh-menu {
-  width: 100% !important;
-  background-color: transparent !important;
-  border: none !important;
-}
-
-.szh-menu-container {
-  width: 100%;
-}
-
-/* React menu anumations */
-
-@keyframes szh-menu-show-slide-left {
-  from {
-    opacity: 0;
-    transform: translateX(0.75rem);
+@utility scroll-fade-right {
+  &::after {
+    @apply pointer-events-none absolute top-0 z-1 block h-full w-[25px] from-foreground/25 to-transparent opacity-0 transition-opacity duration-200 ease-in-out content-[''];
+    @apply right-0 bg-linear-to-l;
   }
 }
 
-@keyframes szh-menu-show-slide-right {
-  from {
-    opacity: 0;
-    transform: translateX(-0.75rem);
+@utility scroll-fade-left-opaque {
+  &::before {
+    @apply opacity-100;
   }
 }
 
-@keyframes szh-menu-show-slide-top {
-  from {
-    opacity: 0;
-    transform: translateY(0.75rem);
+@utility scroll-fade-right-opaque {
+  &::after {
+    @apply opacity-100;
   }
 }
 
-@keyframes szh-menu-show-slide-bottom {
-  from {
-    opacity: 0;
-    transform: translateY(-0.75rem);
+/* UTILITIES - OTHER */
+
+@utility base-focus-ring {
+  @apply ring-offset-2 outline-hidden transition focus-visible:ring-3;
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= theme(--breakpoint-sm)) {
+    padding-inline: 2rem;
+  }
+  @media (width >= theme(--breakpoint-lg)) {
+    padding-inline: 3rem;
+  }
+  @media (width >= theme(--breakpoint-xl)) {
+    padding-inline: 4.75rem;
   }
 }
 
-.szh-menu--state-open.szh-menu--dir-left {
-  animation: szh-menu-show-slide-left 0.15s ease-out;
+@utility text-style-status-code {
+  @supports (-webkit-text-stroke: 4px #446650) {
+    -webkit-text-stroke: 4px #446650;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
-.szh-menu--state-open.szh-menu--dir-right {
-  animation: szh-menu-show-slide-right 0.15s ease-out;
-}
-
-.szh-menu--state-open.szh-menu--dir-top {
-  animation: szh-menu-show-slide-top 0.15s ease-out;
-}
-
-.szh-menu--state-open.szh-menu--dir-bottom {
-  animation: szh-menu-show-slide-bottom 0.15s ease-out;
-}
-
-.full-width-canvas-page canvas {
-  width: 100% !important;
-  height: auto !important;
-}
+/* NATIVE STYLE OVERRIDES */
 
 /* Remove native Safari arrows in accordions  */
 details > summary {
@@ -238,4 +432,17 @@ details > summary {
 
 details > summary::-webkit-details-marker {
   display: none;
+}
+
+/* Remove arrows from input type='number' */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  /* Chrome, Safari, Edge, Opera */
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  /* Firefox */
+  -moz-appearance: textfield;
+  appearance: textfield;
 }

@@ -53,7 +53,7 @@ const BreadcrumbChild = ({
           href={crumb.path}
           noStyles
           aria-label={ariaLabel}
-          className="truncate underline hover:text-white/100"
+          className="truncate underline hover:text-white"
         >
           {crumb.label}
         </MLink>

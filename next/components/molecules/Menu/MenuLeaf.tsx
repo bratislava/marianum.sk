@@ -20,7 +20,7 @@ const MenuLeaf = ({ title, path }: MenuLeafProps) => {
   }
 
   return (
-    <ReactMenuItem onClick={handleClick} className="outline-none">
+    <ReactMenuItem onClick={handleClick} className="outline-hidden">
       {({ hover }) => <MenuItem title={title} hover={hover} />}
     </ReactMenuItem>
   )

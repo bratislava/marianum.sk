@@ -37,7 +37,6 @@ import Section from '@/components/molecules/Section'
 import { UploadFile } from '@/graphql'
 import cn from '@/utils/cn'
 
-/* eslint-disable sonarjs/no-duplicate-string */
 const image: UploadFile = {
   updatedAt: '2022-08-24T20:30:23.750Z',
   name: 'adams family',
@@ -90,7 +89,7 @@ type WrapperProps = {
 export const Wrapper = ({ title, children }: WrapperProps) => {
   return (
     <div className="mb-10 flex flex-col gap-2">
-      {title && <h2 className="pb-2 text-h2 font-semibold">{title}</h2>}
+      {title && <h2 className="text-size-h2-r lg:text-size-h2 pb-2 font-semibold">{title}</h2>}
       {children}
     </div>
   )
@@ -212,7 +211,7 @@ const Showcase = () => {
             <h4>Headline 4</h4>
             <h5>Headline 5</h5>
             <h6>Headline 6</h6>
-            <h6 className="text-h4">Headline 6 with custom size h4</h6>
+            <h6 className="text-size-h4-r lg:text-size-h4">Headline 6 with custom size h4</h6>
           </Wrapper>
 
           <Wrapper title="Breadcrumbs">
@@ -221,7 +220,7 @@ const Showcase = () => {
             </Stack>
             <Stack width="full" bg="dark">
               <Breadcrumbs
-                className="text-white opacity-72"
+                className="opacity-72 text-white"
                 crumbs={[
                   { label: 'First item', path: '#' },
                   { label: 'Second item', path: '#' },
@@ -238,7 +237,7 @@ const Showcase = () => {
               />
             </Stack>
             <Stack width="full" bg="dark">
-              <Breadcrumbs className="text-white opacity-72" crumbs={dummyBreadcrumbLinks} />
+              <Breadcrumbs className="opacity-72 text-white" crumbs={dummyBreadcrumbLinks} />
             </Stack>
           </Wrapper>
 
@@ -757,7 +756,6 @@ const Showcase = () => {
             <Stack width="full">
               <Search
                 placeholder="Search..."
-                // eslint-disable-next-line no-alert,@typescript-eslint/restrict-template-expressions
                 onSearch={(value) => alert(`Searching for: ${value}`)}
               />
             </Stack>
@@ -1085,24 +1083,16 @@ const Showcase = () => {
               {dummySectionWrappers.map(
                 ({ alternateBackground, startBackground, background, count }, i) => (
                   // eslint-disable-next-line react/no-array-index-key
-                  <div key={i} className="p-4">
-                    <div className="p-4">
-                      <div className="flex w-full justify-between gap-4">
+                  <div key={i} className="flex flex-col gap-4 p-2">
+                    <div className="flex flex-col">
                         <div className="font-semibold">alternateBackground</div>
                         <div>{alternateBackground ? 'true' : 'false'}</div>
-                      </div>
-                      <div className="flex w-full justify-between gap-4">
                         <div className="font-semibold">startBackground</div>
                         <div>{startBackground ?? 'undefined'}</div>
-                      </div>
-                      <div className="flex w-full justify-between gap-4">
                         <div className="font-semibold">background</div>
                         <div>{background ?? 'undefined'}</div>
-                      </div>
-                      <div className="flex w-full justify-between gap-4">
                         <div className="font-semibold">count</div>
                         <div>{count}</div>
-                      </div>
                     </div>
                     <SectionsWrapper
                       alternateBackground={alternateBackground}
@@ -1110,8 +1100,8 @@ const Showcase = () => {
                       background={background}
                     >
                       {Array.from({ length: count }, (item, j) => (
-                        <Section key={j}>
-                          <div className="p-4">Section {j + 1}</div>
+                        <Section key={j} className='p-2'>
+                          <div>Section {j + 1}</div>
                         </Section>
                       ))}
                     </SectionsWrapper>

@@ -1,0 +1,61 @@
+@utility marianum-table-base {
+  @apply w-full table-auto text-size-p-default;
+
+  thead {
+    tr {
+      @apply font-semibold;
+      th {
+        @apply text-left;
+      }
+    }
+  }
+
+  tbody {
+    td {
+      @apply border border-border;
+    }
+  }
+
+  &:not(.marianum-table-colored) {
+    thead {
+      th {
+        @apply border border-border;
+      }
+    }
+  }
+
+  &:not(.marianum-table-large-padding) {
+    td,
+    th {
+      @apply p-3;
+    }
+  }
+
+}
+
+@utility marianum-table-large-padding {
+  td,
+  th {
+    @apply p-4;
+  }
+}
+
+@utility marianum-table-colored {
+  thead {
+    tr {
+      @apply bg-background-dark text-white;
+
+       th {
+        &:not(:last-child) {
+          @apply border-r border-white/20;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr:nth-child(odd) {
+      @apply bg-white;
+    }
+  }
+}

@@ -19,7 +19,7 @@ const FooterCredentials = ({ links }: FooterCredentialsProps) => {
 
   return (
     <div className="border-t border-border">
-      <div className="container flex flex-col items-center justify-between gap-2 py-5 text-sm lg:h-18 lg:flex-row">
+      <div className="container flex flex-col items-center justify-between gap-2 py-5 text-size-p-small lg:h-18 lg:flex-row">
         <div className="flex flex-col items-center lg:items-start">
           <div className="flex flex-col items-center gap-2 lg:flex-row">
             <span>
@@ -33,7 +33,7 @@ const FooterCredentials = ({ links }: FooterCredentialsProps) => {
             <MLink
               noStyles
               href="https://bratislava.sk"
-              className="text-sm font-semibold underline"
+              className="text-size-p-small font-semibold underline"
             >
               {t('FooterCredentials.cityBratislava')}
             </MLink>

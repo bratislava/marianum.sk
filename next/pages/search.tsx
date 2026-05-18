@@ -123,7 +123,7 @@ const SearchSection = () => {
                 <motion.div
                   initial={{ y: 48 }}
                   animate={{ y: 0 }}
-                  className="flex justify-center py-8 text-lg"
+                  className="flex justify-center py-8 text-size-p-large"
                 >
                   {t('SearchPage.resultsFound', { count: 0 })}
                 </motion.div>

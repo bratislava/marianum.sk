@@ -11,7 +11,7 @@ const Tag = ({ children, className, ...rest }: TagProps) => {
     <div
       {...rest}
       className={cn(
-        'pointer-events-none flex h-6 w-fit items-center whitespace-nowrap rounded-full bg-white px-2 text-sm font-semibold',
+        'pointer-events-none flex h-6 w-fit items-center whitespace-nowrap rounded-full bg-white px-2 text-size-p-small font-semibold',
         className,
       )}
     >

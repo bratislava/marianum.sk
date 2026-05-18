@@ -20,12 +20,12 @@ const ErrorSection = ({ code, title, message }: ErrorSectionProps) => {
 
   return (
     <Section className="flex flex-col items-center justify-center text-center">
-      <div className="py-[80px]">
-        <div className="relative flex h-[200px] justify-center">
-          <div className="status-code absolute text-[200px] font-bold leading-[200px] text-primary">
+      <div className="py-20">
+        <div className="relative flex h-50 justify-center">
+          <div className="absolute text-[200px]/50 font-bold text-primary text-style-status-code">
             {code}
           </div>
-          <div className="absolute mt-[100px] h-1/2 w-full bg-gradient-to-t from-background-beige" />
+          <div className="absolute mt-25 h-1/2 w-full bg-linear-to-t from-background-beige" />
         </div>
 
         <h1 className="pb-5">{title}</h1>

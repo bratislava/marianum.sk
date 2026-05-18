@@ -59,12 +59,12 @@ const BundlePage: NextPage<BundlePageProps> = ({
           {/* TODO display bundle data */}
           {claims?.length ? (
             <Section>
-              <h2 className="pb-6 text-h3">{t('BundlePage.bundleContent')}</h2>
+              <h2 className="text-size-h3-r lg:text-size-h3 pb-6">{t('BundlePage.bundleContent')}</h2>
               <ul>
                 {claims.map((item, index) => (
                   // eslint-disable-next-line react/no-array-index-key
                   <li key={index} className="mt-4 flex gap-4">
-                    <span className="mt-1.5 text-primary">
+                    <span className="text-primary mt-1.5">
                       <CheckNoPaddingIcon className="scale-125" />
                     </span>
                     {item?.description}
@@ -73,7 +73,7 @@ const BundlePage: NextPage<BundlePageProps> = ({
               </ul>
 
               {discountText && (
-                <div className="mt-8 w-fit rounded-2xl bg-primary/12 px-3 py-1.5 text-sm font-semibold leading-4 text-primary">
+                <div className="bg-primary/12 text-size-p-small text-primary mt-8 w-fit rounded-2xl px-3 py-1.5 font-semibold leading-4">
                   {discountText}
                 </div>
               )}
@@ -100,7 +100,7 @@ const BundlePage: NextPage<BundlePageProps> = ({
           ) : null}
           {documents && (
             <Section>
-              {documents.title && <h2 className="pb-6 text-h3">{documents.title}</h2>}
+              {documents.title && <h2 className="text-size-h3-r lg:text-size-h3 pb-6">{documents.title}</h2>}
               <DocumentGroup {...documents} />
             </Section>
           )}
@@ -119,7 +119,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
     client.BundlesStaticPaths({ locale }).then((response) => response.bundles?.data),
   )
 
-  // eslint-disable-next-line no-console, @typescript-eslint/restrict-template-expressions
+  // eslint-disable-next-line no-console
   console.log(`Bundles: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }

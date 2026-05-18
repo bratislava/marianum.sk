@@ -71,7 +71,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, PolymorphicProp
     )
 
     const style = cn(
-      'base-focus-ring inline-flex items-center justify-center space-x-2 text-center align-middle text-btn font-bold',
+      'base-focus-ring inline-flex items-center justify-center space-x-2 text-center align-middle text-size-button-r lg:text-size-button font-bold',
       {
         'px-6 py-2':
           !noPadding &&

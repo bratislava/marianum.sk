@@ -1,5 +1,4 @@
 import '../styles/globals.css'
-import '../styles/table.scss'
 import 'swiper/css'
 
 import { MotionConfig } from 'framer-motion'

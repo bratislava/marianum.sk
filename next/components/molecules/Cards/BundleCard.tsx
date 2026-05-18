@@ -41,12 +41,12 @@ const BundleCard = ({
   return (
     <CardBox {...props}>
       <CardContent largePadding className="grow gap-6">
-        <div className="relative size-[56px] bg-gray">
+        <div className="bg-gray relative size-[56px]">
           {image ? <MImage image={image} fill className="object-cover" /> : <ImagePlaceholder />}
         </div>
 
         <div>
-          <h4 id={titleId} className="line-clamp-3 text-h5 group-hover:underline">
+          <h4 id={titleId} className="text-size-h5-r lg:text-size-h5 line-clamp-3 group-hover:underline">
             {name}
           </h4>
           <div className="flex flex-wrap items-center gap-3">
@@ -54,7 +54,7 @@ const BundleCard = ({
               <FormatCurrency value={priceFrom} />
             </div>
             {discountText && (
-              <div className="rounded-2xl bg-primary/12 px-3 py-1.5 text-sm font-semibold leading-4 text-primary">
+              <div className="bg-primary/12 text-size-p-small text-primary rounded-2xl px-3 py-1.5 font-semibold leading-4">
                 {discountText}
               </div>
             )}
@@ -66,8 +66,8 @@ const BundleCard = ({
             <ul>
               {claims.map((claim, index) => (
                 // eslint-disable-next-line react/no-array-index-key
-                <li key={index} className="flex gap-3 text-sm not-first:mt-1">
-                  <span className="mt-0.5 text-primary-light">
+                <li key={index} className="text-size-p-small not-first:mt-1 flex gap-3">
+                  <span className="text-primary-light mt-0.5">
                     <CheckIcon />
                   </span>
                   {claim}
@@ -79,8 +79,8 @@ const BundleCard = ({
             <ul className="mt-2">
               {claimsPlus.map((claim, index) => (
                 // eslint-disable-next-line react/no-array-index-key
-                <li key={index} className="mt-1 flex gap-3 text-sm font-semibold">
-                  <span className="mt-0.5 text-primary-light">
+                <li key={index} className="text-size-p-small mt-1 flex gap-3 font-semibold">
+                  <span className="text-primary-light mt-0.5">
                     <AddIcon />
                   </span>
                   {claim}

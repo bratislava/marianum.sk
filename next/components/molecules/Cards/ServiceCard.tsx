@@ -24,12 +24,12 @@ const ServiceCard = ({ image, title, linkHref, ...rest }: ServiceCardProps) => {
 
   return (
     <CardBox {...rest}>
-      <div className="relative aspect-square w-full bg-gray">
+      <div className="bg-gray relative aspect-square w-full">
         {image ? <MImage image={image} fill className="object-contain" /> : <ImagePlaceholder />}
       </div>
       <CardContent className="h-full justify-between">
         <div>
-          <h3 id={titleId} className="line-clamp-3 text-h5 group-hover:underline">
+          <h3 id={titleId} className="text-size-h5-r lg:text-size-h5 line-clamp-3 group-hover:underline">
             {title}
           </h3>
         </div>

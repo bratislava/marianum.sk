@@ -137,13 +137,11 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
       {ceremonies?.map(({ parsedDate, list }, dateIndex) => (
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={dateIndex}>
-          <span className="mb-4 block text-h5 font-semibold">
+          <span className="text-size-h5-r lg:text-size-h5 mb-4 block font-semibold">
             <FormatDate value={parsedDate} format="ceremoniesDate" />
           </span>
-          {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
           <TableWrapper>
-            {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
-            <table className="m-table">
+            <table className="marianum-table-base">
               <thead ref={theadRef}>
                 <tr>
                   <th>{t('CeremoniesSection.th.time')}</th>
@@ -157,7 +155,6 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
               </thead>
               <tbody>
                 {list?.map((ceremony) => (
-                  // eslint-disable-next-line react/no-array-index-key
                   <tr key={ceremony.id}>
                     <td>
                       {ceremony.dateTime && (

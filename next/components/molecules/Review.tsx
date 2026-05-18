@@ -17,7 +17,7 @@ const Review = ({ rating, author, date, description }: ReviewProps) => {
           <Avatar name={author} />
           <div>
             <div className="font-bold">{author}</div>
-            <div className="text-sm">
+            <div className="text-size-p-small">
               <FormatDate value={date} />
             </div>
           </div>

@@ -24,7 +24,7 @@ const IframeSection = ({ section, variant = 'full' }: IframeSectionProps) => {
       title={variant === 'full' ? section.title : undefined}
     >
       {section.body?.length ? <RichText content={section.body} /> : null}
-      <div className="relative not-first:mt-6 not-first:md:mt-8">
+      <div className="relative not-first:mt-6 md:not-first:mt-8">
         {section.url.includes('spominam.sk') ? (
           <IframeResizer
             license="GPLv3"
