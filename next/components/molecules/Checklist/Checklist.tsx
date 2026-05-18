@@ -40,7 +40,7 @@ const ChecklistRadio = ({
       <div
         className={cn('absolute h-3 w-3 rounded-full bg-primary transition-transform', {
           'scale-0': !isOpen || isCompleted,
-          'scale-1': isOpen,
+          'scale-100': isOpen,
         })}
       />
       <div
@@ -48,7 +48,7 @@ const ChecklistRadio = ({
           'absolute flex h-6 w-6 items-center justify-center rounded-full bg-primary text-white transition-transform',
           {
             'scale-0': !isCompleted,
-            'scale-1': isCompleted,
+            'scale-100': isCompleted,
           },
         )}
       >
@@ -180,8 +180,8 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
               >
                 <div
                   className={cn('transition-all sm:hidden', {
-                    'opacity-1 w-10 pr-4': isCompleted,
-                    'w-0 opacity-0': !isCompleted,
+                    'opacity-100 w-10 pr-4': isCompleted,
+                    'opacity-0 w-0': !isCompleted,
                   })}
                 >
                   <ChecklistRadio className="sm:hidden" isOpen={false} isCompleted={isCompleted} />
@@ -202,7 +202,7 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
                             target="_blank"
                             href={downloadFile.attributes.url}
                             // TODO use hook for filesize
-                            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                             
                             aria-label={`${t('Checklist.aria.download')} ${
                               downloadFile.attributes.name
                             } ${filesize(downloadFile.attributes.size * 1000, {
