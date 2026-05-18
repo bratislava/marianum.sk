@@ -81,7 +81,7 @@ const MapWithSearch = ({ landmarks, tags, onSearchChange, onSelectionChange }: P
                       key={tag.id}
                       id={tag.id}
                       className={cn(
-                        'flex h9-8 w-fit cursor-pointer items-center rounded-full border px-3 text-sm font-semibold whitespace-nowrap base-focus-ring select-none',
+                        'flex h9-8 w-fit cursor-pointer items-center rounded-full border px-3 text-size-p-small font-semibold whitespace-nowrap base-focus-ring select-none',
                         'border-border bg-white hover:bg-background-beige',
                         'selected:border-primary selected:bg-primary selected:text-white selected:hover:bg-primary-dark',
                       )}
@@ -121,7 +121,7 @@ const MapWithSearch = ({ landmarks, tags, onSearchChange, onSelectionChange }: P
                   </div>
                   <div className="flex flex-col">
                     <div className="font-semibold text-primary">{title}</div>
-                    <div className="text-sm">{address}</div>
+                    <div className="text-size-p-small">{address}</div>
                   </div>
                 </MLink>
               </li>

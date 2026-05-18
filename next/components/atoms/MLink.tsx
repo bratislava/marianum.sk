@@ -34,7 +34,7 @@ const MLink = forwardRef<HTMLAnchorElement, LinkProps>(
       noStyles
         ? ''
         : {
-            'inline-flex items-center justify-center space-x-2 text-center align-middle text-md font-bold':
+            'inline-flex items-center justify-center space-x-2 text-center align-middle text-size-p-default font-bold':
               variant === 'primary' || variant === 'white',
             'text-primary hover:text-primary-dark': variant === 'primary',
             'text-white hover:opacity-64': variant === 'white',

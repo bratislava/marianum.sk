@@ -21,7 +21,7 @@ const ReviewCard = ({ rating, author, date, description, ...rest }: ReviewCardPr
               <Avatar name={author} />
               <div>
                 <div className="line-clamp-2 font-bold">{author}</div>
-                <div className="text-sm">
+                <div className="text-size-p-small">
                   <FormatDate value={date} />
                 </div>
               </div>

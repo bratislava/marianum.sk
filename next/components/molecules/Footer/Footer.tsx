@@ -61,7 +61,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
 
           <div className="flex w-full flex-col gap-4 px-4 py-6 md:col-span-2 md:px-8 lg:col-span-1 lg:gap-8 lg:px-12 lg:py-8">
             <div className="relative flex flex-col gap-3">
-              <div className="text-lg font-bold">{t('Footer.address')}</div>
+              <div className="text-size-p-large font-bold">{t('Footer.address')}</div>
               {(contact?.addressFirstLine || contact?.address) && (
                 <div className="flex flex-col gap-2 whitespace-pre-wrap font-regular text-white/72">
                   <div>{contact.addressFirstLine}</div>
@@ -93,7 +93,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
             </div>
             <div className="h-px bg-white/12" />
             <div className="relative flex flex-col gap-3">
-              <div className="text-lg font-bold">{t('Footer.contacts')}</div>
+              <div className="text-size-p-large font-bold">{t('Footer.contacts')}</div>
               <div className="flex flex-col gap-2 font-regular">
                 {phone1 && (
                   <MLink

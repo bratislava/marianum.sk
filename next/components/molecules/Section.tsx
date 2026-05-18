@@ -92,7 +92,7 @@ const Section = ({
             <h2
               className={cn('grow md:text-left', {
                 'text-center': centerTitleOnMobile,
-                'text-h3': titleFontSize === 'h3',
+                'text-size-h3-r lg:text-size-h3': titleFontSize === 'h3',
               })}
             >
               {title}

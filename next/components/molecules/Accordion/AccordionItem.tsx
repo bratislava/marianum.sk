@@ -29,7 +29,7 @@ const AccordionItem = ({
   return (
     <AnimateHeight
       isVisible
-      className="relative ring-offset-2 transition focus-within:z-1 focus-within:has-focus-visible:ring-3"
+      className="focus-within:z-1 focus-within:has-focus-visible:ring-3 relative ring-offset-2 transition"
     >
       <div>
         <details
@@ -39,11 +39,11 @@ const AccordionItem = ({
         >
           <summary
             className={cn(
-              'flex cursor-pointer justify-between gap-4 text-left text-h5 focus:outline-hidden',
+              'flex cursor-pointer justify-between gap-4 text-left text-size-h5-r lg:text-size-h5 focus:outline-hidden',
               { 'p-4 sm:p-5 md:p-6': !noBoxStyles },
             )}
           >
-            <h3 className="py-0.75 text-h5">{title}</h3>
+            <h3 className="py-0.75 text-size-h5-r lg:text-size-h5">{title}</h3>
             {additionalInfo && <div className="pr-6">{additionalInfo}</div>}
             <div
               className={cn(

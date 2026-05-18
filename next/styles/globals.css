@@ -7,60 +7,14 @@
 
 /* When updating the theme don't forget to update the `twMerge` implementation in `cn.ts`. */
 
-:root {
-  --font-size-small: 14px;
-  --font-size-default: 16px;
-  --font-size-large: 20px;
-  --line-height-small: 24px;
-  --line-height-default: 24px;
-  --line-height-large: 32px;
-
-  --font-size-h6: 16px;
-  --font-size-h5: 18px;
-  --font-size-h4: 20px;
-  --font-size-h3: 24px;
-  --font-size-h2: 28px;
-  --font-size-h1: 32px;
-  --line-height-h6: 24px;
-  --line-height-h5: 26px;
-  --line-height-h4: 28px;
-  --line-height-h3: 32px;
-  --line-height-h2: 36px;
-  --line-height-h1: 48px;
-
-  --font-size-button: 14px;
-  --line-height-button: 24px;
-}
-
-@media (width >= theme(--breakpoint-md)) {
-  :root {
-    --font-size-h6: 18px;
-    --font-size-h5: 20px;
-    --font-size-h4: 24px;
-    --font-size-h3: 28px;
-    --font-size-h2: 36px;
-    --font-size-h1: 48px;
-    --line-height-h6: 24px;
-    --line-height-h5: 28px;
-    --line-height-h4: 32px;
-    --line-height-h3: 36px;
-    --line-height-h2: 40px;
-    --line-height-h1: 56px;
-
-    --font-size-button: 16px;
-    --line-height-button: 24px;
-  }
-}
-
 @theme inline {
   --font-sans: Noto Sans, sans-serif;
   --font-serif: ABC Arizona Flare, serif;
 }
 
 @theme {
-  /* BREAKPOINTS */
-
-  /* Keep in sync with screens.ts */
+  /* BREAKPOINTS - Keep in sync with screens.ts */
+  
   --breakpoint-xs: initial;
   --breakpoint-sm: 40rem; /* 640px  - phone landscape */
   --breakpoint-md: 48rem; /* 768px  - iPad portrait   */
@@ -98,30 +52,54 @@
 
   /* TEXT */
 
+  --font-weight-normal: 400;
   --font-weight-regular: 400;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
-  --text-lg: var(--font-size-large);
-  --text-lg--line-height: var(--line-height-large);
-  --text-md: var(--font-size-default);
-  --text-md--line-height: var(--line-height-default);
-  --text-sm: var(--font-size-small);
-  --text-sm--line-height: var(--line-height-small);
-  --text-btn: var(--font-size-button);
-  --text-btn--line-height: var(--line-height-button);
-  --text-h6: var(--font-size-h6);
-  --text-h6--line-height: var(--line-height-h6);
-  --text-h5: var(--font-size-h5);
-  --text-h5--line-height: var(--line-height-h5);
-  --text-h4: var(--font-size-h4);
-  --text-h4--line-height: var(--line-height-h4);
-  --text-h3: var(--font-size-h3);
-  --text-h3--line-height: var(--line-height-h3);
-  --text-h2: var(--font-size-h2);
-  --text-h2--line-height: var(--line-height-h2);
-  --text-h1: var(--font-size-h1);
-  --text-h1--line-height: var(--line-height-h1);
+  --text-h1: 48px;
+  --leading-h1: 56px;
+  --text-h1-r: 32px;
+  --leading-h1-r: 48px;
+
+  --text-h2: 36px;
+  --leading-h2: 40px;
+  --text-h2-r: 28px;
+  --leading-h2-r: 36px;
+
+  --text-h4: 24px;
+  --leading-h4: 32px;
+  --text-h4-r: 20px;
+  --leading-h4-r: 28px;
+
+  --text-h3: 28px;
+  --leading-h3: 36px;
+  --text-h3-r: 24px;
+  --leading-h3-r: 32px;
+
+  --text-h5: 20px;
+  --leading-h5: 28px;
+  --text-h5-r: 18px;
+  --leading-h5-r: 26px;
+
+  --text-h6: 18px;
+  --leading-h6: 24px;
+  --text-h6-r: 16px;
+  --leading-h6-r: 24px;
+
+  --text-p-large: 20px;
+  --leading-p-large: 32px;
+
+  --text-p-default: 16px;
+  --leading-p-default: 24px;
+
+  --text-p-small: 14px;
+  --leading-p-small: 24px;
+
+  --text-button: 16px;
+  --leading-button: 24px;
+  --text-button-r: 14px;
+  --leading-button-r: 24px;
 
   /* SHADOWS */
 
@@ -191,27 +169,27 @@
   }
 
   h1 {
-    @apply text-h1;
+    @apply text-size-h1-r lg:text-size-h1;
   }
 
   h2 {
-    @apply text-h2;
+    @apply text-size-h2-r lg:text-size-h2;
   }
 
   h3 {
-    @apply text-h3;
+    @apply text-size-h3-r lg:text-size-h3;
   }
 
   h4 {
-    @apply text-h4;
+    @apply text-size-h4-r lg:text-size-h4;
   }
 
   h5 {
-    @apply text-h5;
+    @apply text-size-h5-r lg:text-size-h5;
   }
 
   h6 {
-    @apply text-h6;
+    @apply text-size-h6-r lg:text-size-h6;
   }
 
   /* noto-sans-regular - latin-ext_latin */
@@ -322,8 +300,75 @@
 
 /* UTILITIES - TEXT */
 
-/* UTILITIES - SCROLL FADE */
-/* next/utils/useHorizontalScrollFade.ts */
+@utility text-size-h1 {
+  @apply text-h1 leading-h1
+}
+
+@utility text-size-h1-r {
+  @apply text-h1-r leading-h1-r
+}
+
+@utility text-size-h2 {
+  @apply text-h2 leading-h2
+}
+
+@utility text-size-h2-r {
+  @apply text-h2-r leading-h2-r
+}
+
+@utility text-size-h3 {
+  @apply text-h3 leading-h3
+}
+
+@utility text-size-h3-r {
+  @apply text-h3-r leading-h3-r
+}
+
+@utility text-size-h4 {
+  @apply text-h4 leading-h4
+}
+
+@utility text-size-h4-r {
+  @apply text-h4-r leading-h4-r
+}
+
+@utility text-size-h5 {
+  @apply text-h5 leading-h5
+}
+
+@utility text-size-h5-r {
+  @apply text-h5-r leading-h5-r
+}
+
+@utility text-size-h6 {
+  @apply text-h6 leading-h6
+}
+
+@utility text-size-h6-r {
+  @apply text-h6-r leading-h6-r
+}
+
+@utility text-size-p-large {
+  @apply text-p-large leading-p-large
+}
+
+@utility text-size-p-default {
+  @apply text-p-default leading-p-default
+}
+
+@utility text-size-p-small {
+  @apply text-p-small leading-p-small
+}
+
+@utility text-size-button {
+  @apply text-button leading-button
+}
+
+@utility text-size-button-r {
+  @apply text-button-r leading-button-r
+}
+
+/* UTILITIES - SCROLL FADE - next/utils/useHorizontalScrollFade.ts */
 
 @utility scroll-fade-left {
   &::before {

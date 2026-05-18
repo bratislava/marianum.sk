@@ -1,5 +1,5 @@
 .m-table {
-  @apply w-full table-auto text-md;
+  @apply w-full table-auto text-size-p-default;
   thead {
     tr {
       @apply font-semibold;

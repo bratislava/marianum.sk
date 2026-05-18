@@ -21,12 +21,12 @@ const PartnerCard = ({ title, linkHref, image, ...rest }: PartnerCardProps) => {
     <CardBox {...rest}>
       <CardContent className="justify-between gap-y-4">
         {image && (
-          <div className="relative aspect-240/72 w-full md:aspect-216/83">
+          <div className="aspect-240/72 md:aspect-216/83 relative w-full">
             <MImage image={image} fill className="object-contain" />
           </div>
         )}
         <div className="flex flex-col items-center gap-y-2">
-          <h3 id={titleId} className="line-clamp-3 text-center text-h5 group-hover:underline">
+          <h3 id={titleId} className="text-size-h5-r lg:text-size-h5 line-clamp-3 text-center group-hover:underline">
             {title}
           </h3>
           <Button

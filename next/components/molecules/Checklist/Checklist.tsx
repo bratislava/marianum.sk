@@ -191,7 +191,7 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
               <AnimateHeight isVisible={isOpen}>
                 <div className="flex w-full flex-col gap-6 px-6 pb-6" id={getAriaId(id, index)}>
                   {/* item description */}
-                  {description && <div className="text-lg">{description}</div>}
+                  {description && <div className="text-size-p-large">{description}</div>}
                   {
                     // download buttons for last item
                     isLast ? (

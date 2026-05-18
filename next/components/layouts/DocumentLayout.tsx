@@ -64,13 +64,13 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
             <div className="flex size-[96px] shrink-0 items-center justify-center bg-background-beige md:size-[186px]">
               <FileIcon extension={extension} />
             </div>
-            <div className="flex flex-col items-center gap-2 text-sm md:items-start">
+            <div className="flex flex-col items-center gap-2 text-size-p-small md:items-start">
               <div>
                 {t('DocumentLayout.createdAt')}{' '}
                 <FormatDate value={publishedAt as string} valueType="ISO" format="articlePage" />
               </div>
               <h1>{title}</h1>
-              <div className="flex items-center gap-2 text-sm">
+              <div className="flex items-center gap-2 text-size-p-small">
                 <span>{size}</span>
                 <span>•</span>
                 <span className="uppercase">{extension}</span>

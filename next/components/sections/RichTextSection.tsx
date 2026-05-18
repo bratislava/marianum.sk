@@ -14,7 +14,7 @@ const RichTextSection = ({ section }: RichTextSectionProps) => {
 
   return (
     <Section>
-      <RichText className="lg:text-lg" content={section.content} />
+      <RichText className="lg:text-size-p-large" content={section.content} />
       {section.button ? (
         <Button {...linkProps} className="mt-5 w-full md:mt-4 md:w-auto">
           {linkProps.label}

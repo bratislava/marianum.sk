@@ -25,7 +25,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
   }
 
   return (
-    <div className="relative h-[412px] bg-primary-dark text-white lg:h-[436px]">
+    <div className="bg-primary-dark relative h-[412px] text-white lg:h-[436px]">
       <Slider
         autoSwipeDuration={5000}
         // To prevent the screen reader from reading the aria-label twice (Slider component already has a default aria-label)
@@ -53,13 +53,13 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
 
                   <h3
                     id={getAriaLabelId(id, index)}
-                    className="text-center text-h1 font-bold text-current lg:text-left"
+                    className="text-size-h1-r lg:text-size-h1 text-center font-bold text-current lg:text-left"
                   >
                     {title}
                   </h3>
 
                   {description && (
-                    <div className="mt-3 hidden opacity-72 lg:line-clamp-3 lg:block lg:pr-40">
+                    <div className="opacity-72 mt-3 hidden lg:line-clamp-3 lg:block lg:pr-40">
                       {description}
                     </div>
                   )}
@@ -82,7 +82,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
               <div key={linkProps.href} className="hidden h-full flex-1 lg:flex">
                 <div className="w-3/5" />
                 {/* gradient overlay */}
-                <div className="absolute left-[60%] z-1 -ml-px h-full w-[10%] bg-linear-to-r from-primary-dark" />
+                <div className="z-1 bg-linear-to-r from-primary-dark absolute left-[60%] -ml-px h-full w-[10%]" />
                 <div className="pointer-events-none relative h-[228px] w-full select-none bg-black/20 lg:h-full lg:w-2/5">
                   {url && (
                     <Image

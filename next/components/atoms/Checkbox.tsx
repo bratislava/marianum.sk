@@ -52,7 +52,7 @@ const Checkbox = (
           <CheckNoPaddingIcon className={cn({ 'opacity-50': isDisabledOrReadonly })} />
         )}
       </div>
-      <span className="text-sm">{props.children}</span>
+      <span className="text-size-p-small">{props.children}</span>
     </label>
   )
 }

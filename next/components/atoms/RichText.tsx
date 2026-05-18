@@ -43,12 +43,12 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}
         components={{
-          h1: ({ children }) => <h1 className="text-h1 font-bold">{children}</h1>,
-          h2: ({ children }) => <h2 className="text-h2 font-bold">{children}</h2>,
-          h3: ({ children }) => <h3 className="text-h3 font-bold">{children}</h3>,
-          h4: ({ children }) => <h4 className="text-h4 font-bold">{children}</h4>,
-          h5: ({ children }) => <h5 className="text-h5 font-bold">{children}</h5>,
-          h6: ({ children }) => <h6 className="text-h6 font-bold">{children}</h6>,
+          h1: ({ children }) => <h1 className="text-size-h1-r lg:text-size-h1 font-bold">{children}</h1>,
+          h2: ({ children }) => <h2 className="text-size-h2-r lg:text-size-h2 font-bold">{children}</h2>,
+          h3: ({ children }) => <h3 className="text-size-h3-r lg:text-size-h3 font-bold">{children}</h3>,
+          h4: ({ children }) => <h4 className="text-size-h4-r lg:text-size-h4 font-bold">{children}</h4>,
+          h5: ({ children }) => <h5 className="text-size-h5-r lg:text-size-h5 font-bold">{children}</h5>,
+          h6: ({ children }) => <h6 className="text-size-h6-r lg:text-size-h6 font-bold">{children}</h6>,
           img: ({ src, alt: altFromStrapi }) => {
             // Strapi inserts image in markdown like this: ![alt||caption](url)
             // thanks to patch located in patches/@strapi+admin
@@ -72,7 +72,7 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
                   alt={alt ?? ''}
                   sizes="100vw"
                 />
-                <figcaption className="text-center text-sm">{caption}</figcaption>
+                <figcaption className="text-size-p-small text-center">{caption}</figcaption>
               </figure>
             )
           },
@@ -100,7 +100,7 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
             )
           },
           blockquote: ({ children, ...props }) => (
-            <blockquote {...props} className="border-l-4 border-primary bg-white p-6 md:p-8">
+            <blockquote {...props} className="border-primary border-l-4 bg-white p-6 md:p-8">
               {children}
             </blockquote>
           ),
@@ -120,12 +120,12 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
             </td>
           ),
           ol: ({ children, ...props }) => (
-            <ol className="list-decimal pl-8 marker:text-primary" {...props}>
+            <ol className="marker:text-primary list-decimal pl-8" {...props}>
               {children}
             </ol>
           ),
           ul: ({ children, ...props }) => (
-            <ul className="list-disc pl-8 marker:text-primary" {...props}>
+            <ul className="marker:text-primary list-disc pl-8" {...props}>
               {children}
             </ul>
           ),

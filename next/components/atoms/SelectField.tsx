@@ -99,7 +99,7 @@ const SelectField = <T extends object>({
       {({ isRequired, isInvalid }) => (
         <>
           {label ? (
-            <Label className="font-semibold text-foreground-heading">
+            <Label className="text-foreground-heading font-semibold">
               {label}
               {isRequired ? <span className="text-error"> *</span> : undefined}
             </Label>
@@ -119,9 +119,9 @@ const SelectField = <T extends object>({
             </span>
           </Button>
           {description && (
-            <Text slot="description text-sm text-foreground-secondary">{description}</Text>
+            <Text slot="description" className='text-size-p-small text-foreground-secondary'>{description}</Text>
           )}
-          <FieldError className="text-sm text-error">{errorMessage}</FieldError>
+          <FieldError className="text-error text-size-p-small">{errorMessage}</FieldError>
 
           <Popover
             className={cn(

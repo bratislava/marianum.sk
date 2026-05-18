@@ -51,7 +51,7 @@ const IconButton = forwardRef<HTMLAnchorElement | HTMLButtonElement, Polymorphic
     )
 
     const style = cn(
-      'base-focus-ring flex items-center justify-center rounded-full p-2 text-center align-middle text-btn',
+      'base-focus-ring flex items-center justify-center rounded-full p-2 text-center align-middle text-size-button-r lg:text-size-button',
       {
         'h-[40px] w-[40px]': size === 'default',
         'h-[32px] w-[32px]': size === 'small',

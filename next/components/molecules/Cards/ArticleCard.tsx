@@ -41,11 +41,11 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
 
   return (
     <CardBox {...rest} hover={isLinkHovered}>
-      <div className="relative aspect-264/148 w-full bg-gray">
+      <div className="aspect-264/148 bg-gray relative w-full">
         {image ? <MImage image={image} fill className="object-cover" /> : <ImagePlaceholder />}
       </div>
       <CardContent className="gap-y-3">
-        <span className="line-clamp-1 text-sm">
+        <span className="text-size-p-small line-clamp-1">
           <span>
             <FormatDate value={formattedDate} format="articleCard" />
           </span>
@@ -58,7 +58,7 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
         </span>
 
         <h3
-          className={cn('text-h5', {
+          className={cn('text-size-h5-r lg:text-size-h5', {
             'group-hover:underline': isLinkHovered,
           })}
         >

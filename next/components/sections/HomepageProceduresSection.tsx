@@ -70,9 +70,9 @@ const HomepageProceduresSection = ({
                         },
                       )}
                     >
-                      <div className="text-[40px] font-bold text-primary">{index + 1}</div>
+                      <div className="text-primary text-[40px] font-bold">{index + 1}</div>
                       <div className="flex flex-col items-center gap-4">
-                        <div className="w-full text-center text-h3 font-bold">{step.title}</div>
+                        <div className="text-size-h3-r lg:text-size-h3 w-full text-center font-bold">{step.title}</div>
                         <div className="w-full text-center">{step.description}</div>
                       </div>
                     </li>
@@ -83,9 +83,9 @@ const HomepageProceduresSection = ({
                         'border border-border': border,
                       })}
                     >
-                      <div className="pr-6 text-h1 font-bold text-primary">{index + 1}</div>
+                      <div className="text-size-h1-r lg:text-size-h1 text-primary pr-6 font-bold">{index + 1}</div>
                       <div className="flex flex-col">
-                        <h4 className="w-fit text-left text-h5 text-foreground-heading">
+                        <h4 className="text-size-h5-r lg:text-size-h5 text-foreground-heading w-fit text-left">
                           {step.title}
                         </h4>
                         <div className="pt-2 text-left">{step.description}</div>
