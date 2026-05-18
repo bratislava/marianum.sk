@@ -1083,24 +1083,16 @@ const Showcase = () => {
               {dummySectionWrappers.map(
                 ({ alternateBackground, startBackground, background, count }, i) => (
                   // eslint-disable-next-line react/no-array-index-key
-                  <div key={i} className="p-4">
-                    <div className="p-4">
-                      <div className="flex w-full justify-between gap-4">
+                  <div key={i} className="flex flex-col gap-4 p-2">
+                    <div className="flex flex-col">
                         <div className="font-semibold">alternateBackground</div>
                         <div>{alternateBackground ? 'true' : 'false'}</div>
-                      </div>
-                      <div className="flex w-full justify-between gap-4">
                         <div className="font-semibold">startBackground</div>
                         <div>{startBackground ?? 'undefined'}</div>
-                      </div>
-                      <div className="flex w-full justify-between gap-4">
                         <div className="font-semibold">background</div>
                         <div>{background ?? 'undefined'}</div>
-                      </div>
-                      <div className="flex w-full justify-between gap-4">
                         <div className="font-semibold">count</div>
                         <div>{count}</div>
-                      </div>
                     </div>
                     <SectionsWrapper
                       alternateBackground={alternateBackground}
@@ -1108,8 +1100,8 @@ const Showcase = () => {
                       background={background}
                     >
                       {Array.from({ length: count }, (item, j) => (
-                        <Section key={j}>
-                          <div className="p-4">Section {j + 1}</div>
+                        <Section key={j} className='p-2'>
+                          <div>Section {j + 1}</div>
                         </Section>
                       ))}
                     </SectionsWrapper>
