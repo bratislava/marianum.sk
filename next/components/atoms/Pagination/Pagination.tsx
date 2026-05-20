@@ -82,7 +82,7 @@ const Pagination = ({ count, selectedPage, className, onChange = () => {} }: Pag
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
                 className={cn({
-                  'mx-[14px] text-sm font-semibold':
+                  'mx-[14px] text-size-p-small font-semibold':
                     type === 'start-ellipsis' || type === 'end-ellipsis',
                   'mr-2': type === 'previous',
                   'ml-2': type === 'next',

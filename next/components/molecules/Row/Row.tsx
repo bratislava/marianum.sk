@@ -65,7 +65,7 @@ const Row = ({
           >
             {title && (
               <h3
-                className={cn('w-fit text-left text-h5 text-foreground-heading', {
+                className={cn('w-fit text-left text-size-h5-r lg:text-size-h5 text-foreground-heading', {
                   'group-hover:underline group-focus:underline': linkHref,
                 })}
                 id={titleId}
@@ -84,7 +84,7 @@ const Row = ({
             )}
           </div>
 
-          <div className="space-x-3 text-sm empty:hidden">
+          <div className="text-size-p-small space-x-3 empty:hidden">
             {showUrl && linkHref && (
               <>
                 <span>{linkHref}</span>
@@ -111,7 +111,7 @@ const Row = ({
         </div>
 
         <div className="flex gap-x-5">
-          {button && <div className="z-[1] hidden md:flex">{button}</div>}
+          {button && <div className="z-1 hidden md:flex">{button}</div>}
           {linkHref &&
             (linkButton || (
               <IconButton

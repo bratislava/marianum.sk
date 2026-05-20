@@ -28,7 +28,7 @@ PropsWithChildren<{ colored: boolean } & Record<any, any>>) => {
   return (
     <div className="relative">
       <div className={cn('overflow-x-auto', scrollFadeClassNames)} ref={tableWrapperRef}>
-        <table {...props} className={cn('m-table', { colored })}>
+        <table {...props} className={cn('marianum-table-base', { 'marianum-table-colored': colored })}>
           {children}
         </table>
       </div>
@@ -43,12 +43,12 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}
         components={{
-          h1: ({ children }) => <h1 className="text-h1 font-bold">{children}</h1>,
-          h2: ({ children }) => <h2 className="text-h2 font-bold">{children}</h2>,
-          h3: ({ children }) => <h3 className="text-h3 font-bold">{children}</h3>,
-          h4: ({ children }) => <h4 className="text-h4 font-bold">{children}</h4>,
-          h5: ({ children }) => <h5 className="text-h5 font-bold">{children}</h5>,
-          h6: ({ children }) => <h6 className="text-h6 font-bold">{children}</h6>,
+          h1: ({ children }) => <h1 className="text-size-h1-r font-bold lg:text-size-h1">{children}</h1>,
+          h2: ({ children }) => <h2 className="text-size-h2-r font-bold lg:text-size-h2">{children}</h2>,
+          h3: ({ children }) => <h3 className="text-size-h3-r font-bold lg:text-size-h3">{children}</h3>,
+          h4: ({ children }) => <h4 className="text-size-h4-r font-bold lg:text-size-h4">{children}</h4>,
+          h5: ({ children }) => <h5 className="text-size-h5-r font-bold lg:text-size-h5">{children}</h5>,
+          h6: ({ children }) => <h6 className="text-size-h6-r font-bold lg:text-size-h6">{children}</h6>,
           img: ({ src, alt: altFromStrapi }) => {
             // Strapi inserts image in markdown like this: ![alt||caption](url)
             // thanks to patch located in patches/@strapi+admin
@@ -72,7 +72,7 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
                   alt={alt ?? ''}
                   sizes="100vw"
                 />
-                <figcaption className="text-center text-sm">{caption}</figcaption>
+                <figcaption className="text-center text-size-p-small">{caption}</figcaption>
               </figure>
             )
           },

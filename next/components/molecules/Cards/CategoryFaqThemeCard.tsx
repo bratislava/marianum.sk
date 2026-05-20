@@ -28,13 +28,12 @@ const CategoryFaqThemeCard = ({
   }
 
   return (
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <CardBox {...rest}>
       <CardContent
         className={cn('justify-between', subtitle ? 'md:min-h-[264px]' : 'md:min-h-[240px]')}
       >
         <div className={cn('flex grow', subtitle ? 'mb-[54px]' : 'mb-5')}>
-          <h3 id={titleId} className="line-clamp-3 flex grow text-h5 group-hover:underline">
+          <h3 id={titleId} className="text-size-h5-r lg:text-size-h5 line-clamp-3 flex grow group-hover:underline">
             {title}
           </h3>
           {subtitle && <div className="mt-2 line-clamp-3 block">{subtitle}</div>}

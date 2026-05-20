@@ -38,7 +38,7 @@ const NavigationSearchResults = ({
         </MLink>
       ))}
       <MLink
-        className="!justify-start px-4 py-2 hover:bg-primary/12 focus:bg-primary/12"
+        className="justify-start! px-4 py-2 hover:bg-primary/12 focus:bg-primary/12"
         href={`/search?query=${searchQuery}`}
       >
         {t('NavigationSearch.allResults')}

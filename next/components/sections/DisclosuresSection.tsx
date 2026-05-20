@@ -66,8 +66,7 @@ const Table = ({
 
   return (
     <div className={cn('overflow-x-auto', scrollFadeClassNames)} ref={tableWrapperRef}>
-      {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
-      <table className="m-table colored">
+      <table className="marianum-table-base marianum-table-colored">
         <thead ref={theadRef}>
           <tr>
             <th>{t('DisclosuresSection.th.publishedDate')}</th>
@@ -155,7 +154,7 @@ const DataWrapper = ({
 }) => {
   const { data, isPending, isFetching, isError, error } = useQuery({
     queryKey: getMeiliDisclosuresQueryKey(filters),
-    queryFn: () => meiliDisclosuresFetcher(filters),
+    queryFn: async () => meiliDisclosuresFetcher(filters),
     placeholderData: keepPreviousData,
   })
 

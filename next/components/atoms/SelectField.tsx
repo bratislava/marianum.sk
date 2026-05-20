@@ -43,10 +43,10 @@ export const SelectItem = ({ label, description, isDivider = false, ...rest }: S
     <ListBoxItem
       {...rest}
       className={({ isHovered, isFocusVisible }) =>
-        cn('flex cursor-pointer justify-between px-4 py-2 outline-none', {
+        cn('flex cursor-pointer justify-between px-4 py-2 outline-hidden', {
           'bg-background-beige': isHovered,
           'base-focus-ring ring-inset': isFocusVisible,
-          'after:not-last:block after:h-0.5': isDivider,
+          'not-last:after:block after:h-0.5': isDivider,
         })
       }
     >
@@ -83,7 +83,7 @@ const SelectField = <T extends object>({
   const disabled = props.isDisabled
 
   const style = cn(
-    'flex w-full items-center justify-between gap-3 border border-border bg-white outline-none',
+    'flex w-full items-center justify-between gap-3 border border-border bg-white outline-hidden',
     {
       // 'px-3 py-2 lg:px-4 lg:py-3': size === 'respo',
       'px-3 py-2': size === 'small',
@@ -119,18 +119,18 @@ const SelectField = <T extends object>({
             </span>
           </Button>
           {description && (
-            <Text slot="description text-sm text-foreground-secondary">{description}</Text>
+            <Text slot="description" className='text-size-p-small'>{description}</Text>
           )}
-          <FieldError className="text-sm text-error">{errorMessage}</FieldError>
+          <FieldError className="text-size-p-small text-error">{errorMessage}</FieldError>
 
           <Popover
             className={cn(
-              'w-[--trigger-width] overflow-y-auto border bg-white py-2',
+              'w-(--trigger-width) overflow-y-auto border bg-white py-2',
               popperClassName,
             )}
             shouldFlip={false}
           >
-            <ListBox items={items} className="max-h-[400px] outline-none">
+            <ListBox items={items} className="max-h-100 outline-hidden">
               {children}
             </ListBox>
           </Popover>

@@ -119,7 +119,7 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
 
   return (
     <Modal
-      overlayClassName="!w-full"
+      overlayClassName="w-full!"
       showCloseButton={false}
       isOpen={isOpen}
       onClose={closeHandler}

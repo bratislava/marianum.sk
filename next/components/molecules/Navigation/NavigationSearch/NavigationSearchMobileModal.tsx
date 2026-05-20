@@ -33,7 +33,7 @@ const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) =>
   return (
     <Modal
       centerVertically={false}
-      overlayClassName="!w-full"
+      overlayClassName="w-full!"
       showCloseButton={false}
       isOpen={isOpen}
       onClose={onClose}
@@ -46,7 +46,7 @@ const NavigationSearchMobileModal = (props: NavigationSearchMobileModalProps) =>
             className="flex-1"
             onSearch={onSearch}
           />
-          <Button variant="plain-secondary" className="px-4 !text-white" onPress={onClose}>
+          <Button variant="plain-secondary" className="px-4 text-white!" onPress={onClose}>
             {t('NavigationSearch.close')}
           </Button>
         </div>

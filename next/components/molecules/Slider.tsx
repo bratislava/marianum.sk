@@ -149,7 +149,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       >
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
-            className="absolute size-full outline-none"
+            className="absolute size-full outline-hidden"
             key={page}
             custom={direction}
             variants={variants}

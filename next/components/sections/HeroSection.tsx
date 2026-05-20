@@ -60,7 +60,7 @@ const HeroSection = ({
         >
           {title && <h1 className="text-white">{title}</h1>}
           {perex && (
-            <p className="mt-3 text-lg">
+            <p className="mt-3 text-size-p-large">
               <NormalizeText>{perex}</NormalizeText>
             </p>
           )}
@@ -72,7 +72,7 @@ const HeroSection = ({
           {price && (
             <div className="mt-6">
               <div>{t('HeroSection.price')}</div>
-              <div className="mt-1 text-h4 font-bold text-white">
+              <div className="mt-1 text-size-h4-r lg:text-size-h4 font-bold text-white">
                 <FormatCurrency value={price} />
               </div>
             </div>

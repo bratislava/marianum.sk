@@ -27,7 +27,7 @@ const FieldWrapper = ({
 }: FieldWrapperProps) => {
   return (
     <div className="w-full">
-      <div className="flex w-full gap-1 text-sm font-semibold">
+      <div className="flex w-full gap-1 text-size-p-small font-semibold">
         {label && (
           <label className="mb-1 block" htmlFor={id}>
             {label}
