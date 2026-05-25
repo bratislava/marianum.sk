@@ -1,8 +1,9 @@
-// cn helper function inspired by https://ui.shadcn.com/docs/installation/manual
 import { type ClassValue, clsx } from 'clsx'
 import { extendTailwindMerge } from 'tailwind-merge'
 
-// NEED TO CHANGE
+/**
+ * Inspired by: https://ui.shadcn.com/docs/installation/manual
+ */
 
 const twMerge = extendTailwindMerge({
   extend: {
