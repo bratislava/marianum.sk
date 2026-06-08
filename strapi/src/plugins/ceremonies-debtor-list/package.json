@@ -2,38 +2,7 @@
   "name": "ceremonies-debtor-list",
   "version": "0.0.0",
   "description": "This is the description of the plugin.",
-  "strapi": {
-    "name": "ceremonies-debtor-list",
-    "description": "Description of ceremonies-debtor-list plugin",
-    "kind": "plugin"
-  },
-  "dependencies": {
-    "@strapi/design-system": "^1.6.3",
-    "@strapi/helper-plugin": "4.26.0",
-    "@strapi/icons": "^1.6.3",
-    "assert": "^2.1.0",
-    "prop-types": "^15.7.2",
-    "uuid": "^10.0.0",
-    "xlsx": "^0.18.5"
-  },
-  "devDependencies": {
-    "@strapi/typescript-utils": "4.26.0",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "@types/react-router-dom": "^5.3.3",
-    "@types/styled-components": "^5.1.32",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^5.3.4",
-    "styled-components": "^5.3.11",
-    "typescript": "5.0.4"
-  },
-  "peerDependencies": {
-    "react": "^17.0.0 || ^18.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0",
-    "react-router-dom": "^5.2.0",
-    "styled-components": "^5.2.1"
-  },
+  "license": "MIT",
   "author": {
     "name": "A Strapi developer"
   },
@@ -42,16 +11,47 @@
       "name": "A Strapi developer"
     }
   ],
+  "scripts": {
+    "build": "tsc -p tsconfig.server.json",
+    "develop": "tsc -p tsconfig.server.json -w"
+  },
+  "dependencies": {
+    "@strapi/design-system": "1.19.0",
+    "@strapi/helper-plugin": "4.26.0",
+    "@strapi/icons": "1.19.0",
+    "assert": "2.1.0",
+    "prop-types": "15.7.2",
+    "uuid": "10.0.0",
+    "xlsx": "0.18.5"
+  },
+  "devDependencies": {
+    "@strapi/typescript-utils": "4.26.0",
+    "@types/react": "18.2.0",
+    "@types/react-dom": "18.2.0",
+    "@types/react-router-dom": "5.3.3",
+    "@types/styled-components": "5.1.32",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-router-dom": "5.3.4",
+    "styled-components": "5.3.11",
+    "typescript": "5.0.4"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^5.2.0",
+    "styled-components": "^5.2.1"
+  },
   "engines": {
     "node": ">=20.19.x",
     "npm": ">=9.8.1"
   },
-  "scripts": {
-    "develop": "tsc -p tsconfig.server.json -w",
-    "build": "tsc -p tsconfig.server.json"
-  },
-  "license": "MIT",
   "volta": {
     "node": "20.19.0"
+  },
+  "strapi": {
+    "name": "ceremonies-debtor-list",
+    "description": "Description of ceremonies-debtor-list plugin",
+    "kind": "plugin"
   }
 }
