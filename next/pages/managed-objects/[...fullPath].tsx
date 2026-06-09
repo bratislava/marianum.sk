@@ -1,7 +1,7 @@
 import { ParsedUrlQuery } from 'node:querystring'
 
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { SSRConfig, useTranslation } from 'next-i18next'
+import { SSRConfig, useTranslation } from 'next-i18next/pages'
 
 import { NavigateIcon, PlaceIcon } from '@/assets/icons'
 import Button from '@/components/atoms/Button'

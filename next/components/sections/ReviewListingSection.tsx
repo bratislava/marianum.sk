@@ -1,6 +1,6 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { useState } from 'react'
 
 import { AnimateHeight } from '@/components/atoms/AnimateHeight'

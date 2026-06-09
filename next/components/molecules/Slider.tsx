@@ -1,5 +1,5 @@
 import { AnimatePresence, motion, PanInfo, Variant } from 'framer-motion'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { wrap } from 'popmotion'
 import { FC, forwardRef, KeyboardEvent, ReactNode, useCallback, useEffect, useState } from 'react'
 

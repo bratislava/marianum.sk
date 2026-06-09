@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import TabItem from '@/components/atoms/Tabs/TabItem'
 import Tabs from '@/components/atoms/Tabs/Tabs'

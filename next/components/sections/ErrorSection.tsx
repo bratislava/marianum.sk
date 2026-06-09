@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import Button from '@/components/atoms/Button'
 import Section from '@/components/molecules/Section'

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import React, { useEffect, useState } from 'react'
 import { Selection, Tag, TagGroup, TagList } from 'react-aria-components'
 import Map, { Marker } from 'react-map-gl'

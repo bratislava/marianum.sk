@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next/pages'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import { useCallback, useRef, useState } from 'react'
 
 import { AnimateHeight } from '@/components/atoms/AnimateHeight'

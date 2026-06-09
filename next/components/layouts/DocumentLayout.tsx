@@ -1,5 +1,5 @@
 import filesize from 'filesize'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { Fragment, ReactNode, useMemo } from 'react'
 
 import Button from '@/components/atoms/Button'

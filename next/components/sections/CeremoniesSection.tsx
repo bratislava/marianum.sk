@@ -2,7 +2,7 @@ import { parseAbsolute, parseDate, toCalendarDate } from '@internationalized/dat
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import groupBy from 'lodash/groupBy'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { Fragment, PropsWithChildren, useMemo, useRef, useState } from 'react'
 
 import FormatDate from '@/components/atoms/FormatDate'

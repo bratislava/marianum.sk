@@ -4,7 +4,7 @@ import 'swiper/css'
 import { MotionConfig } from 'framer-motion'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { appWithTranslation } from 'next-i18next'
+import { appWithTranslation } from 'next-i18next/pages'
 import { NuqsAdapter } from 'nuqs/adapters/next/pages'
 import { OverlayProvider } from 'react-aria'
 

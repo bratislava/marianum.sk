@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import { AnimateHeight } from '@/components/atoms/AnimateHeight'
 import Button from '@/components/atoms/Button'

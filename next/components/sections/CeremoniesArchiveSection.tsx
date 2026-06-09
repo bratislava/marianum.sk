@@ -1,6 +1,6 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { SearchResponse } from 'meilisearch'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useDebounceValue } from 'usehooks-ts'
 

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import MLink from '@/components/atoms/MLink'
 import Spinner from '@/components/atoms/Spinner'
