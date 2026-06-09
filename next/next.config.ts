@@ -5,7 +5,40 @@ import { generateRedirects } from './components/molecules/Navigation/NavigationP
 const nextConfig: NextConfig = {
   i18n: i18nextConfig.i18n,
   reactStrictMode: true,
+  images: {
+    // After upgrading to Next.js 16, image loading from local IP addresses is blocked.
+    // In our Kubernetes setup, S3 resolves to a local IP range (10.10.x.x),
+    // which causes images to fail loading.
+    // To work around this, we temporarily allow local IPs.
+    // TODO Revisit this setting and implement a safer long-term solution.
+    // Docs: https://nextjs.org/docs/pages/api-reference/components/image#dangerouslyallowlocalip
+    dangerouslyAllowLocalIP: true,
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn-api.bratislava.sk',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.s3.bratislava.sk',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.mapbox.com',
+      },
+    ],
+  },
   output: 'standalone',
+  // Workaround: Turbopack file tracer misses `module-sync` exports condition files (e.g. require.mjs)
+  // on Node.js >= 22.10. Will be fixed when Next.js bumps @vercel/nft to >= 0.30.0.
+  // https://github.com/vercel/next.js/issues/90567
+  outputFileTracingIncludes: {
+    '/**': ['./node_modules/**/require.mjs'],
+  },
   turbopack: {
     rules: {
       '*.svg': {
@@ -34,25 +67,9 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-      },
-      {
-        protocol: 'https',
-        hostname: 'cdn-api.bratislava.sk',
-      },
-      {
-        protocol: 'https',
-        hostname: '*.s3.bratislava.sk',
-      },
-      {
-        protocol: 'https',
-        hostname: 'api.mapbox.com',
-      },
-    ],
+  logging: {
+    // disable browser logs in terminal
+    browserToTerminal: false,
   },
   async rewrites() {
     return {
