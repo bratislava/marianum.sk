@@ -5,9 +5,8 @@ import { MotionConfig } from 'framer-motion'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { appWithTranslation } from 'next-i18next'
-import { NextAdapter } from 'next-query-params'
+import { NuqsAdapter } from 'nuqs/adapters/next/pages'
 import { OverlayProvider } from 'react-aria'
-import { QueryParamProvider } from 'use-query-params'
 
 import ThirdPartyScripts from '@/components/atoms/ThirdPartyScripts'
 import BAQueryClientProvider from '@/components/providers/BAQueryClientProvider'
@@ -29,7 +28,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name="theme-color" content="#446650" />
       </Head>
       <BAQueryClientProvider>
-        <QueryParamProvider adapter={NextAdapter}>
+        <NuqsAdapter>
           <HeroSectionOverlayProvider>
             <MI18nProvider>
               <MotionConfig reducedMotion="user">
@@ -40,7 +39,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
               </MotionConfig>
             </MI18nProvider>
           </HeroSectionOverlayProvider>
-        </QueryParamProvider>
+        </NuqsAdapter>
       </BAQueryClientProvider>
     </>
   )

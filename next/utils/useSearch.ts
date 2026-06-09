@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { SearchResponse } from 'meilisearch'
 import { useTranslation } from 'next-i18next'
+import { parseAsString, useQueryState } from 'nuqs'
 import { useState } from 'react'
-import { StringParam, useQueryParam, withDefault } from 'use-query-params'
 import { useDebounceValue } from 'usehooks-ts'
 
 import { useGetFullPathMeili } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
@@ -62,12 +62,9 @@ export const useSearch = ({ filters, isSyncedWithUrlQuery = false }: UseSearchOp
   const { getFullPathMeili } = useGetFullPathMeili()
 
   const [searchQuery, setSearchQuery] = useState<string>('')
-  const [routerSearchQuery, setRouterSearchQuery] = useQueryParam(
+  const [routerSearchQuery, setRouterSearchQuery] = useQueryState(
     'query',
-    withDefault(StringParam, ''),
-    {
-      removeDefaultsFromUrl: true,
-    },
+    parseAsString.withDefault(''),
   )
 
   const [debouncedSearchQuery] = useDebounceValue(
