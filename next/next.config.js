@@ -34,12 +34,12 @@ const nextConfig = {
         // Graphql Proxy
         {
           source: '/graphql',
-          destination: `${process.env.STRAPI_URL}/graphql`,
+          destination: `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`,
         },
         // Media proxy for getting media from Strapi
         {
           source: '/uploads/:file',
-          destination: `${process.env.STRAPI_URL}/uploads/:file`,
+          destination: `${process.env.NEXT_PUBLIC_STRAPI_URL}/uploads/:file`,
         },
       ],
       afterFiles: [
@@ -455,9 +455,6 @@ const nextConfig = {
         permanent: false,
       },
     ]
-  },
-  serverRuntimeConfig: {
-    strapiUrl: process.env.STRAPI_URL,
   },
 }
 
