@@ -15,7 +15,7 @@
     "prettier": "prettier --write .",
     "parse-translations": "i18next",
     "update-react-aria": "npm install @internationalized/date@latest @react-stately/utils@latest react-aria@latest react-aria-components@latest react-stately@latest @react-aria/utils@latest tailwindcss-react-aria-components --save-exact --save-dev",
-    "update-next": "npm install next@latest react@latest react-dom@latest sharp@latest --save-exact && npm install @types/react@latest @types/react-dom@latest eslint-config-next@latest @next/eslint-plugin-next@latest typescript@latest @next/bundle-analyzer --save-dev --save-exact",
+    "update-next": "npm install next@latest react@latest react-dom@latest sharp@latest --save-exact && npm install @types/react@latest @types/react-dom@latest eslint-config-next@latest typescript@latest @next/bundle-analyzer --save-dev --save-exact",
     "update-tailwind": "npm install tailwind-merge@latest clsx@latest --save-exact && npm install tailwindcss@latest postcss@latest prettier-plugin-tailwindcss@latest --save-dev --save-exact",
     "update-i18next": "npm install next-i18next@latest react-i18next@latest i18next@latest --save-exact && npm install i18next-parser@latest --save-dev --save-exact",
     "update-prettier": "npm install prettier@latest eslint-config-prettier@latest eslint-plugin-prettier@latest --save-dev --save-exact",
