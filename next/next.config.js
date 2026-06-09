@@ -8,6 +8,34 @@ const nextConfig = {
   i18n: i18nextConfig.i18n,
   reactStrictMode: true,
   output: 'standalone',
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              svgoConfig: {
+                plugins: [
+                  {
+                    name: 'preset-default',
+                    params: {
+                      overrides: {
+                        removeViewBox: false,
+                        /* The icons are misplaced when `cleanupIds` is not turned off. */
+                        cleanupIds: false,
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        ],
+        as: '*.js',
+      },
+    },
+  },
   images: {
     remotePatterns: [
       {
@@ -458,20 +486,4 @@ const nextConfig = {
   },
 }
 
-const config = (phase, { defaultConfig }) => {
-  return {
-    ...defaultConfig,
-    ...nextConfig,
-    webpack(config) {
-      config.module.rules.push({
-        test: /\.svg$/,
-        issuer: /\.[jt]sx?$/,
-        use: ['@svgr/webpack'],
-      })
-
-      return config
-    },
-  }
-}
-
-module.exports = config
+module.exports = nextConfig
