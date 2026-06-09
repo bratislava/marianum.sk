@@ -1,10 +1,8 @@
-const i18nextConfig = require('./next-i18next.config')
-const {
-  generateRedirects,
-} = require('./components/molecules/Navigation/NavigationProvider/generateRedirects')
+import i18nextConfig from './next-i18next.config'
+import type { NextConfig } from 'next'
+import { generateRedirects } from './components/molecules/Navigation/NavigationProvider/generateRedirects'
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   i18n: i18nextConfig.i18n,
   reactStrictMode: true,
   output: 'standalone',
@@ -486,4 +484,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+export default nextConfig
