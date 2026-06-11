@@ -1,7 +1,6 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { LinkButtonProps } from '@react-types/button'
 import { forwardRef, type JSX, ReactNode, Ref, RefObject } from 'react'
-import { AriaButtonProps, useButton } from 'react-aria'
+import { AriaButtonProps, LinkButtonProps, useButton } from 'react-aria'
 
 import MLink from '@/components/atoms/MLink'
 import cn from '@/utils/cn'
