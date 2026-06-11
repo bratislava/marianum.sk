@@ -1,4 +1,4 @@
-import filesize from 'filesize'
+import { filesize } from 'filesize'
 import { useTranslation } from 'next-i18next/pages'
 import prntr from 'prntr'
 import { useCallback, useId, useMemo } from 'react'
