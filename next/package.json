@@ -38,7 +38,7 @@
     "i18next": "26.3.1",
     "lodash": "4.18.1",
     "mapbox-gl": "3.24.0",
-    "meilisearch": "0.58.0",
+    "meilisearch": "0.30.0",
     "next": "16.2.7",
     "next-i18next": "16.0.7",
     "nuqs": "2.8.9",
