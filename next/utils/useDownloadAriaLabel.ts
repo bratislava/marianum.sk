@@ -1,5 +1,5 @@
-import filesize from 'filesize'
-import { useTranslation } from 'next-i18next'
+import { filesize } from 'filesize'
+import { useTranslation } from 'next-i18next/pages'
 import { useCallback } from 'react'
 
 import { UploadFileEntityFragment } from '@/graphql'

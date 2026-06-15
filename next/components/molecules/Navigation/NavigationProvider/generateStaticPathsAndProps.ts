@@ -1,7 +1,7 @@
 import last from 'lodash/last'
 import { GetStaticPathsResult, GetStaticPropsResult } from 'next'
-import { SSRConfig } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { SSRConfig } from 'next-i18next/pages'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 
 import {
   getFullPathFn,

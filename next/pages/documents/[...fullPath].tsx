@@ -1,7 +1,7 @@
 import { ParsedUrlQuery } from 'node:querystring'
 
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { SSRConfig } from 'next-i18next'
+import { SSRConfig } from 'next-i18next/pages'
 
 import Seo from '@/components/atoms/Seo'
 import DocumentLayout from '@/components/layouts/DocumentLayout'

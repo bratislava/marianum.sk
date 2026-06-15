@@ -1,14 +1,18 @@
-const i18nextConfig = require('./next-i18next.config')
-const {
-  generateRedirects,
-} = require('./components/molecules/Navigation/NavigationProvider/generateRedirects')
+import i18nextConfig from './next-i18next.config'
+import type { NextConfig } from 'next'
+import { generateRedirects } from './components/molecules/Navigation/NavigationProvider/generateRedirects'
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   i18n: i18nextConfig.i18n,
   reactStrictMode: true,
-  output: 'standalone',
   images: {
+    // After upgrading to Next.js 16, image loading from local IP addresses is blocked.
+    // In our Kubernetes setup, S3 resolves to a local IP range (10.10.x.x),
+    // which causes images to fail loading.
+    // To work around this, we temporarily allow local IPs.
+    // TODO Revisit this setting and implement a safer long-term solution.
+    // Docs: https://nextjs.org/docs/pages/api-reference/components/image#dangerouslyallowlocalip
+    dangerouslyAllowLocalIP: true,
     remotePatterns: [
       {
         protocol: 'http',
@@ -28,18 +32,57 @@ const nextConfig = {
       },
     ],
   },
+  output: 'standalone',
+  // Workaround: Turbopack file tracer misses `module-sync` exports condition files (e.g. require.mjs)
+  // on Node.js >= 22.10. Will be fixed when Next.js bumps @vercel/nft to >= 0.30.0.
+  // https://github.com/vercel/next.js/issues/90567
+  outputFileTracingIncludes: {
+    '/**': ['./node_modules/**/require.mjs'],
+  },
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              svgoConfig: {
+                plugins: [
+                  {
+                    name: 'preset-default',
+                    params: {
+                      overrides: {
+                        removeViewBox: false,
+                        /* The icons are misplaced when `cleanupIds` is not turned off. */
+                        cleanupIds: false,
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        ],
+        as: '*.js',
+      },
+    },
+  },
+  logging: {
+    // disable browser logs in terminal
+    browserToTerminal: false,
+  },
   async rewrites() {
     return {
       beforeFiles: [
         // Graphql Proxy
         {
           source: '/graphql',
-          destination: `${process.env.STRAPI_URL}/graphql`,
+          destination: `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`,
         },
         // Media proxy for getting media from Strapi
         {
           source: '/uploads/:file',
-          destination: `${process.env.STRAPI_URL}/uploads/:file`,
+          destination: `${process.env.NEXT_PUBLIC_STRAPI_URL}/uploads/:file`,
         },
       ],
       afterFiles: [
@@ -456,25 +499,6 @@ const nextConfig = {
       },
     ]
   },
-  serverRuntimeConfig: {
-    strapiUrl: process.env.STRAPI_URL,
-  },
 }
 
-const config = (phase, { defaultConfig }) => {
-  return {
-    ...defaultConfig,
-    ...nextConfig,
-    webpack(config) {
-      config.module.rules.push({
-        test: /\.svg$/,
-        issuer: /\.[jt]sx?$/,
-        use: ['@svgr/webpack'],
-      })
-
-      return config
-    },
-  }
-}
-
-module.exports = config
+export default nextConfig

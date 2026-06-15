@@ -1,7 +1,7 @@
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
-import { SSRConfig } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { SSRConfig } from 'next-i18next/pages'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import React, { ReactNode, useMemo, useState } from 'react'
 
 import { AddIcon, ArrowRightIcon, CloseCircleIcon, DownloadIcon, SearchIcon } from '@/assets/icons'

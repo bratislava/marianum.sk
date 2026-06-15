@@ -1,5 +1,5 @@
-import filesize from 'filesize'
-import { useTranslation } from 'next-i18next'
+import { filesize } from 'filesize'
+import { useTranslation } from 'next-i18next/pages'
 import prntr from 'prntr'
 import { useCallback, useId, useMemo } from 'react'
 import { useLocalStorage } from 'usehooks-ts'

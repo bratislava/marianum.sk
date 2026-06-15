@@ -1,5 +1,5 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 
 import Loading from '@/components/atoms/Loading'
 import ArticleGroup from '@/components/sections/ArticleGroup'

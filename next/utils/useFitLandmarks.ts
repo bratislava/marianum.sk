@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react'
-import { LngLatBoundsLike, MapRef } from 'react-map-gl'
+import { LngLatBoundsLike, MapRef } from 'react-map-gl/mapbox'
 
 type Landmark = {
   latitude: number

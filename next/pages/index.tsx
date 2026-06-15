@@ -1,8 +1,8 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { dehydrate, DehydratedState, HydrationBoundary, QueryClient } from '@tanstack/react-query'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next/pages'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 
 import Seo from '@/components/atoms/Seo'
 import PageWrapper from '@/components/layouts/PageWrapper'

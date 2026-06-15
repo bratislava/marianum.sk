@@ -1,6 +1,6 @@
 import { GetStaticProps, GetStaticPropsResult } from 'next'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'next-i18next/pages'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 
 import PageWrapper from '@/components/layouts/PageWrapper'
 import SectionsWrapper from '@/components/layouts/SectionsWrapper'

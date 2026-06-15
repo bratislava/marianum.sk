@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/interactive-supports-focus */
 
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { useCallback, useMemo, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 import { useOverlayTriggerState } from 'react-stately'
@@ -142,7 +141,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                   className="relative w-full border border-border pt-[100%]"
                 >
                   <div className="absolute top-0 flex size-full items-center justify-center bg-white p-2 text-center font-semibold text-primary">
-                    {/* TODO: before there was also count shown, but it was wrongly calculated t('ImageGallery.morePhotos', { count: moreImagesCount }) */}
+                    {/* TODO: before there was also count shown, but it was wrongly calculated */}
                     {t('ImageGallery.showAllPhotos')}
                   </div>
                 </div>

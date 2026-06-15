@@ -268,7 +268,7 @@
 
   /* globaly disable outline for menu item */
   .szh-menu__item:focus-visible {
-    @apply bg-amber-100! outline-hidden! outline-transparent!;
+    @apply outline-hidden! outline-transparent!;
   }
 
   .szh-menu--state-open.szh-menu--dir-left {

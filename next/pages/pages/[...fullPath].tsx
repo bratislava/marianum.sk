@@ -2,7 +2,7 @@ import { ParsedUrlQuery } from 'node:querystring'
 
 import { DehydratedState, HydrationBoundary } from '@tanstack/react-query'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { SSRConfig } from 'next-i18next'
+import { SSRConfig } from 'next-i18next/pages'
 
 import Divider from '@/components/atoms/Divider'
 import Seo from '@/components/atoms/Seo'

@@ -1,8 +1,8 @@
 {
   "folders": [
     {
-      "path": "."
-    }
+      "path": ".",
+    },
   ],
   "settings": {
     "workbench.colorCustomizations": {
@@ -11,8 +11,10 @@
       "statusBar.foreground": "#e7e7e7",
       "statusBarItem.hoverBackground": "#588568",
       "statusBarItem.remoteBackground": "#446650",
-      "statusBarItem.remoteForeground": "#e7e7e7"
+      "statusBarItem.remoteForeground": "#e7e7e7",
     },
     "peacock.color": "#446650",
-  }
+    "js/ts.tsdk.path": "./next/node_modules/typescript/lib",
+    "graphql-config.load.filepath": "./next/codegen.ts",
+  },
 }

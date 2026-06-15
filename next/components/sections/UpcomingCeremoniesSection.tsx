@@ -1,6 +1,6 @@
 import { isSameDay, parseAbsolute } from '@internationalized/date'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { useMemo } from 'react'
 
 import FormatDate from '@/components/atoms/FormatDate'

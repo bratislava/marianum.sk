@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next/pages'
 import { useId } from 'react'
 
 import { AddIcon, CheckIcon } from '@/assets/icons'

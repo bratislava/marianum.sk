@@ -1,7 +1,7 @@
 import { ParsedUrlQuery } from 'node:querystring'
 
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import { SSRConfig, useTranslation } from 'next-i18next'
+import { SSRConfig, useTranslation } from 'next-i18next/pages'
 
 import { CheckNoPaddingIcon } from '@/assets/icons'
 import RichText from '@/components/atoms/RichText'

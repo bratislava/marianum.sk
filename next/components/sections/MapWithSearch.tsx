@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
-import { useTranslation } from 'next-i18next'
-import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'next-i18next/pages'
+import { useEffect, useState } from 'react'
 import { Selection, Tag, TagGroup, TagList } from 'react-aria-components'
-import Map, { Marker } from 'react-map-gl'
+import Map, { Marker } from 'react-map-gl/mapbox'
 import { useDebounceValue } from 'usehooks-ts'
 
 import { MapMarkerSvg } from '@/assets'
@@ -58,7 +58,7 @@ const MapWithSearch = ({ landmarks, tags, onSearchChange, onSelectionChange }: P
     <div className="relative flex h-[624px] flex-col items-center overflow-hidden md:flex-row md:items-stretch">
       <div
         className={cn(
-          'absolute z-2 flex h-full w-full flex-col bg-white transition-transform duration-500 md:relative md:w-[360px]',
+          'absolute z-2 flex size-full flex-col bg-white transition-transform duration-500 md:relative md:w-[360px]',
           {
             '-translate-x-full md:translate-x-0': isMapOrFiltersDisplayed,
           },
@@ -152,7 +152,6 @@ const MapWithSearch = ({ landmarks, tags, onSearchChange, onSelectionChange }: P
             if (latitude && longitude) {
               return (
                 <Marker
-                  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                   key={`${latitude}${longitude}`}
                   anchor="bottom"
                   latitude={latitude}
@@ -185,7 +184,7 @@ const MapWithSearch = ({ landmarks, tags, onSearchChange, onSelectionChange }: P
       {/* Mobile view */}
       <div className="absolute bottom-6 z-2 md:hidden">
         <Button
-          className="rounded-full shadow"
+          className="rounded-full shadow-sm"
           onPress={() => setMapOrFiltersDisplayed((map) => !map)}
           startIcon={isMapOrFiltersDisplayed ? <ArrowLeftIcon /> : <PlaceIcon />}
         >
