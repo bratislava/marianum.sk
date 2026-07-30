@@ -131,7 +131,7 @@
       },
       "component": "blocks.accordion-item-with-price"
     },
-    "documents": {
+    "assets": {
       "type": "component",
       "repeatable": false,
       "pluginOptions": {
@@ -139,7 +139,7 @@
           "localized": true
         }
       },
-      "component": "sections.document-group"
+      "component": "sections.asset-group"
     },
     "sidebar": {
       "type": "component",

@@ -131,7 +131,7 @@
       },
       "component": "blocks.opening-hours-universal"
     },
-    "documents": {
+    "assets": {
       "type": "component",
       "repeatable": false,
       "pluginOptions": {
@@ -139,7 +139,7 @@
           "localized": true
         }
       },
-      "component": "sections.document-group"
+      "component": "sections.asset-group"
     },
     "gallery": {
       "type": "component",
