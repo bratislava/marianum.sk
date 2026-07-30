@@ -53,7 +53,7 @@ To add more content types to choose from in navigation, update config for naviga
 
 ## Custom queries
 
-We add `assetFiletypes` custom graphql query that is used in the frontend to filter assets by filetype.
+We add `documentFiletypes` custom graphql query that is used in the frontend to filter documents by filetype.
 See `register` function in `src/index.js`.
 
 ## Using `patch-package`
