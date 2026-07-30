@@ -585,6 +585,83 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   };
 }
 
+export interface ApiAssetCategoryAssetCategory extends Schema.CollectionType {
+  collectionName: 'asset_categories';
+  info: {
+    description: '';
+    displayName: 'Dokumenty: Kateg\u00F3rie';
+    pluralName: 'asset-categories';
+    singularName: 'asset-category';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    assets: Attribute.Relation<
+      'api::asset-category.asset-category',
+      'oneToMany',
+      'api::asset.asset'
+    >;
+    createdAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::asset-category.asset-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    slug: Attribute.UID<'api::asset-category.asset-category', 'title'> &
+      Attribute.Required;
+    title: Attribute.String;
+    updatedAt: Attribute.DateTime;
+    updatedBy: Attribute.Relation<
+      'api::asset-category.asset-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiAssetAsset extends Schema.CollectionType {
+  collectionName: 'assets';
+  info: {
+    description: '';
+    displayName: 'Dokumenty';
+    pluralName: 'assets';
+    singularName: 'asset';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    assetCategory: Attribute.Relation<
+      'api::asset.asset',
+      'manyToOne',
+      'api::asset-category.asset-category'
+    >;
+    createdAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::asset.asset',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    description: Attribute.Text;
+    file: Attribute.Media<'files'> & Attribute.Required;
+    publishedAt: Attribute.DateTime;
+    seo: Attribute.Component<'general.seo'>;
+    slug: Attribute.UID;
+    title: Attribute.String;
+    updatedAt: Attribute.DateTime;
+    updatedBy: Attribute.Relation<
+      'api::asset.asset',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiBranchBranch extends Schema.CollectionType {
   collectionName: 'branches';
   info: {
@@ -1237,7 +1314,7 @@ export interface ApiDocumentCategoryDocumentCategory
   collectionName: 'document_categories';
   info: {
     description: '';
-    displayName: 'Dokumenty: Kateg\u00F3rie';
+    displayName: 'Dokumenty: Kateg\u00F3rie-OLD';
     pluralName: 'document-categories';
     singularName: 'document-category';
   };
@@ -1274,7 +1351,7 @@ export interface ApiDocumentDocument extends Schema.CollectionType {
   collectionName: 'documents';
   info: {
     description: '';
-    displayName: 'Dokumenty';
+    displayName: 'Dokumenty-OLD';
     pluralName: 'documents';
     singularName: 'document';
   };
@@ -2116,6 +2193,11 @@ export interface PluginNavigationAudience extends Schema.CollectionType {
     };
   };
   attributes: {
+    assets: Attribute.Relation<
+      'plugin::navigation.audience',
+      'oneToMany',
+      'api::asset.asset'
+    >;
     createdAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'plugin::navigation.audience',
@@ -2607,6 +2689,8 @@ declare module '@strapi/types' {
       'api::article-news-category.article-news-category': ApiArticleNewsCategoryArticleNewsCategory;
       'api::article-press-category.article-press-category': ApiArticlePressCategoryArticlePressCategory;
       'api::article.article': ApiArticleArticle;
+      'api::asset-category.asset-category': ApiAssetCategoryAssetCategory;
+      'api::asset.asset': ApiAssetAsset;
       'api::branch.branch': ApiBranchBranch;
       'api::bundle.bundle': ApiBundleBundle;
       'api::cemetery-category.cemetery-category': ApiCemeteryCategoryCemeteryCategory;

@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "document_categories",
+  "collectionName": "asset_categories",
   "info": {
-    "singularName": "document-category",
-    "pluralName": "document-categories",
-    "displayName": "Dokumenty: Kategórie-OLD",
+    "singularName": "asset-category",
+    "pluralName": "asset-categories",
+    "displayName": "Dokumenty: Kategórie",
     "description": ""
   },
   "options": {
@@ -13,19 +13,18 @@
   "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "slug": {
       "type": "uid",
       "targetField": "title",
       "required": true
     },
-    "documents": {
+    "assets": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::document.document",
-      "mappedBy": "documentCategory"
+      "target": "api::asset.asset",
+      "mappedBy": "assetCategory"
     }
   }
 }

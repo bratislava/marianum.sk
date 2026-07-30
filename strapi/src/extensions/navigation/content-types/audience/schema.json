@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "audience",
+  "info": {
+    "singularName": "audience",
+    "pluralName": "audiences",
+    "displayName": "Audience",
+    "name": "audience"
+  },
+  "options": {
+    "increments": true,
+    "comment": "Audience"
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": false
+    }
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "key": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "assets": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::asset.asset",
+      "mappedBy": "assetCategory"
+    }
+  }
+}
