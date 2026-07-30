@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_blocks_asset_items",
+  "info": {
+    "displayName": "document item",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "asset": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::asset.asset"
+    }
+  }
+}

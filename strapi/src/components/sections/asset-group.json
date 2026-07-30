@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_asset_groups",
+  "info": {
+    "displayName": "asset group",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "assets": {
+      "displayName": "document item",
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.asset-item"
+    }
+  }
+}

@@ -41,6 +41,21 @@ export interface BlocksArticleItem extends Schema.Component {
   };
 }
 
+export interface BlocksAssetItem extends Schema.Component {
+  collectionName: 'components_blocks_asset_items';
+  info: {
+    description: '';
+    displayName: 'document item';
+  };
+  attributes: {
+    asset: Attribute.Relation<
+      'blocks.asset-item',
+      'oneToOne',
+      'api::asset.asset'
+    >;
+  };
+}
+
 export interface BlocksBlocksCeremonyArchiveBlock extends Schema.Component {
   collectionName: 'components_blocks_blocks_ceremony_archive_blocks';
   info: {
@@ -118,6 +133,11 @@ export interface BlocksButtonLink extends Schema.Component {
       'oneToOne',
       'api::article.article'
     >;
+    asset: Attribute.Relation<
+      'blocks.button-link',
+      'oneToOne',
+      'api::asset.asset'
+    >;
     branch: Attribute.Relation<
       'blocks.button-link',
       'oneToOne',
@@ -132,11 +152,6 @@ export interface BlocksButtonLink extends Schema.Component {
       'blocks.button-link',
       'oneToOne',
       'api::cemetery.cemetery'
-    >;
-    document: Attribute.Relation<
-      'blocks.button-link',
-      'oneToOne',
-      'api::document.document'
     >;
     label: Attribute.String & Attribute.Required;
     managedObject: Attribute.Relation<
@@ -189,13 +204,7 @@ export interface BlocksDocumentItem extends Schema.Component {
     displayName: 'document item';
     icon: 'file';
   };
-  attributes: {
-    document: Attribute.Relation<
-      'blocks.document-item',
-      'oneToOne',
-      'api::document.document'
-    >;
-  };
+  attributes: {};
 }
 
 export interface BlocksOfficeItem extends Schema.Component {
@@ -502,6 +511,18 @@ export interface SectionsArticlesManualListing extends Schema.Component {
   attributes: {
     articles: Attribute.Component<'blocks.article-item', true>;
     showMoreButton: Attribute.Component<'blocks.button-link'>;
+    title: Attribute.String;
+  };
+}
+
+export interface SectionsAssetGroup extends Schema.Component {
+  collectionName: 'components_sections_asset_groups';
+  info: {
+    description: '';
+    displayName: 'asset group';
+  };
+  attributes: {
+    assets: Attribute.Component<'blocks.asset-item', true>;
     title: Attribute.String;
   };
 }
@@ -884,6 +905,7 @@ declare module '@strapi/types' {
       'blocks.accordion-item': BlocksAccordionItem;
       'blocks.accordion-item-with-price': BlocksAccordionItemWithPrice;
       'blocks.article-item': BlocksArticleItem;
+      'blocks.asset-item': BlocksAssetItem;
       'blocks.blocks-ceremony-archive-block': BlocksBlocksCeremonyArchiveBlock;
       'blocks.branch-item': BlocksBranchItem;
       'blocks.bundle-content-item': BlocksBundleContentItem;
@@ -914,6 +936,7 @@ declare module '@strapi/types' {
       'sections.article-news-listing': SectionsArticleNewsListing;
       'sections.article-press-listing': SectionsArticlePressListing;
       'sections.articles-manual-listing': SectionsArticlesManualListing;
+      'sections.asset-group': SectionsAssetGroup;
       'sections.branch-group': SectionsBranchGroup;
       'sections.bundle-listing': SectionsBundleListing;
       'sections.bundle-listing-simple': SectionsBundleListingSimple;

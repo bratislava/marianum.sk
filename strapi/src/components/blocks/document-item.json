@@ -5,11 +5,5 @@
     "icon": "file"
   },
   "options": {},
-  "attributes": {
-    "document": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::document.document"
-    }
-  }
+  "attributes": {}
 }
