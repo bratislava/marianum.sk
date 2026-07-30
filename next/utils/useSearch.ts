@@ -7,7 +7,7 @@ import { useDebounceValue } from 'usehooks-ts'
 
 import { useGetFullPathMeili } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { meiliClient } from '@/services/meili/meiliClient'
-import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@/services/meili/meiliTypes'
+import { ArticleMeili, AssetMeili, CemeteryMeili } from '@/services/meili/meiliTypes'
 import { SearchIndexWrapped } from '@/services/meili/searchIndexWrapped'
 import { getMeilisearchPageOptions } from '@/utils/getMeilisearchPageOptions'
 
@@ -15,7 +15,7 @@ export const allSearchTypes = [
   'page' as const,
   'article' as const,
   'bundle' as const,
-  'document' as const,
+  'asset' as const,
   'branch' as const,
   'cemetery' as const,
 ]
@@ -26,7 +26,7 @@ type Results =
   | SearchIndexWrapped<'branch', { slug: string }> // TODO: Specify type if needed.
   | SearchIndexWrapped<'bundle', { slug: string }> // TODO: Specify type if needed.
   | SearchIndexWrapped<'cemetery', CemeteryMeili>
-  | SearchIndexWrapped<'document', DocumentMeili>
+  | SearchIndexWrapped<'asset', AssetMeili>
 
 // https://stackoverflow.com/a/52331580
 export type Unpacked<T> = T extends (infer U)[] ? U : T
@@ -84,7 +84,7 @@ export const useSearch = ({ filters, isSyncedWithUrlQuery = false }: UseSearchOp
         .index('search_index')
         .search<Results>(debouncedSearchQuery, {
           ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
-          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+           
           filter: [`locale = ${locale ?? 'sk'} OR locale NOT EXISTS`, selectedTypesFilter],
         })
         .then((response) => {

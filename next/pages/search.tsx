@@ -29,7 +29,7 @@ const SearchSection = () => {
     branch: t('SearchPage.tags.branch'),
     bundle: t('SearchPage.tags.bundle'),
     cemetery: t('SearchPage.tags.cemetery'),
-    document: t('SearchPage.tags.document'),
+    asset: t('SearchPage.tags.asset'),
   } satisfies Record<SearchType, string>
 
   const [filters, setFilters] = useState<SearchFilters>({
@@ -114,7 +114,7 @@ const SearchSection = () => {
           <div className="flex flex-col gap-6">
             <AnimateHeight isVisible>
               {isPending ? (
-                <div className="flex select-none flex-col gap-3">
+                <div className="flex flex-col gap-3 select-none">
                   {Array.from({ length: filters.pageSize }, (_item, index) => (
                     <RowSkeleton key={index} />
                   ))}

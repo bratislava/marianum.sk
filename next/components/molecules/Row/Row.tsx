@@ -7,7 +7,7 @@ import RowBox, { RowBoxProps } from '@/components/atoms/Row/RowBox'
 import RowContent from '@/components/atoms/Row/RowContent'
 import RowMoreContent from '@/components/atoms/Row/RowMoreContent'
 import Tag from '@/components/atoms/Tag'
-import { DocumentCategoryEntityFragment } from '@/graphql'
+import { AssetCategoryEntityFragment } from '@/graphql'
 import cn from '@/utils/cn'
 
 export type RowProps = {
@@ -18,7 +18,7 @@ export type RowProps = {
   tagsPosition?: 'beside' | 'under'
   linkHref?: string
   showUrl?: boolean
-  category?: DocumentCategoryEntityFragment | null | undefined
+  category?: AssetCategoryEntityFragment | null | undefined
   address?: string | null | undefined
   moreContent?: ReactNode
   button?: ReactNode
@@ -65,7 +65,7 @@ const Row = ({
           >
             {title && (
               <h3
-                className={cn('w-fit text-left text-size-h5-r lg:text-size-h5 text-foreground-heading', {
+                className={cn('w-fit text-left text-size-h5-r text-foreground-heading lg:text-size-h5', {
                   'group-hover:underline group-focus:underline': linkHref,
                 })}
                 id={titleId}
@@ -84,7 +84,7 @@ const Row = ({
             )}
           </div>
 
-          <div className="text-size-p-small space-x-3 empty:hidden">
+          <div className="space-x-3 text-size-p-small empty:hidden">
             {showUrl && linkHref && (
               <>
                 <span>{linkHref}</span>
@@ -93,10 +93,10 @@ const Row = ({
             )}
             {metadata?.map((metadataItem, i) => (
               // eslint-disable-next-line react/no-array-index-key
-              <Fragment key={i}>
+              (<Fragment key={i}>
                 <span>{metadataItem}</span>
                 {i !== metadata.length - 1 && <span>•</span>}
-              </Fragment>
+              </Fragment>)
             ))}
           </div>
 
@@ -125,10 +125,9 @@ const Row = ({
             ))}
         </div>
       </RowContent>
-
       {moreContent && <RowMoreContent>{moreContent}</RowMoreContent>}
     </RowBox>
-  )
+  );
 }
 
 export default Row

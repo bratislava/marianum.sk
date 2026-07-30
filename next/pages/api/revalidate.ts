@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { getFullPathMeiliFn } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { Branch, Bundle, Page } from '@/graphql'
 import { client } from '@/services/graphql/gqlClient'
-import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@/services/meili/meiliTypes'
+import { ArticleMeili, AssetMeili, CemeteryMeili } from '@/services/meili/meiliTypes'
 import { isDefined } from '@/utils/isDefined'
 import { parseNavigation } from '@/utils/parseNavigation'
 
@@ -31,8 +31,8 @@ type RequestPayload =
       entry: Pick<CemeteryMeili, 'slug'>
     }
   | {
-      model: 'document'
-      entry: Pick<DocumentMeili, 'slug'>
+      model: 'asset'
+      entry: Pick<AssetMeili, 'slug'>
     }
   | { model: 'procedure'; entry: unknown }
 
@@ -59,7 +59,7 @@ const revalidate = async (req: NextApiRequest, res: NextApiResponse<Response>) =
       model === 'branch' ||
       model === 'bundle' ||
       model === 'cemetery' ||
-      model === 'document'
+      model === 'asset'
     ) {
       const { navigation } = await client.General({ locale: 'sk' })
       const { navMap } = parseNavigation(navigation.filter(isDefined))
@@ -78,7 +78,7 @@ const revalidate = async (req: NextApiRequest, res: NextApiResponse<Response>) =
 
     // eslint-disable-next-line no-console
     console.log('Paths to revalidate:', pathsToRevalidate.filter(isDefined))
-    await Promise.all(pathsToRevalidate.filter(isDefined).map((path) => res.revalidate(path)))
+    await Promise.all(pathsToRevalidate.filter(isDefined).map(async (path) => res.revalidate(path)))
 
     return res.json({ revalidated: true })
   } catch (error) {

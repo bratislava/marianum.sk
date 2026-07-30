@@ -9,7 +9,7 @@ import Seo from '@/components/atoms/Seo'
 import BundleLayout from '@/components/layouts/BundleLayout'
 import AccordionGroup from '@/components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '@/components/molecules/Accordion/AccordionItem'
-import DocumentGroup from '@/components/molecules/DocumentGroup'
+import AssetGroup from '@/components/molecules/AssetGroup'
 import {
   generateStaticPaths,
   generateStaticProps,
@@ -41,7 +41,7 @@ const BundlePage: NextPage<BundlePageProps> = ({
     bundleItems,
     additionalItems,
     description,
-    documents,
+    assets,
     coverMedia,
   } = entity.attributes ?? {}
 
@@ -59,12 +59,12 @@ const BundlePage: NextPage<BundlePageProps> = ({
           {/* TODO display bundle data */}
           {claims?.length ? (
             <Section>
-              <h2 className="text-size-h3-r lg:text-size-h3 pb-6">{t('BundlePage.bundleContent')}</h2>
+              <h2 className="pb-6 text-size-h3-r lg:text-size-h3">{t('BundlePage.bundleContent')}</h2>
               <ul>
                 {claims.map((item, index) => (
                   // eslint-disable-next-line react/no-array-index-key
                   <li key={index} className="mt-4 flex gap-4">
-                    <span className="text-primary mt-1.5">
+                    <span className="mt-1.5 text-primary">
                       <CheckNoPaddingIcon className="scale-125" />
                     </span>
                     {item?.description}
@@ -73,7 +73,7 @@ const BundlePage: NextPage<BundlePageProps> = ({
               </ul>
 
               {discountText && (
-                <div className="bg-primary/12 text-size-p-small text-primary mt-8 w-fit rounded-2xl px-3 py-1.5 font-semibold leading-4">
+                <div className="mt-8 w-fit rounded-2xl bg-primary/12 px-3 py-1.5 text-p-small/4 font-semibold text-primary">
                   {discountText}
                 </div>
               )}
@@ -98,10 +98,10 @@ const BundlePage: NextPage<BundlePageProps> = ({
               </AccordionGroup>
             </Section>
           ) : null}
-          {documents && (
+          {assets && (
             <Section>
-              {documents.title && <h2 className="text-size-h3-r lg:text-size-h3 pb-6">{documents.title}</h2>}
-              <DocumentGroup {...documents} />
+              {assets.title && <h2 className="pb-6 text-size-h3-r lg:text-size-h3">{assets.title}</h2>}
+              <AssetGroup {...assets} />
             </Section>
           )}
         </div>
@@ -115,7 +115,7 @@ interface StaticParams extends ParsedUrlQuery {
 }
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
-  const paths = await generateStaticPaths('sk', (locale) =>
+  const paths = await generateStaticPaths('sk', async (locale) =>
     client.BundlesStaticPaths({ locale }).then((response) => response.bundles?.data),
   )
 
@@ -135,7 +135,7 @@ export const getStaticProps: GetStaticProps<BundlePageProps, StaticParams> = asy
   return generateStaticProps({
     locale,
     params,
-    entityPromiseGetter: ({ locale: localeInner, slug }) =>
+    entityPromiseGetter: async ({ locale: localeInner, slug }) =>
       client
         .BundleBySlug({ locale: localeInner, slug })
         .then((response) => response.bundles?.data[0]),

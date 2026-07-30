@@ -1,11 +1,11 @@
 import { Sort } from '@/components/molecules/SortSelect'
 import { meiliClient } from '@/services/meili/meiliClient'
-import { DocumentMeili } from '@/services/meili/meiliTypes'
+import { AssetMeili } from '@/services/meili/meiliTypes'
 import { SearchIndexWrapped, unwrapFromSearchIndex } from '@/services/meili/searchIndexWrapped'
 import { getMeilisearchPageOptions } from '@/utils/getMeilisearchPageOptions'
 import { isDefined } from '@/utils/isDefined'
 
-export type DocumentsFilters = {
+export type AssetsFilters = {
   pageSize: number
   search: string
   categoryId: string | null
@@ -14,7 +14,7 @@ export type DocumentsFilters = {
   filetype: string | null
 }
 
-export const documentsDefaultFilters: DocumentsFilters = {
+export const assetsDefaultFilters: AssetsFilters = {
   pageSize: 24,
   search: '',
   page: 1,
@@ -23,31 +23,31 @@ export const documentsDefaultFilters: DocumentsFilters = {
   filetype: null,
 }
 
-export const getMeiliDocumentsQueryKey = (filters: DocumentsFilters) => ['Documents', filters]
+export const getMeiliAssetsQueryKey = (filters: AssetsFilters) => ['Assets', filters]
 
-export const meiliDocumentsFetcher = (filters: DocumentsFilters) => {
+export const meiliAssetsFetcher = async (filters: AssetsFilters) => {
   return meiliClient
     .index('search_index')
-    .search<SearchIndexWrapped<'document', DocumentMeili>>(filters.search, {
+    .search<SearchIndexWrapped<'asset', AssetMeili>>(filters.search, {
       ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
       filter: [
-        'type = "document"',
+        'type = "asset"',
         isDefined(filters.categoryId)
-          ? `document.documentCategory.id = ${filters.categoryId}`
+          ? `asset.assetCategory.id = ${filters.categoryId}`
           : null,
-        isDefined(filters.filetype) ? `document.file.ext = ${filters.filetype}` : null,
+        isDefined(filters.filetype) ? `asset.file.ext = ${filters.filetype}` : null,
       ].filter(Boolean) as string[],
       sort: [
-        filters.sort === 'newest' ? 'document.updatedAtTimestamp:desc' : null,
-        filters.sort === 'oldest' ? 'document.updatedAtTimestamp:asc' : null,
+        filters.sort === 'newest' ? 'asset.updatedAtTimestamp:desc' : null,
+        filters.sort === 'oldest' ? 'asset.updatedAtTimestamp:asc' : null,
       ].filter(Boolean) as string[],
     })
-    .then(unwrapFromSearchIndex('document'))
+    .then(unwrapFromSearchIndex('asset'))
 }
 
-export const getMeiliDocumentsQuery = (filters: DocumentsFilters = documentsDefaultFilters) => {
+export const getMeiliAssetsQuery = (filters: AssetsFilters = assetsDefaultFilters) => {
   return {
-    queryKey: getMeiliDocumentsQueryKey(filters),
-    queryFn: () => meiliDocumentsFetcher(filters),
+    queryKey: getMeiliAssetsQueryKey(filters),
+    queryFn: async () => meiliAssetsFetcher(filters),
   } as const
 }

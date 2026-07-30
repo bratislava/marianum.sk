@@ -8,11 +8,11 @@ import Button from '@/components/atoms/Button'
 import RichText from '@/components/atoms/RichText'
 import Seo from '@/components/atoms/Seo'
 import BranchCemeteryLayout from '@/components/layouts/BranchCemeteryLayout'
-import DocumentGroup from '@/components/molecules/DocumentGroup'
+import AssetGroup from '@/components/molecules/AssetGroup'
 import ImageGallery from '@/components/molecules/ImageGallery'
 import {
-  generateStaticPaths,
-  generateStaticProps,
+    generateStaticPaths,
+    generateStaticProps,
 } from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
 import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
 import OpeningHours from '@/components/molecules/OpeningHours'
@@ -39,7 +39,7 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
     overrideOpeningHours,
     gallery,
     video,
-    documents,
+    assets,
   } = entity.attributes ?? {}
 
   return (
@@ -97,9 +97,9 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
               <IframeSection section={video} variant="short" />
             </SectionBoxed>
           ) : null}
-          {documents ? (
-            <SectionBoxed title={documents.title ?? undefined}>
-              <DocumentGroup {...documents} variant="dividers" />
+          {assets ? (
+            <SectionBoxed title={assets.title ?? undefined}>
+              <AssetGroup {...assets} variant="dividers" />
             </SectionBoxed>
           ) : null}
         </div>

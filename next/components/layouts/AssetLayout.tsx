@@ -9,40 +9,40 @@ import PageWrapper from '@/components/layouts/PageWrapper'
 import SectionsWrapper from '@/components/layouts/SectionsWrapper'
 import Section from '@/components/molecules/Section'
 import HeroSection from '@/components/sections/HeroSection'
-import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { AssetEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
 
-type DocumentLayoutProps = {
+type AssetLayoutProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
-  document: DocumentEntityFragment
+  asset: AssetEntityFragment
 }
 
-const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) => {
+const AssetLayout = ({ asset, navigation, general }: AssetLayoutProps) => {
   const { t, i18n } = useTranslation()
 
-  const { title, description, file, publishedAt, documentCategory, slug } =
-    document.attributes ?? {}
+  const { title, description, file, publishedAt, assetCategory, slug } =
+    asset.attributes ?? {}
 
   const dlData = useMemo(() => {
     return [
-      ...(documentCategory?.data?.attributes
+      ...(assetCategory?.data?.attributes
         ? [
             {
               key: 'category',
-              title: t('DocumentLayout.category'),
-              description: documentCategory.data.attributes.title,
+              title: t('AssetLayout.category'),
+              description: assetCategory.data.attributes.title,
             },
           ]
         : []),
       {
         key: 'createdAt',
-        title: t('DocumentLayout.createdAt'),
+        title: t('AssetLayout.createdAt'),
         description: (
           <FormatDate value={publishedAt as string} valueType="ISO" format="articlePage" />
         ),
       },
     ] as { key: string; title: string; description: ReactNode }[]
-  }, [documentCategory, publishedAt, t])
+  }, [assetCategory, publishedAt, t])
 
   const extension = useMemo(() => {
     return file?.data?.attributes?.ext?.slice(1)
@@ -66,7 +66,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
             </div>
             <div className="flex flex-col items-center gap-2 text-size-p-small md:items-start">
               <div>
-                {t('DocumentLayout.createdAt')}{' '}
+                {t('AssetLayout.createdAt')}{' '}
                 <FormatDate value={publishedAt as string} valueType="ISO" format="articlePage" />
               </div>
               <h1>{title}</h1>
@@ -80,7 +80,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
                 href={file?.data?.attributes?.url ?? ''}
                 className="mt-4 md:w-fit"
               >
-                {t('DocumentLayout.downloadFile')}
+                {t('AssetLayout.downloadFile')}
               </Button>
             </div>
           </div>
@@ -89,7 +89,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
         {description ? (
           <Section
             innerClassName="md:pl-[250px] lg:pl-[266px] xl:pl-[294px]"
-            title={t('DocumentLayout.description')}
+            title={t('AssetLayout.description')}
             centerTitleOnMobile={false}
           >
             <div className="whitespace-pre-wrap">{description}</div>
@@ -99,13 +99,13 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
         <Section
           innerClassName="md:pl-[250px] lg:pl-[266px] xl:pl-[294px]"
           dividerClassName="md:ml-[218px]"
-          title={t('DocumentLayout.details')}
+          title={t('AssetLayout.details')}
           centerTitleOnMobile={false}
         >
           <dl>
             {dlData.map((dItem) => (
               <Fragment key={dItem.key}>
-                <dt className="float-left clear-left w-32 after:content-[':'] not-first:mt-3">
+                <dt className="float-left clear-left w-32 not-first:mt-3 after:content-[':']">
                   {dItem.title}
                 </dt>
                 <dd className="ml-32 not-first:mt-3">{dItem.description}</dd>
@@ -118,4 +118,4 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
   )
 }
 
-export default DocumentLayout
+export default AssetLayout

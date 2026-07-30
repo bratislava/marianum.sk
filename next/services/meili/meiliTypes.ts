@@ -3,12 +3,12 @@ import {
   ArticleJobsCategory,
   ArticleNewsCategory,
   ArticlePressCategory,
+  Asset,
+  AssetCategory,
   Cemetery,
   Ceremony,
   Debtor,
   Disclosure,
-  Document,
-  DocumentCategory,
   ManagedObject,
   UploadFile,
 } from '@/graphql'
@@ -44,9 +44,9 @@ export type DebtorMeili = Omit<Debtor, '__typename' | 'cemetery'> & {
   }
 }
 
-export type DocumentMeili = Omit<Document, '__typename' | 'documentCategory' | 'file'> & {
+export type AssetMeili = Omit<Asset, '__typename' | 'assetCategory' | 'file'> & {
   id: string
-  documentCategory: Omit<DocumentCategory, '__typename' | 'documents'>
+  assetCategory: Omit<AssetCategory, '__typename' | 'assets'>
   file: Omit<UploadFile, '__typename'>
 }
 

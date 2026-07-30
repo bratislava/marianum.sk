@@ -8,13 +8,12 @@ import {
   Bundle,
   BundleSlugEntityFragment,
   CemeterySlugEntityFragment,
-  DocumentSlugEntityFragment,
   ManagedObjectSlugEntityFragment,
   NavigationItemFragment,
   Page,
   PageSlugEntityFragment,
 } from '@/graphql'
-import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@/services/meili/meiliTypes'
+import { ArticleMeili, AssetMeili, CemeteryMeili } from '@/services/meili/meiliTypes'
 import { isDefined } from '@/utils/isDefined'
 import { NavMap, parseNavigation } from '@/utils/parseNavigation'
 
@@ -30,7 +29,7 @@ const localPaths = {
   bundlesNatural: '/sluzby/balicky-pohrebov/prirodne-obrady',
   cemeteries: '/o-nas/cintoriny-v-sprave',
   managedObjects: '/o-nas/starostlivost-o-mestske-fontany',
-  documents: '/o-nas/dokumenty',
+  assets: '/o-nas/dokumenty',
   legislative: '/o-nas/dokumenty/legislativa',
   search: '/vyhladavanie',
 }
@@ -41,7 +40,7 @@ export type UnionSlugEntityType =
   | BranchSlugEntityFragment
   | BundleSlugEntityFragment
   | CemeterySlugEntityFragment
-  | DocumentSlugEntityFragment
+  | AssetSlugEntityFragment
   | ManagedObjectSlugEntityFragment
   | null
   | undefined
@@ -104,9 +103,9 @@ export const getFullPathFn = (
     return [localPaths.managedObjects, slug].join('/')
   }
 
-  if (entity.__typename === 'DocumentEntity') {
-    // TODO add .../dokumenty/legislativa depending on document category
-    return [localPaths.documents, slug].join('/')
+  if (entity.__typename === 'AssetEntity') {
+    // TODO add .../dokumenty/legislativa depending on asset category
+    return [localPaths.assets, slug].join('/')
   }
 
   return null
@@ -120,7 +119,7 @@ type GetFullPathMeiliFn = (
     | ['branch', Pick<Branch, 'slug'>]
     | ['bundle', Pick<Bundle, 'type' | 'slug'>]
     | ['cemetery', Pick<CemeteryMeili, 'slug'>]
-    | ['document', Pick<DocumentMeili, 'slug'>]
+    | ['asset', Pick<AssetMeili, 'slug'>]
 ) => string | null
 
 /**
@@ -183,9 +182,9 @@ export const getFullPathMeiliFn = (navMap: NavMap) => {
       return [localPaths.cemeteries, slug].join('/')
     }
 
-    if (entityType === 'document') {
-      // TODO add .../dokumenty/legislativa depending on document category
-      return [localPaths.documents, slug].join('/')
+    if (entityType === 'asset') {
+      // TODO add .../dokumenty/legislativa depending on asset category
+      return [localPaths.assets, slug].join('/')
     }
 
     return null

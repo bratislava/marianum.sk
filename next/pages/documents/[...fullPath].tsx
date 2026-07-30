@@ -4,22 +4,22 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { SSRConfig } from 'next-i18next/pages'
 
 import Seo from '@/components/atoms/Seo'
-import DocumentLayout from '@/components/layouts/DocumentLayout'
+import AssetLayout from '@/components/layouts/AssetLayout'
 import {
-  generateStaticPaths,
-  generateStaticProps,
+    generateStaticPaths,
+    generateStaticProps,
 } from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
 import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { AssetEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
 import { client } from '@/services/graphql/gqlClient'
 
-type DocumentPageProps = {
+type AssetPageProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
-  entity: DocumentEntityFragment
+  entity: AssetEntityFragment
 } & SSRConfig
 
-const DocumentPage = ({ navigation, entity, general }: DocumentPageProps) => {
+const AssetPage = ({ navigation, entity, general }: AssetPageProps) => {
   const { seo, title, description } = entity.attributes ?? {}
 
   return (
@@ -29,7 +29,7 @@ const DocumentPage = ({ navigation, entity, general }: DocumentPageProps) => {
         <Seo seo={seo} title={title} description={description} entity={entity} />
       </NavigationProvider>
 
-      <DocumentLayout document={entity} navigation={navigation} general={general} />
+      <AssetLayout asset={entity} navigation={navigation} general={general} />
     </>
   )
 }
@@ -41,21 +41,21 @@ interface StaticParams extends ParsedUrlQuery {
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   // TODO: Locales
   const paths = await generateStaticPaths('sk', () =>
-    client.DocumentsStaticPaths().then((response) => response.documents?.data),
+    client.AssetsStaticPaths().then((response) => response.assets?.data),
   )
 
   // eslint-disable-next-line no-console, @typescript-eslint/restrict-template-expressions
-  console.log(`Documents: Generated static paths for ${paths.length} slugs.`)
+  console.log(`Assets: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps<DocumentPageProps, StaticParams> = async ({
+export const getStaticProps: GetStaticProps<AssetPageProps, StaticParams> = async ({
   locale = 'sk',
   params,
 }) => {
   // eslint-disable-next-line no-console
-  console.log(`Revalidating document ${params?.fullPath.join('/') ?? ''}`)
+  console.log(`Revalidating asset ${params?.fullPath.join('/') ?? ''}`)
 
   return (
     // TODO: Locales
@@ -63,9 +63,9 @@ export const getStaticProps: GetStaticProps<DocumentPageProps, StaticParams> = a
       locale,
       params,
       entityPromiseGetter: ({ slug }) =>
-        client.DocumentBySlug({ slug }).then((response) => response.documents?.data[0]),
+        client.AssetBySlug({ slug }).then((response) => response.assets?.data[0]),
     })
   )
 }
 
-export default DocumentPage
+export default AssetPage
