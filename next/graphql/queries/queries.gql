@@ -184,14 +184,6 @@ query ManagedObjectsStaticPaths($locale: I18NLocaleCode) {
   }
 }
 
-query DocumentsStaticPaths {
-  documents(pagination: { limit: -1 }) {
-    data {
-      ...DocumentSlugEntity
-    }
-  }
-}
-
 query AssetsStaticPaths {
   assets(pagination: { limit: -1 }) {
     data {

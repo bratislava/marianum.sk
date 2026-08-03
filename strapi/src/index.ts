@@ -12,19 +12,19 @@ export default {
     extensionService.use(({ strapi }) => ({
       typeDefs: `
             type Query {
-              documentFiletypes: [String]
+              assetFiletypes: [String]
             }
           `,
       resolvers: {
         Query: {
-          documentFiletypes: {
+          assetFiletypes: {
             resolve: async (ctx) =>
-              strapi.controller("api::document.document").listFiletypes(ctx),
+              strapi.controller("api::asset.asset").listFiletypes(ctx),
           },
         },
       },
       resolversConfig: {
-        "Query.documentFiletypes": {
+        "Query.assetFiletypes": {
           auth: false,
         },
       },
