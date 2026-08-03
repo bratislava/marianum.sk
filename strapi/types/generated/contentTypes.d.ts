@@ -837,6 +837,12 @@ export interface ApiBundleBundle extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    documents: Attribute.Component<"sections.document-group"> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     assets: Attribute.Component<"sections.asset-group"> &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1001,6 +1007,12 @@ export interface ApiCemeteryCemetery extends Schema.CollectionType {
     > &
       Attribute.Private;
     description: Attribute.RichText &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    documents: Attribute.Component<"sections.document-group"> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1806,6 +1818,7 @@ export interface ApiPagePage extends Schema.CollectionType {
         "sections.accordion-group",
         "sections.contact-group",
         "sections.asset-group",
+        "sections.document-group",
         "sections.menu-listing",
         "sections.manual-listing",
         "sections.branch-group",
@@ -1817,6 +1830,7 @@ export interface ApiPagePage extends Schema.CollectionType {
         "sections.ceremonies-section",
         "sections.ceremonies-archive-section",
         "sections.map-section",
+        "sections.documents-section",
         "sections.review-listing",
         "sections.article-news-listing",
         "sections.article-press-listing",
@@ -2192,11 +2206,6 @@ export interface PluginNavigationAudience extends Schema.CollectionType {
     };
   };
   attributes: {
-    assets: Attribute.Relation<
-      "plugin::navigation.audience",
-      "oneToMany",
-      "api::asset.asset"
-    >;
     createdAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       "plugin::navigation.audience",
@@ -2698,6 +2707,8 @@ declare module "@strapi/types" {
       "api::contact.contact": ApiContactContact;
       "api::debtor.debtor": ApiDebtorDebtor;
       "api::disclosure.disclosure": ApiDisclosureDisclosure;
+      "api::document-category.document-category": ApiDocumentCategoryDocumentCategory;
+      "api::document.document": ApiDocumentDocument;
       "api::general.general": ApiGeneralGeneral;
       "api::home-page.home-page": ApiHomePageHomePage;
       "api::managed-object-category.managed-object-category": ApiManagedObjectCategoryManagedObjectCategory;
