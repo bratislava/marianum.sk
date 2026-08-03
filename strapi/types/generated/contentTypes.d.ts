@@ -1309,6 +1309,84 @@ export interface ApiDisclosureDisclosure extends Schema.CollectionType {
   };
 }
 
+export interface ApiDocumentCategoryDocumentCategory
+  extends Schema.CollectionType {
+  collectionName: "document_categories";
+  info: {
+    description: "";
+    displayName: "Dokumenty: Kateg\u00F3rie";
+    pluralName: "document-categories";
+    singularName: "document-category";
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      "api::document-category.document-category",
+      "oneToOne",
+      "admin::user"
+    > &
+      Attribute.Private;
+    documents: Attribute.Relation<
+      "api::document-category.document-category",
+      "oneToMany",
+      "api::document.document"
+    >;
+    slug: Attribute.UID<"api::document-category.document-category", "title"> &
+      Attribute.Required;
+    title: Attribute.String & Attribute.Required;
+    updatedAt: Attribute.DateTime;
+    updatedBy: Attribute.Relation<
+      "api::document-category.document-category",
+      "oneToOne",
+      "admin::user"
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiDocumentDocument extends Schema.CollectionType {
+  collectionName: "documents";
+  info: {
+    description: "";
+    displayName: "Dokumenty";
+    pluralName: "documents";
+    singularName: "document";
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      "api::document.document",
+      "oneToOne",
+      "admin::user"
+    > &
+      Attribute.Private;
+    description: Attribute.Text;
+    documentCategory: Attribute.Relation<
+      "api::document.document",
+      "manyToOne",
+      "api::document-category.document-category"
+    >;
+    file: Attribute.Media<"files"> & Attribute.Required;
+    publishedAt: Attribute.DateTime;
+    seo: Attribute.Component<"general.seo">;
+    slug: Attribute.UID<"api::document.document", "title"> & Attribute.Required;
+    title: Attribute.String & Attribute.Required;
+    updatedAt: Attribute.DateTime;
+    updatedBy: Attribute.Relation<
+      "api::document.document",
+      "oneToOne",
+      "admin::user"
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiGeneralGeneral extends Schema.SingleType {
   collectionName: "generals";
   info: {
