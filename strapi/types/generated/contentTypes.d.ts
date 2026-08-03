@@ -800,6 +800,12 @@ export interface ApiBundleBundle extends Schema.CollectionType {
           localized: true;
         };
       }>;
+    assets: Attribute.Component<"sections.asset-group"> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     bundleItems: Attribute.Component<"blocks.bundle-content-item", true> &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -832,18 +838,6 @@ export interface ApiBundleBundle extends Schema.CollectionType {
         };
       }>;
     discountTextShort: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    documents: Attribute.Component<"sections.document-group"> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    assets: Attribute.Component<"sections.asset-group"> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -989,6 +983,12 @@ export interface ApiCemeteryCemetery extends Schema.CollectionType {
         };
       }> &
       Attribute.DefaultTo<true>;
+    assets: Attribute.Component<"sections.asset-group"> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     cemeteryCategory: Attribute.Relation<
       "api::cemetery.cemetery",
       "manyToOne",
@@ -1007,18 +1007,6 @@ export interface ApiCemeteryCemetery extends Schema.CollectionType {
     > &
       Attribute.Private;
     description: Attribute.RichText &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    documents: Attribute.Component<"sections.document-group"> &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    assets: Attribute.Component<"sections.asset-group"> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1348,7 +1336,7 @@ export interface ApiDocumentCategoryDocumentCategory
     >;
     slug: Attribute.UID<"api::document-category.document-category", "title"> &
       Attribute.Required;
-    title: Attribute.String & Attribute.Required;
+    title: Attribute.String;
     updatedAt: Attribute.DateTime;
     updatedBy: Attribute.Relation<
       "api::document-category.document-category",
@@ -1818,7 +1806,6 @@ export interface ApiPagePage extends Schema.CollectionType {
         "sections.accordion-group",
         "sections.contact-group",
         "sections.asset-group",
-        "sections.document-group",
         "sections.menu-listing",
         "sections.manual-listing",
         "sections.branch-group",
@@ -1830,7 +1817,6 @@ export interface ApiPagePage extends Schema.CollectionType {
         "sections.ceremonies-section",
         "sections.ceremonies-archive-section",
         "sections.map-section",
-        "sections.documents-section",
         "sections.review-listing",
         "sections.article-news-listing",
         "sections.article-press-listing",
@@ -2206,6 +2192,11 @@ export interface PluginNavigationAudience extends Schema.CollectionType {
     };
   };
   attributes: {
+    assets: Attribute.Relation<
+      "plugin::navigation.audience",
+      "oneToMany",
+      "api::asset.asset"
+    >;
     createdAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       "plugin::navigation.audience",

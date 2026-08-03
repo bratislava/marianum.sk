@@ -153,6 +153,11 @@ export interface BlocksButtonLink extends Schema.Component {
       "oneToOne",
       "api::cemetery.cemetery"
     >;
+    document: Attribute.Relation<
+      "blocks.button-link",
+      "oneToOne",
+      "api::document.document"
+    >;
     label: Attribute.String & Attribute.Required;
     managedObject: Attribute.Relation<
       "blocks.button-link",
@@ -509,8 +514,8 @@ export interface SectionsArticlesManualListing extends Schema.Component {
 export interface SectionsAssetGroup extends Schema.Component {
   collectionName: "components_sections_asset_groups";
   info: {
-    description: "";
     displayName: "document group";
+    icon: "file-invoice";
   };
   attributes: {
     assets: Attribute.Component<"blocks.asset-item", true>;
