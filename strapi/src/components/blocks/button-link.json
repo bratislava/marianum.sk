@@ -34,6 +34,11 @@
       "relation": "oneToOne",
       "target": "api::bundle.bundle"
     },
+    "document": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::document.document"
+    },
     "asset": {
       "type": "relation",
       "relation": "oneToOne",

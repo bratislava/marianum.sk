@@ -2,7 +2,7 @@
   "collectionName": "components_sections_asset_groups",
   "info": {
     "displayName": "document group",
-    "description": ""
+    "icon": "file-invoice"
   },
   "options": {},
   "attributes": {

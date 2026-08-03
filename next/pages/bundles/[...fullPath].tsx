@@ -53,13 +53,14 @@ const BundlePage: NextPage<BundlePageProps> = ({
       <NavigationProvider navigation={navigation} general={general}>
         <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
       </NavigationProvider>
-
       <BundleLayout navigation={navigation} general={general} bundle={entity}>
         <div className="flex flex-col">
           {/* TODO display bundle data */}
           {claims?.length ? (
             <Section>
-              <h2 className="pb-6 text-size-h3-r lg:text-size-h3">{t('BundlePage.bundleContent')}</h2>
+              <h2 className="pb-6 text-size-h3-r lg:text-size-h3">
+                {t('BundlePage.bundleContent')}
+              </h2>
               <ul>
                 {claims.map((item, index) => (
                   // eslint-disable-next-line react/no-array-index-key
@@ -100,7 +101,9 @@ const BundlePage: NextPage<BundlePageProps> = ({
           ) : null}
           {assets && (
             <Section>
-              {assets.title && <h2 className="pb-6 text-size-h3-r lg:text-size-h3">{assets.title}</h2>}
+              {assets.title && (
+                <h2 className="pb-6 text-size-h3-r lg:text-size-h3">{assets.title}</h2>
+              )}
               <AssetGroup {...assets} />
             </Section>
           )}
