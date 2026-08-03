@@ -1314,7 +1314,7 @@ export interface ApiDocumentCategoryDocumentCategory
   collectionName: "document_categories";
   info: {
     description: "";
-    displayName: "Dokumenty: Kateg\u00F3rie";
+    displayName: "DEPRECATED: Dokumenty: Kateg\u00F3rie";
     pluralName: "document-categories";
     singularName: "document-category";
   };
@@ -1351,7 +1351,7 @@ export interface ApiDocumentDocument extends Schema.CollectionType {
   collectionName: "documents";
   info: {
     description: "";
-    displayName: "Dokumenty";
+    displayName: "DEPRECATED: Dokumenty";
     pluralName: "documents";
     singularName: "document";
   };

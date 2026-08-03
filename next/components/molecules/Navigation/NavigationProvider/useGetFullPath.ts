@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { useNavigationContext } from '@/components/molecules/Navigation/NavigationProvider/useNavigationContext'
 import {
   ArticleSlugEntityFragment,
+  AssetSlugEntityFragment,
   Branch,
   BranchSlugEntityFragment,
   Bundle,

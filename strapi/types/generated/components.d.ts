@@ -44,6 +44,7 @@ export interface BlocksArticleItem extends Schema.Component {
 export interface BlocksAssetItem extends Schema.Component {
   collectionName: "components_blocks_asset_items";
   info: {
+    description: "";
     displayName: "document item";
     icon: "file";
   };
@@ -642,6 +643,15 @@ export interface SectionsCtaSection extends Schema.Component {
   };
 }
 
+export interface SectionsDcoumentsSection extends Schema.Component {
+  collectionName: "components_sections_documents_sections";
+  info: {
+    displayName: "documents section";
+    icon: "book";
+  };
+  attributes: {};
+}
+
 export interface SectionsDebtorsSection extends Schema.Component {
   collectionName: "components_sections_debtors_section";
   info: {
@@ -919,6 +929,7 @@ declare module "@strapi/types" {
       "sections.ceremonies-section": SectionsCeremoniesSection;
       "sections.contact-group": SectionsContactGroup;
       "sections.cta-section": SectionsCtaSection;
+      "sections.dcouments-section": SectionsDcoumentsSection;
       "sections.debtors-section": SectionsDebtorsSection;
       "sections.disclosures-section": SectionsDisclosuresSection;
       "sections.divider": SectionsDivider;

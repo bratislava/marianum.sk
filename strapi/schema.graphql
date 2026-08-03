@@ -2974,7 +2974,11 @@ type NavigationItem {
   updated_by: String
 }
 
-union NavigationItemRelated = Page
+type NavigationItemRelated {
+  id: Int
+  name: String
+  title: String
+}
 
 type NavigationItemRelatedData {
   attributes: NavigationItemRelated

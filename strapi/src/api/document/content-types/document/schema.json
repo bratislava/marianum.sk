@@ -4,7 +4,7 @@
   "info": {
     "singularName": "document",
     "pluralName": "documents",
-    "displayName": "Dokumenty",
+    "displayName": "DEPRECATED: Dokumenty",
     "description": ""
   },
   "options": {
@@ -25,7 +25,9 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": ["files"]
+      "allowedTypes": [
+        "files"
+      ]
     },
     "description": {
       "type": "text"

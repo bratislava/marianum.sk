@@ -96,7 +96,7 @@ const DataWrapper = ({
 }) => {
   const { data, isPending, isFetching, isError, error } = useQuery({
     queryKey: getMeiliAssetsQueryKey(filters),
-    queryFn: () => meiliAssetsFetcher(filters),
+    queryFn: async () => meiliAssetsFetcher(filters),
     placeholderData: keepPreviousData,
   })
 

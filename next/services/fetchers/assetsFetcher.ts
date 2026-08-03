@@ -32,9 +32,7 @@ export const meiliAssetsFetcher = async (filters: AssetsFilters) => {
       ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
       filter: [
         'type = "asset"',
-        isDefined(filters.categoryId)
-          ? `asset.assetCategory.id = ${filters.categoryId}`
-          : null,
+        isDefined(filters.categoryId) ? `asset.assetCategory.id = ${filters.categoryId}` : null,
         isDefined(filters.filetype) ? `asset.file.ext = ${filters.filetype}` : null,
       ].filter(Boolean) as string[],
       sort: [
