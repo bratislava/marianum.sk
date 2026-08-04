@@ -141,11 +141,11 @@ const nextConfig: NextConfig = {
           },
           {
             fullPath: '/o-nas/dokumenty/:slug',
-            nextRoute: '/assets',
+            nextRoute: '/documents',
           },
           {
             fullPath: '/o-nas/dokumenty/legislativa/:slug',
-            nextRoute: '/assets',
+            nextRoute: '/documents',
           },
           {
             fullPath: '/:fullPath*',

@@ -462,7 +462,7 @@ fragment PageEntity on PageEntity {
         id
         color
       }
-      ... on ComponentSectionsDocumentGroup {
+      ... on ComponentSectionsAssetGroup {
         __typename
         ...DocumentGroup
       }

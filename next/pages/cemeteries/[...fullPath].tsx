@@ -11,8 +11,8 @@ import BranchCemeteryLayout from '@/components/layouts/BranchCemeteryLayout'
 import AssetGroup from '@/components/molecules/AssetGroup'
 import ImageGallery from '@/components/molecules/ImageGallery'
 import {
-    generateStaticPaths,
-    generateStaticProps,
+  generateStaticPaths,
+  generateStaticProps,
 } from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
 import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
 import OpeningHours from '@/components/molecules/OpeningHours'
