@@ -139,7 +139,7 @@
           "localized": true
         }
       },
-      "component": "sections.asset-group"
+      "component": "sections.document-group"
     },
     "gallery": {
       "type": "component",
