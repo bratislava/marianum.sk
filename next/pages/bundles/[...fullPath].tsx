@@ -41,7 +41,7 @@ const BundlePage: NextPage<BundlePageProps> = ({
     bundleItems,
     additionalItems,
     description,
-    assets,
+    documents: assets,
     coverMedia,
   } = entity.attributes ?? {}
 

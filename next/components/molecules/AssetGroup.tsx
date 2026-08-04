@@ -10,12 +10,12 @@ type AssetGroupProps = DocumentGroupFragment & { variant?: 'gaps' | 'dividers' }
 
 const getAriaLabelId = (id: string, index: number) => `asset-group-title-${id}-${index}`
 
-const AssetGroup = ({ assets, variant = 'gaps' }: AssetGroupProps) => {
+const AssetGroup = ({ documents: assets, variant = 'gaps' }: AssetGroupProps) => {
   const id = useId()
   const { getFullPath } = useGetFullPath()
 
   const filteredAssets = useMemo(() => {
-    return (assets ?? []).map((asset) => document?.document?.data).filter(isDefined)
+    return (assets ?? []).map((asset) => asset?.document?.data).filter(isDefined)
   }, [assets])
 
   return (

@@ -5,12 +5,7 @@ export default ({ env }) => [
     config: {
       contentSecurityPolicy: {
         directives: {
-          "connect-src": [
-            "'self'",
-            "https:",
-            "http://localhost:1337",
-            "http://127.0.0.1:1337",
-          ],
+          "connect-src": ["'self'", "https:"],
           "img-src": [
             "'self'",
             "data:",

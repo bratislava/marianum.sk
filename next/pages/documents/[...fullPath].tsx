@@ -40,8 +40,8 @@ interface StaticParams extends ParsedUrlQuery {
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   // TODO: Locales
-  const paths = await generateStaticPaths('sk', async () =>
-    client.AssetsStaticPaths().then((response) => response.documents?.data),
+  const paths = await generateStaticPaths('sk', () =>
+    client.DocumentsStaticPaths().then((response) => response.documents?.data),
   )
 
   // eslint-disable-next-line no-console
@@ -62,8 +62,8 @@ export const getStaticProps: GetStaticProps<AssetPageProps, StaticParams> = asyn
     generateStaticProps({
       locale,
       params,
-      entityPromiseGetter: async ({ slug }) =>
-        client.AssetBySlug({ slug }).then((response) => response.assets?.data[0]),
+      entityPromiseGetter: ({ slug }) =>
+        client.DocumentBySlug({ slug }).then((response) => response.documents?.data[0]),
     })
   )
 }
