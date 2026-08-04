@@ -59,11 +59,6 @@ fragment CtaButton on ComponentBlocksButtonLink {
       ...DocumentSlugEntity
     }
   }
-  asset {
-    data {
-      ...AssetSlugEntity
-    }
-  }
   cemetery {
     data {
       ...CemeterySlugEntity
@@ -325,18 +320,6 @@ fragment DocumentGroup on ComponentSectionsDocumentGroup {
     document {
       data {
         ...DocumentCardEntity
-      }
-    }
-  }
-}
-
-fragment AssetGroup on ComponentSectionsAssetGroup {
-  id
-  title
-  assets {
-    asset {
-      data {
-        ...AssetCardEntity
       }
     }
   }
