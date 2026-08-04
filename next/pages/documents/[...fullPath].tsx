@@ -6,17 +6,17 @@ import { SSRConfig } from 'next-i18next/pages'
 import Seo from '@/components/atoms/Seo'
 import AssetLayout from '@/components/layouts/AssetLayout'
 import {
-    generateStaticPaths,
-    generateStaticProps,
+  generateStaticPaths,
+  generateStaticProps,
 } from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
 import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import { AssetEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
 import { client } from '@/services/graphql/gqlClient'
 
 type AssetPageProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
-  entity: AssetEntityFragment
+  entity: DocumentEntityFragment
 } & SSRConfig
 
 const AssetPage = ({ navigation, entity, general }: AssetPageProps) => {
@@ -29,7 +29,7 @@ const AssetPage = ({ navigation, entity, general }: AssetPageProps) => {
         <Seo seo={seo} title={title} description={description} entity={entity} />
       </NavigationProvider>
 
-      <AssetLayout asset={entity} navigation={navigation} general={general} />
+      <AssetLayout document={entity} navigation={navigation} general={general} />
     </>
   )
 }
@@ -40,11 +40,11 @@ interface StaticParams extends ParsedUrlQuery {
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   // TODO: Locales
-  const paths = await generateStaticPaths('sk', () =>
-    client.AssetsStaticPaths().then((response) => response.assets?.data),
+  const paths = await generateStaticPaths('sk', async () =>
+    client.AssetsStaticPaths().then((response) => response.documents?.data),
   )
 
-  // eslint-disable-next-line no-console, @typescript-eslint/restrict-template-expressions
+  // eslint-disable-next-line no-console
   console.log(`Assets: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }
@@ -62,7 +62,7 @@ export const getStaticProps: GetStaticProps<AssetPageProps, StaticParams> = asyn
     generateStaticProps({
       locale,
       params,
-      entityPromiseGetter: ({ slug }) =>
+      entityPromiseGetter: async ({ slug }) =>
         client.AssetBySlug({ slug }).then((response) => response.assets?.data[0]),
     })
   )

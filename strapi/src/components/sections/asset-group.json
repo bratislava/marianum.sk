@@ -13,7 +13,7 @@
       "displayName": "document item",
       "type": "component",
       "repeatable": true,
-      "component": "blocks.document-item"
+      "component": "blocks.asset-item"
     }
   }
 }
