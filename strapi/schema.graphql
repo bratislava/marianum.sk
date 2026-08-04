@@ -1719,20 +1719,6 @@ input ComponentSectionsCtaSectionInput {
   title: String
 }
 
-type ComponentSectionsDcoumentsSection {
-  id: ID!
-}
-
-input ComponentSectionsDcoumentsSectionFiltersInput {
-  and: [ComponentSectionsDcoumentsSectionFiltersInput]
-  not: ComponentSectionsDcoumentsSectionFiltersInput
-  or: [ComponentSectionsDcoumentsSectionFiltersInput]
-}
-
-input ComponentSectionsDcoumentsSectionInput {
-  id: ID
-}
-
 type ComponentSectionsDebtorsSection {
   description: String
   id: ID!
@@ -2701,7 +2687,6 @@ union GenericMorph =
   | ComponentSectionsCeremoniesSection
   | ComponentSectionsContactGroup
   | ComponentSectionsCtaSection
-  | ComponentSectionsDcoumentsSection
   | ComponentSectionsDebtorsSection
   | ComponentSectionsDisclosuresSection
   | ComponentSectionsDivider

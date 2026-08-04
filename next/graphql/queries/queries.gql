@@ -322,10 +322,6 @@ query ArticleJobsCategories {
   }
 }
 
-query DocumentFiletypes {
-  documentFiletypes
-}
-
 query AssetFiletypes {
   assetFiletypes
 }
