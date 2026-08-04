@@ -408,7 +408,7 @@ type Bundle {
   description: String
   discountText: String
   discountTextShort: String
-  documents: ComponentSectionsAssetGroup
+  documents: ComponentSectionsDocumentGroup
   locale: String
   localizations(filters: BundleFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): BundleRelationResponseCollection
   perex: String
@@ -445,7 +445,7 @@ input BundleFiltersInput {
   description: StringFilterInput
   discountText: StringFilterInput
   discountTextShort: StringFilterInput
-  documents: ComponentSectionsAssetGroupFiltersInput
+  documents: ComponentSectionsDocumentGroupFiltersInput
   id: IDFilterInput
   locale: StringFilterInput
   localizations: BundleFiltersInput
@@ -470,7 +470,7 @@ input BundleInput {
   description: String
   discountText: String
   discountTextShort: String
-  documents: ComponentSectionsAssetGroupInput
+  documents: ComponentSectionsDocumentGroupInput
   perex: String
   price: Float
   publishedAt: DateTime
@@ -493,7 +493,7 @@ type Cemetery {
   contact: ContactEntityResponse
   createdAt: DateTime
   description: String
-  documents: ComponentSectionsAssetGroup
+  documents: ComponentSectionsDocumentGroup
   gallery: ComponentSectionsGallery
   latitude: Float
   locale: String
@@ -576,7 +576,7 @@ input CemeteryFiltersInput {
   contact: ContactFiltersInput
   createdAt: DateTimeFilterInput
   description: StringFilterInput
-  documents: ComponentSectionsAssetGroupFiltersInput
+  documents: ComponentSectionsDocumentGroupFiltersInput
   gallery: ComponentSectionsGalleryFiltersInput
   id: IDFilterInput
   latitude: FloatFilterInput
@@ -601,7 +601,7 @@ input CemeteryInput {
   cemeteryCategory: ID
   contact: ID
   description: String
-  documents: ComponentSectionsAssetGroupInput
+  documents: ComponentSectionsDocumentGroupInput
   gallery: ComponentSectionsGalleryInput
   latitude: Float
   longitude: Float
@@ -739,23 +739,6 @@ input ComponentBlocksArticleItemFiltersInput {
 
 input ComponentBlocksArticleItemInput {
   article: ID
-  id: ID
-}
-
-type ComponentBlocksAssetItem {
-  document: DocumentEntityResponse
-  id: ID!
-}
-
-input ComponentBlocksAssetItemFiltersInput {
-  and: [ComponentBlocksAssetItemFiltersInput]
-  document: DocumentFiltersInput
-  not: ComponentBlocksAssetItemFiltersInput
-  or: [ComponentBlocksAssetItemFiltersInput]
-}
-
-input ComponentBlocksAssetItemInput {
-  document: ID
   id: ID
 }
 
@@ -931,6 +914,23 @@ input ComponentBlocksCtaInput {
   id: ID
   image: ID
   title: String
+}
+
+type ComponentBlocksDocumentItem {
+  document: DocumentEntityResponse
+  id: ID!
+}
+
+input ComponentBlocksDocumentItemFiltersInput {
+  and: [ComponentBlocksDocumentItemFiltersInput]
+  document: DocumentFiltersInput
+  not: ComponentBlocksDocumentItemFiltersInput
+  or: [ComponentBlocksDocumentItemFiltersInput]
+}
+
+input ComponentBlocksDocumentItemInput {
+  document: ID
+  id: ID
 }
 
 type ComponentBlocksOfficeItem {
@@ -1400,26 +1400,6 @@ input ComponentSectionsArticlesManualListingInput {
   title: String
 }
 
-type ComponentSectionsAssetGroup {
-  documents(filters: ComponentBlocksAssetItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksAssetItem]
-  id: ID!
-  title: String
-}
-
-input ComponentSectionsAssetGroupFiltersInput {
-  and: [ComponentSectionsAssetGroupFiltersInput]
-  documents: ComponentBlocksAssetItemFiltersInput
-  not: ComponentSectionsAssetGroupFiltersInput
-  or: [ComponentSectionsAssetGroupFiltersInput]
-  title: StringFilterInput
-}
-
-input ComponentSectionsAssetGroupInput {
-  documents: [ComponentBlocksAssetItemInput]
-  id: ID
-  title: String
-}
-
 type ComponentSectionsBranchGroup {
   branches(filters: ComponentBlocksBranchItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksBranchItem]
   id: ID!
@@ -1632,6 +1612,26 @@ input ComponentSectionsDividerFiltersInput {
 input ComponentSectionsDividerInput {
   color: ENUM_COMPONENTSECTIONSDIVIDER_COLOR
   id: ID
+}
+
+type ComponentSectionsDocumentGroup {
+  documents(filters: ComponentBlocksDocumentItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksDocumentItem]
+  id: ID!
+  title: String
+}
+
+input ComponentSectionsDocumentGroupFiltersInput {
+  and: [ComponentSectionsDocumentGroupFiltersInput]
+  documents: ComponentBlocksDocumentItemFiltersInput
+  not: ComponentSectionsDocumentGroupFiltersInput
+  or: [ComponentSectionsDocumentGroupFiltersInput]
+  title: StringFilterInput
+}
+
+input ComponentSectionsDocumentGroupInput {
+  documents: [ComponentBlocksDocumentItemInput]
+  id: ID
+  title: String
 }
 
 type ComponentSectionsGallery {
@@ -2459,7 +2459,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Asset | AssetCategory | Branch | Bundle | Cemetery | CemeteryCategory | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksAssetItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsAssetGroup | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Asset | AssetCategory | Branch | Bundle | Cemetery | CemeteryCategory | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -3091,7 +3091,7 @@ type PageRelationResponseCollection {
   data: [PageEntity!]!
 }
 
-union PageSectionsDynamicZone = ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsAssetGroup | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsGallery | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | Error
+union PageSectionsDynamicZone = ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsGallery | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | Error
 
 scalar PageSectionsDynamicZoneInput
 
