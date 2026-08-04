@@ -54,6 +54,11 @@ fragment CtaButton on ComponentBlocksButtonLink {
       ...BranchSlugEntity
     }
   }
+  document {
+    data {
+      ...DocumentSlugEntity
+    }
+  }
   asset {
     data {
       ...AssetSlugEntity
@@ -308,6 +313,18 @@ fragment ContactGroup on ComponentSectionsContactGroup {
     contact {
       data {
         ...ContactEntity
+      }
+    }
+  }
+}
+
+fragment DocumentGroup on ComponentSectionsDocumentGroup {
+  id
+  title
+  documents {
+    document {
+      data {
+        ...DocumentCardEntity
       }
     }
   }

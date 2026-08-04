@@ -201,8 +201,8 @@ fragment CemeteryEntity on CemeteryEntity {
     seo {
       ...Seo
     }
-    assets {
-      ...AssetGroup
+    documents {
+      ...DocumentGroup
     }
     gallery {
       ...GallerySection
@@ -275,8 +275,8 @@ fragment BundleEntity on BundleEntity {
       title
       description
     }
-    assets {
-      ...AssetGroup
+    documents {
+      ...DocumentGroup
     }
     sidebar {
       ...Sidebar
@@ -295,50 +295,6 @@ fragment ContactEntity on ContactEntity {
     email
     phone1
     phone2
-  }
-}
-
-fragment AssetCategoryEntity on AssetCategoryEntity {
-  id
-  attributes {
-    title
-    slug
-  }
-}
-
-fragment AssetSlugEntity on AssetEntity {
-  __typename
-  id
-  attributes {
-    title
-    slug
-    assetCategory {
-      data {
-        ...AssetCategoryEntity
-      }
-    }
-  }
-}
-
-fragment AssetCardEntity on AssetEntity {
-  ...AssetSlugEntity
-  attributes {
-    publishedAt
-    file {
-      data {
-        ...UploadFileEntity
-      }
-    }
-  }
-}
-
-fragment AssetEntity on AssetEntity {
-  ...AssetCardEntity
-  attributes {
-    description
-    seo {
-      ...Seo
-    }
   }
 }
 
@@ -506,9 +462,9 @@ fragment PageEntity on PageEntity {
         id
         color
       }
-      ... on ComponentSectionsAssetGroup {
+      ... on ComponentSectionsDocumentGroup {
         __typename
-        ...AssetGroup
+        ...DocumentGroup
       }
       ... on ComponentSectionsGallery {
         __typename

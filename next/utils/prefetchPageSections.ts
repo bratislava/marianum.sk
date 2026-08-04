@@ -10,7 +10,6 @@ import {
 } from '@/services/fetchers/articles/articleCategoriesSelectFetcher'
 import { ArticleType, getMeiliArticlesQuery } from '@/services/fetchers/articles/articlesFetcher'
 import { getGraphqlNewsListingQuery } from '@/services/fetchers/articles/newsListingFetcher'
-import { getMeiliAssetsQuery } from '@/services/fetchers/assetsFetcher'
 import { getMeiliCemeteriesQuery } from '@/services/fetchers/cemeteries/cemeteriesFetcher'
 import { getCemeteriesInCeremoniesQuery } from '@/services/fetchers/cemeteries/cemeteriesInCeremoniesFetcher'
 import { getCemeteriesInDebtorsQuery } from '@/services/fetchers/cemeteries/cemeteriesInDebtorsFetcher'
@@ -58,10 +57,6 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
 
   if (sectionTypes.includes('ComponentSectionsNewsListing')) {
     await queryClient.prefetchQuery(getGraphqlNewsListingQuery(locale))
-  }
-
-  if (sectionTypes.includes('ComponentSectionsAssetsSection')) {
-    await queryClient.prefetchQuery(getMeiliAssetsQuery())
   }
 
   if (sectionTypes.includes('ComponentSectionsDisclosuresSection')) {

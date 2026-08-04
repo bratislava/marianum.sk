@@ -39,11 +39,6 @@
       "relation": "oneToOne",
       "target": "api::document.document"
     },
-    "asset": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::asset.asset"
-    },
     "cemetery": {
       "type": "relation",
       "relation": "oneToOne",

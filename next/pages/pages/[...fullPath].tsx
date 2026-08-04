@@ -20,7 +20,6 @@ import ProcedureTabs from '@/components/molecules/ProcedureTabs'
 import Section from '@/components/molecules/Section'
 import AccordionGroupSection from '@/components/sections/AccordionGroupSection'
 import ArticleListing from '@/components/sections/ArticleListing/ArticleListing'
-import AssetsSection from '@/components/sections/AssetsSection/AssetsSection'
 import BundleListingSection from '@/components/sections/BundleListingSection'
 import BundleListingSimpleSection from '@/components/sections/BundleListingSimpleSection'
 import CardSection from '@/components/sections/CardSection'
@@ -204,9 +203,6 @@ const Slug = ({ navigation, entity, general, dehydratedState }: PageProps) => {
             }
             if (section?.__typename === 'ComponentSectionsCeremoniesArchiveSection') {
               return <CeremoniesArchiveSection key={`${section.__typename}-${section.id}`} />
-            }
-            if (section?.__typename === 'ComponentSectionsAssetsSection') {
-              return <AssetsSection key={`${section.__typename}-${section.id}`} />
             }
             if (section?.__typename === 'ComponentSectionsArticleNewsListing') {
               return (
