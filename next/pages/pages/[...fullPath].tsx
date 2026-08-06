@@ -29,6 +29,7 @@ import CeremoniesSection from '@/components/sections/CeremoniesSection'
 import ContactsSection from '@/components/sections/ContactsSection'
 import DebtorsSection from '@/components/sections/DebtorsSection'
 import DisclosuresSection from '@/components/sections/DisclosuresSection'
+import DocumentsSection from '@/components/sections/DocumentsSection/DocumentsSection'
 import IframeSection from '@/components/sections/IframeSection'
 import MapOfCemeteriesSection from '@/components/sections/MapOfCemeteriesSection'
 import MapOfManagedObjectsSection from '@/components/sections/MapOfManagedObjectsSection'
@@ -203,6 +204,9 @@ const Slug = ({ navigation, entity, general, dehydratedState }: PageProps) => {
             }
             if (section?.__typename === 'ComponentSectionsCeremoniesArchiveSection') {
               return <CeremoniesArchiveSection key={`${section.__typename}-${section.id}`} />
+            }
+            if (section?.__typename === 'ComponentSectionsDocumentsSection') {
+              return <DocumentsSection key={`${section.__typename}-${section.id}`} />
             }
             if (section?.__typename === 'ComponentSectionsArticleNewsListing') {
               return (
