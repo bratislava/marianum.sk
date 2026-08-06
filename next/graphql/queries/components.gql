@@ -313,7 +313,7 @@ fragment ContactGroup on ComponentSectionsContactGroup {
   }
 }
 
-fragment DocumentGroup on ComponentSectionsAssetGroup {
+fragment DocumentGroup on ComponentSectionsDocumentGroup {
   id
   title
   documents {

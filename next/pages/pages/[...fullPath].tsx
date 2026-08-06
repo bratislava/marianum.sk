@@ -127,7 +127,7 @@ const Slug = ({ navigation, entity, general, dehydratedState }: PageProps) => {
                 </Section>
               )
             }
-            if (section?.__typename === 'ComponentSectionsAssetGroup') {
+            if (section?.__typename === 'ComponentSectionsDocumentGroup') {
               return (
                 <Section
                   key={`${section.__typename}-${section.id}`}
