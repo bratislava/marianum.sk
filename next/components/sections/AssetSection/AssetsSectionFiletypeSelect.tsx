@@ -6,7 +6,7 @@ import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import { client } from '@/services/graphql/gqlClient'
 import { isDefined } from '@/utils/isDefined'
 
-type DocumentsSectionFiletypeSelectProps = {
+type AssetsSectionFiletypeSelectProps = {
   onFiletypeChange: (filetype: string | null) => void
 }
 
@@ -19,16 +19,14 @@ const mappedFetcher = async () =>
       })) ?? [],
   )
 
-const DocumentsSectionFiletypeSelect = ({
-  onFiletypeChange,
-}: DocumentsSectionFiletypeSelectProps) => {
+const AssetsSectionFiletypeSelect = ({ onFiletypeChange }: AssetsSectionFiletypeSelectProps) => {
   const { t } = useTranslation()
 
-  const defaultOption = useMemo(() => ({ label: t('DocumentsSection.allFileTypes'), key: '' }), [t])
+  const defaultOption = useMemo(() => ({ label: t('AssetsSection.allFileTypes'), key: '' }), [t])
 
   return (
     <SelectWithFetcher
-      queryKey={['DocumentsSectionFiletypeSelect']}
+      queryKey={['AssetsSectionFiletypeSelect']}
       defaultOption={defaultOption}
       defaultValue={defaultOption.key}
       fetcher={mappedFetcher}
@@ -41,4 +39,4 @@ const DocumentsSectionFiletypeSelect = ({
   )
 }
 
-export default DocumentsSectionFiletypeSelect
+export default AssetsSectionFiletypeSelect

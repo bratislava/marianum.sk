@@ -15,8 +15,8 @@ import PaginationMeili from '@/components/molecules/PaginationMeili'
 import Row from '@/components/molecules/Row/Row'
 import Section from '@/components/molecules/Section'
 import SortSelect, { Sort } from '@/components/molecules/SortSelect'
-import DocumentsSectionCategorySelect from '@/components/sections/DocumentsSection/DocumentsSectionCategorySelect'
-import DocumentsSectionFiletypeSelect from '@/components/sections/DocumentsSection/DocumentsSectionFiletypeSelect'
+import AssetsSectionCategorySelect from '@/components/sections/AssetsSection/AssetsSectionCategorySelect'
+import AssetsSectionFiletypeSelect from '@/components/sections/AssetsSection/AssetsSectionFiletypeSelect'
 import {
   documentsDefaultFilters,
   DocumentsFilters,
@@ -45,7 +45,7 @@ const Documents = ({
   if (data.hits.length > 0) {
     return (
       <div className="grid gap-y-3" ref={documentsRef}>
-        <h2 className="sr-only">{t('DocumentsSection.aria.results')}</h2>
+        <h2 className="sr-only">{t('AssetsSection.aria.results')}</h2>
         {data.hits.map((document, index) => (
           // TODO: Use DocumentRow
           <Row
@@ -72,7 +72,7 @@ const Documents = ({
                 href={document.file?.url ?? ''}
                 aria-label={getDownloadAriaLabel({ attributes: document.file }, document.title)}
               >
-                {t('DocumentsSection.download')}
+                {t('AssetsSection.download')}
               </Button>
             }
             border={false}
@@ -82,7 +82,7 @@ const Documents = ({
     )
   }
 
-  return <strong>{t('DocumentsSection.noDocuments')}</strong>
+  return <strong>{t('AssetsSection.noDocuments')}</strong>
 }
 
 const DataWrapper = ({
@@ -128,11 +128,11 @@ const DataWrapper = ({
   )
 }
 
-type DocumentsSectionProps = {
+type AssetsSectionProps = {
   description?: string | null
 }
 
-const DocumentsSection = ({ description }: DocumentsSectionProps) => {
+const AssetsSection = ({ description }: AssetsSectionProps) => {
   const [filters, setFilters] = useState<DocumentsFilters>(documentsDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')
   const [debouncedSearchInputValue] = useDebounceValue<string>(searchInputValue, 300)
@@ -169,8 +169,8 @@ const DocumentsSection = ({ description }: DocumentsSectionProps) => {
             onChange={(value) => setSearchInputValue(value)}
           />
         </div>
-        <DocumentsSectionCategorySelect onCategoryChange={handleCategoryChange} />
-        <DocumentsSectionFiletypeSelect onFiletypeChange={handleFiletypeChange} />
+        <AssetsSectionCategorySelect onCategoryChange={handleCategoryChange} />
+        <AssetsSectionFiletypeSelect onFiletypeChange={handleFiletypeChange} />
         <SortSelect onChange={handleSortChange} defaultSort={filters.sort} />
       </FiltersBackgroundWrapper>
 
@@ -181,4 +181,4 @@ const DocumentsSection = ({ description }: DocumentsSectionProps) => {
   )
 }
 
-export default DocumentsSection
+export default AssetsSection

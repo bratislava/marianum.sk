@@ -5,7 +5,7 @@ import { SelectItem } from '@/components/atoms/SelectField'
 import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import { client } from '@/services/graphql/gqlClient'
 
-type DocumentsSectionCategorySelectProps = {
+type AssetsSectionCategorySelectProps = {
   onCategoryChange: (id: string | null) => void
 }
 
@@ -19,19 +19,14 @@ const mappedFetcher = async () =>
       })) ?? [],
   )
 
-const DocumentsSectionCategorySelect = ({
-  onCategoryChange,
-}: DocumentsSectionCategorySelectProps) => {
+const AssetsSectionCategorySelect = ({ onCategoryChange }: AssetsSectionCategorySelectProps) => {
   const { t } = useTranslation()
 
-  const defaultOption = useMemo(
-    () => ({ label: t('DocumentsSection.allCategories'), key: '' }),
-    [t],
-  )
+  const defaultOption = useMemo(() => ({ label: t('AssetsSection.allCategories'), key: '' }), [t])
 
   return (
     <SelectWithFetcher
-      queryKey={['DocumentsSectionCategorySelect']}
+      queryKey={['AssetsSectionCategorySelect']}
       defaultOption={defaultOption}
       defaultValue={defaultOption.key}
       fetcher={mappedFetcher}
@@ -44,4 +39,4 @@ const DocumentsSectionCategorySelect = ({
   )
 }
 
-export default DocumentsSectionCategorySelect
+export default AssetsSectionCategorySelect

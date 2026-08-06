@@ -20,6 +20,7 @@ import ProcedureTabs from '@/components/molecules/ProcedureTabs'
 import Section from '@/components/molecules/Section'
 import AccordionGroupSection from '@/components/sections/AccordionGroupSection'
 import ArticleListing from '@/components/sections/ArticleListing/ArticleListing'
+import AssetsSection from '@/components/sections/AssetSection/AssetsSection'
 import BundleListingSection from '@/components/sections/BundleListingSection'
 import BundleListingSimpleSection from '@/components/sections/BundleListingSimpleSection'
 import CardSection from '@/components/sections/CardSection'
@@ -29,7 +30,6 @@ import CeremoniesSection from '@/components/sections/CeremoniesSection'
 import ContactsSection from '@/components/sections/ContactsSection'
 import DebtorsSection from '@/components/sections/DebtorsSection'
 import DisclosuresSection from '@/components/sections/DisclosuresSection'
-import DocumentsSection from '@/components/sections/DocumentsSection/DocumentsSection'
 import IframeSection from '@/components/sections/IframeSection'
 import MapOfCemeteriesSection from '@/components/sections/MapOfCemeteriesSection'
 import MapOfManagedObjectsSection from '@/components/sections/MapOfManagedObjectsSection'
@@ -206,7 +206,7 @@ const Slug = ({ navigation, entity, general, dehydratedState }: PageProps) => {
               return <CeremoniesArchiveSection key={`${section.__typename}-${section.id}`} />
             }
             if (section?.__typename === 'ComponentSectionsDocumentsSection') {
-              return <DocumentsSection key={`${section.__typename}-${section.id}`} />
+              return <AssetsSection key={`${section.__typename}-${section.id}`} />
             }
             if (section?.__typename === 'ComponentSectionsArticleNewsListing') {
               return (
