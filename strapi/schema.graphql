@@ -742,6 +742,23 @@ input ComponentBlocksArticleItemInput {
   id: ID
 }
 
+type ComponentBlocksAssetItem {
+  asset: AssetEntityResponse
+  id: ID!
+}
+
+input ComponentBlocksAssetItemFiltersInput {
+  and: [ComponentBlocksAssetItemFiltersInput]
+  asset: AssetFiltersInput
+  not: ComponentBlocksAssetItemFiltersInput
+  or: [ComponentBlocksAssetItemFiltersInput]
+}
+
+input ComponentBlocksAssetItemInput {
+  asset: ID
+  id: ID
+}
+
 type ComponentBlocksBlocksCeremonyArchiveBlock {
   button: ComponentBlocksButtonLink
   id: ID!
@@ -1400,6 +1417,40 @@ input ComponentSectionsArticlesManualListingInput {
   title: String
 }
 
+type ComponentSectionsAssetGroup {
+  assets(filters: ComponentBlocksAssetItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksAssetItem]
+  id: ID!
+  title: String
+}
+
+input ComponentSectionsAssetGroupFiltersInput {
+  and: [ComponentSectionsAssetGroupFiltersInput]
+  assets: ComponentBlocksAssetItemFiltersInput
+  not: ComponentSectionsAssetGroupFiltersInput
+  or: [ComponentSectionsAssetGroupFiltersInput]
+  title: StringFilterInput
+}
+
+input ComponentSectionsAssetGroupInput {
+  assets: [ComponentBlocksAssetItemInput]
+  id: ID
+  title: String
+}
+
+type ComponentSectionsAssetsSection {
+  id: ID!
+}
+
+input ComponentSectionsAssetsSectionFiltersInput {
+  and: [ComponentSectionsAssetsSectionFiltersInput]
+  not: ComponentSectionsAssetsSectionFiltersInput
+  or: [ComponentSectionsAssetsSectionFiltersInput]
+}
+
+input ComponentSectionsAssetsSectionInput {
+  id: ID
+}
+
 type ComponentSectionsBranchGroup {
   branches(filters: ComponentBlocksBranchItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksBranchItem]
   id: ID!
@@ -1632,6 +1683,20 @@ input ComponentSectionsDocumentGroupInput {
   documents: [ComponentBlocksDocumentItemInput]
   id: ID
   title: String
+}
+
+type ComponentSectionsDocumentsSection {
+  id: ID!
+}
+
+input ComponentSectionsDocumentsSectionFiltersInput {
+  and: [ComponentSectionsDocumentsSectionFiltersInput]
+  not: ComponentSectionsDocumentsSectionFiltersInput
+  or: [ComponentSectionsDocumentsSectionFiltersInput]
+}
+
+input ComponentSectionsDocumentsSectionInput {
+  id: ID
 }
 
 type ComponentSectionsGallery {
@@ -2459,7 +2524,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Asset | AssetCategory | Branch | Bundle | Cemetery | CemeteryCategory | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Asset | AssetCategory | Branch | Bundle | Cemetery | CemeteryCategory | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksAssetItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsAssetGroup | ComponentSectionsAssetsSection | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime

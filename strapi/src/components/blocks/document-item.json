@@ -1,8 +1,9 @@
 {
   "collectionName": "components_blocks_document_items",
   "info": {
-    "displayName": "document item",
-    "icon": "file"
+    "displayName": "DEPRECATED: Document item",
+    "icon": "file",
+    "description": ""
   },
   "options": {},
   "attributes": {
