@@ -712,7 +712,7 @@ export interface SectionsDocumentGroup extends Schema.Component {
   };
 }
 
-export interface SectionsAssetsSection extends Schema.Component {
+export interface SectionsDocumentsSection extends Schema.Component {
   collectionName: "components_sections_documents_sections";
   info: {
     description: "";
@@ -970,7 +970,7 @@ declare module "@strapi/types" {
       "sections.disclosures-section": SectionsDisclosuresSection;
       "sections.divider": SectionsDivider;
       "sections.document-group": SectionsDocumentGroup;
-      "sections.documents-section": SectionsAssetsSection;
+      "sections.documents-section": SectionsDocumentsSection;
       "sections.gallery": SectionsGallery;
       "sections.homepage-reviews-section": SectionsHomepageReviewsSection;
       "sections.iframe-section": SectionsIframeSection;

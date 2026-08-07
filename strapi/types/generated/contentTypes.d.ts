@@ -1817,6 +1817,7 @@ export interface ApiPagePage extends Schema.CollectionType {
         'sections.ceremonies-section',
         'sections.ceremonies-archive-section',
         'sections.map-section',
+        'sections.documents-section',
         'sections.review-listing',
         'sections.article-news-listing',
         'sections.article-press-listing',
