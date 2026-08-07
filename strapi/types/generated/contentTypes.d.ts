@@ -1336,7 +1336,7 @@ export interface ApiDocumentCategoryDocumentCategory
     >;
     slug: Attribute.UID<'api::document-category.document-category', 'title'> &
       Attribute.Required;
-    title: Attribute.String;
+    title: Attribute.String & Attribute.Required;
     updatedAt: Attribute.DateTime;
     updatedBy: Attribute.Relation<
       'api::document-category.document-category',

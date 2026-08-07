@@ -61,18 +61,15 @@ See `register` function in `src/index.js`.
 We use `patch-package` to apply patches to dependencies.
 
 ### @strapi/admin
-
 Strapi transpiled files are located in `./node_modules/@strapi/[package-name]/dist/_chunks` so it's needed to make the changes and run patch-package on every Strapi upgrade.
 
 In Richtext editor, when image is inserted it originally takes only the image's alt text, but not the caption.
 We change this behaviour, and we pass caption with alt text as `![alt||caption](url)` so we can use both on the frontend.
 
 Find the proper chunk by searching for `alt: f.alternativeText || f.name`, change it to
-`` alt: `${f.alternativeText}||${f.caption}`  ``
+``alt: `${f.alternativeText}||${f.caption}` ``
 and then run the command to create a patch file:
-
 ```bash
 yarn patch-package @strapi/admin
 ```
-
 > Note that we use custom syntax, because at that time, we didn't know the proper syntax for caption (=title) in markdown that is `![alt](src "title")`.

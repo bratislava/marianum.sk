@@ -2306,7 +2306,7 @@ type DocumentCategory {
   createdAt: DateTime
   documents(filters: DocumentFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): DocumentRelationResponseCollection
   slug: String!
-  title: String
+  title: String!
   updatedAt: DateTime
 }
 
