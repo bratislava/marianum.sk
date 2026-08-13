@@ -18,59 +18,59 @@ import SortSelect, { Sort } from '@/components/molecules/SortSelect'
 import AssetsSectionCategorySelect from '@/components/sections/AssetsSection/AssetsSectionCategorySelect'
 import AssetsSectionFiletypeSelect from '@/components/sections/AssetsSection/AssetsSectionFiletypeSelect'
 import {
-  documentsDefaultFilters,
-  DocumentsFilters,
-  getMeiliDocumentsQueryKey,
-  meiliDocumentsFetcher,
-} from '@/services/fetchers/documentsFetcher'
+  assetsDefaultFilters,
+  AssetsFilters,
+  getMeiliAssetsQueryKey,
+  meiliAssetsFetcher,
+} from '@/services/fetchers/assetsFetcher'
 import { DocumentMeili } from '@/services/meili/meiliTypes'
 import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
-const Documents = ({
+const Assets = ({
   data,
   filters,
 }: {
   data: SearchResponse<DocumentMeili>
-  filters: DocumentsFilters
+  filters: AssetsFilters
 }) => {
   const { t } = useTranslation()
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
-  const documentsRef = useRef<HTMLDivElement>(null)
-  useScrollToViewIfDataChange(data, filters, documentsRef)
+  const assetsRef = useRef<HTMLDivElement>(null)
+  useScrollToViewIfDataChange(data, filters, assetsRef)
 
   const { getFullPathMeili } = useGetFullPathMeili()
 
   if (data.hits.length > 0) {
     return (
-      <div className="grid gap-y-3" ref={documentsRef}>
+      <div className="grid gap-y-3" ref={assetsRef}>
         <h2 className="sr-only">{t('AssetsSection.aria.results')}</h2>
-        {data.hits.map((document, index) => (
-          // TODO: Use DocumentRow
+        {data.hits.map((asset, index) => (
+          // TODO: Use AssetRow
           <Row
             // eslint-disable-next-line react/no-array-index-key
             key={index}
-            title={document.title}
+            title={asset.title}
             applyFocusStyles={false}
             category={
-              document?.documentCategory
+              asset?.documentCategory
                 ? {
                     attributes: {
-                      title: document.documentCategory.title,
-                      slug: document.documentCategory.slug,
+                      title: asset.documentCategory.title,
+                      slug: asset.documentCategory.slug,
                     },
                   }
                 : null
             }
-            linkHref={getFullPathMeili('document', document) ?? ''}
+            linkHref={getFullPathMeili('document', asset) ?? ''}
             button={
               <Button
                 variant="tertiary"
                 startIcon={<DownloadIcon />}
                 target="_blank"
-                href={document.file?.url ?? ''}
-                aria-label={getDownloadAriaLabel({ attributes: document.file }, document.title)}
+                href={asset.file?.url ?? ''}
+                aria-label={getDownloadAriaLabel({ attributes: asset.file }, asset.title)}
               >
                 {t('AssetsSection.download')}
               </Button>
@@ -82,7 +82,7 @@ const Documents = ({
     )
   }
 
-  return <strong>{t('AssetsSection.noDocuments')}</strong>
+  return <strong>{t('AssetsSection.noAssets')}</strong>
 }
 
 const DataWrapper = ({
@@ -90,13 +90,13 @@ const DataWrapper = ({
   description,
   onPageChange,
 }: {
-  filters: DocumentsFilters
+  filters: AssetsFilters
   description?: string | null
   onPageChange: (page: number) => void
 }) => {
   const { data, isPending, isFetching, isError, error } = useQuery({
-    queryKey: getMeiliDocumentsQueryKey(filters),
-    queryFn: async () => meiliDocumentsFetcher(filters),
+    queryKey: getMeiliAssetsQueryKey(filters),
+    queryFn: async () => meiliAssetsFetcher(filters),
     placeholderData: keepPreviousData,
   })
 
@@ -112,7 +112,7 @@ const DataWrapper = ({
   return (
     <>
       <LoadingOverlay loading={isFetching}>
-        <Documents data={data} filters={filters} />
+        <Assets data={data} filters={filters} />
       </LoadingOverlay>
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
@@ -133,7 +133,7 @@ type AssetsSectionProps = {
 }
 
 const AssetsSection = ({ description }: AssetsSectionProps) => {
-  const [filters, setFilters] = useState<DocumentsFilters>(documentsDefaultFilters)
+  const [filters, setFilters] = useState<AssetsFilters>(assetsDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')
   const [debouncedSearchInputValue] = useDebounceValue<string>(searchInputValue, 300)
 
@@ -169,8 +169,11 @@ const AssetsSection = ({ description }: AssetsSectionProps) => {
             onChange={(value) => setSearchInputValue(value)}
           />
         </div>
+
         <AssetsSectionCategorySelect onCategoryChange={handleCategoryChange} />
+
         <AssetsSectionFiletypeSelect onFiletypeChange={handleFiletypeChange} />
+
         <SortSelect onChange={handleSortChange} defaultSort={filters.sort} />
       </FiltersBackgroundWrapper>
 

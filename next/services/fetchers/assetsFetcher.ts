@@ -5,7 +5,7 @@ import { SearchIndexWrapped, unwrapFromSearchIndex } from '@/services/meili/sear
 import { getMeilisearchPageOptions } from '@/utils/getMeilisearchPageOptions'
 import { isDefined } from '@/utils/isDefined'
 
-export type DocumentsFilters = {
+export type AssetsFilters = {
   pageSize: number
   search: string
   categoryId: string | null
@@ -14,7 +14,7 @@ export type DocumentsFilters = {
   filetype: string | null
 }
 
-export const documentsDefaultFilters: DocumentsFilters = {
+export const assetsDefaultFilters: AssetsFilters = {
   pageSize: 24,
   search: '',
   page: 1,
@@ -23,9 +23,9 @@ export const documentsDefaultFilters: DocumentsFilters = {
   filetype: null,
 }
 
-export const getMeiliDocumentsQueryKey = (filters: DocumentsFilters) => ['Documents', filters]
+export const getMeiliAssetsQueryKey = (filters: AssetsFilters) => ['Documents', filters]
 
-export const meiliDocumentsFetcher = async (filters: DocumentsFilters) => {
+export const meiliAssetsFetcher = async (filters: AssetsFilters) => {
   return meiliClient
     .index('search_index')
     .search<SearchIndexWrapped<'document', DocumentMeili>>(filters.search, {
@@ -45,9 +45,9 @@ export const meiliDocumentsFetcher = async (filters: DocumentsFilters) => {
     .then(unwrapFromSearchIndex('document'))
 }
 
-export const getMeiliDocumentsQuery = (filters: DocumentsFilters = documentsDefaultFilters) => {
+export const getMeiliDocumentsQuery = (filters: AssetsFilters = assetsDefaultFilters) => {
   return {
-    queryKey: getMeiliDocumentsQueryKey(filters),
-    queryFn: async () => meiliDocumentsFetcher(filters),
+    queryKey: getMeiliAssetsQueryKey(filters),
+    queryFn: async () => meiliAssetsFetcher(filters),
   } as const
 }

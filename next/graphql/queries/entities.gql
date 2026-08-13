@@ -520,6 +520,10 @@ fragment PageEntity on PageEntity {
         __typename
         id
       }
+      ... on ComponentSectionsDocumentsSection {
+        __typename
+        id
+      }
       ... on ComponentSectionsArticleNewsListing {
         __typename
         id
