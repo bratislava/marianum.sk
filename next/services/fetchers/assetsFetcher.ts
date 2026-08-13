@@ -45,7 +45,7 @@ export const meiliAssetsFetcher = async (filters: AssetsFilters) => {
     .then(unwrapFromSearchIndex('document'))
 }
 
-export const getMeiliDocumentsQuery = (filters: AssetsFilters = assetsDefaultFilters) => {
+export const getMeiliAssetsQuery = (filters: AssetsFilters = assetsDefaultFilters) => {
   return {
     queryKey: getMeiliAssetsQueryKey(filters),
     queryFn: async () => meiliAssetsFetcher(filters),
