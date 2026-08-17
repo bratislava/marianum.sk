@@ -4,7 +4,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { SSRConfig } from 'next-i18next/pages'
 
 import Seo from '@/components/atoms/Seo'
-import AssetLayout from '@/components/layouts/AssetLayout'
+import DocumentLayout from '@/components/layouts/DocumentLayout'
 import {
   generateStaticPaths,
   generateStaticProps,
@@ -13,13 +13,13 @@ import NavigationProvider from '@/components/molecules/Navigation/NavigationProv
 import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
 import { client } from '@/services/graphql/gqlClient'
 
-type AssetPageProps = {
+type DocumentPageProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   entity: DocumentEntityFragment
 } & SSRConfig
 
-const AssetPage = ({ navigation, entity, general }: AssetPageProps) => {
+const DocumentPage = ({ navigation, entity, general }: DocumentPageProps) => {
   const { seo, title, description } = entity.attributes ?? {}
 
   return (
@@ -29,7 +29,7 @@ const AssetPage = ({ navigation, entity, general }: AssetPageProps) => {
         <Seo seo={seo} title={title} description={description} entity={entity} />
       </NavigationProvider>
 
-      <AssetLayout document={entity} navigation={navigation} general={general} />
+      <DocumentLayout document={entity} navigation={navigation} general={general} />
     </>
   )
 }
@@ -44,13 +44,13 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
     client.DocumentsStaticPaths().then((response) => response.documents?.data),
   )
 
-  // eslint-disable-next-line no-console
-  console.log(`Assets: Generated static paths for ${paths.length} slugs.`)
+  // eslint-disable-next-line no-console, @typescript-eslint/restrict-template-expressions
+  console.log(`Documents: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }
 }
 
-export const getStaticProps: GetStaticProps<AssetPageProps, StaticParams> = async ({
+export const getStaticProps: GetStaticProps<DocumentPageProps, StaticParams> = async ({
   locale = 'sk',
   params,
 }) => {
@@ -68,4 +68,4 @@ export const getStaticProps: GetStaticProps<AssetPageProps, StaticParams> = asyn
   )
 }
 
-export default AssetPage
+export default DocumentPage

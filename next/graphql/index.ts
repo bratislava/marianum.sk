@@ -2,10 +2,10 @@ import { GraphQLClient, RequestOptions } from 'graphql-request';
 import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends Record<string, unknown>> = { [K in keyof T]: T[K] };
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends Record<string, unknown>, K extends keyof T> = Partial<Record<K, never>>;
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 type GraphQLClientRequestHeaders = RequestOptions['requestHeaders'];
 /** All built-in and custom scalars, mapped to their actual values */
@@ -57,14 +57,14 @@ export type ArticleLocalizationsArgs = {
   filters?: InputMaybe<ArticleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
 export type ArticleMediaGalleryArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type ArticleEntity = {
@@ -80,12 +80,12 @@ export type ArticleEntityResponse = {
 
 export type ArticleEntityResponseCollection = {
   __typename?: 'ArticleEntityResponseCollection';
-  data: ArticleEntity[];
+  data: Array<ArticleEntity>;
   meta: ResponseCollectionMeta;
 };
 
 export type ArticleFiltersInput = {
-  and?: InputMaybe<InputMaybe<ArticleFiltersInput>[]>;
+  and?: InputMaybe<Array<InputMaybe<ArticleFiltersInput>>>;
   content?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
@@ -94,7 +94,7 @@ export type ArticleFiltersInput = {
   localizations?: InputMaybe<ArticleFiltersInput>;
   newsCategory?: InputMaybe<ArticleNewsCategoryFiltersInput>;
   not?: InputMaybe<ArticleFiltersInput>;
-  or?: InputMaybe<InputMaybe<ArticleFiltersInput>[]>;
+  or?: InputMaybe<Array<InputMaybe<ArticleFiltersInput>>>;
   perex?: InputMaybe<StringFilterInput>;
   pressCategory?: InputMaybe<ArticlePressCategoryFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
@@ -108,7 +108,7 @@ export type ArticleInput = {
   content?: InputMaybe<Scalars['String']['input']>;
   coverMedia?: InputMaybe<Scalars['ID']['input']>;
   jobsCategory?: InputMaybe<Scalars['ID']['input']>;
-  mediaGallery?: InputMaybe<InputMaybe<Scalars['ID']['input']>[]>;
+  mediaGallery?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   newsCategory?: InputMaybe<Scalars['ID']['input']>;
   perex?: InputMaybe<Scalars['String']['input']>;
   pressCategory?: InputMaybe<Scalars['ID']['input']>;
@@ -132,7 +132,7 @@ export type ArticleJobsCategoryArticlesArgs = {
   filters?: InputMaybe<ArticleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type ArticleJobsCategoryEntity = {
@@ -148,31 +148,31 @@ export type ArticleJobsCategoryEntityResponse = {
 
 export type ArticleJobsCategoryEntityResponseCollection = {
   __typename?: 'ArticleJobsCategoryEntityResponseCollection';
-  data: ArticleJobsCategoryEntity[];
+  data: Array<ArticleJobsCategoryEntity>;
   meta: ResponseCollectionMeta;
 };
 
 export type ArticleJobsCategoryFiltersInput = {
-  and?: InputMaybe<InputMaybe<ArticleJobsCategoryFiltersInput>[]>;
+  and?: InputMaybe<Array<InputMaybe<ArticleJobsCategoryFiltersInput>>>;
   articles?: InputMaybe<ArticleFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<ArticleJobsCategoryFiltersInput>;
-  or?: InputMaybe<InputMaybe<ArticleJobsCategoryFiltersInput>[]>;
+  or?: InputMaybe<Array<InputMaybe<ArticleJobsCategoryFiltersInput>>>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type ArticleJobsCategoryInput = {
-  articles?: InputMaybe<InputMaybe<Scalars['ID']['input']>[]>;
+  articles?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ArticleJobsCategoryRelationResponseCollection = {
   __typename?: 'ArticleJobsCategoryRelationResponseCollection';
-  data: ArticleJobsCategoryEntity[];
+  data: Array<ArticleJobsCategoryEntity>;
 };
 
 export type ArticleNewsCategory = {
@@ -189,7 +189,7 @@ export type ArticleNewsCategoryArticlesArgs = {
   filters?: InputMaybe<ArticleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type ArticleNewsCategoryEntity = {
@@ -205,31 +205,31 @@ export type ArticleNewsCategoryEntityResponse = {
 
 export type ArticleNewsCategoryEntityResponseCollection = {
   __typename?: 'ArticleNewsCategoryEntityResponseCollection';
-  data: ArticleNewsCategoryEntity[];
+  data: Array<ArticleNewsCategoryEntity>;
   meta: ResponseCollectionMeta;
 };
 
 export type ArticleNewsCategoryFiltersInput = {
-  and?: InputMaybe<InputMaybe<ArticleNewsCategoryFiltersInput>[]>;
+  and?: InputMaybe<Array<InputMaybe<ArticleNewsCategoryFiltersInput>>>;
   articles?: InputMaybe<ArticleFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<ArticleNewsCategoryFiltersInput>;
-  or?: InputMaybe<InputMaybe<ArticleNewsCategoryFiltersInput>[]>;
+  or?: InputMaybe<Array<InputMaybe<ArticleNewsCategoryFiltersInput>>>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type ArticleNewsCategoryInput = {
-  articles?: InputMaybe<InputMaybe<Scalars['ID']['input']>[]>;
+  articles?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ArticleNewsCategoryRelationResponseCollection = {
   __typename?: 'ArticleNewsCategoryRelationResponseCollection';
-  data: ArticleNewsCategoryEntity[];
+  data: Array<ArticleNewsCategoryEntity>;
 };
 
 export type ArticlePressCategory = {
@@ -246,7 +246,7 @@ export type ArticlePressCategoryArticlesArgs = {
   filters?: InputMaybe<ArticleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type ArticlePressCategoryEntity = {
@@ -262,158 +262,41 @@ export type ArticlePressCategoryEntityResponse = {
 
 export type ArticlePressCategoryEntityResponseCollection = {
   __typename?: 'ArticlePressCategoryEntityResponseCollection';
-  data: ArticlePressCategoryEntity[];
+  data: Array<ArticlePressCategoryEntity>;
   meta: ResponseCollectionMeta;
 };
 
 export type ArticlePressCategoryFiltersInput = {
-  and?: InputMaybe<InputMaybe<ArticlePressCategoryFiltersInput>[]>;
+  and?: InputMaybe<Array<InputMaybe<ArticlePressCategoryFiltersInput>>>;
   articles?: InputMaybe<ArticleFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<ArticlePressCategoryFiltersInput>;
-  or?: InputMaybe<InputMaybe<ArticlePressCategoryFiltersInput>[]>;
+  or?: InputMaybe<Array<InputMaybe<ArticlePressCategoryFiltersInput>>>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type ArticlePressCategoryInput = {
-  articles?: InputMaybe<InputMaybe<Scalars['ID']['input']>[]>;
+  articles?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ArticlePressCategoryRelationResponseCollection = {
   __typename?: 'ArticlePressCategoryRelationResponseCollection';
-  data: ArticlePressCategoryEntity[];
+  data: Array<ArticlePressCategoryEntity>;
 };
 
 export type ArticleRelationResponseCollection = {
   __typename?: 'ArticleRelationResponseCollection';
-  data: ArticleEntity[];
-};
-
-export type Asset = {
-  __typename?: 'Asset';
-  assetCategory?: Maybe<AssetCategoryEntityResponse>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  file: UploadFileEntityResponse;
-  publishedAt?: Maybe<Scalars['DateTime']['output']>;
-  seo?: Maybe<ComponentGeneralSeo>;
-  slug?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type AssetCategory = {
-  __typename?: 'AssetCategory';
-  assets?: Maybe<AssetRelationResponseCollection>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  slug: Scalars['String']['output'];
-  title?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-
-export type AssetCategoryAssetsArgs = {
-  filters?: InputMaybe<AssetFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
-};
-
-export type AssetCategoryEntity = {
-  __typename?: 'AssetCategoryEntity';
-  attributes?: Maybe<AssetCategory>;
-  id?: Maybe<Scalars['ID']['output']>;
-};
-
-export type AssetCategoryEntityResponse = {
-  __typename?: 'AssetCategoryEntityResponse';
-  data?: Maybe<AssetCategoryEntity>;
-};
-
-export type AssetCategoryEntityResponseCollection = {
-  __typename?: 'AssetCategoryEntityResponseCollection';
-  data: AssetCategoryEntity[];
-  meta: ResponseCollectionMeta;
-};
-
-export type AssetCategoryFiltersInput = {
-  and?: InputMaybe<InputMaybe<AssetCategoryFiltersInput>[]>;
-  assets?: InputMaybe<AssetFiltersInput>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  not?: InputMaybe<AssetCategoryFiltersInput>;
-  or?: InputMaybe<InputMaybe<AssetCategoryFiltersInput>[]>;
-  slug?: InputMaybe<StringFilterInput>;
-  title?: InputMaybe<StringFilterInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type AssetCategoryInput = {
-  assets?: InputMaybe<InputMaybe<Scalars['ID']['input']>[]>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  title?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type AssetCategoryRelationResponseCollection = {
-  __typename?: 'AssetCategoryRelationResponseCollection';
-  data: AssetCategoryEntity[];
-};
-
-export type AssetEntity = {
-  __typename?: 'AssetEntity';
-  attributes?: Maybe<Asset>;
-  id?: Maybe<Scalars['ID']['output']>;
-};
-
-export type AssetEntityResponse = {
-  __typename?: 'AssetEntityResponse';
-  data?: Maybe<AssetEntity>;
-};
-
-export type AssetEntityResponseCollection = {
-  __typename?: 'AssetEntityResponseCollection';
-  data: AssetEntity[];
-  meta: ResponseCollectionMeta;
-};
-
-export type AssetFiltersInput = {
-  and?: InputMaybe<InputMaybe<AssetFiltersInput>[]>;
-  assetCategory?: InputMaybe<AssetCategoryFiltersInput>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  description?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  not?: InputMaybe<AssetFiltersInput>;
-  or?: InputMaybe<InputMaybe<AssetFiltersInput>[]>;
-  publishedAt?: InputMaybe<DateTimeFilterInput>;
-  seo?: InputMaybe<ComponentGeneralSeoFiltersInput>;
-  slug?: InputMaybe<StringFilterInput>;
-  title?: InputMaybe<StringFilterInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type AssetInput = {
-  assetCategory?: InputMaybe<Scalars['ID']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  file?: InputMaybe<Scalars['ID']['input']>;
-  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
-  seo?: InputMaybe<ComponentGeneralSeoInput>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  title?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type AssetRelationResponseCollection = {
-  __typename?: 'AssetRelationResponseCollection';
-  data: AssetEntity[];
+  data: Array<ArticleEntity>;
 };
 
 export type BooleanFilterInput = {
-  and?: InputMaybe<InputMaybe<Scalars['Boolean']['input']>[]>;
-  between?: InputMaybe<InputMaybe<Scalars['Boolean']['input']>[]>;
+  and?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
+  between?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
   contains?: InputMaybe<Scalars['Boolean']['input']>;
   containsi?: InputMaybe<Scalars['Boolean']['input']>;
   endsWith?: InputMaybe<Scalars['Boolean']['input']>;
@@ -421,7 +304,7 @@ export type BooleanFilterInput = {
   eqi?: InputMaybe<Scalars['Boolean']['input']>;
   gt?: InputMaybe<Scalars['Boolean']['input']>;
   gte?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<InputMaybe<Scalars['Boolean']['input']>[]>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
   lt?: InputMaybe<Scalars['Boolean']['input']>;
   lte?: InputMaybe<Scalars['Boolean']['input']>;
   ne?: InputMaybe<Scalars['Boolean']['input']>;
@@ -429,10 +312,10 @@ export type BooleanFilterInput = {
   not?: InputMaybe<BooleanFilterInput>;
   notContains?: InputMaybe<Scalars['Boolean']['input']>;
   notContainsi?: InputMaybe<Scalars['Boolean']['input']>;
-  notIn?: InputMaybe<InputMaybe<Scalars['Boolean']['input']>[]>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
   notNull?: InputMaybe<Scalars['Boolean']['input']>;
   null?: InputMaybe<Scalars['Boolean']['input']>;
-  or?: InputMaybe<InputMaybe<Scalars['Boolean']['input']>[]>;
+  or?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
   startsWith?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -459,21 +342,21 @@ export type Branch = {
 export type BranchLocalizationsArgs = {
   filters?: InputMaybe<BranchFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
 export type BranchMediasArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
 export type BranchOfficesArgs = {
   filters?: InputMaybe<OfficeFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<InputMaybe<Scalars['String']['input']>[]>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type BranchEntity = {

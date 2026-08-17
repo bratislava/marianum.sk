@@ -1,16 +1,16 @@
 import { useTranslation } from 'next-i18next/pages'
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 
 import { SelectItem } from '@/components/atoms/SelectField'
 import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import { client } from '@/services/graphql/gqlClient'
 import { isDefined } from '@/utils/isDefined'
 
-type AssetsSectionFiletypeSelectProps = {
+type DocumentsSectionFiletypeSelectProps = {
   onFiletypeChange: (filetype: string | null) => void
 }
 
-const mappedFetcher = async () =>
+const mappedFetcher = () =>
   client.DocumentFiletypes().then(
     (data) =>
       data.documentFiletypes?.filter(isDefined).map((filetype) => ({
@@ -19,14 +19,16 @@ const mappedFetcher = async () =>
       })) ?? [],
   )
 
-const AssetsSectionFiletypeSelect = ({ onFiletypeChange }: AssetsSectionFiletypeSelectProps) => {
+const DocumentsSectionFiletypeSelect = ({
+  onFiletypeChange = () => {},
+}: DocumentsSectionFiletypeSelectProps) => {
   const { t } = useTranslation()
 
-  const defaultOption = useMemo(() => ({ label: t('AssetsSection.allFileTypes'), key: '' }), [t])
+  const defaultOption = useMemo(() => ({ label: t('DocumentsSection.allFileTypes'), key: '' }), [t])
 
   return (
     <SelectWithFetcher
-      queryKey={['AssetsSectionFiletypeSelect']}
+      queryKey={['DocumentsSectionFiletypeSelect']}
       defaultOption={defaultOption}
       defaultValue={defaultOption.key}
       fetcher={mappedFetcher}
@@ -39,4 +41,4 @@ const AssetsSectionFiletypeSelect = ({ onFiletypeChange }: AssetsSectionFiletype
   )
 }
 
-export default AssetsSectionFiletypeSelect
+export default DocumentsSectionFiletypeSelect

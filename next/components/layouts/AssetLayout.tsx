@@ -11,44 +11,38 @@ import Section from '@/components/molecules/Section'
 import HeroSection from '@/components/sections/HeroSection'
 import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
 
-type AssetLayoutProps = {
+type DocumentLayoutProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   document: DocumentEntityFragment
 }
 
-const AssetLayout = ({ document: asset, navigation, general }: AssetLayoutProps) => {
+const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) => {
   const { t, i18n } = useTranslation()
 
-  const {
-    title,
-    description,
-    file,
-    publishedAt,
-    documentCategory: assetCategory,
-    slug,
-  } = asset.attributes ?? {}
+  const { title, description, file, publishedAt, documentCategory, slug } =
+    document.attributes ?? {}
 
   const dlData = useMemo(() => {
     return [
-      ...(assetCategory?.data?.attributes
+      ...(documentCategory?.data?.attributes
         ? [
             {
               key: 'category',
-              title: t('AssetLayout.category'),
-              description: assetCategory.data.attributes.title,
+              title: t('DocumentLayout.category'),
+              description: documentCategory.data.attributes.title,
             },
           ]
         : []),
       {
         key: 'createdAt',
-        title: t('AssetLayout.createdAt'),
+        title: t('DocumentLayout.createdAt'),
         description: (
           <FormatDate value={publishedAt as string} valueType="ISO" format="articlePage" />
         ),
       },
     ] as { key: string; title: string; description: ReactNode }[]
-  }, [assetCategory, publishedAt, t])
+  }, [documentCategory, publishedAt, t])
 
   const extension = useMemo(() => {
     return file?.data?.attributes?.ext?.slice(1)
@@ -72,7 +66,7 @@ const AssetLayout = ({ document: asset, navigation, general }: AssetLayoutProps)
             </div>
             <div className="flex flex-col items-center gap-2 text-size-p-small md:items-start">
               <div>
-                {t('AssetLayout.createdAt')}{' '}
+                {t('DocumentLayout.createdAt')}{' '}
                 <FormatDate value={publishedAt as string} valueType="ISO" format="articlePage" />
               </div>
               <h1>{title}</h1>
@@ -86,7 +80,7 @@ const AssetLayout = ({ document: asset, navigation, general }: AssetLayoutProps)
                 href={file?.data?.attributes?.url ?? ''}
                 className="mt-4 md:w-fit"
               >
-                {t('AssetLayout.downloadFile')}
+                {t('DocumentLayout.downloadFile')}
               </Button>
             </div>
           </div>
@@ -95,7 +89,7 @@ const AssetLayout = ({ document: asset, navigation, general }: AssetLayoutProps)
         {description ? (
           <Section
             innerClassName="md:pl-[250px] lg:pl-[266px] xl:pl-[294px]"
-            title={t('AssetLayout.description')}
+            title={t('DocumentLayout.description')}
             centerTitleOnMobile={false}
           >
             <div className="whitespace-pre-wrap">{description}</div>
@@ -105,7 +99,7 @@ const AssetLayout = ({ document: asset, navigation, general }: AssetLayoutProps)
         <Section
           innerClassName="md:pl-[250px] lg:pl-[266px] xl:pl-[294px]"
           dividerClassName="md:ml-[218px]"
-          title={t('AssetLayout.details')}
+          title={t('DocumentLayout.details')}
           centerTitleOnMobile={false}
         >
           <dl>
@@ -124,4 +118,4 @@ const AssetLayout = ({ document: asset, navigation, general }: AssetLayoutProps)
   )
 }
 
-export default AssetLayout
+export default DocumentLayout

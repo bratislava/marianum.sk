@@ -128,6 +128,7 @@ const Row = ({
             ))}
         </div>
       </RowContent>
+
       {moreContent && <RowMoreContent>{moreContent}</RowMoreContent>}
     </RowBox>
   )

@@ -3,8 +3,6 @@ import {
   ArticleJobsCategory,
   ArticleNewsCategory,
   ArticlePressCategory,
-  Asset,
-  AssetCategory,
   Cemetery,
   Ceremony,
   Debtor,
@@ -49,12 +47,6 @@ export type DebtorMeili = Omit<Debtor, '__typename' | 'cemetery'> & {
 export type DocumentMeili = Omit<Document, '__typename' | 'documentCategory' | 'file'> & {
   id: string
   documentCategory: Omit<DocumentCategory, '__typename' | 'documents'>
-  file: Omit<UploadFile, '__typename'>
-}
-
-export type AssetMeili = Omit<Asset, '__typename' | 'assetCategory' | 'file'> & {
-  id: string
-  assetCategory: Omit<AssetCategory, '__typename' | 'assets'>
   file: Omit<UploadFile, '__typename'>
 }
 

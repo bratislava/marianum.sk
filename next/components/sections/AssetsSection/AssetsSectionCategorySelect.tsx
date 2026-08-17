@@ -1,15 +1,15 @@
 import { useTranslation } from 'next-i18next/pages'
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 
 import { SelectItem } from '@/components/atoms/SelectField'
 import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import { client } from '@/services/graphql/gqlClient'
 
-type AssetsSectionCategorySelectProps = {
+type DocumentsSectionCategorySelectProps = {
   onCategoryChange: (id: string | null) => void
 }
 
-const mappedFetcher = async () =>
+const mappedFetcher = () =>
   client.DocumentCategories().then(
     (data) =>
       data.documentCategories?.data.map((category) => ({
@@ -19,14 +19,19 @@ const mappedFetcher = async () =>
       })) ?? [],
   )
 
-const AssetsSectionCategorySelect = ({ onCategoryChange }: AssetsSectionCategorySelectProps) => {
+const DocumentsSectionCategorySelect = ({
+  onCategoryChange = () => {},
+}: DocumentsSectionCategorySelectProps) => {
   const { t } = useTranslation()
 
-  const defaultOption = useMemo(() => ({ label: t('AssetsSection.allCategories'), key: '' }), [t])
+  const defaultOption = useMemo(
+    () => ({ label: t('DocumentsSection.allCategories'), key: '' }),
+    [t],
+  )
 
   return (
     <SelectWithFetcher
-      queryKey={['AssetsSectionCategorySelect']}
+      queryKey={['DocumentsSectionCategorySelect']}
       defaultOption={defaultOption}
       defaultValue={defaultOption.key}
       fetcher={mappedFetcher}
@@ -39,4 +44,4 @@ const AssetsSectionCategorySelect = ({ onCategoryChange }: AssetsSectionCategory
   )
 }
 
-export default AssetsSectionCategorySelect
+export default DocumentsSectionCategorySelect
