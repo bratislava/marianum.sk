@@ -1,4 +1,4 @@
-import { Strapi } from "@strapi/strapi";
+import { Strapi } from '@strapi/strapi'
 
 export default {
   /**
@@ -8,7 +8,7 @@ export default {
    * This gives you an opportunity to extend code.
    */
   register({ strapi }) {
-    const extensionService = strapi.service("plugin::graphql.extension");
+    const extensionService = strapi.service('plugin::graphql.extension')
     extensionService.use(({ strapi }) => ({
       typeDefs: `
             type Query {
@@ -18,17 +18,16 @@ export default {
       resolvers: {
         Query: {
           documentFiletypes: {
-            resolve: async (ctx) =>
-              strapi.controller("api::document.document").listFiletypes(ctx),
+            resolve: async (ctx) => strapi.controller('api::document.document').listFiletypes(ctx),
           },
         },
       },
       resolversConfig: {
-        "Query.documentFiletypes": {
+        'Query.documentFiletypes': {
           auth: false,
         },
       },
-    }));
+    }))
   },
 
   /**
@@ -55,7 +54,7 @@ export default {
         url: `${process.env.REVALIDATE_NEXT_URL}/api/revalidate?secret=${process.env.REVALIDATE_SECRET_TOKEN}`,
         events: ['entry.create', 'entry.update', 'entry.publish'],
         headers: {},
-        isEnabled: true
+        isEnabled: true,
       })
       console.log('Revalidate webhook created')
     } else {
