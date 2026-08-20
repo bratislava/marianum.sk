@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_sections_document_groups",
+  "collectionName": "components_sections_asset_groups",
   "info": {
-    "displayName": "DEPRECATED: Document group",
+    "displayName": "Document group",
     "icon": "file-invoice",
     "description": ""
   },
@@ -10,11 +10,11 @@
     "title": {
       "type": "string"
     },
-    "documents": {
+    "assets": {
       "displayName": "document item",
       "type": "component",
       "repeatable": true,
-      "component": "blocks.document-item"
+      "component": "blocks.asset-item"
     }
   }
 }

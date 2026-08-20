@@ -55,7 +55,7 @@ export const getStaticProps: GetStaticProps<DocumentPageProps, StaticParams> = a
   params,
 }) => {
   // eslint-disable-next-line no-console
-  console.log(`Revalidating document ${params?.fullPath.join('/') ?? ''}`)
+  console.log(`Revalidating Asset ${params?.fullPath.join('/') ?? ''}`)
 
   return (
     // TODO: Locales

@@ -105,7 +105,7 @@ const DocumentLayout = ({ document, navigation, general }: DocumentLayoutProps) 
           <dl>
             {dlData.map((dItem) => (
               <Fragment key={dItem.key}>
-                <dt className="float-left clear-left w-32 after:content-[':'] not-first:mt-3">
+                <dt className="float-left clear-left w-32 not-first:mt-3 after:content-[':']">
                   {dItem.title}
                 </dt>
                 <dd className="ml-32 not-first:mt-3">{dItem.description}</dd>

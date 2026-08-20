@@ -204,6 +204,105 @@ type ArticleRelationResponseCollection {
   data: [ArticleEntity!]!
 }
 
+type Asset {
+  assetCategory: AssetCategoryEntityResponse
+  createdAt: DateTime
+  description: String
+  file: UploadFileEntityResponse!
+  publishedAt: DateTime
+  seo: ComponentGeneralSeo
+  slug: String
+  title: String
+  updatedAt: DateTime
+}
+
+type AssetCategory {
+  assets(filters: AssetFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): AssetRelationResponseCollection
+  createdAt: DateTime
+  slug: String!
+  title: String
+  updatedAt: DateTime
+}
+
+type AssetCategoryEntity {
+  attributes: AssetCategory
+  id: ID
+}
+
+type AssetCategoryEntityResponse {
+  data: AssetCategoryEntity
+}
+
+type AssetCategoryEntityResponseCollection {
+  data: [AssetCategoryEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input AssetCategoryFiltersInput {
+  and: [AssetCategoryFiltersInput]
+  assets: AssetFiltersInput
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  not: AssetCategoryFiltersInput
+  or: [AssetCategoryFiltersInput]
+  slug: StringFilterInput
+  title: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input AssetCategoryInput {
+  assets: [ID]
+  slug: String
+  title: String
+}
+
+type AssetCategoryRelationResponseCollection {
+  data: [AssetCategoryEntity!]!
+}
+
+type AssetEntity {
+  attributes: Asset
+  id: ID
+}
+
+type AssetEntityResponse {
+  data: AssetEntity
+}
+
+type AssetEntityResponseCollection {
+  data: [AssetEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input AssetFiltersInput {
+  and: [AssetFiltersInput]
+  assetCategory: AssetCategoryFiltersInput
+  createdAt: DateTimeFilterInput
+  description: StringFilterInput
+  id: IDFilterInput
+  not: AssetFiltersInput
+  or: [AssetFiltersInput]
+  publishedAt: DateTimeFilterInput
+  seo: ComponentGeneralSeoFiltersInput
+  slug: StringFilterInput
+  title: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input AssetInput {
+  assetCategory: ID
+  description: String
+  file: ID
+  publishedAt: DateTime
+  seo: ComponentGeneralSeoInput
+  slug: String
+  title: String
+}
+
+type AssetRelationResponseCollection {
+  data: [AssetEntity!]!
+}
+
 input BooleanFilterInput {
   and: [Boolean]
   between: [Boolean]
@@ -640,6 +739,23 @@ input ComponentBlocksArticleItemFiltersInput {
 
 input ComponentBlocksArticleItemInput {
   article: ID
+  id: ID
+}
+
+type ComponentBlocksAssetItem {
+  asset: AssetEntityResponse
+  id: ID!
+}
+
+input ComponentBlocksAssetItemFiltersInput {
+  and: [ComponentBlocksAssetItemFiltersInput]
+  asset: AssetFiltersInput
+  not: ComponentBlocksAssetItemFiltersInput
+  or: [ComponentBlocksAssetItemFiltersInput]
+}
+
+input ComponentBlocksAssetItemInput {
+  asset: ID
   id: ID
 }
 
@@ -1299,6 +1415,40 @@ input ComponentSectionsArticlesManualListingInput {
   id: ID
   showMoreButton: ComponentBlocksButtonLinkInput
   title: String
+}
+
+type ComponentSectionsAssetGroup {
+  assets(filters: ComponentBlocksAssetItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksAssetItem]
+  id: ID!
+  title: String
+}
+
+input ComponentSectionsAssetGroupFiltersInput {
+  and: [ComponentSectionsAssetGroupFiltersInput]
+  assets: ComponentBlocksAssetItemFiltersInput
+  not: ComponentSectionsAssetGroupFiltersInput
+  or: [ComponentSectionsAssetGroupFiltersInput]
+  title: StringFilterInput
+}
+
+input ComponentSectionsAssetGroupInput {
+  assets: [ComponentBlocksAssetItemInput]
+  id: ID
+  title: String
+}
+
+type ComponentSectionsAssetsSection {
+  id: ID!
+}
+
+input ComponentSectionsAssetsSectionFiltersInput {
+  and: [ComponentSectionsAssetsSectionFiltersInput]
+  not: ComponentSectionsAssetsSectionFiltersInput
+  or: [ComponentSectionsAssetsSectionFiltersInput]
+}
+
+input ComponentSectionsAssetsSectionInput {
+  id: ID
 }
 
 type ComponentSectionsBranchGroup {
@@ -2374,7 +2524,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | CemeteryCategory | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Asset | AssetCategory | Branch | Bundle | Cemetery | CemeteryCategory | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksAssetItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsAssetGroup | ComponentSectionsAssetsSection | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2703,6 +2853,8 @@ type Mutation {
   createArticleLocalization(data: ArticleInput, id: ID, locale: I18NLocaleCode): ArticleEntityResponse
   createArticleNewsCategory(data: ArticleNewsCategoryInput!): ArticleNewsCategoryEntityResponse
   createArticlePressCategory(data: ArticlePressCategoryInput!): ArticlePressCategoryEntityResponse
+  createAsset(data: AssetInput!): AssetEntityResponse
+  createAssetCategory(data: AssetCategoryInput!): AssetCategoryEntityResponse
   createBranch(data: BranchInput!, locale: I18NLocaleCode): BranchEntityResponse
   createBranchLocalization(data: BranchInput, id: ID, locale: I18NLocaleCode): BranchEntityResponse
   createBundle(data: BundleInput!, locale: I18NLocaleCode): BundleEntityResponse
@@ -2742,6 +2894,8 @@ type Mutation {
   deleteArticleJobsCategory(id: ID!): ArticleJobsCategoryEntityResponse
   deleteArticleNewsCategory(id: ID!): ArticleNewsCategoryEntityResponse
   deleteArticlePressCategory(id: ID!): ArticlePressCategoryEntityResponse
+  deleteAsset(id: ID!): AssetEntityResponse
+  deleteAssetCategory(id: ID!): AssetCategoryEntityResponse
   deleteBranch(id: ID!, locale: I18NLocaleCode): BranchEntityResponse
   deleteBundle(id: ID!, locale: I18NLocaleCode): BundleEntityResponse
   deleteCemetery(id: ID!, locale: I18NLocaleCode): CemeteryEntityResponse
@@ -2790,6 +2944,8 @@ type Mutation {
   updateArticleJobsCategory(data: ArticleJobsCategoryInput!, id: ID!): ArticleJobsCategoryEntityResponse
   updateArticleNewsCategory(data: ArticleNewsCategoryInput!, id: ID!): ArticleNewsCategoryEntityResponse
   updateArticlePressCategory(data: ArticlePressCategoryInput!, id: ID!): ArticlePressCategoryEntityResponse
+  updateAsset(data: AssetInput!, id: ID!): AssetEntityResponse
+  updateAssetCategory(data: AssetCategoryInput!, id: ID!): AssetCategoryEntityResponse
   updateBranch(data: BranchInput!, id: ID!, locale: I18NLocaleCode): BranchEntityResponse
   updateBundle(data: BundleInput!, id: ID!, locale: I18NLocaleCode): BundleEntityResponse
   updateCemetery(data: CemeteryInput!, id: ID!, locale: I18NLocaleCode): CemeteryEntityResponse
@@ -3125,6 +3281,10 @@ type Query {
   articlePressCategories(filters: ArticlePressCategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ArticlePressCategoryEntityResponseCollection
   articlePressCategory(id: ID): ArticlePressCategoryEntityResponse
   articles(filters: ArticleFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): ArticleEntityResponseCollection
+  asset(id: ID): AssetEntityResponse
+  assetCategories(filters: AssetCategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): AssetCategoryEntityResponseCollection
+  assetCategory(id: ID): AssetCategoryEntityResponse
+  assets(filters: AssetFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): AssetEntityResponseCollection
   branch(id: ID, locale: I18NLocaleCode): BranchEntityResponse
   branches(filters: BranchFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, sort: [String] = []): BranchEntityResponseCollection
   bundle(id: ID, locale: I18NLocaleCode): BundleEntityResponse

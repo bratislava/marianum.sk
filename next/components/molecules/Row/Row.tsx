@@ -65,9 +65,12 @@ const Row = ({
           >
             {title && (
               <h3
-                className={cn('w-fit text-left text-size-h5-r lg:text-size-h5 text-foreground-heading', {
-                  'group-hover:underline group-focus:underline': linkHref,
-                })}
+                className={cn(
+                  'w-fit text-left text-size-h5-r text-foreground-heading lg:text-size-h5',
+                  {
+                    'group-hover:underline group-focus:underline': linkHref,
+                  },
+                )}
                 id={titleId}
               >
                 {title}
@@ -84,7 +87,7 @@ const Row = ({
             )}
           </div>
 
-          <div className="text-size-p-small space-x-3 empty:hidden">
+          <div className="space-x-3 text-size-p-small empty:hidden">
             {showUrl && linkHref && (
               <>
                 <span>{linkHref}</span>

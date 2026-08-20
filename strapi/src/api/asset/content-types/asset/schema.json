@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "documents",
+  "collectionName": "assets",
   "info": {
-    "singularName": "document",
-    "pluralName": "documents",
-    "displayName": "DEPRECATED: Dokumenty",
+    "singularName": "asset",
+    "pluralName": "assets",
+    "displayName": "Dokumenty",
     "description": ""
   },
   "options": {
@@ -13,13 +13,10 @@
   "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "slug": {
-      "type": "uid",
-      "targetField": "title",
-      "required": true
+      "type": "uid"
     },
     "file": {
       "type": "media",
@@ -32,16 +29,15 @@
     "description": {
       "type": "text"
     },
-    "documentCategory": {
+    "assetCategory": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::document-category.document-category",
-      "inversedBy": "documents"
+      "target": "api::asset-category.asset-category",
+      "inversedBy": "assets"
     },
     "seo": {
       "type": "component",
       "repeatable": false,
-      "pluginOptions": {},
       "component": "general.seo"
     }
   }

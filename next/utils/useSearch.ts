@@ -84,7 +84,7 @@ export const useSearch = ({ filters, isSyncedWithUrlQuery = false }: UseSearchOp
         .index('search_index')
         .search<Results>(debouncedSearchQuery, {
           ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
-          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
           filter: [`locale = ${locale ?? 'sk'} OR locale NOT EXISTS`, selectedTypesFilter],
         })
         .then((response) => {

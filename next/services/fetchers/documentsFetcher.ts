@@ -25,7 +25,7 @@ export const documentsDefaultFilters: DocumentsFilters = {
 
 export const getMeiliDocumentsQueryKey = (filters: DocumentsFilters) => ['Documents', filters]
 
-export const meiliDocumentsFetcher = (filters: DocumentsFilters) => {
+export const meiliDocumentsFetcher = async (filters: DocumentsFilters) => {
   return meiliClient
     .index('search_index')
     .search<SearchIndexWrapped<'document', DocumentMeili>>(filters.search, {
@@ -48,6 +48,6 @@ export const meiliDocumentsFetcher = (filters: DocumentsFilters) => {
 export const getMeiliDocumentsQuery = (filters: DocumentsFilters = documentsDefaultFilters) => {
   return {
     queryKey: getMeiliDocumentsQueryKey(filters),
-    queryFn: () => meiliDocumentsFetcher(filters),
+    queryFn: async () => meiliDocumentsFetcher(filters),
   } as const
 }

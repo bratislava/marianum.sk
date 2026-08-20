@@ -41,6 +41,21 @@ export interface BlocksArticleItem extends Schema.Component {
   };
 }
 
+export interface BlocksAssetItem extends Schema.Component {
+  collectionName: 'components_blocks_asset_items';
+  info: {
+    displayName: 'document item';
+    icon: 'file';
+  };
+  attributes: {
+    asset: Attribute.Relation<
+      'blocks.asset-item',
+      'oneToOne',
+      'api::asset.asset'
+    >;
+  };
+}
+
 export interface BlocksBlocksCeremonyArchiveBlock extends Schema.Component {
   collectionName: 'components_blocks_blocks_ceremony_archive_blocks';
   info: {
@@ -186,7 +201,8 @@ export interface BlocksCta extends Schema.Component {
 export interface BlocksDocumentItem extends Schema.Component {
   collectionName: 'components_blocks_document_items';
   info: {
-    displayName: 'document item';
+    description: '';
+    displayName: 'DEPRECATED: Document item';
     icon: 'file';
   };
   attributes: {
@@ -506,6 +522,29 @@ export interface SectionsArticlesManualListing extends Schema.Component {
   };
 }
 
+export interface SectionsAssetGroup extends Schema.Component {
+  collectionName: 'components_sections_asset_groups';
+  info: {
+    description: '';
+    displayName: 'Document group';
+    icon: 'file-invoice';
+  };
+  attributes: {
+    assets: Attribute.Component<'blocks.asset-item', true>;
+    title: Attribute.String;
+  };
+}
+
+export interface SectionsAssetsSection extends Schema.Component {
+  collectionName: 'components_sections_assets_sections';
+  info: {
+    description: '';
+    displayName: 'Documents section';
+    icon: 'book';
+  };
+  attributes: {};
+}
+
 export interface SectionsBranchGroup extends Schema.Component {
   collectionName: 'components_sections_branch_groups';
   info: {
@@ -663,7 +702,8 @@ export interface SectionsDivider extends Schema.Component {
 export interface SectionsDocumentGroup extends Schema.Component {
   collectionName: 'components_sections_document_groups';
   info: {
-    displayName: 'document group';
+    description: '';
+    displayName: 'DEPRECATED: Document group';
     icon: 'file-invoice';
   };
   attributes: {
@@ -675,7 +715,8 @@ export interface SectionsDocumentGroup extends Schema.Component {
 export interface SectionsDocumentsSection extends Schema.Component {
   collectionName: 'components_sections_documents_sections';
   info: {
-    displayName: 'documents section';
+    description: '';
+    displayName: 'DEPRECATED: Documents section';
     icon: 'book';
   };
   attributes: {};
@@ -884,6 +925,7 @@ declare module '@strapi/types' {
       'blocks.accordion-item': BlocksAccordionItem;
       'blocks.accordion-item-with-price': BlocksAccordionItemWithPrice;
       'blocks.article-item': BlocksArticleItem;
+      'blocks.asset-item': BlocksAssetItem;
       'blocks.blocks-ceremony-archive-block': BlocksBlocksCeremonyArchiveBlock;
       'blocks.branch-item': BlocksBranchItem;
       'blocks.bundle-content-item': BlocksBundleContentItem;
@@ -914,6 +956,8 @@ declare module '@strapi/types' {
       'sections.article-news-listing': SectionsArticleNewsListing;
       'sections.article-press-listing': SectionsArticlePressListing;
       'sections.articles-manual-listing': SectionsArticlesManualListing;
+      'sections.asset-group': SectionsAssetGroup;
+      'sections.assets-section': SectionsAssetsSection;
       'sections.branch-group': SectionsBranchGroup;
       'sections.bundle-listing': SectionsBundleListing;
       'sections.bundle-listing-simple': SectionsBundleListingSimple;
