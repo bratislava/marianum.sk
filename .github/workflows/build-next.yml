@@ -51,9 +51,12 @@ jobs:
       # flavor suffix that keeps each cluster's image and cache separate.
       CLUSTER_PREFIX: ${{ inputs.cluster != '' && format('{0}-', inputs.cluster) || '' }}
       # CI builds have no cluster; they still need an environment to bake in,
-      # and that image is never pushed.
-      ENV_NAME: ${{ inputs.cluster != '' && inputs.cluster || 'development' }}
-      ENV_SUFFIX: -${{ inputs.cluster != '' && inputs.cluster || 'development' }}
+      # and that image is never pushed. Staging, because `next build`
+      # prerenders against that environment's live Strapi and dev is the one
+      # that is routinely down - which is also what bratiska-cli built PRs
+      # with (`build_image --env=staging`).
+      ENV_NAME: ${{ inputs.cluster != '' && inputs.cluster || 'staging' }}
+      ENV_SUFFIX: -${{ inputs.cluster != '' && inputs.cluster || 'staging' }}
     defaults:
       run:
         working-directory: ${{ inputs.directory }}
