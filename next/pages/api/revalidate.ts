@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { getFullPathMeiliFn } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { Branch, Bundle, Page } from '@/graphql'
 import { client } from '@/services/graphql/gqlClient'
-import { ArticleMeili, AssetMeili, CemeteryMeili, DocumentMeili } from '@/services/meili/meiliTypes'
+import { ArticleMeili, CemeteryMeili, DocumentMeili } from '@/services/meili/meiliTypes'
 import { isDefined } from '@/utils/isDefined'
 import { parseNavigation } from '@/utils/parseNavigation'
 
@@ -29,10 +29,6 @@ type RequestPayload =
   | {
       model: 'cemetery'
       entry: Pick<CemeteryMeili, 'slug'>
-    }
-  | {
-      model: 'asset'
-      entry: Pick<AssetMeili, 'slug'>
     }
   | {
       model: 'document'
