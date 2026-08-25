@@ -1558,7 +1558,6 @@ export interface ApiPagePage extends Schema.CollectionType {
         'sections.ceremonies-archive-section',
         'sections.map-section',
         'sections.documents-section',
-        'sections.assets-section',
         'sections.review-listing',
         'sections.article-news-listing',
         'sections.article-press-listing',
@@ -1567,7 +1566,9 @@ export interface ApiPagePage extends Schema.CollectionType {
         'sections.disclosures-section',
         'sections.iframe-section',
         'sections.cemeteries-opening-hours',
-        'sections.map-of-managed-objects'
+        'sections.map-of-managed-objects',
+        'sections.asset-group',
+        'sections.assets-section'
       ]
     > &
       Attribute.SetPluginOptions<{

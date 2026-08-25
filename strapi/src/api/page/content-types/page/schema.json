@@ -107,7 +107,6 @@
         "sections.ceremonies-archive-section",
         "sections.map-section",
         "sections.documents-section",
-        "sections.assets-section",
         "sections.review-listing",
         "sections.article-news-listing",
         "sections.article-press-listing",
@@ -116,7 +115,9 @@
         "sections.disclosures-section",
         "sections.iframe-section",
         "sections.cemeteries-opening-hours",
-        "sections.map-of-managed-objects"
+        "sections.map-of-managed-objects",
+        "sections.asset-group",
+        "sections.assets-section"
       ]
     },
     "sidebar": {
