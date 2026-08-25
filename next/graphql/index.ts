@@ -294,6 +294,123 @@ export type ArticleRelationResponseCollection = {
   data: Array<ArticleEntity>;
 };
 
+export type Asset = {
+  __typename?: 'Asset';
+  assetCategory?: Maybe<AssetCategoryEntityResponse>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  file: UploadFileEntityResponse;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  seo?: Maybe<ComponentGeneralSeo>;
+  slug?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type AssetCategory = {
+  __typename?: 'AssetCategory';
+  assets?: Maybe<AssetRelationResponseCollection>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  slug: Scalars['String']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type AssetCategoryAssetsArgs = {
+  filters?: InputMaybe<AssetFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type AssetCategoryEntity = {
+  __typename?: 'AssetCategoryEntity';
+  attributes?: Maybe<AssetCategory>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type AssetCategoryEntityResponse = {
+  __typename?: 'AssetCategoryEntityResponse';
+  data?: Maybe<AssetCategoryEntity>;
+};
+
+export type AssetCategoryEntityResponseCollection = {
+  __typename?: 'AssetCategoryEntityResponseCollection';
+  data: Array<AssetCategoryEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type AssetCategoryFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<AssetCategoryFiltersInput>>>;
+  assets?: InputMaybe<AssetFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<AssetCategoryFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<AssetCategoryFiltersInput>>>;
+  slug?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type AssetCategoryInput = {
+  assets?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AssetCategoryRelationResponseCollection = {
+  __typename?: 'AssetCategoryRelationResponseCollection';
+  data: Array<AssetCategoryEntity>;
+};
+
+export type AssetEntity = {
+  __typename?: 'AssetEntity';
+  attributes?: Maybe<Asset>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type AssetEntityResponse = {
+  __typename?: 'AssetEntityResponse';
+  data?: Maybe<AssetEntity>;
+};
+
+export type AssetEntityResponseCollection = {
+  __typename?: 'AssetEntityResponseCollection';
+  data: Array<AssetEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type AssetFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<AssetFiltersInput>>>;
+  assetCategory?: InputMaybe<AssetCategoryFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<AssetFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<AssetFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  seo?: InputMaybe<ComponentGeneralSeoFiltersInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type AssetInput = {
+  assetCategory?: InputMaybe<Scalars['ID']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  file?: InputMaybe<Scalars['ID']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  seo?: InputMaybe<ComponentGeneralSeoInput>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AssetRelationResponseCollection = {
+  __typename?: 'AssetRelationResponseCollection';
+  data: Array<AssetEntity>;
+};
+
 export type BooleanFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['Boolean']['input']>>>;
@@ -829,6 +946,24 @@ export type ComponentBlocksArticleItemFiltersInput = {
 
 export type ComponentBlocksArticleItemInput = {
   article?: InputMaybe<Scalars['ID']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type ComponentBlocksAssetItem = {
+  __typename?: 'ComponentBlocksAssetItem';
+  asset?: Maybe<AssetEntityResponse>;
+  id: Scalars['ID']['output'];
+};
+
+export type ComponentBlocksAssetItemFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentBlocksAssetItemFiltersInput>>>;
+  asset?: InputMaybe<AssetFiltersInput>;
+  not?: InputMaybe<ComponentBlocksAssetItemFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentBlocksAssetItemFiltersInput>>>;
+};
+
+export type ComponentBlocksAssetItemInput = {
+  asset?: InputMaybe<Scalars['ID']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
 };
 
@@ -1588,6 +1723,49 @@ export type ComponentSectionsArticlesManualListingInput = {
   id?: InputMaybe<Scalars['ID']['input']>;
   showMoreButton?: InputMaybe<ComponentBlocksButtonLinkInput>;
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ComponentSectionsAssetGroup = {
+  __typename?: 'ComponentSectionsAssetGroup';
+  assets?: Maybe<Array<Maybe<ComponentBlocksAssetItem>>>;
+  id: Scalars['ID']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type ComponentSectionsAssetGroupAssetsArgs = {
+  filters?: InputMaybe<ComponentBlocksAssetItemFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type ComponentSectionsAssetGroupFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSectionsAssetGroupFiltersInput>>>;
+  assets?: InputMaybe<ComponentBlocksAssetItemFiltersInput>;
+  not?: InputMaybe<ComponentSectionsAssetGroupFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentSectionsAssetGroupFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentSectionsAssetGroupInput = {
+  assets?: InputMaybe<Array<InputMaybe<ComponentBlocksAssetItemInput>>>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ComponentSectionsAssetsSection = {
+  __typename?: 'ComponentSectionsAssetsSection';
+  id: Scalars['ID']['output'];
+};
+
+export type ComponentSectionsAssetsSectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentSectionsAssetsSectionFiltersInput>>>;
+  not?: InputMaybe<ComponentSectionsAssetsSectionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentSectionsAssetsSectionFiltersInput>>>;
+};
+
+export type ComponentSectionsAssetsSectionInput = {
+  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type ComponentSectionsBranchGroup = {
@@ -2820,7 +2998,7 @@ export type GeneralRelationResponseCollection = {
   data: Array<GeneralEntity>;
 };
 
-export type GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Branch | Bundle | Cemetery | CemeteryCategory | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Asset | AssetCategory | Branch | Bundle | Cemetery | CemeteryCategory | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksAssetItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksDocumentItem | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsAssetGroup | ComponentSectionsAssetsSection | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsDocumentGroup | ComponentSectionsDocumentsSection | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | Document | DocumentCategory | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
@@ -3183,6 +3361,8 @@ export type Mutation = {
   createArticleLocalization?: Maybe<ArticleEntityResponse>;
   createArticleNewsCategory?: Maybe<ArticleNewsCategoryEntityResponse>;
   createArticlePressCategory?: Maybe<ArticlePressCategoryEntityResponse>;
+  createAsset?: Maybe<AssetEntityResponse>;
+  createAssetCategory?: Maybe<AssetCategoryEntityResponse>;
   createBranch?: Maybe<BranchEntityResponse>;
   createBranchLocalization?: Maybe<BranchEntityResponse>;
   createBundle?: Maybe<BundleEntityResponse>;
@@ -3220,6 +3400,8 @@ export type Mutation = {
   deleteArticleJobsCategory?: Maybe<ArticleJobsCategoryEntityResponse>;
   deleteArticleNewsCategory?: Maybe<ArticleNewsCategoryEntityResponse>;
   deleteArticlePressCategory?: Maybe<ArticlePressCategoryEntityResponse>;
+  deleteAsset?: Maybe<AssetEntityResponse>;
+  deleteAssetCategory?: Maybe<AssetCategoryEntityResponse>;
   deleteBranch?: Maybe<BranchEntityResponse>;
   deleteBundle?: Maybe<BundleEntityResponse>;
   deleteCemetery?: Maybe<CemeteryEntityResponse>;
@@ -3260,6 +3442,8 @@ export type Mutation = {
   updateArticleJobsCategory?: Maybe<ArticleJobsCategoryEntityResponse>;
   updateArticleNewsCategory?: Maybe<ArticleNewsCategoryEntityResponse>;
   updateArticlePressCategory?: Maybe<ArticlePressCategoryEntityResponse>;
+  updateAsset?: Maybe<AssetEntityResponse>;
+  updateAssetCategory?: Maybe<AssetCategoryEntityResponse>;
   updateBranch?: Maybe<BranchEntityResponse>;
   updateBundle?: Maybe<BundleEntityResponse>;
   updateCemetery?: Maybe<CemeteryEntityResponse>;
@@ -3322,6 +3506,16 @@ export type MutationCreateArticleNewsCategoryArgs = {
 
 export type MutationCreateArticlePressCategoryArgs = {
   data: ArticlePressCategoryInput;
+};
+
+
+export type MutationCreateAssetArgs = {
+  data: AssetInput;
+};
+
+
+export type MutationCreateAssetCategoryArgs = {
+  data: AssetCategoryInput;
 };
 
 
@@ -3531,6 +3725,16 @@ export type MutationDeleteArticlePressCategoryArgs = {
 };
 
 
+export type MutationDeleteAssetArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteAssetCategoryArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
 export type MutationDeleteBranchArgs = {
   id: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -3715,6 +3919,18 @@ export type MutationUpdateArticleNewsCategoryArgs = {
 
 export type MutationUpdateArticlePressCategoryArgs = {
   data: ArticlePressCategoryInput;
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateAssetArgs = {
+  data: AssetInput;
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateAssetCategoryArgs = {
+  data: AssetCategoryInput;
   id: Scalars['ID']['input'];
 };
 
@@ -4230,6 +4446,10 @@ export type Query = {
   articlePressCategories?: Maybe<ArticlePressCategoryEntityResponseCollection>;
   articlePressCategory?: Maybe<ArticlePressCategoryEntityResponse>;
   articles?: Maybe<ArticleEntityResponseCollection>;
+  asset?: Maybe<AssetEntityResponse>;
+  assetCategories?: Maybe<AssetCategoryEntityResponseCollection>;
+  assetCategory?: Maybe<AssetCategoryEntityResponse>;
+  assets?: Maybe<AssetEntityResponseCollection>;
   branch?: Maybe<BranchEntityResponse>;
   branches?: Maybe<BranchEntityResponseCollection>;
   bundle?: Maybe<BundleEntityResponse>;
@@ -4327,6 +4547,31 @@ export type QueryArticlePressCategoryArgs = {
 export type QueryArticlesArgs = {
   filters?: InputMaybe<ArticleFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryAssetArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryAssetCategoriesArgs = {
+  filters?: InputMaybe<AssetCategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryAssetCategoryArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryAssetsArgs = {
+  filters?: InputMaybe<AssetFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
