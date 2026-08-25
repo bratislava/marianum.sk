@@ -1117,7 +1117,7 @@ export interface ApiDocumentCategoryDocumentCategory extends Schema.CollectionTy
   collectionName: 'document_categories'
   info: {
     description: ''
-    displayName: 'Dokumenty: Kateg\u00F3rie'
+    displayName: 'DEPRECATED: Dokumenty: Kateg\u00F3rie'
     pluralName: 'document-categories'
     singularName: 'document-category'
   }
@@ -1153,7 +1153,7 @@ export interface ApiDocumentDocument extends Schema.CollectionType {
   collectionName: 'documents'
   info: {
     description: ''
-    displayName: 'Dokumenty'
+    displayName: 'DEPRECATED: Dokumenty'
     pluralName: 'documents'
     singularName: 'document'
   }
@@ -1882,7 +1882,6 @@ export interface PluginNavigationAudience extends Schema.CollectionType {
     }
   }
   attributes: {
-    assets: Attribute.Relation<'plugin::navigation.audience', 'oneToMany', 'api::asset.asset'>
     createdAt: Attribute.DateTime
     createdBy: Attribute.Relation<'plugin::navigation.audience', 'oneToOne', 'admin::user'> &
       Attribute.Private

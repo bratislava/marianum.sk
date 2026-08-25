@@ -158,7 +158,7 @@ export interface BlocksDocumentItem extends Schema.Component {
   collectionName: 'components_blocks_document_items'
   info: {
     description: ''
-    displayName: 'Document item'
+    displayName: 'DEPRECATED: Document item'
     icon: 'file'
   }
   attributes: {
@@ -622,7 +622,7 @@ export interface SectionsDocumentGroup extends Schema.Component {
   collectionName: 'components_sections_document_groups'
   info: {
     description: ''
-    displayName: 'Document group'
+    displayName: 'DEPRECATED: Document group'
     icon: 'file-invoice'
   }
   attributes: {
@@ -635,7 +635,7 @@ export interface SectionsDocumentsSection extends Schema.Component {
   collectionName: 'components_sections_documents_sections'
   info: {
     description: ''
-    displayName: 'Documents section'
+    displayName: 'DEPRECATED: Documents section'
     icon: 'book'
   }
   attributes: {}

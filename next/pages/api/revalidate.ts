@@ -59,7 +59,6 @@ const revalidate = async (req: NextApiRequest, res: NextApiResponse<Response>) =
       model === 'branch' ||
       model === 'bundle' ||
       model === 'cemetery' ||
-      model === 'asset' ||
       model === 'document'
     ) {
       const { navigation } = await client.General({ locale: 'sk' })
