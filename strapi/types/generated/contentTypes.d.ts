@@ -504,7 +504,7 @@ export interface ApiAssetCategoryAssetCategory extends Schema.CollectionType {
   collectionName: 'asset_categories'
   info: {
     description: ''
-    displayName: 'Dokumenty: Kateg\u00F3rie'
+    displayName: '(V pr\u00EDprave) Dokumenty: Kateg\u00F3rie'
     pluralName: 'asset-categories'
     singularName: 'asset-category'
   }
@@ -532,7 +532,7 @@ export interface ApiAssetAsset extends Schema.CollectionType {
   collectionName: 'assets'
   info: {
     description: ''
-    displayName: 'Dokumenty'
+    displayName: '(V pr\u00EDprave) Dokumenty'
     pluralName: 'assets'
     singularName: 'asset'
   }
@@ -1117,7 +1117,7 @@ export interface ApiDocumentCategoryDocumentCategory extends Schema.CollectionTy
   collectionName: 'document_categories'
   info: {
     description: ''
-    displayName: 'DEPRECATED: Dokumenty: Kateg\u00F3rie'
+    displayName: 'Dokumenty: Kateg\u00F3rie'
     pluralName: 'document-categories'
     singularName: 'document-category'
   }
@@ -1153,7 +1153,7 @@ export interface ApiDocumentDocument extends Schema.CollectionType {
   collectionName: 'documents'
   info: {
     description: ''
-    displayName: 'DEPRECATED: Dokumenty'
+    displayName: 'Dokumenty'
     pluralName: 'documents'
     singularName: 'document'
   }
@@ -1558,6 +1558,7 @@ export interface ApiPagePage extends Schema.CollectionType {
         'sections.ceremonies-archive-section',
         'sections.map-section',
         'sections.documents-section',
+        'sections.assets-section',
         'sections.review-listing',
         'sections.article-news-listing',
         'sections.article-press-listing',
