@@ -504,7 +504,7 @@ export interface ApiAssetCategoryAssetCategory extends Schema.CollectionType {
   collectionName: 'asset_categories'
   info: {
     description: ''
-    displayName: 'Dokumenty: Kateg\u00F3rie'
+    displayName: '(V pr\u00EDprave) Dokumenty: Kateg\u00F3rie'
     pluralName: 'asset-categories'
     singularName: 'asset-category'
   }
@@ -532,7 +532,7 @@ export interface ApiAssetAsset extends Schema.CollectionType {
   collectionName: 'assets'
   info: {
     description: ''
-    displayName: 'Dokumenty'
+    displayName: '(V pr\u00EDprave) Dokumenty'
     pluralName: 'assets'
     singularName: 'asset'
   }
@@ -1566,7 +1566,9 @@ export interface ApiPagePage extends Schema.CollectionType {
         'sections.disclosures-section',
         'sections.iframe-section',
         'sections.cemeteries-opening-hours',
-        'sections.map-of-managed-objects'
+        'sections.map-of-managed-objects',
+        'sections.asset-group',
+        'sections.assets-section'
       ]
     > &
       Attribute.SetPluginOptions<{
@@ -1882,7 +1884,6 @@ export interface PluginNavigationAudience extends Schema.CollectionType {
     }
   }
   attributes: {
-    assets: Attribute.Relation<'plugin::navigation.audience', 'oneToMany', 'api::asset.asset'>
     createdAt: Attribute.DateTime
     createdBy: Attribute.Relation<'plugin::navigation.audience', 'oneToOne', 'admin::user'> &
       Attribute.Private
