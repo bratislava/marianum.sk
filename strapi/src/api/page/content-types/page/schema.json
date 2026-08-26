@@ -42,11 +42,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "fullwidth",
-        "sidebar",
-        "centered"
-      ],
+      "enum": ["fullwidth", "sidebar", "centered"],
       "required": true,
       "default": "fullwidth"
     },
@@ -62,9 +58,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -115,7 +109,9 @@
         "sections.disclosures-section",
         "sections.iframe-section",
         "sections.cemeteries-opening-hours",
-        "sections.map-of-managed-objects"
+        "sections.map-of-managed-objects",
+        "sections.asset-group",
+        "sections.assets-section"
       ]
     },
     "sidebar": {
