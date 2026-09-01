@@ -40,7 +40,7 @@ export interface BlocksArticleItem extends Schema.Component {
 export interface BlocksAssetItem extends Schema.Component {
   collectionName: 'components_blocks_asset_items'
   info: {
-    displayName: '(V pr\u00EDprave) document item'
+    displayName: 'document item'
     icon: 'file'
   }
   attributes: {
@@ -438,7 +438,7 @@ export interface SectionsAssetGroup extends Schema.Component {
   collectionName: 'components_sections_asset_groups'
   info: {
     description: ''
-    displayName: '(V pr\u00EDprave) Document group'
+    displayName: 'Document group'
     icon: 'file-invoice'
   }
   attributes: {
@@ -451,7 +451,7 @@ export interface SectionsAssetsSection extends Schema.Component {
   collectionName: 'components_sections_assets_sections'
   info: {
     description: ''
-    displayName: '(V pr\u00EDprave) Documents section'
+    displayName: 'Documents section'
     icon: 'book'
   }
   attributes: {}
