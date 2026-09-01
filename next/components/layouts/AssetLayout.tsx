@@ -65,7 +65,7 @@ const AssetLayout = ({ asset, navigation, general }: AssetLayoutProps) => {
             </div>
             <div className="flex flex-col items-center gap-2 text-size-p-small md:items-start">
               <div>
-                {t('AssetLayout.createdAt')}{' '}
+                {t('AssetLayout.createdAt')}
                 <FormatDate value={publishedAt as string} valueType="ISO" format="articlePage" />
               </div>
               <h1>{title}</h1>
