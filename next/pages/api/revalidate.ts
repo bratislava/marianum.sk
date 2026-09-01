@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { getFullPathMeiliFn } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { Branch, Bundle, Page } from '@/graphql'
 import { client } from '@/services/graphql/gqlClient'
-import { ArticleMeili, AssetMeili, CemeteryMeili, DocumentMeili } from '@/services/meili/meiliTypes'
+import { ArticleMeili, AssetMeili, CemeteryMeili } from '@/services/meili/meiliTypes'
 import { isDefined } from '@/utils/isDefined'
 import { parseNavigation } from '@/utils/parseNavigation'
 
@@ -34,10 +34,6 @@ type RequestPayload =
       model: 'asset'
       entry: Pick<AssetMeili, 'slug'>
     }
-  | {
-      model: 'document'
-      entry: Pick<DocumentMeili, 'slug'>
-    }
   | { model: 'procedure'; entry: unknown }
 
 /* Webhook returns entry in "REST format" which is equivalent to Meili format, so we can use the same function and types */
@@ -63,8 +59,7 @@ const revalidate = async (req: NextApiRequest, res: NextApiResponse<Response>) =
       model === 'branch' ||
       model === 'bundle' ||
       model === 'cemetery' ||
-      model === 'asset' ||
-      model === 'document'
+      model === 'asset'
     ) {
       const { navigation } = await client.General({ locale: 'sk' })
       const { navMap } = parseNavigation(navigation.filter(isDefined))
