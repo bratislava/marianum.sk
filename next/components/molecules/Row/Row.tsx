@@ -7,7 +7,7 @@ import RowBox, { RowBoxProps } from '@/components/atoms/Row/RowBox'
 import RowContent from '@/components/atoms/Row/RowContent'
 import RowMoreContent from '@/components/atoms/Row/RowMoreContent'
 import Tag from '@/components/atoms/Tag'
-import { DocumentCategoryEntityFragment } from '@/graphql'
+import { AssetCategoryEntityFragment } from '@/graphql'
 import cn from '@/utils/cn'
 
 export type RowProps = {
@@ -18,7 +18,7 @@ export type RowProps = {
   tagsPosition?: 'beside' | 'under'
   linkHref?: string
   showUrl?: boolean
-  category?: DocumentCategoryEntityFragment | null | undefined
+  category?: AssetCategoryEntityFragment | null | undefined
   address?: string | null | undefined
   moreContent?: ReactNode
   button?: ReactNode

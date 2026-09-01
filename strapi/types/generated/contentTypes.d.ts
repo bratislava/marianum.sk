@@ -673,6 +673,12 @@ export interface ApiBundleBundle extends Schema.CollectionType {
           localized: true
         }
       }>
+    assets: Attribute.Component<'sections.asset-group'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
     bundleItems: Attribute.Component<'blocks.bundle-content-item', true> &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -701,12 +707,6 @@ export interface ApiBundleBundle extends Schema.CollectionType {
         }
       }>
     discountTextShort: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    documents: Attribute.Component<'sections.document-group'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true
@@ -843,6 +843,12 @@ export interface ApiCemeteryCemetery extends Schema.CollectionType {
         }
       }> &
       Attribute.DefaultTo<true>
+    assets: Attribute.Component<'sections.asset-group'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }>
     cemeteryCategory: Attribute.Relation<
       'api::cemetery.cemetery',
       'manyToOne',
@@ -853,12 +859,6 @@ export interface ApiCemeteryCemetery extends Schema.CollectionType {
     createdBy: Attribute.Relation<'api::cemetery.cemetery', 'oneToOne', 'admin::user'> &
       Attribute.Private
     description: Attribute.RichText &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true
-        }
-      }>
-    documents: Attribute.Component<'sections.document-group'> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true
@@ -1109,74 +1109,6 @@ export interface ApiDisclosureDisclosure extends Schema.CollectionType {
     type: Attribute.Enumeration<['Zmluva', 'Fakt\u00FAra', 'Objedn\u00E1vka']>
     updatedAt: Attribute.DateTime
     updatedBy: Attribute.Relation<'api::disclosure.disclosure', 'oneToOne', 'admin::user'> &
-      Attribute.Private
-  }
-}
-
-export interface ApiDocumentCategoryDocumentCategory extends Schema.CollectionType {
-  collectionName: 'document_categories'
-  info: {
-    description: ''
-    displayName: 'Dokumenty: Kateg\u00F3rie'
-    pluralName: 'document-categories'
-    singularName: 'document-category'
-  }
-  options: {
-    draftAndPublish: false
-  }
-  attributes: {
-    createdAt: Attribute.DateTime
-    createdBy: Attribute.Relation<
-      'api::document-category.document-category',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-    documents: Attribute.Relation<
-      'api::document-category.document-category',
-      'oneToMany',
-      'api::document.document'
-    >
-    slug: Attribute.UID<'api::document-category.document-category', 'title'> & Attribute.Required
-    title: Attribute.String & Attribute.Required
-    updatedAt: Attribute.DateTime
-    updatedBy: Attribute.Relation<
-      'api::document-category.document-category',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private
-  }
-}
-
-export interface ApiDocumentDocument extends Schema.CollectionType {
-  collectionName: 'documents'
-  info: {
-    description: ''
-    displayName: 'Dokumenty'
-    pluralName: 'documents'
-    singularName: 'document'
-  }
-  options: {
-    draftAndPublish: true
-  }
-  attributes: {
-    createdAt: Attribute.DateTime
-    createdBy: Attribute.Relation<'api::document.document', 'oneToOne', 'admin::user'> &
-      Attribute.Private
-    description: Attribute.Text
-    documentCategory: Attribute.Relation<
-      'api::document.document',
-      'manyToOne',
-      'api::document-category.document-category'
-    >
-    file: Attribute.Media<'files'> & Attribute.Required
-    publishedAt: Attribute.DateTime
-    seo: Attribute.Component<'general.seo'>
-    slug: Attribute.UID<'api::document.document', 'title'> & Attribute.Required
-    title: Attribute.String & Attribute.Required
-    updatedAt: Attribute.DateTime
-    updatedBy: Attribute.Relation<'api::document.document', 'oneToOne', 'admin::user'> &
       Attribute.Private
   }
 }
@@ -1545,7 +1477,6 @@ export interface ApiPagePage extends Schema.CollectionType {
         'sections.gallery',
         'sections.accordion-group',
         'sections.contact-group',
-        'sections.document-group',
         'sections.menu-listing',
         'sections.manual-listing',
         'sections.branch-group',
@@ -1557,7 +1488,6 @@ export interface ApiPagePage extends Schema.CollectionType {
         'sections.ceremonies-section',
         'sections.ceremonies-archive-section',
         'sections.map-section',
-        'sections.documents-section',
         'sections.review-listing',
         'sections.article-news-listing',
         'sections.article-press-listing',
@@ -2311,8 +2241,6 @@ declare module '@strapi/types' {
       'api::contact.contact': ApiContactContact
       'api::debtor.debtor': ApiDebtorDebtor
       'api::disclosure.disclosure': ApiDisclosureDisclosure
-      'api::document-category.document-category': ApiDocumentCategoryDocumentCategory
-      'api::document.document': ApiDocumentDocument
       'api::general.general': ApiGeneralGeneral
       'api::home-page.home-page': ApiHomePageHomePage
       'api::managed-object-category.managed-object-category': ApiManagedObjectCategoryManagedObjectCategory

@@ -60,7 +60,7 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
     await queryClient.prefetchQuery(getGraphqlNewsListingQuery(locale))
   }
 
-  if (sectionTypes.includes('ComponentSectionsDocumentsSection')) {
+  if (sectionTypes.includes('ComponentSectionsAssetsSection')) {
     await queryClient.prefetchQuery(getMeiliAssetsQuery())
   }
 

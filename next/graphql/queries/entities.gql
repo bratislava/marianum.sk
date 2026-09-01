@@ -201,8 +201,8 @@ fragment CemeteryEntity on CemeteryEntity {
     seo {
       ...Seo
     }
-    documents {
-      ...DocumentGroup
+    assets {
+      ...AssetGroup
     }
     gallery {
       ...GallerySection
@@ -275,8 +275,8 @@ fragment BundleEntity on BundleEntity {
       title
       description
     }
-    documents {
-      ...DocumentGroup
+    assets {
+      ...AssetGroup
     }
     sidebar {
       ...Sidebar
@@ -298,7 +298,7 @@ fragment ContactEntity on ContactEntity {
   }
 }
 
-fragment DocumentCategoryEntity on DocumentCategoryEntity {
+fragment AssetCategoryEntity on AssetCategoryEntity {
   id
   attributes {
     title
@@ -306,22 +306,22 @@ fragment DocumentCategoryEntity on DocumentCategoryEntity {
   }
 }
 
-fragment DocumentSlugEntity on DocumentEntity {
+fragment AssetSlugEntity on AssetEntity {
   __typename
   id
   attributes {
     title
     slug
-    documentCategory {
+    assetCategory {
       data {
-        ...DocumentCategoryEntity
+        ...AssetCategoryEntity
       }
     }
   }
 }
 
-fragment DocumentCardEntity on DocumentEntity {
-  ...DocumentSlugEntity
+fragment AssetCardEntity on AssetEntity {
+  ...AssetSlugEntity
   attributes {
     publishedAt
     file {
@@ -332,8 +332,8 @@ fragment DocumentCardEntity on DocumentEntity {
   }
 }
 
-fragment DocumentEntity on DocumentEntity {
-  ...DocumentCardEntity
+fragment AssetEntity on AssetEntity {
+  ...AssetCardEntity
   attributes {
     description
     seo {
@@ -462,9 +462,9 @@ fragment PageEntity on PageEntity {
         id
         color
       }
-      ... on ComponentSectionsDocumentGroup {
+      ... on ComponentSectionsAssetGroup {
         __typename
-        ...DocumentGroup
+        ...AssetGroup
       }
       ... on ComponentSectionsGallery {
         __typename
@@ -520,7 +520,7 @@ fragment PageEntity on PageEntity {
         __typename
         id
       }
-      ... on ComponentSectionsDocumentsSection {
+      ... on ComponentSectionsAssetsSection {
         __typename
         id
       }

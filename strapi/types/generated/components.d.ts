@@ -113,10 +113,10 @@ export interface BlocksButtonLink extends Schema.Component {
   }
   attributes: {
     article: Attribute.Relation<'blocks.button-link', 'oneToOne', 'api::article.article'>
+    asset: Attribute.Relation<'blocks.button-link', 'oneToOne', 'api::asset.asset'>
     branch: Attribute.Relation<'blocks.button-link', 'oneToOne', 'api::branch.branch'>
     bundle: Attribute.Relation<'blocks.button-link', 'oneToOne', 'api::bundle.bundle'>
     cemetery: Attribute.Relation<'blocks.button-link', 'oneToOne', 'api::cemetery.cemetery'>
-    document: Attribute.Relation<'blocks.button-link', 'oneToOne', 'api::document.document'>
     label: Attribute.String & Attribute.Required
     managedObject: Attribute.Relation<
       'blocks.button-link',
@@ -151,18 +151,6 @@ export interface BlocksCta extends Schema.Component {
     description: Attribute.Text
     image: Attribute.Media<'images'>
     title: Attribute.String & Attribute.Required
-  }
-}
-
-export interface BlocksDocumentItem extends Schema.Component {
-  collectionName: 'components_blocks_document_items'
-  info: {
-    description: ''
-    displayName: 'Document item'
-    icon: 'file'
-  }
-  attributes: {
-    document: Attribute.Relation<'blocks.document-item', 'oneToOne', 'api::document.document'>
   }
 }
 
@@ -618,29 +606,6 @@ export interface SectionsDivider extends Schema.Component {
   }
 }
 
-export interface SectionsDocumentGroup extends Schema.Component {
-  collectionName: 'components_sections_document_groups'
-  info: {
-    description: ''
-    displayName: 'Document group'
-    icon: 'file-invoice'
-  }
-  attributes: {
-    documents: Attribute.Component<'blocks.document-item', true>
-    title: Attribute.String
-  }
-}
-
-export interface SectionsDocumentsSection extends Schema.Component {
-  collectionName: 'components_sections_documents_sections'
-  info: {
-    description: ''
-    displayName: 'Documents section'
-    icon: 'book'
-  }
-  attributes: {}
-}
-
 export interface SectionsGallery extends Schema.Component {
   collectionName: 'components_sections_galleries'
   info: {
@@ -853,7 +818,6 @@ declare module '@strapi/types' {
       'blocks.button-link': BlocksButtonLink
       'blocks.contact-item': BlocksContactItem
       'blocks.cta': BlocksCta
-      'blocks.document-item': BlocksDocumentItem
       'blocks.office-item': BlocksOfficeItem
       'blocks.opening-hours-item': BlocksOpeningHoursItem
       'blocks.opening-hours-universal': BlocksOpeningHoursUniversal
@@ -888,8 +852,6 @@ declare module '@strapi/types' {
       'sections.debtors-section': SectionsDebtorsSection
       'sections.disclosures-section': SectionsDisclosuresSection
       'sections.divider': SectionsDivider
-      'sections.document-group': SectionsDocumentGroup
-      'sections.documents-section': SectionsDocumentsSection
       'sections.gallery': SectionsGallery
       'sections.homepage-reviews-section': SectionsHomepageReviewsSection
       'sections.iframe-section': SectionsIframeSection

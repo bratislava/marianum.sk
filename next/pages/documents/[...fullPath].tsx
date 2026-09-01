@@ -10,13 +10,13 @@ import {
   generateStaticProps,
 } from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
 import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { AssetEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
 import { client } from '@/services/graphql/gqlClient'
 
 type AssetPageProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
-  entity: DocumentEntityFragment
+  entity: AssetEntityFragment
 } & SSRConfig
 
 const AssetPage = ({ navigation, entity, general }: AssetPageProps) => {
@@ -29,7 +29,7 @@ const AssetPage = ({ navigation, entity, general }: AssetPageProps) => {
         <Seo seo={seo} title={title} description={description} entity={entity} />
       </NavigationProvider>
 
-      <AssetLayout document={entity} navigation={navigation} general={general} />
+      <AssetLayout asset={entity} navigation={navigation} general={general} />
     </>
   )
 }
@@ -40,8 +40,8 @@ interface StaticParams extends ParsedUrlQuery {
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   // TODO: Locales
-  const paths = await generateStaticPaths('sk', () =>
-    client.DocumentsStaticPaths().then((response) => response.documents?.data),
+  const paths = await generateStaticPaths('sk', async () =>
+    client.AssetsStaticPaths().then((response) => response.assets?.data),
   )
 
   // eslint-disable-next-line no-console
@@ -62,8 +62,8 @@ export const getStaticProps: GetStaticProps<AssetPageProps, StaticParams> = asyn
     generateStaticProps({
       locale,
       params,
-      entityPromiseGetter: ({ slug }) =>
-        client.DocumentBySlug({ slug }).then((response) => response.documents?.data[0]),
+      entityPromiseGetter: async ({ slug }) =>
+        client.AssetBySlug({ slug }).then((response) => response.assets?.data[0]),
     })
   )
 }

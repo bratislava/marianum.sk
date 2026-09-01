@@ -9,25 +9,18 @@ import PageWrapper from '@/components/layouts/PageWrapper'
 import SectionsWrapper from '@/components/layouts/SectionsWrapper'
 import Section from '@/components/molecules/Section'
 import HeroSection from '@/components/sections/HeroSection'
-import { DocumentEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { AssetEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
 
 type AssetLayoutProps = {
   navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
-  document: DocumentEntityFragment
+  asset: AssetEntityFragment
 }
 
-const AssetLayout = ({ document: asset, navigation, general }: AssetLayoutProps) => {
+const AssetLayout = ({ asset, navigation, general }: AssetLayoutProps) => {
   const { t, i18n } = useTranslation()
 
-  const {
-    title,
-    description,
-    file,
-    publishedAt,
-    documentCategory: assetCategory,
-    slug,
-  } = asset.attributes ?? {}
+  const { title, description, file, publishedAt, assetCategory, slug } = asset.attributes ?? {}
 
   const dlData = useMemo(() => {
     return [

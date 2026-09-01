@@ -2,20 +2,20 @@ import { useId, useMemo } from 'react'
 
 import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import AssetRow from '@/components/molecules/Row/AssetRow'
-import { DocumentGroupFragment } from '@/graphql'
+import { AssetGroupFragment } from '@/graphql'
 import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
 
-type AssetGroupProps = DocumentGroupFragment & { variant?: 'gaps' | 'dividers' }
+type AssetGroupProps = AssetGroupFragment & { variant?: 'gaps' | 'dividers' }
 
 const getAriaLabelId = (id: string, index: number) => `asset-group-title-${id}-${index}`
 
-const AssetGroup = ({ documents: assets, variant = 'gaps' }: AssetGroupProps) => {
+const AssetGroup = ({ assets, variant = 'gaps' }: AssetGroupProps) => {
   const id = useId()
   const { getFullPath } = useGetFullPath()
 
   const filteredAssets = useMemo(() => {
-    return (assets ?? []).map((asset) => asset?.document?.data).filter(isDefined)
+    return (assets ?? []).map((asset) => asset?.asset?.data).filter(isDefined)
   }, [assets])
 
   return (

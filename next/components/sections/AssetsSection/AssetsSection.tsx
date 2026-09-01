@@ -23,7 +23,7 @@ import {
   getMeiliAssetsQueryKey,
   meiliAssetsFetcher,
 } from '@/services/fetchers/assetsFetcher'
-import { DocumentMeili } from '@/services/meili/meiliTypes'
+import { AssetMeili } from '@/services/meili/meiliTypes'
 import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
@@ -31,7 +31,7 @@ const Assets = ({
   data,
   filters,
 }: {
-  data: SearchResponse<DocumentMeili>
+  data: SearchResponse<AssetMeili>
   filters: AssetsFilters
 }) => {
   const { t } = useTranslation()
@@ -51,19 +51,19 @@ const Assets = ({
           <Row
             // eslint-disable-next-line react/no-array-index-key
             key={index}
-            title={asset.title}
+            title={asset.title ?? undefined}
             applyFocusStyles={false}
             category={
-              asset?.documentCategory
+              asset?.assetCategory
                 ? {
                     attributes: {
-                      title: asset.documentCategory.title,
-                      slug: asset.documentCategory.slug,
+                      title: asset.assetCategory.title,
+                      slug: asset.assetCategory.slug,
                     },
                   }
                 : null
             }
-            linkHref={getFullPathMeili('document', asset) ?? ''}
+            linkHref={getFullPathMeili('asset', asset) ?? ''}
             button={
               <Button
                 variant="tertiary"

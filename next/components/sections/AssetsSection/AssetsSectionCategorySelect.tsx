@@ -10,9 +10,9 @@ type AssetsSectionCategorySelectProps = {
 }
 
 const mappedFetcher = async () =>
-  client.DocumentCategories().then(
+  client.AssetCategories().then(
     (data) =>
-      data.documentCategories?.data.map((category) => ({
+      data.assetCategories?.data.map((category) => ({
         label: category.attributes?.title,
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         key: category.id!,

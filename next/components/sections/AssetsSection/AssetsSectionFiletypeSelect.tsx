@@ -11,9 +11,9 @@ type AssetsSectionFiletypeSelectProps = {
 }
 
 const mappedFetcher = async () =>
-  client.DocumentFiletypes().then(
+  client.AssetFileTypes().then(
     (data) =>
-      data.documentFiletypes?.filter(isDefined).map((filetype) => ({
+      data.assetFileTypes?.filter(isDefined).map((filetype) => ({
         label: (filetype.startsWith('.') ? filetype.slice(1) : filetype).toUpperCase(),
         key: filetype,
       })) ?? [],

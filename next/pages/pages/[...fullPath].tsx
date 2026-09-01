@@ -128,7 +128,7 @@ const Slug = ({ navigation, entity, general, dehydratedState }: PageProps) => {
                 </Section>
               )
             }
-            if (section?.__typename === 'ComponentSectionsDocumentGroup') {
+            if (section?.__typename === 'ComponentSectionsAssetGroup') {
               return (
                 <Section
                   key={`${section.__typename}-${section.id}`}
@@ -205,7 +205,7 @@ const Slug = ({ navigation, entity, general, dehydratedState }: PageProps) => {
             if (section?.__typename === 'ComponentSectionsCeremoniesArchiveSection') {
               return <CeremoniesArchiveSection key={`${section.__typename}-${section.id}`} />
             }
-            if (section?.__typename === 'ComponentSectionsDocumentsSection') {
+            if (section?.__typename === 'ComponentSectionsAssetsSection') {
               return <AssetsSection key={`${section.__typename}-${section.id}`} />
             }
             if (section?.__typename === 'ComponentSectionsArticleNewsListing') {
