@@ -64,10 +64,6 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
     await queryClient.prefetchQuery(getMeiliAssetsQuery())
   }
 
-  if (sectionTypes.includes('ComponentSectionsAssetsSection')) {
-    await queryClient.prefetchQuery(getMeiliAssetsQuery())
-  }
-
   if (sectionTypes.includes('ComponentSectionsDisclosuresSection')) {
     await queryClient.prefetchQuery(getMeiliDisclosuresQuery())
   }
