@@ -30,6 +30,7 @@ const SearchSection = () => {
     bundle: t('SearchPage.tags.bundle'),
     cemetery: t('SearchPage.tags.cemetery'),
     document: t('SearchPage.tags.asset'),
+    asset: t('SearchPage.tags.asset'),
   } satisfies Record<SearchType, string>
 
   const [filters, setFilters] = useState<SearchFilters>({
