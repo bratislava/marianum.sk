@@ -34,8 +34,8 @@ const RowBox = ({
           // When the card is focused, hide all its descendants’ focus rings (= focus rings of any links within the card) except the card’s focus ring
           // This needs revisiting when we need more focusable elements in a card
           'ring-offset-2 outline-hidden transition **:ring-transparent **:outline-hidden focus-within:has-focus-visible:ring-3 [&_a]:ring-offset-transparent':
-            applyFocusStyles, // TODO Temporary workaround to prevent DocumentRow focus styles from applying to the entire row
-          // The ideal solution is to refactor DocumentRow to have a single focusable element instead of multiple
+            applyFocusStyles, // TODO Temporary workaround to prevent AssetRow focus styles from applying to the entire row
+          // The ideal solution is to refactor AssetRow to have a single focusable element instead of multiple
           // This would allow us to apply focus styles to the whole card naturally, eliminating the need for this prop
         },
         className,

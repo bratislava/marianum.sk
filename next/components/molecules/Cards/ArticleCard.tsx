@@ -41,17 +41,16 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
 
   return (
     <CardBox {...rest} hover={isLinkHovered}>
-      <div className="aspect-264/148 bg-gray relative w-full">
+      <div className="relative aspect-264/148 w-full bg-gray">
         {image ? <MImage image={image} fill className="object-cover" /> : <ImagePlaceholder />}
       </div>
       <CardContent className="gap-y-3">
-        <span className="text-size-p-small line-clamp-1">
+        <span className="line-clamp-1 text-size-p-small">
           <span>
             <FormatDate value={formattedDate} format="articleCard" />
           </span>
           {category?.attributes && (
             <>
-              {' '}
               • <span>{category.attributes.title}</span>
             </>
           )}

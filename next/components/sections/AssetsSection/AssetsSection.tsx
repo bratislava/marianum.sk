@@ -15,64 +15,64 @@ import PaginationMeili from '@/components/molecules/PaginationMeili'
 import Row from '@/components/molecules/Row/Row'
 import Section from '@/components/molecules/Section'
 import SortSelect, { Sort } from '@/components/molecules/SortSelect'
-import DocumentsSectionCategorySelect from '@/components/sections/DocumentsSection/DocumentsSectionCategorySelect'
-import DocumentsSectionFiletypeSelect from '@/components/sections/DocumentsSection/DocumentsSectionFiletypeSelect'
+import AssetsSectionCategorySelect from '@/components/sections/AssetsSection/AssetsSectionCategorySelect'
+import AssetsSectionFiletypeSelect from '@/components/sections/AssetsSection/AssetsSectionFiletypeSelect'
 import {
-  documentsDefaultFilters,
-  DocumentsFilters,
-  getMeiliDocumentsQueryKey,
-  meiliDocumentsFetcher,
-} from '@/services/fetchers/documentsFetcher'
-import { DocumentMeili } from '@/services/meili/meiliTypes'
+  assetsDefaultFilters,
+  AssetsFilters,
+  getMeiliAssetsQueryKey,
+  meiliAssetsFetcher,
+} from '@/services/fetchers/assetsFetcher'
+import { AssetMeili } from '@/services/meili/meiliTypes'
 import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
-const Documents = ({
+const Assets = ({
   data,
   filters,
 }: {
-  data: SearchResponse<DocumentMeili>
-  filters: DocumentsFilters
+  data: SearchResponse<AssetMeili>
+  filters: AssetsFilters
 }) => {
   const { t } = useTranslation()
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
-  const documentsRef = useRef<HTMLDivElement>(null)
-  useScrollToViewIfDataChange(data, filters, documentsRef)
+  const assetsRef = useRef<HTMLDivElement>(null)
+  useScrollToViewIfDataChange(data, filters, assetsRef)
 
   const { getFullPathMeili } = useGetFullPathMeili()
 
   if (data.hits.length > 0) {
     return (
-      <div className="grid gap-y-3" ref={documentsRef}>
-        <h2 className="sr-only">{t('DocumentsSection.aria.results')}</h2>
-        {data.hits.map((document, index) => (
-          // TODO: Use DocumentRow
+      <div className="grid gap-y-3" ref={assetsRef}>
+        <h2 className="sr-only">{t('AssetsSection.aria.results')}</h2>
+        {data.hits.map((asset, index) => (
+          // TODO: Use AssetRow
           <Row
             // eslint-disable-next-line react/no-array-index-key
             key={index}
-            title={document.title}
+            title={asset.title ?? undefined}
             applyFocusStyles={false}
             category={
-              document?.documentCategory
+              asset?.assetCategory
                 ? {
                     attributes: {
-                      title: document.documentCategory.title,
-                      slug: document.documentCategory.slug,
+                      title: asset.assetCategory.title,
+                      slug: asset.assetCategory.slug,
                     },
                   }
                 : null
             }
-            linkHref={getFullPathMeili('document', document) ?? ''}
+            linkHref={getFullPathMeili('asset', asset) ?? ''}
             button={
               <Button
                 variant="tertiary"
                 startIcon={<DownloadIcon />}
                 target="_blank"
-                href={document.file?.url ?? ''}
-                aria-label={getDownloadAriaLabel({ attributes: document.file }, document.title)}
+                href={asset.file?.url ?? ''}
+                aria-label={getDownloadAriaLabel({ attributes: asset.file }, asset.title)}
               >
-                {t('DocumentsSection.download')}
+                {t('AssetsSection.download')}
               </Button>
             }
             border={false}
@@ -82,7 +82,7 @@ const Documents = ({
     )
   }
 
-  return <strong>{t('DocumentsSection.noDocuments')}</strong>
+  return <strong>{t('AssetsSection.noAssets')}</strong>
 }
 
 const DataWrapper = ({
@@ -90,13 +90,13 @@ const DataWrapper = ({
   description,
   onPageChange,
 }: {
-  filters: DocumentsFilters
+  filters: AssetsFilters
   description?: string | null
   onPageChange: (page: number) => void
 }) => {
   const { data, isPending, isFetching, isError, error } = useQuery({
-    queryKey: getMeiliDocumentsQueryKey(filters),
-    queryFn: () => meiliDocumentsFetcher(filters),
+    queryKey: getMeiliAssetsQueryKey(filters),
+    queryFn: async () => meiliAssetsFetcher(filters),
     placeholderData: keepPreviousData,
   })
 
@@ -112,7 +112,7 @@ const DataWrapper = ({
   return (
     <>
       <LoadingOverlay loading={isFetching}>
-        <Documents data={data} filters={filters} />
+        <Assets data={data} filters={filters} />
       </LoadingOverlay>
 
       {description && <p className="pt-4 md:pt-6">{description}</p>}
@@ -128,12 +128,12 @@ const DataWrapper = ({
   )
 }
 
-type DocumentsSectionProps = {
+type AssetsSectionProps = {
   description?: string | null
 }
 
-const DocumentsSection = ({ description }: DocumentsSectionProps) => {
-  const [filters, setFilters] = useState<DocumentsFilters>(documentsDefaultFilters)
+const AssetsSection = ({ description }: AssetsSectionProps) => {
+  const [filters, setFilters] = useState<AssetsFilters>(assetsDefaultFilters)
   const [searchInputValue, setSearchInputValue] = useState<string>('')
   const [debouncedSearchInputValue] = useDebounceValue<string>(searchInputValue, 300)
 
@@ -169,8 +169,11 @@ const DocumentsSection = ({ description }: DocumentsSectionProps) => {
             onChange={(value) => setSearchInputValue(value)}
           />
         </div>
-        <DocumentsSectionCategorySelect onCategoryChange={handleCategoryChange} />
-        <DocumentsSectionFiletypeSelect onFiletypeChange={handleFiletypeChange} />
+
+        <AssetsSectionCategorySelect onCategoryChange={handleCategoryChange} />
+
+        <AssetsSectionFiletypeSelect onFiletypeChange={handleFiletypeChange} />
+
         <SortSelect onChange={handleSortChange} defaultSort={filters.sort} />
       </FiltersBackgroundWrapper>
 
@@ -181,4 +184,4 @@ const DocumentsSection = ({ description }: DocumentsSectionProps) => {
   )
 }
 
-export default DocumentsSection
+export default AssetsSection

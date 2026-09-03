@@ -29,7 +29,7 @@ const SearchSection = () => {
     branch: t('SearchPage.tags.branch'),
     bundle: t('SearchPage.tags.bundle'),
     cemetery: t('SearchPage.tags.cemetery'),
-    document: t('SearchPage.tags.document'),
+    asset: t('SearchPage.tags.asset'),
   } satisfies Record<SearchType, string>
 
   const [filters, setFilters] = useState<SearchFilters>({
