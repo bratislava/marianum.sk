@@ -21,7 +21,7 @@ const CemeteriesOpeningHoursSection = ({
   const { border } = useContext(sectionContext)
   const { getFullPath } = useGetFullPath()
 
-  const showMorePath = getFullPath(section.showMoreButton?.page?.data)
+  const showMorePath = getFullPath(section.showMoreButton?.page)
 
   return (
     <Section
@@ -35,7 +35,7 @@ const CemeteriesOpeningHoursSection = ({
         })}
       >
         {general?.cemeteryOpeningHours && (
-          <OpeningHours openingHours={general?.cemeteryOpeningHours} />
+          <OpeningHours openingHours={general.cemeteryOpeningHours} />
         )}
       </div>
       {showMorePath && section.buttonPosition === 'below' && (

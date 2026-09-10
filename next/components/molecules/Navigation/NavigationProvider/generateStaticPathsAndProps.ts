@@ -43,7 +43,7 @@ export const generateStaticPaths = async (
   const fullPaths = (entities?.map((entity) => getFullPathFn(entity, navMap)) ?? []).filter(
     isDefined,
   )
-  const fullPathsArray = fullPaths.map((path) => path.split('/')?.slice(1))
+  const fullPathsArray = fullPaths.map((path) => path.split('/').slice(1))
 
   return fullPathsArray.map(
     (fullPath) => ({ params: { fullPath, locale: 'sk' } }) as const,
@@ -75,7 +75,10 @@ export const generateStaticProps = async <T extends UnionSlugEntityType, Additio
 }: {
   locale: string
   params: { fullPath?: string[] } | undefined
-  entityPromiseGetter: (getterParams: { locale?: string; slug: string }) => Promise<T | undefined>
+  entityPromiseGetter: (getterParams: {
+    locale?: string
+    slug: string
+  }) => Promise<T | null | undefined>
   getAdditionalProps?: (entity: T) => Promise<AdditionalProps>
 }) => {
   if (!params?.fullPath) {
@@ -109,7 +112,7 @@ export const generateStaticProps = async <T extends UnionSlugEntityType, Additio
   return {
     props: {
       navigation: filteredNavigation,
-      general: general?.data ?? null,
+      general: general ?? null,
       entity,
       ...translations,
       ...additionalProps,

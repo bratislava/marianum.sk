@@ -19,9 +19,9 @@ const AssetRow = (props: AssetRowProps) => {
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
 
   const DownloadButton = () =>
-    file.attributes?.url ? (
+    file.url ? (
       <Button
-        href={file?.attributes?.url}
+        href={file.url}
         target="_blank"
         variant="tertiary"
         aria-label={getDownloadAriaLabel(file, title)}

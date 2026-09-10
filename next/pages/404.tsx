@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps = async (
   return {
     props: {
       navigation: navigation.filter(isDefined),
-      general: general?.data ?? null,
+      general: general ?? null,
       ...translations,
     },
     revalidate: 10,

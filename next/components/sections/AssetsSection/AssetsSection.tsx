@@ -53,24 +53,15 @@ const Assets = ({
             key={index}
             title={asset.title}
             applyFocusStyles={false}
-            category={
-              asset?.assetCategory
-                ? {
-                    attributes: {
-                      title: asset.assetCategory.title,
-                      slug: asset.assetCategory.slug,
-                    },
-                  }
-                : null
-            }
+            category={asset.assetCategory}
             linkHref={getFullPathMeili('asset', asset) ?? ''}
             button={
               <Button
                 variant="tertiary"
                 startIcon={<DownloadIcon />}
                 target="_blank"
-                href={asset.file?.url ?? ''}
-                aria-label={getDownloadAriaLabel({ attributes: asset.file }, asset.title)}
+                href={asset.file.url}
+                aria-label={getDownloadAriaLabel(asset.file, asset.title)}
               >
                 {t('AssetsSection.download')}
               </Button>

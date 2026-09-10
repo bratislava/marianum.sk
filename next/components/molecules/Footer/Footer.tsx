@@ -22,9 +22,9 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
   const { t } = useTranslation()
   const { getFullPath } = useGetFullPath()
 
-  const { phone1, email } = contact?.contact?.data?.attributes ?? {}
-  const openingHoursPath = getFullPath(contact?.openingHoursPage?.data)
-  const contactsPath = getFullPath(contact?.contactsPage?.data)
+  const { phone1, email } = contact?.contact ?? {}
+  const openingHoursPath = getFullPath(contact?.openingHoursPage)
+  const contactsPath = getFullPath(contact?.contactsPage)
 
   const footerColumns = useMemo(() => {
     return [
@@ -63,7 +63,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
             <div className="relative flex flex-col gap-3">
               <div className="text-size-p-large font-bold">{t('Footer.address')}</div>
               {(contact?.addressFirstLine || contact?.address) && (
-                <div className="flex flex-col gap-2 whitespace-pre-wrap font-regular text-white/72">
+                <div className="flex flex-col gap-2 font-regular whitespace-pre-wrap text-white/72">
                   <div>{contact.addressFirstLine}</div>
                   {contact.navigateToLink && contact.address ? (
                     <div>
@@ -72,8 +72,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
                         target="_blank"
                         noStyles
                         className="w-fit text-white/72 underline hover:text-white"
-                        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                        aria-label={`${t('Footer.navigateTo')} ${contact?.address}`}
+                        aria-label={`${t('Footer.navigateTo')} ${contact.address}`}
                       >
                         {contact.address}
                       </MLink>
@@ -83,7 +82,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
                   )}
                 </div>
               )}
-              <div className="right-0 top-1 flex md:absolute">
+              <div className="top-1 right-0 flex md:absolute">
                 {openingHoursPath && (
                   <MLink variant="white" href={openingHoursPath}>
                     {t('Footer.openingHours')}
@@ -114,7 +113,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
                   </MLink>
                 )}
               </div>
-              <div className="right-0 top-1 flex md:absolute">
+              <div className="top-1 right-0 flex md:absolute">
                 {contactsPath && (
                   <MLink variant="white" href={contactsPath}>
                     {t('Footer.allContacts')}
@@ -137,7 +136,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
               <AccordionItem key={colIndex} noBoxStyles title={title}>
                 <div className="flex flex-col gap-4">
                   {links?.map((link, linkIndex) => {
-                    const fullPath = getFullPath(link?.page?.data) || link?.url || ''
+                    const fullPath = getFullPath(link?.page) || link?.url || ''
 
                     return (
                       <MLink
@@ -166,7 +165,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
               <h4>{title}</h4>
               <div className="flex flex-col gap-3">
                 {links?.map((link, linkIndex) => {
-                  const fullPath = getFullPath(link?.page?.data) || link?.url || ''
+                  const fullPath = getFullPath(link?.page) || link?.url || ''
 
                   return (
                     <MLink

@@ -25,9 +25,9 @@ export const mapOfManagedObjectsSectionDefaultFilters = {
 const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps) => {
   const { getFullPath } = useGetFullPath()
 
-  const categories = section.categories?.data.filter(isDefined) ?? []
+  const categories = section.categories.filter(isDefined)
 
-  const defaultCategoryIds = categories.map((category) => category.id).filter(isDefined)
+  const defaultCategoryIds = categories.map((category) => category.documentId).filter(isDefined)
 
   const [filters, setFilters] = useState({
     ...mapOfManagedObjectsSectionDefaultFilters,
@@ -77,7 +77,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
         }}
         landmarks={data.hits
           .map((hit) => {
-            const { title, latitude, longitude, address } = hit ?? {}
+            const { title, latitude, longitude, address } = hit
             const linkHref = getFullPath({
               id: hit.id,
               attributes: hit,
@@ -99,9 +99,9 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
           .filter(isDefined)}
         tags={categories
           .map((category) => {
-            const { title } = category.attributes ?? {}
+            const { title } = category
 
-            return category.id && title ? { id: category.id, title } : null
+            return category.documentId && title ? { id: category.documentId, title } : null
           })
           .filter(isDefined)}
       />

@@ -28,14 +28,12 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
     <Section title={title} description={description} {...rest}>
       <Tabs>
         {proceduresWithKeys.map((bundleTab) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <TabItem key={bundleTab.key} title={bundleTab?.title ?? ''}>
+          <TabItem key={bundleTab.key} title={bundleTab.title ?? ''}>
             <div className="grid gap-6 md:auto-cols-fr md:grid-flow-col">
-              {bundleTab?.bundles
+              {bundleTab.bundles
                 ?.filter(isDefined)
-                .map((bundle) => bundle.bundle?.data)
+                .map((bundle) => bundle.bundle)
                 .map((bundle) => {
-                  const { attributes } = bundle ?? {}
                   const {
                     title: bundleTitle,
                     coverMedia,
@@ -44,12 +42,12 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
                     bundleItems,
                     additionalItems,
                     slug,
-                  } = attributes ?? {}
+                  } = bundle ?? {}
 
                   return (
                     <BundleCard
                       key={slug}
-                      image={coverMedia?.data?.attributes}
+                      image={coverMedia}
                       name={bundleTitle ?? ''}
                       priceFrom={price ?? 0}
                       discountText={discountTextShort ?? undefined}

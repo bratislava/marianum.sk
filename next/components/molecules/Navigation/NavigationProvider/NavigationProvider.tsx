@@ -11,7 +11,7 @@ type NavigationContextProps = {
 export type TNavigationContext = {
   navMap: NavMap
   navigation: NavigationItemFragment[]
-  general: GeneralEntityFragment['attributes'] | null
+  general: GeneralEntityFragment | null
 }
 
 export const NavigationContext = createContext<TNavigationContext>({
@@ -30,9 +30,7 @@ const NavigationProvider = ({
   }, [navigation])
 
   return (
-    <NavigationContext.Provider
-      value={{ navMap, navigation, general: general?.attributes ?? null }}
-    >
+    <NavigationContext.Provider value={{ navMap, navigation, general: general ?? null }}>
       {children}
     </NavigationContext.Provider>
   )

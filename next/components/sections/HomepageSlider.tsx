@@ -25,7 +25,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
   }
 
   return (
-    <div className="bg-primary-dark relative h-[412px] text-white lg:h-[436px]">
+    <div className="relative h-[412px] bg-primary-dark text-white lg:h-[436px]">
       <Slider
         autoSwipeDuration={5000}
         // To prevent the screen reader from reading the aria-label twice (Slider component already has a default aria-label)
@@ -33,7 +33,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
         allowKeyboardNavigation
         pages={slides.map(({ title, description, button, image }, index) => {
           const linkProps = getLinkProps(button)
-          const { url, alternativeText } = image?.data?.attributes ?? {}
+          const { url, alternativeText } = image ?? {}
 
           return (
             <div
@@ -41,11 +41,11 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
               // eslint-disable-next-line react/no-array-index-key
               key={index}
             >
-              <div className="container absolute flex h-full flex-row items-center justify-center lg:justify-start">
+              <div className="absolute container flex h-full flex-row items-center justify-center lg:justify-start">
                 {/* 60% of container width is not the same as 60% of window (image offset from left), but this setting works fine */}
                 <div className="flex size-full flex-col items-center pb-16 lg:w-3/5 lg:items-start lg:justify-end lg:pb-[104px]">
                   {/* Mobile image */}
-                  <div className="pointer-events-none relative mb-6 h-[228px] w-full select-none bg-black/20 lg:hidden">
+                  <div className="pointer-events-none relative mb-6 h-[228px] w-full bg-black/20 select-none lg:hidden">
                     {url && (
                       <Image src={url} alt={alternativeText ?? ''} fill className="object-cover" />
                     )}
@@ -53,13 +53,13 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
 
                   <h3
                     id={getAriaLabelId(id, index)}
-                    className="text-size-h1-r lg:text-size-h1 text-center font-bold text-current lg:text-left"
+                    className="text-center text-size-h1-r font-bold text-current lg:text-left lg:text-size-h1"
                   >
                     {title}
                   </h3>
 
                   {description && (
-                    <div className="opacity-72 mt-3 hidden lg:line-clamp-3 lg:block lg:pr-40">
+                    <div className="mt-3 hidden opacity-72 lg:line-clamp-3 lg:block lg:pr-40">
                       {description}
                     </div>
                   )}
@@ -82,8 +82,8 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
               <div key={linkProps.href} className="hidden h-full flex-1 lg:flex">
                 <div className="w-3/5" />
                 {/* gradient overlay */}
-                <div className="z-1 bg-linear-to-r from-primary-dark absolute left-[60%] -ml-px h-full w-[10%]" />
-                <div className="pointer-events-none relative h-[228px] w-full select-none bg-black/20 lg:h-full lg:w-2/5">
+                <div className="absolute left-[60%] z-1 -ml-px h-full w-[10%] bg-linear-to-r from-primary-dark" />
+                <div className="pointer-events-none relative h-[228px] w-full bg-black/20 select-none lg:h-full lg:w-2/5">
                   {url && (
                     <Image
                       src={url}
@@ -98,7 +98,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
           )
         })}
         pagination={({ count, activeIndex, goToPage }) => (
-          <div className="container pointer-events-none absolute bottom-4 z-20 flex justify-center lg:bottom-12 lg:justify-start">
+          <div className="pointer-events-none absolute bottom-4 z-20 container flex justify-center lg:bottom-12 lg:justify-start">
             <div className="left-0 -ml-2 flex items-center">
               {Array.from({ length: count }, (element, index) => (
                 <button
@@ -106,7 +106,7 @@ const HomepageSlider = ({ slides }: HomepageSliderProps) => {
                   type="button"
                   aria-label={t('HomepageSlider.aria.goToSlide', { number: index + 1 })}
                   onClick={() => goToPage(index)}
-                  className="base-focus-ring pointer-events-auto rounded-full p-2"
+                  className="pointer-events-auto rounded-full p-2 base-focus-ring"
                   // Keep the focus ring fully visible regardless of whether the indicator is active or inactive
                 >
                   <div

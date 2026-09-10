@@ -24,13 +24,8 @@ const PageLayout = ({ page, navigation, children, general }: PageLayoutProps) =>
     <PageWrapper
       navigation={navigation}
       header={
-        page.attributes?.layout === Enum_Page_Layout.Fullwidth ||
-        page.attributes?.layout === Enum_Page_Layout.Sidebar ? (
-          <HeroSection
-            title={page.attributes?.title}
-            perex={page.attributes?.perex}
-            ctaButton={page.attributes?.ctaButton}
-          />
+        page.layout === Enum_Page_Layout.Fullwidth || page.layout === Enum_Page_Layout.Sidebar ? (
+          <HeroSection title={page.title} perex={page.perex} ctaButton={page.ctaButton} />
         ) : (
           // Display just breadcrumbs for Centered layout
           <HeroSection />
@@ -42,22 +37,21 @@ const PageLayout = ({ page, navigation, children, general }: PageLayoutProps) =>
         <div
           className={cn('h-auto', {
             // Add container for all layouts except 'fullwidth'
-            'container relative py-6 md:pb-20 md:pt-12':
-              page.attributes?.layout !== Enum_Page_Layout.Fullwidth,
+            'relative container py-6 md:pt-12 md:pb-20': page.layout !== Enum_Page_Layout.Fullwidth,
             // Set grid for Sidebar layout
             'grid grid-cols-1 gap-6 lg:grid-flow-col lg:grid-cols-[minmax(0,1fr)_auto]':
-              page.attributes?.layout === Enum_Page_Layout.Sidebar,
+              page.layout === Enum_Page_Layout.Sidebar,
             // Center content for Centered layout
-            'sm:px-20 md:px-28 lg:px-40': page.attributes?.layout === Enum_Page_Layout.Centered,
+            'sm:px-20 md:px-28 lg:px-40': page.layout === Enum_Page_Layout.Centered,
           })}
         >
           {/* Show title and perex for Centered layout */}
-          {page.attributes?.layout === Enum_Page_Layout.Centered && (
+          {page.layout === Enum_Page_Layout.Centered && (
             <div className="pb-6 sm:pb-10">
-              <h1 className="text-center">{page.attributes?.title}</h1>
-              {page.attributes?.perex && (
+              <h1 className="text-center">{page.title}</h1>
+              {page.perex && (
                 <p className="mt-6 sm:mt-8">
-                  <NormalizeText>{page.attributes?.perex}</NormalizeText>
+                  <NormalizeText>{page.perex}</NormalizeText>
                 </p>
               )}
             </div>
@@ -66,9 +60,7 @@ const PageLayout = ({ page, navigation, children, general }: PageLayoutProps) =>
           {children}
 
           {/* Show sidebar for Sidebar layout */}
-          {page.attributes?.layout === Enum_Page_Layout.Sidebar && (
-            <SideBar sidebar={page.attributes?.sidebar} />
-          )}
+          {page.layout === Enum_Page_Layout.Sidebar && <SideBar sidebar={page.sidebar} />}
         </div>
       </div>
     </PageWrapper>

@@ -11,7 +11,7 @@ type ContactProps = {
 }
 
 const Contact = ({ contact, className }: ContactProps) => {
-  const { title, position, email, phone1, phone2 } = contact.attributes ?? {}
+  const { title, position, email, phone1, phone2 } = contact
 
   return (
     <div className={className}>
@@ -28,7 +28,6 @@ const Contact = ({ contact, className }: ContactProps) => {
         {phone1 && (
           <MLink
             noStyles
-            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             href={getPhoneNumberLink(phone1)}
             className="flex items-center gap-x-2 font-semibold text-primary"
           >
@@ -39,7 +38,6 @@ const Contact = ({ contact, className }: ContactProps) => {
         {phone2 && (
           <MLink
             noStyles
-            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             href={getPhoneNumberLink(phone2)}
             className="flex items-center gap-x-2 font-semibold text-primary"
           >
@@ -50,7 +48,6 @@ const Contact = ({ contact, className }: ContactProps) => {
         {email && (
           <MLink
             noStyles
-            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             href={`mailto:${email.replaceAll(' ', '')}`}
             className="flex items-center gap-x-2 font-semibold text-primary hover:text-primary-dark"
           >

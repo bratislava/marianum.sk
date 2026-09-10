@@ -17,7 +17,7 @@ const NewsListing = () => {
     queryKey: getGraphqlNewsListingQueryKey(locale),
     queryFn: () => graphqlNewsListingFetcher(locale),
     placeholderData: keepPreviousData,
-    select: (dataFromQuery) => dataFromQuery.articles?.data.filter(isDefined) ?? [],
+    select: (dataFromQuery) => dataFromQuery.articles.filter(isDefined),
   })
 
   if (isPending) {

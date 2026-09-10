@@ -31,29 +31,29 @@ export const useGetLinkProps = () => {
       return { label, href } // TODO
     }
 
-    if ('page' in link && link.page?.data?.attributes) {
-      href = getFullPath(link.page.data) ?? '#'
+    if ('page' in link && link.page) {
+      href = getFullPath(link.page) ?? '#'
       // label = link.label ?? link.page.data.attributes.title
-    } else if ('article' in link && link.article?.data?.attributes) {
-      href = getFullPath(link.article.data) ?? '#'
+    } else if ('article' in link && link.article) {
+      href = getFullPath(link.article) ?? '#'
       // label = link.label ?? link.article.data.attributes.title
-    } else if ('branch' in link && link.branch?.data?.attributes) {
-      href = getFullPath(link.branch.data) ?? '#'
+    } else if ('branch' in link && link.branch) {
+      href = getFullPath(link.branch) ?? '#'
       // label = link.label ?? link.branch.data.attributes.title
-    } else if ('asset' in link && link.asset?.data?.attributes) {
-      href = getFullPath(link.asset.data) ?? '#'
+    } else if ('asset' in link && link.asset) {
+      href = getFullPath(link.asset) ?? '#'
       // label = link.label ?? link.asset.data.attributes.title
-    } else if ('bundle' in link && link.bundle?.data?.attributes) {
-      href = getFullPath(link.bundle.data) ?? '#'
+    } else if ('bundle' in link && link.bundle) {
+      href = getFullPath(link.bundle) ?? '#'
       // label = link.label ?? link.bundle.data.attributes.title
-    } else if ('cemetery' in link && link.cemetery?.data?.attributes) {
-      href = getFullPath(link.cemetery.data) ?? '#'
+    } else if ('cemetery' in link && link.cemetery) {
+      href = getFullPath(link.cemetery) ?? '#'
       // label = link.label ?? link.cemetery.data.attributes.title
-    } else if ('managedObject' in link && link.managedObject?.data?.attributes) {
+    } else if ('managedObject' in link && link.managedObject) {
       // label = link.label ?? link.managedObject.data.attributes.title
-      href = getFullPath(link.managedObject.data) ?? '#'
-    } else if (link?.url) {
-      label = link.label ?? link.url
+      href = getFullPath(link.managedObject) ?? '#'
+    } else if (link.url) {
+      label = link.label
       href = link.url
       target = href.startsWith('http') ? '_blank' : '_self'
     }

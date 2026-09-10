@@ -16,8 +16,8 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
 
   const filteredPages = pages
     ?.filter(isDefined)
-    .map((page) => page.page?.data)
-    .filter((page) => page?.attributes)
+    .map((page) => page.page)
+    .filter((page) => page)
 
   return (
     <Section
@@ -29,15 +29,14 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
       button={showMoreButton}
     >
       {filteredPages?.map((page, index) => {
-        const { id, attributes } = page ?? {}
-        const { title: cardTitle, coverMedia } = attributes ?? {}
+        const { documentId, title: cardTitle, coverMedia } = page ?? {}
         const fullPath = getFullPath(page) ?? ''
 
         if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
           return (
             <CategoryCard
-              // eslint-disable-next-line react/no-array-index-key, @typescript-eslint/restrict-template-expressions
-              key={`${id}-${index}`}
+              // eslint-disable-next-line react/no-array-index-key
+              key={`${documentId}-${index}`}
               title={cardTitle ?? ''}
               linkHref={fullPath}
             />
@@ -47,12 +46,12 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
         if (style === Enum_Componentsectionsmanuallisting_Style.Service) {
           return (
             <ServiceCard
-              // eslint-disable-next-line react/no-array-index-key, @typescript-eslint/restrict-template-expressions
-              key={`${id}-${index}`}
+              // eslint-disable-next-line react/no-array-index-key
+              key={`${documentId}-${index}`}
               className="w-4/5 shrink-0 sm:w-2/5 md:w-full"
               title={cardTitle ?? ''}
               linkHref={fullPath}
-              image={coverMedia?.data?.attributes}
+              image={coverMedia}
             />
           )
         }

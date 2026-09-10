@@ -29,17 +29,11 @@ import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange
 const AdditionalData = ({ additionalData }: { additionalData: Record<string, string> }) => {
   const text = useMemo(
     () =>
-      additionalData
-        ? Object.entries(additionalData)
-            .map(([name, value]) => `${name}: ${value}`)
-            .join('\n')
-        : null,
+      Object.entries(additionalData)
+        .map(([name, value]) => `${name}: ${value}`)
+        .join('\n'),
     [additionalData],
   )
-
-  if (!additionalData) {
-    return null
-  }
 
   return <span className="whitespace-pre">{text}</span>
 }
@@ -61,7 +55,7 @@ const Table = ({
   const { scrollFadeClassNames } = useHorizontalScrollFade({ ref: tableWrapperRef })
 
   // Files and additional data are present only in the old entries, no need to display them for new ones.
-  const hasFiles = data.hits.some((disclosure) => disclosure.files?.length > 0)
+  const hasFiles = data.hits.some((disclosure) => disclosure.files.length > 0)
   const hasAdditionalData = data.hits.some((disclosure) => disclosure.additionalData)
 
   return (
@@ -112,15 +106,15 @@ const Table = ({
               <td>{disclosure.signedBy}</td>
               {hasFiles && (
                 <td>
-                  {disclosure.files?.map((file, index) => (
+                  {disclosure.files.map((file, index) => (
                     <IconButton
                       // eslint-disable-next-line react/no-array-index-key
                       key={index}
                       variant="white"
                       className="pointer-events-auto m-auto"
                       target="_blank"
-                      href={file?.url ?? ''}
-                      aria-label={getDownloadAriaLabel({ attributes: file }, file.name)}
+                      href={file.url}
+                      aria-label={getDownloadAriaLabel(file, file.name)}
                     >
                       <DownloadIcon />
                     </IconButton>
@@ -134,7 +128,7 @@ const Table = ({
               )}
             </tr>
           ))}
-          {data.hits?.length === 0 && (
+          {data.hits.length === 0 && (
             <tr>
               <td colSpan={8}>{t('DisclosuresSection.noRecords')}</td>
             </tr>

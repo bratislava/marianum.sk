@@ -38,6 +38,7 @@ import { UploadFile } from '@/graphql'
 import cn from '@/utils/cn'
 
 const image: UploadFile = {
+  documentId: '1',
   updatedAt: '2022-08-24T20:30:23.750Z',
   name: 'adams family',
   alternativeText: "Adam's family alt",
@@ -89,7 +90,7 @@ type WrapperProps = {
 export const Wrapper = ({ title, children }: WrapperProps) => {
   return (
     <div className="mb-10 flex flex-col gap-2">
-      {title && <h2 className="text-size-h2-r lg:text-size-h2 pb-2 font-semibold">{title}</h2>}
+      {title && <h2 className="pb-2 text-size-h2-r font-semibold lg:text-size-h2">{title}</h2>}
       {children}
     </div>
   )
@@ -220,7 +221,7 @@ const Showcase = () => {
             </Stack>
             <Stack width="full" bg="dark">
               <Breadcrumbs
-                className="opacity-72 text-white"
+                className="text-white opacity-72"
                 crumbs={[
                   { label: 'First item', path: '#' },
                   { label: 'Second item', path: '#' },
@@ -237,7 +238,7 @@ const Showcase = () => {
               />
             </Stack>
             <Stack width="full" bg="dark">
-              <Breadcrumbs className="opacity-72 text-white" crumbs={dummyBreadcrumbLinks} />
+              <Breadcrumbs className="text-white opacity-72" crumbs={dummyBreadcrumbLinks} />
             </Stack>
           </Wrapper>
 
@@ -468,7 +469,7 @@ const Showcase = () => {
               <TextField
                 id="deafault-left-icon"
                 leftSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <SearchIcon />
                   </button>
                 }
@@ -477,7 +478,7 @@ const Showcase = () => {
               <TextField
                 id="deafault-right-icon"
                 rightSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -486,12 +487,12 @@ const Showcase = () => {
               <TextField
                 id="deafault-both-icons"
                 leftSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -505,7 +506,7 @@ const Showcase = () => {
                 id="with-text-left-icon"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <SearchIcon />
                   </button>
                 }
@@ -515,7 +516,7 @@ const Showcase = () => {
                 id="with-text-right-icon"
                 defaultValue="Input"
                 rightSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -525,12 +526,12 @@ const Showcase = () => {
                 id="with-text-both-icons"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -545,7 +546,7 @@ const Showcase = () => {
                 error
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <SearchIcon />
                   </button>
                 }
@@ -556,7 +557,7 @@ const Showcase = () => {
                 error
                 defaultValue="Input"
                 rightSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -567,12 +568,12 @@ const Showcase = () => {
                 error
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -587,7 +588,7 @@ const Showcase = () => {
                 disabled
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="base-focus-ring p-2" disabled>
+                  <button type="button" className="p-2 base-focus-ring" disabled>
                     <SearchIcon />
                   </button>
                 }
@@ -598,7 +599,7 @@ const Showcase = () => {
                 disabled
                 defaultValue="Input"
                 rightSlot={
-                  <button type="button" className="base-focus-ring p-2" disabled>
+                  <button type="button" className="p-2 base-focus-ring" disabled>
                     <CloseCircleIcon />
                   </button>
                 }
@@ -609,12 +610,12 @@ const Showcase = () => {
                 disabled
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="base-focus-ring p-2" disabled>
+                  <button type="button" className="p-2 base-focus-ring" disabled>
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="base-focus-ring p-2" disabled>
+                  <button type="button" className="p-2 base-focus-ring" disabled>
                     <CloseCircleIcon />
                   </button>
                 }
@@ -629,7 +630,7 @@ const Showcase = () => {
                 id="with-label-left-icon"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <SearchIcon />
                   </button>
                 }
@@ -640,7 +641,7 @@ const Showcase = () => {
                 id="with-label-right-icon"
                 defaultValue="Input"
                 rightSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -651,12 +652,12 @@ const Showcase = () => {
                 id="with-label-both-icons"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -678,7 +679,7 @@ const Showcase = () => {
                 id="with-label-required-left-icon"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <SearchIcon />
                   </button>
                 }
@@ -690,7 +691,7 @@ const Showcase = () => {
                 id="with-label-required-right-icon"
                 defaultValue="Input"
                 rightSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -702,12 +703,12 @@ const Showcase = () => {
                 id="with-label-required-both-icons"
                 defaultValue="Input"
                 leftSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <SearchIcon />
                   </button>
                 }
                 rightSlot={
-                  <button type="button" className="base-focus-ring p-2">
+                  <button type="button" className="p-2 base-focus-ring">
                     <CloseCircleIcon />
                   </button>
                 }
@@ -820,7 +821,7 @@ const Showcase = () => {
               <PartnerRow title="Nazov partnera" linkHref="#" border={cardsBorder} />
               <Row
                 title="Nazov suboru"
-                category={{ attributes: { title: 'Kategoria', slug: 'kategoria' } }}
+                category={{ documentId: '1', title: 'Kategoria', slug: 'kategoria' }}
                 metadata={['Metadata', 'Metadata', 'Metadata']}
                 linkHref="#"
                 button={
@@ -958,13 +959,11 @@ const Showcase = () => {
                   },
                 ]}
                 downloadFile={{
-                  id: '1',
-                  attributes: {
-                    __typename: 'UploadFile',
-                    url: 'card-example.jpg',
-                    name: 'card-example.jpg',
-                    size: 65,
-                  },
+                  __typename: 'UploadFile',
+                  documentId: '1',
+                  url: 'card-example.jpg',
+                  name: 'card-example.jpg',
+                  size: 65,
                 }}
               />
             </Stack>
@@ -1013,7 +1012,7 @@ const Showcase = () => {
                 image={image}
                 border={cardsBorder}
                 title="Article card"
-                category={{ attributes: { title: 'Category', slug: 'category' } }}
+                category={{ documentId: '1', title: 'Category', slug: 'category' }}
                 date={Date.now()}
                 linkHref="#"
               />
@@ -1085,14 +1084,14 @@ const Showcase = () => {
                   // eslint-disable-next-line react/no-array-index-key
                   <div key={i} className="flex flex-col gap-4 p-2">
                     <div className="flex flex-col">
-                        <div className="font-semibold">alternateBackground</div>
-                        <div>{alternateBackground ? 'true' : 'false'}</div>
-                        <div className="font-semibold">startBackground</div>
-                        <div>{startBackground ?? 'undefined'}</div>
-                        <div className="font-semibold">background</div>
-                        <div>{background ?? 'undefined'}</div>
-                        <div className="font-semibold">count</div>
-                        <div>{count}</div>
+                      <div className="font-semibold">alternateBackground</div>
+                      <div>{alternateBackground ? 'true' : 'false'}</div>
+                      <div className="font-semibold">startBackground</div>
+                      <div>{startBackground ?? 'undefined'}</div>
+                      <div className="font-semibold">background</div>
+                      <div>{background ?? 'undefined'}</div>
+                      <div className="font-semibold">count</div>
+                      <div>{count}</div>
                     </div>
                     <SectionsWrapper
                       alternateBackground={alternateBackground}
@@ -1100,7 +1099,7 @@ const Showcase = () => {
                       background={background}
                     >
                       {Array.from({ length: count }, (item, j) => (
-                        <Section key={j} className='p-2'>
+                        <Section key={j} className="p-2">
                           <div>Section {j + 1}</div>
                         </Section>
                       ))}

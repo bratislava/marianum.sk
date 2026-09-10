@@ -15,7 +15,7 @@ const ContactsSection = ({
   const { border } = useContext(sectionContext)
 
   const filteredContacts = useMemo(() => {
-    return (contacts ?? []).map((contact) => contact?.contact?.data).filter(isDefined)
+    return (contacts ?? []).map((contact) => contact?.contact).filter(isDefined)
   }, [contacts])
 
   return (
