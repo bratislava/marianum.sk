@@ -1,679 +1,541 @@
-fragment UploadImageEntity on UploadFileEntity {
-  id
-  attributes {
-    url
-    name
-    alternativeText
-    caption
-    size
-    width
-    height
-  }
+fragment UploadImageEntity on UploadFile {
+  documentId
+  url
+  name
+  alternativeText
+  caption
+  size
+  width
+  height
 }
 
-fragment UploadFileEntity on UploadFileEntity {
-  id
-  attributes {
-    url
-    name
-    size
-    ext
-  }
+fragment UploadFileEntity on UploadFile {
+  documentId
+  url
+  name
+  size
+  ext
 }
 
-fragment ArticleNewsCategoryEntity on ArticleNewsCategoryEntity {
-  id
-  attributes {
-    title
-    slug
-  }
+fragment ArticleNewsCategoryEntity on ArticleNewsCategory {
+  documentId
+  title
+  slug
 }
 
-fragment ArticlePressCategoryEntity on ArticlePressCategoryEntity {
-  id
-  attributes {
-    title
-    slug
-  }
+fragment ArticlePressCategoryEntity on ArticlePressCategory {
+  documentId
+  title
+  slug
 }
 
-fragment ArticleJobsCategoryEntity on ArticleJobsCategoryEntity {
-  id
-  attributes {
-    title
-    slug
-  }
+fragment ArticleJobsCategoryEntity on ArticleJobsCategory {
+  documentId
+  title
+  slug
 }
 
-fragment ArticleSlugEntity on ArticleEntity {
+fragment ArticleSlugEntity on Article {
   __typename
-  id
-  attributes {
-    title
-    slug
-    newsCategory {
-      data {
-        ...ArticleNewsCategoryEntity
-      }
-    }
-    pressCategory {
-      data {
-        ...ArticlePressCategoryEntity
-      }
-    }
-    jobsCategory {
-      data {
-        ...ArticleJobsCategoryEntity
-      }
-    }
+  documentId
+  title
+  slug
+  newsCategory {
+    ...ArticleNewsCategoryEntity
+  }
+  pressCategory {
+    ...ArticlePressCategoryEntity
+  }
+  jobsCategory {
+    ...ArticleJobsCategoryEntity
   }
 }
 
-fragment ArticleCardEntity on ArticleEntity {
+fragment ArticleCardEntity on Article {
   ...ArticleSlugEntity
-  attributes {
-    perex
-    publishedAt
-    coverMedia {
-      data {
-        ...UploadImageEntity
-      }
-    }
+  perex
+  publishedAt
+  coverMedia {
+    ...UploadImageEntity
   }
 }
 
-fragment ArticleEntity on ArticleEntity {
+fragment ArticleEntity on Article {
   ...ArticleCardEntity
-  attributes {
-    content
-    mediaGallery(pagination: { limit: -1 }) {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    seo {
-      ...Seo
-    }
+  content
+  mediaGallery(pagination: { limit: -1 }) {
+    ...UploadImageEntity
+  }
+  seo {
+    ...Seo
   }
 }
 
-fragment BranchSlugEntity on BranchEntity {
+fragment BranchSlugEntity on Branch {
   __typename
-  id
-  attributes {
-    title
-    slug
-    locale
-  }
+  documentId
+  title
+  slug
+  locale
 }
 
-fragment BranchOfficeEntity on BranchEntity {
+fragment BranchOfficeEntity on Branch {
   __typename
-  id
-  attributes {
-    slug
-    locale
-    title
-    address
-  }
+  documentId
+  slug
+  locale
+  title
+  address
 }
 
-fragment BranchCardEntity on BranchEntity {
+fragment BranchCardEntity on Branch {
   ...BranchSlugEntity
-  attributes {
-    address
-    offices {
-      data {
-        ...OfficeEntity
-      }
-    }
+  address
+  offices {
+    ...OfficeEntity
   }
 }
 
-fragment BranchEntity on BranchEntity {
+fragment BranchEntity on Branch {
   ...BranchCardEntity
-  attributes {
-    description
-    contact {
-      data {
-        ...ContactEntity
-      }
-    }
-    medias(pagination: { limit: -1 }) {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    navigateToLink
-    latitude
-    longitude
-    seo {
-      ...Seo
-    }
+  description
+  contact {
+    ...ContactEntity
+  }
+  medias(pagination: { limit: -1 }) {
+    ...UploadImageEntity
+  }
+  navigateToLink
+  latitude
+  longitude
+  seo {
+    ...Seo
   }
 }
 
-fragment CemeteryCategoryEntity on CemeteryCategoryEntity {
-  id
-  attributes {
-    title
-    slug
-  }
+fragment CemeteryCategoryEntity on CemeteryCategory {
+  documentId
+  title
+  slug
 }
 
-fragment CemeterySlugEntity on CemeteryEntity {
+fragment CemeterySlugEntity on Cemetery {
   __typename
-  id
-  attributes {
+  documentId
+  title
+  slug
+  locale
+}
+
+fragment CemeteryCardEntity on Cemetery {
+  ...CemeterySlugEntity
+  address
+  overrideOpeningHours {
+    ...OpeningHours
+  }
+}
+
+fragment CemeteryEntity on Cemetery {
+  ...CemeteryCardEntity
+  description
+  contact {
+    ...ContactEntity
+  }
+  medias(pagination: { limit: -1 }) {
+    ...UploadImageEntity
+  }
+  navigateToLink
+  latitude
+  longitude
+  seo {
+    ...Seo
+  }
+  assets {
+    ...AssetGroup
+  }
+  gallery {
+    ...GallerySection
+  }
+  video {
+    ...IframeSection
+  }
+  cemeteryCategory {
+    ...CemeteryCategoryEntity
+  }
+}
+
+fragment CemeteryInCeremoniesDebtorsEntity on Cemetery {
+  __typename
+  documentId
+  title
+  localizations {
     title
-    slug
     locale
   }
 }
 
-fragment CemeteryCardEntity on CemeteryEntity {
-  ...CemeterySlugEntity
-  attributes {
-    address
-    overrideOpeningHours {
-      ...OpeningHours
-    }
+fragment BundleSlugEntity on Bundle {
+  __typename
+  documentId
+  title
+  slug
+  type
+  locale
+}
+
+fragment BundleCardEntity on Bundle {
+  ...BundleSlugEntity
+  perex
+  price
+  discountTextShort
+  discountText
+  coverMedia {
+    ...UploadImageEntity
+  }
+  bundleItems {
+    description
+  }
+  additionalItems {
+    description
   }
 }
 
-fragment CemeteryEntity on CemeteryEntity {
-  ...CemeteryCardEntity
-  attributes {
+fragment BundleEntity on Bundle {
+  ...BundleCardEntity
+  description
+  additionalServices {
+    id
+    title
     description
-    contact {
-      data {
-        ...ContactEntity
-      }
+  }
+  assets {
+    ...AssetGroup
+  }
+  sidebar {
+    ...Sidebar
+  }
+  seo {
+    ...Seo
+  }
+}
+
+fragment ContactEntity on Contact {
+  documentId
+  title
+  position
+  email
+  phone1
+  phone2
+}
+
+fragment AssetCategoryEntity on AssetCategory {
+  documentId
+  title
+  slug
+}
+
+fragment AssetSlugEntity on Asset {
+  __typename
+  documentId
+  title
+  slug
+  assetCategory {
+    ...AssetCategoryEntity
+  }
+}
+
+fragment AssetCardEntity on Asset {
+  ...AssetSlugEntity
+  publishedAt
+  file {
+    ...UploadFileEntity
+  }
+}
+
+fragment AssetEntity on Asset {
+  ...AssetCardEntity
+  description
+  seo {
+    ...Seo
+  }
+}
+
+fragment GeneralEntity on General {
+  header {
+    ...Header
+  }
+  socials {
+    ...SocialItem
+  }
+  address {
+    ...Contact
+  }
+  footer {
+    ...Footer
+  }
+  cemeteryOpeningHours {
+    ...OpeningHours
+  }
+}
+
+fragment OfficeEntity on Office {
+  documentId
+  title
+  branch {
+    ...BranchOfficeEntity
+  }
+  openingHours {
+    days {
+      label
+      time
     }
-    medias(pagination: { limit: -1 }) {
-      data {
-        ...UploadImageEntity
-      }
+  }
+  contacts {
+    ...ContactEntity
+  }
+}
+
+fragment PartnerEntity on Partner {
+  documentId
+  title
+  link
+  logo {
+    ...UploadImageEntity
+  }
+  featured
+  priority
+}
+
+fragment PageSlugEntity on Page {
+  __typename
+  documentId
+  title
+  slug
+  locale
+}
+
+fragment PageCardEntity on Page {
+  ...PageSlugEntity
+  publishedAt
+  perex
+  coverMedia {
+    ...UploadImageEntity
+  }
+}
+
+fragment PageEntity on Page {
+  ...PageCardEntity
+  layout
+  ctaButton {
+    ...CtaButton
+  }
+  sidebar {
+    ...Sidebar
+  }
+  seo {
+    ...Seo
+  }
+  sections {
+    ... on ComponentSectionsAccordionGroup {
+      __typename
+      ...AccordionGroup
     }
-    navigateToLink
-    latitude
-    longitude
-    seo {
-      ...Seo
+    ... on ComponentSectionsBranchGroup {
+      __typename
+      ...BranchGroup
     }
-    assets {
+    ... on ComponentSectionsBundleListing {
+      __typename
+      ...BundleListing
+    }
+    ... on ComponentSectionsBundleListingSimple {
+      __typename
+      ...BundleListingSimple
+    }
+    ... on ComponentSectionsContactGroup {
+      __typename
+      ...ContactGroup
+    }
+    ... on ComponentSectionsDivider {
+      __typename
+      id
+      color
+    }
+    ... on ComponentSectionsAssetGroup {
+      __typename
       ...AssetGroup
     }
-    gallery {
+    ... on ComponentSectionsGallery {
+      __typename
       ...GallerySection
     }
-    video {
-      ...IframeSection
+    ... on ComponentSectionsMenuListing {
+      __typename
+      ...MenuListing
     }
-    cemeteryCategory {
-      data {
-        ...CemeteryCategoryEntity
-      }
+    ... on ComponentSectionsManualListing {
+      __typename
+      ...ManualListing
     }
-  }
-}
-
-fragment CemeteryInCeremoniesDebtorsEntity on CemeteryEntity {
-  __typename
-  id
-  attributes {
-    title
-    localizations {
-      data {
-        attributes {
-          title
-          locale
-        }
-      }
+    ... on ComponentSectionsNewsListing {
+      __typename
+      ...NewsListing
     }
-  }
-}
-
-fragment BundleSlugEntity on BundleEntity {
-  __typename
-  id
-  attributes {
-    title
-    slug
-    type
-    locale
-  }
-}
-
-fragment BundleCardEntity on BundleEntity {
-  ...BundleSlugEntity
-  attributes {
-    perex
-    price
-    discountTextShort
-    discountText
-    coverMedia {
-      data {
-        ...UploadImageEntity
-      }
+    ... on ComponentSectionsMapSection {
+      __typename
+      ...MapSection
     }
-    bundleItems {
-      description
+    ... on ComponentSectionsMapOfManagedObjects {
+      __typename
+      ...MapOfManagedObjectsSection
     }
-    additionalItems {
-      description
+    ... on ComponentSectionsOpeningHoursSection {
+      __typename
+      ...OpeningHoursSection
     }
-  }
-}
-
-fragment BundleEntity on BundleEntity {
-  ...BundleCardEntity
-  attributes {
-    description
-    additionalServices {
+    ... on ComponentSectionsCemeteriesOpeningHours {
+      __typename
+      ...CemeteriesOpeningHours
+    }
+    ... on ComponentSectionsRichtext {
+      __typename
+      ...RichtextSection
+    }
+    ... on ComponentSectionsProceduresSection {
+      __typename
       id
       title
+    }
+    ... on ComponentSectionsDebtorsSection {
+      __typename
+      id
       description
     }
-    assets {
-      ...AssetGroup
+    ... on ComponentSectionsCeremoniesSection {
+      __typename
+      ...CeremoniesSection
     }
-    sidebar {
-      ...Sidebar
+    ... on ComponentSectionsCeremoniesArchiveSection {
+      __typename
+      id
     }
-    seo {
-      ...Seo
+    ... on ComponentSectionsArticleNewsListing {
+      __typename
+      id
+    }
+    ... on ComponentSectionsArticlePressListing {
+      __typename
+      id
+    }
+    ... on ComponentSectionsArticleJobsListing {
+      __typename
+      id
+    }
+    ... on ComponentSectionsReviewListing {
+      __typename
+      ...ReviewListing
+    }
+    ... on ComponentSectionsDisclosuresSection {
+      __typename
+      id
+    }
+    ... on ComponentSectionsIframeSection {
+      __typename
+      ...IframeSection
+    }
+    ... on ComponentSectionsAssetsSection {
+      __typename
+      id
     }
   }
 }
 
-fragment ContactEntity on ContactEntity {
-  id
-  attributes {
-    title
-    position
-    email
-    phone1
-    phone2
+fragment ProceduresEntity on Procedure {
+  outsideMedicalFacility {
+    ...Procedure
   }
+  atMedicalFacility {
+    ...Procedure
+  }
+  updatedAt
 }
 
-fragment AssetCategoryEntity on AssetCategoryEntity {
-  id
-  attributes {
+fragment ReviewEntity on Review {
+  documentId
+  author
+  date
+  rating
+  description
+}
+
+fragment CeremonyEntity on Ceremony {
+  documentId
+  dateTime
+  name
+  birthYear
+  type
+  company
+  officiantProvidedBy
+  consentForPrivateFields
+  cemetery {
     title
     slug
+    localizations {
+      title
+      slug
+      locale
+    }
   }
+  cemeteryNameIfOutsideMarianum
 }
 
-fragment AssetSlugEntity on AssetEntity {
+fragment HomepageCeremonyEntity on Ceremony {
+  documentId
+  dateTime
+  name
+  consentForPrivateFields
+  cemetery {
+    slug
+    title
+    localizations {
+      slug
+      title
+    }
+  }
+  cemeteryNameIfOutsideMarianum
+}
+
+fragment ManagedObjectCategoryEntity on ManagedObjectCategory {
+  documentId
+  title
+  slug
+}
+
+fragment ManagedObjectSlugEntity on ManagedObject {
   __typename
-  id
-  attributes {
-    title
-    slug
-    assetCategory {
-      data {
-        ...AssetCategoryEntity
-      }
-    }
-  }
+  documentId
+  slug
+  title
+  locale
 }
 
-fragment AssetCardEntity on AssetEntity {
-  ...AssetSlugEntity
-  attributes {
-    publishedAt
-    file {
-      data {
-        ...UploadFileEntity
-      }
-    }
-  }
-}
-
-fragment AssetEntity on AssetEntity {
-  ...AssetCardEntity
-  attributes {
-    description
-    seo {
-      ...Seo
-    }
-  }
-}
-
-fragment GeneralEntity on GeneralEntity {
-  attributes {
-    header {
-      ...Header
-    }
-    socials {
-      ...SocialItem
-    }
-    address {
-      ...Contact
-    }
-    footer {
-      ...Footer
-    }
-    cemeteryOpeningHours {
-      ...OpeningHours
-    }
-  }
-}
-
-fragment OfficeEntity on OfficeEntity {
-  id
-  attributes {
-    title
-    branch {
-      data {
-        ...BranchOfficeEntity
-      }
-    }
-    openingHours {
-      days {
-        label
-        time
-      }
-    }
-    contacts {
-      data {
-        ...ContactEntity
-      }
-    }
-  }
-}
-
-fragment PartnerEntity on PartnerEntity {
-  id
-  attributes {
-    title
-    link
-    logo {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    featured
-    priority
-  }
-}
-
-fragment PageSlugEntity on PageEntity {
-  __typename
-  id
-  attributes {
-    title
-    slug
-    locale
-  }
-}
-
-fragment PageCardEntity on PageEntity {
-  ...PageSlugEntity
-  attributes {
-    publishedAt
-    perex
-    coverMedia {
-      data {
-        ...UploadImageEntity
-      }
-    }
-  }
-}
-
-fragment PageEntity on PageEntity {
-  ...PageCardEntity
-  attributes {
-    layout
-    ctaButton {
-      ...CtaButton
-    }
-    sidebar {
-      ...Sidebar
-    }
-    seo {
-      ...Seo
-    }
-    sections {
-      ... on ComponentSectionsAccordionGroup {
-        __typename
-        ...AccordionGroup
-      }
-      ... on ComponentSectionsBranchGroup {
-        __typename
-        ...BranchGroup
-      }
-      ... on ComponentSectionsBundleListing {
-        __typename
-        ...BundleListing
-      }
-      ... on ComponentSectionsBundleListingSimple {
-        __typename
-        ...BundleListingSimple
-      }
-      ... on ComponentSectionsContactGroup {
-        __typename
-        ...ContactGroup
-      }
-      ... on ComponentSectionsDivider {
-        __typename
-        id
-        color
-      }
-      ... on ComponentSectionsAssetGroup {
-        __typename
-        ...AssetGroup
-      }
-      ... on ComponentSectionsGallery {
-        __typename
-        ...GallerySection
-      }
-      ... on ComponentSectionsMenuListing {
-        __typename
-        ...MenuListing
-      }
-      ... on ComponentSectionsManualListing {
-        __typename
-        ...ManualListing
-      }
-      ... on ComponentSectionsNewsListing {
-        __typename
-        ...NewsListing
-      }
-      ... on ComponentSectionsMapSection {
-        __typename
-        ...MapSection
-      }
-      ... on ComponentSectionsMapOfManagedObjects {
-        __typename
-        ...MapOfManagedObjectsSection
-      }
-      ... on ComponentSectionsOpeningHoursSection {
-        __typename
-        ...OpeningHoursSection
-      }
-      ... on ComponentSectionsCemeteriesOpeningHours {
-        __typename
-        ...CemeteriesOpeningHours
-      }
-      ... on ComponentSectionsRichtext {
-        __typename
-        ...RichtextSection
-      }
-      ... on ComponentSectionsProceduresSection {
-        __typename
-        id
-        title
-      }
-      ... on ComponentSectionsDebtorsSection {
-        __typename
-        id
-        description
-      }
-      ... on ComponentSectionsCeremoniesSection {
-        __typename
-        ...CeremoniesSection
-      }
-      ... on ComponentSectionsCeremoniesArchiveSection {
-        __typename
-        id
-      }
-      ... on ComponentSectionsArticleNewsListing {
-        __typename
-        id
-      }
-      ... on ComponentSectionsArticlePressListing {
-        __typename
-        id
-      }
-      ... on ComponentSectionsArticleJobsListing {
-        __typename
-        id
-      }
-      ... on ComponentSectionsReviewListing {
-        __typename
-        ...ReviewListing
-      }
-      ... on ComponentSectionsDisclosuresSection {
-        __typename
-        id
-      }
-      ... on ComponentSectionsIframeSection {
-        __typename
-        ...IframeSection
-      }
-      ... on ComponentSectionsAssetsSection {
-        __typename
-        id
-      }
-    }
-  }
-}
-
-fragment ProceduresEntity on ProcedureEntity {
-  attributes {
-    outsideMedicalFacility {
-      ...Procedure
-    }
-    atMedicalFacility {
-      ...Procedure
-    }
-    updatedAt
-  }
-}
-
-fragment ReviewEntity on ReviewEntity {
-  id
-  attributes {
-    author
-    date
-    rating
-    description
-  }
-}
-
-fragment CeremonyEntity on CeremonyEntity {
-  id
-  attributes {
-    dateTime
-    name
-    birthYear
-    type
-    company
-    officiantProvidedBy
-    consentForPrivateFields
-    cemetery {
-      data {
-        attributes {
-          title
-          slug
-          localizations {
-            data {
-              attributes {
-                title
-                slug
-                locale
-              }
-            }
-          }
-        }
-      }
-    }
-    cemeteryNameIfOutsideMarianum
-  }
-}
-
-fragment HomepageCeremonyEntity on CeremonyEntity {
-  id
-  attributes {
-    dateTime
-    name
-    consentForPrivateFields
-    cemetery {
-      data {
-        attributes {
-          slug
-          title
-          localizations {
-            data {
-              attributes {
-                slug
-                title
-              }
-            }
-          }
-        }
-      }
-    }
-    cemeteryNameIfOutsideMarianum
-  }
-}
-
-fragment ManagedObjectCategoryEntity on ManagedObjectCategoryEntity {
-  id
-  attributes {
-    title
-    slug
-  }
-}
-
-fragment ManagedObjectSlugEntity on ManagedObjectEntity {
-  __typename
-  id
-  attributes {
-    slug
-    title
-    locale
-  }
-}
-
-fragment ManagedObjectEntity on ManagedObjectEntity {
+fragment ManagedObjectEntity on ManagedObject {
   ...ManagedObjectSlugEntity
-  attributes {
-    description
-    address
-    navigateToLink
-    latitude
-    longitude
-    medias(pagination: { limit: -1 }) {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    contact {
-      data {
-        ...ContactEntity
-      }
-    }
-    seo {
-      ...Seo
-    }
-    managedObjectCategory {
-      data {
-        ...ManagedObjectCategoryEntity
-      }
-    }
+  description
+  address
+  navigateToLink
+  latitude
+  longitude
+  medias(pagination: { limit: -1 }) {
+    ...UploadImageEntity
+  }
+  contact {
+    ...ContactEntity
+  }
+  seo {
+    ...Seo
+  }
+  managedObjectCategory {
+    ...ManagedObjectCategoryEntity
   }
 }

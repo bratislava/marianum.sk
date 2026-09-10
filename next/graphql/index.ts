@@ -29,22 +29,23 @@ export type Scalars = {
   PageSectionsDynamicZoneInput: { input: any; output: any; }
   /** A time string with format HH:mm:ss.SSS */
   Time: { input: any; output: any; }
-  /** The `Upload` scalar type represents a file upload. */
-  Upload: { input: any; output: any; }
 };
 
 export type Article = {
   __typename?: 'Article';
   content?: Maybe<Scalars['String']['output']>;
-  coverMedia?: Maybe<UploadFileEntityResponse>;
+  coverMedia?: Maybe<UploadFile>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
-  jobsCategory?: Maybe<ArticleJobsCategoryEntityResponse>;
+  documentId: Scalars['ID']['output'];
+  jobsCategory?: Maybe<ArticleJobsCategory>;
   locale?: Maybe<Scalars['String']['output']>;
-  localizations?: Maybe<ArticleRelationResponseCollection>;
-  mediaGallery?: Maybe<UploadFileRelationResponseCollection>;
-  newsCategory?: Maybe<ArticleNewsCategoryEntityResponse>;
+  localizations: Array<Maybe<Article>>;
+  localizations_connection?: Maybe<ArticleRelationResponseCollection>;
+  mediaGallery: Array<Maybe<UploadFile>>;
+  mediaGallery_connection?: Maybe<UploadFileRelationResponseCollection>;
+  newsCategory?: Maybe<ArticleNewsCategory>;
   perex?: Maybe<Scalars['String']['output']>;
-  pressCategory?: Maybe<ArticlePressCategoryEntityResponse>;
+  pressCategory?: Maybe<ArticlePressCategory>;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   seo?: Maybe<ComponentGeneralSeo>;
   slug: Scalars['String']['output'];
@@ -56,12 +57,25 @@ export type Article = {
 export type ArticleLocalizationsArgs = {
   filters?: InputMaybe<ArticleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ArticleLocalizations_ConnectionArgs = {
+  filters?: InputMaybe<ArticleFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
 export type ArticleMediaGalleryArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ArticleMediaGallery_ConnectionArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -75,20 +89,20 @@ export type ArticleEntity = {
 
 export type ArticleEntityResponse = {
   __typename?: 'ArticleEntityResponse';
-  data?: Maybe<ArticleEntity>;
+  data?: Maybe<Article>;
 };
 
 export type ArticleEntityResponseCollection = {
   __typename?: 'ArticleEntityResponseCollection';
-  data: Array<ArticleEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<Article>;
+  pageInfo: Pagination;
 };
 
 export type ArticleFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ArticleFiltersInput>>>;
   content?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   jobsCategory?: InputMaybe<ArticleJobsCategoryFiltersInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<ArticleFiltersInput>;
@@ -120,8 +134,11 @@ export type ArticleInput = {
 
 export type ArticleJobsCategory = {
   __typename?: 'ArticleJobsCategory';
-  articles?: Maybe<ArticleRelationResponseCollection>;
+  articles: Array<Maybe<Article>>;
+  articles_connection?: Maybe<ArticleRelationResponseCollection>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   slug: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -131,7 +148,13 @@ export type ArticleJobsCategory = {
 export type ArticleJobsCategoryArticlesArgs = {
   filters?: InputMaybe<ArticleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ArticleJobsCategoryArticles_ConnectionArgs = {
+  filters?: InputMaybe<ArticleFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
@@ -143,22 +166,23 @@ export type ArticleJobsCategoryEntity = {
 
 export type ArticleJobsCategoryEntityResponse = {
   __typename?: 'ArticleJobsCategoryEntityResponse';
-  data?: Maybe<ArticleJobsCategoryEntity>;
+  data?: Maybe<ArticleJobsCategory>;
 };
 
 export type ArticleJobsCategoryEntityResponseCollection = {
   __typename?: 'ArticleJobsCategoryEntityResponseCollection';
-  data: Array<ArticleJobsCategoryEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<ArticleJobsCategory>;
+  pageInfo: Pagination;
 };
 
 export type ArticleJobsCategoryFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ArticleJobsCategoryFiltersInput>>>;
   articles?: InputMaybe<ArticleFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<ArticleJobsCategoryFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ArticleJobsCategoryFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -166,19 +190,23 @@ export type ArticleJobsCategoryFiltersInput = {
 
 export type ArticleJobsCategoryInput = {
   articles?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ArticleJobsCategoryRelationResponseCollection = {
   __typename?: 'ArticleJobsCategoryRelationResponseCollection';
-  data: Array<ArticleJobsCategoryEntity>;
+  nodes: Array<ArticleJobsCategory>;
 };
 
 export type ArticleNewsCategory = {
   __typename?: 'ArticleNewsCategory';
-  articles?: Maybe<ArticleRelationResponseCollection>;
+  articles: Array<Maybe<Article>>;
+  articles_connection?: Maybe<ArticleRelationResponseCollection>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   slug: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -188,7 +216,13 @@ export type ArticleNewsCategory = {
 export type ArticleNewsCategoryArticlesArgs = {
   filters?: InputMaybe<ArticleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ArticleNewsCategoryArticles_ConnectionArgs = {
+  filters?: InputMaybe<ArticleFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
@@ -200,22 +234,23 @@ export type ArticleNewsCategoryEntity = {
 
 export type ArticleNewsCategoryEntityResponse = {
   __typename?: 'ArticleNewsCategoryEntityResponse';
-  data?: Maybe<ArticleNewsCategoryEntity>;
+  data?: Maybe<ArticleNewsCategory>;
 };
 
 export type ArticleNewsCategoryEntityResponseCollection = {
   __typename?: 'ArticleNewsCategoryEntityResponseCollection';
-  data: Array<ArticleNewsCategoryEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<ArticleNewsCategory>;
+  pageInfo: Pagination;
 };
 
 export type ArticleNewsCategoryFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ArticleNewsCategoryFiltersInput>>>;
   articles?: InputMaybe<ArticleFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<ArticleNewsCategoryFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ArticleNewsCategoryFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -223,19 +258,23 @@ export type ArticleNewsCategoryFiltersInput = {
 
 export type ArticleNewsCategoryInput = {
   articles?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ArticleNewsCategoryRelationResponseCollection = {
   __typename?: 'ArticleNewsCategoryRelationResponseCollection';
-  data: Array<ArticleNewsCategoryEntity>;
+  nodes: Array<ArticleNewsCategory>;
 };
 
 export type ArticlePressCategory = {
   __typename?: 'ArticlePressCategory';
-  articles?: Maybe<ArticleRelationResponseCollection>;
+  articles: Array<Maybe<Article>>;
+  articles_connection?: Maybe<ArticleRelationResponseCollection>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   slug: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -245,7 +284,13 @@ export type ArticlePressCategory = {
 export type ArticlePressCategoryArticlesArgs = {
   filters?: InputMaybe<ArticleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ArticlePressCategoryArticles_ConnectionArgs = {
+  filters?: InputMaybe<ArticleFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
@@ -257,22 +302,23 @@ export type ArticlePressCategoryEntity = {
 
 export type ArticlePressCategoryEntityResponse = {
   __typename?: 'ArticlePressCategoryEntityResponse';
-  data?: Maybe<ArticlePressCategoryEntity>;
+  data?: Maybe<ArticlePressCategory>;
 };
 
 export type ArticlePressCategoryEntityResponseCollection = {
   __typename?: 'ArticlePressCategoryEntityResponseCollection';
-  data: Array<ArticlePressCategoryEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<ArticlePressCategory>;
+  pageInfo: Pagination;
 };
 
 export type ArticlePressCategoryFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ArticlePressCategoryFiltersInput>>>;
   articles?: InputMaybe<ArticleFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<ArticlePressCategoryFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ArticlePressCategoryFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -280,26 +326,28 @@ export type ArticlePressCategoryFiltersInput = {
 
 export type ArticlePressCategoryInput = {
   articles?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ArticlePressCategoryRelationResponseCollection = {
   __typename?: 'ArticlePressCategoryRelationResponseCollection';
-  data: Array<ArticlePressCategoryEntity>;
+  nodes: Array<ArticlePressCategory>;
 };
 
 export type ArticleRelationResponseCollection = {
   __typename?: 'ArticleRelationResponseCollection';
-  data: Array<ArticleEntity>;
+  nodes: Array<Article>;
 };
 
 export type Asset = {
   __typename?: 'Asset';
-  assetCategory?: Maybe<AssetCategoryEntityResponse>;
+  assetCategory?: Maybe<AssetCategory>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
-  file: UploadFileEntityResponse;
+  documentId: Scalars['ID']['output'];
+  file: UploadFile;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   seo?: Maybe<ComponentGeneralSeo>;
   slug: Scalars['String']['output'];
@@ -309,8 +357,11 @@ export type Asset = {
 
 export type AssetCategory = {
   __typename?: 'AssetCategory';
-  assets?: Maybe<AssetRelationResponseCollection>;
+  assets: Array<Maybe<Asset>>;
+  assets_connection?: Maybe<AssetRelationResponseCollection>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   slug: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -320,7 +371,13 @@ export type AssetCategory = {
 export type AssetCategoryAssetsArgs = {
   filters?: InputMaybe<AssetFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type AssetCategoryAssets_ConnectionArgs = {
+  filters?: InputMaybe<AssetFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
@@ -332,22 +389,23 @@ export type AssetCategoryEntity = {
 
 export type AssetCategoryEntityResponse = {
   __typename?: 'AssetCategoryEntityResponse';
-  data?: Maybe<AssetCategoryEntity>;
+  data?: Maybe<AssetCategory>;
 };
 
 export type AssetCategoryEntityResponseCollection = {
   __typename?: 'AssetCategoryEntityResponseCollection';
-  data: Array<AssetCategoryEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<AssetCategory>;
+  pageInfo: Pagination;
 };
 
 export type AssetCategoryFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<AssetCategoryFiltersInput>>>;
   assets?: InputMaybe<AssetFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<AssetCategoryFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<AssetCategoryFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -355,13 +413,14 @@ export type AssetCategoryFiltersInput = {
 
 export type AssetCategoryInput = {
   assets?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type AssetCategoryRelationResponseCollection = {
   __typename?: 'AssetCategoryRelationResponseCollection';
-  data: Array<AssetCategoryEntity>;
+  nodes: Array<AssetCategory>;
 };
 
 export type AssetEntity = {
@@ -372,13 +431,13 @@ export type AssetEntity = {
 
 export type AssetEntityResponse = {
   __typename?: 'AssetEntityResponse';
-  data?: Maybe<AssetEntity>;
+  data?: Maybe<Asset>;
 };
 
 export type AssetEntityResponseCollection = {
   __typename?: 'AssetEntityResponseCollection';
-  data: Array<AssetEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<Asset>;
+  pageInfo: Pagination;
 };
 
 export type AssetFiltersInput = {
@@ -386,7 +445,7 @@ export type AssetFiltersInput = {
   assetCategory?: InputMaybe<AssetCategoryFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<AssetFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<AssetFiltersInput>>>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
@@ -408,7 +467,7 @@ export type AssetInput = {
 
 export type AssetRelationResponseCollection = {
   __typename?: 'AssetRelationResponseCollection';
-  data: Array<AssetEntity>;
+  nodes: Array<Asset>;
 };
 
 export type BooleanFilterInput = {
@@ -439,16 +498,21 @@ export type BooleanFilterInput = {
 export type Branch = {
   __typename?: 'Branch';
   address?: Maybe<Scalars['String']['output']>;
-  contact?: Maybe<ContactEntityResponse>;
+  contact?: Maybe<Contact>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  documentId: Scalars['ID']['output'];
   latitude?: Maybe<Scalars['Float']['output']>;
   locale?: Maybe<Scalars['String']['output']>;
-  localizations?: Maybe<BranchRelationResponseCollection>;
+  localizations: Array<Maybe<Branch>>;
+  localizations_connection?: Maybe<BranchRelationResponseCollection>;
   longitude?: Maybe<Scalars['Float']['output']>;
-  medias?: Maybe<UploadFileRelationResponseCollection>;
+  medias: Array<Maybe<UploadFile>>;
+  medias_connection?: Maybe<UploadFileRelationResponseCollection>;
   navigateToLink?: Maybe<Scalars['String']['output']>;
-  offices?: Maybe<OfficeRelationResponseCollection>;
+  offices: Array<Maybe<Office>>;
+  offices_connection?: Maybe<OfficeRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   seo?: Maybe<ComponentGeneralSeo>;
   slug: Scalars['String']['output'];
   title: Scalars['String']['output'];
@@ -463,6 +527,13 @@ export type BranchLocalizationsArgs = {
 };
 
 
+export type BranchLocalizations_ConnectionArgs = {
+  filters?: InputMaybe<BranchFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
 export type BranchMediasArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -470,7 +541,21 @@ export type BranchMediasArgs = {
 };
 
 
+export type BranchMedias_ConnectionArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
 export type BranchOfficesArgs = {
+  filters?: InputMaybe<OfficeFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type BranchOffices_ConnectionArgs = {
   filters?: InputMaybe<OfficeFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -484,13 +569,13 @@ export type BranchEntity = {
 
 export type BranchEntityResponse = {
   __typename?: 'BranchEntityResponse';
-  data?: Maybe<BranchEntity>;
+  data?: Maybe<Branch>;
 };
 
 export type BranchEntityResponseCollection = {
   __typename?: 'BranchEntityResponseCollection';
-  data: Array<BranchEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<Branch>;
+  pageInfo: Pagination;
 };
 
 export type BranchFiltersInput = {
@@ -499,7 +584,7 @@ export type BranchFiltersInput = {
   contact?: InputMaybe<ContactFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   latitude?: InputMaybe<FloatFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<BranchFiltersInput>;
@@ -508,6 +593,7 @@ export type BranchFiltersInput = {
   not?: InputMaybe<BranchFiltersInput>;
   offices?: InputMaybe<OfficeFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<BranchFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   seo?: InputMaybe<ComponentGeneralSeoFiltersInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
@@ -523,6 +609,7 @@ export type BranchInput = {
   medias?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   navigateToLink?: InputMaybe<Scalars['String']['input']>;
   offices?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   seo?: InputMaybe<ComponentGeneralSeoInput>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
@@ -530,7 +617,7 @@ export type BranchInput = {
 
 export type BranchRelationResponseCollection = {
   __typename?: 'BranchRelationResponseCollection';
-  data: Array<BranchEntity>;
+  nodes: Array<Branch>;
 };
 
 export type Bundle = {
@@ -539,13 +626,15 @@ export type Bundle = {
   additionalServices?: Maybe<Array<Maybe<ComponentBlocksAccordionItemWithPrice>>>;
   assets?: Maybe<ComponentSectionsAssetGroup>;
   bundleItems?: Maybe<Array<Maybe<ComponentBlocksBundleContentItem>>>;
-  coverMedia?: Maybe<UploadFileEntityResponse>;
+  coverMedia?: Maybe<UploadFile>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   discountText?: Maybe<Scalars['String']['output']>;
   discountTextShort?: Maybe<Scalars['String']['output']>;
+  documentId: Scalars['ID']['output'];
   locale?: Maybe<Scalars['String']['output']>;
-  localizations?: Maybe<BundleRelationResponseCollection>;
+  localizations: Array<Maybe<Bundle>>;
+  localizations_connection?: Maybe<BundleRelationResponseCollection>;
   perex?: Maybe<Scalars['String']['output']>;
   price: Scalars['Float']['output'];
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -582,7 +671,13 @@ export type BundleBundleItemsArgs = {
 export type BundleLocalizationsArgs = {
   filters?: InputMaybe<BundleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type BundleLocalizations_ConnectionArgs = {
+  filters?: InputMaybe<BundleFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
@@ -594,13 +689,13 @@ export type BundleEntity = {
 
 export type BundleEntityResponse = {
   __typename?: 'BundleEntityResponse';
-  data?: Maybe<BundleEntity>;
+  data?: Maybe<Bundle>;
 };
 
 export type BundleEntityResponseCollection = {
   __typename?: 'BundleEntityResponseCollection';
-  data: Array<BundleEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<Bundle>;
+  pageInfo: Pagination;
 };
 
 export type BundleFiltersInput = {
@@ -613,7 +708,7 @@ export type BundleFiltersInput = {
   description?: InputMaybe<StringFilterInput>;
   discountText?: InputMaybe<StringFilterInput>;
   discountTextShort?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<BundleFiltersInput>;
   not?: InputMaybe<BundleFiltersInput>;
@@ -650,7 +745,7 @@ export type BundleInput = {
 
 export type BundleRelationResponseCollection = {
   __typename?: 'BundleRelationResponseCollection';
-  data: Array<BundleEntity>;
+  nodes: Array<Bundle>;
 };
 
 export type Cemetery = {
@@ -659,18 +754,22 @@ export type Cemetery = {
   allowInCeremonies: Scalars['Boolean']['output'];
   allowInDebtors: Scalars['Boolean']['output'];
   assets?: Maybe<ComponentSectionsAssetGroup>;
-  cemeteryCategory?: Maybe<CemeteryCategoryEntityResponse>;
-  contact?: Maybe<ContactEntityResponse>;
+  cemeteryCategory?: Maybe<CemeteryCategory>;
+  contact?: Maybe<Contact>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  documentId: Scalars['ID']['output'];
   gallery?: Maybe<ComponentSectionsGallery>;
   latitude?: Maybe<Scalars['Float']['output']>;
   locale?: Maybe<Scalars['String']['output']>;
-  localizations?: Maybe<CemeteryRelationResponseCollection>;
+  localizations: Array<Maybe<Cemetery>>;
+  localizations_connection?: Maybe<CemeteryRelationResponseCollection>;
   longitude?: Maybe<Scalars['Float']['output']>;
-  medias?: Maybe<UploadFileRelationResponseCollection>;
+  medias: Array<Maybe<UploadFile>>;
+  medias_connection?: Maybe<UploadFileRelationResponseCollection>;
   navigateToLink?: Maybe<Scalars['String']['output']>;
   overrideOpeningHours?: Maybe<ComponentBlocksOpeningHoursUniversal>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   seo?: Maybe<ComponentGeneralSeo>;
   slug: Scalars['String']['output'];
   title: Scalars['String']['output'];
@@ -686,7 +785,21 @@ export type CemeteryLocalizationsArgs = {
 };
 
 
+export type CemeteryLocalizations_ConnectionArgs = {
+  filters?: InputMaybe<CemeteryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
 export type CemeteryMediasArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type CemeteryMedias_ConnectionArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -694,8 +807,11 @@ export type CemeteryMediasArgs = {
 
 export type CemeteryCategory = {
   __typename?: 'CemeteryCategory';
-  cemeteries?: Maybe<CemeteryRelationResponseCollection>;
+  cemeteries: Array<Maybe<Cemetery>>;
+  cemeteries_connection?: Maybe<CemeteryRelationResponseCollection>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   slug: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -703,6 +819,13 @@ export type CemeteryCategory = {
 
 
 export type CemeteryCategoryCemeteriesArgs = {
+  filters?: InputMaybe<CemeteryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type CemeteryCategoryCemeteries_ConnectionArgs = {
   filters?: InputMaybe<CemeteryFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -716,22 +839,23 @@ export type CemeteryCategoryEntity = {
 
 export type CemeteryCategoryEntityResponse = {
   __typename?: 'CemeteryCategoryEntityResponse';
-  data?: Maybe<CemeteryCategoryEntity>;
+  data?: Maybe<CemeteryCategory>;
 };
 
 export type CemeteryCategoryEntityResponseCollection = {
   __typename?: 'CemeteryCategoryEntityResponseCollection';
-  data: Array<CemeteryCategoryEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<CemeteryCategory>;
+  pageInfo: Pagination;
 };
 
 export type CemeteryCategoryFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<CemeteryCategoryFiltersInput>>>;
   cemeteries?: InputMaybe<CemeteryFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<CemeteryCategoryFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<CemeteryCategoryFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -739,13 +863,14 @@ export type CemeteryCategoryFiltersInput = {
 
 export type CemeteryCategoryInput = {
   cemeteries?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CemeteryCategoryRelationResponseCollection = {
   __typename?: 'CemeteryCategoryRelationResponseCollection';
-  data: Array<CemeteryCategoryEntity>;
+  nodes: Array<CemeteryCategory>;
 };
 
 export type CemeteryEntity = {
@@ -756,13 +881,13 @@ export type CemeteryEntity = {
 
 export type CemeteryEntityResponse = {
   __typename?: 'CemeteryEntityResponse';
-  data?: Maybe<CemeteryEntity>;
+  data?: Maybe<Cemetery>;
 };
 
 export type CemeteryEntityResponseCollection = {
   __typename?: 'CemeteryEntityResponseCollection';
-  data: Array<CemeteryEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<Cemetery>;
+  pageInfo: Pagination;
 };
 
 export type CemeteryFiltersInput = {
@@ -775,8 +900,8 @@ export type CemeteryFiltersInput = {
   contact?: InputMaybe<ContactFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   gallery?: InputMaybe<ComponentSectionsGalleryFiltersInput>;
-  id?: InputMaybe<IdFilterInput>;
   latitude?: InputMaybe<FloatFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<CemeteryFiltersInput>;
@@ -785,6 +910,7 @@ export type CemeteryFiltersInput = {
   not?: InputMaybe<CemeteryFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<CemeteryFiltersInput>>>;
   overrideOpeningHours?: InputMaybe<ComponentBlocksOpeningHoursUniversalFiltersInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   seo?: InputMaybe<ComponentGeneralSeoFiltersInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
@@ -806,6 +932,7 @@ export type CemeteryInput = {
   medias?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   navigateToLink?: InputMaybe<Scalars['String']['input']>;
   overrideOpeningHours?: InputMaybe<ComponentBlocksOpeningHoursUniversalInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   seo?: InputMaybe<ComponentGeneralSeoInput>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
@@ -814,20 +941,22 @@ export type CemeteryInput = {
 
 export type CemeteryRelationResponseCollection = {
   __typename?: 'CemeteryRelationResponseCollection';
-  data: Array<CemeteryEntity>;
+  nodes: Array<Cemetery>;
 };
 
 export type Ceremony = {
   __typename?: 'Ceremony';
   birthYear?: Maybe<Scalars['String']['output']>;
-  cemetery?: Maybe<CemeteryEntityResponse>;
+  cemetery?: Maybe<Cemetery>;
   cemeteryNameIfOutsideMarianum?: Maybe<Scalars['String']['output']>;
   company?: Maybe<Scalars['String']['output']>;
   consentForPrivateFields?: Maybe<Scalars['Boolean']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   dateTime: Scalars['DateTime']['output'];
+  documentId: Scalars['ID']['output'];
   name?: Maybe<Scalars['String']['output']>;
   officiantProvidedBy?: Maybe<Scalars['String']['output']>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   type?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -840,13 +969,13 @@ export type CeremonyEntity = {
 
 export type CeremonyEntityResponse = {
   __typename?: 'CeremonyEntityResponse';
-  data?: Maybe<CeremonyEntity>;
+  data?: Maybe<Ceremony>;
 };
 
 export type CeremonyEntityResponseCollection = {
   __typename?: 'CeremonyEntityResponseCollection';
-  data: Array<CeremonyEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<Ceremony>;
+  pageInfo: Pagination;
 };
 
 export type CeremonyFiltersInput = {
@@ -858,12 +987,12 @@ export type CeremonyFiltersInput = {
   consentForPrivateFields?: InputMaybe<BooleanFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   dateTime?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  importId?: InputMaybe<StringFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<CeremonyFiltersInput>;
   officiantProvidedBy?: InputMaybe<StringFilterInput>;
   or?: InputMaybe<Array<InputMaybe<CeremonyFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   type?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -875,15 +1004,15 @@ export type CeremonyInput = {
   company?: InputMaybe<Scalars['String']['input']>;
   consentForPrivateFields?: InputMaybe<Scalars['Boolean']['input']>;
   dateTime?: InputMaybe<Scalars['DateTime']['input']>;
-  importId?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   officiantProvidedBy?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   type?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CeremonyRelationResponseCollection = {
   __typename?: 'CeremonyRelationResponseCollection';
-  data: Array<CeremonyEntity>;
+  nodes: Array<Ceremony>;
 };
 
 export type ComponentBlocksAccordionItem = {
@@ -933,7 +1062,7 @@ export type ComponentBlocksAccordionItemWithPriceInput = {
 
 export type ComponentBlocksArticleItem = {
   __typename?: 'ComponentBlocksArticleItem';
-  article?: Maybe<ArticleEntityResponse>;
+  article?: Maybe<Article>;
   id: Scalars['ID']['output'];
 };
 
@@ -951,7 +1080,7 @@ export type ComponentBlocksArticleItemInput = {
 
 export type ComponentBlocksAssetItem = {
   __typename?: 'ComponentBlocksAssetItem';
-  asset?: Maybe<AssetEntityResponse>;
+  asset?: Maybe<Asset>;
   id: Scalars['ID']['output'];
 };
 
@@ -990,7 +1119,7 @@ export type ComponentBlocksBlocksCeremonyArchiveBlockInput = {
 
 export type ComponentBlocksBranchItem = {
   __typename?: 'ComponentBlocksBranchItem';
-  branch?: Maybe<BranchEntityResponse>;
+  branch?: Maybe<Branch>;
   id: Scalars['ID']['output'];
 };
 
@@ -1054,7 +1183,7 @@ export type ComponentBlocksBundleGroupInput = {
 
 export type ComponentBlocksBundleItem = {
   __typename?: 'ComponentBlocksBundleItem';
-  bundle?: Maybe<BundleEntityResponse>;
+  bundle?: Maybe<Bundle>;
   id: Scalars['ID']['output'];
 };
 
@@ -1072,15 +1201,15 @@ export type ComponentBlocksBundleItemInput = {
 
 export type ComponentBlocksButtonLink = {
   __typename?: 'ComponentBlocksButtonLink';
-  article?: Maybe<ArticleEntityResponse>;
-  asset?: Maybe<AssetEntityResponse>;
-  branch?: Maybe<BranchEntityResponse>;
-  bundle?: Maybe<BundleEntityResponse>;
-  cemetery?: Maybe<CemeteryEntityResponse>;
+  article?: Maybe<Article>;
+  asset?: Maybe<Asset>;
+  branch?: Maybe<Branch>;
+  bundle?: Maybe<Bundle>;
+  cemetery?: Maybe<Cemetery>;
   id: Scalars['ID']['output'];
   label: Scalars['String']['output'];
-  managedObject?: Maybe<ManagedObjectEntityResponse>;
-  page?: Maybe<PageEntityResponse>;
+  managedObject?: Maybe<ManagedObject>;
+  page?: Maybe<Page>;
   url?: Maybe<Scalars['String']['output']>;
 };
 
@@ -1114,7 +1243,7 @@ export type ComponentBlocksButtonLinkInput = {
 
 export type ComponentBlocksContactItem = {
   __typename?: 'ComponentBlocksContactItem';
-  contact?: Maybe<ContactEntityResponse>;
+  contact?: Maybe<Contact>;
   id: Scalars['ID']['output'];
 };
 
@@ -1135,7 +1264,7 @@ export type ComponentBlocksCta = {
   button?: Maybe<ComponentBlocksButtonLink>;
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
-  image?: Maybe<UploadFileEntityResponse>;
+  image?: Maybe<UploadFile>;
   title: Scalars['String']['output'];
 };
 
@@ -1159,7 +1288,7 @@ export type ComponentBlocksCtaInput = {
 export type ComponentBlocksOfficeItem = {
   __typename?: 'ComponentBlocksOfficeItem';
   id: Scalars['ID']['output'];
-  office?: Maybe<OfficeEntityResponse>;
+  office?: Maybe<Office>;
 };
 
 export type ComponentBlocksOfficeItemFiltersInput = {
@@ -1223,7 +1352,7 @@ export type ComponentBlocksOpeningHoursUniversalInput = {
 export type ComponentBlocksPageItem = {
   __typename?: 'ComponentBlocksPageItem';
   id: Scalars['ID']['output'];
-  page?: Maybe<PageEntityResponse>;
+  page?: Maybe<Page>;
 };
 
 export type ComponentBlocksPageItemFiltersInput = {
@@ -1261,7 +1390,7 @@ export type ComponentBlocksPriceListItemInput = {
 
 export type ComponentBlocksSidebar = {
   __typename?: 'ComponentBlocksSidebar';
-  contact?: Maybe<ContactEntityResponse>;
+  contact?: Maybe<Contact>;
   ctaButton?: Maybe<ComponentBlocksButtonLink>;
   id: Scalars['ID']['output'];
   text?: Maybe<Scalars['String']['output']>;
@@ -1338,13 +1467,13 @@ export type ComponentGeneralContacts = {
   __typename?: 'ComponentGeneralContacts';
   address?: Maybe<Scalars['String']['output']>;
   addressFirstLine?: Maybe<Scalars['String']['output']>;
-  contact?: Maybe<ContactEntityResponse>;
-  contactsPage?: Maybe<PageEntityResponse>;
+  contact?: Maybe<Contact>;
+  contactsPage?: Maybe<Page>;
   id: Scalars['ID']['output'];
   latitude?: Maybe<Scalars['String']['output']>;
   longitude?: Maybe<Scalars['String']['output']>;
   navigateToLink?: Maybe<Scalars['String']['output']>;
-  openingHoursPage?: Maybe<PageEntityResponse>;
+  openingHoursPage?: Maybe<Page>;
 };
 
 export type ComponentGeneralContactsFiltersInput = {
@@ -1452,8 +1581,8 @@ export type ComponentGeneralFooterInput = {
 
 export type ComponentGeneralHeader = {
   __typename?: 'ComponentGeneralHeader';
-  contact?: Maybe<ContactEntityResponse>;
-  faqPage?: Maybe<PageEntityResponse>;
+  contact?: Maybe<Contact>;
+  faqPage?: Maybe<Page>;
   id: Scalars['ID']['output'];
 };
 
@@ -1475,7 +1604,7 @@ export type ComponentGeneralLinkItem = {
   __typename?: 'ComponentGeneralLinkItem';
   id: Scalars['ID']['output'];
   label: Scalars['String']['output'];
-  page?: Maybe<PageEntityResponse>;
+  page?: Maybe<Page>;
   targetBlank: Scalars['Boolean']['output'];
   url?: Maybe<Scalars['String']['output']>;
 };
@@ -1500,7 +1629,7 @@ export type ComponentGeneralLinkItemInput = {
 
 export type ComponentGeneralProcedure = {
   __typename?: 'ComponentGeneralProcedure';
-  downloadFile?: Maybe<UploadFileEntityResponse>;
+  downloadFile?: Maybe<UploadFile>;
   id: Scalars['ID']['output'];
   steps?: Maybe<Array<Maybe<ComponentGeneralProcedureItem>>>;
   title: Scalars['String']['output'];
@@ -1807,7 +1936,8 @@ export type ComponentSectionsBundleListingInput = {
 
 export type ComponentSectionsBundleListingSimple = {
   __typename?: 'ComponentSectionsBundleListingSimple';
-  bundles?: Maybe<BundleRelationResponseCollection>;
+  bundles: Array<Maybe<Bundle>>;
+  bundles_connection?: Maybe<BundleRelationResponseCollection>;
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   title?: Maybe<Scalars['String']['output']>;
@@ -1817,7 +1947,13 @@ export type ComponentSectionsBundleListingSimple = {
 export type ComponentSectionsBundleListingSimpleBundlesArgs = {
   filters?: InputMaybe<BundleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ComponentSectionsBundleListingSimpleBundles_ConnectionArgs = {
+  filters?: InputMaybe<BundleFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
@@ -2007,12 +2143,20 @@ export type ComponentSectionsDividerInput = {
 export type ComponentSectionsGallery = {
   __typename?: 'ComponentSectionsGallery';
   id: Scalars['ID']['output'];
-  medias?: Maybe<UploadFileRelationResponseCollection>;
+  medias: Array<Maybe<UploadFile>>;
+  medias_connection?: Maybe<UploadFileRelationResponseCollection>;
   title?: Maybe<Scalars['String']['output']>;
 };
 
 
 export type ComponentSectionsGalleryMediasArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ComponentSectionsGalleryMedias_ConnectionArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -2034,13 +2178,21 @@ export type ComponentSectionsGalleryInput = {
 export type ComponentSectionsHomepageReviewsSection = {
   __typename?: 'ComponentSectionsHomepageReviewsSection';
   id: Scalars['ID']['output'];
-  reviews?: Maybe<ReviewRelationResponseCollection>;
+  reviews: Array<Maybe<Review>>;
+  reviews_connection?: Maybe<ReviewRelationResponseCollection>;
   showMoreButton?: Maybe<ComponentBlocksButtonLink>;
   title?: Maybe<Scalars['String']['output']>;
 };
 
 
 export type ComponentSectionsHomepageReviewsSectionReviewsArgs = {
+  filters?: InputMaybe<ReviewFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ComponentSectionsHomepageReviewsSectionReviews_ConnectionArgs = {
   filters?: InputMaybe<ReviewFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -2125,13 +2277,21 @@ export type ComponentSectionsManualListingInput = {
 
 export type ComponentSectionsMapOfManagedObjects = {
   __typename?: 'ComponentSectionsMapOfManagedObjects';
-  categories?: Maybe<ManagedObjectCategoryRelationResponseCollection>;
+  categories: Array<Maybe<ManagedObjectCategory>>;
+  categories_connection?: Maybe<ManagedObjectCategoryRelationResponseCollection>;
   id: Scalars['ID']['output'];
   title?: Maybe<Scalars['String']['output']>;
 };
 
 
 export type ComponentSectionsMapOfManagedObjectsCategoriesArgs = {
+  filters?: InputMaybe<ManagedObjectCategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ComponentSectionsMapOfManagedObjectsCategories_ConnectionArgs = {
   filters?: InputMaybe<ManagedObjectCategoryFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -2153,13 +2313,21 @@ export type ComponentSectionsMapOfManagedObjectsInput = {
 
 export type ComponentSectionsMapSection = {
   __typename?: 'ComponentSectionsMapSection';
-  categories?: Maybe<CemeteryCategoryRelationResponseCollection>;
+  categories: Array<Maybe<CemeteryCategory>>;
+  categories_connection?: Maybe<CemeteryCategoryRelationResponseCollection>;
   id: Scalars['ID']['output'];
   title?: Maybe<Scalars['String']['output']>;
 };
 
 
 export type ComponentSectionsMapSectionCategoriesArgs = {
+  filters?: InputMaybe<CemeteryCategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ComponentSectionsMapSectionCategories_ConnectionArgs = {
   filters?: InputMaybe<CemeteryCategoryFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -2348,18 +2516,28 @@ export type ComponentSectionsUpcomingCeremoniesSectionInput = {
 export type Contact = {
   __typename?: 'Contact';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
   email?: Maybe<Scalars['String']['output']>;
   locale?: Maybe<Scalars['String']['output']>;
-  localizations?: Maybe<ContactRelationResponseCollection>;
+  localizations: Array<Maybe<Contact>>;
+  localizations_connection?: Maybe<ContactRelationResponseCollection>;
   phone1?: Maybe<Scalars['String']['output']>;
   phone2?: Maybe<Scalars['String']['output']>;
   position?: Maybe<Scalars['String']['output']>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 
 export type ContactLocalizationsArgs = {
+  filters?: InputMaybe<ContactFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ContactLocalizations_ConnectionArgs = {
   filters?: InputMaybe<ContactFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -2373,20 +2551,20 @@ export type ContactEntity = {
 
 export type ContactEntityResponse = {
   __typename?: 'ContactEntityResponse';
-  data?: Maybe<ContactEntity>;
+  data?: Maybe<Contact>;
 };
 
 export type ContactEntityResponseCollection = {
   __typename?: 'ContactEntityResponseCollection';
-  data: Array<ContactEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<Contact>;
+  pageInfo: Pagination;
 };
 
 export type ContactFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ContactFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   email?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<ContactFiltersInput>;
   not?: InputMaybe<ContactFiltersInput>;
@@ -2394,6 +2572,7 @@ export type ContactFiltersInput = {
   phone1?: InputMaybe<StringFilterInput>;
   phone2?: InputMaybe<StringFilterInput>;
   position?: InputMaybe<StringFilterInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -2403,12 +2582,13 @@ export type ContactInput = {
   phone1?: InputMaybe<Scalars['String']['input']>;
   phone2?: InputMaybe<Scalars['String']['input']>;
   position?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ContactRelationResponseCollection = {
   __typename?: 'ContactRelationResponseCollection';
-  data: Array<ContactEntity>;
+  nodes: Array<Contact>;
 };
 
 export type ContentTypes = {
@@ -2440,14 +2620,14 @@ export type CreateNavigationItem = {
   audience?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   externalPath?: InputMaybe<Scalars['String']['input']>;
   items?: InputMaybe<Array<InputMaybe<CreateNavigationItem>>>;
-  master?: InputMaybe<Scalars['Int']['input']>;
+  master?: InputMaybe<Scalars['String']['input']>;
   menuAttached: Scalars['Boolean']['input'];
   order: Scalars['Int']['input'];
-  parent?: InputMaybe<Scalars['Int']['input']>;
+  parent?: InputMaybe<Scalars['String']['input']>;
   path?: InputMaybe<Scalars['String']['input']>;
   related?: InputMaybe<CreateNavigationRelated>;
   title: Scalars['String']['input'];
-  type: Scalars['String']['input'];
+  type: NavigationItemType;
   uiRouterKey: Scalars['String']['input'];
 };
 
@@ -2510,14 +2690,16 @@ export type DateTimeFilterInput = {
 export type Debtor = {
   __typename?: 'Debtor';
   birthDate?: Maybe<Scalars['String']['output']>;
-  cemetery?: Maybe<CemeteryEntityResponse>;
+  cemetery?: Maybe<Cemetery>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   deathDate?: Maybe<Scalars['String']['output']>;
+  documentId: Scalars['ID']['output'];
   firstName?: Maybe<Scalars['String']['output']>;
   graveNumber?: Maybe<Scalars['String']['output']>;
   gravePreviousNumber?: Maybe<Scalars['String']['output']>;
   graveSector?: Maybe<Scalars['String']['output']>;
   lastName?: Maybe<Scalars['String']['output']>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -2529,13 +2711,13 @@ export type DebtorEntity = {
 
 export type DebtorEntityResponse = {
   __typename?: 'DebtorEntityResponse';
-  data?: Maybe<DebtorEntity>;
+  data?: Maybe<Debtor>;
 };
 
 export type DebtorEntityResponseCollection = {
   __typename?: 'DebtorEntityResponseCollection';
-  data: Array<DebtorEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<Debtor>;
+  pageInfo: Pagination;
 };
 
 export type DebtorFiltersInput = {
@@ -2544,15 +2726,15 @@ export type DebtorFiltersInput = {
   cemetery?: InputMaybe<CemeteryFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   deathDate?: InputMaybe<StringFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   firstName?: InputMaybe<StringFilterInput>;
   graveNumber?: InputMaybe<StringFilterInput>;
   gravePreviousNumber?: InputMaybe<StringFilterInput>;
   graveSector?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  importId?: InputMaybe<StringFilterInput>;
   lastName?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<DebtorFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<DebtorFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
@@ -2564,13 +2746,18 @@ export type DebtorInput = {
   graveNumber?: InputMaybe<Scalars['String']['input']>;
   gravePreviousNumber?: InputMaybe<Scalars['String']['input']>;
   graveSector?: InputMaybe<Scalars['String']['input']>;
-  importId?: InputMaybe<Scalars['String']['input']>;
   lastName?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type DebtorRelationResponseCollection = {
   __typename?: 'DebtorRelationResponseCollection';
-  data: Array<DebtorEntity>;
+  nodes: Array<Debtor>;
+};
+
+export type DeleteMutationResponse = {
+  __typename?: 'DeleteMutationResponse';
+  documentId: Scalars['ID']['output'];
 };
 
 export type Disclosure = {
@@ -2581,11 +2768,14 @@ export type Disclosure = {
   dateOfDelivery?: Maybe<Scalars['String']['output']>;
   dateOfOrder?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
-  files?: Maybe<UploadFileRelationResponseCollection>;
+  documentId: Scalars['ID']['output'];
+  files: Array<Maybe<UploadFile>>;
+  files_connection?: Maybe<UploadFileRelationResponseCollection>;
   internalInvoiceNumber?: Maybe<Scalars['String']['output']>;
   invoiceNumberOrVariableSymbol?: Maybe<Scalars['String']['output']>;
   invoicedAmount?: Maybe<Scalars['String']['output']>;
   orderNumber?: Maybe<Scalars['String']['output']>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   publishedAtOverride?: Maybe<Scalars['DateTime']['output']>;
   signedBy?: Maybe<Scalars['String']['output']>;
   supplierAddress?: Maybe<Scalars['String']['output']>;
@@ -2603,6 +2793,13 @@ export type DisclosureFilesArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+
+export type DisclosureFiles_ConnectionArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
 export type DisclosureEntity = {
   __typename?: 'DisclosureEntity';
   attributes?: Maybe<Disclosure>;
@@ -2611,13 +2808,13 @@ export type DisclosureEntity = {
 
 export type DisclosureEntityResponse = {
   __typename?: 'DisclosureEntityResponse';
-  data?: Maybe<DisclosureEntity>;
+  data?: Maybe<Disclosure>;
 };
 
 export type DisclosureEntityResponseCollection = {
   __typename?: 'DisclosureEntityResponseCollection';
-  data: Array<DisclosureEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<Disclosure>;
+  pageInfo: Pagination;
 };
 
 export type DisclosureFiltersInput = {
@@ -2628,14 +2825,14 @@ export type DisclosureFiltersInput = {
   dateOfDelivery?: InputMaybe<StringFilterInput>;
   dateOfOrder?: InputMaybe<StringFilterInput>;
   description?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  importId?: InputMaybe<StringFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   internalInvoiceNumber?: InputMaybe<StringFilterInput>;
   invoiceNumberOrVariableSymbol?: InputMaybe<StringFilterInput>;
   invoicedAmount?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<DisclosureFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<DisclosureFiltersInput>>>;
   orderNumber?: InputMaybe<StringFilterInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   publishedAtOverride?: InputMaybe<DateTimeFilterInput>;
   signedBy?: InputMaybe<StringFilterInput>;
   supplierAddress?: InputMaybe<StringFilterInput>;
@@ -2653,11 +2850,11 @@ export type DisclosureInput = {
   dateOfOrder?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   files?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  importId?: InputMaybe<Scalars['String']['input']>;
   internalInvoiceNumber?: InputMaybe<Scalars['String']['input']>;
   invoiceNumberOrVariableSymbol?: InputMaybe<Scalars['String']['input']>;
   invoicedAmount?: InputMaybe<Scalars['String']['input']>;
   orderNumber?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   publishedAtOverride?: InputMaybe<Scalars['DateTime']['input']>;
   signedBy?: InputMaybe<Scalars['String']['input']>;
   supplierAddress?: InputMaybe<Scalars['String']['input']>;
@@ -2669,7 +2866,7 @@ export type DisclosureInput = {
 
 export type DisclosureRelationResponseCollection = {
   __typename?: 'DisclosureRelationResponseCollection';
-  data: Array<DisclosureEntity>;
+  nodes: Array<Disclosure>;
 };
 
 export enum Enum_Bundle_Type {
@@ -2760,10 +2957,13 @@ export type General = {
   address?: Maybe<ComponentGeneralContacts>;
   cemeteryOpeningHours?: Maybe<ComponentBlocksOpeningHoursUniversal>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
   footer?: Maybe<ComponentGeneralFooter>;
   header?: Maybe<ComponentGeneralHeader>;
   locale?: Maybe<Scalars['String']['output']>;
-  localizations?: Maybe<GeneralRelationResponseCollection>;
+  localizations: Array<Maybe<General>>;
+  localizations_connection?: Maybe<GeneralRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   socials?: Maybe<Array<Maybe<ComponentBlocksSocialItem>>>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -2783,13 +2983,13 @@ export type GeneralEntity = {
 
 export type GeneralEntityResponse = {
   __typename?: 'GeneralEntityResponse';
-  data?: Maybe<GeneralEntity>;
+  data?: Maybe<General>;
 };
 
 export type GeneralEntityResponseCollection = {
   __typename?: 'GeneralEntityResponseCollection';
-  data: Array<GeneralEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<General>;
+  pageInfo: Pagination;
 };
 
 export type GeneralFiltersInput = {
@@ -2803,6 +3003,7 @@ export type GeneralFiltersInput = {
   localizations?: InputMaybe<GeneralFiltersInput>;
   not?: InputMaybe<GeneralFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<GeneralFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   socials?: InputMaybe<ComponentBlocksSocialItemFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -2812,22 +3013,26 @@ export type GeneralInput = {
   cemeteryOpeningHours?: InputMaybe<ComponentBlocksOpeningHoursUniversalInput>;
   footer?: InputMaybe<ComponentGeneralFooterInput>;
   header?: InputMaybe<ComponentGeneralHeaderInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   socials?: InputMaybe<Array<InputMaybe<ComponentBlocksSocialItemInput>>>;
 };
 
 export type GeneralRelationResponseCollection = {
   __typename?: 'GeneralRelationResponseCollection';
-  data: Array<GeneralEntity>;
+  nodes: Array<General>;
 };
 
-export type GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Asset | AssetCategory | Branch | Bundle | Cemetery | CemeteryCategory | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksAssetItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsAssetGroup | ComponentSectionsAssetsSection | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Asset | AssetCategory | Branch | Bundle | Cemetery | CemeteryCategory | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksAssetItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsAssetGroup | ComponentSectionsAssetsSection | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Office | Page | Partner | Procedure | Review | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
 
 export type HomePage = {
   __typename?: 'HomePage';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
   featured: Array<Maybe<ComponentBlocksCta>>;
   locale?: Maybe<Scalars['String']['output']>;
-  localizations?: Maybe<HomePageRelationResponseCollection>;
+  localizations: Array<Maybe<HomePage>>;
+  localizations_connection?: Maybe<HomePageRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   sections?: Maybe<Array<Maybe<HomePageSectionsDynamicZone>>>;
   seo?: Maybe<ComponentGeneralSeo>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -2848,13 +3053,13 @@ export type HomePageEntity = {
 
 export type HomePageEntityResponse = {
   __typename?: 'HomePageEntityResponse';
-  data?: Maybe<HomePageEntity>;
+  data?: Maybe<HomePage>;
 };
 
 export type HomePageEntityResponseCollection = {
   __typename?: 'HomePageEntityResponseCollection';
-  data: Array<HomePageEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<HomePage>;
+  pageInfo: Pagination;
 };
 
 export type HomePageFiltersInput = {
@@ -2865,19 +3070,21 @@ export type HomePageFiltersInput = {
   localizations?: InputMaybe<HomePageFiltersInput>;
   not?: InputMaybe<HomePageFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<HomePageFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   seo?: InputMaybe<ComponentGeneralSeoFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type HomePageInput = {
   featured?: InputMaybe<Array<InputMaybe<ComponentBlocksCtaInput>>>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   sections?: InputMaybe<Array<Scalars['HomePageSectionsDynamicZoneInput']['input']>>;
   seo?: InputMaybe<ComponentGeneralSeoInput>;
 };
 
 export type HomePageRelationResponseCollection = {
   __typename?: 'HomePageRelationResponseCollection';
-  data: Array<HomePageEntity>;
+  nodes: Array<HomePage>;
 };
 
 export type HomePageSectionsDynamicZone = ComponentSectionsArticlesManualListing | ComponentSectionsCtaSection | ComponentSectionsHomepageReviewsSection | ComponentSectionsManualListing | ComponentSectionsNewsListing | ComponentSectionsProceduresShortSection | ComponentSectionsUpcomingCeremoniesSection | Error;
@@ -2886,7 +3093,9 @@ export type I18NLocale = {
   __typename?: 'I18NLocale';
   code?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
   name?: Maybe<Scalars['String']['output']>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -2898,34 +3107,36 @@ export type I18NLocaleEntity = {
 
 export type I18NLocaleEntityResponse = {
   __typename?: 'I18NLocaleEntityResponse';
-  data?: Maybe<I18NLocaleEntity>;
+  data?: Maybe<I18NLocale>;
 };
 
 export type I18NLocaleEntityResponseCollection = {
   __typename?: 'I18NLocaleEntityResponseCollection';
-  data: Array<I18NLocaleEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<I18NLocale>;
+  pageInfo: Pagination;
 };
 
 export type I18NLocaleFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<I18NLocaleFiltersInput>>>;
   code?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<I18NLocaleFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<I18NLocaleFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type I18NLocaleInput = {
   code?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type I18NLocaleRelationResponseCollection = {
   __typename?: 'I18NLocaleRelationResponseCollection';
-  data: Array<I18NLocaleEntity>;
+  nodes: Array<I18NLocale>;
 };
 
 export type IdFilterInput = {
@@ -3031,16 +3242,20 @@ export type LongFilterInput = {
 export type ManagedObject = {
   __typename?: 'ManagedObject';
   address?: Maybe<Scalars['String']['output']>;
-  contact?: Maybe<ContactEntityResponse>;
+  contact?: Maybe<Contact>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  documentId: Scalars['ID']['output'];
   latitude?: Maybe<Scalars['Float']['output']>;
   locale?: Maybe<Scalars['String']['output']>;
-  localizations?: Maybe<ManagedObjectRelationResponseCollection>;
+  localizations: Array<Maybe<ManagedObject>>;
+  localizations_connection?: Maybe<ManagedObjectRelationResponseCollection>;
   longitude?: Maybe<Scalars['Float']['output']>;
-  managedObjectCategory?: Maybe<ManagedObjectCategoryEntityResponse>;
-  medias?: Maybe<UploadFileRelationResponseCollection>;
+  managedObjectCategory?: Maybe<ManagedObjectCategory>;
+  medias: Array<Maybe<UploadFile>>;
+  medias_connection?: Maybe<UploadFileRelationResponseCollection>;
   navigateToLink?: Maybe<Scalars['String']['output']>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   seo?: Maybe<ComponentGeneralSeo>;
   slug: Scalars['String']['output'];
   title: Scalars['String']['output'];
@@ -3055,7 +3270,21 @@ export type ManagedObjectLocalizationsArgs = {
 };
 
 
+export type ManagedObjectLocalizations_ConnectionArgs = {
+  filters?: InputMaybe<ManagedObjectFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
 export type ManagedObjectMediasArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ManagedObjectMedias_ConnectionArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -3064,7 +3293,10 @@ export type ManagedObjectMediasArgs = {
 export type ManagedObjectCategory = {
   __typename?: 'ManagedObjectCategory';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
-  managedObjects?: Maybe<ManagedObjectRelationResponseCollection>;
+  documentId: Scalars['ID']['output'];
+  managedObjects: Array<Maybe<ManagedObject>>;
+  managedObjects_connection?: Maybe<ManagedObjectRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   slug: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -3072,6 +3304,13 @@ export type ManagedObjectCategory = {
 
 
 export type ManagedObjectCategoryManagedObjectsArgs = {
+  filters?: InputMaybe<ManagedObjectFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ManagedObjectCategoryManagedObjects_ConnectionArgs = {
   filters?: InputMaybe<ManagedObjectFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -3085,22 +3324,23 @@ export type ManagedObjectCategoryEntity = {
 
 export type ManagedObjectCategoryEntityResponse = {
   __typename?: 'ManagedObjectCategoryEntityResponse';
-  data?: Maybe<ManagedObjectCategoryEntity>;
+  data?: Maybe<ManagedObjectCategory>;
 };
 
 export type ManagedObjectCategoryEntityResponseCollection = {
   __typename?: 'ManagedObjectCategoryEntityResponseCollection';
-  data: Array<ManagedObjectCategoryEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<ManagedObjectCategory>;
+  pageInfo: Pagination;
 };
 
 export type ManagedObjectCategoryFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ManagedObjectCategoryFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   managedObjects?: InputMaybe<ManagedObjectFiltersInput>;
   not?: InputMaybe<ManagedObjectCategoryFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ManagedObjectCategoryFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -3108,13 +3348,14 @@ export type ManagedObjectCategoryFiltersInput = {
 
 export type ManagedObjectCategoryInput = {
   managedObjects?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ManagedObjectCategoryRelationResponseCollection = {
   __typename?: 'ManagedObjectCategoryRelationResponseCollection';
-  data: Array<ManagedObjectCategoryEntity>;
+  nodes: Array<ManagedObjectCategory>;
 };
 
 export type ManagedObjectEntity = {
@@ -3125,13 +3366,13 @@ export type ManagedObjectEntity = {
 
 export type ManagedObjectEntityResponse = {
   __typename?: 'ManagedObjectEntityResponse';
-  data?: Maybe<ManagedObjectEntity>;
+  data?: Maybe<ManagedObject>;
 };
 
 export type ManagedObjectEntityResponseCollection = {
   __typename?: 'ManagedObjectEntityResponseCollection';
-  data: Array<ManagedObjectEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<ManagedObject>;
+  pageInfo: Pagination;
 };
 
 export type ManagedObjectFiltersInput = {
@@ -3140,7 +3381,7 @@ export type ManagedObjectFiltersInput = {
   contact?: InputMaybe<ContactFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   latitude?: InputMaybe<FloatFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<ManagedObjectFiltersInput>;
@@ -3149,6 +3390,7 @@ export type ManagedObjectFiltersInput = {
   navigateToLink?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<ManagedObjectFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ManagedObjectFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   seo?: InputMaybe<ComponentGeneralSeoFiltersInput>;
   slug?: InputMaybe<StringFilterInput>;
   title?: InputMaybe<StringFilterInput>;
@@ -3164,6 +3406,7 @@ export type ManagedObjectInput = {
   managedObjectCategory?: InputMaybe<Scalars['ID']['input']>;
   medias?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   navigateToLink?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   seo?: InputMaybe<ComponentGeneralSeoInput>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
@@ -3171,76 +3414,65 @@ export type ManagedObjectInput = {
 
 export type ManagedObjectRelationResponseCollection = {
   __typename?: 'ManagedObjectRelationResponseCollection';
-  data: Array<ManagedObjectEntity>;
+  nodes: Array<ManagedObject>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
-  createArticle?: Maybe<ArticleEntityResponse>;
-  createArticleJobsCategory?: Maybe<ArticleJobsCategoryEntityResponse>;
-  createArticleLocalization?: Maybe<ArticleEntityResponse>;
-  createArticleNewsCategory?: Maybe<ArticleNewsCategoryEntityResponse>;
-  createArticlePressCategory?: Maybe<ArticlePressCategoryEntityResponse>;
-  createAsset?: Maybe<AssetEntityResponse>;
-  createAssetCategory?: Maybe<AssetCategoryEntityResponse>;
-  createBranch?: Maybe<BranchEntityResponse>;
-  createBranchLocalization?: Maybe<BranchEntityResponse>;
-  createBundle?: Maybe<BundleEntityResponse>;
-  createBundleLocalization?: Maybe<BundleEntityResponse>;
-  createCemetery?: Maybe<CemeteryEntityResponse>;
-  createCemeteryCategory?: Maybe<CemeteryCategoryEntityResponse>;
-  createCemeteryLocalization?: Maybe<CemeteryEntityResponse>;
-  createCeremony?: Maybe<CeremonyEntityResponse>;
-  createContact?: Maybe<ContactEntityResponse>;
-  createContactLocalization?: Maybe<ContactEntityResponse>;
-  createDebtor?: Maybe<DebtorEntityResponse>;
-  createDisclosure?: Maybe<DisclosureEntityResponse>;
-  createGeneralLocalization?: Maybe<GeneralEntityResponse>;
-  createHomePageLocalization?: Maybe<HomePageEntityResponse>;
-  createManagedObject?: Maybe<ManagedObjectEntityResponse>;
-  createManagedObjectCategory?: Maybe<ManagedObjectCategoryEntityResponse>;
-  createManagedObjectLocalization?: Maybe<ManagedObjectEntityResponse>;
-  createOffice?: Maybe<OfficeEntityResponse>;
-  createOfficeLocalization?: Maybe<OfficeEntityResponse>;
-  createPage?: Maybe<PageEntityResponse>;
-  createPageLocalization?: Maybe<PageEntityResponse>;
-  createPartner?: Maybe<PartnerEntityResponse>;
-  createProcedureLocalization?: Maybe<ProcedureEntityResponse>;
-  createReview?: Maybe<ReviewEntityResponse>;
-  createReviewLocalization?: Maybe<ReviewEntityResponse>;
-  createUploadFile?: Maybe<UploadFileEntityResponse>;
-  createUploadFolder?: Maybe<UploadFolderEntityResponse>;
+  createArticle?: Maybe<Article>;
+  createArticleJobsCategory?: Maybe<ArticleJobsCategory>;
+  createArticleNewsCategory?: Maybe<ArticleNewsCategory>;
+  createArticlePressCategory?: Maybe<ArticlePressCategory>;
+  createAsset?: Maybe<Asset>;
+  createAssetCategory?: Maybe<AssetCategory>;
+  createBranch?: Maybe<Branch>;
+  createBundle?: Maybe<Bundle>;
+  createCemetery?: Maybe<Cemetery>;
+  createCemeteryCategory?: Maybe<CemeteryCategory>;
+  createCeremony?: Maybe<Ceremony>;
+  createContact?: Maybe<Contact>;
+  createDebtor?: Maybe<Debtor>;
+  createDisclosure?: Maybe<Disclosure>;
+  createManagedObject?: Maybe<ManagedObject>;
+  createManagedObjectCategory?: Maybe<ManagedObjectCategory>;
+  createOffice?: Maybe<Office>;
+  createPage?: Maybe<Page>;
+  createPartner?: Maybe<Partner>;
+  createReview?: Maybe<Review>;
+  createReviewWorkflowsWorkflow?: Maybe<ReviewWorkflowsWorkflow>;
+  createReviewWorkflowsWorkflowStage?: Maybe<ReviewWorkflowsWorkflowStage>;
   /** Create a new role */
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
-  deleteArticle?: Maybe<ArticleEntityResponse>;
-  deleteArticleJobsCategory?: Maybe<ArticleJobsCategoryEntityResponse>;
-  deleteArticleNewsCategory?: Maybe<ArticleNewsCategoryEntityResponse>;
-  deleteArticlePressCategory?: Maybe<ArticlePressCategoryEntityResponse>;
-  deleteAsset?: Maybe<AssetEntityResponse>;
-  deleteAssetCategory?: Maybe<AssetCategoryEntityResponse>;
-  deleteBranch?: Maybe<BranchEntityResponse>;
-  deleteBundle?: Maybe<BundleEntityResponse>;
-  deleteCemetery?: Maybe<CemeteryEntityResponse>;
-  deleteCemeteryCategory?: Maybe<CemeteryCategoryEntityResponse>;
-  deleteCeremony?: Maybe<CeremonyEntityResponse>;
-  deleteContact?: Maybe<ContactEntityResponse>;
-  deleteDebtor?: Maybe<DebtorEntityResponse>;
-  deleteDisclosure?: Maybe<DisclosureEntityResponse>;
-  deleteGeneral?: Maybe<GeneralEntityResponse>;
-  deleteHomePage?: Maybe<HomePageEntityResponse>;
-  deleteManagedObject?: Maybe<ManagedObjectEntityResponse>;
-  deleteManagedObjectCategory?: Maybe<ManagedObjectCategoryEntityResponse>;
-  deleteOffice?: Maybe<OfficeEntityResponse>;
-  deletePage?: Maybe<PageEntityResponse>;
-  deletePartner?: Maybe<PartnerEntityResponse>;
-  deleteProcedure?: Maybe<ProcedureEntityResponse>;
-  deleteReview?: Maybe<ReviewEntityResponse>;
-  deleteUploadFile?: Maybe<UploadFileEntityResponse>;
-  deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
+  deleteArticle?: Maybe<DeleteMutationResponse>;
+  deleteArticleJobsCategory?: Maybe<DeleteMutationResponse>;
+  deleteArticleNewsCategory?: Maybe<DeleteMutationResponse>;
+  deleteArticlePressCategory?: Maybe<DeleteMutationResponse>;
+  deleteAsset?: Maybe<DeleteMutationResponse>;
+  deleteAssetCategory?: Maybe<DeleteMutationResponse>;
+  deleteBranch?: Maybe<DeleteMutationResponse>;
+  deleteBundle?: Maybe<DeleteMutationResponse>;
+  deleteCemetery?: Maybe<DeleteMutationResponse>;
+  deleteCemeteryCategory?: Maybe<DeleteMutationResponse>;
+  deleteCeremony?: Maybe<DeleteMutationResponse>;
+  deleteContact?: Maybe<DeleteMutationResponse>;
+  deleteDebtor?: Maybe<DeleteMutationResponse>;
+  deleteDisclosure?: Maybe<DeleteMutationResponse>;
+  deleteGeneral?: Maybe<DeleteMutationResponse>;
+  deleteHomePage?: Maybe<DeleteMutationResponse>;
+  deleteManagedObject?: Maybe<DeleteMutationResponse>;
+  deleteManagedObjectCategory?: Maybe<DeleteMutationResponse>;
+  deleteOffice?: Maybe<DeleteMutationResponse>;
+  deletePage?: Maybe<DeleteMutationResponse>;
+  deletePartner?: Maybe<DeleteMutationResponse>;
+  deleteProcedure?: Maybe<DeleteMutationResponse>;
+  deleteReview?: Maybe<DeleteMutationResponse>;
+  deleteReviewWorkflowsWorkflow?: Maybe<DeleteMutationResponse>;
+  deleteReviewWorkflowsWorkflowStage?: Maybe<DeleteMutationResponse>;
+  deleteUploadFile?: Maybe<UploadFile>;
   /** Delete an existing role */
   deleteUsersPermissionsRole?: Maybe<UsersPermissionsDeleteRolePayload>;
   /** Delete an existing user */
@@ -3250,43 +3482,40 @@ export type Mutation = {
   /** Request a reset password token */
   forgotPassword?: Maybe<UsersPermissionsPasswordPayload>;
   login: UsersPermissionsLoginPayload;
-  multipleUpload: Array<Maybe<UploadFileEntityResponse>>;
   /** Register a user */
   register: UsersPermissionsLoginPayload;
-  removeFile?: Maybe<UploadFileEntityResponse>;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
-  updateArticle?: Maybe<ArticleEntityResponse>;
-  updateArticleJobsCategory?: Maybe<ArticleJobsCategoryEntityResponse>;
-  updateArticleNewsCategory?: Maybe<ArticleNewsCategoryEntityResponse>;
-  updateArticlePressCategory?: Maybe<ArticlePressCategoryEntityResponse>;
-  updateAsset?: Maybe<AssetEntityResponse>;
-  updateAssetCategory?: Maybe<AssetCategoryEntityResponse>;
-  updateBranch?: Maybe<BranchEntityResponse>;
-  updateBundle?: Maybe<BundleEntityResponse>;
-  updateCemetery?: Maybe<CemeteryEntityResponse>;
-  updateCemeteryCategory?: Maybe<CemeteryCategoryEntityResponse>;
-  updateCeremony?: Maybe<CeremonyEntityResponse>;
-  updateContact?: Maybe<ContactEntityResponse>;
-  updateDebtor?: Maybe<DebtorEntityResponse>;
-  updateDisclosure?: Maybe<DisclosureEntityResponse>;
-  updateFileInfo: UploadFileEntityResponse;
-  updateGeneral?: Maybe<GeneralEntityResponse>;
-  updateHomePage?: Maybe<HomePageEntityResponse>;
-  updateManagedObject?: Maybe<ManagedObjectEntityResponse>;
-  updateManagedObjectCategory?: Maybe<ManagedObjectCategoryEntityResponse>;
-  updateOffice?: Maybe<OfficeEntityResponse>;
-  updatePage?: Maybe<PageEntityResponse>;
-  updatePartner?: Maybe<PartnerEntityResponse>;
-  updateProcedure?: Maybe<ProcedureEntityResponse>;
-  updateReview?: Maybe<ReviewEntityResponse>;
-  updateUploadFile?: Maybe<UploadFileEntityResponse>;
-  updateUploadFolder?: Maybe<UploadFolderEntityResponse>;
+  updateArticle?: Maybe<Article>;
+  updateArticleJobsCategory?: Maybe<ArticleJobsCategory>;
+  updateArticleNewsCategory?: Maybe<ArticleNewsCategory>;
+  updateArticlePressCategory?: Maybe<ArticlePressCategory>;
+  updateAsset?: Maybe<Asset>;
+  updateAssetCategory?: Maybe<AssetCategory>;
+  updateBranch?: Maybe<Branch>;
+  updateBundle?: Maybe<Bundle>;
+  updateCemetery?: Maybe<Cemetery>;
+  updateCemeteryCategory?: Maybe<CemeteryCategory>;
+  updateCeremony?: Maybe<Ceremony>;
+  updateContact?: Maybe<Contact>;
+  updateDebtor?: Maybe<Debtor>;
+  updateDisclosure?: Maybe<Disclosure>;
+  updateGeneral?: Maybe<General>;
+  updateHomePage?: Maybe<HomePage>;
+  updateManagedObject?: Maybe<ManagedObject>;
+  updateManagedObjectCategory?: Maybe<ManagedObjectCategory>;
+  updateOffice?: Maybe<Office>;
+  updatePage?: Maybe<Page>;
+  updatePartner?: Maybe<Partner>;
+  updateProcedure?: Maybe<Procedure>;
+  updateReview?: Maybe<Review>;
+  updateReviewWorkflowsWorkflow?: Maybe<ReviewWorkflowsWorkflow>;
+  updateReviewWorkflowsWorkflowStage?: Maybe<ReviewWorkflowsWorkflowStage>;
+  updateUploadFile: UploadFile;
   /** Update an existing role */
   updateUsersPermissionsRole?: Maybe<UsersPermissionsUpdateRolePayload>;
   /** Update an existing user */
   updateUsersPermissionsUser: UsersPermissionsUserEntityResponse;
-  upload: UploadFileEntityResponse;
 };
 
 
@@ -3300,203 +3529,141 @@ export type MutationChangePasswordArgs = {
 export type MutationCreateArticleArgs = {
   data: ArticleInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreateArticleJobsCategoryArgs = {
   data: ArticleJobsCategoryInput;
-};
-
-
-export type MutationCreateArticleLocalizationArgs = {
-  data?: InputMaybe<ArticleInput>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreateArticleNewsCategoryArgs = {
   data: ArticleNewsCategoryInput;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreateArticlePressCategoryArgs = {
   data: ArticlePressCategoryInput;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreateAssetArgs = {
   data: AssetInput;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreateAssetCategoryArgs = {
   data: AssetCategoryInput;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreateBranchArgs = {
   data: BranchInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-};
-
-
-export type MutationCreateBranchLocalizationArgs = {
-  data?: InputMaybe<BranchInput>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreateBundleArgs = {
   data: BundleInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-};
-
-
-export type MutationCreateBundleLocalizationArgs = {
-  data?: InputMaybe<BundleInput>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreateCemeteryArgs = {
   data: CemeteryInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreateCemeteryCategoryArgs = {
   data: CemeteryCategoryInput;
-};
-
-
-export type MutationCreateCemeteryLocalizationArgs = {
-  data?: InputMaybe<CemeteryInput>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreateCeremonyArgs = {
   data: CeremonyInput;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreateContactArgs = {
   data: ContactInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-};
-
-
-export type MutationCreateContactLocalizationArgs = {
-  data?: InputMaybe<ContactInput>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreateDebtorArgs = {
   data: DebtorInput;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreateDisclosureArgs = {
   data: DisclosureInput;
-};
-
-
-export type MutationCreateGeneralLocalizationArgs = {
-  data?: InputMaybe<GeneralInput>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-};
-
-
-export type MutationCreateHomePageLocalizationArgs = {
-  data?: InputMaybe<HomePageInput>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreateManagedObjectArgs = {
   data: ManagedObjectInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreateManagedObjectCategoryArgs = {
   data: ManagedObjectCategoryInput;
-};
-
-
-export type MutationCreateManagedObjectLocalizationArgs = {
-  data?: InputMaybe<ManagedObjectInput>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreateOfficeArgs = {
   data: OfficeInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-};
-
-
-export type MutationCreateOfficeLocalizationArgs = {
-  data?: InputMaybe<OfficeInput>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreatePageArgs = {
   data: PageInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-};
-
-
-export type MutationCreatePageLocalizationArgs = {
-  data?: InputMaybe<PageInput>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreatePartnerArgs = {
   data: PartnerInput;
-};
-
-
-export type MutationCreateProcedureLocalizationArgs = {
-  data?: InputMaybe<ProcedureInput>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationCreateReviewArgs = {
   data: ReviewInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
-export type MutationCreateReviewLocalizationArgs = {
-  data?: InputMaybe<ReviewInput>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+export type MutationCreateReviewWorkflowsWorkflowArgs = {
+  data: ReviewWorkflowsWorkflowInput;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
-export type MutationCreateUploadFileArgs = {
-  data: UploadFileInput;
-};
-
-
-export type MutationCreateUploadFolderArgs = {
-  data: UploadFolderInput;
+export type MutationCreateReviewWorkflowsWorkflowStageArgs = {
+  data: ReviewWorkflowsWorkflowStageInput;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
@@ -3511,77 +3678,77 @@ export type MutationCreateUsersPermissionsUserArgs = {
 
 
 export type MutationDeleteArticleArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
 export type MutationDeleteArticleJobsCategoryArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteArticleNewsCategoryArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteArticlePressCategoryArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteAssetArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteAssetCategoryArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteBranchArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
 export type MutationDeleteBundleArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
 export type MutationDeleteCemeteryArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
 export type MutationDeleteCemeteryCategoryArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteCeremonyArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteContactArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
 export type MutationDeleteDebtorArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteDisclosureArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
 };
 
 
@@ -3596,30 +3763,30 @@ export type MutationDeleteHomePageArgs = {
 
 
 export type MutationDeleteManagedObjectArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
 export type MutationDeleteManagedObjectCategoryArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteOfficeArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
 export type MutationDeletePageArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
 export type MutationDeletePartnerArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
 };
 
 
@@ -3629,17 +3796,22 @@ export type MutationDeleteProcedureArgs = {
 
 
 export type MutationDeleteReviewArgs = {
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
-export type MutationDeleteUploadFileArgs = {
-  id: Scalars['ID']['input'];
+export type MutationDeleteReviewWorkflowsWorkflowArgs = {
+  documentId: Scalars['ID']['input'];
 };
 
 
-export type MutationDeleteUploadFolderArgs = {
+export type MutationDeleteReviewWorkflowsWorkflowStageArgs = {
+  documentId: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteUploadFileArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -3669,21 +3841,8 @@ export type MutationLoginArgs = {
 };
 
 
-export type MutationMultipleUploadArgs = {
-  field?: InputMaybe<Scalars['String']['input']>;
-  files: Array<InputMaybe<Scalars['Upload']['input']>>;
-  ref?: InputMaybe<Scalars['String']['input']>;
-  refId?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
 export type MutationRegisterArgs = {
   input: UsersPermissionsRegisterInput;
-};
-
-
-export type MutationRemoveFileArgs = {
-  id: Scalars['ID']['input'];
 };
 
 
@@ -3696,166 +3855,191 @@ export type MutationResetPasswordArgs = {
 
 export type MutationUpdateArticleArgs = {
   data: ArticleInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateArticleJobsCategoryArgs = {
   data: ArticleJobsCategoryInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateArticleNewsCategoryArgs = {
   data: ArticleNewsCategoryInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateArticlePressCategoryArgs = {
   data: ArticlePressCategoryInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateAssetArgs = {
   data: AssetInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateAssetCategoryArgs = {
   data: AssetCategoryInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateBranchArgs = {
   data: BranchInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateBundleArgs = {
   data: BundleInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateCemeteryArgs = {
   data: CemeteryInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateCemeteryCategoryArgs = {
   data: CemeteryCategoryInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateCeremonyArgs = {
   data: CeremonyInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateContactArgs = {
   data: ContactInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateDebtorArgs = {
   data: DebtorInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateDisclosureArgs = {
   data: DisclosureInput;
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationUpdateFileInfoArgs = {
-  id: Scalars['ID']['input'];
-  info?: InputMaybe<FileInfoInput>;
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateGeneralArgs = {
   data: GeneralInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateHomePageArgs = {
   data: HomePageInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateManagedObjectArgs = {
   data: ManagedObjectInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateManagedObjectCategoryArgs = {
   data: ManagedObjectCategoryInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateOfficeArgs = {
   data: OfficeInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdatePageArgs = {
   data: PageInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdatePartnerArgs = {
   data: PartnerInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateProcedureArgs = {
   data: ProcedureInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateReviewArgs = {
   data: ReviewInput;
-  id: Scalars['ID']['input'];
+  documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type MutationUpdateReviewWorkflowsWorkflowArgs = {
+  data: ReviewWorkflowsWorkflowInput;
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type MutationUpdateReviewWorkflowsWorkflowStageArgs = {
+  data: ReviewWorkflowsWorkflowStageInput;
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type MutationUpdateUploadFileArgs = {
-  data: UploadFileInput;
   id: Scalars['ID']['input'];
-};
-
-
-export type MutationUpdateUploadFolderArgs = {
-  data: UploadFolderInput;
-  id: Scalars['ID']['input'];
+  info?: InputMaybe<FileInfoInput>;
 };
 
 
@@ -3870,17 +4054,9 @@ export type MutationUpdateUsersPermissionsUserArgs = {
   id: Scalars['ID']['input'];
 };
 
-
-export type MutationUploadArgs = {
-  field?: InputMaybe<Scalars['String']['input']>;
-  file: Scalars['Upload']['input'];
-  info?: InputMaybe<FileInfoInput>;
-  ref?: InputMaybe<Scalars['String']['input']>;
-  refId?: InputMaybe<Scalars['ID']['input']>;
-};
-
 export type Navigation = {
   __typename?: 'Navigation';
+  documentId: Scalars['String']['output'];
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
   slug: Scalars['String']['output'];
@@ -3897,6 +4073,7 @@ export type NavigationConfig = {
 
 export type NavigationDetails = {
   __typename?: 'NavigationDetails';
+  documentId: Scalars['String']['output'];
   id: Scalars['String']['output'];
   items: Array<Maybe<NavigationItem>>;
   name: Scalars['String']['output'];
@@ -3906,21 +4083,23 @@ export type NavigationDetails = {
 
 export type NavigationItem = {
   __typename?: 'NavigationItem';
+  additionalFields?: Maybe<NavigationItemAdditionalFields>;
   createdAt?: Maybe<Scalars['String']['output']>;
   createdBy?: Maybe<Scalars['String']['output']>;
   created_at?: Maybe<Scalars['String']['output']>;
   created_by?: Maybe<Scalars['String']['output']>;
+  documentId: Scalars['String']['output'];
   externalPath?: Maybe<Scalars['String']['output']>;
   id: Scalars['Int']['output'];
   items?: Maybe<Array<Maybe<NavigationItem>>>;
-  master?: Maybe<Scalars['Int']['output']>;
+  master?: Maybe<Scalars['String']['output']>;
   menuAttached: Scalars['Boolean']['output'];
   order: Scalars['Int']['output'];
   parent?: Maybe<NavigationItem>;
   path?: Maybe<Scalars['String']['output']>;
-  related?: Maybe<NavigationItemRelatedData>;
+  related?: Maybe<NavigationItemRelated>;
   title: Scalars['String']['output'];
-  type: Scalars['String']['output'];
+  type: NavigationItemType;
   uiRouterKey: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['String']['output']>;
   updatedBy?: Maybe<Scalars['String']['output']>;
@@ -3928,28 +4107,36 @@ export type NavigationItem = {
   updated_by?: Maybe<Scalars['String']['output']>;
 };
 
+export type NavigationItemAdditionalFields = {
+  __typename?: 'NavigationItemAdditionalFields';
+  _unused?: Maybe<Scalars['Boolean']['output']>;
+};
+
 export type NavigationItemRelated = Page;
 
-export type NavigationItemRelatedData = {
-  __typename?: 'NavigationItemRelatedData';
-  attributes?: Maybe<NavigationItemRelated>;
-  id: Scalars['Int']['output'];
-};
+export enum NavigationItemType {
+  External = 'EXTERNAL',
+  Internal = 'INTERNAL',
+  Wrapper = 'WRAPPER'
+}
 
 export enum NavigationRenderType {
   Flat = 'FLAT',
-  Rfr = 'RFR',
   Tree = 'TREE'
 }
 
 export type Office = {
   __typename?: 'Office';
-  branch?: Maybe<BranchEntityResponse>;
-  contacts?: Maybe<ContactRelationResponseCollection>;
+  branch?: Maybe<Branch>;
+  contacts: Array<Maybe<Contact>>;
+  contacts_connection?: Maybe<ContactRelationResponseCollection>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
   locale?: Maybe<Scalars['String']['output']>;
-  localizations?: Maybe<OfficeRelationResponseCollection>;
+  localizations: Array<Maybe<Office>>;
+  localizations_connection?: Maybe<OfficeRelationResponseCollection>;
   openingHours?: Maybe<ComponentBlocksOpeningHoursUniversal>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   title: Scalars['String']['output'];
   titleInternal: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -3963,7 +4150,21 @@ export type OfficeContactsArgs = {
 };
 
 
+export type OfficeContacts_ConnectionArgs = {
+  filters?: InputMaybe<ContactFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
 export type OfficeLocalizationsArgs = {
+  filters?: InputMaybe<OfficeFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type OfficeLocalizations_ConnectionArgs = {
   filters?: InputMaybe<OfficeFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -3977,13 +4178,13 @@ export type OfficeEntity = {
 
 export type OfficeEntityResponse = {
   __typename?: 'OfficeEntityResponse';
-  data?: Maybe<OfficeEntity>;
+  data?: Maybe<Office>;
 };
 
 export type OfficeEntityResponseCollection = {
   __typename?: 'OfficeEntityResponseCollection';
-  data: Array<OfficeEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<Office>;
+  pageInfo: Pagination;
 };
 
 export type OfficeFiltersInput = {
@@ -3991,12 +4192,13 @@ export type OfficeFiltersInput = {
   branch?: InputMaybe<BranchFiltersInput>;
   contacts?: InputMaybe<ContactFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<OfficeFiltersInput>;
   not?: InputMaybe<OfficeFiltersInput>;
   openingHours?: InputMaybe<ComponentBlocksOpeningHoursUniversalFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<OfficeFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   titleInternal?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
@@ -4006,23 +4208,26 @@ export type OfficeInput = {
   branch?: InputMaybe<Scalars['ID']['input']>;
   contacts?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   openingHours?: InputMaybe<ComponentBlocksOpeningHoursUniversalInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   titleInternal?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type OfficeRelationResponseCollection = {
   __typename?: 'OfficeRelationResponseCollection';
-  data: Array<OfficeEntity>;
+  nodes: Array<Office>;
 };
 
 export type Page = {
   __typename?: 'Page';
-  coverMedia?: Maybe<UploadFileEntityResponse>;
+  coverMedia?: Maybe<UploadFile>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   ctaButton?: Maybe<ComponentBlocksButtonLink>;
+  documentId: Scalars['ID']['output'];
   layout: Enum_Page_Layout;
   locale?: Maybe<Scalars['String']['output']>;
-  localizations?: Maybe<PageRelationResponseCollection>;
+  localizations: Array<Maybe<Page>>;
+  localizations_connection?: Maybe<PageRelationResponseCollection>;
   perex?: Maybe<Scalars['String']['output']>;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   sections?: Maybe<Array<Maybe<PageSectionsDynamicZone>>>;
@@ -4037,7 +4242,13 @@ export type Page = {
 export type PageLocalizationsArgs = {
   filters?: InputMaybe<PageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type PageLocalizations_ConnectionArgs = {
+  filters?: InputMaybe<PageFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
@@ -4049,20 +4260,20 @@ export type PageEntity = {
 
 export type PageEntityResponse = {
   __typename?: 'PageEntityResponse';
-  data?: Maybe<PageEntity>;
+  data?: Maybe<Page>;
 };
 
 export type PageEntityResponseCollection = {
   __typename?: 'PageEntityResponseCollection';
-  data: Array<PageEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<Page>;
+  pageInfo: Pagination;
 };
 
 export type PageFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<PageFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   ctaButton?: InputMaybe<ComponentBlocksButtonLinkFiltersInput>;
-  id?: InputMaybe<IdFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   layout?: InputMaybe<StringFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<PageFiltersInput>;
@@ -4092,7 +4303,7 @@ export type PageInput = {
 
 export type PageRelationResponseCollection = {
   __typename?: 'PageRelationResponseCollection';
-  data: Array<PageEntity>;
+  nodes: Array<Page>;
 };
 
 export type PageSectionsDynamicZone = ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsAssetGroup | ComponentSectionsAssetsSection | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsGallery | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | Error;
@@ -4115,10 +4326,12 @@ export type PaginationArg = {
 export type Partner = {
   __typename?: 'Partner';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
   featured?: Maybe<Scalars['Boolean']['output']>;
   link: Scalars['String']['output'];
-  logo: UploadFileEntityResponse;
+  logo: UploadFile;
   priority?: Maybe<Scalars['Int']['output']>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -4131,24 +4344,25 @@ export type PartnerEntity = {
 
 export type PartnerEntityResponse = {
   __typename?: 'PartnerEntityResponse';
-  data?: Maybe<PartnerEntity>;
+  data?: Maybe<Partner>;
 };
 
 export type PartnerEntityResponseCollection = {
   __typename?: 'PartnerEntityResponseCollection';
-  data: Array<PartnerEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<Partner>;
+  pageInfo: Pagination;
 };
 
 export type PartnerFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<PartnerFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   featured?: InputMaybe<BooleanFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
   link?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<PartnerFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<PartnerFiltersInput>>>;
   priority?: InputMaybe<IntFilterInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -4158,21 +4372,25 @@ export type PartnerInput = {
   link?: InputMaybe<Scalars['String']['input']>;
   logo?: InputMaybe<Scalars['ID']['input']>;
   priority?: InputMaybe<Scalars['Int']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type PartnerRelationResponseCollection = {
   __typename?: 'PartnerRelationResponseCollection';
-  data: Array<PartnerEntity>;
+  nodes: Array<Partner>;
 };
 
 export type Procedure = {
   __typename?: 'Procedure';
   atMedicalFacility?: Maybe<ComponentGeneralProcedure>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
   locale?: Maybe<Scalars['String']['output']>;
-  localizations?: Maybe<ProcedureRelationResponseCollection>;
+  localizations: Array<Maybe<Procedure>>;
+  localizations_connection?: Maybe<ProcedureRelationResponseCollection>;
   outsideMedicalFacility?: Maybe<ComponentGeneralProcedure>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -4184,13 +4402,13 @@ export type ProcedureEntity = {
 
 export type ProcedureEntityResponse = {
   __typename?: 'ProcedureEntityResponse';
-  data?: Maybe<ProcedureEntity>;
+  data?: Maybe<Procedure>;
 };
 
 export type ProcedureEntityResponseCollection = {
   __typename?: 'ProcedureEntityResponseCollection';
-  data: Array<ProcedureEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<Procedure>;
+  pageInfo: Pagination;
 };
 
 export type ProcedureFiltersInput = {
@@ -4202,358 +4420,732 @@ export type ProcedureFiltersInput = {
   not?: InputMaybe<ProcedureFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ProcedureFiltersInput>>>;
   outsideMedicalFacility?: InputMaybe<ComponentGeneralProcedureFiltersInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type ProcedureInput = {
   atMedicalFacility?: InputMaybe<ComponentGeneralProcedureInput>;
   outsideMedicalFacility?: InputMaybe<ComponentGeneralProcedureInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type ProcedureRelationResponseCollection = {
   __typename?: 'ProcedureRelationResponseCollection';
-  data: Array<ProcedureEntity>;
+  nodes: Array<Procedure>;
 };
 
-export enum PublicationState {
-  Live = 'LIVE',
-  Preview = 'PREVIEW'
+export enum PublicationFilter {
+  HasPublishedVersion = 'HAS_PUBLISHED_VERSION',
+  HasPublishedVersionDocument = 'HAS_PUBLISHED_VERSION_DOCUMENT',
+  Modified = 'MODIFIED',
+  NeverPublished = 'NEVER_PUBLISHED',
+  NeverPublishedDocument = 'NEVER_PUBLISHED_DOCUMENT',
+  PublishedWithoutDraft = 'PUBLISHED_WITHOUT_DRAFT',
+  PublishedWithDraft = 'PUBLISHED_WITH_DRAFT',
+  Unmodified = 'UNMODIFIED'
+}
+
+export enum PublicationStatus {
+  Draft = 'DRAFT',
+  Published = 'PUBLISHED'
 }
 
 export type Query = {
   __typename?: 'Query';
-  article?: Maybe<ArticleEntityResponse>;
-  articleJobsCategories?: Maybe<ArticleJobsCategoryEntityResponseCollection>;
-  articleJobsCategory?: Maybe<ArticleJobsCategoryEntityResponse>;
-  articleNewsCategories?: Maybe<ArticleNewsCategoryEntityResponseCollection>;
-  articleNewsCategory?: Maybe<ArticleNewsCategoryEntityResponse>;
-  articlePressCategories?: Maybe<ArticlePressCategoryEntityResponseCollection>;
-  articlePressCategory?: Maybe<ArticlePressCategoryEntityResponse>;
-  articles?: Maybe<ArticleEntityResponseCollection>;
-  asset?: Maybe<AssetEntityResponse>;
-  assetCategories?: Maybe<AssetCategoryEntityResponseCollection>;
-  assetCategory?: Maybe<AssetCategoryEntityResponse>;
+  article?: Maybe<Article>;
+  articleJobsCategories: Array<Maybe<ArticleJobsCategory>>;
+  articleJobsCategories_connection?: Maybe<ArticleJobsCategoryEntityResponseCollection>;
+  articleJobsCategory?: Maybe<ArticleJobsCategory>;
+  articleNewsCategories: Array<Maybe<ArticleNewsCategory>>;
+  articleNewsCategories_connection?: Maybe<ArticleNewsCategoryEntityResponseCollection>;
+  articleNewsCategory?: Maybe<ArticleNewsCategory>;
+  articlePressCategories: Array<Maybe<ArticlePressCategory>>;
+  articlePressCategories_connection?: Maybe<ArticlePressCategoryEntityResponseCollection>;
+  articlePressCategory?: Maybe<ArticlePressCategory>;
+  articles: Array<Maybe<Article>>;
+  articles_connection?: Maybe<ArticleEntityResponseCollection>;
+  asset?: Maybe<Asset>;
+  assetCategories: Array<Maybe<AssetCategory>>;
+  assetCategories_connection?: Maybe<AssetCategoryEntityResponseCollection>;
+  assetCategory?: Maybe<AssetCategory>;
   assetFileTypes?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  assets?: Maybe<AssetEntityResponseCollection>;
-  branch?: Maybe<BranchEntityResponse>;
-  branches?: Maybe<BranchEntityResponseCollection>;
-  bundle?: Maybe<BundleEntityResponse>;
-  bundles?: Maybe<BundleEntityResponseCollection>;
-  cemeteries?: Maybe<CemeteryEntityResponseCollection>;
-  cemetery?: Maybe<CemeteryEntityResponse>;
-  cemeteryCategories?: Maybe<CemeteryCategoryEntityResponseCollection>;
-  cemeteryCategory?: Maybe<CemeteryCategoryEntityResponse>;
-  ceremonies?: Maybe<CeremonyEntityResponseCollection>;
-  ceremony?: Maybe<CeremonyEntityResponse>;
-  contact?: Maybe<ContactEntityResponse>;
-  contacts?: Maybe<ContactEntityResponseCollection>;
-  debtor?: Maybe<DebtorEntityResponse>;
-  debtors?: Maybe<DebtorEntityResponseCollection>;
-  disclosure?: Maybe<DisclosureEntityResponse>;
-  disclosures?: Maybe<DisclosureEntityResponseCollection>;
-  general?: Maybe<GeneralEntityResponse>;
-  homePage?: Maybe<HomePageEntityResponse>;
-  i18NLocale?: Maybe<I18NLocaleEntityResponse>;
-  i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
-  managedObject?: Maybe<ManagedObjectEntityResponse>;
-  managedObjectCategories?: Maybe<ManagedObjectCategoryEntityResponseCollection>;
-  managedObjectCategory?: Maybe<ManagedObjectCategoryEntityResponse>;
-  managedObjects?: Maybe<ManagedObjectEntityResponseCollection>;
+  assets: Array<Maybe<Asset>>;
+  assets_connection?: Maybe<AssetEntityResponseCollection>;
+  branch?: Maybe<Branch>;
+  branches: Array<Maybe<Branch>>;
+  branches_connection?: Maybe<BranchEntityResponseCollection>;
+  bundle?: Maybe<Bundle>;
+  bundles: Array<Maybe<Bundle>>;
+  bundles_connection?: Maybe<BundleEntityResponseCollection>;
+  cemeteries: Array<Maybe<Cemetery>>;
+  cemeteries_connection?: Maybe<CemeteryEntityResponseCollection>;
+  cemetery?: Maybe<Cemetery>;
+  cemeteryCategories: Array<Maybe<CemeteryCategory>>;
+  cemeteryCategories_connection?: Maybe<CemeteryCategoryEntityResponseCollection>;
+  cemeteryCategory?: Maybe<CemeteryCategory>;
+  ceremonies: Array<Maybe<Ceremony>>;
+  ceremonies_connection?: Maybe<CeremonyEntityResponseCollection>;
+  ceremony?: Maybe<Ceremony>;
+  contact?: Maybe<Contact>;
+  contacts: Array<Maybe<Contact>>;
+  contacts_connection?: Maybe<ContactEntityResponseCollection>;
+  debtor?: Maybe<Debtor>;
+  debtors: Array<Maybe<Debtor>>;
+  debtors_connection?: Maybe<DebtorEntityResponseCollection>;
+  disclosure?: Maybe<Disclosure>;
+  disclosures: Array<Maybe<Disclosure>>;
+  disclosures_connection?: Maybe<DisclosureEntityResponseCollection>;
+  general?: Maybe<General>;
+  homePage?: Maybe<HomePage>;
+  i18NLocale?: Maybe<I18NLocale>;
+  i18NLocales: Array<Maybe<I18NLocale>>;
+  i18NLocales_connection?: Maybe<I18NLocaleEntityResponseCollection>;
+  managedObject?: Maybe<ManagedObject>;
+  managedObjectCategories: Array<Maybe<ManagedObjectCategory>>;
+  managedObjectCategories_connection?: Maybe<ManagedObjectCategoryEntityResponseCollection>;
+  managedObjectCategory?: Maybe<ManagedObjectCategory>;
+  managedObjects: Array<Maybe<ManagedObject>>;
+  managedObjects_connection?: Maybe<ManagedObjectEntityResponseCollection>;
   me?: Maybe<UsersPermissionsMe>;
-  office?: Maybe<OfficeEntityResponse>;
-  offices?: Maybe<OfficeEntityResponseCollection>;
-  page?: Maybe<PageEntityResponse>;
-  pages?: Maybe<PageEntityResponseCollection>;
-  partner?: Maybe<PartnerEntityResponse>;
-  partners?: Maybe<PartnerEntityResponseCollection>;
-  procedure?: Maybe<ProcedureEntityResponse>;
+  office?: Maybe<Office>;
+  offices: Array<Maybe<Office>>;
+  offices_connection?: Maybe<OfficeEntityResponseCollection>;
+  page?: Maybe<Page>;
+  pages: Array<Maybe<Page>>;
+  pages_connection?: Maybe<PageEntityResponseCollection>;
+  partner?: Maybe<Partner>;
+  partners: Array<Maybe<Partner>>;
+  partners_connection?: Maybe<PartnerEntityResponseCollection>;
+  procedure?: Maybe<Procedure>;
   renderNavigation: Array<Maybe<NavigationItem>>;
   renderNavigationChild: Array<Maybe<NavigationItem>>;
-  review?: Maybe<ReviewEntityResponse>;
-  reviews?: Maybe<ReviewEntityResponseCollection>;
-  uploadFile?: Maybe<UploadFileEntityResponse>;
-  uploadFiles?: Maybe<UploadFileEntityResponseCollection>;
-  uploadFolder?: Maybe<UploadFolderEntityResponse>;
-  uploadFolders?: Maybe<UploadFolderEntityResponseCollection>;
-  usersPermissionsRole?: Maybe<UsersPermissionsRoleEntityResponse>;
-  usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
-  usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>;
-  usersPermissionsUsers?: Maybe<UsersPermissionsUserEntityResponseCollection>;
+  review?: Maybe<Review>;
+  reviewWorkflowsWorkflow?: Maybe<ReviewWorkflowsWorkflow>;
+  reviewWorkflowsWorkflowStage?: Maybe<ReviewWorkflowsWorkflowStage>;
+  reviewWorkflowsWorkflowStages: Array<Maybe<ReviewWorkflowsWorkflowStage>>;
+  reviewWorkflowsWorkflowStages_connection?: Maybe<ReviewWorkflowsWorkflowStageEntityResponseCollection>;
+  reviewWorkflowsWorkflows: Array<Maybe<ReviewWorkflowsWorkflow>>;
+  reviewWorkflowsWorkflows_connection?: Maybe<ReviewWorkflowsWorkflowEntityResponseCollection>;
+  reviews: Array<Maybe<Review>>;
+  reviews_connection?: Maybe<ReviewEntityResponseCollection>;
+  uploadFile?: Maybe<UploadFile>;
+  uploadFiles: Array<Maybe<UploadFile>>;
+  uploadFiles_connection?: Maybe<UploadFileEntityResponseCollection>;
+  usersPermissionsRole?: Maybe<UsersPermissionsRole>;
+  usersPermissionsRoles: Array<Maybe<UsersPermissionsRole>>;
+  usersPermissionsRoles_connection?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
+  usersPermissionsUser?: Maybe<UsersPermissionsUser>;
+  usersPermissionsUsers: Array<Maybe<UsersPermissionsUser>>;
+  usersPermissionsUsers_connection?: Maybe<UsersPermissionsUserEntityResponseCollection>;
 };
 
 
 export type QueryArticleArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryArticleJobsCategoriesArgs = {
   filters?: InputMaybe<ArticleJobsCategoryFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryArticleJobsCategories_ConnectionArgs = {
+  filters?: InputMaybe<ArticleJobsCategoryFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryArticleJobsCategoryArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryArticleNewsCategoriesArgs = {
   filters?: InputMaybe<ArticleNewsCategoryFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryArticleNewsCategories_ConnectionArgs = {
+  filters?: InputMaybe<ArticleNewsCategoryFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryArticleNewsCategoryArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryArticlePressCategoriesArgs = {
   filters?: InputMaybe<ArticlePressCategoryFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryArticlePressCategories_ConnectionArgs = {
+  filters?: InputMaybe<ArticlePressCategoryFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryArticlePressCategoryArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryArticlesArgs = {
   filters?: InputMaybe<ArticleFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryArticles_ConnectionArgs = {
+  filters?: InputMaybe<ArticleFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryAssetArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryAssetCategoriesArgs = {
   filters?: InputMaybe<AssetCategoryFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryAssetCategories_ConnectionArgs = {
+  filters?: InputMaybe<AssetCategoryFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryAssetCategoryArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryAssetsArgs = {
   filters?: InputMaybe<AssetFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryAssets_ConnectionArgs = {
+  filters?: InputMaybe<AssetFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryBranchArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryBranchesArgs = {
   filters?: InputMaybe<BranchFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryBranches_ConnectionArgs = {
+  filters?: InputMaybe<BranchFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryBundleArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryBundlesArgs = {
   filters?: InputMaybe<BundleFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryBundles_ConnectionArgs = {
+  filters?: InputMaybe<BundleFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryCemeteriesArgs = {
   filters?: InputMaybe<CemeteryFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryCemeteries_ConnectionArgs = {
+  filters?: InputMaybe<CemeteryFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryCemeteryArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryCemeteryCategoriesArgs = {
   filters?: InputMaybe<CemeteryCategoryFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryCemeteryCategories_ConnectionArgs = {
+  filters?: InputMaybe<CemeteryCategoryFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryCemeteryCategoryArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryCeremoniesArgs = {
   filters?: InputMaybe<CeremonyFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryCeremonies_ConnectionArgs = {
+  filters?: InputMaybe<CeremonyFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryCeremonyArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryContactArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryContactsArgs = {
   filters?: InputMaybe<ContactFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryContacts_ConnectionArgs = {
+  filters?: InputMaybe<ContactFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryDebtorArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryDebtorsArgs = {
   filters?: InputMaybe<DebtorFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryDebtors_ConnectionArgs = {
+  filters?: InputMaybe<DebtorFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryDisclosureArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryDisclosuresArgs = {
   filters?: InputMaybe<DisclosureFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryDisclosures_ConnectionArgs = {
+  filters?: InputMaybe<DisclosureFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryGeneralArgs = {
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryHomePageArgs = {
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryI18NLocaleArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryI18NLocalesArgs = {
   filters?: InputMaybe<I18NLocaleFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryI18NLocales_ConnectionArgs = {
+  filters?: InputMaybe<I18NLocaleFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryManagedObjectArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryManagedObjectCategoriesArgs = {
   filters?: InputMaybe<ManagedObjectCategoryFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryManagedObjectCategories_ConnectionArgs = {
+  filters?: InputMaybe<ManagedObjectCategoryFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryManagedObjectCategoryArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryManagedObjectsArgs = {
   filters?: InputMaybe<ManagedObjectFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryManagedObjects_ConnectionArgs = {
+  filters?: InputMaybe<ManagedObjectFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryOfficeArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryOfficesArgs = {
   filters?: InputMaybe<OfficeFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryOffices_ConnectionArgs = {
+  filters?: InputMaybe<OfficeFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryPageArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryPagesArgs = {
   filters?: InputMaybe<PageFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryPages_ConnectionArgs = {
+  filters?: InputMaybe<PageFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryPartnerArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryPartnersArgs = {
   filters?: InputMaybe<PartnerFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryPartners_ConnectionArgs = {
+  filters?: InputMaybe<PartnerFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryProcedureArgs = {
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
@@ -4568,71 +5160,180 @@ export type QueryRenderNavigationArgs = {
 
 export type QueryRenderNavigationChildArgs = {
   childUiKey: Scalars['String']['input'];
-  id: Scalars['String']['input'];
+  documentId: Scalars['String']['input'];
   menuOnly?: InputMaybe<Scalars['Boolean']['input']>;
   type?: InputMaybe<NavigationRenderType>;
 };
 
 
 export type QueryReviewArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryReviewWorkflowsWorkflowArgs = {
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryReviewWorkflowsWorkflowStageArgs = {
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryReviewWorkflowsWorkflowStagesArgs = {
+  filters?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryReviewWorkflowsWorkflowStages_ConnectionArgs = {
+  filters?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryReviewWorkflowsWorkflowsArgs = {
+  filters?: InputMaybe<ReviewWorkflowsWorkflowFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryReviewWorkflowsWorkflows_ConnectionArgs = {
+  filters?: InputMaybe<ReviewWorkflowsWorkflowFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryReviewsArgs = {
   filters?: InputMaybe<ReviewFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryReviews_ConnectionArgs = {
+  filters?: InputMaybe<ReviewFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryUploadFileArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryUploadFilesArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
-export type QueryUploadFolderArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type QueryUploadFoldersArgs = {
-  filters?: InputMaybe<UploadFolderFiltersInput>;
+export type QueryUploadFiles_ConnectionArgs = {
+  filters?: InputMaybe<UploadFileFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryUsersPermissionsRoleArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryUsersPermissionsRolesArgs = {
   filters?: InputMaybe<UsersPermissionsRoleFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryUsersPermissionsRoles_ConnectionArgs = {
+  filters?: InputMaybe<UsersPermissionsRoleFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryUsersPermissionsUserArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
+  documentId: Scalars['ID']['input'];
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
 export type QueryUsersPermissionsUsersArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
   pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryUsersPermissionsUsers_ConnectionArgs = {
+  filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
+  hasPublishedVersion?: InputMaybe<Scalars['Boolean']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationFilter?: InputMaybe<PublicationFilter>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
 };
 
 export type ResponseCollectionMeta = {
@@ -4646,14 +5347,24 @@ export type Review = {
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   date: Scalars['Date']['output'];
   description: Scalars['String']['output'];
+  documentId: Scalars['ID']['output'];
   locale?: Maybe<Scalars['String']['output']>;
-  localizations?: Maybe<ReviewRelationResponseCollection>;
+  localizations: Array<Maybe<Review>>;
+  localizations_connection?: Maybe<ReviewRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   rating: Scalars['Int']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 
 export type ReviewLocalizationsArgs = {
+  filters?: InputMaybe<ReviewFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ReviewLocalizations_ConnectionArgs = {
   filters?: InputMaybe<ReviewFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -4667,13 +5378,13 @@ export type ReviewEntity = {
 
 export type ReviewEntityResponse = {
   __typename?: 'ReviewEntityResponse';
-  data?: Maybe<ReviewEntity>;
+  data?: Maybe<Review>;
 };
 
 export type ReviewEntityResponseCollection = {
   __typename?: 'ReviewEntityResponseCollection';
-  data: Array<ReviewEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<Review>;
+  pageInfo: Pagination;
 };
 
 export type ReviewFiltersInput = {
@@ -4682,11 +5393,12 @@ export type ReviewFiltersInput = {
   createdAt?: InputMaybe<DateTimeFilterInput>;
   date?: InputMaybe<DateFilterInput>;
   description?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<ReviewFiltersInput>;
   not?: InputMaybe<ReviewFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ReviewFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   rating?: InputMaybe<IntFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
@@ -4695,12 +5407,137 @@ export type ReviewInput = {
   author?: InputMaybe<Scalars['String']['input']>;
   date?: InputMaybe<Scalars['Date']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   rating?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type ReviewRelationResponseCollection = {
   __typename?: 'ReviewRelationResponseCollection';
-  data: Array<ReviewEntity>;
+  nodes: Array<Review>;
+};
+
+export type ReviewWorkflowsWorkflow = {
+  __typename?: 'ReviewWorkflowsWorkflow';
+  contentTypes: Scalars['JSON']['output'];
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  stageRequiredToPublish?: Maybe<ReviewWorkflowsWorkflowStage>;
+  stages: Array<Maybe<ReviewWorkflowsWorkflowStage>>;
+  stages_connection?: Maybe<ReviewWorkflowsWorkflowStageRelationResponseCollection>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type ReviewWorkflowsWorkflowStagesArgs = {
+  filters?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ReviewWorkflowsWorkflowStages_ConnectionArgs = {
+  filters?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type ReviewWorkflowsWorkflowEntity = {
+  __typename?: 'ReviewWorkflowsWorkflowEntity';
+  attributes?: Maybe<ReviewWorkflowsWorkflow>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type ReviewWorkflowsWorkflowEntityResponse = {
+  __typename?: 'ReviewWorkflowsWorkflowEntityResponse';
+  data?: Maybe<ReviewWorkflowsWorkflow>;
+};
+
+export type ReviewWorkflowsWorkflowEntityResponseCollection = {
+  __typename?: 'ReviewWorkflowsWorkflowEntityResponseCollection';
+  nodes: Array<ReviewWorkflowsWorkflow>;
+  pageInfo: Pagination;
+};
+
+export type ReviewWorkflowsWorkflowFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ReviewWorkflowsWorkflowFiltersInput>>>;
+  contentTypes?: InputMaybe<JsonFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ReviewWorkflowsWorkflowFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ReviewWorkflowsWorkflowFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  stageRequiredToPublish?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
+  stages?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type ReviewWorkflowsWorkflowInput = {
+  contentTypes?: InputMaybe<Scalars['JSON']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  stageRequiredToPublish?: InputMaybe<Scalars['ID']['input']>;
+  stages?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+};
+
+export type ReviewWorkflowsWorkflowRelationResponseCollection = {
+  __typename?: 'ReviewWorkflowsWorkflowRelationResponseCollection';
+  nodes: Array<ReviewWorkflowsWorkflow>;
+};
+
+export type ReviewWorkflowsWorkflowStage = {
+  __typename?: 'ReviewWorkflowsWorkflowStage';
+  color?: Maybe<Scalars['String']['output']>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  workflow?: Maybe<ReviewWorkflowsWorkflow>;
+};
+
+export type ReviewWorkflowsWorkflowStageEntity = {
+  __typename?: 'ReviewWorkflowsWorkflowStageEntity';
+  attributes?: Maybe<ReviewWorkflowsWorkflowStage>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type ReviewWorkflowsWorkflowStageEntityResponse = {
+  __typename?: 'ReviewWorkflowsWorkflowStageEntityResponse';
+  data?: Maybe<ReviewWorkflowsWorkflowStage>;
+};
+
+export type ReviewWorkflowsWorkflowStageEntityResponseCollection = {
+  __typename?: 'ReviewWorkflowsWorkflowStageEntityResponseCollection';
+  nodes: Array<ReviewWorkflowsWorkflowStage>;
+  pageInfo: Pagination;
+};
+
+export type ReviewWorkflowsWorkflowStageFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>>>;
+  color?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+  workflow?: InputMaybe<ReviewWorkflowsWorkflowFiltersInput>;
+};
+
+export type ReviewWorkflowsWorkflowStageInput = {
+  color?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  workflow?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type ReviewWorkflowsWorkflowStageRelationResponseCollection = {
+  __typename?: 'ReviewWorkflowsWorkflowStageRelationResponseCollection';
+  nodes: Array<ReviewWorkflowsWorkflowStage>;
 };
 
 export type StringFilterInput = {
@@ -4758,7 +5595,9 @@ export type UploadFile = {
   alternativeText?: Maybe<Scalars['String']['output']>;
   caption?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
   ext?: Maybe<Scalars['String']['output']>;
+  focalPoint?: Maybe<Scalars['JSON']['output']>;
   formats?: Maybe<Scalars['JSON']['output']>;
   hash: Scalars['String']['output'];
   height?: Maybe<Scalars['Int']['output']>;
@@ -4767,6 +5606,7 @@ export type UploadFile = {
   previewUrl?: Maybe<Scalars['String']['output']>;
   provider: Scalars['String']['output'];
   provider_metadata?: Maybe<Scalars['JSON']['output']>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   related?: Maybe<Array<Maybe<GenericMorph>>>;
   size: Scalars['Float']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -4782,13 +5622,13 @@ export type UploadFileEntity = {
 
 export type UploadFileEntityResponse = {
   __typename?: 'UploadFileEntityResponse';
-  data?: Maybe<UploadFileEntity>;
+  data?: Maybe<UploadFile>;
 };
 
 export type UploadFileEntityResponseCollection = {
   __typename?: 'UploadFileEntityResponseCollection';
-  data: Array<UploadFileEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<UploadFile>;
+  pageInfo: Pagination;
 };
 
 export type UploadFileFiltersInput = {
@@ -4796,13 +5636,12 @@ export type UploadFileFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<UploadFileFiltersInput>>>;
   caption?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   ext?: InputMaybe<StringFilterInput>;
-  folder?: InputMaybe<UploadFolderFiltersInput>;
-  folderPath?: InputMaybe<StringFilterInput>;
+  focalPoint?: InputMaybe<JsonFilterInput>;
   formats?: InputMaybe<JsonFilterInput>;
   hash?: InputMaybe<StringFilterInput>;
   height?: InputMaybe<IntFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
   mime?: InputMaybe<StringFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<UploadFileFiltersInput>;
@@ -4810,6 +5649,7 @@ export type UploadFileFiltersInput = {
   previewUrl?: InputMaybe<StringFilterInput>;
   provider?: InputMaybe<StringFilterInput>;
   provider_metadata?: InputMaybe<JsonFilterInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   size?: InputMaybe<FloatFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   url?: InputMaybe<StringFilterInput>;
@@ -4820,8 +5660,7 @@ export type UploadFileInput = {
   alternativeText?: InputMaybe<Scalars['String']['input']>;
   caption?: InputMaybe<Scalars['String']['input']>;
   ext?: InputMaybe<Scalars['String']['input']>;
-  folder?: InputMaybe<Scalars['ID']['input']>;
-  folderPath?: InputMaybe<Scalars['String']['input']>;
+  focalPoint?: InputMaybe<Scalars['JSON']['input']>;
   formats?: InputMaybe<Scalars['JSON']['input']>;
   hash?: InputMaybe<Scalars['String']['input']>;
   height?: InputMaybe<Scalars['Int']['input']>;
@@ -4830,6 +5669,7 @@ export type UploadFileInput = {
   previewUrl?: InputMaybe<Scalars['String']['input']>;
   provider?: InputMaybe<Scalars['String']['input']>;
   provider_metadata?: InputMaybe<Scalars['JSON']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   size?: InputMaybe<Scalars['Float']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
   width?: InputMaybe<Scalars['Int']['input']>;
@@ -4837,79 +5677,7 @@ export type UploadFileInput = {
 
 export type UploadFileRelationResponseCollection = {
   __typename?: 'UploadFileRelationResponseCollection';
-  data: Array<UploadFileEntity>;
-};
-
-export type UploadFolder = {
-  __typename?: 'UploadFolder';
-  children?: Maybe<UploadFolderRelationResponseCollection>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  files?: Maybe<UploadFileRelationResponseCollection>;
-  name: Scalars['String']['output'];
-  parent?: Maybe<UploadFolderEntityResponse>;
-  path: Scalars['String']['output'];
-  pathId: Scalars['Int']['output'];
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-
-export type UploadFolderChildrenArgs = {
-  filters?: InputMaybe<UploadFolderFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type UploadFolderFilesArgs = {
-  filters?: InputMaybe<UploadFileFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type UploadFolderEntity = {
-  __typename?: 'UploadFolderEntity';
-  attributes?: Maybe<UploadFolder>;
-  id?: Maybe<Scalars['ID']['output']>;
-};
-
-export type UploadFolderEntityResponse = {
-  __typename?: 'UploadFolderEntityResponse';
-  data?: Maybe<UploadFolderEntity>;
-};
-
-export type UploadFolderEntityResponseCollection = {
-  __typename?: 'UploadFolderEntityResponseCollection';
-  data: Array<UploadFolderEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type UploadFolderFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<UploadFolderFiltersInput>>>;
-  children?: InputMaybe<UploadFolderFiltersInput>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  files?: InputMaybe<UploadFileFiltersInput>;
-  id?: InputMaybe<IdFilterInput>;
-  name?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<UploadFolderFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<UploadFolderFiltersInput>>>;
-  parent?: InputMaybe<UploadFolderFiltersInput>;
-  path?: InputMaybe<StringFilterInput>;
-  pathId?: InputMaybe<IntFilterInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type UploadFolderInput = {
-  children?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  files?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  parent?: InputMaybe<Scalars['ID']['input']>;
-  path?: InputMaybe<Scalars['String']['input']>;
-  pathId?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type UploadFolderRelationResponseCollection = {
-  __typename?: 'UploadFolderRelationResponseCollection';
-  data: Array<UploadFolderEntity>;
+  nodes: Array<UploadFile>;
 };
 
 export type UsersPermissionsCreateRolePayload = {
@@ -4938,6 +5706,7 @@ export type UsersPermissionsMe = {
   __typename?: 'UsersPermissionsMe';
   blocked?: Maybe<Scalars['Boolean']['output']>;
   confirmed?: Maybe<Scalars['Boolean']['output']>;
+  documentId: Scalars['ID']['output'];
   email?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   role?: Maybe<UsersPermissionsMeRole>;
@@ -4961,7 +5730,9 @@ export type UsersPermissionsPermission = {
   __typename?: 'UsersPermissionsPermission';
   action: Scalars['String']['output'];
   createdAt?: Maybe<Scalars['DateTime']['output']>;
-  role?: Maybe<UsersPermissionsRoleEntityResponse>;
+  documentId: Scalars['ID']['output'];
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  role?: Maybe<UsersPermissionsRole>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -4973,34 +5744,36 @@ export type UsersPermissionsPermissionEntity = {
 
 export type UsersPermissionsPermissionEntityResponse = {
   __typename?: 'UsersPermissionsPermissionEntityResponse';
-  data?: Maybe<UsersPermissionsPermissionEntity>;
+  data?: Maybe<UsersPermissionsPermission>;
 };
 
 export type UsersPermissionsPermissionEntityResponseCollection = {
   __typename?: 'UsersPermissionsPermissionEntityResponseCollection';
-  data: Array<UsersPermissionsPermissionEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<UsersPermissionsPermission>;
+  pageInfo: Pagination;
 };
 
 export type UsersPermissionsPermissionFiltersInput = {
   action?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<UsersPermissionsPermissionFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<UsersPermissionsPermissionFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<UsersPermissionsPermissionFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   role?: InputMaybe<UsersPermissionsRoleFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type UsersPermissionsPermissionInput = {
   action?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   role?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type UsersPermissionsPermissionRelationResponseCollection = {
   __typename?: 'UsersPermissionsPermissionRelationResponseCollection';
-  data: Array<UsersPermissionsPermissionEntity>;
+  nodes: Array<UsersPermissionsPermission>;
 };
 
 export type UsersPermissionsRegisterInput = {
@@ -5013,11 +5786,15 @@ export type UsersPermissionsRole = {
   __typename?: 'UsersPermissionsRole';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  documentId: Scalars['ID']['output'];
   name: Scalars['String']['output'];
-  permissions?: Maybe<UsersPermissionsPermissionRelationResponseCollection>;
+  permissions: Array<Maybe<UsersPermissionsPermission>>;
+  permissions_connection?: Maybe<UsersPermissionsPermissionRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
   type?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
-  users?: Maybe<UsersPermissionsUserRelationResponseCollection>;
+  users: Array<Maybe<UsersPermissionsUser>>;
+  users_connection?: Maybe<UsersPermissionsUserRelationResponseCollection>;
 };
 
 
@@ -5028,7 +5805,21 @@ export type UsersPermissionsRolePermissionsArgs = {
 };
 
 
+export type UsersPermissionsRolePermissions_ConnectionArgs = {
+  filters?: InputMaybe<UsersPermissionsPermissionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
 export type UsersPermissionsRoleUsersArgs = {
+  filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type UsersPermissionsRoleUsers_ConnectionArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -5042,24 +5833,25 @@ export type UsersPermissionsRoleEntity = {
 
 export type UsersPermissionsRoleEntityResponse = {
   __typename?: 'UsersPermissionsRoleEntityResponse';
-  data?: Maybe<UsersPermissionsRoleEntity>;
+  data?: Maybe<UsersPermissionsRole>;
 };
 
 export type UsersPermissionsRoleEntityResponseCollection = {
   __typename?: 'UsersPermissionsRoleEntityResponseCollection';
-  data: Array<UsersPermissionsRoleEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<UsersPermissionsRole>;
+  pageInfo: Pagination;
 };
 
 export type UsersPermissionsRoleFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<UsersPermissionsRoleFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<UsersPermissionsRoleFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<UsersPermissionsRoleFiltersInput>>>;
   permissions?: InputMaybe<UsersPermissionsPermissionFiltersInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   type?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   users?: InputMaybe<UsersPermissionsUserFiltersInput>;
@@ -5069,13 +5861,14 @@ export type UsersPermissionsRoleInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   permissions?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   type?: InputMaybe<Scalars['String']['input']>;
   users?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
 };
 
 export type UsersPermissionsRoleRelationResponseCollection = {
   __typename?: 'UsersPermissionsRoleRelationResponseCollection';
-  data: Array<UsersPermissionsRoleEntity>;
+  nodes: Array<UsersPermissionsRole>;
 };
 
 export type UsersPermissionsUpdateRolePayload = {
@@ -5088,9 +5881,11 @@ export type UsersPermissionsUser = {
   blocked?: Maybe<Scalars['Boolean']['output']>;
   confirmed?: Maybe<Scalars['Boolean']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
   email: Scalars['String']['output'];
   provider?: Maybe<Scalars['String']['output']>;
-  role?: Maybe<UsersPermissionsRoleEntityResponse>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  role?: Maybe<UsersPermissionsRole>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   username: Scalars['String']['output'];
 };
@@ -5103,28 +5898,26 @@ export type UsersPermissionsUserEntity = {
 
 export type UsersPermissionsUserEntityResponse = {
   __typename?: 'UsersPermissionsUserEntityResponse';
-  data?: Maybe<UsersPermissionsUserEntity>;
+  data?: Maybe<UsersPermissionsUser>;
 };
 
 export type UsersPermissionsUserEntityResponseCollection = {
   __typename?: 'UsersPermissionsUserEntityResponseCollection';
-  data: Array<UsersPermissionsUserEntity>;
-  meta: ResponseCollectionMeta;
+  nodes: Array<UsersPermissionsUser>;
+  pageInfo: Pagination;
 };
 
 export type UsersPermissionsUserFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<UsersPermissionsUserFiltersInput>>>;
   blocked?: InputMaybe<BooleanFilterInput>;
-  confirmationToken?: InputMaybe<StringFilterInput>;
   confirmed?: InputMaybe<BooleanFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
   email?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<UsersPermissionsUserFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<UsersPermissionsUserFiltersInput>>>;
-  password?: InputMaybe<StringFilterInput>;
   provider?: InputMaybe<StringFilterInput>;
-  resetPasswordToken?: InputMaybe<StringFilterInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
   role?: InputMaybe<UsersPermissionsRoleFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
   username?: InputMaybe<StringFilterInput>;
@@ -5132,201 +5925,200 @@ export type UsersPermissionsUserFiltersInput = {
 
 export type UsersPermissionsUserInput = {
   blocked?: InputMaybe<Scalars['Boolean']['input']>;
-  confirmationToken?: InputMaybe<Scalars['String']['input']>;
   confirmed?: InputMaybe<Scalars['Boolean']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
   provider?: InputMaybe<Scalars['String']['input']>;
-  resetPasswordToken?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   role?: InputMaybe<Scalars['ID']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UsersPermissionsUserRelationResponseCollection = {
   __typename?: 'UsersPermissionsUserRelationResponseCollection';
-  data: Array<UsersPermissionsUserEntity>;
+  nodes: Array<UsersPermissionsUser>;
 };
 
-export type FlatNavigationItemFragment = { __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Page', title: string, slug: string } | null } | null };
+export type FlatNavigationItemFragment = { __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: NavigationItemType, related?: { __typename: 'Page', title: string, slug: string } | null };
 
-export type NavigationItemFragment = { __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Page', title: string, slug: string } | null } | null };
+export type NavigationItemFragment = { __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: NavigationItemType, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: NavigationItemType, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: NavigationItemType, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: NavigationItemType, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: NavigationItemType, related?: { __typename: 'Page', title: string, slug: string } | null } | null> | null, related?: { __typename: 'Page', title: string, slug: string } | null } | null> | null, related?: { __typename: 'Page', title: string, slug: string } | null } | null> | null, related?: { __typename: 'Page', title: string, slug: string } | null } | null> | null, related?: { __typename: 'Page', title: string, slug: string } | null };
 
-export type CtaButtonFragment = { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null };
+export type CtaButtonFragment = { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null };
 
-export type SidebarFragment = { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null };
+export type SidebarFragment = { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null };
 
 export type SeoFragment = { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null };
 
-export type CtaFragment = { __typename?: 'ComponentBlocksCta', title: string, description?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null };
+export type CtaFragment = { __typename?: 'ComponentBlocksCta', title: string, description?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null, image?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null };
 
-export type HeaderFragment = { __typename?: 'ComponentGeneralHeader', faqPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null };
+export type HeaderFragment = { __typename?: 'ComponentGeneralHeader', faqPage?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null };
 
 export type SocialItemFragment = { __typename?: 'ComponentBlocksSocialItem', title: string, url: string, icon?: Enum_Componentblockssocialitem_Icon | null };
 
 export type OpeningHoursFragment = { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null };
 
-export type ContactFragment = { __typename?: 'ComponentGeneralContacts', addressFirstLine?: string | null, address?: string | null, latitude?: string | null, longitude?: string | null, navigateToLink?: string | null, openingHoursPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, contactsPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null };
+export type ContactFragment = { __typename?: 'ComponentGeneralContacts', addressFirstLine?: string | null, address?: string | null, latitude?: string | null, longitude?: string | null, navigateToLink?: string | null, openingHoursPage?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null, contactsPage?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null };
 
-export type FooterLinkItemFragment = { __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null };
+export type FooterLinkItemFragment = { __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null };
 
-export type FooterFragment = { __typename?: 'ComponentGeneralFooter', title1?: string | null, title2?: string | null, title3?: string | null, title4?: string | null, links1?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null } | null> | null, links2?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null } | null> | null, links3?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null } | null> | null, links4?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null } | null> | null, bottomLinks?: Array<{ __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null> | null };
+export type FooterFragment = { __typename?: 'ComponentGeneralFooter', title1?: string | null, title2?: string | null, title3?: string | null, title4?: string | null, links1?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null } | null> | null, links2?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null } | null> | null, links3?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null } | null> | null, links4?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null } | null> | null, bottomLinks?: Array<{ __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null> | null };
 
-export type ProcedureFragment = { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null } | null };
+export type ProcedureFragment = { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null } | null };
 
-export type ArticlesManualListingFragment = { __typename?: 'ComponentSectionsArticlesManualListing', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null, articles?: Array<{ __typename?: 'ComponentBlocksArticleItem', article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', perex?: string | null, publishedAt?: any | null, title: string, slug: string, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null };
+export type ArticlesManualListingFragment = { __typename?: 'ComponentSectionsArticlesManualListing', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null, articles?: Array<{ __typename?: 'ComponentBlocksArticleItem', article?: { __typename: 'Article', perex?: string | null, publishedAt?: any | null, documentId: string, title: string, slug: string, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null } | null> | null };
 
 export type AccordionGroupFragment = { __typename?: 'ComponentSectionsAccordionGroup', id: string, title?: string | null, accordions?: Array<{ __typename?: 'ComponentBlocksAccordionItem', id: string, title?: string | null, content?: string | null } | null> | null };
 
-export type BranchGroupFragment = { __typename?: 'ComponentSectionsBranchGroup', id: string, title?: string | null, branches?: Array<{ __typename?: 'ComponentBlocksBranchItem', branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', address?: string | null, title: string, slug: string, locale?: string | null, offices?: { __typename?: 'OfficeRelationResponseCollection', data: Array<{ __typename?: 'OfficeEntity', id?: string | null, attributes?: { __typename?: 'Office', title: string, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', slug: string, locale?: string | null, title: string, address?: string | null } | null } | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts?: { __typename?: 'ContactRelationResponseCollection', data: Array<{ __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null }> } | null } | null }> } | null } | null } | null } | null } | null> | null };
+export type BranchGroupFragment = { __typename?: 'ComponentSectionsBranchGroup', id: string, title?: string | null, branches?: Array<{ __typename?: 'ComponentBlocksBranchItem', branch?: { __typename: 'Branch', address?: string | null, documentId: string, title: string, slug: string, locale?: string | null, offices: Array<{ __typename?: 'Office', documentId: string, title: string, branch?: { __typename: 'Branch', documentId: string, slug: string, locale?: string | null, title: string, address?: string | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts: Array<{ __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null> } | null> } | null } | null> | null };
 
 export type MenuListingFragment = { __typename?: 'ComponentSectionsMenuListing', id: string, title?: string | null, slug: string };
 
-export type MapSectionFragment = { __typename?: 'ComponentSectionsMapSection', id: string, title?: string | null, categories?: { __typename?: 'CemeteryCategoryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryCategoryEntity', id?: string | null, attributes?: { __typename?: 'CemeteryCategory', title: string, slug: string } | null }> } | null };
+export type MapSectionFragment = { __typename?: 'ComponentSectionsMapSection', id: string, title?: string | null, categories: Array<{ __typename?: 'CemeteryCategory', documentId: string, title: string, slug: string } | null> };
 
-export type MapOfManagedObjectsSectionFragment = { __typename?: 'ComponentSectionsMapOfManagedObjects', id: string, title?: string | null, categories?: { __typename?: 'ManagedObjectCategoryRelationResponseCollection', data: Array<{ __typename?: 'ManagedObjectCategoryEntity', id?: string | null, attributes?: { __typename?: 'ManagedObjectCategory', title: string, slug: string } | null }> } | null };
+export type MapOfManagedObjectsSectionFragment = { __typename?: 'ComponentSectionsMapOfManagedObjects', id: string, title?: string | null, categories: Array<{ __typename?: 'ManagedObjectCategory', documentId: string, title: string, slug: string } | null> };
 
-export type BundleListingFragment = { __typename?: 'ComponentSectionsBundleListing', id: string, title?: string | null, description?: string | null, atMedicalFacility?: { __typename?: 'ComponentBlocksBundleGroup', title: string, bundles?: Array<{ __typename?: 'ComponentBlocksBundleItem', bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null } | null } | null } | null> | null } | null, outsideMedicalFacility?: { __typename?: 'ComponentBlocksBundleGroup', title: string, bundles?: Array<{ __typename?: 'ComponentBlocksBundleItem', bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null } | null } | null } | null> | null } | null };
+export type BundleListingFragment = { __typename?: 'ComponentSectionsBundleListing', id: string, title?: string | null, description?: string | null, atMedicalFacility?: { __typename?: 'ComponentBlocksBundleGroup', title: string, bundles?: Array<{ __typename?: 'ComponentBlocksBundleItem', bundle?: { __typename: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null } | null> | null } | null, outsideMedicalFacility?: { __typename?: 'ComponentBlocksBundleGroup', title: string, bundles?: Array<{ __typename?: 'ComponentBlocksBundleItem', bundle?: { __typename: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null } | null> | null } | null };
 
-export type BundleListingSimpleFragment = { __typename?: 'ComponentSectionsBundleListingSimple', id: string, title?: string | null, description?: string | null, bundles?: { __typename?: 'BundleRelationResponseCollection', data: Array<{ __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null }> } | null };
+export type BundleListingSimpleFragment = { __typename?: 'ComponentSectionsBundleListingSimple', id: string, title?: string | null, description?: string | null, bundles: Array<{ __typename: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null> };
 
-export type ContactGroupFragment = { __typename?: 'ComponentSectionsContactGroup', id: string, title?: string | null, layout: Enum_Componentsectionscontactgroup_Layout, contacts?: Array<{ __typename?: 'ComponentBlocksContactItem', contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null> | null };
+export type ContactGroupFragment = { __typename?: 'ComponentSectionsContactGroup', id: string, title?: string | null, layout: Enum_Componentsectionscontactgroup_Layout, contacts?: Array<{ __typename?: 'ComponentBlocksContactItem', contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null> | null };
 
-export type AssetGroupFragment = { __typename?: 'ComponentSectionsAssetGroup', id: string, title?: string | null, assets?: Array<{ __typename?: 'ComponentBlocksAssetItem', asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', publishedAt?: any | null, title: string, slug: string, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null };
+export type AssetGroupFragment = { __typename?: 'ComponentSectionsAssetGroup', id: string, title?: string | null, assets?: Array<{ __typename?: 'ComponentBlocksAssetItem', asset?: { __typename: 'Asset', publishedAt?: any | null, documentId: string, title: string, slug: string, file: { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null }, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null } | null> | null };
 
-export type GallerySectionFragment = { __typename?: 'ComponentSectionsGallery', id: string, title?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null };
+export type GallerySectionFragment = { __typename?: 'ComponentSectionsGallery', id: string, title?: string | null, medias: Array<{ __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null> };
 
-export type CtaSectionFragment = { __typename?: 'ComponentSectionsCtaSection', id: string, title?: string | null, ctas?: Array<{ __typename?: 'ComponentBlocksSimpleCtaItem', id: string, title: string, description?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null } | null> | null };
+export type CtaSectionFragment = { __typename?: 'ComponentSectionsCtaSection', id: string, title?: string | null, ctas?: Array<{ __typename?: 'ComponentBlocksSimpleCtaItem', id: string, title: string, description?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null } | null> | null };
 
-export type ManualListingFragment = { __typename?: 'ComponentSectionsManualListing', id: string, title?: string | null, style: Enum_Componentsectionsmanuallisting_Style, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null, pages?: Array<{ __typename?: 'ComponentBlocksPageItem', page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', publishedAt?: any | null, perex?: string | null, title: string, slug: string, locale?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null } | null } | null } | null } | null> | null };
+export type ManualListingFragment = { __typename?: 'ComponentSectionsManualListing', id: string, title?: string | null, style: Enum_Componentsectionsmanuallisting_Style, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null, pages?: Array<{ __typename?: 'ComponentBlocksPageItem', page?: { __typename: 'Page', publishedAt?: any | null, perex?: string | null, documentId: string, title: string, slug: string, locale?: string | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null> | null };
 
-export type NewsListingFragment = { __typename?: 'ComponentSectionsNewsListing', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null };
+export type NewsListingFragment = { __typename?: 'ComponentSectionsNewsListing', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null };
 
-export type CeremoniesSectionFragment = { __typename?: 'ComponentSectionsCeremoniesSection', id: string, archive?: { __typename?: 'ComponentBlocksBlocksCeremonyArchiveBlock', title?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null } | null };
+export type CeremoniesSectionFragment = { __typename?: 'ComponentSectionsCeremoniesSection', id: string, archive?: { __typename?: 'ComponentBlocksBlocksCeremonyArchiveBlock', title?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null } | null };
 
-export type RichtextSectionFragment = { __typename?: 'ComponentSectionsRichtext', id: string, content?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null };
+export type RichtextSectionFragment = { __typename?: 'ComponentSectionsRichtext', id: string, content?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null };
 
-export type ProceduresShortSectionFragment = { __typename?: 'ComponentSectionsProceduresShortSection', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null };
+export type ProceduresShortSectionFragment = { __typename?: 'ComponentSectionsProceduresShortSection', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null };
 
-export type UpcomingCeremoniesSectionFragment = { __typename?: 'ComponentSectionsUpcomingCeremoniesSection', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null };
+export type UpcomingCeremoniesSectionFragment = { __typename?: 'ComponentSectionsUpcomingCeremoniesSection', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null };
 
 export type ReviewListingFragment = { __typename?: 'ComponentSectionsReviewListing', id: string };
 
-export type HomepageReviewsSectionFragment = { __typename?: 'ComponentSectionsHomepageReviewsSection', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null, reviews?: { __typename?: 'ReviewRelationResponseCollection', data: Array<{ __typename?: 'ReviewEntity', id?: string | null, attributes?: { __typename?: 'Review', author: string, date: any, rating: number, description: string } | null }> } | null };
+export type HomepageReviewsSectionFragment = { __typename?: 'ComponentSectionsHomepageReviewsSection', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null, reviews: Array<{ __typename?: 'Review', documentId: string, author: string, date: any, rating: number, description: string } | null> };
 
-export type OpeningHoursSectionFragment = { __typename?: 'ComponentSectionsOpeningHoursSection', id: string, title?: string | null, offices?: Array<{ __typename?: 'ComponentBlocksOfficeItem', office?: { __typename?: 'OfficeEntityResponse', data?: { __typename?: 'OfficeEntity', id?: string | null, attributes?: { __typename?: 'Office', title: string, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', slug: string, locale?: string | null, title: string, address?: string | null } | null } | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts?: { __typename?: 'ContactRelationResponseCollection', data: Array<{ __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null }> } | null } | null } | null } | null } | null> | null };
+export type OpeningHoursSectionFragment = { __typename?: 'ComponentSectionsOpeningHoursSection', id: string, title?: string | null, offices?: Array<{ __typename?: 'ComponentBlocksOfficeItem', office?: { __typename?: 'Office', documentId: string, title: string, branch?: { __typename: 'Branch', documentId: string, slug: string, locale?: string | null, title: string, address?: string | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts: Array<{ __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null> } | null } | null> | null };
 
-export type CemeteriesOpeningHoursFragment = { __typename?: 'ComponentSectionsCemeteriesOpeningHours', id: string, title?: string | null, buttonPosition?: Enum_Componentsectionscemeteriesopeninghours_Buttonposition | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null };
+export type CemeteriesOpeningHoursFragment = { __typename?: 'ComponentSectionsCemeteriesOpeningHours', id: string, title?: string | null, buttonPosition?: Enum_Componentsectionscemeteriesopeninghours_Buttonposition | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null };
 
 export type IframeSectionFragment = { __typename?: 'ComponentSectionsIframeSection', id: string, title?: string | null, iframeTitle: string, body?: string | null, url: string };
 
-export type UploadImageEntityFragment = { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null };
+export type UploadImageEntityFragment = { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null };
 
-export type UploadFileEntityFragment = { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null };
+export type UploadFileEntityFragment = { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null };
 
-export type ArticleNewsCategoryEntityFragment = { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null };
+export type ArticleNewsCategoryEntityFragment = { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string };
 
-export type ArticlePressCategoryEntityFragment = { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null };
+export type ArticlePressCategoryEntityFragment = { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string };
 
-export type ArticleJobsCategoryEntityFragment = { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null };
+export type ArticleJobsCategoryEntityFragment = { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string };
 
-export type ArticleSlugEntityFragment = { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null };
+export type ArticleSlugEntityFragment = { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null };
 
-export type ArticleCardEntityFragment = { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', perex?: string | null, publishedAt?: any | null, title: string, slug: string, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null };
+export type ArticleCardEntityFragment = { __typename: 'Article', perex?: string | null, publishedAt?: any | null, documentId: string, title: string, slug: string, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null };
 
-export type ArticleEntityFragment = { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', content?: string | null, perex?: string | null, publishedAt?: any | null, title: string, slug: string, mediaGallery?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null };
+export type ArticleEntityFragment = { __typename: 'Article', content?: string | null, perex?: string | null, publishedAt?: any | null, documentId: string, title: string, slug: string, mediaGallery: Array<{ __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null>, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null };
 
-export type BranchSlugEntityFragment = { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null };
+export type BranchSlugEntityFragment = { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null };
 
-export type BranchOfficeEntityFragment = { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', slug: string, locale?: string | null, title: string, address?: string | null } | null };
+export type BranchOfficeEntityFragment = { __typename: 'Branch', documentId: string, slug: string, locale?: string | null, title: string, address?: string | null };
 
-export type BranchCardEntityFragment = { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', address?: string | null, title: string, slug: string, locale?: string | null, offices?: { __typename?: 'OfficeRelationResponseCollection', data: Array<{ __typename?: 'OfficeEntity', id?: string | null, attributes?: { __typename?: 'Office', title: string, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', slug: string, locale?: string | null, title: string, address?: string | null } | null } | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts?: { __typename?: 'ContactRelationResponseCollection', data: Array<{ __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null }> } | null } | null }> } | null } | null };
+export type BranchCardEntityFragment = { __typename: 'Branch', address?: string | null, documentId: string, title: string, slug: string, locale?: string | null, offices: Array<{ __typename?: 'Office', documentId: string, title: string, branch?: { __typename: 'Branch', documentId: string, slug: string, locale?: string | null, title: string, address?: string | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts: Array<{ __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null> } | null> };
 
-export type BranchEntityFragment = { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, address?: string | null, title: string, slug: string, locale?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, offices?: { __typename?: 'OfficeRelationResponseCollection', data: Array<{ __typename?: 'OfficeEntity', id?: string | null, attributes?: { __typename?: 'Office', title: string, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', slug: string, locale?: string | null, title: string, address?: string | null } | null } | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts?: { __typename?: 'ContactRelationResponseCollection', data: Array<{ __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null }> } | null } | null }> } | null } | null };
+export type BranchEntityFragment = { __typename: 'Branch', description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, address?: string | null, documentId: string, title: string, slug: string, locale?: string | null, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null, medias: Array<{ __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null>, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, offices: Array<{ __typename?: 'Office', documentId: string, title: string, branch?: { __typename: 'Branch', documentId: string, slug: string, locale?: string | null, title: string, address?: string | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts: Array<{ __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null> } | null> };
 
-export type CemeteryCategoryEntityFragment = { __typename?: 'CemeteryCategoryEntity', id?: string | null, attributes?: { __typename?: 'CemeteryCategory', title: string, slug: string } | null };
+export type CemeteryCategoryEntityFragment = { __typename?: 'CemeteryCategory', documentId: string, title: string, slug: string };
 
-export type CemeterySlugEntityFragment = { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null };
+export type CemeterySlugEntityFragment = { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null };
 
-export type CemeteryCardEntityFragment = { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', address?: string | null, title: string, slug: string, locale?: string | null, overrideOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null } | null };
+export type CemeteryCardEntityFragment = { __typename: 'Cemetery', address?: string | null, documentId: string, title: string, slug: string, locale?: string | null, overrideOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null };
 
-export type CemeteryEntityFragment = { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, address?: string | null, title: string, slug: string, locale?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, assets?: { __typename?: 'ComponentSectionsAssetGroup', id: string, title?: string | null, assets?: Array<{ __typename?: 'ComponentBlocksAssetItem', asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', publishedAt?: any | null, title: string, slug: string, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | null, gallery?: { __typename?: 'ComponentSectionsGallery', id: string, title?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null } | null, video?: { __typename?: 'ComponentSectionsIframeSection', id: string, title?: string | null, iframeTitle: string, body?: string | null, url: string } | null, cemeteryCategory?: { __typename?: 'CemeteryCategoryEntityResponse', data?: { __typename?: 'CemeteryCategoryEntity', id?: string | null, attributes?: { __typename?: 'CemeteryCategory', title: string, slug: string } | null } | null } | null, overrideOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null } | null };
+export type CemeteryEntityFragment = { __typename: 'Cemetery', description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, address?: string | null, documentId: string, title: string, slug: string, locale?: string | null, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null, medias: Array<{ __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null>, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, assets?: { __typename?: 'ComponentSectionsAssetGroup', id: string, title?: string | null, assets?: Array<{ __typename?: 'ComponentBlocksAssetItem', asset?: { __typename: 'Asset', publishedAt?: any | null, documentId: string, title: string, slug: string, file: { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null }, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null } | null> | null } | null, gallery?: { __typename?: 'ComponentSectionsGallery', id: string, title?: string | null, medias: Array<{ __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null> } | null, video?: { __typename?: 'ComponentSectionsIframeSection', id: string, title?: string | null, iframeTitle: string, body?: string | null, url: string } | null, cemeteryCategory?: { __typename?: 'CemeteryCategory', documentId: string, title: string, slug: string } | null, overrideOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null };
 
-export type CemeteryInCeremoniesDebtorsEntityFragment = { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, locale?: string | null } | null }> } | null } | null };
+export type CemeteryInCeremoniesDebtorsEntityFragment = { __typename: 'Cemetery', documentId: string, title: string, localizations: Array<{ __typename?: 'Cemetery', title: string, locale?: string | null } | null> };
 
-export type BundleSlugEntityFragment = { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null };
+export type BundleSlugEntityFragment = { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null };
 
-export type BundleCardEntityFragment = { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null };
+export type BundleCardEntityFragment = { __typename: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null };
 
-export type BundleEntityFragment = { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', description?: string | null, perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, additionalServices?: Array<{ __typename?: 'ComponentBlocksAccordionItemWithPrice', id: string, title: string, description?: string | null } | null> | null, assets?: { __typename?: 'ComponentSectionsAssetGroup', id: string, title?: string | null, assets?: Array<{ __typename?: 'ComponentBlocksAssetItem', asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', publishedAt?: any | null, title: string, slug: string, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | null, sidebar?: { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null };
+export type BundleEntityFragment = { __typename: 'Bundle', description?: string | null, perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, additionalServices?: Array<{ __typename?: 'ComponentBlocksAccordionItemWithPrice', id: string, title: string, description?: string | null } | null> | null, assets?: { __typename?: 'ComponentSectionsAssetGroup', id: string, title?: string | null, assets?: Array<{ __typename?: 'ComponentBlocksAssetItem', asset?: { __typename: 'Asset', publishedAt?: any | null, documentId: string, title: string, slug: string, file: { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null }, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null } | null> | null } | null, sidebar?: { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null };
 
-export type ContactEntityFragment = { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null };
+export type ContactEntityFragment = { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null };
 
-export type AssetCategoryEntityFragment = { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null };
+export type AssetCategoryEntityFragment = { __typename?: 'AssetCategory', documentId: string, title: string, slug: string };
 
-export type AssetSlugEntityFragment = { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null };
+export type AssetSlugEntityFragment = { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null };
 
-export type AssetCardEntityFragment = { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', publishedAt?: any | null, title: string, slug: string, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null };
+export type AssetCardEntityFragment = { __typename: 'Asset', publishedAt?: any | null, documentId: string, title: string, slug: string, file: { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null }, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null };
 
-export type AssetEntityFragment = { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', description?: string | null, publishedAt?: any | null, title: string, slug: string, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null };
+export type AssetEntityFragment = { __typename: 'Asset', description?: string | null, publishedAt?: any | null, documentId: string, title: string, slug: string, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, file: { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null }, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null };
 
-export type GeneralEntityFragment = { __typename?: 'GeneralEntity', attributes?: { __typename?: 'General', header?: { __typename?: 'ComponentGeneralHeader', faqPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, socials?: Array<{ __typename?: 'ComponentBlocksSocialItem', title: string, url: string, icon?: Enum_Componentblockssocialitem_Icon | null } | null> | null, address?: { __typename?: 'ComponentGeneralContacts', addressFirstLine?: string | null, address?: string | null, latitude?: string | null, longitude?: string | null, navigateToLink?: string | null, openingHoursPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, contactsPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null } | null, footer?: { __typename?: 'ComponentGeneralFooter', title1?: string | null, title2?: string | null, title3?: string | null, title4?: string | null, links1?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null } | null> | null, links2?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null } | null> | null, links3?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null } | null> | null, links4?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null } | null> | null, bottomLinks?: Array<{ __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null> | null } | null, cemeteryOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null } | null };
+export type GeneralEntityFragment = { __typename?: 'General', header?: { __typename?: 'ComponentGeneralHeader', faqPage?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null, socials?: Array<{ __typename?: 'ComponentBlocksSocialItem', title: string, url: string, icon?: Enum_Componentblockssocialitem_Icon | null } | null> | null, address?: { __typename?: 'ComponentGeneralContacts', addressFirstLine?: string | null, address?: string | null, latitude?: string | null, longitude?: string | null, navigateToLink?: string | null, openingHoursPage?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null, contactsPage?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null } | null, footer?: { __typename?: 'ComponentGeneralFooter', title1?: string | null, title2?: string | null, title3?: string | null, title4?: string | null, links1?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null } | null> | null, links2?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null } | null> | null, links3?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null } | null> | null, links4?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null } | null> | null, bottomLinks?: Array<{ __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null> | null } | null, cemeteryOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null };
 
-export type OfficeEntityFragment = { __typename?: 'OfficeEntity', id?: string | null, attributes?: { __typename?: 'Office', title: string, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', slug: string, locale?: string | null, title: string, address?: string | null } | null } | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts?: { __typename?: 'ContactRelationResponseCollection', data: Array<{ __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null }> } | null } | null };
+export type OfficeEntityFragment = { __typename?: 'Office', documentId: string, title: string, branch?: { __typename: 'Branch', documentId: string, slug: string, locale?: string | null, title: string, address?: string | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts: Array<{ __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null> };
 
-export type PartnerEntityFragment = { __typename?: 'PartnerEntity', id?: string | null, attributes?: { __typename?: 'Partner', title: string, link: string, featured?: boolean | null, priority?: number | null, logo: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } } | null };
+export type PartnerEntityFragment = { __typename?: 'Partner', documentId: string, title: string, link: string, featured?: boolean | null, priority?: number | null, logo: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } };
 
-export type PageSlugEntityFragment = { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null };
+export type PageSlugEntityFragment = { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null };
 
-export type PageCardEntityFragment = { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', publishedAt?: any | null, perex?: string | null, title: string, slug: string, locale?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null } | null };
+export type PageCardEntityFragment = { __typename: 'Page', publishedAt?: any | null, perex?: string | null, documentId: string, title: string, slug: string, locale?: string | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null };
 
-export type PageEntityFragment = { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', layout: Enum_Page_Layout, publishedAt?: any | null, perex?: string | null, title: string, slug: string, locale?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null, sidebar?: { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, sections?: Array<{ __typename: 'ComponentSectionsAccordionGroup', id: string, title?: string | null, accordions?: Array<{ __typename?: 'ComponentBlocksAccordionItem', id: string, title?: string | null, content?: string | null } | null> | null } | { __typename: 'ComponentSectionsArticleJobsListing', id: string } | { __typename: 'ComponentSectionsArticleNewsListing', id: string } | { __typename: 'ComponentSectionsArticlePressListing', id: string } | { __typename: 'ComponentSectionsAssetGroup', id: string, title?: string | null, assets?: Array<{ __typename?: 'ComponentBlocksAssetItem', asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', publishedAt?: any | null, title: string, slug: string, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsAssetsSection', id: string } | { __typename: 'ComponentSectionsBranchGroup', id: string, title?: string | null, branches?: Array<{ __typename?: 'ComponentBlocksBranchItem', branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', address?: string | null, title: string, slug: string, locale?: string | null, offices?: { __typename?: 'OfficeRelationResponseCollection', data: Array<{ __typename?: 'OfficeEntity', id?: string | null, attributes?: { __typename?: 'Office', title: string, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', slug: string, locale?: string | null, title: string, address?: string | null } | null } | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts?: { __typename?: 'ContactRelationResponseCollection', data: Array<{ __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null }> } | null } | null }> } | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsBundleListing', id: string, title?: string | null, description?: string | null, atMedicalFacility?: { __typename?: 'ComponentBlocksBundleGroup', title: string, bundles?: Array<{ __typename?: 'ComponentBlocksBundleItem', bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null } | null } | null } | null> | null } | null, outsideMedicalFacility?: { __typename?: 'ComponentBlocksBundleGroup', title: string, bundles?: Array<{ __typename?: 'ComponentBlocksBundleItem', bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null } | null } | null } | null> | null } | null } | { __typename: 'ComponentSectionsBundleListingSimple', id: string, title?: string | null, description?: string | null, bundles?: { __typename?: 'BundleRelationResponseCollection', data: Array<{ __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null }> } | null } | { __typename: 'ComponentSectionsCemeteriesOpeningHours', id: string, title?: string | null, buttonPosition?: Enum_Componentsectionscemeteriesopeninghours_Buttonposition | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null } | { __typename: 'ComponentSectionsCeremoniesArchiveSection', id: string } | { __typename: 'ComponentSectionsCeremoniesSection', id: string, archive?: { __typename?: 'ComponentBlocksBlocksCeremonyArchiveBlock', title?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null } | null } | { __typename: 'ComponentSectionsContactGroup', id: string, title?: string | null, layout: Enum_Componentsectionscontactgroup_Layout, contacts?: Array<{ __typename?: 'ComponentBlocksContactItem', contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsDebtorsSection', id: string, description?: string | null } | { __typename: 'ComponentSectionsDisclosuresSection', id: string } | { __typename: 'ComponentSectionsDivider', id: string, color: Enum_Componentsectionsdivider_Color } | { __typename: 'ComponentSectionsGallery', id: string, title?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null } | { __typename: 'ComponentSectionsIframeSection', id: string, title?: string | null, iframeTitle: string, body?: string | null, url: string } | { __typename: 'ComponentSectionsManualListing', id: string, title?: string | null, style: Enum_Componentsectionsmanuallisting_Style, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null, pages?: Array<{ __typename?: 'ComponentBlocksPageItem', page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', publishedAt?: any | null, perex?: string | null, title: string, slug: string, locale?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsMapOfManagedObjects', id: string, title?: string | null, categories?: { __typename?: 'ManagedObjectCategoryRelationResponseCollection', data: Array<{ __typename?: 'ManagedObjectCategoryEntity', id?: string | null, attributes?: { __typename?: 'ManagedObjectCategory', title: string, slug: string } | null }> } | null } | { __typename: 'ComponentSectionsMapSection', id: string, title?: string | null, categories?: { __typename?: 'CemeteryCategoryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryCategoryEntity', id?: string | null, attributes?: { __typename?: 'CemeteryCategory', title: string, slug: string } | null }> } | null } | { __typename: 'ComponentSectionsMenuListing', id: string, title?: string | null, slug: string } | { __typename: 'ComponentSectionsNewsListing', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null } | { __typename: 'ComponentSectionsOpeningHoursSection', id: string, title?: string | null, offices?: Array<{ __typename?: 'ComponentBlocksOfficeItem', office?: { __typename?: 'OfficeEntityResponse', data?: { __typename?: 'OfficeEntity', id?: string | null, attributes?: { __typename?: 'Office', title: string, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', slug: string, locale?: string | null, title: string, address?: string | null } | null } | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts?: { __typename?: 'ContactRelationResponseCollection', data: Array<{ __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null }> } | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsProceduresSection', id: string, title?: string | null } | { __typename: 'ComponentSectionsReviewListing', id: string } | { __typename: 'ComponentSectionsRichtext', id: string, content?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null } | { __typename?: 'Error' } | null> | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null } | null };
+export type PageEntityFragment = { __typename: 'Page', layout: Enum_Page_Layout, publishedAt?: any | null, perex?: string | null, documentId: string, title: string, slug: string, locale?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null, sidebar?: { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, sections?: Array<{ __typename: 'ComponentSectionsAccordionGroup', id: string, title?: string | null, accordions?: Array<{ __typename?: 'ComponentBlocksAccordionItem', id: string, title?: string | null, content?: string | null } | null> | null } | { __typename: 'ComponentSectionsArticleJobsListing', id: string } | { __typename: 'ComponentSectionsArticleNewsListing', id: string } | { __typename: 'ComponentSectionsArticlePressListing', id: string } | { __typename: 'ComponentSectionsAssetGroup', id: string, title?: string | null, assets?: Array<{ __typename?: 'ComponentBlocksAssetItem', asset?: { __typename: 'Asset', publishedAt?: any | null, documentId: string, title: string, slug: string, file: { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null }, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null } | null> | null } | { __typename: 'ComponentSectionsAssetsSection', id: string } | { __typename: 'ComponentSectionsBranchGroup', id: string, title?: string | null, branches?: Array<{ __typename?: 'ComponentBlocksBranchItem', branch?: { __typename: 'Branch', address?: string | null, documentId: string, title: string, slug: string, locale?: string | null, offices: Array<{ __typename?: 'Office', documentId: string, title: string, branch?: { __typename: 'Branch', documentId: string, slug: string, locale?: string | null, title: string, address?: string | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts: Array<{ __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null> } | null> } | null } | null> | null } | { __typename: 'ComponentSectionsBundleListing', id: string, title?: string | null, description?: string | null, atMedicalFacility?: { __typename?: 'ComponentBlocksBundleGroup', title: string, bundles?: Array<{ __typename?: 'ComponentBlocksBundleItem', bundle?: { __typename: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null } | null> | null } | null, outsideMedicalFacility?: { __typename?: 'ComponentBlocksBundleGroup', title: string, bundles?: Array<{ __typename?: 'ComponentBlocksBundleItem', bundle?: { __typename: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null } | null> | null } | null } | { __typename: 'ComponentSectionsBundleListingSimple', id: string, title?: string | null, description?: string | null, bundles: Array<{ __typename: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null> } | { __typename: 'ComponentSectionsCemeteriesOpeningHours', id: string, title?: string | null, buttonPosition?: Enum_Componentsectionscemeteriesopeninghours_Buttonposition | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null } | { __typename: 'ComponentSectionsCeremoniesArchiveSection', id: string } | { __typename: 'ComponentSectionsCeremoniesSection', id: string, archive?: { __typename?: 'ComponentBlocksBlocksCeremonyArchiveBlock', title?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null } | null } | { __typename: 'ComponentSectionsContactGroup', id: string, title?: string | null, layout: Enum_Componentsectionscontactgroup_Layout, contacts?: Array<{ __typename?: 'ComponentBlocksContactItem', contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null> | null } | { __typename: 'ComponentSectionsDebtorsSection', id: string, description?: string | null } | { __typename: 'ComponentSectionsDisclosuresSection', id: string } | { __typename: 'ComponentSectionsDivider', id: string, color: Enum_Componentsectionsdivider_Color } | { __typename: 'ComponentSectionsGallery', id: string, title?: string | null, medias: Array<{ __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null> } | { __typename: 'ComponentSectionsIframeSection', id: string, title?: string | null, iframeTitle: string, body?: string | null, url: string } | { __typename: 'ComponentSectionsManualListing', id: string, title?: string | null, style: Enum_Componentsectionsmanuallisting_Style, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null, pages?: Array<{ __typename?: 'ComponentBlocksPageItem', page?: { __typename: 'Page', publishedAt?: any | null, perex?: string | null, documentId: string, title: string, slug: string, locale?: string | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsMapOfManagedObjects', id: string, title?: string | null, categories: Array<{ __typename?: 'ManagedObjectCategory', documentId: string, title: string, slug: string } | null> } | { __typename: 'ComponentSectionsMapSection', id: string, title?: string | null, categories: Array<{ __typename?: 'CemeteryCategory', documentId: string, title: string, slug: string } | null> } | { __typename: 'ComponentSectionsMenuListing', id: string, title?: string | null, slug: string } | { __typename: 'ComponentSectionsNewsListing', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null } | { __typename: 'ComponentSectionsOpeningHoursSection', id: string, title?: string | null, offices?: Array<{ __typename?: 'ComponentBlocksOfficeItem', office?: { __typename?: 'Office', documentId: string, title: string, branch?: { __typename: 'Branch', documentId: string, slug: string, locale?: string | null, title: string, address?: string | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts: Array<{ __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null> } | null } | null> | null } | { __typename: 'ComponentSectionsProceduresSection', id: string, title?: string | null } | { __typename: 'ComponentSectionsReviewListing', id: string } | { __typename: 'ComponentSectionsRichtext', id: string, content?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null } | { __typename?: 'Error' } | null> | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null };
 
-export type ProceduresEntityFragment = { __typename?: 'ProcedureEntity', attributes?: { __typename?: 'Procedure', updatedAt?: any | null, outsideMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null } | null } | null, atMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null } | null } | null } | null };
+export type ProceduresEntityFragment = { __typename?: 'Procedure', updatedAt?: any | null, outsideMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null } | null } | null, atMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null } | null } | null };
 
-export type ReviewEntityFragment = { __typename?: 'ReviewEntity', id?: string | null, attributes?: { __typename?: 'Review', author: string, date: any, rating: number, description: string } | null };
+export type ReviewEntityFragment = { __typename?: 'Review', documentId: string, author: string, date: any, rating: number, description: string };
 
-export type CeremonyEntityFragment = { __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, birthYear?: string | null, type?: string | null, company?: string | null, officiantProvidedBy?: string | null, consentForPrivateFields?: boolean | null, cemeteryNameIfOutsideMarianum?: string | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, slug: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null }> } | null } | null } | null } | null } | null };
+export type CeremonyEntityFragment = { __typename?: 'Ceremony', documentId: string, dateTime: any, name?: string | null, birthYear?: string | null, type?: string | null, company?: string | null, officiantProvidedBy?: string | null, consentForPrivateFields?: boolean | null, cemeteryNameIfOutsideMarianum?: string | null, cemetery?: { __typename?: 'Cemetery', title: string, slug: string, localizations: Array<{ __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null> } | null };
 
-export type HomepageCeremonyEntityFragment = { __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, consentForPrivateFields?: boolean | null, cemeteryNameIfOutsideMarianum?: string | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string } | null }> } | null } | null } | null } | null } | null };
+export type HomepageCeremonyEntityFragment = { __typename?: 'Ceremony', documentId: string, dateTime: any, name?: string | null, consentForPrivateFields?: boolean | null, cemeteryNameIfOutsideMarianum?: string | null, cemetery?: { __typename?: 'Cemetery', slug: string, title: string, localizations: Array<{ __typename?: 'Cemetery', slug: string, title: string } | null> } | null };
 
-export type ManagedObjectCategoryEntityFragment = { __typename?: 'ManagedObjectCategoryEntity', id?: string | null, attributes?: { __typename?: 'ManagedObjectCategory', title: string, slug: string } | null };
+export type ManagedObjectCategoryEntityFragment = { __typename?: 'ManagedObjectCategory', documentId: string, title: string, slug: string };
 
-export type ManagedObjectSlugEntityFragment = { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null };
+export type ManagedObjectSlugEntityFragment = { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null };
 
-export type ManagedObjectEntityFragment = { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', description?: string | null, address?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, slug: string, title: string, locale?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, managedObjectCategory?: { __typename?: 'ManagedObjectCategoryEntityResponse', data?: { __typename?: 'ManagedObjectCategoryEntity', id?: string | null, attributes?: { __typename?: 'ManagedObjectCategory', title: string, slug: string } | null } | null } | null } | null };
+export type ManagedObjectEntityFragment = { __typename: 'ManagedObject', description?: string | null, address?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, documentId: string, slug: string, title: string, locale?: string | null, medias: Array<{ __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null>, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, managedObjectCategory?: { __typename?: 'ManagedObjectCategory', documentId: string, title: string, slug: string } | null };
 
 export type GeneralQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
 }>;
 
 
-export type GeneralQuery = { __typename?: 'Query', navigation: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: string, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Page', title: string, slug: string } | null } | null } | null> | null, related?: { __typename?: 'NavigationItemRelatedData', id: number, attributes?: { __typename: 'Page', title: string, slug: string } | null } | null } | null>, general?: { __typename?: 'GeneralEntityResponse', data?: { __typename?: 'GeneralEntity', attributes?: { __typename?: 'General', header?: { __typename?: 'ComponentGeneralHeader', faqPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, socials?: Array<{ __typename?: 'ComponentBlocksSocialItem', title: string, url: string, icon?: Enum_Componentblockssocialitem_Icon | null } | null> | null, address?: { __typename?: 'ComponentGeneralContacts', addressFirstLine?: string | null, address?: string | null, latitude?: string | null, longitude?: string | null, navigateToLink?: string | null, openingHoursPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, contactsPage?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null } | null, footer?: { __typename?: 'ComponentGeneralFooter', title1?: string | null, title2?: string | null, title3?: string | null, title4?: string | null, links1?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null } | null> | null, links2?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null } | null> | null, links3?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null } | null> | null, links4?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null } | null> | null, bottomLinks?: Array<{ __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null> | null } | null, cemeteryOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null } | null } | null } | null };
+export type GeneralQuery = { __typename?: 'Query', navigation: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: NavigationItemType, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: NavigationItemType, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: NavigationItemType, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: NavigationItemType, items?: Array<{ __typename?: 'NavigationItem', id: number, title: string, path?: string | null, type: NavigationItemType, related?: { __typename: 'Page', title: string, slug: string } | null } | null> | null, related?: { __typename: 'Page', title: string, slug: string } | null } | null> | null, related?: { __typename: 'Page', title: string, slug: string } | null } | null> | null, related?: { __typename: 'Page', title: string, slug: string } | null } | null> | null, related?: { __typename: 'Page', title: string, slug: string } | null } | null>, general?: { __typename?: 'General', header?: { __typename?: 'ComponentGeneralHeader', faqPage?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null, socials?: Array<{ __typename?: 'ComponentBlocksSocialItem', title: string, url: string, icon?: Enum_Componentblockssocialitem_Icon | null } | null> | null, address?: { __typename?: 'ComponentGeneralContacts', addressFirstLine?: string | null, address?: string | null, latitude?: string | null, longitude?: string | null, navigateToLink?: string | null, openingHoursPage?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null, contactsPage?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null } | null, footer?: { __typename?: 'ComponentGeneralFooter', title1?: string | null, title2?: string | null, title3?: string | null, title4?: string | null, links1?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null } | null> | null, links2?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null } | null> | null, links3?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null } | null> | null, links4?: Array<{ __typename?: 'ComponentGeneralLinkItem', id: string, label: string, url?: string | null, targetBlank: boolean, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null } | null> | null, bottomLinks?: Array<{ __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null> | null } | null, cemeteryOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null } | null };
 
 export type ProceduresQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
 }>;
 
 
-export type ProceduresQuery = { __typename?: 'Query', procedures?: { __typename?: 'ProcedureEntityResponse', data?: { __typename?: 'ProcedureEntity', attributes?: { __typename?: 'Procedure', updatedAt?: any | null, outsideMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null } | null } | null, atMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null } | null } | null } | null } | null } | null };
+export type ProceduresQuery = { __typename?: 'Query', procedures?: { __typename?: 'Procedure', updatedAt?: any | null, outsideMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null } | null } | null, atMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null } | null } | null } | null };
 
 export type PartnersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PartnersQuery = { __typename?: 'Query', partners?: { __typename?: 'PartnerEntityResponseCollection', data: Array<{ __typename?: 'PartnerEntity', id?: string | null, attributes?: { __typename?: 'Partner', title: string, link: string, featured?: boolean | null, priority?: number | null, logo: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } } | null }> } | null };
+export type PartnersQuery = { __typename?: 'Query', partners: Array<{ __typename?: 'Partner', documentId: string, title: string, link: string, featured?: boolean | null, priority?: number | null, logo: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } } | null> };
 
 export type ReviewsQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
 }>;
 
 
-export type ReviewsQuery = { __typename?: 'Query', reviews?: { __typename?: 'ReviewEntityResponseCollection', data: Array<{ __typename?: 'ReviewEntity', id?: string | null, attributes?: { __typename?: 'Review', author: string, date: any, rating: number, description: string } | null }> } | null };
+export type ReviewsQuery = { __typename?: 'Query', reviews: Array<{ __typename?: 'Review', documentId: string, author: string, date: any, rating: number, description: string } | null> };
 
 export type NewsQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
 }>;
 
 
-export type NewsQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', perex?: string | null, publishedAt?: any | null, title: string, slug: string, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null }> } | null };
+export type NewsQuery = { __typename?: 'Query', articles: Array<{ __typename: 'Article', perex?: string | null, publishedAt?: any | null, documentId: string, title: string, slug: string, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null> };
 
 export type ArticleBySlugQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -5334,7 +6126,7 @@ export type ArticleBySlugQueryVariables = Exact<{
 }>;
 
 
-export type ArticleBySlugQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', content?: string | null, perex?: string | null, publishedAt?: any | null, title: string, slug: string, mediaGallery?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null }> } | null };
+export type ArticleBySlugQuery = { __typename?: 'Query', articles: Array<{ __typename: 'Article', content?: string | null, perex?: string | null, publishedAt?: any | null, documentId: string, title: string, slug: string, mediaGallery: Array<{ __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null>, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null> };
 
 export type PageBySlugQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -5342,7 +6134,7 @@ export type PageBySlugQueryVariables = Exact<{
 }>;
 
 
-export type PageBySlugQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', layout: Enum_Page_Layout, publishedAt?: any | null, perex?: string | null, title: string, slug: string, locale?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null, sidebar?: { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, sections?: Array<{ __typename: 'ComponentSectionsAccordionGroup', id: string, title?: string | null, accordions?: Array<{ __typename?: 'ComponentBlocksAccordionItem', id: string, title?: string | null, content?: string | null } | null> | null } | { __typename: 'ComponentSectionsArticleJobsListing', id: string } | { __typename: 'ComponentSectionsArticleNewsListing', id: string } | { __typename: 'ComponentSectionsArticlePressListing', id: string } | { __typename: 'ComponentSectionsAssetGroup', id: string, title?: string | null, assets?: Array<{ __typename?: 'ComponentBlocksAssetItem', asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', publishedAt?: any | null, title: string, slug: string, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsAssetsSection', id: string } | { __typename: 'ComponentSectionsBranchGroup', id: string, title?: string | null, branches?: Array<{ __typename?: 'ComponentBlocksBranchItem', branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', address?: string | null, title: string, slug: string, locale?: string | null, offices?: { __typename?: 'OfficeRelationResponseCollection', data: Array<{ __typename?: 'OfficeEntity', id?: string | null, attributes?: { __typename?: 'Office', title: string, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', slug: string, locale?: string | null, title: string, address?: string | null } | null } | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts?: { __typename?: 'ContactRelationResponseCollection', data: Array<{ __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null }> } | null } | null }> } | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsBundleListing', id: string, title?: string | null, description?: string | null, atMedicalFacility?: { __typename?: 'ComponentBlocksBundleGroup', title: string, bundles?: Array<{ __typename?: 'ComponentBlocksBundleItem', bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null } | null } | null } | null> | null } | null, outsideMedicalFacility?: { __typename?: 'ComponentBlocksBundleGroup', title: string, bundles?: Array<{ __typename?: 'ComponentBlocksBundleItem', bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null } | null } | null } | null> | null } | null } | { __typename: 'ComponentSectionsBundleListingSimple', id: string, title?: string | null, description?: string | null, bundles?: { __typename?: 'BundleRelationResponseCollection', data: Array<{ __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null }> } | null } | { __typename: 'ComponentSectionsCemeteriesOpeningHours', id: string, title?: string | null, buttonPosition?: Enum_Componentsectionscemeteriesopeninghours_Buttonposition | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null } | { __typename: 'ComponentSectionsCeremoniesArchiveSection', id: string } | { __typename: 'ComponentSectionsCeremoniesSection', id: string, archive?: { __typename?: 'ComponentBlocksBlocksCeremonyArchiveBlock', title?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null } | null } | { __typename: 'ComponentSectionsContactGroup', id: string, title?: string | null, layout: Enum_Componentsectionscontactgroup_Layout, contacts?: Array<{ __typename?: 'ComponentBlocksContactItem', contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsDebtorsSection', id: string, description?: string | null } | { __typename: 'ComponentSectionsDisclosuresSection', id: string } | { __typename: 'ComponentSectionsDivider', id: string, color: Enum_Componentsectionsdivider_Color } | { __typename: 'ComponentSectionsGallery', id: string, title?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null } | { __typename: 'ComponentSectionsIframeSection', id: string, title?: string | null, iframeTitle: string, body?: string | null, url: string } | { __typename: 'ComponentSectionsManualListing', id: string, title?: string | null, style: Enum_Componentsectionsmanuallisting_Style, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null, pages?: Array<{ __typename?: 'ComponentBlocksPageItem', page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', publishedAt?: any | null, perex?: string | null, title: string, slug: string, locale?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsMapOfManagedObjects', id: string, title?: string | null, categories?: { __typename?: 'ManagedObjectCategoryRelationResponseCollection', data: Array<{ __typename?: 'ManagedObjectCategoryEntity', id?: string | null, attributes?: { __typename?: 'ManagedObjectCategory', title: string, slug: string } | null }> } | null } | { __typename: 'ComponentSectionsMapSection', id: string, title?: string | null, categories?: { __typename?: 'CemeteryCategoryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryCategoryEntity', id?: string | null, attributes?: { __typename?: 'CemeteryCategory', title: string, slug: string } | null }> } | null } | { __typename: 'ComponentSectionsMenuListing', id: string, title?: string | null, slug: string } | { __typename: 'ComponentSectionsNewsListing', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null } | { __typename: 'ComponentSectionsOpeningHoursSection', id: string, title?: string | null, offices?: Array<{ __typename?: 'ComponentBlocksOfficeItem', office?: { __typename?: 'OfficeEntityResponse', data?: { __typename?: 'OfficeEntity', id?: string | null, attributes?: { __typename?: 'Office', title: string, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', slug: string, locale?: string | null, title: string, address?: string | null } | null } | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts?: { __typename?: 'ContactRelationResponseCollection', data: Array<{ __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null }> } | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsProceduresSection', id: string, title?: string | null } | { __typename: 'ComponentSectionsReviewListing', id: string } | { __typename: 'ComponentSectionsRichtext', id: string, content?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null } | { __typename?: 'Error' } | null> | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null } | null }> } | null };
+export type PageBySlugQuery = { __typename?: 'Query', pages: Array<{ __typename: 'Page', layout: Enum_Page_Layout, publishedAt?: any | null, perex?: string | null, documentId: string, title: string, slug: string, locale?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null, sidebar?: { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, sections?: Array<{ __typename: 'ComponentSectionsAccordionGroup', id: string, title?: string | null, accordions?: Array<{ __typename?: 'ComponentBlocksAccordionItem', id: string, title?: string | null, content?: string | null } | null> | null } | { __typename: 'ComponentSectionsArticleJobsListing', id: string } | { __typename: 'ComponentSectionsArticleNewsListing', id: string } | { __typename: 'ComponentSectionsArticlePressListing', id: string } | { __typename: 'ComponentSectionsAssetGroup', id: string, title?: string | null, assets?: Array<{ __typename?: 'ComponentBlocksAssetItem', asset?: { __typename: 'Asset', publishedAt?: any | null, documentId: string, title: string, slug: string, file: { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null }, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null } | null> | null } | { __typename: 'ComponentSectionsAssetsSection', id: string } | { __typename: 'ComponentSectionsBranchGroup', id: string, title?: string | null, branches?: Array<{ __typename?: 'ComponentBlocksBranchItem', branch?: { __typename: 'Branch', address?: string | null, documentId: string, title: string, slug: string, locale?: string | null, offices: Array<{ __typename?: 'Office', documentId: string, title: string, branch?: { __typename: 'Branch', documentId: string, slug: string, locale?: string | null, title: string, address?: string | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts: Array<{ __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null> } | null> } | null } | null> | null } | { __typename: 'ComponentSectionsBundleListing', id: string, title?: string | null, description?: string | null, atMedicalFacility?: { __typename?: 'ComponentBlocksBundleGroup', title: string, bundles?: Array<{ __typename?: 'ComponentBlocksBundleItem', bundle?: { __typename: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null } | null> | null } | null, outsideMedicalFacility?: { __typename?: 'ComponentBlocksBundleGroup', title: string, bundles?: Array<{ __typename?: 'ComponentBlocksBundleItem', bundle?: { __typename: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null } | null> | null } | null } | { __typename: 'ComponentSectionsBundleListingSimple', id: string, title?: string | null, description?: string | null, bundles: Array<{ __typename: 'Bundle', perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null> } | { __typename: 'ComponentSectionsCemeteriesOpeningHours', id: string, title?: string | null, buttonPosition?: Enum_Componentsectionscemeteriesopeninghours_Buttonposition | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null } | { __typename: 'ComponentSectionsCeremoniesArchiveSection', id: string } | { __typename: 'ComponentSectionsCeremoniesSection', id: string, archive?: { __typename?: 'ComponentBlocksBlocksCeremonyArchiveBlock', title?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null } | null } | { __typename: 'ComponentSectionsContactGroup', id: string, title?: string | null, layout: Enum_Componentsectionscontactgroup_Layout, contacts?: Array<{ __typename?: 'ComponentBlocksContactItem', contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null> | null } | { __typename: 'ComponentSectionsDebtorsSection', id: string, description?: string | null } | { __typename: 'ComponentSectionsDisclosuresSection', id: string } | { __typename: 'ComponentSectionsDivider', id: string, color: Enum_Componentsectionsdivider_Color } | { __typename: 'ComponentSectionsGallery', id: string, title?: string | null, medias: Array<{ __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null> } | { __typename: 'ComponentSectionsIframeSection', id: string, title?: string | null, iframeTitle: string, body?: string | null, url: string } | { __typename: 'ComponentSectionsManualListing', id: string, title?: string | null, style: Enum_Componentsectionsmanuallisting_Style, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null, pages?: Array<{ __typename?: 'ComponentBlocksPageItem', page?: { __typename: 'Page', publishedAt?: any | null, perex?: string | null, documentId: string, title: string, slug: string, locale?: string | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsMapOfManagedObjects', id: string, title?: string | null, categories: Array<{ __typename?: 'ManagedObjectCategory', documentId: string, title: string, slug: string } | null> } | { __typename: 'ComponentSectionsMapSection', id: string, title?: string | null, categories: Array<{ __typename?: 'CemeteryCategory', documentId: string, title: string, slug: string } | null> } | { __typename: 'ComponentSectionsMenuListing', id: string, title?: string | null, slug: string } | { __typename: 'ComponentSectionsNewsListing', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null } | { __typename: 'ComponentSectionsOpeningHoursSection', id: string, title?: string | null, offices?: Array<{ __typename?: 'ComponentBlocksOfficeItem', office?: { __typename?: 'Office', documentId: string, title: string, branch?: { __typename: 'Branch', documentId: string, slug: string, locale?: string | null, title: string, address?: string | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts: Array<{ __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null> } | null } | null> | null } | { __typename: 'ComponentSectionsProceduresSection', id: string, title?: string | null } | { __typename: 'ComponentSectionsReviewListing', id: string } | { __typename: 'ComponentSectionsRichtext', id: string, content?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null } | { __typename?: 'Error' } | null> | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null> };
 
 export type BranchBySlugQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -5350,14 +6142,14 @@ export type BranchBySlugQueryVariables = Exact<{
 }>;
 
 
-export type BranchBySlugQuery = { __typename?: 'Query', branches?: { __typename?: 'BranchEntityResponseCollection', data: Array<{ __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, address?: string | null, title: string, slug: string, locale?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, offices?: { __typename?: 'OfficeRelationResponseCollection', data: Array<{ __typename?: 'OfficeEntity', id?: string | null, attributes?: { __typename?: 'Office', title: string, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', slug: string, locale?: string | null, title: string, address?: string | null } | null } | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts?: { __typename?: 'ContactRelationResponseCollection', data: Array<{ __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null }> } | null } | null }> } | null } | null }> } | null };
+export type BranchBySlugQuery = { __typename?: 'Query', branches: Array<{ __typename: 'Branch', description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, address?: string | null, documentId: string, title: string, slug: string, locale?: string | null, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null, medias: Array<{ __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null>, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, offices: Array<{ __typename?: 'Office', documentId: string, title: string, branch?: { __typename: 'Branch', documentId: string, slug: string, locale?: string | null, title: string, address?: string | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts: Array<{ __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null> } | null> } | null> };
 
 export type BranchesQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
 }>;
 
 
-export type BranchesQuery = { __typename?: 'Query', branches?: { __typename?: 'BranchEntityResponseCollection', data: Array<{ __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, address?: string | null, title: string, slug: string, locale?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, offices?: { __typename?: 'OfficeRelationResponseCollection', data: Array<{ __typename?: 'OfficeEntity', id?: string | null, attributes?: { __typename?: 'Office', title: string, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', slug: string, locale?: string | null, title: string, address?: string | null } | null } | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts?: { __typename?: 'ContactRelationResponseCollection', data: Array<{ __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null }> } | null } | null }> } | null } | null }> } | null };
+export type BranchesQuery = { __typename?: 'Query', branches: Array<{ __typename: 'Branch', description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, address?: string | null, documentId: string, title: string, slug: string, locale?: string | null, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null, medias: Array<{ __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null>, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, offices: Array<{ __typename?: 'Office', documentId: string, title: string, branch?: { __typename: 'Branch', documentId: string, slug: string, locale?: string | null, title: string, address?: string | null } | null, openingHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null, contacts: Array<{ __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null> } | null> } | null> };
 
 export type CemeteryBySlugQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -5365,12 +6157,12 @@ export type CemeteryBySlugQueryVariables = Exact<{
 }>;
 
 
-export type CemeteryBySlugQuery = { __typename?: 'Query', cemeteries?: { __typename?: 'CemeteryEntityResponseCollection', data: Array<{ __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, address?: string | null, title: string, slug: string, locale?: string | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, assets?: { __typename?: 'ComponentSectionsAssetGroup', id: string, title?: string | null, assets?: Array<{ __typename?: 'ComponentBlocksAssetItem', asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', publishedAt?: any | null, title: string, slug: string, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | null, gallery?: { __typename?: 'ComponentSectionsGallery', id: string, title?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null } | null, video?: { __typename?: 'ComponentSectionsIframeSection', id: string, title?: string | null, iframeTitle: string, body?: string | null, url: string } | null, cemeteryCategory?: { __typename?: 'CemeteryCategoryEntityResponse', data?: { __typename?: 'CemeteryCategoryEntity', id?: string | null, attributes?: { __typename?: 'CemeteryCategory', title: string, slug: string } | null } | null } | null, overrideOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null } | null }> } | null };
+export type CemeteryBySlugQuery = { __typename?: 'Query', cemeteries: Array<{ __typename: 'Cemetery', description?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, address?: string | null, documentId: string, title: string, slug: string, locale?: string | null, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null, medias: Array<{ __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null>, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, assets?: { __typename?: 'ComponentSectionsAssetGroup', id: string, title?: string | null, assets?: Array<{ __typename?: 'ComponentBlocksAssetItem', asset?: { __typename: 'Asset', publishedAt?: any | null, documentId: string, title: string, slug: string, file: { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null }, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null } | null> | null } | null, gallery?: { __typename?: 'ComponentSectionsGallery', id: string, title?: string | null, medias: Array<{ __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null> } | null, video?: { __typename?: 'ComponentSectionsIframeSection', id: string, title?: string | null, iframeTitle: string, body?: string | null, url: string } | null, cemeteryCategory?: { __typename?: 'CemeteryCategory', documentId: string, title: string, slug: string } | null, overrideOpeningHours?: { __typename?: 'ComponentBlocksOpeningHoursUniversal', days?: Array<{ __typename?: 'ComponentBlocksOpeningHoursItem', label?: string | null, time?: string | null } | null> | null } | null } | null> };
 
 export type CemeteryCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CemeteryCategoriesQuery = { __typename?: 'Query', cemeteryCategories?: { __typename?: 'CemeteryCategoryEntityResponseCollection', data: Array<{ __typename?: 'CemeteryCategoryEntity', id?: string | null, attributes?: { __typename?: 'CemeteryCategory', title: string, slug: string } | null }> } | null };
+export type CemeteryCategoriesQuery = { __typename?: 'Query', cemeteryCategories: Array<{ __typename?: 'CemeteryCategory', documentId: string, title: string, slug: string } | null> };
 
 export type ManagedObjectBySlugQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -5378,12 +6170,12 @@ export type ManagedObjectBySlugQueryVariables = Exact<{
 }>;
 
 
-export type ManagedObjectBySlugQuery = { __typename?: 'Query', managedObjects?: { __typename?: 'ManagedObjectEntityResponseCollection', data: Array<{ __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', description?: string | null, address?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, slug: string, title: string, locale?: string | null, medias?: { __typename?: 'UploadFileRelationResponseCollection', data: Array<{ __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null }> } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, managedObjectCategory?: { __typename?: 'ManagedObjectCategoryEntityResponse', data?: { __typename?: 'ManagedObjectCategoryEntity', id?: string | null, attributes?: { __typename?: 'ManagedObjectCategory', title: string, slug: string } | null } | null } | null } | null }> } | null };
+export type ManagedObjectBySlugQuery = { __typename?: 'Query', managedObjects: Array<{ __typename: 'ManagedObject', description?: string | null, address?: string | null, navigateToLink?: string | null, latitude?: number | null, longitude?: number | null, documentId: string, slug: string, title: string, locale?: string | null, medias: Array<{ __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null>, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, managedObjectCategory?: { __typename?: 'ManagedObjectCategory', documentId: string, title: string, slug: string } | null } | null> };
 
 export type ManagedObjectCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ManagedObjectCategoriesQuery = { __typename?: 'Query', managedObjectCategories?: { __typename?: 'ManagedObjectCategoryEntityResponseCollection', data: Array<{ __typename?: 'ManagedObjectCategoryEntity', id?: string | null, attributes?: { __typename?: 'ManagedObjectCategory', title: string, slug: string } | null }> } | null };
+export type ManagedObjectCategoriesQuery = { __typename?: 'Query', managedObjectCategories: Array<{ __typename?: 'ManagedObjectCategory', documentId: string, title: string, slug: string } | null> };
 
 export type BundleBySlugQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -5391,75 +6183,75 @@ export type BundleBySlugQueryVariables = Exact<{
 }>;
 
 
-export type BundleBySlugQuery = { __typename?: 'Query', bundles?: { __typename?: 'BundleEntityResponseCollection', data: Array<{ __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', description?: string | null, perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, additionalServices?: Array<{ __typename?: 'ComponentBlocksAccordionItemWithPrice', id: string, title: string, description?: string | null } | null> | null, assets?: { __typename?: 'ComponentSectionsAssetGroup', id: string, title?: string | null, assets?: Array<{ __typename?: 'ComponentBlocksAssetItem', asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', publishedAt?: any | null, title: string, slug: string, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | null, sidebar?: { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null, contact?: { __typename?: 'ContactEntityResponse', data?: { __typename?: 'ContactEntity', id?: string | null, attributes?: { __typename?: 'Contact', title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null }> } | null };
+export type BundleBySlugQuery = { __typename?: 'Query', bundles: Array<{ __typename: 'Bundle', description?: string | null, perex?: string | null, price: number, discountTextShort?: string | null, discountText?: string | null, documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null, additionalServices?: Array<{ __typename?: 'ComponentBlocksAccordionItemWithPrice', id: string, title: string, description?: string | null } | null> | null, assets?: { __typename?: 'ComponentSectionsAssetGroup', id: string, title?: string | null, assets?: Array<{ __typename?: 'ComponentBlocksAssetItem', asset?: { __typename: 'Asset', publishedAt?: any | null, documentId: string, title: string, slug: string, file: { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null }, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null } | null> | null } | null, sidebar?: { __typename?: 'ComponentBlocksSidebar', title?: string | null, text?: string | null, ctaButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null, contact?: { __typename?: 'Contact', documentId: string, title: string, position?: string | null, email?: string | null, phone1?: string | null, phone2?: string | null } | null } | null, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, bundleItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null, additionalItems?: Array<{ __typename?: 'ComponentBlocksBundleContentItem', description: string } | null> | null } | null> };
 
 export type AssetBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
 
-export type AssetBySlugQuery = { __typename?: 'Query', assets?: { __typename?: 'AssetEntityResponseCollection', data: Array<{ __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', description?: string | null, publishedAt?: any | null, title: string, slug: string, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, file: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null }, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null }> } | null };
+export type AssetBySlugQuery = { __typename?: 'Query', assets: Array<{ __typename: 'Asset', description?: string | null, publishedAt?: any | null, documentId: string, title: string, slug: string, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, file: { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null }, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null> };
 
 export type ArticlesStaticPathsQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
 
-export type ArticlesStaticPathsQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleEntityResponseCollection', data: Array<{ __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null }> } | null };
+export type ArticlesStaticPathsQuery = { __typename?: 'Query', articles: Array<{ __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null> };
 
 export type PagesStaticPathsQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
 
-export type PagesStaticPathsQuery = { __typename?: 'Query', pages?: { __typename?: 'PageEntityResponseCollection', data: Array<{ __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null }> } | null };
+export type PagesStaticPathsQuery = { __typename?: 'Query', pages: Array<{ __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null> };
 
 export type BranchesStaticPathsQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
 
-export type BranchesStaticPathsQuery = { __typename?: 'Query', branches?: { __typename?: 'BranchEntityResponseCollection', data: Array<{ __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null }> } | null };
+export type BranchesStaticPathsQuery = { __typename?: 'Query', branches: Array<{ __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null> };
 
 export type BundlesStaticPathsQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
 
-export type BundlesStaticPathsQuery = { __typename?: 'Query', bundles?: { __typename?: 'BundleEntityResponseCollection', data: Array<{ __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null }> } | null };
+export type BundlesStaticPathsQuery = { __typename?: 'Query', bundles: Array<{ __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null> };
 
 export type CemeteriesStaticPathsQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
 
-export type CemeteriesStaticPathsQuery = { __typename?: 'Query', cemeteries?: { __typename?: 'CemeteryEntityResponseCollection', data: Array<{ __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null }> } | null };
+export type CemeteriesStaticPathsQuery = { __typename?: 'Query', cemeteries: Array<{ __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null> };
 
 export type ManagedObjectsStaticPathsQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
 
-export type ManagedObjectsStaticPathsQuery = { __typename?: 'Query', managedObjects?: { __typename?: 'ManagedObjectEntityResponseCollection', data: Array<{ __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null }> } | null };
+export type ManagedObjectsStaticPathsQuery = { __typename?: 'Query', managedObjects: Array<{ __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null> };
 
 export type AssetsStaticPathsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AssetsStaticPathsQuery = { __typename?: 'Query', assets?: { __typename?: 'AssetEntityResponseCollection', data: Array<{ __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null }> } | null };
+export type AssetsStaticPathsQuery = { __typename?: 'Query', assets: Array<{ __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null> };
 
 export type HomePageQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
 
-export type HomePageQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePageEntityResponse', data?: { __typename?: 'HomePageEntity', attributes?: { __typename?: 'HomePage', featured: Array<{ __typename?: 'ComponentBlocksCta', title: string, description?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null, image?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null } | null>, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, sections?: Array<{ __typename: 'ComponentSectionsArticlesManualListing', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null, articles?: Array<{ __typename?: 'ComponentBlocksArticleItem', article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', perex?: string | null, publishedAt?: any | null, title: string, slug: string, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsCtaSection', id: string, title?: string | null, ctas?: Array<{ __typename?: 'ComponentBlocksSimpleCtaItem', id: string, title: string, description?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsHomepageReviewsSection', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null, reviews?: { __typename?: 'ReviewRelationResponseCollection', data: Array<{ __typename?: 'ReviewEntity', id?: string | null, attributes?: { __typename?: 'Review', author: string, date: any, rating: number, description: string } | null }> } | null } | { __typename: 'ComponentSectionsManualListing', id: string, title?: string | null, style: Enum_Componentsectionsmanuallisting_Style, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null, pages?: Array<{ __typename?: 'ComponentBlocksPageItem', page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', publishedAt?: any | null, perex?: string | null, title: string, slug: string, locale?: string | null, coverMedia?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null } | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsNewsListing', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null } | { __typename: 'ComponentSectionsProceduresShortSection', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null } | { __typename: 'ComponentSectionsUpcomingCeremoniesSection', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename?: 'PageEntityResponse', data?: { __typename: 'PageEntity', id?: string | null, attributes?: { __typename?: 'Page', title: string, slug: string, locale?: string | null } | null } | null } | null, article?: { __typename?: 'ArticleEntityResponse', data?: { __typename: 'ArticleEntity', id?: string | null, attributes?: { __typename?: 'Article', title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategoryEntityResponse', data?: { __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null } | null } | null, pressCategory?: { __typename?: 'ArticlePressCategoryEntityResponse', data?: { __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null } | null } | null, jobsCategory?: { __typename?: 'ArticleJobsCategoryEntityResponse', data?: { __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, bundle?: { __typename?: 'BundleEntityResponse', data?: { __typename: 'BundleEntity', id?: string | null, attributes?: { __typename?: 'Bundle', title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null } | null } | null, branch?: { __typename?: 'BranchEntityResponse', data?: { __typename: 'BranchEntity', id?: string | null, attributes?: { __typename?: 'Branch', title: string, slug: string, locale?: string | null } | null } | null } | null, asset?: { __typename?: 'AssetEntityResponse', data?: { __typename: 'AssetEntity', id?: string | null, attributes?: { __typename?: 'Asset', title: string, slug: string, assetCategory?: { __typename?: 'AssetCategoryEntityResponse', data?: { __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null } | null } | null } | null } | null } | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null } | null } | null, managedObject?: { __typename?: 'ManagedObjectEntityResponse', data?: { __typename: 'ManagedObjectEntity', id?: string | null, attributes?: { __typename?: 'ManagedObject', slug: string, title: string, locale?: string | null } | null } | null } | null } | null } | { __typename?: 'Error' } | null> | null } | null } | null } | null, procedures?: { __typename?: 'ProcedureEntityResponse', data?: { __typename?: 'ProcedureEntity', attributes?: { __typename?: 'Procedure', updatedAt?: any | null, outsideMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null } | null } | null, atMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFileEntityResponse', data?: { __typename?: 'UploadFileEntity', id?: string | null, attributes?: { __typename?: 'UploadFile', url: string, name: string, size: number, ext?: string | null } | null } | null } | null } | null } | null } | null } | null };
+export type HomePageQuery = { __typename?: 'Query', homePage?: { __typename?: 'HomePage', featured: Array<{ __typename?: 'ComponentBlocksCta', title: string, description?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null, image?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null>, seo?: { __typename?: 'ComponentGeneralSeo', metaTitle?: string | null, metaDescription?: string | null, keywords?: string | null } | null, sections?: Array<{ __typename: 'ComponentSectionsArticlesManualListing', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null, articles?: Array<{ __typename?: 'ComponentBlocksArticleItem', article?: { __typename: 'Article', perex?: string | null, publishedAt?: any | null, documentId: string, title: string, slug: string, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null } | null> | null } | { __typename: 'ComponentSectionsCtaSection', id: string, title?: string | null, ctas?: Array<{ __typename?: 'ComponentBlocksSimpleCtaItem', id: string, title: string, description?: string | null, button?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsHomepageReviewsSection', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null, reviews: Array<{ __typename?: 'Review', documentId: string, author: string, date: any, rating: number, description: string } | null> } | { __typename: 'ComponentSectionsManualListing', id: string, title?: string | null, style: Enum_Componentsectionsmanuallisting_Style, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null, pages?: Array<{ __typename?: 'ComponentBlocksPageItem', page?: { __typename: 'Page', publishedAt?: any | null, perex?: string | null, documentId: string, title: string, slug: string, locale?: string | null, coverMedia?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, alternativeText?: string | null, caption?: string | null, size: number, width?: number | null, height?: number | null } | null } | null } | null> | null } | { __typename: 'ComponentSectionsNewsListing', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null } | { __typename: 'ComponentSectionsProceduresShortSection', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null } | { __typename: 'ComponentSectionsUpcomingCeremoniesSection', id: string, title?: string | null, showMoreButton?: { __typename?: 'ComponentBlocksButtonLink', label: string, url?: string | null, page?: { __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null, article?: { __typename: 'Article', documentId: string, title: string, slug: string, newsCategory?: { __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null, pressCategory?: { __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null, jobsCategory?: { __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null } | null, bundle?: { __typename: 'Bundle', documentId: string, title: string, slug: string, type: Enum_Bundle_Type, locale?: string | null } | null, branch?: { __typename: 'Branch', documentId: string, title: string, slug: string, locale?: string | null } | null, asset?: { __typename: 'Asset', documentId: string, title: string, slug: string, assetCategory?: { __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null } | null, cemetery?: { __typename: 'Cemetery', documentId: string, title: string, slug: string, locale?: string | null } | null, managedObject?: { __typename: 'ManagedObject', documentId: string, slug: string, title: string, locale?: string | null } | null } | null } | { __typename?: 'Error' } | null> | null } | null, procedures?: { __typename?: 'Procedure', updatedAt?: any | null, outsideMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null } | null } | null, atMedicalFacility?: { __typename?: 'ComponentGeneralProcedure', title: string, steps?: Array<{ __typename?: 'ComponentGeneralProcedureItem', id: string, title: string, description?: string | null } | null> | null, downloadFile?: { __typename?: 'UploadFile', documentId: string, url: string, name: string, size: number, ext?: string | null } | null } | null } | null };
 
 export type HomepageCeremoniesQueryVariables = Exact<{
   dateTime: Scalars['DateTime']['input'];
 }>;
 
 
-export type HomepageCeremoniesQuery = { __typename?: 'Query', ceremonies?: { __typename?: 'CeremonyEntityResponseCollection', data: Array<{ __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, consentForPrivateFields?: boolean | null, cemeteryNameIfOutsideMarianum?: string | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', slug: string, title: string } | null }> } | null } | null } | null } | null } | null }> } | null };
+export type HomepageCeremoniesQuery = { __typename?: 'Query', ceremonies: Array<{ __typename?: 'Ceremony', documentId: string, dateTime: any, name?: string | null, consentForPrivateFields?: boolean | null, cemeteryNameIfOutsideMarianum?: string | null, cemetery?: { __typename?: 'Cemetery', slug: string, title: string, localizations: Array<{ __typename?: 'Cemetery', slug: string, title: string } | null> } | null } | null> };
 
 export type CeremoniesQueryVariables = Exact<{
   dateTime: Scalars['DateTime']['input'];
@@ -5467,37 +6259,37 @@ export type CeremoniesQueryVariables = Exact<{
 }>;
 
 
-export type CeremoniesQuery = { __typename?: 'Query', ceremonies?: { __typename?: 'CeremonyEntityResponseCollection', data: Array<{ __typename?: 'CeremonyEntity', id?: string | null, attributes?: { __typename?: 'Ceremony', dateTime: any, name?: string | null, birthYear?: string | null, type?: string | null, company?: string | null, officiantProvidedBy?: string | null, consentForPrivateFields?: boolean | null, cemeteryNameIfOutsideMarianum?: string | null, cemetery?: { __typename?: 'CemeteryEntityResponse', data?: { __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, slug: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null }> } | null } | null } | null } | null } | null }> } | null };
+export type CeremoniesQuery = { __typename?: 'Query', ceremonies: Array<{ __typename?: 'Ceremony', documentId: string, dateTime: any, name?: string | null, birthYear?: string | null, type?: string | null, company?: string | null, officiantProvidedBy?: string | null, consentForPrivateFields?: boolean | null, cemeteryNameIfOutsideMarianum?: string | null, cemetery?: { __typename?: 'Cemetery', title: string, slug: string, localizations: Array<{ __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null> } | null } | null> };
 
 export type CemeteriesInCeremoniesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CemeteriesInCeremoniesQuery = { __typename?: 'Query', cemeteries?: { __typename?: 'CemeteryEntityResponseCollection', data: Array<{ __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, locale?: string | null } | null }> } | null } | null }> } | null };
+export type CemeteriesInCeremoniesQuery = { __typename?: 'Query', cemeteries: Array<{ __typename: 'Cemetery', documentId: string, title: string, localizations: Array<{ __typename?: 'Cemetery', title: string, locale?: string | null } | null> } | null> };
 
 export type CemeteriesInDebtorsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CemeteriesInDebtorsQuery = { __typename?: 'Query', cemeteries?: { __typename?: 'CemeteryEntityResponseCollection', data: Array<{ __typename: 'CemeteryEntity', id?: string | null, attributes?: { __typename?: 'Cemetery', title: string, localizations?: { __typename?: 'CemeteryRelationResponseCollection', data: Array<{ __typename?: 'CemeteryEntity', attributes?: { __typename?: 'Cemetery', title: string, locale?: string | null } | null }> } | null } | null }> } | null };
+export type CemeteriesInDebtorsQuery = { __typename?: 'Query', cemeteries: Array<{ __typename: 'Cemetery', documentId: string, title: string, localizations: Array<{ __typename?: 'Cemetery', title: string, locale?: string | null } | null> } | null> };
 
 export type AssetCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AssetCategoriesQuery = { __typename?: 'Query', assetCategories?: { __typename?: 'AssetCategoryEntityResponseCollection', data: Array<{ __typename?: 'AssetCategoryEntity', id?: string | null, attributes?: { __typename?: 'AssetCategory', title: string, slug: string } | null }> } | null };
+export type AssetCategoriesQuery = { __typename?: 'Query', assetCategories: Array<{ __typename?: 'AssetCategory', documentId: string, title: string, slug: string } | null> };
 
 export type ArticleNewsCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ArticleNewsCategoriesQuery = { __typename?: 'Query', articleNewsCategories?: { __typename?: 'ArticleNewsCategoryEntityResponseCollection', data: Array<{ __typename?: 'ArticleNewsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleNewsCategory', title: string, slug: string } | null }> } | null };
+export type ArticleNewsCategoriesQuery = { __typename?: 'Query', articleNewsCategories: Array<{ __typename?: 'ArticleNewsCategory', documentId: string, title: string, slug: string } | null> };
 
 export type ArticlePressCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ArticlePressCategoriesQuery = { __typename?: 'Query', articlePressCategories?: { __typename?: 'ArticlePressCategoryEntityResponseCollection', data: Array<{ __typename?: 'ArticlePressCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticlePressCategory', title: string, slug: string } | null }> } | null };
+export type ArticlePressCategoriesQuery = { __typename?: 'Query', articlePressCategories: Array<{ __typename?: 'ArticlePressCategory', documentId: string, title: string, slug: string } | null> };
 
 export type ArticleJobsCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ArticleJobsCategoriesQuery = { __typename?: 'Query', articleJobsCategories?: { __typename?: 'ArticleJobsCategoryEntityResponseCollection', data: Array<{ __typename?: 'ArticleJobsCategoryEntity', id?: string | null, attributes?: { __typename?: 'ArticleJobsCategory', title: string, slug: string } | null }> } | null };
+export type ArticleJobsCategoriesQuery = { __typename?: 'Query', articleJobsCategories: Array<{ __typename?: 'ArticleJobsCategory', documentId: string, title: string, slug: string } | null> };
 
 export type AssetFileTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5511,13 +6303,10 @@ export const FlatNavigationItemFragmentDoc = gql`
   path
   type
   related {
-    id
-    attributes {
-      __typename
-      ... on Page {
-        title
-        slug
-      }
+    __typename
+    ... on Page {
+      title
+      slug
     }
   }
 }
@@ -5540,137 +6329,107 @@ export const NavigationItemFragmentDoc = gql`
 }
     ${FlatNavigationItemFragmentDoc}`;
 export const PageSlugEntityFragmentDoc = gql`
-    fragment PageSlugEntity on PageEntity {
+    fragment PageSlugEntity on Page {
   __typename
-  id
-  attributes {
-    title
-    slug
-    locale
-  }
+  documentId
+  title
+  slug
+  locale
 }
     `;
 export const ArticleNewsCategoryEntityFragmentDoc = gql`
-    fragment ArticleNewsCategoryEntity on ArticleNewsCategoryEntity {
-  id
-  attributes {
-    title
-    slug
-  }
+    fragment ArticleNewsCategoryEntity on ArticleNewsCategory {
+  documentId
+  title
+  slug
 }
     `;
 export const ArticlePressCategoryEntityFragmentDoc = gql`
-    fragment ArticlePressCategoryEntity on ArticlePressCategoryEntity {
-  id
-  attributes {
-    title
-    slug
-  }
+    fragment ArticlePressCategoryEntity on ArticlePressCategory {
+  documentId
+  title
+  slug
 }
     `;
 export const ArticleJobsCategoryEntityFragmentDoc = gql`
-    fragment ArticleJobsCategoryEntity on ArticleJobsCategoryEntity {
-  id
-  attributes {
-    title
-    slug
-  }
+    fragment ArticleJobsCategoryEntity on ArticleJobsCategory {
+  documentId
+  title
+  slug
 }
     `;
 export const ArticleSlugEntityFragmentDoc = gql`
-    fragment ArticleSlugEntity on ArticleEntity {
+    fragment ArticleSlugEntity on Article {
   __typename
-  id
-  attributes {
-    title
-    slug
-    newsCategory {
-      data {
-        ...ArticleNewsCategoryEntity
-      }
-    }
-    pressCategory {
-      data {
-        ...ArticlePressCategoryEntity
-      }
-    }
-    jobsCategory {
-      data {
-        ...ArticleJobsCategoryEntity
-      }
-    }
+  documentId
+  title
+  slug
+  newsCategory {
+    ...ArticleNewsCategoryEntity
+  }
+  pressCategory {
+    ...ArticlePressCategoryEntity
+  }
+  jobsCategory {
+    ...ArticleJobsCategoryEntity
   }
 }
     ${ArticleNewsCategoryEntityFragmentDoc}
 ${ArticlePressCategoryEntityFragmentDoc}
 ${ArticleJobsCategoryEntityFragmentDoc}`;
 export const BundleSlugEntityFragmentDoc = gql`
-    fragment BundleSlugEntity on BundleEntity {
+    fragment BundleSlugEntity on Bundle {
   __typename
-  id
-  attributes {
-    title
-    slug
-    type
-    locale
-  }
+  documentId
+  title
+  slug
+  type
+  locale
 }
     `;
 export const BranchSlugEntityFragmentDoc = gql`
-    fragment BranchSlugEntity on BranchEntity {
+    fragment BranchSlugEntity on Branch {
   __typename
-  id
-  attributes {
-    title
-    slug
-    locale
-  }
+  documentId
+  title
+  slug
+  locale
 }
     `;
 export const AssetCategoryEntityFragmentDoc = gql`
-    fragment AssetCategoryEntity on AssetCategoryEntity {
-  id
-  attributes {
-    title
-    slug
-  }
+    fragment AssetCategoryEntity on AssetCategory {
+  documentId
+  title
+  slug
 }
     `;
 export const AssetSlugEntityFragmentDoc = gql`
-    fragment AssetSlugEntity on AssetEntity {
+    fragment AssetSlugEntity on Asset {
   __typename
-  id
-  attributes {
-    title
-    slug
-    assetCategory {
-      data {
-        ...AssetCategoryEntity
-      }
-    }
+  documentId
+  title
+  slug
+  assetCategory {
+    ...AssetCategoryEntity
   }
 }
     ${AssetCategoryEntityFragmentDoc}`;
 export const CemeterySlugEntityFragmentDoc = gql`
-    fragment CemeterySlugEntity on CemeteryEntity {
+    fragment CemeterySlugEntity on Cemetery {
   __typename
-  id
-  attributes {
-    title
-    slug
-    locale
-  }
+  documentId
+  title
+  slug
+  locale
 }
     `;
 export const ManagedObjectSlugEntityFragmentDoc = gql`
-    fragment ManagedObjectSlugEntity on ManagedObjectEntity {
+    fragment ManagedObjectSlugEntity on ManagedObject {
   __typename
-  id
-  attributes {
-    slug
-    title
-    locale
-  }
+  documentId
+  slug
+  title
+  locale
 }
     `;
 export const CtaButtonFragmentDoc = gql`
@@ -5678,39 +6437,25 @@ export const CtaButtonFragmentDoc = gql`
   label
   url
   page {
-    data {
-      ...PageSlugEntity
-    }
+    ...PageSlugEntity
   }
   article {
-    data {
-      ...ArticleSlugEntity
-    }
+    ...ArticleSlugEntity
   }
   bundle {
-    data {
-      ...BundleSlugEntity
-    }
+    ...BundleSlugEntity
   }
   branch {
-    data {
-      ...BranchSlugEntity
-    }
+    ...BranchSlugEntity
   }
   asset {
-    data {
-      ...AssetSlugEntity
-    }
+    ...AssetSlugEntity
   }
   cemetery {
-    data {
-      ...CemeterySlugEntity
-    }
+    ...CemeterySlugEntity
   }
   managedObject {
-    data {
-      ...ManagedObjectSlugEntity
-    }
+    ...ManagedObjectSlugEntity
   }
 }
     ${PageSlugEntityFragmentDoc}
@@ -5721,17 +6466,15 @@ ${AssetSlugEntityFragmentDoc}
 ${CemeterySlugEntityFragmentDoc}
 ${ManagedObjectSlugEntityFragmentDoc}`;
 export const UploadImageEntityFragmentDoc = gql`
-    fragment UploadImageEntity on UploadFileEntity {
-  id
-  attributes {
-    url
-    name
-    alternativeText
-    caption
-    size
-    width
-    height
-  }
+    fragment UploadImageEntity on UploadFile {
+  documentId
+  url
+  name
+  alternativeText
+  caption
+  size
+  width
+  height
 }
     `;
 export const CtaFragmentDoc = gql`
@@ -5742,24 +6485,18 @@ export const CtaFragmentDoc = gql`
     ...CtaButton
   }
   image {
-    data {
-      ...UploadImageEntity
-    }
+    ...UploadImageEntity
   }
 }
     ${CtaButtonFragmentDoc}
 ${UploadImageEntityFragmentDoc}`;
 export const ArticleCardEntityFragmentDoc = gql`
-    fragment ArticleCardEntity on ArticleEntity {
+    fragment ArticleCardEntity on Article {
   ...ArticleSlugEntity
-  attributes {
-    perex
-    publishedAt
-    coverMedia {
-      data {
-        ...UploadImageEntity
-      }
-    }
+  perex
+  publishedAt
+  coverMedia {
+    ...UploadImageEntity
   }
 }
     ${ArticleSlugEntityFragmentDoc}
@@ -5773,9 +6510,7 @@ export const ArticlesManualListingFragmentDoc = gql`
   }
   articles {
     article {
-      data {
-        ...ArticleCardEntity
-      }
+      ...ArticleCardEntity
     }
   }
 }
@@ -5814,14 +6549,12 @@ export const UpcomingCeremoniesSectionFragmentDoc = gql`
 }
     ${CtaButtonFragmentDoc}`;
 export const ReviewEntityFragmentDoc = gql`
-    fragment ReviewEntity on ReviewEntity {
-  id
-  attributes {
-    author
-    date
-    rating
-    description
-  }
+    fragment ReviewEntity on Review {
+  documentId
+  author
+  date
+  rating
+  description
 }
     `;
 export const HomepageReviewsSectionFragmentDoc = gql`
@@ -5832,9 +6565,7 @@ export const HomepageReviewsSectionFragmentDoc = gql`
     ...CtaButton
   }
   reviews {
-    data {
-      ...ReviewEntity
-    }
+    ...ReviewEntity
   }
 }
     ${CtaButtonFragmentDoc}
@@ -5847,107 +6578,83 @@ export const SeoFragmentDoc = gql`
 }
     `;
 export const ArticleEntityFragmentDoc = gql`
-    fragment ArticleEntity on ArticleEntity {
+    fragment ArticleEntity on Article {
   ...ArticleCardEntity
-  attributes {
-    content
-    mediaGallery(pagination: {limit: -1}) {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    seo {
-      ...Seo
-    }
+  content
+  mediaGallery(pagination: {limit: -1}) {
+    ...UploadImageEntity
+  }
+  seo {
+    ...Seo
   }
 }
     ${ArticleCardEntityFragmentDoc}
 ${UploadImageEntityFragmentDoc}
 ${SeoFragmentDoc}`;
 export const BranchOfficeEntityFragmentDoc = gql`
-    fragment BranchOfficeEntity on BranchEntity {
+    fragment BranchOfficeEntity on Branch {
   __typename
-  id
-  attributes {
-    slug
-    locale
-    title
-    address
-  }
+  documentId
+  slug
+  locale
+  title
+  address
 }
     `;
 export const ContactEntityFragmentDoc = gql`
-    fragment ContactEntity on ContactEntity {
-  id
-  attributes {
-    title
-    position
-    email
-    phone1
-    phone2
-  }
+    fragment ContactEntity on Contact {
+  documentId
+  title
+  position
+  email
+  phone1
+  phone2
 }
     `;
 export const OfficeEntityFragmentDoc = gql`
-    fragment OfficeEntity on OfficeEntity {
-  id
-  attributes {
-    title
-    branch {
-      data {
-        ...BranchOfficeEntity
-      }
+    fragment OfficeEntity on Office {
+  documentId
+  title
+  branch {
+    ...BranchOfficeEntity
+  }
+  openingHours {
+    days {
+      label
+      time
     }
-    openingHours {
-      days {
-        label
-        time
-      }
-    }
-    contacts {
-      data {
-        ...ContactEntity
-      }
-    }
+  }
+  contacts {
+    ...ContactEntity
   }
 }
     ${BranchOfficeEntityFragmentDoc}
 ${ContactEntityFragmentDoc}`;
 export const BranchCardEntityFragmentDoc = gql`
-    fragment BranchCardEntity on BranchEntity {
+    fragment BranchCardEntity on Branch {
   ...BranchSlugEntity
-  attributes {
-    address
-    offices {
-      data {
-        ...OfficeEntity
-      }
-    }
+  address
+  offices {
+    ...OfficeEntity
   }
 }
     ${BranchSlugEntityFragmentDoc}
 ${OfficeEntityFragmentDoc}`;
 export const BranchEntityFragmentDoc = gql`
-    fragment BranchEntity on BranchEntity {
+    fragment BranchEntity on Branch {
   ...BranchCardEntity
-  attributes {
-    description
-    contact {
-      data {
-        ...ContactEntity
-      }
-    }
-    medias(pagination: {limit: -1}) {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    navigateToLink
-    latitude
-    longitude
-    seo {
-      ...Seo
-    }
+  description
+  contact {
+    ...ContactEntity
+  }
+  medias(pagination: {limit: -1}) {
+    ...UploadImageEntity
+  }
+  navigateToLink
+  latitude
+  longitude
+  seo {
+    ...Seo
   }
 }
     ${BranchCardEntityFragmentDoc}
@@ -5963,38 +6670,30 @@ export const OpeningHoursFragmentDoc = gql`
 }
     `;
 export const CemeteryCardEntityFragmentDoc = gql`
-    fragment CemeteryCardEntity on CemeteryEntity {
+    fragment CemeteryCardEntity on Cemetery {
   ...CemeterySlugEntity
-  attributes {
-    address
-    overrideOpeningHours {
-      ...OpeningHours
-    }
+  address
+  overrideOpeningHours {
+    ...OpeningHours
   }
 }
     ${CemeterySlugEntityFragmentDoc}
 ${OpeningHoursFragmentDoc}`;
 export const UploadFileEntityFragmentDoc = gql`
-    fragment UploadFileEntity on UploadFileEntity {
-  id
-  attributes {
-    url
-    name
-    size
-    ext
-  }
+    fragment UploadFileEntity on UploadFile {
+  documentId
+  url
+  name
+  size
+  ext
 }
     `;
 export const AssetCardEntityFragmentDoc = gql`
-    fragment AssetCardEntity on AssetEntity {
+    fragment AssetCardEntity on Asset {
   ...AssetSlugEntity
-  attributes {
-    publishedAt
-    file {
-      data {
-        ...UploadFileEntity
-      }
-    }
+  publishedAt
+  file {
+    ...UploadFileEntity
   }
 }
     ${AssetSlugEntityFragmentDoc}
@@ -6005,9 +6704,7 @@ export const AssetGroupFragmentDoc = gql`
   title
   assets {
     asset {
-      data {
-        ...AssetCardEntity
-      }
+      ...AssetCardEntity
     }
   }
 }
@@ -6017,9 +6714,7 @@ export const GallerySectionFragmentDoc = gql`
   id
   title
   medias(pagination: {limit: -1}) {
-    data {
-      ...UploadImageEntity
-    }
+    ...UploadImageEntity
   }
 }
     ${UploadImageEntityFragmentDoc}`;
@@ -6033,49 +6728,39 @@ export const IframeSectionFragmentDoc = gql`
 }
     `;
 export const CemeteryCategoryEntityFragmentDoc = gql`
-    fragment CemeteryCategoryEntity on CemeteryCategoryEntity {
-  id
-  attributes {
-    title
-    slug
-  }
+    fragment CemeteryCategoryEntity on CemeteryCategory {
+  documentId
+  title
+  slug
 }
     `;
 export const CemeteryEntityFragmentDoc = gql`
-    fragment CemeteryEntity on CemeteryEntity {
+    fragment CemeteryEntity on Cemetery {
   ...CemeteryCardEntity
-  attributes {
-    description
-    contact {
-      data {
-        ...ContactEntity
-      }
-    }
-    medias(pagination: {limit: -1}) {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    navigateToLink
-    latitude
-    longitude
-    seo {
-      ...Seo
-    }
-    assets {
-      ...AssetGroup
-    }
-    gallery {
-      ...GallerySection
-    }
-    video {
-      ...IframeSection
-    }
-    cemeteryCategory {
-      data {
-        ...CemeteryCategoryEntity
-      }
-    }
+  description
+  contact {
+    ...ContactEntity
+  }
+  medias(pagination: {limit: -1}) {
+    ...UploadImageEntity
+  }
+  navigateToLink
+  latitude
+  longitude
+  seo {
+    ...Seo
+  }
+  assets {
+    ...AssetGroup
+  }
+  gallery {
+    ...GallerySection
+  }
+  video {
+    ...IframeSection
+  }
+  cemeteryCategory {
+    ...CemeteryCategoryEntity
   }
 }
     ${CemeteryCardEntityFragmentDoc}
@@ -6087,41 +6772,31 @@ ${GallerySectionFragmentDoc}
 ${IframeSectionFragmentDoc}
 ${CemeteryCategoryEntityFragmentDoc}`;
 export const CemeteryInCeremoniesDebtorsEntityFragmentDoc = gql`
-    fragment CemeteryInCeremoniesDebtorsEntity on CemeteryEntity {
+    fragment CemeteryInCeremoniesDebtorsEntity on Cemetery {
   __typename
-  id
-  attributes {
+  documentId
+  title
+  localizations {
     title
-    localizations {
-      data {
-        attributes {
-          title
-          locale
-        }
-      }
-    }
+    locale
   }
 }
     `;
 export const BundleCardEntityFragmentDoc = gql`
-    fragment BundleCardEntity on BundleEntity {
+    fragment BundleCardEntity on Bundle {
   ...BundleSlugEntity
-  attributes {
-    perex
-    price
-    discountTextShort
-    discountText
-    coverMedia {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    bundleItems {
-      description
-    }
-    additionalItems {
-      description
-    }
+  perex
+  price
+  discountTextShort
+  discountText
+  coverMedia {
+    ...UploadImageEntity
+  }
+  bundleItems {
+    description
+  }
+  additionalItems {
+    description
   }
 }
     ${BundleSlugEntityFragmentDoc}
@@ -6134,32 +6809,28 @@ export const SidebarFragmentDoc = gql`
     ...CtaButton
   }
   contact {
-    data {
-      ...ContactEntity
-    }
+    ...ContactEntity
   }
 }
     ${CtaButtonFragmentDoc}
 ${ContactEntityFragmentDoc}`;
 export const BundleEntityFragmentDoc = gql`
-    fragment BundleEntity on BundleEntity {
+    fragment BundleEntity on Bundle {
   ...BundleCardEntity
-  attributes {
+  description
+  additionalServices {
+    id
+    title
     description
-    additionalServices {
-      id
-      title
-      description
-    }
-    assets {
-      ...AssetGroup
-    }
-    sidebar {
-      ...Sidebar
-    }
-    seo {
-      ...Seo
-    }
+  }
+  assets {
+    ...AssetGroup
+  }
+  sidebar {
+    ...Sidebar
+  }
+  seo {
+    ...Seo
   }
 }
     ${BundleCardEntityFragmentDoc}
@@ -6167,13 +6838,11 @@ ${AssetGroupFragmentDoc}
 ${SidebarFragmentDoc}
 ${SeoFragmentDoc}`;
 export const AssetEntityFragmentDoc = gql`
-    fragment AssetEntity on AssetEntity {
+    fragment AssetEntity on Asset {
   ...AssetCardEntity
-  attributes {
-    description
-    seo {
-      ...Seo
-    }
+  description
+  seo {
+    ...Seo
   }
 }
     ${AssetCardEntityFragmentDoc}
@@ -6181,14 +6850,10 @@ ${SeoFragmentDoc}`;
 export const HeaderFragmentDoc = gql`
     fragment Header on ComponentGeneralHeader {
   faqPage {
-    data {
-      ...PageSlugEntity
-    }
+    ...PageSlugEntity
   }
   contact {
-    data {
-      ...ContactEntity
-    }
+    ...ContactEntity
   }
 }
     ${PageSlugEntityFragmentDoc}
@@ -6205,19 +6870,13 @@ export const ContactFragmentDoc = gql`
   addressFirstLine
   address
   openingHoursPage {
-    data {
-      ...PageSlugEntity
-    }
+    ...PageSlugEntity
   }
   contact {
-    data {
-      ...ContactEntity
-    }
+    ...ContactEntity
   }
   contactsPage {
-    data {
-      ...PageSlugEntity
-    }
+    ...PageSlugEntity
   }
   latitude
   longitude
@@ -6230,9 +6889,7 @@ export const FooterLinkItemFragmentDoc = gql`
   id
   label
   page {
-    data {
-      ...PageSlugEntity
-    }
+    ...PageSlugEntity
   }
   url
   targetBlank
@@ -6263,23 +6920,21 @@ export const FooterFragmentDoc = gql`
     ${FooterLinkItemFragmentDoc}
 ${CtaButtonFragmentDoc}`;
 export const GeneralEntityFragmentDoc = gql`
-    fragment GeneralEntity on GeneralEntity {
-  attributes {
-    header {
-      ...Header
-    }
-    socials {
-      ...SocialItem
-    }
-    address {
-      ...Contact
-    }
-    footer {
-      ...Footer
-    }
-    cemeteryOpeningHours {
-      ...OpeningHours
-    }
+    fragment GeneralEntity on General {
+  header {
+    ...Header
+  }
+  socials {
+    ...SocialItem
+  }
+  address {
+    ...Contact
+  }
+  footer {
+    ...Footer
+  }
+  cemeteryOpeningHours {
+    ...OpeningHours
   }
 }
     ${HeaderFragmentDoc}
@@ -6288,32 +6943,24 @@ ${ContactFragmentDoc}
 ${FooterFragmentDoc}
 ${OpeningHoursFragmentDoc}`;
 export const PartnerEntityFragmentDoc = gql`
-    fragment PartnerEntity on PartnerEntity {
-  id
-  attributes {
-    title
-    link
-    logo {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    featured
-    priority
+    fragment PartnerEntity on Partner {
+  documentId
+  title
+  link
+  logo {
+    ...UploadImageEntity
   }
+  featured
+  priority
 }
     ${UploadImageEntityFragmentDoc}`;
 export const PageCardEntityFragmentDoc = gql`
-    fragment PageCardEntity on PageEntity {
+    fragment PageCardEntity on Page {
   ...PageSlugEntity
-  attributes {
-    publishedAt
-    perex
-    coverMedia {
-      data {
-        ...UploadImageEntity
-      }
-    }
+  publishedAt
+  perex
+  coverMedia {
+    ...UploadImageEntity
   }
 }
     ${PageSlugEntityFragmentDoc}
@@ -6335,9 +6982,7 @@ export const BranchGroupFragmentDoc = gql`
   title
   branches {
     branch {
-      data {
-        ...BranchCardEntity
-      }
+      ...BranchCardEntity
     }
   }
 }
@@ -6351,9 +6996,7 @@ export const BundleListingFragmentDoc = gql`
     title
     bundles {
       bundle {
-        data {
-          ...BundleCardEntity
-        }
+        ...BundleCardEntity
       }
     }
   }
@@ -6361,9 +7004,7 @@ export const BundleListingFragmentDoc = gql`
     title
     bundles {
       bundle {
-        data {
-          ...BundleCardEntity
-        }
+        ...BundleCardEntity
       }
     }
   }
@@ -6375,9 +7016,7 @@ export const BundleListingSimpleFragmentDoc = gql`
   title
   description
   bundles {
-    data {
-      ...BundleCardEntity
-    }
+    ...BundleCardEntity
   }
 }
     ${BundleCardEntityFragmentDoc}`;
@@ -6388,9 +7027,7 @@ export const ContactGroupFragmentDoc = gql`
   layout
   contacts {
     contact {
-      data {
-        ...ContactEntity
-      }
+      ...ContactEntity
     }
   }
 }
@@ -6412,9 +7049,7 @@ export const ManualListingFragmentDoc = gql`
   }
   pages {
     page {
-      data {
-        ...PageCardEntity
-      }
+      ...PageCardEntity
     }
   }
 }
@@ -6434,19 +7069,15 @@ export const MapSectionFragmentDoc = gql`
   id
   title
   categories {
-    data {
-      ...CemeteryCategoryEntity
-    }
+    ...CemeteryCategoryEntity
   }
 }
     ${CemeteryCategoryEntityFragmentDoc}`;
 export const ManagedObjectCategoryEntityFragmentDoc = gql`
-    fragment ManagedObjectCategoryEntity on ManagedObjectCategoryEntity {
-  id
-  attributes {
-    title
-    slug
-  }
+    fragment ManagedObjectCategoryEntity on ManagedObjectCategory {
+  documentId
+  title
+  slug
 }
     `;
 export const MapOfManagedObjectsSectionFragmentDoc = gql`
@@ -6454,9 +7085,7 @@ export const MapOfManagedObjectsSectionFragmentDoc = gql`
   id
   title
   categories {
-    data {
-      ...ManagedObjectCategoryEntity
-    }
+    ...ManagedObjectCategoryEntity
   }
 }
     ${ManagedObjectCategoryEntityFragmentDoc}`;
@@ -6466,9 +7095,7 @@ export const OpeningHoursSectionFragmentDoc = gql`
   title
   offices {
     office {
-      data {
-        ...OfficeEntity
-      }
+      ...OfficeEntity
     }
   }
 }
@@ -6509,131 +7136,129 @@ export const ReviewListingFragmentDoc = gql`
 }
     `;
 export const PageEntityFragmentDoc = gql`
-    fragment PageEntity on PageEntity {
+    fragment PageEntity on Page {
   ...PageCardEntity
-  attributes {
-    layout
-    ctaButton {
-      ...CtaButton
+  layout
+  ctaButton {
+    ...CtaButton
+  }
+  sidebar {
+    ...Sidebar
+  }
+  seo {
+    ...Seo
+  }
+  sections {
+    ... on ComponentSectionsAccordionGroup {
+      __typename
+      ...AccordionGroup
     }
-    sidebar {
-      ...Sidebar
+    ... on ComponentSectionsBranchGroup {
+      __typename
+      ...BranchGroup
     }
-    seo {
-      ...Seo
+    ... on ComponentSectionsBundleListing {
+      __typename
+      ...BundleListing
     }
-    sections {
-      ... on ComponentSectionsAccordionGroup {
-        __typename
-        ...AccordionGroup
-      }
-      ... on ComponentSectionsBranchGroup {
-        __typename
-        ...BranchGroup
-      }
-      ... on ComponentSectionsBundleListing {
-        __typename
-        ...BundleListing
-      }
-      ... on ComponentSectionsBundleListingSimple {
-        __typename
-        ...BundleListingSimple
-      }
-      ... on ComponentSectionsContactGroup {
-        __typename
-        ...ContactGroup
-      }
-      ... on ComponentSectionsDivider {
-        __typename
-        id
-        color
-      }
-      ... on ComponentSectionsAssetGroup {
-        __typename
-        ...AssetGroup
-      }
-      ... on ComponentSectionsGallery {
-        __typename
-        ...GallerySection
-      }
-      ... on ComponentSectionsMenuListing {
-        __typename
-        ...MenuListing
-      }
-      ... on ComponentSectionsManualListing {
-        __typename
-        ...ManualListing
-      }
-      ... on ComponentSectionsNewsListing {
-        __typename
-        ...NewsListing
-      }
-      ... on ComponentSectionsMapSection {
-        __typename
-        ...MapSection
-      }
-      ... on ComponentSectionsMapOfManagedObjects {
-        __typename
-        ...MapOfManagedObjectsSection
-      }
-      ... on ComponentSectionsOpeningHoursSection {
-        __typename
-        ...OpeningHoursSection
-      }
-      ... on ComponentSectionsCemeteriesOpeningHours {
-        __typename
-        ...CemeteriesOpeningHours
-      }
-      ... on ComponentSectionsRichtext {
-        __typename
-        ...RichtextSection
-      }
-      ... on ComponentSectionsProceduresSection {
-        __typename
-        id
-        title
-      }
-      ... on ComponentSectionsDebtorsSection {
-        __typename
-        id
-        description
-      }
-      ... on ComponentSectionsCeremoniesSection {
-        __typename
-        ...CeremoniesSection
-      }
-      ... on ComponentSectionsCeremoniesArchiveSection {
-        __typename
-        id
-      }
-      ... on ComponentSectionsArticleNewsListing {
-        __typename
-        id
-      }
-      ... on ComponentSectionsArticlePressListing {
-        __typename
-        id
-      }
-      ... on ComponentSectionsArticleJobsListing {
-        __typename
-        id
-      }
-      ... on ComponentSectionsReviewListing {
-        __typename
-        ...ReviewListing
-      }
-      ... on ComponentSectionsDisclosuresSection {
-        __typename
-        id
-      }
-      ... on ComponentSectionsIframeSection {
-        __typename
-        ...IframeSection
-      }
-      ... on ComponentSectionsAssetsSection {
-        __typename
-        id
-      }
+    ... on ComponentSectionsBundleListingSimple {
+      __typename
+      ...BundleListingSimple
+    }
+    ... on ComponentSectionsContactGroup {
+      __typename
+      ...ContactGroup
+    }
+    ... on ComponentSectionsDivider {
+      __typename
+      id
+      color
+    }
+    ... on ComponentSectionsAssetGroup {
+      __typename
+      ...AssetGroup
+    }
+    ... on ComponentSectionsGallery {
+      __typename
+      ...GallerySection
+    }
+    ... on ComponentSectionsMenuListing {
+      __typename
+      ...MenuListing
+    }
+    ... on ComponentSectionsManualListing {
+      __typename
+      ...ManualListing
+    }
+    ... on ComponentSectionsNewsListing {
+      __typename
+      ...NewsListing
+    }
+    ... on ComponentSectionsMapSection {
+      __typename
+      ...MapSection
+    }
+    ... on ComponentSectionsMapOfManagedObjects {
+      __typename
+      ...MapOfManagedObjectsSection
+    }
+    ... on ComponentSectionsOpeningHoursSection {
+      __typename
+      ...OpeningHoursSection
+    }
+    ... on ComponentSectionsCemeteriesOpeningHours {
+      __typename
+      ...CemeteriesOpeningHours
+    }
+    ... on ComponentSectionsRichtext {
+      __typename
+      ...RichtextSection
+    }
+    ... on ComponentSectionsProceduresSection {
+      __typename
+      id
+      title
+    }
+    ... on ComponentSectionsDebtorsSection {
+      __typename
+      id
+      description
+    }
+    ... on ComponentSectionsCeremoniesSection {
+      __typename
+      ...CeremoniesSection
+    }
+    ... on ComponentSectionsCeremoniesArchiveSection {
+      __typename
+      id
+    }
+    ... on ComponentSectionsArticleNewsListing {
+      __typename
+      id
+    }
+    ... on ComponentSectionsArticlePressListing {
+      __typename
+      id
+    }
+    ... on ComponentSectionsArticleJobsListing {
+      __typename
+      id
+    }
+    ... on ComponentSectionsReviewListing {
+      __typename
+      ...ReviewListing
+    }
+    ... on ComponentSectionsDisclosuresSection {
+      __typename
+      id
+    }
+    ... on ComponentSectionsIframeSection {
+      __typename
+      ...IframeSection
+    }
+    ... on ComponentSectionsAssetsSection {
+      __typename
+      id
     }
   }
 }
@@ -6668,111 +7293,79 @@ export const ProcedureFragmentDoc = gql`
     description
   }
   downloadFile {
-    data {
-      ...UploadFileEntity
-    }
+    ...UploadFileEntity
   }
 }
     ${UploadFileEntityFragmentDoc}`;
 export const ProceduresEntityFragmentDoc = gql`
-    fragment ProceduresEntity on ProcedureEntity {
-  attributes {
-    outsideMedicalFacility {
-      ...Procedure
-    }
-    atMedicalFacility {
-      ...Procedure
-    }
-    updatedAt
+    fragment ProceduresEntity on Procedure {
+  outsideMedicalFacility {
+    ...Procedure
   }
+  atMedicalFacility {
+    ...Procedure
+  }
+  updatedAt
 }
     ${ProcedureFragmentDoc}`;
 export const CeremonyEntityFragmentDoc = gql`
-    fragment CeremonyEntity on CeremonyEntity {
-  id
-  attributes {
-    dateTime
-    name
-    birthYear
-    type
-    company
-    officiantProvidedBy
-    consentForPrivateFields
-    cemetery {
-      data {
-        attributes {
-          title
-          slug
-          localizations {
-            data {
-              attributes {
-                title
-                slug
-                locale
-              }
-            }
-          }
-        }
-      }
+    fragment CeremonyEntity on Ceremony {
+  documentId
+  dateTime
+  name
+  birthYear
+  type
+  company
+  officiantProvidedBy
+  consentForPrivateFields
+  cemetery {
+    title
+    slug
+    localizations {
+      title
+      slug
+      locale
     }
-    cemeteryNameIfOutsideMarianum
   }
+  cemeteryNameIfOutsideMarianum
 }
     `;
 export const HomepageCeremonyEntityFragmentDoc = gql`
-    fragment HomepageCeremonyEntity on CeremonyEntity {
-  id
-  attributes {
-    dateTime
-    name
-    consentForPrivateFields
-    cemetery {
-      data {
-        attributes {
-          slug
-          title
-          localizations {
-            data {
-              attributes {
-                slug
-                title
-              }
-            }
-          }
-        }
-      }
+    fragment HomepageCeremonyEntity on Ceremony {
+  documentId
+  dateTime
+  name
+  consentForPrivateFields
+  cemetery {
+    slug
+    title
+    localizations {
+      slug
+      title
     }
-    cemeteryNameIfOutsideMarianum
   }
+  cemeteryNameIfOutsideMarianum
 }
     `;
 export const ManagedObjectEntityFragmentDoc = gql`
-    fragment ManagedObjectEntity on ManagedObjectEntity {
+    fragment ManagedObjectEntity on ManagedObject {
   ...ManagedObjectSlugEntity
-  attributes {
-    description
-    address
-    navigateToLink
-    latitude
-    longitude
-    medias(pagination: {limit: -1}) {
-      data {
-        ...UploadImageEntity
-      }
-    }
-    contact {
-      data {
-        ...ContactEntity
-      }
-    }
-    seo {
-      ...Seo
-    }
-    managedObjectCategory {
-      data {
-        ...ManagedObjectCategoryEntity
-      }
-    }
+  description
+  address
+  navigateToLink
+  latitude
+  longitude
+  medias(pagination: {limit: -1}) {
+    ...UploadImageEntity
+  }
+  contact {
+    ...ContactEntity
+  }
+  seo {
+    ...Seo
+  }
+  managedObjectCategory {
+    ...ManagedObjectCategoryEntity
   }
 }
     ${ManagedObjectSlugEntityFragmentDoc}
@@ -6791,9 +7384,7 @@ export const GeneralDocument = gql`
     ...NavigationItem
   }
   general(locale: $locale) {
-    data {
-      ...GeneralEntity
-    }
+    ...GeneralEntity
   }
 }
     ${NavigationItemFragmentDoc}
@@ -6801,240 +7392,192 @@ ${GeneralEntityFragmentDoc}`;
 export const ProceduresDocument = gql`
     query Procedures($locale: I18NLocaleCode!) {
   procedures: procedure(locale: $locale) {
-    data {
-      ...ProceduresEntity
-    }
+    ...ProceduresEntity
   }
 }
     ${ProceduresEntityFragmentDoc}`;
 export const PartnersDocument = gql`
     query Partners {
   partners(pagination: {limit: -1}) {
-    data {
-      ...PartnerEntity
-    }
+    ...PartnerEntity
   }
 }
     ${PartnerEntityFragmentDoc}`;
 export const ReviewsDocument = gql`
     query Reviews($locale: I18NLocaleCode!) {
   reviews(locale: $locale, sort: ["date:desc"], pagination: {limit: -1}) {
-    data {
-      ...ReviewEntity
-    }
+    ...ReviewEntity
   }
 }
     ${ReviewEntityFragmentDoc}`;
 export const NewsDocument = gql`
     query News($locale: I18NLocaleCode!) {
   articles(locale: $locale, sort: ["publishedAt:desc"], pagination: {limit: 4}) {
-    data {
-      ...ArticleCardEntity
-    }
+    ...ArticleCardEntity
   }
 }
     ${ArticleCardEntityFragmentDoc}`;
 export const ArticleBySlugDocument = gql`
     query ArticleBySlug($locale: I18NLocaleCode!, $slug: String!) {
   articles(locale: $locale, filters: {slug: {eq: $slug}}) {
-    data {
-      ...ArticleEntity
-    }
+    ...ArticleEntity
   }
 }
     ${ArticleEntityFragmentDoc}`;
 export const PageBySlugDocument = gql`
     query PageBySlug($locale: I18NLocaleCode!, $slug: String!) {
   pages(locale: $locale, filters: {slug: {eq: $slug}}) {
-    data {
-      ...PageEntity
-    }
+    ...PageEntity
   }
 }
     ${PageEntityFragmentDoc}`;
 export const BranchBySlugDocument = gql`
     query BranchBySlug($locale: I18NLocaleCode!, $slug: String!) {
   branches(locale: $locale, filters: {slug: {eq: $slug}}) {
-    data {
-      ...BranchEntity
-    }
+    ...BranchEntity
   }
 }
     ${BranchEntityFragmentDoc}`;
 export const BranchesDocument = gql`
     query Branches($locale: I18NLocaleCode!) {
   branches(locale: $locale, pagination: {limit: -1}) {
-    data {
-      ...BranchEntity
-    }
+    ...BranchEntity
   }
 }
     ${BranchEntityFragmentDoc}`;
 export const CemeteryBySlugDocument = gql`
     query CemeteryBySlug($locale: I18NLocaleCode!, $slug: String!) {
   cemeteries(locale: $locale, filters: {slug: {eq: $slug}}) {
-    data {
-      ...CemeteryEntity
-    }
+    ...CemeteryEntity
   }
 }
     ${CemeteryEntityFragmentDoc}`;
 export const CemeteryCategoriesDocument = gql`
     query CemeteryCategories {
   cemeteryCategories(pagination: {limit: -1}) {
-    data {
-      ...CemeteryCategoryEntity
-    }
+    ...CemeteryCategoryEntity
   }
 }
     ${CemeteryCategoryEntityFragmentDoc}`;
 export const ManagedObjectBySlugDocument = gql`
     query ManagedObjectBySlug($locale: I18NLocaleCode!, $slug: String!) {
   managedObjects(locale: $locale, filters: {slug: {eq: $slug}}) {
-    data {
-      ...ManagedObjectEntity
-    }
+    ...ManagedObjectEntity
   }
 }
     ${ManagedObjectEntityFragmentDoc}`;
 export const ManagedObjectCategoriesDocument = gql`
     query ManagedObjectCategories {
   managedObjectCategories(pagination: {limit: -1}) {
-    data {
-      ...ManagedObjectCategoryEntity
-    }
+    ...ManagedObjectCategoryEntity
   }
 }
     ${ManagedObjectCategoryEntityFragmentDoc}`;
 export const BundleBySlugDocument = gql`
     query BundleBySlug($locale: I18NLocaleCode!, $slug: String!) {
   bundles(locale: $locale, filters: {slug: {eq: $slug}}) {
-    data {
-      ...BundleEntity
-    }
+    ...BundleEntity
   }
 }
     ${BundleEntityFragmentDoc}`;
 export const AssetBySlugDocument = gql`
     query AssetBySlug($slug: String!) {
   assets(filters: {slug: {eq: $slug}}) {
-    data {
-      ...AssetEntity
-    }
+    ...AssetEntity
   }
 }
     ${AssetEntityFragmentDoc}`;
 export const ArticlesStaticPathsDocument = gql`
     query ArticlesStaticPaths($locale: I18NLocaleCode) {
   articles(locale: $locale, pagination: {limit: -1}) {
-    data {
-      ...ArticleSlugEntity
-    }
+    ...ArticleSlugEntity
   }
 }
     ${ArticleSlugEntityFragmentDoc}`;
 export const PagesStaticPathsDocument = gql`
     query PagesStaticPaths($locale: I18NLocaleCode) {
   pages(locale: $locale, pagination: {limit: -1}) {
-    data {
-      ...PageSlugEntity
-    }
+    ...PageSlugEntity
   }
 }
     ${PageSlugEntityFragmentDoc}`;
 export const BranchesStaticPathsDocument = gql`
     query BranchesStaticPaths($locale: I18NLocaleCode) {
   branches(locale: $locale, pagination: {limit: -1}) {
-    data {
-      ...BranchSlugEntity
-    }
+    ...BranchSlugEntity
   }
 }
     ${BranchSlugEntityFragmentDoc}`;
 export const BundlesStaticPathsDocument = gql`
     query BundlesStaticPaths($locale: I18NLocaleCode) {
   bundles(locale: $locale, pagination: {limit: -1}) {
-    data {
-      ...BundleSlugEntity
-    }
+    ...BundleSlugEntity
   }
 }
     ${BundleSlugEntityFragmentDoc}`;
 export const CemeteriesStaticPathsDocument = gql`
     query CemeteriesStaticPaths($locale: I18NLocaleCode) {
   cemeteries(locale: $locale, pagination: {limit: -1}) {
-    data {
-      ...CemeterySlugEntity
-    }
+    ...CemeterySlugEntity
   }
 }
     ${CemeterySlugEntityFragmentDoc}`;
 export const ManagedObjectsStaticPathsDocument = gql`
     query ManagedObjectsStaticPaths($locale: I18NLocaleCode) {
   managedObjects(locale: $locale, pagination: {limit: -1}) {
-    data {
-      ...ManagedObjectSlugEntity
-    }
+    ...ManagedObjectSlugEntity
   }
 }
     ${ManagedObjectSlugEntityFragmentDoc}`;
 export const AssetsStaticPathsDocument = gql`
     query AssetsStaticPaths {
   assets(pagination: {limit: -1}) {
-    data {
-      ...AssetSlugEntity
-    }
+    ...AssetSlugEntity
   }
 }
     ${AssetSlugEntityFragmentDoc}`;
 export const HomePageDocument = gql`
     query HomePage($locale: I18NLocaleCode) {
   homePage(locale: $locale) {
-    data {
-      attributes {
-        featured {
-          ...Cta
-        }
-        seo {
-          ...Seo
-        }
-        sections {
-          ... on ComponentSectionsManualListing {
-            __typename
-            ...ManualListing
-          }
-          ... on ComponentSectionsArticlesManualListing {
-            __typename
-            ...ArticlesManualListing
-          }
-          ... on ComponentSectionsNewsListing {
-            __typename
-            ...NewsListing
-          }
-          ... on ComponentSectionsUpcomingCeremoniesSection {
-            __typename
-            ...UpcomingCeremoniesSection
-          }
-          ... on ComponentSectionsProceduresShortSection {
-            __typename
-            ...ProceduresShortSection
-          }
-          ... on ComponentSectionsCtaSection {
-            __typename
-            ...CtaSection
-          }
-          ... on ComponentSectionsHomepageReviewsSection {
-            __typename
-            ...HomepageReviewsSection
-          }
-        }
+    featured {
+      ...Cta
+    }
+    seo {
+      ...Seo
+    }
+    sections {
+      ... on ComponentSectionsManualListing {
+        __typename
+        ...ManualListing
+      }
+      ... on ComponentSectionsArticlesManualListing {
+        __typename
+        ...ArticlesManualListing
+      }
+      ... on ComponentSectionsNewsListing {
+        __typename
+        ...NewsListing
+      }
+      ... on ComponentSectionsUpcomingCeremoniesSection {
+        __typename
+        ...UpcomingCeremoniesSection
+      }
+      ... on ComponentSectionsProceduresShortSection {
+        __typename
+        ...ProceduresShortSection
+      }
+      ... on ComponentSectionsCtaSection {
+        __typename
+        ...CtaSection
+      }
+      ... on ComponentSectionsHomepageReviewsSection {
+        __typename
+        ...HomepageReviewsSection
       }
     }
   }
   procedures: procedure(locale: $locale) {
-    data {
-      ...ProceduresEntity
-    }
+    ...ProceduresEntity
   }
 }
     ${CtaFragmentDoc}
@@ -7054,9 +7597,7 @@ export const HomepageCeremoniesDocument = gql`
     sort: ["dateTime:asc"]
     pagination: {limit: 5}
   ) {
-    data {
-      ...HomepageCeremonyEntity
-    }
+    ...HomepageCeremonyEntity
   }
 }
     ${HomepageCeremonyEntityFragmentDoc}`;
@@ -7064,66 +7605,52 @@ export const CeremoniesDocument = gql`
     query Ceremonies($dateTime: DateTime!, $cemeteryIdFilter: IDFilterInput = {}) {
   ceremonies(
     pagination: {limit: -1}
-    filters: {dateTime: {gte: $dateTime}, cemetery: {id: $cemeteryIdFilter}}
+    filters: {dateTime: {gte: $dateTime}, cemetery: {documentId: $cemeteryIdFilter}}
     sort: ["dateTime:asc"]
   ) {
-    data {
-      ...CeremonyEntity
-    }
+    ...CeremonyEntity
   }
 }
     ${CeremonyEntityFragmentDoc}`;
 export const CemeteriesInCeremoniesDocument = gql`
     query CemeteriesInCeremonies {
   cemeteries(filters: {allowInCeremonies: {eq: true}}, pagination: {limit: -1}) {
-    data {
-      ...CemeteryInCeremoniesDebtorsEntity
-    }
+    ...CemeteryInCeremoniesDebtorsEntity
   }
 }
     ${CemeteryInCeremoniesDebtorsEntityFragmentDoc}`;
 export const CemeteriesInDebtorsDocument = gql`
     query CemeteriesInDebtors {
   cemeteries(filters: {allowInDebtors: {eq: true}}, pagination: {limit: -1}) {
-    data {
-      ...CemeteryInCeremoniesDebtorsEntity
-    }
+    ...CemeteryInCeremoniesDebtorsEntity
   }
 }
     ${CemeteryInCeremoniesDebtorsEntityFragmentDoc}`;
 export const AssetCategoriesDocument = gql`
     query AssetCategories {
   assetCategories(pagination: {limit: -1}) {
-    data {
-      ...AssetCategoryEntity
-    }
+    ...AssetCategoryEntity
   }
 }
     ${AssetCategoryEntityFragmentDoc}`;
 export const ArticleNewsCategoriesDocument = gql`
     query ArticleNewsCategories {
   articleNewsCategories(pagination: {limit: -1}) {
-    data {
-      ...ArticleNewsCategoryEntity
-    }
+    ...ArticleNewsCategoryEntity
   }
 }
     ${ArticleNewsCategoryEntityFragmentDoc}`;
 export const ArticlePressCategoriesDocument = gql`
     query ArticlePressCategories {
   articlePressCategories(pagination: {limit: -1}) {
-    data {
-      ...ArticlePressCategoryEntity
-    }
+    ...ArticlePressCategoryEntity
   }
 }
     ${ArticlePressCategoryEntityFragmentDoc}`;
 export const ArticleJobsCategoriesDocument = gql`
     query ArticleJobsCategories {
   articleJobsCategories(pagination: {limit: -1}) {
-    data {
-      ...ArticleJobsCategoryEntity
-    }
+    ...ArticleJobsCategoryEntity
   }
 }
     ${ArticleJobsCategoryEntityFragmentDoc}`;
