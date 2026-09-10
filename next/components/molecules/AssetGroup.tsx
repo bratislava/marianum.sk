@@ -1,22 +1,22 @@
 import { useId, useMemo } from 'react'
 
 import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import DocumentRow from '@/components/molecules/Row/DocumentRow'
-import { DocumentGroupFragment } from '@/graphql'
+import AssetRow from '@/components/molecules/Row/AssetRow'
+import { AssetGroupFragment } from '@/graphql'
 import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
 
-type DocumentGroupProps = DocumentGroupFragment & { variant?: 'gaps' | 'dividers' }
+type AssetGroupProps = AssetGroupFragment & { variant?: 'gaps' | 'dividers' }
 
-const getAriaLabelId = (id: string, index: number) => `document-group-title-${id}-${index}`
+const getAriaLabelId = (id: string, index: number) => `asset-group-title-${id}-${index}`
 
-const DocumentGroup = ({ documents, variant = 'gaps' }: DocumentGroupProps) => {
+const AssetGroup = ({ assets, variant = 'gaps' }: AssetGroupProps) => {
   const id = useId()
   const { getFullPath } = useGetFullPath()
 
-  const filteredDocuments = useMemo(() => {
-    return (documents ?? []).map((document) => document?.document?.data).filter(isDefined)
-  }, [documents])
+  const filteredAssets = useMemo(() => {
+    return (assets ?? []).map((asset) => asset?.asset?.data).filter(isDefined)
+  }, [assets])
 
   return (
     <div
@@ -25,13 +25,13 @@ const DocumentGroup = ({ documents, variant = 'gaps' }: DocumentGroupProps) => {
         'gap-4': variant === 'gaps',
       })}
     >
-      {filteredDocuments?.map((doc, index) => {
+      {filteredAssets?.map((doc, index) => {
         const { title, slug, file } = doc.attributes ?? {}
 
         if (!file?.data) return null
 
         return (
-          <DocumentRow
+          <AssetRow
             key={slug}
             title={title ?? ''}
             titleId={getAriaLabelId(id, index)}
@@ -45,4 +45,4 @@ const DocumentGroup = ({ documents, variant = 'gaps' }: DocumentGroupProps) => {
   )
 }
 
-export default DocumentGroup
+export default AssetGroup

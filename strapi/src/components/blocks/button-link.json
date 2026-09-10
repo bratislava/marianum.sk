@@ -34,10 +34,10 @@
       "relation": "oneToOne",
       "target": "api::bundle.bundle"
     },
-    "document": {
+    "asset": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::document.document"
+      "target": "api::asset.asset"
     },
     "cemetery": {
       "type": "relation",

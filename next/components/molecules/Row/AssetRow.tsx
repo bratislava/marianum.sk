@@ -6,14 +6,14 @@ import Row from '@/components/molecules/Row/Row'
 import { UploadFileEntityFragment } from '@/graphql'
 import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
 
-type DocumentRowProps = {
+type AssetRowProps = {
   file: UploadFileEntityFragment
   title: string
   titleId: string
   linkHref?: string
   variant?: 'gaps' | 'dividers'
 }
-const DocumentRow = (props: DocumentRowProps) => {
+const AssetRow = (props: AssetRowProps) => {
   const { file, title } = props
   const { t } = useTranslation()
   const { getDownloadAriaLabel } = useDownloadAriaLabel()
@@ -27,11 +27,11 @@ const DocumentRow = (props: DocumentRowProps) => {
         aria-label={getDownloadAriaLabel(file, title)}
         startIcon={<DownloadIcon />}
       >
-        {t('DocumentGroup.download')}
+        {t('AssetGroup.download')}
       </Button>
     ) : null
 
   return <Row {...props} button={<DownloadButton />} applyFocusStyles={false} />
 }
 
-export default DocumentRow
+export default AssetRow

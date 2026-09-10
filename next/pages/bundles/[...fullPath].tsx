@@ -9,7 +9,7 @@ import Seo from '@/components/atoms/Seo'
 import BundleLayout from '@/components/layouts/BundleLayout'
 import AccordionGroup from '@/components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '@/components/molecules/Accordion/AccordionItem'
-import DocumentGroup from '@/components/molecules/DocumentGroup'
+import AssetGroup from '@/components/molecules/AssetGroup'
 import {
   generateStaticPaths,
   generateStaticProps,
@@ -41,7 +41,7 @@ const BundlePage: NextPage<BundlePageProps> = ({
     bundleItems,
     additionalItems,
     description,
-    documents,
+    assets,
     coverMedia,
   } = entity.attributes ?? {}
 
@@ -100,12 +100,12 @@ const BundlePage: NextPage<BundlePageProps> = ({
               </AccordionGroup>
             </Section>
           ) : null}
-          {documents && (
+          {assets && (
             <Section>
-              {documents.title && (
-                <h2 className="pb-6 text-size-h3-r lg:text-size-h3">{documents.title}</h2>
+              {assets.title && (
+                <h2 className="pb-6 text-size-h3-r lg:text-size-h3">{assets.title}</h2>
               )}
-              <DocumentGroup {...documents} />
+              <AssetGroup {...assets} />
             </Section>
           )}
         </div>
@@ -119,7 +119,7 @@ interface StaticParams extends ParsedUrlQuery {
 }
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
-  const paths = await generateStaticPaths('sk', (locale) =>
+  const paths = await generateStaticPaths('sk', async (locale) =>
     client.BundlesStaticPaths({ locale }).then((response) => response.bundles?.data),
   )
 
@@ -139,7 +139,7 @@ export const getStaticProps: GetStaticProps<BundlePageProps, StaticParams> = asy
   return generateStaticProps({
     locale,
     params,
-    entityPromiseGetter: ({ locale: localeInner, slug }) =>
+    entityPromiseGetter: async ({ locale: localeInner, slug }) =>
       client
         .BundleBySlug({ locale: localeInner, slug })
         .then((response) => response.bundles?.data[0]),

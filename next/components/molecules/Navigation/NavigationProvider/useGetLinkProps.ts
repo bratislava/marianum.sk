@@ -40,9 +40,9 @@ export const useGetLinkProps = () => {
     } else if ('branch' in link && link.branch?.data?.attributes) {
       href = getFullPath(link.branch.data) ?? '#'
       // label = link.label ?? link.branch.data.attributes.title
-    } else if ('document' in link && link.document?.data?.attributes) {
-      href = getFullPath(link.document.data) ?? '#'
-      // label = link.label ?? link.document.data.attributes.title
+    } else if ('asset' in link && link.asset?.data?.attributes) {
+      href = getFullPath(link.asset.data) ?? '#'
+      // label = link.label ?? link.asset.data.attributes.title
     } else if ('bundle' in link && link.bundle?.data?.attributes) {
       href = getFullPath(link.bundle.data) ?? '#'
       // label = link.label ?? link.bundle.data.attributes.title

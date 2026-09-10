@@ -39,9 +39,7 @@
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -133,7 +131,7 @@
       },
       "component": "blocks.opening-hours-universal"
     },
-    "documents": {
+    "assets": {
       "type": "component",
       "repeatable": false,
       "pluginOptions": {
@@ -141,7 +139,7 @@
           "localized": true
         }
       },
-      "component": "sections.document-group"
+      "component": "sections.asset-group"
     },
     "gallery": {
       "type": "component",
