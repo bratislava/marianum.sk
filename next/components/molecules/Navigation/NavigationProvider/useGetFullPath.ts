@@ -158,10 +158,7 @@ export const getFullPathMeiliFn = (navMap: NavMap) => {
     }
 
     if (entityType === 'page') {
-      if (!slug) {
-        return null
-      }
-      const path = navMap.get(slug)?.path
+      const path = navMap?.get(slug)?.path
 
       return path ?? `/${slug}`
     }

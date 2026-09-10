@@ -211,8 +211,8 @@ type Asset {
   file: UploadFileEntityResponse!
   publishedAt: DateTime
   seo: ComponentGeneralSeo
-  slug: String
-  title: String
+  slug: String!
+  title: String!
   updatedAt: DateTime
 }
 
@@ -220,7 +220,7 @@ type AssetCategory {
   assets(filters: AssetFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): AssetRelationResponseCollection
   createdAt: DateTime
   slug: String!
-  title: String
+  title: String!
   updatedAt: DateTime
 }
 

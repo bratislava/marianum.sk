@@ -51,7 +51,7 @@ const Assets = ({
           <Row
             // eslint-disable-next-line react/no-array-index-key
             key={index}
-            title={asset.title ?? undefined}
+            title={asset.title}
             applyFocusStyles={false}
             category={
               asset?.assetCategory

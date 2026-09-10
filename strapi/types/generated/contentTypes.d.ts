@@ -521,7 +521,7 @@ export interface ApiAssetCategoryAssetCategory extends Schema.CollectionType {
     createdBy: Attribute.Relation<'api::asset-category.asset-category', 'oneToOne', 'admin::user'> &
       Attribute.Private
     slug: Attribute.UID<'api::asset-category.asset-category', 'title'> & Attribute.Required
-    title: Attribute.String
+    title: Attribute.String & Attribute.Required
     updatedAt: Attribute.DateTime
     updatedBy: Attribute.Relation<'api::asset-category.asset-category', 'oneToOne', 'admin::user'> &
       Attribute.Private
@@ -551,8 +551,8 @@ export interface ApiAssetAsset extends Schema.CollectionType {
     file: Attribute.Media<'files'> & Attribute.Required
     publishedAt: Attribute.DateTime
     seo: Attribute.Component<'general.seo'>
-    slug: Attribute.UID
-    title: Attribute.String
+    slug: Attribute.UID<'api::asset.asset', 'title'> & Attribute.Required
+    title: Attribute.String & Attribute.Required
     updatedAt: Attribute.DateTime
     updatedBy: Attribute.Relation<'api::asset.asset', 'oneToOne', 'admin::user'> & Attribute.Private
   }

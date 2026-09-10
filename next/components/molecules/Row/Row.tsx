@@ -18,7 +18,7 @@ export type RowProps = {
   tagsPosition?: 'beside' | 'under'
   linkHref?: string
   showUrl?: boolean
-  category?: AssetCategoryEntityFragment | null | undefined
+  category?: AssetCategoryEntityFragment | null
   address?: string | null | undefined
   moreContent?: ReactNode
   button?: ReactNode
