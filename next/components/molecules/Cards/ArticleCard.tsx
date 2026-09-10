@@ -51,6 +51,7 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
           </span>
           {category?.attributes && (
             <>
+              {' '}
               • <span>{category.attributes.title}</span>
             </>
           )}
