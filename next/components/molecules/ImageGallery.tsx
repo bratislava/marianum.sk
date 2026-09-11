@@ -14,7 +14,7 @@ import { isDefined } from '@/utils/isDefined'
 import { onEnterOrSpaceKeyDown } from '@/utils/onEnterOrSpaceKeyDown'
 
 export type ImageGalleryProps = {
-  images: (UploadImageEntityFragment | null)[] | undefined
+  images?: (UploadImageEntityFragment | null)[]
   variant?: 'below' | 'aside'
 }
 
