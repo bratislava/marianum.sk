@@ -55,7 +55,7 @@ export default {
           for (const debtor of parsedDebtors) {
             // Query Engine API doesn't support relations in bulk options, so Entity Service API is used.
             // https://docs.strapi.io/developer-docs/latest/developer-resources/database-apis-reference/query-engine/bulk-operations.html
-            await strapi.entityService.create("api::debtor.debtor", {
+            await strapi.documents("api::debtor.debtor").create({
               data: debtor,
             })
           }
@@ -157,7 +157,7 @@ export default {
             for (const ceremony of ceremonies) {
               // Query Engine API doesn't support relations in bulk options, so Entity Service API is used.
               // https://docs.strapi.io/developer-docs/latest/developer-resources/database-apis-reference/query-engine/bulk-operations.html
-              await strapi.entityService.create("api::ceremony.ceremony", {
+              await strapi.documents("api::ceremony.ceremony").create({
                 data: ceremony,
               })
             }
