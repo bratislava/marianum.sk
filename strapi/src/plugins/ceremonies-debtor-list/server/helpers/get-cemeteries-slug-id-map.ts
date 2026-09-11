@@ -1,21 +1,21 @@
-import { Strapi } from "@strapi/strapi";
+import { Strapi } from '@strapi/strapi'
 
 export const getCemeteriesSlugIdMap = async (
-  strapi: Strapi,
-  type: "debtors" | "ceremonies"
+  strapi: Strapi.Strapi,
+  type: 'debtors' | 'ceremonies'
 ) => {
-  const cemeteries = await strapi.db.query("api::cemetery.cemetery").findMany({
-    select: ["id", "slug"],
+  const cemeteries = await strapi.db.query('api::cemetery.cemetery').findMany({
+    select: ['id', 'slug'],
     where: {
-      locale: "sk", // The entities must be matched with Slovak versions only to work properly.
-      ...(type === "debtors"
+      locale: 'sk', // The entities must be matched with Slovak versions only to work properly.
+      ...(type === 'debtors'
         ? {
             allowInDebtors: {
               $eq: true,
             },
           }
         : {}),
-      ...(type === "ceremonies"
+      ...(type === 'ceremonies'
         ? {
             allowInCeremonies: {
               $eq: true,
@@ -23,9 +23,9 @@ export const getCemeteriesSlugIdMap = async (
           }
         : {}),
     },
-  });
+  })
 
-  console.log(cemeteries);
+  console.log(cemeteries)
 
-  return Object.fromEntries(cemeteries.map(({ slug, id }) => [slug, id]));
-};
+  return Object.fromEntries(cemeteries.map(({ slug, id }) => [slug, id]))
+}

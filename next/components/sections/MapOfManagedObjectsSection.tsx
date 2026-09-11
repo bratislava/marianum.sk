@@ -36,7 +36,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
 
   const { data, isPending, isError, error } = useQuery({
     queryKey: getMeiliManagedObjectsQueryKey(filters),
-    queryFn: () => meiliManagedObjectsFetcher(filters),
+    queryFn: async () => meiliManagedObjectsFetcher(filters),
     placeholderData: keepPreviousData,
   })
 
@@ -79,9 +79,8 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
           .map((hit) => {
             const { title, latitude, longitude, address } = hit
             const linkHref = getFullPath({
-              id: hit.id,
-              attributes: hit,
-              __typename: 'ManagedObjectEntity',
+              __typename: 'ManagedObject',
+              ...hit,
             })
             if (linkHref && latitude && longitude) {
               return {

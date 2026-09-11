@@ -33,24 +33,24 @@ export const useGetLinkProps = () => {
 
     if ('page' in link && link.page) {
       href = getFullPath(link.page) ?? '#'
-      // label = link.label ?? link.page.data.attributes.title
+      // label = link.label ?? link.page.title
     } else if ('article' in link && link.article) {
       href = getFullPath(link.article) ?? '#'
-      // label = link.label ?? link.article.data.attributes.title
+      // label = link.label ?? link.article.title
     } else if ('branch' in link && link.branch) {
       href = getFullPath(link.branch) ?? '#'
-      // label = link.label ?? link.branch.data.attributes.title
+      // label = link.label ?? link.branch.title
     } else if ('asset' in link && link.asset) {
       href = getFullPath(link.asset) ?? '#'
-      // label = link.label ?? link.asset.data.attributes.title
+      // label = link.label ?? link.asset.title
     } else if ('bundle' in link && link.bundle) {
       href = getFullPath(link.bundle) ?? '#'
-      // label = link.label ?? link.bundle.data.attributes.title
+      // label = link.label ?? link.bundle.title
     } else if ('cemetery' in link && link.cemetery) {
       href = getFullPath(link.cemetery) ?? '#'
-      // label = link.label ?? link.cemetery.data.attributes.title
+      // label = link.label ?? link.cemetery.title
     } else if ('managedObject' in link && link.managedObject) {
-      // label = link.label ?? link.managedObject.data.attributes.title
+      // label = link.label ?? link.managedObject.title
       href = getFullPath(link.managedObject) ?? '#'
     } else if (link.url) {
       label = link.label

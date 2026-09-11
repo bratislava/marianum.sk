@@ -39,7 +39,7 @@ const MapOfCemeteriesSection = ({ section }: MapOfCemeteriesSectionProps) => {
 
   const { data, isPending, isError, error } = useQuery({
     queryKey: getMeiliCemeteriesQueryKey(filters),
-    queryFn: () => meiliCemeteriesFetcher(filters),
+    queryFn: async () => meiliCemeteriesFetcher(filters),
     placeholderData: keepPreviousData,
   })
 
@@ -82,9 +82,8 @@ const MapOfCemeteriesSection = ({ section }: MapOfCemeteriesSectionProps) => {
           .map((hit) => {
             const { title, latitude, longitude, address } = hit
             const linkHref = getFullPath({
-              id: hit.id,
-              __typename: 'CemeteryEntity',
-              attributes: hit,
+              __typename: 'Cemetery',
+              ...hit,
             })
             if (linkHref && latitude && longitude) {
               return {
