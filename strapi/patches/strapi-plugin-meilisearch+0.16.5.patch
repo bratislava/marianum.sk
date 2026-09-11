@@ -1,0 +1,16 @@
+diff --git a/node_modules/strapi-plugin-meilisearch/dist/server/index.js b/node_modules/strapi-plugin-meilisearch/dist/server/index.js
+index 3f6890d..5593c62 100644
+--- a/node_modules/strapi-plugin-meilisearch/dist/server/index.js
++++ b/node_modules/strapi-plugin-meilisearch/dist/server/index.js
+@@ -2486,6 +2486,11 @@ const lifecycleService = ({ strapi: strapi2 }) => {
+   const store2 = strapi2.plugin("meilisearch").service("store");
+   return {
+     async subscribeContentType({ contentType: contentType2 }) {
++      // Each time debtor or ceremony is imported it causes to refresh the meilisearch which is
++      // extremely slow.
++      if (contentType === 'api::debtor.debtor' || contentType === 'api::ceremony.ceremony') {
++        return Promise.resolve({})
++      }
+       const contentTypeUid = contentTypeService2.getContentTypeUid({
+         contentType: contentType2
+       });
