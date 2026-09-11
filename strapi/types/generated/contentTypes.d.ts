@@ -1820,6 +1820,11 @@ export interface PluginNavigationAudience extends Struct.CollectionTypeSchema {
     draftAndPublish: false
     increments: true
   }
+  pluginOptions: {
+    'content-manager': {
+      visible: false
+    }
+  }
   attributes: {
     createdAt: Schema.Attribute.DateTime
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private
