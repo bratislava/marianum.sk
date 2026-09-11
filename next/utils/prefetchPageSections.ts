@@ -26,14 +26,14 @@ import { isDefined } from '@/utils/isDefined'
 export const prefetchPageSections = async (page: PageEntityFragment, locale: string) => {
   const queryClient = new QueryClient()
 
-  const sectionTypes = page?.attributes?.sections?.map((section) => section?.__typename) ?? []
+  const sectionTypes = page.sections?.map((section) => section?.__typename) ?? []
 
   if (sectionTypes.includes('ComponentSectionsMapSection')) {
-    const firstSectionOfType = page?.attributes?.sections?.find(
+    const firstSectionOfType = page.sections?.find(
       (section) => section?.__typename === 'ComponentSectionsMapSection',
     )
-    const categoryIds = firstSectionOfType?.categories?.data
-      .map((category) => category.id)
+    const categoryIds = firstSectionOfType?.categories
+      .map((category) => category?.documentId)
       .filter(isDefined)
     await queryClient.prefetchQuery(
       getMeiliCemeteriesQuery({ ...mapOfCemeteriesSectionDefaultFilters, categoryIds }),
@@ -41,11 +41,11 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
   }
 
   if (sectionTypes.includes('ComponentSectionsMapOfManagedObjects')) {
-    const firstSectionOfType = page?.attributes?.sections?.find(
+    const firstSectionOfType = page.sections?.find(
       (section) => section?.__typename === 'ComponentSectionsMapOfManagedObjects',
     )
-    const categoryIds = firstSectionOfType?.categories?.data
-      .map((category) => category.id)
+    const categoryIds = firstSectionOfType?.categories
+      .map((category) => category?.documentId)
       .filter(isDefined)
     await queryClient.prefetchQuery(
       getMeiliManagedObjectsQuery({ ...mapOfManagedObjectsSectionDefaultFilters, categoryIds }),
