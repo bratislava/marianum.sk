@@ -40,7 +40,7 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
     gallery,
     video,
     assets,
-  } = entity.attributes ?? {}
+  } = entity
 
   return (
     <>
@@ -80,16 +80,14 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
               <RichText content={description} coloredTable={false} />
             </SectionBoxed>
           ) : null}
-          {general?.attributes?.cemeteryOpeningHours ? (
+          {general?.cemeteryOpeningHours ? (
             <SectionBoxed title={t('BranchCemeteryPage.openingHours')}>
-              <OpeningHours
-                openingHours={overrideOpeningHours || general?.attributes?.cemeteryOpeningHours}
-              />
+              <OpeningHours openingHours={overrideOpeningHours || general.cemeteryOpeningHours} />
             </SectionBoxed>
           ) : null}
           {gallery ? (
             <SectionBoxed title={gallery.title ?? undefined}>
-              <ImageGallery images={gallery.medias?.data} />
+              <ImageGallery images={gallery.medias} />
             </SectionBoxed>
           ) : null}
           {video ? (
@@ -115,10 +113,10 @@ interface StaticParams extends ParsedUrlQuery {
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   // TODO: Locales
   const paths = await generateStaticPaths('sk', (locale) =>
-    client.CemeteriesStaticPaths({ locale }).then((response) => response.cemeteries?.data),
+    client.CemeteriesStaticPaths({ locale }).then((response) => response.cemeteries),
   )
 
-  // eslint-disable-next-line no-console,@typescript-eslint/restrict-template-expressions
+  // eslint-disable-next-line no-console
   console.log(`Cemeteries: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }
@@ -139,7 +137,7 @@ export const getStaticProps: GetStaticProps<CemeteryPageProps, StaticParams> = a
       entityPromiseGetter: ({ locale: localeInner, slug }) =>
         client
           .CemeteryBySlug({ locale: localeInner, slug })
-          .then((response) => response.cemeteries?.data[0]),
+          .then((response) => response.cemeteries[0]),
     })
   )
 }

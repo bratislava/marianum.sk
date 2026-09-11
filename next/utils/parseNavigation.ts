@@ -7,7 +7,7 @@ export type NavMap = typeof navMap
 
 export const parseNavigation = (navItems: NavigationItemFragment[]) => {
   navItems.forEach(({ path, items, title, related }) => {
-    const slug = related?.attributes?.slug
+    const slug = related?.slug
     if (slug && path) {
       navMap.set(slug, { label: title, path })
     }
