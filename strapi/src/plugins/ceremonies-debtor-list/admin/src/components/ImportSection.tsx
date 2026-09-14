@@ -17,11 +17,11 @@ const headerTexts = {
 
 const importLinks = {
   debtors: (importId: string) =>
-    `/content-manager/collectionType/api::debtor.debtor?filters[$and][0][importId][$eq]=${importId}`,
+    `/content-manager/collection-types/api::debtor.debtor?filters[$and][0][importId][$eq]=${importId}`,
   ceremonies: (importId: string) =>
-    `/content-manager/collectionType/api::ceremony.ceremony?filters[$and][0][importId][$eq]=${importId}`,
+    `/content-manager/collection-types/api::ceremony.ceremony?filters[$and][0][importId][$eq]=${importId}`,
   disclosures: (importId: string) =>
-    `/content-manager/collectionType/api::disclosure.disclosure?filters[$and][0][importId][$eq]=${importId}`,
+    `/content-manager/collection-types/api::disclosure.disclosure?filters[$and][0][importId][$eq]=${importId}`,
 }
 
 type ImportSectionProps = {
