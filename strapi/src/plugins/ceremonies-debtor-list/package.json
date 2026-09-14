@@ -24,7 +24,6 @@
     "xlsx": "0.18.5"
   },
   "devDependencies": {
-    "@strapi/strapi": "5.48.1",
     "@strapi/typescript-utils": "5.48.1",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.0",
@@ -36,6 +35,7 @@
     "typescript": "5.0.4"
   },
   "peerDependencies": {
+    "@strapi/strapi": "5.48.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
