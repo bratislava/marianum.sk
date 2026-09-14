@@ -14,11 +14,7 @@ export default {
         id: `${pluginId}.plugin.name`,
         defaultMessage: 'Import Excel súborov',
       },
-      Component: async () => {
-        const { App } = await import('./pages/App')
-        return App
-      },
-
+      Component: () => import('./pages/App'),
       permissions: [
         // Uncomment to set the permissions of the plugin here
         // {
