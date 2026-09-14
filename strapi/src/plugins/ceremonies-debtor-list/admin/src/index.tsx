@@ -15,10 +15,10 @@ export default {
         defaultMessage: 'Import Excel súborov',
       },
       Component: async () => {
-        const component = await import('./pages/App')
-
-        return component
+        const { App } = await import('./pages/App')
+        return App
       },
+
       permissions: [
         // Uncomment to set the permissions of the plugin here
         // {

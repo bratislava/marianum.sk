@@ -1,18 +1,19 @@
-import React, { useRef, useState } from 'react'
-import { Alert, Box, Button, Link, Loader, Stack, Typography } from '@strapi/design-system'
-import axiosInstance from '../utils/axiosInstance'
+import { useRef, useState } from 'react'
+import { NavLink } from 'react-router-dom'
+import { useFetchClient } from '@strapi/strapi/admin'
+import { Alert, Box, Button, Link, Loader, Flex, Typography } from '@strapi/design-system'
 
 const updateUrls = {
-  debtors: "/ceremonies-debtor-list/update-debtors",
-  ceremonies: "/ceremonies-debtor-list/update-ceremonies",
-  disclosures: "/ceremonies-debtor-list/update-disclosures",
-};
+  debtors: '/ceremonies-debtor-list/update-debtors',
+  ceremonies: '/ceremonies-debtor-list/update-ceremonies',
+  disclosures: '/ceremonies-debtor-list/update-disclosures',
+}
 
 const headerTexts = {
-  debtors: "Import dlžníkov",
-  ceremonies: "Import obradov",
-  disclosures: "Import zverejňovania",
-};
+  debtors: 'Import dlžníkov',
+  ceremonies: 'Import obradov',
+  disclosures: 'Import zverejňovania',
+}
 
 const importLinks = {
   debtors: (importId: string) =>
@@ -21,17 +22,18 @@ const importLinks = {
     `/content-manager/collectionType/api::ceremony.ceremony?filters[$and][0][importId][$eq]=${importId}`,
   disclosures: (importId: string) =>
     `/content-manager/collectionType/api::disclosure.disclosure?filters[$and][0][importId][$eq]=${importId}`,
-};
+}
 
 type ImportSectionProps = {
-  type: "debtors" | "ceremonies" | "disclosures";
-};
+  type: 'debtors' | 'ceremonies' | 'disclosures'
+}
 
 const ImportSection = ({ type }: ImportSectionProps) => {
   const inputFileRef = useRef<HTMLInputElement>(null)
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState<any>(null)
   const [error, setError] = useState<any>(null)
+  const { put } = useFetchClient()
 
   const [showAdditionalMessage, setShowAdditionalMessage] = useState(true)
 
@@ -45,12 +47,11 @@ const ImportSection = ({ type }: ImportSectionProps) => {
     setSuccess(null)
     setError(null)
 
-    axiosInstance
-      .put(updateUrls[type], formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+    put(updateUrls[type], formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
       .then((response) => {
         setSuccess(response)
       })
@@ -72,18 +73,18 @@ const ImportSection = ({ type }: ImportSectionProps) => {
       paddingLeft={7}
       paddingRight={7}
     >
-      <Stack spacing={4}>
-        <Typography variant="delta" as="h2">
+      <Flex direction="column" alignItems="stretch" gap={4}>
+        <Typography variant="delta" tag="h2">
           {headerTexts[type]}
         </Typography>
         {loading && <Loader />}
         {success && (
-          <Stack spacing={2}>
+          <Flex direction="column" alignItems="stretch" gap={2}>
             <Alert
               title="Nahrávanie úspešné"
               action={
                 success.data?.importId && (
-                  <Link to={importLinks[type](success.data.importId)}>
+                  <Link tag={NavLink} to={importLinks[type](success.data.importId)}>
                     Zobraziť nahrané dáta
                   </Link>
                 )
@@ -102,11 +103,11 @@ const ImportSection = ({ type }: ImportSectionProps) => {
                 {success.data.additionalMessage}
               </Alert>
             ) : null}
-          </Stack>
+          </Flex>
         )}
         {error && (
           <Alert title="Nahrávanie neúspešné" variant="danger" onClose={() => setError(null)}>
-            {error?.response?.data?.message ?? error.toString()}
+            {error?.message ?? error.toString()}
           </Alert>
         )}
         <input type="file" ref={inputFileRef} />
@@ -115,7 +116,7 @@ const ImportSection = ({ type }: ImportSectionProps) => {
             Nahrať
           </Button>
         </div>
-      </Stack>
+      </Flex>
     </Box>
   )
 }

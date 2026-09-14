@@ -1,7 +1,7 @@
-import { Strapi } from '@strapi/strapi'
+import { Core } from '@strapi/strapi'
 
 export const getCemeteriesSlugIdMap = async (
-  strapi: Strapi.Strapi,
+  strapi: Core.Strapi,
   type: 'debtors' | 'ceremonies'
 ) => {
   const cemeteries = await strapi.db.query('api::cemetery.cemetery').findMany({
