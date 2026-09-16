@@ -3,7 +3,7 @@ import { useContext, useMemo } from 'react'
 import { sectionContext } from '@/components/layouts/SectionsWrapper'
 import Contact from '@/components/molecules/Contact'
 import Section, { SectionProps } from '@/components/molecules/Section'
-import { ContactGroupFragment } from '@/graphql'
+import { ContactGroupFragment, Enum_Componentsectionscontactgroup_Layout } from '@/graphql'
 import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
 
@@ -20,7 +20,7 @@ const ContactsSection = ({
 
   return (
     <Section {...rest}>
-      {layout === 'condensed' && (
+      {layout === Enum_Componentsectionscontactgroup_Layout.Condensed && (
         <div
           className={cn('flex flex-col gap-4 bg-white p-6', {
             'border border-border': border,
@@ -37,7 +37,7 @@ const ContactsSection = ({
         </div>
       )}
 
-      {layout === 'default' && (
+      {layout === Enum_Componentsectionscontactgroup_Layout.Default && (
         <div className="flex flex-col gap-4">
           {filteredContacts.map((contact, index) => (
             <div

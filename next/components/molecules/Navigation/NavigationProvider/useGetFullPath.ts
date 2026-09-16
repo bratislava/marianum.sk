@@ -126,8 +126,8 @@ type GetFullPathMeiliFn = (
 /**
  * Returns the URL for Meilisearch returned entity.
  *
- * There is one difference between entities returned by Strapi and Meilisearch:
- * 1. In Meilisearch, `__typename` is missing.
+ * The difference between entities returned by Strapi and Meilisearch is that Meilisearch entities do not contain
+ * `__typename` field, which is used in `getFullPathFn` function to determine the entity type.
  *
  * Therefore, it's easier to duplicate the logic in a new function.
  *

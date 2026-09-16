@@ -10,7 +10,7 @@
   "scripts": {
     "build": "npm run --prefix ./src/plugins/ceremonies-debtor-list/ build && strapi build",
     "dev": "npm run develop",
-    "develop": "cross-env ENV_PATH='./.env.local' strapi develop --debug",
+    "develop": "cross-env ENV_PATH='./.env.local' strapi develop",
     "postinstall": "patch-package && cd ./src/plugins/ceremonies-debtor-list/ && npm install --omit=peer && cd ../../../",
     "start": "strapi start",
     "strapi": "strapi"
