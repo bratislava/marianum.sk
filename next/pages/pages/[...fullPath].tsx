@@ -8,8 +8,8 @@ import Divider from '@/components/atoms/Divider'
 import Seo from '@/components/atoms/Seo'
 import PageLayout from '@/components/layouts/PageLayout'
 import SectionsWrapper from '@/components/layouts/SectionsWrapper'
+import AssetGroup from '@/components/molecules/AssetGroup'
 import BranchGroup from '@/components/molecules/BranchGroup'
-import DocumentGroup from '@/components/molecules/DocumentGroup'
 import ImageGallery from '@/components/molecules/ImageGallery'
 import {
   generateStaticPaths,
@@ -20,6 +20,7 @@ import ProcedureTabs from '@/components/molecules/ProcedureTabs'
 import Section from '@/components/molecules/Section'
 import AccordionGroupSection from '@/components/sections/AccordionGroupSection'
 import ArticleListing from '@/components/sections/ArticleListing/ArticleListing'
+import AssetsSection from '@/components/sections/AssetsSection/AssetsSection'
 import BundleListingSection from '@/components/sections/BundleListingSection'
 import BundleListingSimpleSection from '@/components/sections/BundleListingSimpleSection'
 import CardSection from '@/components/sections/CardSection'
@@ -29,7 +30,6 @@ import CeremoniesSection from '@/components/sections/CeremoniesSection'
 import ContactsSection from '@/components/sections/ContactsSection'
 import DebtorsSection from '@/components/sections/DebtorsSection'
 import DisclosuresSection from '@/components/sections/DisclosuresSection'
-import DocumentsSection from '@/components/sections/DocumentsSection/DocumentsSection'
 import IframeSection from '@/components/sections/IframeSection'
 import MapOfCemeteriesSection from '@/components/sections/MapOfCemeteriesSection'
 import MapOfManagedObjectsSection from '@/components/sections/MapOfManagedObjectsSection'
@@ -128,14 +128,14 @@ const Slug = ({ navigation, entity, general, dehydratedState }: PageProps) => {
                 </Section>
               )
             }
-            if (section?.__typename === 'ComponentSectionsDocumentGroup') {
+            if (section?.__typename === 'ComponentSectionsAssetGroup') {
               return (
                 <Section
                   key={`${section.__typename}-${section.id}`}
                   title={section.title}
                   titleFontSize="h3"
                 >
-                  <DocumentGroup {...section} />
+                  <AssetGroup {...section} />
                 </Section>
               )
             }
@@ -205,8 +205,8 @@ const Slug = ({ navigation, entity, general, dehydratedState }: PageProps) => {
             if (section?.__typename === 'ComponentSectionsCeremoniesArchiveSection') {
               return <CeremoniesArchiveSection key={`${section.__typename}-${section.id}`} />
             }
-            if (section?.__typename === 'ComponentSectionsDocumentsSection') {
-              return <DocumentsSection key={`${section.__typename}-${section.id}`} />
+            if (section?.__typename === 'ComponentSectionsAssetsSection') {
+              return <AssetsSection key={`${section.__typename}-${section.id}`} />
             }
             if (section?.__typename === 'ComponentSectionsArticleNewsListing') {
               return (
@@ -256,7 +256,7 @@ interface StaticParams extends ParsedUrlQuery {
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   // TODO: Locales
-  const paths = await generateStaticPaths('sk', (locale) =>
+  const paths = await generateStaticPaths('sk', async (locale) =>
     client.PagesStaticPaths({ locale }).then((response) => response.pages?.data),
   )
 
@@ -277,7 +277,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
     // TODO: Locales
     locale,
     params,
-    entityPromiseGetter: ({ slug, locale: localeInner }) =>
+    entityPromiseGetter: async ({ slug, locale: localeInner }) =>
       client.PageBySlug({ slug, locale: localeInner }).then((response) => response.pages?.data[0]),
     getAdditionalProps: async (page) => {
       const dehydratedState = await prefetchPageSections(page, locale)

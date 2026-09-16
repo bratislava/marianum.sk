@@ -88,7 +88,7 @@
         "sections.gallery",
         "sections.accordion-group",
         "sections.contact-group",
-        "sections.document-group",
+        "sections.asset-group",
         "sections.menu-listing",
         "sections.manual-listing",
         "sections.branch-group",
@@ -100,7 +100,7 @@
         "sections.ceremonies-section",
         "sections.ceremonies-archive-section",
         "sections.map-section",
-        "sections.documents-section",
+        "sections.assets-section",
         "sections.review-listing",
         "sections.article-news-listing",
         "sections.article-press-listing",
@@ -109,9 +109,7 @@
         "sections.disclosures-section",
         "sections.iframe-section",
         "sections.cemeteries-opening-hours",
-        "sections.map-of-managed-objects",
-        "sections.asset-group",
-        "sections.assets-section"
+        "sections.map-of-managed-objects"
       ]
     },
     "sidebar": {

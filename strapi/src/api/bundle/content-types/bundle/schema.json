@@ -47,9 +47,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -72,11 +70,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "pochovanie",
-        "kremacia",
-        "prirodne"
-      ],
+      "enum": ["pochovanie", "kremacia", "prirodne"],
       "required": true,
       "default": "pochovanie"
     },
@@ -137,7 +131,7 @@
       },
       "component": "blocks.accordion-item-with-price"
     },
-    "documents": {
+    "assets": {
       "type": "component",
       "repeatable": false,
       "pluginOptions": {
@@ -145,7 +139,7 @@
           "localized": true
         }
       },
-      "component": "sections.document-group"
+      "component": "sections.asset-group"
     },
     "sidebar": {
       "type": "component",
