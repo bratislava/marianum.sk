@@ -112,7 +112,7 @@ interface StaticParams extends ParsedUrlQuery {
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   // TODO: Locales
-  const paths = await generateStaticPaths('sk', (locale) =>
+  const paths = await generateStaticPaths('sk', async (locale) =>
     client.CemeteriesStaticPaths({ locale }).then((response) => response.cemeteries),
   )
 
@@ -134,7 +134,7 @@ export const getStaticProps: GetStaticProps<CemeteryPageProps, StaticParams> = a
     generateStaticProps({
       locale,
       params,
-      entityPromiseGetter: ({ locale: localeInner, slug }) =>
+      entityPromiseGetter: async ({ locale: localeInner, slug }) =>
         client
           .CemeteryBySlug({ locale: localeInner, slug })
           .then((response) => response.cemeteries[0]),

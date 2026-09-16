@@ -40,7 +40,7 @@ export interface BlocksArticleItem extends Struct.ComponentSchema {
 export interface BlocksAssetItem extends Struct.ComponentSchema {
   collectionName: 'components_blocks_asset_items'
   info: {
-    displayName: 'document item'
+    displayName: 'Document item'
     icon: 'file'
   }
   attributes: {

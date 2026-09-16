@@ -1260,7 +1260,7 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
         'sections.procedures-short-section',
         'sections.homepage-reviews-section',
         'sections.cta-section',
-        'sections.articles-manual-listing',
+        'sections.articles-manual-listing'
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
@@ -1521,7 +1521,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.cemeteries-opening-hours',
         'sections.map-of-managed-objects',
         'sections.asset-group',
-        'sections.assets-section',
+        'sections.assets-section'
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
