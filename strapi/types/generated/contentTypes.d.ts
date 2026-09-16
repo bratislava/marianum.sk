@@ -1260,7 +1260,7 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
         'sections.procedures-short-section',
         'sections.homepage-reviews-section',
         'sections.cta-section',
-        'sections.articles-manual-listing'
+        'sections.articles-manual-listing',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
@@ -1500,6 +1500,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.gallery',
         'sections.accordion-group',
         'sections.contact-group',
+        'sections.asset-group',
         'sections.menu-listing',
         'sections.manual-listing',
         'sections.branch-group',
@@ -1511,6 +1512,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.ceremonies-section',
         'sections.ceremonies-archive-section',
         'sections.map-section',
+        'sections.assets-section',
         'sections.review-listing',
         'sections.article-news-listing',
         'sections.article-press-listing',
@@ -1520,8 +1522,6 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.iframe-section',
         'sections.cemeteries-opening-hours',
         'sections.map-of-managed-objects',
-        'sections.asset-group',
-        'sections.assets-section'
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
