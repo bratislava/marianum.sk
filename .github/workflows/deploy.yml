@@ -8,157 +8,123 @@ on:
     branches:
       - master
 
+permissions:
+  contents: read
+
 jobs:
-  conditions:
-    name: Check for cluster conditions
-    uses: bratislava/github-actions/.github/workflows/cluster-deploy-conditions-inhouse.yml@stable
+  resolve:
+    name: Resolve Environment and Services
+    runs-on: bratislava
+    outputs:
+      cluster: ${{ steps.resolve.outputs.cluster }}
+      next: ${{ steps.resolve.outputs.next }}
+      strapi: ${{ steps.resolve.outputs.strapi }}
+    steps:
+      - name: Map ref to environment and services
+        id: resolve
+        run: |
+          REF="$GITHUB_REF"
 
-  deploy-dev:
-    name: after dev Strapi deploy Next
-    if: needs.conditions.outputs.dev == 'true'
-    needs: [conditions, deploy-dev-strapi]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
-    with:
-      directory: next/
-      cluster: development
-      url: https://dev.tkgis.bratislava.sk:6443
-      debug: --debug
-    secrets:
-      service-account: ${{ secrets.DEV_STANDALONE_TOKEN }}
-      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-      slack-token: ${{ secrets.SLACK_BOT_TOKEN }}
+          if [[ "$REF" == "refs/heads/master" ]]; then
+            CLUSTER="staging"
+            ONLY="all"
+          elif [[ "$REF" == refs/tags/* ]]; then
+            TAG="${REF#refs/tags/}"
+            case "$TAG" in
+              dev*)     CLUSTER="development"; REST="${TAG#dev}" ;;
+              staging*) CLUSTER="staging";     REST="${TAG#staging}" ;;
+              prod*)    CLUSTER="production";  REST="${TAG#prod}" ;;
+              *)
+                echo "::error::Unable to determine environment from tag: $TAG"
+                exit 1
+                ;;
+            esac
 
-  deploy-dev-strapi:
-    name: dev Strapi
-    needs: conditions
-    if: needs.conditions.outputs.dev-strapi == 'true'
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
-    with:
-      directory: strapi/
-      cluster: development
-      url: https://dev.tkgis.bratislava.sk:6443
-      debug: --debug
-    secrets:
-      service-account: ${{ secrets.DEV_STANDALONE_TOKEN }}
-      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-      slack-token: ${{ secrets.SLACK_BOT_TOKEN }}
+            # A bare environment tag (e.g. dev1.2.3) deploys the whole project,
+            # a service-suffixed tag (e.g. dev-strapi1.2.3) deploys only that
+            # service.
+            case "$REST" in
+              -next*)   ONLY="next" ;;
+              -strapi*) ONLY="strapi" ;;
+              *)        ONLY="all" ;;
+            esac
+          else
+            echo "::error::Unable to determine environment from ref: $REF"
+            exit 1
+          fi
 
-  deploy-dev-next:
-    name: dev Next
-    needs: conditions
-    if: needs.conditions.outputs.dev-next == 'true'
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
-    with:
-      directory: next/
-      cluster: development
-      url: https://dev.tkgis.bratislava.sk:6443
-      debug: --debug
-    secrets:
-      service-account: ${{ secrets.DEV_STANDALONE_TOKEN }}
-      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-      slack-token: ${{ secrets.SLACK_BOT_TOKEN }}
+          echo "cluster=$CLUSTER" >> "$GITHUB_OUTPUT"
 
-  deploy-staging:
-    name: after staging Strapi deploy Next
-    if: needs.conditions.outputs.staging == 'true'
-    needs: [conditions, deploy-staging-strapi]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
-    with:
-      directory: next/
-      cluster: staging
-      url: https://stage.tkgis.bratislava.sk:6443
-      debug: --debug
-      flag: --staging
-    secrets:
-      service-account: ${{ secrets.STAGING_STANDALONE_TOKEN }}
-      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-      slack-token: ${{ secrets.SLACK_BOT_TOKEN }}
+          {
+            echo "## Pipeline info :rocket:"
+            echo ":arrow_right: Ref: **$REF**"
+            echo ":arrow_right: Cluster: **$CLUSTER**"
+            echo "### We are going to deploy :ship:"
+          } >> "$GITHUB_STEP_SUMMARY"
 
-  deploy-staging-strapi:
-    name: staging Strapi
-    needs: conditions
-    if: needs.conditions.outputs.staging-strapi == 'true'
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
+          for SVC in next strapi; do
+            if [[ "$ONLY" == "all" || "$ONLY" == "$SVC" ]]; then
+              echo "$SVC=true" >> "$GITHUB_OUTPUT"
+              echo ":soon: **$SVC**" >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "$SVC=false" >> "$GITHUB_OUTPUT"
+            fi
+          done
+
+  # ---- Build & push per-cluster service images ----
+  # Each build job builds the deployable image, pushes it, and re-tags it for
+  # the cluster. The matching deploy-* job below then triggers the infra deploy.
+
+  build-strapi:
+    name: Build Strapi
+    needs: resolve
+    if: needs.resolve.outputs.strapi == 'true'
+    uses: ./.github/workflows/build-single-image.yml
+    secrets: inherit
     with:
       directory: strapi/
-      cluster: staging
-      url: https://stage.tkgis.bratislava.sk:6443
-      debug: --debug
-      flag: --staging
-    secrets:
-      service-account: ${{ secrets.STAGING_STANDALONE_TOKEN }}
-      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-      slack-token: ${{ secrets.SLACK_BOT_TOKEN }}
+      image: harbor.bratislava.sk/standalone/marianum-strapi
+      cluster: ${{ needs.resolve.outputs.cluster }}
 
-  deploy-staging-next:
-    name: staging Next
-    needs: conditions
-    if: needs.conditions.outputs.staging-next == 'true'
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
+  build-next:
+    name: Build Next
+    needs: resolve
+    if: needs.resolve.outputs.next == 'true'
+    uses: ./.github/workflows/build-next.yml
+    secrets: inherit
     with:
       directory: next/
-      cluster: staging
-      url: https://stage.tkgis.bratislava.sk:6443
-      debug: --debug
-      flag: --staging
-    secrets:
-      service-account: ${{ secrets.STAGING_STANDALONE_TOKEN }}
-      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-      slack-token: ${{ secrets.SLACK_BOT_TOKEN }}
+      image: harbor.bratislava.sk/standalone/marianum-next
+      cluster: ${{ needs.resolve.outputs.cluster }}
 
-  deploy-prod:
-    name: after prod Strapi deploy Next
-    if: needs.conditions.outputs.prod == 'true'
-    needs: [conditions, deploy-prod-strapi]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
-    with:
-      directory: next/
-      cluster: production
-      url: https://prod.tkgis.bratislava.sk:6443
-      flag: --production
-      debug: --debug
-    secrets:
-      service-account: ${{ secrets.PROD_STANDALONE_TOKEN }}
-      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-      slack-token: ${{ secrets.SLACK_BOT_TOKEN }}
+  # ---- Gate + trigger infrastructure deploys ----
+  # builds-complete is a no-op barrier: build-strapi and build-next run in
+  # parallel, so nothing deploys until every in-scope build has finished and
+  # none failed.
+  builds-complete:
+    name: All builds completed
+    needs: [resolve, build-strapi, build-next]
+    if: ${{ !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All in-scope builds completed."
 
-  deploy-prod-strapi:
-    name: prod Strapi
-    needs: conditions
-    if: needs.conditions.outputs.prod-strapi == 'true'
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
+  deploy-strapi:
+    name: Strapi
+    needs: [resolve, build-strapi, builds-complete]
+    if: ${{ !failure() && !cancelled() && needs.resolve.outputs.strapi == 'true' }}
+    uses: bratislava/github-actions/.github/workflows/trigger-infra-deploy.yml@v3.0.0
+    secrets: inherit
     with:
-      directory: strapi/
-      cluster: production
-      url: https://prod.tkgis.bratislava.sk:6443
-      flag: --production
-      debug: --debug
-    secrets:
-      service-account: ${{ secrets.PROD_STANDALONE_TOKEN }}
-      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-      slack-token: ${{ secrets.SLACK_BOT_TOKEN }}
+      cluster: ${{ needs.resolve.outputs.cluster }}
+      app: marianum.sk/strapi
 
-  deploy-prod-next:
-    name: prod Next
-    needs: conditions
-    if: needs.conditions.outputs.prod-next == 'true'
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
+  deploy-next:
+    name: after Strapi deploy Next
+    needs: [resolve, build-next, builds-complete, deploy-strapi]
+    if: ${{ !failure() && !cancelled() && needs.resolve.outputs.next == 'true' }}
+    uses: bratislava/github-actions/.github/workflows/trigger-infra-deploy.yml@v3.0.0
+    secrets: inherit
     with:
-      directory: next/
-      cluster: production
-      url: https://prod.tkgis.bratislava.sk:6443
-      flag: --production
-      debug: --debug
-    secrets:
-      service-account: ${{ secrets.PROD_STANDALONE_TOKEN }}
-      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-      slack-token: ${{ secrets.SLACK_BOT_TOKEN }}
+      cluster: ${{ needs.resolve.outputs.cluster }}
+      app: marianum.sk/next
