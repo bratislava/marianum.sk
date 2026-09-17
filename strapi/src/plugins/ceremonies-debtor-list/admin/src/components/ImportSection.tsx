@@ -91,6 +91,7 @@ const ImportSection = ({ type }: ImportSectionProps) => {
               }
               variant="success"
               onClose={() => setSuccess(null)}
+              closeLabel="Zatvoriť"
             >
               {success.data.message} ({success.data.executionTime}ms)
             </Alert>
@@ -99,6 +100,7 @@ const ImportSection = ({ type }: ImportSectionProps) => {
                 title="V dátach sa nachádzajú cintoríny bez záznamu v Strapi: "
                 variant="default"
                 onClose={() => setShowAdditionalMessage(false)}
+                closeLabel="Zatvoriť"
               >
                 {success.data.additionalMessage}
               </Alert>
@@ -106,7 +108,12 @@ const ImportSection = ({ type }: ImportSectionProps) => {
           </Flex>
         )}
         {error && (
-          <Alert title="Nahrávanie neúspešné" variant="danger" onClose={() => setError(null)}>
+          <Alert
+            title="Nahrávanie neúspešné"
+            variant="danger"
+            onClose={() => setError(null)}
+            closeLabel="Zatvoriť"
+          >
             {error?.message ?? error.toString()}
           </Alert>
         )}

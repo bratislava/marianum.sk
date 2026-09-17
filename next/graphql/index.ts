@@ -6079,7 +6079,7 @@ export type ReviewEntityFragment = { __typename?: 'Review', documentId: string, 
 
 export type CeremonyEntityFragment = { __typename?: 'Ceremony', documentId: string, dateTime: any, name?: string | null, birthYear?: string | null, type?: string | null, company?: string | null, officiantProvidedBy?: string | null, consentForPrivateFields?: boolean | null, cemeteryNameIfOutsideMarianum?: string | null, cemetery?: { __typename?: 'Cemetery', title: string, slug: string, localizations: Array<{ __typename?: 'Cemetery', title: string, slug: string, locale?: string | null } | null> } | null };
 
-export type HomepageCeremonyEntityFragment = { __typename?: 'Ceremony', documentId: string, dateTime: any, name?: string | null, consentForPrivateFields?: boolean | null, cemeteryNameIfOutsideMarianum?: string | null, cemetery?: { __typename?: 'Cemetery', slug: string, title: string, localizations: Array<{ __typename?: 'Cemetery', slug: string, title: string } | null> } | null };
+export type HomepageCeremonyEntityFragment = { __typename?: 'Ceremony', documentId: string, dateTime: any, name?: string | null, consentForPrivateFields?: boolean | null, cemeteryNameIfOutsideMarianum?: string | null, cemetery?: { __typename?: 'Cemetery', slug: string, title: string, localizations: Array<{ __typename?: 'Cemetery', slug: string, title: string, locale?: string | null } | null> } | null };
 
 export type ManagedObjectCategoryEntityFragment = { __typename?: 'ManagedObjectCategory', documentId: string, title: string, slug: string };
 
@@ -6251,7 +6251,7 @@ export type HomepageCeremoniesQueryVariables = Exact<{
 }>;
 
 
-export type HomepageCeremoniesQuery = { __typename?: 'Query', ceremonies: Array<{ __typename?: 'Ceremony', documentId: string, dateTime: any, name?: string | null, consentForPrivateFields?: boolean | null, cemeteryNameIfOutsideMarianum?: string | null, cemetery?: { __typename?: 'Cemetery', slug: string, title: string, localizations: Array<{ __typename?: 'Cemetery', slug: string, title: string } | null> } | null } | null> };
+export type HomepageCeremoniesQuery = { __typename?: 'Query', ceremonies: Array<{ __typename?: 'Ceremony', documentId: string, dateTime: any, name?: string | null, consentForPrivateFields?: boolean | null, cemeteryNameIfOutsideMarianum?: string | null, cemetery?: { __typename?: 'Cemetery', slug: string, title: string, localizations: Array<{ __typename?: 'Cemetery', slug: string, title: string, locale?: string | null } | null> } | null } | null> };
 
 export type CeremoniesQueryVariables = Exact<{
   dateTime: Scalars['DateTime']['input'];
@@ -7342,6 +7342,7 @@ export const HomepageCeremonyEntityFragmentDoc = gql`
     localizations {
       slug
       title
+      locale
     }
   }
   cemeteryNameIfOutsideMarianum

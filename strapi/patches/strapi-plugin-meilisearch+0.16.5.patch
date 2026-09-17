@@ -8,7 +8,7 @@ index 3f6890d..5593c62 100644
      async subscribeContentType({ contentType: contentType2 }) {
 +      // Each time debtor or ceremony is imported it causes to refresh the meilisearch which is
 +      // extremely slow.
-+      if (contentType === 'api::debtor.debtor' || contentType === 'api::ceremony.ceremony') {
++      if (contentType2 === 'api::debtor.debtor' || contentType2 === 'api::ceremony.ceremony') {
 +        return Promise.resolve({})
 +      }
        const contentTypeUid = contentTypeService2.getContentTypeUid({

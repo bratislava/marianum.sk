@@ -22,13 +22,14 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
   const { t } = useTranslation()
 
   // all images count
+  const filteredImages = images.filter(isDefined)
   const imageCount = useMemo(() => {
-    return images.length
-  }, [images])
+    return filteredImages.length
+  }, [filteredImages])
 
   const firstImage = useMemo(() => {
-    return images[0] ?? undefined
-  }, [images])
+    return filteredImages[0] ?? undefined
+  }, [filteredImages])
 
   const { ref: containerRef, width: containerWidth } = useResizeDetector()
 

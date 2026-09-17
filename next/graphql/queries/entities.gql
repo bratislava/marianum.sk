@@ -500,6 +500,7 @@ fragment HomepageCeremonyEntity on Ceremony {
     localizations {
       slug
       title
+      locale
     }
   }
   cemeteryNameIfOutsideMarianum

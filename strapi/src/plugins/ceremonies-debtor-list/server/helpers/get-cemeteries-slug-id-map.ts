@@ -25,7 +25,5 @@ export const getCemeteriesSlugIdMap = async (
     },
   })
 
-  console.log(cemeteries)
-
   return Object.fromEntries(cemeteries.map(({ slug, id }) => [slug, id]))
 }
