@@ -28,7 +28,7 @@ export const meiliCemeteriesFetcher = (filters: CemeteriesFilters) => {
       filter: [
         'type = "cemetery"',
         filters.categoryIds?.length
-          ? `cemetery.cemeteryCategory.documentId IN [${filters.categoryIds.join(',')}]`
+          ? `cemetery.cemeteryCategory.slug IN [${filters.categoryIds.join(',')}]`
           : null,
       ].filter(isDefined),
       sort: ['cemetery.title:asc'],

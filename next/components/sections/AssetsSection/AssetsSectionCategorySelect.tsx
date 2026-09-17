@@ -14,7 +14,7 @@ const mappedFetcher = async () =>
   client.AssetCategories().then((data) =>
     data.assetCategories.filter(isDefined).map((category) => ({
       label: category.title,
-      key: category.documentId,
+      key: category.slug,
     })),
   )
 

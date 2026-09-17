@@ -30,7 +30,7 @@ const MapOfCemeteriesSection = ({ section }: MapOfCemeteriesSectionProps) => {
 
   const categories = section.categories.filter(isDefined)
 
-  const defaultCategoryIds = categories.map((category) => category.documentId).filter(isDefined)
+  const defaultCategoryIds = categories.map((category) => category.slug).filter(isDefined)
 
   const [filters, setFilters] = useState({
     ...mapOfCemeteriesSectionDefaultFilters,
@@ -103,7 +103,7 @@ const MapOfCemeteriesSection = ({ section }: MapOfCemeteriesSectionProps) => {
           .map((category) => {
             const { title } = category
 
-            return category.documentId && title ? { id: category.documentId, title } : null
+            return category.slug && title ? { id: category.slug, title } : null
           })
           .filter(isDefined)}
       />

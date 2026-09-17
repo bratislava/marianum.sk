@@ -33,7 +33,7 @@ export const meiliAssetsFetcher = async (filters: AssetsFilters) => {
       filter: [
         'type = "asset"',
         isDefined(filters.categoryId)
-          ? `asset.assetCategory.documentId = ${filters.categoryId}`
+          ? `asset.assetCategory.slug = ${filters.categoryId}`
           : null,
         isDefined(filters.filetype) ? `asset.file.ext = ${filters.filetype}` : null,
       ].filter(Boolean) as string[],

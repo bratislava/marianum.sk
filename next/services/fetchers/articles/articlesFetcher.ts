@@ -40,20 +40,20 @@ export const meiliArticlesFetcher = async ({ filters, type, locale }: ArticlesQu
   switch (type) {
     case ArticleType.Press:
       sectionFilter = filters.categoryId
-        ? `article.pressCategory.documentId = ${filters.categoryId}`
-        : 'article.pressCategory.documentId EXISTS'
+        ? `article.pressCategory.slug = ${filters.categoryId}`
+        : 'article.pressCategory.slug EXISTS'
       break
 
     case ArticleType.News:
       sectionFilter = filters.categoryId
-        ? `article.newsCategory.documentId = ${filters.categoryId}`
-        : 'article.newsCategory.documentId EXISTS'
+        ? `article.newsCategory.slug = ${filters.categoryId}`
+        : 'article.newsCategory.slug EXISTS'
       break
 
     case ArticleType.Jobs:
       sectionFilter = filters.categoryId
-        ? `article.jobsCategory.documentId = ${filters.categoryId}`
-        : 'article.jobsCategory.documentId EXISTS'
+        ? `article.jobsCategory.slug = ${filters.categoryId}`
+        : 'article.jobsCategory.slug EXISTS'
       break
 
     default:

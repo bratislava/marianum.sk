@@ -31,7 +31,7 @@ export const meiliManagedObjectsFetcher = (filters: ManagedObjectsFilters) => {
       filter: [
         'type = "managed-object"',
         filters.categoryIds?.length
-          ? `managed-object.managedObjectCategory.documentId IN [${filters.categoryIds.join(',')}]`
+          ? `managed-object.managedObjectCategory.slug IN [${filters.categoryIds.join(',')}]`
           : null,
       ].filter(isDefined),
       sort: ['managed-object.title:asc'],

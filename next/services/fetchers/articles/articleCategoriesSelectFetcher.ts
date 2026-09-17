@@ -3,14 +3,14 @@ import { isDefined } from '@/utils/isDefined'
 
 const mapSelectFn = (
   category: {
-    documentId?: string | null
+    slug?: string | null
     title?: string | null
   } | null,
 ) => {
-  return category?.documentId
+  return category?.slug
     ? {
         label: category.title,
-        key: category.documentId,
+        key: category.slug,
       }
     : null
 }
