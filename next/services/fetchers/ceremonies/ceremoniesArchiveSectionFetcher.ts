@@ -22,12 +22,12 @@ export const getCeremoniesArchiveSectionQueryKey = (filters: CeremoniesArchiveSe
   filters,
 ]
 
-export const ceremoniesArchiveSectionFetcher = (filters: CeremoniesArchiveSectionFilters) =>
+export const ceremoniesArchiveSectionFetcher = async (filters: CeremoniesArchiveSectionFilters) =>
   meiliClient.index('ceremony').search<CeremonyMeili>(filters.search, {
     ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
     filter: [
       `dateTimeTimestamp < ${Date.now()}`,
-      filters.cemeteryId && `cemetery.id = ${filters.cemeteryId}`,
+      filters.cemeteryId && `cemetery.documentId = ${filters.cemeteryId}`,
     ].filter(isDefined),
     sort: ['dateTimeTimestamp:desc'],
   })
@@ -37,6 +37,6 @@ export const getCeremoniesArchiveSectionQuery = (
 ) => {
   return {
     queryKey: getCeremoniesArchiveSectionQueryKey(filters),
-    queryFn: () => ceremoniesArchiveSectionFetcher(filters),
+    queryFn: async () => ceremoniesArchiveSectionFetcher(filters),
   } as const
 }

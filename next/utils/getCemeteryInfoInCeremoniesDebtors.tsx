@@ -83,5 +83,7 @@ export const getCemeteryInfoFromCeremonyMeili = (ceremony: CeremonyMeili, locale
     return { title: ceremony.cemeteryNameIfOutsideMarianum, slug: undefined }
   }
 
-  return getCemeteryInfoInCeremoniesDebtorsMeili(ceremony.cemetery, locale)
+  return ceremony?.cemetery
+    ? getCemeteryInfoInCeremoniesDebtorsMeili(ceremony.cemetery, locale)
+    : null
 }

@@ -42,16 +42,16 @@ const searchIndexSettings = {
     // Page + branch + article + bundle + cemetery
     'locale',
     // Article
-    'article.pressCategory.id',
-    'article.newsCategory.id',
-    'article.jobsCategory.id',
+    'article.pressCategory.documentId',
+    'article.newsCategory.documentId',
+    'article.jobsCategory.documentId',
     // Cemetery
-    'cemetery.cemeteryCategory.id',
+    'cemetery.cemeteryCategory.documentId',
     // Asset
-    'asset.assetCategory.id',
+    'asset.assetCategory.documentId',
     'asset.file.ext',
     // Managed Object
-    'managed-object.managedObjectCategory.id',
+    'managed-object.managedObjectCategory.documentId',
   ],
   sortableAttributes: [
     // Article
@@ -123,7 +123,7 @@ const config = {
       populate: ['cemetery', 'cemetery.localizations'],
     },
     settings: {
-      filterableAttributes: ['cemetery.id'],
+      filterableAttributes: ['cemetery.documentId'],
       searchableAttributes: ['firstName', 'lastName'],
       pagination: {
         // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
@@ -136,7 +136,7 @@ const config = {
       populate: ['cemetery', 'cemetery.localizations'],
     },
     settings: {
-      filterableAttributes: ['cemetery.id', 'dateTimeTimestamp'],
+      filterableAttributes: ['cemetery.documentId', 'dateTimeTimestamp'],
       searchableAttributes: ['name'],
       sortableAttributes: ['dateTimeTimestamp'],
       pagination: {

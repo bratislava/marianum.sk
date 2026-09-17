@@ -60,8 +60,8 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
   }, [imageCount, thumbnailCount])
 
   const smallImages = useMemo(() => {
-    return images.slice(1, thumbnailCount + 1)
-  }, [images, thumbnailCount])
+    return filteredImages.slice(1, thumbnailCount + 1)
+  }, [filteredImages, thumbnailCount])
 
   const overlayState = useOverlayTriggerState({ defaultOpen: false })
   const [initialImageIndex, setInitialImageIndex] = useState(0)
@@ -113,7 +113,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
               className="mt-4 grid gap-4"
               style={{ gridTemplateColumns: `repeat(${thumbnailCount + 1}, 1fr)` }}
             >
-              {smallImages.filter(isDefined).map((image, index) => (
+              {smallImages.map((image, index) => (
                 <div
                   onClick={() => openAtImageIndex(index + 1)}
                   key={image.documentId}
@@ -147,7 +147,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                 hidden: imageCount === 1,
               })}
             >
-              {smallImages.filter(isDefined).map((image, index) => (
+              {smallImages.map((image, index) => (
                 <div
                   onClick={() => openAtImageIndex(index + 1)}
                   key={image.documentId}
