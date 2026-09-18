@@ -71,10 +71,9 @@ jobs:
             fi
           done
 
-  # ---- Build & push per-cluster service images ----
-  # Each build job builds the deployable image, pushes it, and re-tags it for
-  # the cluster. The matching deploy-* job below then triggers the infra deploy.
-
+  # ---- Strapi: build+push, then deploy ----
+  # Strapi goes first. `next build` prerenders against the live Strapi of the
+  # target cluster, so Next cannot even be built until the new Strapi is up.
   build-strapi:
     name: Build Strapi
     needs: resolve
@@ -86,10 +85,23 @@ jobs:
       image: harbor.bratislava.sk/standalone/marianum-strapi
       cluster: ${{ needs.resolve.outputs.cluster }}
 
+  deploy-strapi:
+    name: Strapi
+    needs: [resolve, build-strapi]
+    if: needs.resolve.outputs.strapi == 'true'
+    uses: bratislava/github-actions/.github/workflows/trigger-infra-deploy.yml@v3.0.0
+    secrets: inherit
+    with:
+      cluster: ${{ needs.resolve.outputs.cluster }}
+      app: marianum.sk/strapi
+
+  # ---- Next: build+push against the deployed Strapi, then deploy ----
+  # When Strapi is out of scope (a *-next tag) deploy-strapi is skipped, which
+  # is why these gate on !failure() && !cancelled() rather than success().
   build-next:
-    name: Build Next
-    needs: resolve
-    if: needs.resolve.outputs.next == 'true'
+    name: after Strapi deploy build Next
+    needs: [resolve, deploy-strapi]
+    if: ${{ !failure() && !cancelled() && needs.resolve.outputs.next == 'true' }}
     uses: ./.github/workflows/build-next.yml
     secrets: inherit
     with:
@@ -97,31 +109,9 @@ jobs:
       image: harbor.bratislava.sk/standalone/marianum-next
       cluster: ${{ needs.resolve.outputs.cluster }}
 
-  # ---- Gate + trigger infrastructure deploys ----
-  # builds-complete is a no-op barrier: build-strapi and build-next run in
-  # parallel, so nothing deploys until every in-scope build has finished and
-  # none failed.
-  builds-complete:
-    name: All builds completed
-    needs: [resolve, build-strapi, build-next]
-    if: ${{ !cancelled() && !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "All in-scope builds completed."
-
-  deploy-strapi:
-    name: Strapi
-    needs: [resolve, build-strapi, builds-complete]
-    if: ${{ !failure() && !cancelled() && needs.resolve.outputs.strapi == 'true' }}
-    uses: bratislava/github-actions/.github/workflows/trigger-infra-deploy.yml@v3.0.0
-    secrets: inherit
-    with:
-      cluster: ${{ needs.resolve.outputs.cluster }}
-      app: marianum.sk/strapi
-
   deploy-next:
-    name: after Strapi deploy Next
-    needs: [resolve, build-next, builds-complete, deploy-strapi]
+    name: Next
+    needs: [resolve, build-next]
     if: ${{ !failure() && !cancelled() && needs.resolve.outputs.next == 'true' }}
     uses: bratislava/github-actions/.github/workflows/trigger-infra-deploy.yml@v3.0.0
     secrets: inherit

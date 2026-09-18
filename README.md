@@ -56,10 +56,14 @@ Deploys are triggered by pushing a tag, or by a push to `master`:
 
 `deploy.yml` resolves the cluster and the services in scope, then builds each in-scope
 service image and tags it `<cluster>-<short-sha>` in Harbor
-(`harbor.bratislava.sk/standalone/marianum-next`, `.../marianum-strapi`). Strapi is
-deployed first and Next only after it succeeds, because Next reads content from Strapi.
-The same build workflows run on pull requests in build-only mode, so a PR fails on
-anything that would break the deploy build.
+(`harbor.bratislava.sk/standalone/marianum-next`, `.../marianum-strapi`). Strapi is built
+and deployed first; Next is only *built* after that, because `next build` prerenders
+pages against the live Strapi of the target cluster and fails on a schema it does not
+know yet. The same build workflows run on pull requests in build-only mode, so a PR
+fails on anything that would break the deploy build. The PR Next build bakes in the
+`development` environment and prerenders against the live dev Strapi, so a PR that
+changes the Strapi schema in a way Next depends on should first deploy its Strapi to dev
+(push a `dev-strapi*` tag from the branch) for that check to pass.
 
 Strapi's image is environment-agnostic, so one per-commit build is reused across clusters.
 Next bakes its environment into the build, so it is rebuilt per cluster with its own Docker
