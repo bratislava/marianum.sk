@@ -8,14 +8,14 @@ export type CemeteriesFilters = {
   pageSize: number
   search: string
   page: number
-  categoryIds?: string[]
+  categorySlugs?: string[]
 }
 
 export const cemeteriesDefaultFilters: CemeteriesFilters = {
   pageSize: 24,
   search: '',
   page: 1,
-  categoryIds: [],
+  categorySlugs: [],
 }
 
 export const getMeiliCemeteriesQueryKey = (filters: CemeteriesFilters) => ['Cemeteries', filters]
@@ -27,8 +27,8 @@ export const meiliCemeteriesFetcher = (filters: CemeteriesFilters) => {
       ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
       filter: [
         'type = "cemetery"',
-        filters.categoryIds?.length
-          ? `cemetery.cemeteryCategory.slug IN [${filters.categoryIds.join(',')}]`
+        filters.categorySlugs?.length
+          ? `cemetery.cemeteryCategory.slug IN [${filters.categorySlugs.join(',')}]`
           : null,
       ].filter(isDefined),
       sort: ['cemetery.title:asc'],

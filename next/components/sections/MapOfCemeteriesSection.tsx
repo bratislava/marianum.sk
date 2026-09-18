@@ -30,11 +30,11 @@ const MapOfCemeteriesSection = ({ section }: MapOfCemeteriesSectionProps) => {
 
   const categories = section.categories.filter(isDefined)
 
-  const defaultCategoryIds = categories.map((category) => category.slug).filter(isDefined)
+  const defaultCategorySlugs = categories.map((category) => category.slug).filter(isDefined)
 
   const [filters, setFilters] = useState({
     ...mapOfCemeteriesSectionDefaultFilters,
-    categoryIds: defaultCategoryIds,
+    categorySlugs: defaultCategorySlugs,
   })
 
   const { data, isPending, isError, error } = useQuery({
@@ -72,10 +72,10 @@ const MapOfCemeteriesSection = ({ section }: MapOfCemeteriesSectionProps) => {
         onSelectionChange={(selection) => {
           setFilters((prevState) => ({
             ...prevState,
-            categoryIds:
+            categorySlugs:
               selection === 'all'
-                ? defaultCategoryIds
-                : defaultCategoryIds.filter((categoryId) => selection.has(categoryId)),
+                ? defaultCategorySlugs
+                : defaultCategorySlugs.filter((categorySlug) => selection.has(categorySlug)),
           }))
         }}
         landmarks={data.hits

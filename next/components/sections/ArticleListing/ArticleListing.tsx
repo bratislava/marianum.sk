@@ -104,7 +104,7 @@ const DataWrapper = ({
 
   const { data, isPending, isFetching, isError, error } = useQuery({
     queryKey: getMeiliArticlesQueryKey({ filters, type, locale }),
-    queryFn: () => meiliArticlesFetcher({ filters, type, locale }),
+    queryFn: async () => meiliArticlesFetcher({ filters, type, locale }),
     placeholderData: keepPreviousData,
   })
 
@@ -156,8 +156,8 @@ const ArticleListing = ({ type }: ArticleListingProps) => {
     setFilters({ ...filters, page })
   }
 
-  const handleCategoryChange = (categoryId: string | null) => {
-    setFilters({ ...filters, page: 1, categoryId })
+  const handleCategoryChange = (categorySlug: string | null) => {
+    setFilters({ ...filters, page: 1, categorySlug })
   }
 
   return (

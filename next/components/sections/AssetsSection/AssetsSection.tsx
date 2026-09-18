@@ -139,8 +139,8 @@ const AssetsSection = ({ description }: AssetsSectionProps) => {
     setFilters({ ...filters, page })
   }
 
-  const handleCategoryChange = (categoryId: string | null) => {
-    setFilters({ ...filters, page: 1, categoryId })
+  const handleCategoryChange = (categorySlug: string | null) => {
+    setFilters({ ...filters, page: 1, categorySlug })
   }
 
   const handleFiletypeChange = (filetype: string | null) => {
