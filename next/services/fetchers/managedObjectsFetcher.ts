@@ -8,14 +8,14 @@ export type ManagedObjectsFilters = {
   pageSize: number
   search: string
   page: number
-  categorySlugs?: string[]
+  categoryIds?: string[]
 }
 
 export const managedObjectsDefaultFilters: ManagedObjectsFilters = {
   pageSize: 24,
   search: '',
   page: 1,
-  categorySlugs: [],
+  categoryIds: [],
 }
 
 export const getMeiliManagedObjectsQueryKey = (filters: ManagedObjectsFilters) => [
@@ -23,15 +23,15 @@ export const getMeiliManagedObjectsQueryKey = (filters: ManagedObjectsFilters) =
   filters,
 ]
 
-export const meiliManagedObjectsFetcher = async (filters: ManagedObjectsFilters) => {
+export const meiliManagedObjectsFetcher = (filters: ManagedObjectsFilters) => {
   return meiliClient
     .index('search_index')
     .search<SearchIndexWrapped<'managed-object', ManagedObjectMeili>>(filters.search, {
       ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
       filter: [
         'type = "managed-object"',
-        filters.categorySlugs?.length
-          ? `managed-object.managedObjectCategory.slug IN [${filters.categorySlugs.join(',')}]`
+        filters.categoryIds?.length
+          ? `managed-object.managedObjectCategory.documentId IN [${filters.categoryIds.join(',')}]`
           : null,
       ].filter(isDefined),
       sort: ['managed-object.title:asc'],
@@ -44,6 +44,6 @@ export const getMeiliManagedObjectsQuery = (
 ) => {
   return {
     queryKey: getMeiliManagedObjectsQueryKey(filters),
-    queryFn: async () => meiliManagedObjectsFetcher(filters),
+    queryFn: () => meiliManagedObjectsFetcher(filters),
   } as const
 }

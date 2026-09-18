@@ -27,11 +27,11 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
 
   const categories = section.categories.filter(isDefined)
 
-  const defaultCategorySlugs = categories.map((category) => category.slug).filter(isDefined)
+  const defaultCategoryIds = categories.map((category) => category.documentId).filter(isDefined)
 
   const [filters, setFilters] = useState({
     ...mapOfManagedObjectsSectionDefaultFilters,
-    categorySlugs: defaultCategorySlugs,
+    categoryIds: defaultCategoryIds,
   })
 
   const { data, isPending, isError, error } = useQuery({
@@ -69,10 +69,10 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
         onSelectionChange={(selection) => {
           setFilters((prevState) => ({
             ...prevState,
-            categorySlugs:
+            categoryIds:
               selection === 'all'
-                ? defaultCategorySlugs
-                : defaultCategorySlugs.filter((categorySlug) => selection.has(categorySlug)),
+                ? defaultCategoryIds
+                : defaultCategoryIds.filter((categoryId) => selection.has(categoryId)),
           }))
         }}
         landmarks={data.hits
@@ -100,7 +100,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
           .map((category) => {
             const { title } = category
 
-            return category.slug && title ? { id: category.slug, title } : null
+            return category.documentId && title ? { id: category.documentId, title } : null
           })
           .filter(isDefined)}
       />

@@ -42,16 +42,16 @@ const searchIndexSettings = {
     // Page + branch + article + bundle + cemetery
     'locale',
     // Article
-    'article.pressCategory.slug',
-    'article.newsCategory.slug',
-    'article.jobsCategory.slug',
+    'article.pressCategory.documentId',
+    'article.newsCategory.documentId',
+    'article.jobsCategory.documentId',
     // Cemetery
-    'cemetery.cemeteryCategory.slug',
+    'cemetery.cemeteryCategory.documentId',
     // Asset
-    'asset.assetCategory.slug',
+    'asset.assetCategory.documentId',
     'asset.file.ext',
     // Managed Object
-    'managed-object.managedObjectCategory.slug',
+    'managed-object.managedObjectCategory.documentId',
   ],
   sortableAttributes: [
     // Article
