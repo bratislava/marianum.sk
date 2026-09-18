@@ -94,6 +94,8 @@ jobs:
     with:
       cluster: ${{ needs.resolve.outputs.cluster }}
       app: marianum.sk/strapi
+      # ponytail: infra units live on a branch until merged; drop to fall back to master
+      dispatch_ref: mpinter/marianum-sk-applications
 
   # ---- Next: build+push against the deployed Strapi, then deploy ----
   # When Strapi is out of scope (a *-next tag) deploy-strapi is skipped, which
@@ -118,3 +120,5 @@ jobs:
     with:
       cluster: ${{ needs.resolve.outputs.cluster }}
       app: marianum.sk/next
+      # ponytail: infra units live on a branch until merged; drop to fall back to master
+      dispatch_ref: mpinter/marianum-sk-applications
