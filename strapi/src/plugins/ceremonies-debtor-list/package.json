@@ -16,31 +16,30 @@
     "develop": "tsc -p tsconfig.server.json -w"
   },
   "dependencies": {
-    "@strapi/design-system": "1.19.0",
-    "@strapi/helper-plugin": "4.26.0",
-    "@strapi/icons": "1.19.0",
+    "@strapi/design-system": "2.2.4",
+    "@strapi/icons": "2.2.4",
     "assert": "2.1.0",
     "prop-types": "15.7.2",
     "uuid": "10.0.0",
     "xlsx": "0.18.5"
   },
   "devDependencies": {
-    "@strapi/typescript-utils": "4.26.0",
-    "@types/react": "18.2.0",
+    "@strapi/typescript-utils": "5.48.1",
+    "@types/react": "18.3.31",
     "@types/react-dom": "18.2.0",
-    "@types/react-router-dom": "5.3.3",
-    "@types/styled-components": "5.1.32",
+    "@types/styled-components": "5.1.36",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-router-dom": "5.3.4",
-    "styled-components": "5.3.11",
+    "react-router-dom": "6.30.4",
+    "styled-components": "6.5.3",
     "typescript": "5.0.4"
   },
   "peerDependencies": {
+    "@strapi/strapi": "5.48.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-router-dom": "^5.2.0",
-    "styled-components": "^5.2.1"
+    "react-router-dom": "^6.0.0",
+    "styled-components": "^6.0.0"
   },
   "engines": {
     "node": ">=20.19.x",

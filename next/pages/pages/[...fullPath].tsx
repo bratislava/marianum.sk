@@ -56,7 +56,7 @@ type PageProps = {
 } & SSRConfig
 
 const Slug = ({ navigation, entity, general, dehydratedState }: PageProps) => {
-  const { seo, title, perex, layout, sections, coverMedia } = entity.attributes ?? {}
+  const { seo, title, perex, layout, sections, coverMedia } = entity
 
   const isContainer = layout === Enum_Page_Layout.Fullwidth
 
@@ -64,7 +64,7 @@ const Slug = ({ navigation, entity, general, dehydratedState }: PageProps) => {
     <HydrationBoundary state={dehydratedState}>
       {/* TODO: Extract NavigationProvider from PageWrapper */}
       <NavigationProvider navigation={navigation} general={general}>
-        <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
+        <Seo seo={seo} title={title} description={perex} image={coverMedia} entity={entity} />
       </NavigationProvider>
 
       <PageLayout page={entity} navigation={navigation} general={general}>
@@ -158,7 +158,7 @@ const Slug = ({ navigation, entity, general, dehydratedState }: PageProps) => {
             if (section?.__typename === 'ComponentSectionsGallery') {
               return (
                 <Section key={`${section.__typename}-${section.id}`} title={section.title}>
-                  <ImageGallery images={section.medias?.data} variant="below" />
+                  <ImageGallery images={section.medias} variant="below" />
                 </Section>
               )
             }
@@ -257,7 +257,7 @@ interface StaticParams extends ParsedUrlQuery {
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   // TODO: Locales
   const paths = await generateStaticPaths('sk', async (locale) =>
-    client.PagesStaticPaths({ locale }).then((response) => response.pages?.data),
+    client.PagesStaticPaths({ locale }).then((response) => response.pages),
   )
 
   // eslint-disable-next-line no-console
@@ -278,7 +278,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
     locale,
     params,
     entityPromiseGetter: async ({ slug, locale: localeInner }) =>
-      client.PageBySlug({ slug, locale: localeInner }).then((response) => response.pages?.data[0]),
+      client.PageBySlug({ slug, locale: localeInner }).then((response) => response.pages[0]),
     getAdditionalProps: async (page) => {
       const dehydratedState = await prefetchPageSections(page, locale)
 

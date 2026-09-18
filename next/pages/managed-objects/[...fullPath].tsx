@@ -30,7 +30,7 @@ type ManagedObjectPageProps = {
 const ManagedObjectPage = ({ navigation, entity, general }: ManagedObjectPageProps) => {
   const { t } = useTranslation()
 
-  const { seo, title, address, navigateToLink, description } = entity.attributes ?? {}
+  const { seo, title, address, navigateToLink, description } = entity
 
   return (
     <>
@@ -83,10 +83,10 @@ interface StaticParams extends ParsedUrlQuery {
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   // TODO: Locales
   const paths = await generateStaticPaths('sk', (locale) =>
-    client.ManagedObjectsStaticPaths({ locale }).then((response) => response.managedObjects?.data),
+    client.ManagedObjectsStaticPaths({ locale }).then((response) => response.managedObjects),
   )
 
-  // eslint-disable-next-line no-console,@typescript-eslint/restrict-template-expressions
+  // eslint-disable-next-line no-console
   console.log(`Managed Objects: Generated static paths for ${paths.length} slugs.`)
 
   return {
@@ -108,7 +108,7 @@ export const getStaticProps: GetStaticProps<ManagedObjectPageProps, StaticParams
     entityPromiseGetter: ({ locale: localeInner, slug }) =>
       client
         .ManagedObjectBySlug({ locale: localeInner, slug })
-        .then((response) => response.managedObjects?.data[0]),
+        .then((response) => response.managedObjects[0]),
   })
 }
 

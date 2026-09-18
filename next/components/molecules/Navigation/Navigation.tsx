@@ -27,7 +27,7 @@ const Navigation = ({ contact }: NavigationProps) => {
 
   const { navigation } = useNavigationContext()
 
-  const { title, phone1, phone2 } = contact?.attributes ?? {}
+  const { title, phone1, phone2 } = contact ?? {}
 
   const TopContacts = () => (
     <>
@@ -57,7 +57,7 @@ const Navigation = ({ contact }: NavigationProps) => {
         </div>
       </div>
 
-      <div className="container relative flex h-[64px] flex-col lg:h-[120px]">
+      <div className="relative container flex h-[64px] flex-col lg:h-[120px]">
         <div className="flex h-[64px] items-center justify-between lg:h-[88px]">
           {/* left side of navigation */}
           <MLink

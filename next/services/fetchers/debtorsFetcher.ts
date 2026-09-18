@@ -21,7 +21,7 @@ export const getMeiliDebtorsQueryKey = (filters: DebtorsFilters) => ['Debtors', 
 export const meiliDebtorsFetcher = (filters: DebtorsFilters) =>
   meiliClient.index('debtor').search<DebtorMeili>(filters.search, {
     ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
-    filter: filters.cemeteryId ? [`cemetery.id = ${filters.cemeteryId}`] : [],
+    filter: filters.cemeteryId ? [`cemetery.documentId = ${filters.cemeteryId}`] : [],
   })
 
 export const getMeiliDebtorsQuery = (filters: DebtorsFilters = debtorsDefaultFilters) => {

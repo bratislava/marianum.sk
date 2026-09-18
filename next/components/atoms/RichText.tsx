@@ -51,7 +51,7 @@ const RichText = ({ className, content, coloredTable = true }: RichTextProps) =>
           h6: ({ children }) => <h6 className="text-size-h6-r font-bold lg:text-size-h6">{children}</h6>,
           img: ({ src, alt: altFromStrapi }) => {
             // Strapi inserts image in markdown like this: ![alt||caption](url)
-            // thanks to patch located in patches/@strapi+admin
+            // thanks to patch located in strapi/patches/@strapi+content-manager
             // If there is no || pattern, the whole alt should be used for both properties.
 
             let alt = altFromStrapi

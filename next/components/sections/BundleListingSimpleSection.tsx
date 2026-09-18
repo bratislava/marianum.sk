@@ -16,8 +16,7 @@ const BundleListingSimpleSection = ({ section, ...rest }: BundleListingSimpleSec
   return (
     <Section title={title} description={description} {...rest}>
       <div className="grid gap-6 md:auto-cols-fr md:grid-flow-col">
-        {bundles?.data?.filter(isDefined).map((bundle) => {
-          const { attributes } = bundle ?? {}
+        {bundles.filter(isDefined).map((bundle) => {
           const {
             title: bundleTitle,
             coverMedia,
@@ -26,14 +25,14 @@ const BundleListingSimpleSection = ({ section, ...rest }: BundleListingSimpleSec
             bundleItems,
             additionalItems,
             slug,
-          } = attributes ?? {}
+          } = bundle
 
           return (
             <BundleCard
               key={slug}
-              image={coverMedia?.data?.attributes}
-              name={bundleTitle ?? ''}
-              priceFrom={price ?? 0}
+              image={coverMedia}
+              name={bundleTitle}
+              priceFrom={price}
               discountText={discountTextShort ?? undefined}
               claims={
                 bundleItems?.map((bundleItem) => bundleItem?.description).filter(isDefined) ?? []

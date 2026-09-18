@@ -34,26 +34,26 @@ export type ArticlesQueryParameters = {
 export const getMeiliArticlesQueryKey = ({ filters, type, locale }: ArticlesQueryParameters) =>
   ['Articles', filters, type, locale].filter(isDefined)
 
-export const meiliArticlesFetcher = ({ filters, type, locale }: ArticlesQueryParameters) => {
+export const meiliArticlesFetcher = async ({ filters, type, locale }: ArticlesQueryParameters) => {
   let sectionFilter: string | null = null
 
   switch (type) {
     case ArticleType.Press:
       sectionFilter = filters.categoryId
-        ? `article.pressCategory.id = ${filters.categoryId}`
-        : 'article.pressCategory.id EXISTS'
+        ? `article.pressCategory.documentId = ${filters.categoryId}`
+        : 'article.pressCategory.documentId EXISTS'
       break
 
     case ArticleType.News:
       sectionFilter = filters.categoryId
-        ? `article.newsCategory.id = ${filters.categoryId}`
-        : 'article.newsCategory.id EXISTS'
+        ? `article.newsCategory.documentId = ${filters.categoryId}`
+        : 'article.newsCategory.documentId EXISTS'
       break
 
     case ArticleType.Jobs:
       sectionFilter = filters.categoryId
-        ? `article.jobsCategory.id = ${filters.categoryId}`
-        : 'article.jobsCategory.id EXISTS'
+        ? `article.jobsCategory.documentId = ${filters.categoryId}`
+        : 'article.jobsCategory.documentId EXISTS'
       break
 
     default:
@@ -83,7 +83,7 @@ export const getMeiliArticlesQuery = ({
       type: type ?? 'all',
       locale,
     }),
-    queryFn: () =>
+    queryFn: async () =>
       meiliArticlesFetcher({
         filters: filters ?? articlesDefaultFilters,
         type: type ?? 'all',

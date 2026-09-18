@@ -58,7 +58,7 @@ const ArchiveCard = ({
       >
         <h4>{archive.title}</h4>
         {archive.button && (
-          <MLink href={linkProps.href ?? ''} onClick={handleLinkClick}>
+          <MLink href={linkProps.href} onClick={handleLinkClick}>
             {linkProps.label}
           </MLink>
         )}
@@ -93,11 +93,8 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
   useScrollToViewIfDataChange(data, filters, theadRef)
 
   const ceremonies = useMemo(() => {
-    const ceremoniesData = data?.ceremonies?.data
-    if (!ceremoniesData) {
-      return undefined
-    }
-    if (ceremoniesData?.length === 0) {
+    const ceremoniesData = data.ceremonies
+    if (ceremoniesData.length === 0) {
       return []
     }
 
@@ -110,15 +107,15 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
         cemeteryInfo?.title
       )
 
-      const dateTimeZoned = parseAbsolute(ceremony.attributes?.dateTime, bratislavaTimezone)
+      const dateTimeZoned = parseAbsolute(ceremony?.dateTime, bratislavaTimezone)
       const calendarDate = toCalendarDate(dateTimeZoned)
 
       return {
-        ...ceremony.attributes,
+        ...ceremony,
         calendarDate,
         dateTime: dateTimeZoned.toDate(),
         cemetery,
-        id: ceremony.id,
+        id: ceremony?.documentId,
       }
     })
 
@@ -134,10 +131,10 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
 
   return (
     <div>
-      {ceremonies?.map(({ parsedDate, list }, dateIndex) => (
+      {ceremonies.map(({ parsedDate, list }, dateIndex) => (
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={dateIndex}>
-          <span className="text-size-h5-r lg:text-size-h5 mb-4 block font-semibold">
+          <span className="mb-4 block text-size-h5-r font-semibold lg:text-size-h5">
             <FormatDate value={parsedDate} format="ceremoniesDate" />
           </span>
           <TableWrapper>
@@ -154,12 +151,10 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
                 </tr>
               </thead>
               <tbody>
-                {list?.map((ceremony) => (
+                {list.map((ceremony) => (
                   <tr key={ceremony.id}>
                     <td>
-                      {ceremony.dateTime && (
-                        <FormatDate value={ceremony.dateTime} format="ceremoniesTime" />
-                      )}
+                      <FormatDate value={ceremony.dateTime} format="ceremoniesTime" />
                     </td>
                     <td>{ceremony.consentForPrivateFields ? ceremony.name : <PrivateField />}</td>
                     <td>
@@ -176,7 +171,7 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
           </TableWrapper>
         </Fragment>
       ))}
-      {ceremonies?.length === 0 && (
+      {ceremonies.length === 0 && (
         <div className="mb-6 md:mb-10">
           <strong>{t('CeremoniesSection.noCeremonies')}</strong>
         </div>

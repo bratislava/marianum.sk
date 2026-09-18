@@ -49,10 +49,10 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
           <span>
             <FormatDate value={formattedDate} format="articleCard" />
           </span>
-          {category?.attributes && (
+          {category && (
             <>
               {' '}
-              • <span>{category.attributes.title}</span>
+              • <span>{category.title}</span>
             </>
           )}
         </span>

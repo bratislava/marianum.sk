@@ -9,10 +9,7 @@ export const useDownloadAriaLabel = () => {
 
   const getDownloadAriaLabel = useCallback(
     (file: UploadFileEntityFragment, title: string): string => {
-      if (!file.attributes) {
-        return t('general.downloadFile')
-      }
-      const { size, ext } = file.attributes
+      const { size, ext } = file
       const formattedSize = filesize(size * 1000, { round: 1, locale: i18n.language })
       const extFormatted = ext ?? t('general.unknownFormat')
 

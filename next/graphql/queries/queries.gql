@@ -8,121 +8,91 @@ query General($locale: I18NLocaleCode!) {
     ...NavigationItem
   }
   general(locale: $locale) {
-    data {
-      ...GeneralEntity
-    }
+    ...GeneralEntity
   }
 }
 
 query Procedures($locale: I18NLocaleCode!) {
   procedures: procedure(locale: $locale) {
-    data {
-      ...ProceduresEntity
-    }
+    ...ProceduresEntity
   }
 }
 
 query Partners {
   partners(pagination: { limit: -1 }) {
-    data {
-      ...PartnerEntity
-    }
+    ...PartnerEntity
   }
 }
 
 query Reviews($locale: I18NLocaleCode!) {
   reviews(locale: $locale, sort: ["date:desc"], pagination: { limit: -1 }) {
-    data {
-      ...ReviewEntity
-    }
+    ...ReviewEntity
   }
 }
 
 query News($locale: I18NLocaleCode!) {
   articles(locale: $locale, sort: ["publishedAt:desc"], pagination: { limit: 4 }) {
-    data {
-      ...ArticleCardEntity
-    }
+    ...ArticleCardEntity
   }
 }
 
 query ArticleBySlug($locale: I18NLocaleCode!, $slug: String!) {
   articles(locale: $locale, filters: { slug: { eq: $slug } }) {
-    data {
-      ...ArticleEntity
-    }
+    ...ArticleEntity
   }
 }
 
 query PageBySlug($locale: I18NLocaleCode!, $slug: String!) {
   pages(locale: $locale, filters: { slug: { eq: $slug } }) {
-    data {
-      ...PageEntity
-    }
+    ...PageEntity
   }
 }
 
 query BranchBySlug($locale: I18NLocaleCode!, $slug: String!) {
   branches(locale: $locale, filters: { slug: { eq: $slug } }) {
-    data {
-      ...BranchEntity
-    }
+    ...BranchEntity
   }
 }
 
 query Branches($locale: I18NLocaleCode!) {
   branches(locale: $locale, pagination: { limit: -1 }) {
-    data {
-      ...BranchEntity
-    }
+    ...BranchEntity
   }
 }
 
 query CemeteryBySlug($locale: I18NLocaleCode!, $slug: String!) {
   cemeteries(locale: $locale, filters: { slug: { eq: $slug } }) {
-    data {
-      ...CemeteryEntity
-    }
+    ...CemeteryEntity
   }
 }
 
 query CemeteryCategories {
   cemeteryCategories(pagination: { limit: -1 }) {
-    data {
-      ...CemeteryCategoryEntity
-    }
+    ...CemeteryCategoryEntity
   }
 }
 
 query ManagedObjectBySlug($locale: I18NLocaleCode!, $slug: String!) {
   managedObjects(locale: $locale, filters: { slug: { eq: $slug } }) {
-    data {
-      ...ManagedObjectEntity
-    }
+    ...ManagedObjectEntity
   }
 }
 
 query ManagedObjectCategories {
   managedObjectCategories(pagination: { limit: -1 }) {
-    data {
-      ...ManagedObjectCategoryEntity
-    }
+    ...ManagedObjectCategoryEntity
   }
 }
 
 query BundleBySlug($locale: I18NLocaleCode!, $slug: String!) {
   bundles(locale: $locale, filters: { slug: { eq: $slug } }) {
-    data {
-      ...BundleEntity
-    }
+    ...BundleEntity
   }
 }
 
 query AssetBySlug($slug: String!) {
   assets(filters: { slug: { eq: $slug } }) {
-    data {
-      ...AssetEntity
-    }
+    ...AssetEntity
   }
 }
 
@@ -130,107 +100,87 @@ query AssetBySlug($slug: String!) {
 # easiest way to get all static paths is to ask for all locales sequentially
 query ArticlesStaticPaths($locale: I18NLocaleCode) {
   articles(locale: $locale, pagination: { limit: -1 }) {
-    data {
-      ...ArticleSlugEntity
-    }
+    ...ArticleSlugEntity
   }
 }
 
 query PagesStaticPaths($locale: I18NLocaleCode) {
   pages(locale: $locale, pagination: { limit: -1 }) {
-    data {
-      ...PageSlugEntity
-    }
+    ...PageSlugEntity
   }
 }
 
 query BranchesStaticPaths($locale: I18NLocaleCode) {
   branches(locale: $locale, pagination: { limit: -1 }) {
-    data {
-      ...BranchSlugEntity
-    }
+    ...BranchSlugEntity
   }
 }
 
 query BundlesStaticPaths($locale: I18NLocaleCode) {
   bundles(locale: $locale, pagination: { limit: -1 }) {
-    data {
-      ...BundleSlugEntity
-    }
+    ...BundleSlugEntity
   }
 }
 
 query CemeteriesStaticPaths($locale: I18NLocaleCode) {
   cemeteries(locale: $locale, pagination: { limit: -1 }) {
-    data {
-      ...CemeterySlugEntity
-    }
+    ...CemeterySlugEntity
   }
 }
 
 query ManagedObjectsStaticPaths($locale: I18NLocaleCode) {
   managedObjects(locale: $locale, pagination: { limit: -1 }) {
-    data {
-      ...ManagedObjectSlugEntity
-    }
+    ...ManagedObjectSlugEntity
   }
 }
 
 query AssetsStaticPaths {
   assets(pagination: { limit: -1 }) {
-    data {
-      ...AssetSlugEntity
-    }
+    ...AssetSlugEntity
   }
 }
 
 query HomePage($locale: I18NLocaleCode) {
   homePage(locale: $locale) {
-    data {
-      attributes {
-        featured {
-          ...Cta
-        }
-        seo {
-          ...Seo
-        }
-        sections {
-          ... on ComponentSectionsManualListing {
-            __typename
-            ...ManualListing
-          }
-          ... on ComponentSectionsArticlesManualListing {
-            __typename
-            ...ArticlesManualListing
-          }
-          ... on ComponentSectionsNewsListing {
-            __typename
-            ...NewsListing
-          }
-          ... on ComponentSectionsUpcomingCeremoniesSection {
-            __typename
-            ...UpcomingCeremoniesSection
-          }
-          ... on ComponentSectionsProceduresShortSection {
-            __typename
-            ...ProceduresShortSection
-          }
-          ... on ComponentSectionsCtaSection {
-            __typename
-            ...CtaSection
-          }
-          ... on ComponentSectionsHomepageReviewsSection {
-            __typename
-            ...HomepageReviewsSection
-          }
-        }
+    featured {
+      ...Cta
+    }
+    seo {
+      ...Seo
+    }
+    sections {
+      ... on ComponentSectionsManualListing {
+        __typename
+        ...ManualListing
+      }
+      ... on ComponentSectionsArticlesManualListing {
+        __typename
+        ...ArticlesManualListing
+      }
+      ... on ComponentSectionsNewsListing {
+        __typename
+        ...NewsListing
+      }
+      ... on ComponentSectionsUpcomingCeremoniesSection {
+        __typename
+        ...UpcomingCeremoniesSection
+      }
+      ... on ComponentSectionsProceduresShortSection {
+        __typename
+        ...ProceduresShortSection
+      }
+      ... on ComponentSectionsCtaSection {
+        __typename
+        ...CtaSection
+      }
+      ... on ComponentSectionsHomepageReviewsSection {
+        __typename
+        ...HomepageReviewsSection
       }
     }
   }
   procedures: procedure(locale: $locale) {
-    data {
-      ...ProceduresEntity
-    }
+    ...ProceduresEntity
   }
 }
 
@@ -240,69 +190,53 @@ query HomepageCeremonies($dateTime: DateTime!) {
     sort: ["dateTime:asc"]
     pagination: { limit: 5 }
   ) {
-    data {
-      ...HomepageCeremonyEntity
-    }
+    ...HomepageCeremonyEntity
   }
 }
 
 query Ceremonies($dateTime: DateTime!, $cemeteryIdFilter: IDFilterInput = {}) {
   ceremonies(
     pagination: { limit: -1 }
-    filters: { dateTime: { gte: $dateTime }, cemetery: { id: $cemeteryIdFilter } }
+    filters: { dateTime: { gte: $dateTime }, cemetery: { documentId: $cemeteryIdFilter } }
     sort: ["dateTime:asc"]
   ) {
-    data {
-      ...CeremonyEntity
-    }
+    ...CeremonyEntity
   }
 }
 
 query CemeteriesInCeremonies {
   cemeteries(filters: { allowInCeremonies: { eq: true } }, pagination: { limit: -1 }) {
-    data {
-      ...CemeteryInCeremoniesDebtorsEntity
-    }
+    ...CemeteryInCeremoniesDebtorsEntity
   }
 }
 
 query CemeteriesInDebtors {
   cemeteries(filters: { allowInDebtors: { eq: true } }, pagination: { limit: -1 }) {
-    data {
-      ...CemeteryInCeremoniesDebtorsEntity
-    }
+    ...CemeteryInCeremoniesDebtorsEntity
   }
 }
 
 query AssetCategories {
   assetCategories(pagination: { limit: -1 }) {
-    data {
-      ...AssetCategoryEntity
-    }
+    ...AssetCategoryEntity
   }
 }
 
 query ArticleNewsCategories {
   articleNewsCategories(pagination: { limit: -1 }) {
-    data {
-      ...ArticleNewsCategoryEntity
-    }
+    ...ArticleNewsCategoryEntity
   }
 }
 
 query ArticlePressCategories {
   articlePressCategories(pagination: { limit: -1 }) {
-    data {
-      ...ArticlePressCategoryEntity
-    }
+    ...ArticlePressCategoryEntity
   }
 }
 
 query ArticleJobsCategories {
   articleJobsCategories(pagination: { limit: -1 }) {
-    data {
-      ...ArticleJobsCategoryEntity
-    }
+    ...ArticleJobsCategoryEntity
   }
 }
 

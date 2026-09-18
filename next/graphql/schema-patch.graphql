@@ -1,0 +1,19 @@
+# Local schema patch applied on top of ../strapi/schema.graphql during codegen.
+#
+# strapi-plugin-navigation registers the NavigationItemAdditionalFields object type
+# unconditionally, but populates its fields from the plugin's `additionalFields`
+# config (strapi/config/plugins.ts). That config is an empty array here, so the
+# plugin emits a type with no fields:
+#
+#     type NavigationItemAdditionalFields
+#
+# which is invalid SDL and makes codegen fail with
+# "Type NavigationItemAdditionalFields must define one or more fields."
+#
+# Giving it one placeholder field makes the schema buildable. We never select
+# additionalFields in any document, so nothing else is affected. Remove this file
+# once the plugin stops emitting the type when no additional fields are configured,
+# or once real additionalFields are configured in Strapi.
+extend type NavigationItemAdditionalFields {
+  _unused: Boolean
+}

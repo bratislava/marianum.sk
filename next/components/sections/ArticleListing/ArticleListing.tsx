@@ -40,7 +40,7 @@ const Articles = ({
   const cardsRef = useRef<HTMLDivElement>(null)
   useScrollToViewIfDataChange(data, filters, cardsRef)
 
-  if (data.hits?.length > 0) {
+  if (data.hits.length > 0) {
     return (
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4" ref={cardsRef}>
         <h2 className="sr-only">{t('ArticleListing.aria.results')}</h2>
@@ -57,13 +57,13 @@ const Articles = ({
           const category = (() => {
             switch (type) {
               case ArticleType.News:
-                return { attributes: newsCategory }
+                return newsCategory
 
               case ArticleType.Press:
-                return { attributes: pressCategory }
+                return pressCategory
 
               case ArticleType.Jobs:
-                return { attributes: jobsCategory }
+                return jobsCategory
 
               default:
                 return null

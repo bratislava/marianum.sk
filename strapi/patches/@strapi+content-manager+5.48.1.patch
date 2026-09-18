@@ -1,0 +1,26 @@
+diff --git a/node_modules/@strapi/content-manager/dist/admin/pages/EditView/components/FormInputs/Wysiwyg/Field.js b/node_modules/@strapi/content-manager/dist/admin/pages/EditView/components/FormInputs/Wysiwyg/Field.js
+index da1b83d..185b1c4 100644
+--- a/node_modules/@strapi/content-manager/dist/admin/pages/EditView/components/FormInputs/Wysiwyg/Field.js
++++ b/node_modules/@strapi/content-manager/dist/admin/pages/EditView/components/FormInputs/Wysiwyg/Field.js
+@@ -48,7 +48,7 @@ const Wysiwyg = /*#__PURE__*/ React__namespace.forwardRef(({ hint, disabled, lab
+     };
+     const handleSelectAssets = (files)=>{
+         const formattedFiles = files.map((f)=>({
+-                alt: f.alternativeText || f.name,
++                alt: `${f.alternativeText || ''}||${f.caption || ''}`,
+                 url: urls.prefixFileUrlWithBackendUrl(f.url),
+                 mime: f.mime
+             }));
+diff --git a/node_modules/@strapi/content-manager/dist/admin/pages/EditView/components/FormInputs/Wysiwyg/Field.mjs b/node_modules/@strapi/content-manager/dist/admin/pages/EditView/components/FormInputs/Wysiwyg/Field.mjs
+index 887e12b..cca1134 100644
+--- a/node_modules/@strapi/content-manager/dist/admin/pages/EditView/components/FormInputs/Wysiwyg/Field.mjs
++++ b/node_modules/@strapi/content-manager/dist/admin/pages/EditView/components/FormInputs/Wysiwyg/Field.mjs
+@@ -27,7 +27,7 @@ const Wysiwyg = /*#__PURE__*/ React.forwardRef(({ hint, disabled, label, name, p
+     };
+     const handleSelectAssets = (files)=>{
+         const formattedFiles = files.map((f)=>({
+-                alt: f.alternativeText || f.name,
++                alt: `${f.alternativeText || ''}||${f.caption || ''}`,
+                 url: prefixFileUrlWithBackendUrl(f.url),
+                 mime: f.mime
+             }));

@@ -25,7 +25,7 @@ const HomepageReviewsSection = ({ section }: HomepageReviewsSectionProps) => {
             disableOnInteraction: true,
             pauseOnMouseEnter: true,
           }}
-          allowTouchMove={(section?.reviews?.data?.length ?? 0) > 4}
+          allowTouchMove={(section?.reviews.length ?? 0) > 4}
           breakpoints={{
             640: {
               slidesPerView: 2,
@@ -39,18 +39,16 @@ const HomepageReviewsSection = ({ section }: HomepageReviewsSectionProps) => {
           }}
           modules={[Autoplay]}
         >
-          {section?.reviews?.data
-            ?.sort((reviewA, reviewB) =>
-              reviewA.attributes?.date < reviewB.attributes?.date ? 1 : -1,
-            )
+          {section?.reviews
+            .sort((reviewA, reviewB) => (reviewA?.date < reviewB?.date ? 1 : -1))
             .map((review, index) => (
-              // eslint-disable-next-line react/no-array-index-key, @typescript-eslint/restrict-template-expressions
-              <SwiperSlide key={`${review.id}-${index}`}>
+              // eslint-disable-next-line react/no-array-index-key
+              <SwiperSlide key={`${review?.documentId}-${index}`}>
                 <ReviewCard
-                  author={review.attributes?.author ?? ''}
-                  date={new Date(review.attributes?.date)}
-                  rating={review.attributes?.rating ?? 5}
-                  description={review.attributes?.description ?? ''}
+                  author={review?.author ?? ''}
+                  date={new Date(review?.date)}
+                  rating={review?.rating ?? 5}
+                  description={review?.description ?? ''}
                 />
               </SwiperSlide>
             ))}

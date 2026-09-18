@@ -26,10 +26,10 @@ const BranchCemeteryLayout = ({
   children,
   general,
 }: BranchCemeteryLayoutProps) => {
-  const { title, slug, contact, medias } = entity.attributes ?? {}
-  const { title: contactTitle, phone1, phone2, email } = contact?.data?.attributes ?? {}
+  const { title, slug, contact, medias } = entity
+  const { title: contactTitle, phone1, phone2, email } = contact ?? {}
 
-  const hasMedias = !!medias?.data?.length
+  const hasMedias = !!medias.length
 
   return (
     <PageWrapper
@@ -38,16 +38,14 @@ const BranchCemeteryLayout = ({
       header={
         <HeroSection
           breadcrumbsMoreItems={[{ label: title, path: slug ?? '' }]}
-          moreContent={
-            hasMedias ? <ImageGallery images={medias?.data} variant="aside" /> : undefined
-          }
+          moreContent={hasMedias ? <ImageGallery images={medias} variant="aside" /> : undefined}
         />
       }
     >
       <div className="h-full">
         <div
           className={cn(
-            'container relative grid h-auto grid-cols-1 gap-6 pb-20 lg:grid-flow-col lg:grid-cols-[minmax(0,1fr)_auto]',
+            'relative container grid h-auto grid-cols-1 gap-6 pb-20 lg:grid-flow-col lg:grid-cols-[minmax(0,1fr)_auto]',
             {
               'pt-24': hasMedias,
               'pt-6': !hasMedias,

@@ -9,21 +9,21 @@ const BranchGroup = ({ branches }: BranchGroupFragment) => {
   const { getFullPath } = useGetFullPath()
 
   const filteredBranches = useMemo(() => {
-    return (branches ?? []).map((branch) => branch?.branch?.data).filter(isDefined)
+    return (branches ?? []).map((branch) => branch?.branch).filter(isDefined)
   }, [branches])
 
   return (
     <div className="flex flex-col gap-4">
       {filteredBranches?.map((branch) => {
-        const { title, slug, address, offices } = branch.attributes ?? {}
+        const { title, slug, address, offices } = branch
 
         return (
           <Row
             key={slug}
-            title={title ?? ''}
+            title={title}
             address={address}
             linkHref={getFullPath(branch) ?? ''}
-            tags={offices?.data.map((office) => office?.attributes?.title).filter(isDefined)}
+            tags={offices.map((office) => office?.title).filter(isDefined)}
             tagsPosition="under"
           />
         )

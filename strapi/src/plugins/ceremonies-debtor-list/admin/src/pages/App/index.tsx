@@ -5,19 +5,18 @@
  *
  */
 
-import React from 'react'
-import { Route, Switch } from 'react-router-dom'
-import { AnErrorOccurred } from '@strapi/helper-plugin'
-import pluginId from '../../pluginId'
+import { Route, Routes } from 'react-router-dom'
+import { Page } from '@strapi/strapi/admin'
 import HomePage from '../HomePage'
 
 const App = () => {
   return (
     <div>
-      <Switch>
-        <Route path={`/plugins/${pluginId}`} component={HomePage} exact />
-        <Route component={AnErrorOccurred} />
-      </Switch>
+      <Routes>
+        <Route index element={<HomePage />} />
+
+        <Route path="*" element={<Page.Error />} />
+      </Routes>
     </div>
   )
 }

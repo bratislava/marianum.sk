@@ -27,23 +27,23 @@ const Table = () => {
   })
 
   const ceremonies = useMemo(() => {
-    const ceremoniesData = data?.ceremonies?.data
+    const ceremoniesData = data?.ceremonies
     if (!ceremoniesData) {
       return undefined
     }
-    if (ceremoniesData?.length === 0) {
+    if (ceremoniesData.length === 0) {
       return { ceremonies: [] }
     }
     // The API returns first 5 ceremonies, but we want to display ceremonies only of the same date. Therefore, we get the
     // date of the first ceremony and filter only those taking place on the same date.
     const firstCeremonyDayDateTimeZoned = parseAbsolute(
-      ceremoniesData[0]?.attributes?.dateTime,
+      ceremoniesData[0]?.dateTime,
       bratislavaTimezone,
     )
 
     const filteredCeremonies = ceremoniesData.filter((ceremony) =>
       isSameDay(
-        parseAbsolute(ceremony.attributes?.dateTime, bratislavaTimezone),
+        parseAbsolute(ceremony?.dateTime, bratislavaTimezone),
         firstCeremonyDayDateTimeZoned,
       ),
     )
@@ -60,11 +60,11 @@ const Table = () => {
         )
 
         return {
-          id: ceremony.id,
-          name: ceremony.attributes?.name,
-          consentForPrivateFields: ceremony.attributes?.consentForPrivateFields,
+          id: ceremony?.documentId,
+          name: ceremony?.name,
+          consentForPrivateFields: ceremony?.consentForPrivateFields,
           cemetery,
-          time: new Date(ceremony.attributes?.dateTime),
+          time: new Date(ceremony?.dateTime),
         }
       }),
     }
@@ -100,7 +100,6 @@ const Table = () => {
       </thead>
       <tbody>
         {ceremonies?.ceremonies.map((ceremony) => (
-          // eslint-disable-next-line react/no-array-index-key
           <tr className="group border-t border-border first:border-t-0" key={ceremony.id}>
             <td className="py-4 group-last:pb-0">
               {ceremony.consentForPrivateFields ? (
