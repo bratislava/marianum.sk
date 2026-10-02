@@ -32,11 +32,11 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
     const firstSectionOfType = page.sections?.find(
       (section) => section?.__typename === 'ComponentSectionsMapSection',
     )
-    const categoryIds = firstSectionOfType?.categories
+    const categoryDocumentIds = firstSectionOfType?.categories
       .map((category) => category?.documentId)
       .filter(isDefined)
     await queryClient.prefetchQuery(
-      getMeiliCemeteriesQuery({ ...mapOfCemeteriesSectionDefaultFilters, categoryIds }),
+      getMeiliCemeteriesQuery({ ...mapOfCemeteriesSectionDefaultFilters, categoryDocumentIds }),
     )
   }
 
@@ -44,11 +44,14 @@ export const prefetchPageSections = async (page: PageEntityFragment, locale: str
     const firstSectionOfType = page.sections?.find(
       (section) => section?.__typename === 'ComponentSectionsMapOfManagedObjects',
     )
-    const categoryIds = firstSectionOfType?.categories
+    const categoryDocumentIds = firstSectionOfType?.categories
       .map((category) => category?.documentId)
       .filter(isDefined)
     await queryClient.prefetchQuery(
-      getMeiliManagedObjectsQuery({ ...mapOfManagedObjectsSectionDefaultFilters, categoryIds }),
+      getMeiliManagedObjectsQuery({
+        ...mapOfManagedObjectsSectionDefaultFilters,
+        categoryDocumentIds,
+      }),
     )
   }
 

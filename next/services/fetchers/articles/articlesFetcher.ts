@@ -14,14 +14,14 @@ export enum ArticleType {
 export type ArticlesFilters = {
   pageSize: number
   search: string
-  categoryId: string | null
+  categoryDocumentId: string | null
   page: number
 }
 
 export const articlesDefaultFilters: ArticlesFilters = {
   pageSize: 24,
   search: '',
-  categoryId: null,
+  categoryDocumentId: null,
   page: 1,
 }
 
@@ -39,20 +39,20 @@ export const meiliArticlesFetcher = async ({ filters, type, locale }: ArticlesQu
 
   switch (type) {
     case ArticleType.Press:
-      sectionFilter = filters.categoryId
-        ? `article.pressCategory.documentId = ${filters.categoryId}`
+      sectionFilter = filters.categoryDocumentId
+        ? `article.pressCategory.documentId = ${filters.categoryDocumentId}`
         : 'article.pressCategory.documentId EXISTS'
       break
 
     case ArticleType.News:
-      sectionFilter = filters.categoryId
-        ? `article.newsCategory.documentId = ${filters.categoryId}`
+      sectionFilter = filters.categoryDocumentId
+        ? `article.newsCategory.documentId = ${filters.categoryDocumentId}`
         : 'article.newsCategory.documentId EXISTS'
       break
 
     case ArticleType.Jobs:
-      sectionFilter = filters.categoryId
-        ? `article.jobsCategory.documentId = ${filters.categoryId}`
+      sectionFilter = filters.categoryDocumentId
+        ? `article.jobsCategory.documentId = ${filters.categoryDocumentId}`
         : 'article.jobsCategory.documentId EXISTS'
       break
 

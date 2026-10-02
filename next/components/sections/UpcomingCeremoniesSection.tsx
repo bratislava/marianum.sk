@@ -60,7 +60,7 @@ const Table = () => {
         )
 
         return {
-          id: ceremony?.documentId,
+          documentId: ceremony?.documentId,
           name: ceremony?.name,
           consentForPrivateFields: ceremony?.consentForPrivateFields,
           cemetery,
@@ -100,7 +100,7 @@ const Table = () => {
       </thead>
       <tbody>
         {ceremonies?.ceremonies.map((ceremony) => (
-          <tr className="group border-t border-border first:border-t-0" key={ceremony.id}>
+          <tr className="group border-t border-border first:border-t-0" key={ceremony.documentId}>
             <td className="py-4 group-last:pb-0">
               {ceremony.consentForPrivateFields ? (
                 ceremony.name

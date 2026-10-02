@@ -115,7 +115,6 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
         calendarDate,
         dateTime: dateTimeZoned.toDate(),
         cemetery,
-        id: ceremony?.documentId,
       }
     })
 

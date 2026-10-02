@@ -8,27 +8,27 @@ export type CemeteriesFilters = {
   pageSize: number
   search: string
   page: number
-  categoryIds?: string[]
+  categoryDocumentIds?: string[]
 }
 
 export const cemeteriesDefaultFilters: CemeteriesFilters = {
   pageSize: 24,
   search: '',
   page: 1,
-  categoryIds: [],
+  categoryDocumentIds: [],
 }
 
 export const getMeiliCemeteriesQueryKey = (filters: CemeteriesFilters) => ['Cemeteries', filters]
 
-export const meiliCemeteriesFetcher = (filters: CemeteriesFilters) => {
+export const meiliCemeteriesFetcher = async (filters: CemeteriesFilters) => {
   return meiliClient
     .index('search_index')
     .search<SearchIndexWrapped<'cemetery', CemeteryMeili>>(filters.search, {
       ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
       filter: [
         'type = "cemetery"',
-        filters.categoryIds?.length
-          ? `cemetery.cemeteryCategory.documentId IN [${filters.categoryIds.join(',')}]`
+        filters.categoryDocumentIds?.length
+          ? `cemetery.cemeteryCategory.documentId IN [${filters.categoryDocumentIds.join(',')}]`
           : null,
       ].filter(isDefined),
       sort: ['cemetery.title:asc'],
@@ -39,6 +39,6 @@ export const meiliCemeteriesFetcher = (filters: CemeteriesFilters) => {
 export const getMeiliCemeteriesQuery = (filters: CemeteriesFilters = cemeteriesDefaultFilters) => {
   return {
     queryKey: getMeiliCemeteriesQueryKey(filters),
-    queryFn: () => meiliCemeteriesFetcher(filters),
+    queryFn: async () => meiliCemeteriesFetcher(filters),
   } as const
 }
