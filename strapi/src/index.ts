@@ -42,7 +42,7 @@ export default {
 
     // create Revalidate webhook according to this suggestion https://github.com/strapi/strapi/pull/20487#issuecomment-2482527848
     const webhooks = await strapi.get('webhookStore').findWebhooks()
-    const webhook = webhooks.find((w) => w.name === 'Bootstrapped Revalidate')
+    const webhook = webhooks.find((webhook) => webhook.name === 'Bootstrapped Revalidate')
 
     if (!webhook) {
       await strapi.get('webhookStore').createWebhook({

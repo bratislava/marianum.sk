@@ -53,7 +53,7 @@ export const useGetLinkProps = () => {
       // label = link.label ?? link.managedObject.title
       href = getFullPath(link.managedObject) ?? '#'
     } else if (link.url) {
-      label = link.label
+      label = link.label ?? link.url
       href = link.url
       target = href.startsWith('http') ? '_blank' : '_self'
     }

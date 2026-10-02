@@ -80,7 +80,7 @@ const config = {
   page: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) => wrapSearchIndexEntry('page', entry),
@@ -88,7 +88,7 @@ const config = {
   branch: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) => wrapSearchIndexEntry('branch', entry),
@@ -96,7 +96,7 @@ const config = {
   article: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) =>
@@ -110,7 +110,7 @@ const config = {
   bundle: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) => wrapSearchIndexEntry('bundle', entry),
@@ -118,7 +118,7 @@ const config = {
   cemetery: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) => wrapSearchIndexEntry('cemetery', entry),
