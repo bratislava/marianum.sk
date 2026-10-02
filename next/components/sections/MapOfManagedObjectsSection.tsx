@@ -25,18 +25,20 @@ export const mapOfManagedObjectsSectionDefaultFilters = {
 const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps) => {
   const { getFullPath } = useGetFullPath()
 
-  const categories = section.categories?.data.filter(isDefined) ?? []
+  const categories = section.categories.filter(isDefined)
 
-  const defaultCategoryIds = categories.map((category) => category.id).filter(isDefined)
+  const defaultcategoryDocumentIds = categories
+    .map((category) => category.documentId)
+    .filter(isDefined)
 
   const [filters, setFilters] = useState({
     ...mapOfManagedObjectsSectionDefaultFilters,
-    categoryIds: defaultCategoryIds,
+    categoryDocumentIds: defaultcategoryDocumentIds,
   })
 
   const { data, isPending, isError, error } = useQuery({
     queryKey: getMeiliManagedObjectsQueryKey(filters),
-    queryFn: () => meiliManagedObjectsFetcher(filters),
+    queryFn: async () => meiliManagedObjectsFetcher(filters),
     placeholderData: keepPreviousData,
   })
 
@@ -69,19 +71,20 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
         onSelectionChange={(selection) => {
           setFilters((prevState) => ({
             ...prevState,
-            categoryIds:
+            categoryDocumentIds:
               selection === 'all'
-                ? defaultCategoryIds
-                : defaultCategoryIds.filter((categoryId) => selection.has(categoryId)),
+                ? defaultcategoryDocumentIds
+                : defaultcategoryDocumentIds.filter((categoryDocumentId) =>
+                    selection.has(categoryDocumentId),
+                  ),
           }))
         }}
         landmarks={data.hits
           .map((hit) => {
-            const { title, latitude, longitude, address } = hit ?? {}
+            const { title, latitude, longitude, address } = hit
             const linkHref = getFullPath({
-              id: hit.id,
-              attributes: hit,
-              __typename: 'ManagedObjectEntity',
+              __typename: 'ManagedObject',
+              ...hit,
             })
             if (linkHref && latitude && longitude) {
               return {
@@ -99,9 +102,9 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
           .filter(isDefined)}
         tags={categories
           .map((category) => {
-            const { title } = category.attributes ?? {}
+            const { title } = category
 
-            return category.id && title ? { id: category.id, title } : null
+            return category.documentId && title ? { id: category.documentId, title } : null
           })
           .filter(isDefined)}
       />

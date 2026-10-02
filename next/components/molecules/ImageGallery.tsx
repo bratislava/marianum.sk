@@ -10,10 +10,11 @@ import MImage from '@/components/atoms/MImage'
 import ImageLightBox from '@/components/molecules/ImageLightBox'
 import { UploadImageEntityFragment } from '@/graphql'
 import cn from '@/utils/cn'
+import { isDefined } from '@/utils/isDefined'
 import { onEnterOrSpaceKeyDown } from '@/utils/onEnterOrSpaceKeyDown'
 
 export type ImageGalleryProps = {
-  images: UploadImageEntityFragment[] | undefined
+  images?: (UploadImageEntityFragment | null)[]
   variant?: 'below' | 'aside'
 }
 
@@ -21,13 +22,14 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
   const { t } = useTranslation()
 
   // all images count
+  const filteredImages = images.filter(isDefined)
   const imageCount = useMemo(() => {
-    return images.length
-  }, [images])
+    return filteredImages.length
+  }, [filteredImages])
 
   const firstImage = useMemo(() => {
-    return images[0] ?? undefined
-  }, [images])
+    return filteredImages[0] ?? undefined
+  }, [filteredImages])
 
   const { ref: containerRef, width: containerWidth } = useResizeDetector()
 
@@ -58,8 +60,8 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
   }, [imageCount, thumbnailCount])
 
   const smallImages = useMemo(() => {
-    return images.slice(1, thumbnailCount + 1)
-  }, [images, thumbnailCount])
+    return filteredImages.slice(1, thumbnailCount + 1)
+  }, [filteredImages, thumbnailCount])
 
   const overlayState = useOverlayTriggerState({ defaultOpen: false })
   const [initialImageIndex, setInitialImageIndex] = useState(0)
@@ -101,13 +103,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                 'pt-[54%]': thumbnailCount === 0 && variant === 'aside',
               })}
             >
-              {firstImage.attributes && (
-                <MImage
-                  image={firstImage.attributes}
-                  fill
-                  className="absolute top-0 object-cover"
-                />
-              )}
+              <MImage image={firstImage} fill className="absolute top-0 object-cover" />
             </div>
           )}
 
@@ -117,22 +113,15 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
               className="mt-4 grid gap-4"
               style={{ gridTemplateColumns: `repeat(${thumbnailCount + 1}, 1fr)` }}
             >
-              {smallImages
-                .filter((image) => image.attributes)
-                .map((image, index) => (
-                  <div
-                    onClick={() => openAtImageIndex(index + 1)}
-                    key={image.id}
-                    className="relative w-full pt-[100%]"
-                  >
-                    <MImage
-                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                      image={image.attributes!}
-                      fill
-                      className="absolute top-0 object-cover"
-                    />
-                  </div>
-                ))}
+              {smallImages.map((image, index) => (
+                <div
+                  onClick={() => openAtImageIndex(index + 1)}
+                  key={image.documentId}
+                  className="relative w-full pt-[100%]"
+                >
+                  <MImage image={image} fill className="absolute top-0 object-cover" />
+                </div>
+              ))}
 
               {/* more images button */}
               {moreImagesCount > 0 && (
@@ -158,22 +147,15 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
                 hidden: imageCount === 1,
               })}
             >
-              {smallImages
-                .filter((image) => image.attributes)
-                .map((image, index) => (
-                  <div
-                    onClick={() => openAtImageIndex(index + 1)}
-                    key={image.id}
-                    className="relative w-[168px] pt-[168px]"
-                  >
-                    <MImage
-                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                      image={image.attributes!}
-                      fill
-                      className="absolute top-0 object-cover"
-                    />
-                  </div>
-                ))}
+              {smallImages.map((image, index) => (
+                <div
+                  onClick={() => openAtImageIndex(index + 1)}
+                  key={image.documentId}
+                  className="relative w-[168px] pt-[168px]"
+                >
+                  <MImage image={image} fill className="absolute top-0 object-cover" />
+                </div>
+              ))}
 
               {/* more images button */}
               {moreImagesCount > 0 && (

@@ -28,9 +28,9 @@ type BranchPageProps = {
 const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
   const { t } = useTranslation()
 
-  const { seo, title, address, navigateToLink, description, offices } = entity.attributes ?? {}
+  const { seo, title, address, navigateToLink, description, offices } = entity
 
-  const filteredOffices = offices?.data?.filter(isDefined)
+  const filteredOffices = offices.filter(isDefined)
 
   return (
     <>
@@ -70,7 +70,9 @@ const BranchPage = ({ navigation, entity, general }: BranchPageProps) => {
               <RichText content={description} coloredTable={false} />
             </SectionBoxed>
           )}
-          {filteredOffices?.map((office) => <OfficeSectionBoxed office={office} key={office.id} />)}
+          {filteredOffices.map((office) => (
+            <OfficeSectionBoxed office={office} key={office.documentId} />
+          ))}
         </div>
       </BranchCemeteryLayout>
     </>
@@ -84,10 +86,10 @@ interface StaticParams extends ParsedUrlQuery {
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   // TODO: Locales
   const paths = await generateStaticPaths('sk', (locale) =>
-    client.BranchesStaticPaths({ locale }).then((response) => response.branches?.data),
+    client.BranchesStaticPaths({ locale }).then((response) => response.branches),
   )
 
-  // eslint-disable-next-line no-console, @typescript-eslint/restrict-template-expressions
+  // eslint-disable-next-line no-console
   console.log(`Branches: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }
@@ -106,9 +108,7 @@ export const getStaticProps: GetStaticProps<BranchPageProps, StaticParams> = asy
       locale,
       params,
       entityPromiseGetter: ({ locale: localeInner, slug }) =>
-        client
-          .BranchBySlug({ locale: localeInner, slug })
-          .then((response) => response.branches?.data[0]),
+        client.BranchBySlug({ locale: localeInner, slug }).then((response) => response.branches[0]),
     })
   )
 }

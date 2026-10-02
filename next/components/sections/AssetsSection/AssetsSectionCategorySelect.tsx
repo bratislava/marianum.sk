@@ -4,19 +4,18 @@ import { useMemo } from 'react'
 import { SelectItem } from '@/components/atoms/SelectField'
 import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
 import { client } from '@/services/graphql/gqlClient'
+import { isDefined } from '@/utils/isDefined'
 
 type AssetsSectionCategorySelectProps = {
   onCategoryChange: (id: string | null) => void
 }
 
 const mappedFetcher = async () =>
-  client.AssetCategories().then(
-    (data) =>
-      data.assetCategories?.data.map((category) => ({
-        label: category.attributes?.title,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        key: category.id!,
-      })) ?? [],
+  client.AssetCategories().then((data) =>
+    data.assetCategories.filter(isDefined).map((category) => ({
+      label: category.title,
+      key: category.documentId,
+    })),
   )
 
 const AssetsSectionCategorySelect = ({ onCategoryChange }: AssetsSectionCategorySelectProps) => {

@@ -137,10 +137,10 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
 
   const handlePrint = useCallback(() => {
     // we can only print pdf files
-    if (downloadFile?.attributes?.ext === '.pdf' && downloadFile?.attributes?.url) {
-      prntr({ printable: downloadFile.attributes.url, type: 'pdf' })
+    if (downloadFile?.ext === '.pdf' && downloadFile.url) {
+      prntr({ printable: downloadFile.url, type: 'pdf' })
     }
-  }, [downloadFile?.attributes])
+  }, [downloadFile])
 
   return (
     <div className="flex w-full flex-col gap-6">
@@ -180,8 +180,8 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
               >
                 <div
                   className={cn('transition-all sm:hidden', {
-                    'opacity-100 w-10 pr-4': isCompleted,
-                    'opacity-0 w-0': !isCompleted,
+                    'w-10 pr-4 opacity-100': isCompleted,
+                    'w-0 opacity-0': !isCompleted,
                   })}
                 >
                   <ChecklistRadio className="sm:hidden" isOpen={false} isCompleted={isCompleted} />
@@ -195,17 +195,17 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
                   {
                     // download buttons for last item
                     isLast ? (
-                      downloadFile?.attributes?.url ? (
+                      downloadFile?.url ? (
                         <div className="flex flex-col gap-4 sm:flex-row">
                           <Button
                             startIcon={<DownloadIcon />}
                             target="_blank"
-                            href={downloadFile.attributes.url}
+                            href={downloadFile.url}
                             // TODO use hook for filesize
-                             
+
                             aria-label={`${t('Checklist.aria.download')} ${
-                              downloadFile.attributes.name
-                            } ${filesize(downloadFile.attributes.size * 1000, {
+                              downloadFile.name
+                            } ${filesize(downloadFile.size * 1000, {
                               round: 1,
                               locale: i18n.language,
                             })}`}
@@ -213,7 +213,7 @@ const Checklist = ({ localStorageId, updatedAt, items, downloadFile }: Checklist
                             {t('Checklist.download')}
                           </Button>
                           {/* we can only print pdf files */}
-                          {downloadFile.attributes.ext === '.pdf' && (
+                          {downloadFile.ext === '.pdf' && (
                             <Button
                               startIcon={<PrintIcon />}
                               variant="secondary"

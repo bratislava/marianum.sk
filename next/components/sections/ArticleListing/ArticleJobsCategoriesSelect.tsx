@@ -9,7 +9,7 @@ import {
 } from '@/services/fetchers/articles/articleCategoriesSelectFetcher'
 
 type ArticleJobsCategoriesSelectProps = {
-  onCategoryChange: (id: string | null) => void
+  onCategoryChange: (documentId: string | null) => void
 }
 
 const ArticleJobsCategoriesSelect = ({ onCategoryChange }: ArticleJobsCategoriesSelectProps) => {

@@ -20,16 +20,16 @@ type AssetLayoutProps = {
 const AssetLayout = ({ asset, navigation, general }: AssetLayoutProps) => {
   const { t, i18n } = useTranslation()
 
-  const { title, description, file, publishedAt, assetCategory, slug } = asset.attributes ?? {}
+  const { title, description, file, publishedAt, assetCategory, slug } = asset
 
   const dlData = useMemo(() => {
     return [
-      ...(assetCategory?.data?.attributes
+      ...(assetCategory
         ? [
             {
               key: 'category',
               title: t('AssetLayout.category'),
-              description: assetCategory.data.attributes.title,
+              description: assetCategory.title,
             },
           ]
         : []),
@@ -44,11 +44,11 @@ const AssetLayout = ({ asset, navigation, general }: AssetLayoutProps) => {
   }, [assetCategory, publishedAt, t])
 
   const extension = useMemo(() => {
-    return file?.data?.attributes?.ext?.slice(1)
+    return file.ext?.slice(1)
   }, [file])
 
   const size = useMemo(() => {
-    return filesize((file?.data?.attributes?.size ?? 0) * 1000, { round: 1, locale: i18n.language })
+    return filesize(file.size * 1000, { round: 1, locale: i18n.language })
   }, [file, i18n.language])
 
   return (
@@ -74,11 +74,7 @@ const AssetLayout = ({ asset, navigation, general }: AssetLayoutProps) => {
                 <span>•</span>
                 <span className="uppercase">{extension}</span>
               </div>
-              <Button
-                target="_blank"
-                href={file?.data?.attributes?.url ?? ''}
-                className="mt-4 md:w-fit"
-              >
+              <Button target="_blank" href={file.url} className="mt-4 md:w-fit">
                 {t('AssetLayout.downloadFile')}
               </Button>
             </div>

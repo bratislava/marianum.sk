@@ -7,18 +7,16 @@ export const getCemeteriesInDebtorsKey = (locale: string) => ['CemeteriesInDebto
 export const cemeteriesInDebtorsFetcher = async (locale: string) => {
   const result = await client.CemeteriesInDebtors()
 
-  return (
-    result.cemeteries?.data
-      ?.map((cemetery) => {
-        return cemetery.id
-          ? {
-              label: getCemeteryInfoInCeremoniesDebtors(cemetery, locale).title ?? '',
-              key: cemetery.id,
-            }
-          : null
-      })
-      .filter(isDefined) ?? []
-  )
+  return result.cemeteries
+    .map((cemetery) => {
+      return cemetery?.documentId
+        ? {
+            label: getCemeteryInfoInCeremoniesDebtors(cemetery, locale).title ?? '',
+            key: cemetery.documentId,
+          }
+        : null
+    })
+    .filter(isDefined)
 }
 
 export const getCemeteriesInDebtorsQuery = (locale: string) => {
