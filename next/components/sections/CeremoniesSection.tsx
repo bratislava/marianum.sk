@@ -151,7 +151,7 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
               </thead>
               <tbody>
                 {list.map((ceremony) => (
-                  <tr key={ceremony.id}>
+                  <tr key={ceremony.documentId}>
                     <td>
                       <FormatDate value={ceremony.dateTime} format="ceremoniesTime" />
                     </td>
@@ -185,7 +185,7 @@ const Table = ({ data, filters }: { data: CeremoniesQuery; filters: CeremoniesSe
 const DataWrapper = ({ filters }: { filters: CeremoniesSectionFilters }) => {
   const { data, isPending, isFetching, isError, error } = useQuery({
     queryKey: getCeremoniesSectionQueryKey(filters),
-    queryFn: () => ceremoniesSectionFetcher(filters),
+    queryFn: async () => ceremoniesSectionFetcher(filters),
     placeholderData: keepPreviousData,
   })
 
