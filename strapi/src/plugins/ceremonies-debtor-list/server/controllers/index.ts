@@ -192,8 +192,12 @@ export default {
       try {
         const importId = uuid()
         const parsedDisclosures = parseDisclosuresXlsx(file.filepath, importId)
+        const data = parsedDisclosures.map((disclosure) => ({
+          ...disclosure,
+          publishedAt: new Date(),
+        }))
 
-        await strapi.db.query('api::disclosure.disclosure').createMany({ data: parsedDisclosures })
+        await strapi.db.query('api::disclosure.disclosure').createMany({ data: data })
 
         // `createMany` doesn't work with Meilisearch, so the update must be triggered manually.
         await meilisearch.updateContentTypeInMeiliSearch({

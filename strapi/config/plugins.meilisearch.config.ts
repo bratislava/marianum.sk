@@ -204,7 +204,7 @@ const config = {
   'managed-object': {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) => wrapSearchIndexEntry('managed-object', entry),
