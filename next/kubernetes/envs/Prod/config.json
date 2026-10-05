@@ -1,7 +1,0 @@
-{
-  "host": "marianum.sk",
-  "envs": {
-    "NEXT_CPU_REQUESTS": "100m",
-    "NEXT_MEMORY_REQUESTS": "128Mi"
-  }
-}
