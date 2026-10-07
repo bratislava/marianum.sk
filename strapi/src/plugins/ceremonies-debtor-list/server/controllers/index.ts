@@ -43,7 +43,7 @@ export default {
 
         try {
           for (const debtor of parsedDebtors) {
-            // Query Engine API doesn't support relations in bulk options, so Entity Service API is used.
+            // Query Engine API doesn't support relations in bulk options, so Document Service API is used.
             // https://docs.strapi.io/developer-docs/latest/developer-resources/database-apis-reference/query-engine/bulk-operations.html
             await strapi.documents('api::debtor.debtor').create({
               data: debtor,
@@ -131,7 +131,7 @@ export default {
         try {
           for (const { data: ceremonies } of parsedCeremonies) {
             for (const ceremony of ceremonies) {
-              // Query Engine API doesn't support relations in bulk options, so Entity Service API is used.
+              // Query Engine API doesn't support relations in bulk options, so Document Service API is used.
               // https://docs.strapi.io/developer-docs/latest/developer-resources/database-apis-reference/query-engine/bulk-operations.html
               await strapi.documents('api::ceremony.ceremony').create({
                 data: ceremony,
@@ -197,7 +197,7 @@ export default {
           publishedAt: new Date(),
         }))
 
-        await strapi.db.query('api::disclosure.disclosure').createMany({ data: data })
+        await strapi.db.query('api::disclosure.disclosure').createMany({ data })
 
         // `createMany` doesn't work with Meilisearch, so the update must be triggered manually.
         await meilisearch.updateContentTypeInMeiliSearch({

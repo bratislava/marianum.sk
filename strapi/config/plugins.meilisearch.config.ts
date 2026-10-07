@@ -191,7 +191,6 @@ const config = {
   },
   asset: {
     indexName: 'search_index',
-
     settings: searchIndexSettings,
     transformEntry: ({ entry }) =>
       wrapSearchIndexEntry('asset', {

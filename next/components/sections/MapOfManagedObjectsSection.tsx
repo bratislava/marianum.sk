@@ -27,13 +27,13 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
 
   const categories = section.categories.filter(isDefined)
 
-  const defaultcategoryDocumentIds = categories
+  const defaultCategoryDocumentIds = categories
     .map((category) => category.documentId)
     .filter(isDefined)
 
   const [filters, setFilters] = useState({
     ...mapOfManagedObjectsSectionDefaultFilters,
-    categoryDocumentIds: defaultcategoryDocumentIds,
+    categoryDocumentIds: defaultCategoryDocumentIds,
   })
 
   const { data, isPending, isError, error } = useQuery({
@@ -73,8 +73,8 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
             ...prevState,
             categoryDocumentIds:
               selection === 'all'
-                ? defaultcategoryDocumentIds
-                : defaultcategoryDocumentIds.filter((categoryDocumentId) =>
+                ? defaultCategoryDocumentIds
+                : defaultCategoryDocumentIds.filter((categoryDocumentId) =>
                     selection.has(categoryDocumentId),
                   ),
           }))
