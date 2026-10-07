@@ -10,9 +10,7 @@ type ArticlesManualListingSectionProps = Pick<SectionProps, 'background'> & {
 }
 
 const ArticlesManualListingSection = ({ section, ...rest }: ArticlesManualListingSectionProps) => {
-  const filteredArticles = section?.articles
-    ?.map((article) => article?.article?.data)
-    .filter(isDefined)
+  const filteredArticles = section?.articles?.map((article) => article?.article).filter(isDefined)
 
   return (
     <Section {...rest} title={section?.title} button={section?.showMoreButton}>

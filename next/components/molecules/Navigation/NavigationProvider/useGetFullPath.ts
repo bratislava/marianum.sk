@@ -56,55 +56,55 @@ export const getFullPathFn = (
   navMap: NavMap,
   // eslint-disable-next-line sonarjs/cognitive-complexity
 ) => {
-  const { slug } = entity?.attributes ?? {}
+  const { slug } = entity ?? {}
 
-  if (!slug || !entity || !entity.attributes) {
+  if (!slug || !entity) {
     return null
   }
 
-  if (entity.__typename === 'ArticleEntity') {
-    if (isDefined(entity.attributes.pressCategory?.data)) {
+  if (entity.__typename === 'Article') {
+    if (isDefined(entity?.pressCategory)) {
       return [localPaths.press, slug].join('/')
     }
-    if (isDefined(entity.attributes.newsCategory?.data)) {
+    if (isDefined(entity.newsCategory)) {
       return [localPaths.news, slug].join('/')
     }
-    if (isDefined(entity.attributes.jobsCategory?.data)) {
+    if (isDefined(entity.jobsCategory)) {
       return [localPaths.jobs, slug].join('/')
     }
   }
 
-  if (entity.__typename === 'PageEntity') {
-    const path = navMap?.get(slug)?.path
+  if (entity.__typename === 'Page') {
+    const path = navMap.get(slug)?.path
 
     return path ?? `/${slug}`
   }
 
-  if (entity.__typename === 'BranchEntity') {
+  if (entity.__typename === 'Branch') {
     return [localPaths.branches, slug].join('/')
   }
 
-  if (entity.__typename === 'BundleEntity') {
-    if (entity.attributes.type === 'pochovanie') {
+  if (entity.__typename === 'Bundle') {
+    if (entity.type === 'pochovanie') {
       return [localPaths.bundlesBurial, slug].join('/')
     }
-    if (entity.attributes.type === 'kremacia') {
+    if (entity.type === 'kremacia') {
       return [localPaths.bundlesCremation, slug].join('/')
     }
-    if (entity.attributes.type === 'prirodne') {
+    if (entity.type === 'prirodne') {
       return [localPaths.bundlesNatural, slug].join('/')
     }
   }
 
-  if (entity.__typename === 'CemeteryEntity') {
+  if (entity.__typename === 'Cemetery') {
     return [localPaths.cemeteries, slug].join('/')
   }
 
-  if (entity.__typename === 'ManagedObjectEntity') {
+  if (entity.__typename === 'ManagedObject') {
     return [localPaths.managedObjects, slug].join('/')
   }
 
-  if (entity.__typename === 'AssetEntity') {
+  if (entity.__typename === 'Asset') {
     // TODO add .../dokumenty/legislativa depending on asset category
     return [localPaths.assets, slug].join('/')
   }
@@ -126,10 +126,8 @@ type GetFullPathMeiliFn = (
 /**
  * Returns the URL for Meilisearch returned entity.
  *
- * There are three differences between entities returned by Strapi and Meilisearch:
- * 1. In Meilisearch, `__typename` is missing.
- * 2. In Meilisearch, entities are not nested in `attributes`.
- * 3. In Meilisearch, the nested entities are nested directly, `article` vs `attributes.article.data.attributes`.
+ * The difference between entities returned by Strapi and Meilisearch is that Meilisearch entities do not contain
+ * `__typename` field, which is used in `getFullPathFn` function to determine the entity type.
  *
  * Therefore, it's easier to duplicate the logic in a new function.
  *
@@ -158,7 +156,7 @@ export const getFullPathMeiliFn = (navMap: NavMap) => {
     }
 
     if (entityType === 'page') {
-      const path = navMap?.get(slug)?.path
+      const path = navMap.get(slug)?.path
 
       return path ?? `/${slug}`
     }

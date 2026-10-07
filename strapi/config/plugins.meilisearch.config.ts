@@ -11,6 +11,11 @@ const wrapSearchIndexEntry = (type: string, data: any) => {
   return {
     type,
     id: data.id, // must be present to work correctly
+    // documentId must also be present at the top level: strapi-plugin-meilisearch's own
+    // addCollectionNamePrefix step reads entry.documentId (not entry[type].documentId) to
+    // build the record's Meilisearch id and to decide whether to index the entry at all.
+    // Without this, every entry silently fails that check and is dropped from every sync.
+    documentId: data.documentId,
     locale: data.locale,
     // [type] is used instead of "data", to avoid  naming clashes of filterable / sortable / searchable attributes
     [type]: newData,
@@ -42,16 +47,16 @@ const searchIndexSettings = {
     // Page + branch + article + bundle + cemetery
     'locale',
     // Article
-    'article.pressCategory.id',
-    'article.newsCategory.id',
-    'article.jobsCategory.id',
+    'article.pressCategory.documentId',
+    'article.newsCategory.documentId',
+    'article.jobsCategory.documentId',
     // Cemetery
-    'cemetery.cemeteryCategory.id',
+    'cemetery.cemeteryCategory.documentId',
     // Asset
-    'asset.assetCategory.id',
+    'asset.assetCategory.documentId',
     'asset.file.ext',
     // Managed Object
-    'managed-object.managedObjectCategory.id',
+    'managed-object.managedObjectCategory.documentId',
   ],
   sortableAttributes: [
     // Article
@@ -75,7 +80,7 @@ const config = {
   page: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) => wrapSearchIndexEntry('page', entry),
@@ -83,7 +88,7 @@ const config = {
   branch: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) => wrapSearchIndexEntry('branch', entry),
@@ -91,7 +96,7 @@ const config = {
   article: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) =>
@@ -105,7 +110,7 @@ const config = {
   bundle: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) => wrapSearchIndexEntry('bundle', entry),
@@ -113,7 +118,7 @@ const config = {
   cemetery: {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) => wrapSearchIndexEntry('cemetery', entry),
@@ -123,7 +128,7 @@ const config = {
       populate: ['cemetery', 'cemetery.localizations'],
     },
     settings: {
-      filterableAttributes: ['cemetery.id'],
+      filterableAttributes: ['cemetery.documentId'],
       searchableAttributes: ['firstName', 'lastName'],
       pagination: {
         // https://docs.meilisearch.com/learn/advanced/known_limitations.html#maximum-number-of-results-per-search
@@ -136,7 +141,7 @@ const config = {
       populate: ['cemetery', 'cemetery.localizations'],
     },
     settings: {
-      filterableAttributes: ['cemetery.id', 'dateTimeTimestamp'],
+      filterableAttributes: ['cemetery.documentId', 'dateTimeTimestamp'],
       searchableAttributes: ['name'],
       sortableAttributes: ['dateTimeTimestamp'],
       pagination: {
@@ -186,9 +191,6 @@ const config = {
   },
   asset: {
     indexName: 'search_index',
-    entriesQuery: {
-      locale: 'all',
-    },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) =>
       wrapSearchIndexEntry('asset', {
@@ -201,7 +203,7 @@ const config = {
   'managed-object': {
     indexName: 'search_index',
     entriesQuery: {
-      locale: 'all',
+      locale: '*',
     },
     settings: searchIndexSettings,
     transformEntry: ({ entry }) => wrapSearchIndexEntry('managed-object', entry),

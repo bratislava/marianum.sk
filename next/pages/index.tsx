@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import { dehydrate, DehydratedState, HydrationBoundary, QueryClient } from '@tanstack/react-query'
 import { GetStaticProps, GetStaticPropsResult } from 'next'
 import { useTranslation } from 'next-i18next/pages'
@@ -26,8 +25,8 @@ import { isDefined } from '@/utils/isDefined'
 
 type HomeProps = {
   navigation: NavigationItemFragment[]
-  page: NonNullable<NonNullable<HomePageQuery['homePage']>['data']>
-  procedures: NonNullable<HomePageQuery['procedures']>['data']
+  page: NonNullable<HomePageQuery['homePage']>
+  procedures: HomePageQuery['procedures']
   general: GeneralEntityFragment | null
   dehydratedState: DehydratedState
 }
@@ -35,7 +34,7 @@ type HomeProps = {
 const Home = ({ navigation, page, procedures, general, dehydratedState }: HomeProps) => {
   const { t } = useTranslation()
 
-  const { seo } = page.attributes ?? {}
+  const { seo } = page
 
   return (
     <HydrationBoundary state={dehydratedState}>
@@ -48,11 +47,10 @@ const Home = ({ navigation, page, procedures, general, dehydratedState }: HomePr
         {/* TODO translation */}
         <h1 className="sr-only">Marianum - Pohrebníctvo mesta Bratislavy</h1>
 
-        <HomepageSlider slides={page.attributes?.featured?.filter(isDefined)} />
+        <HomepageSlider slides={page.featured.filter(isDefined)} />
 
         <SectionsWrapper alternateBackground startBackground="dark" className="pb-14">
-          {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
-          {page.attributes?.sections?.map((section) => {
+          {page.sections?.map((section) => {
             if (section?.__typename === 'ComponentSectionsManualListing') {
               return <CardSection key={`${section.__typename}-${section.id}`} section={section} />
             }
@@ -76,7 +74,7 @@ const Home = ({ navigation, page, procedures, general, dehydratedState }: HomePr
               )
             }
             if (section?.__typename === 'ComponentSectionsProceduresShortSection') {
-              const { outsideMedicalFacility, atMedicalFacility } = procedures?.attributes ?? {}
+              const { outsideMedicalFacility, atMedicalFacility } = procedures ?? {}
 
               return (
                 <HomepageProceduresSection
@@ -116,7 +114,7 @@ export const getStaticProps: GetStaticProps = async ({
 }): Promise<GetStaticPropsResult<HomeProps>> => {
   const { homePage, procedures } = await client.HomePage({ locale })
 
-  if (!homePage?.data) {
+  if (!homePage) {
     return NOT_FOUND
   }
 
@@ -138,9 +136,9 @@ export const getStaticProps: GetStaticProps = async ({
   return {
     props: {
       navigation: filteredNavigation,
-      general: general?.data ?? null,
-      page: homePage?.data ?? null,
-      procedures: procedures?.data ?? null,
+      general: general ?? null,
+      page: homePage,
+      procedures: procedures ?? null,
       dehydratedState,
       ...translations,
     },

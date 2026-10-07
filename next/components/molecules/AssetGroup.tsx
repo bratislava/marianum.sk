@@ -15,7 +15,7 @@ const AssetGroup = ({ assets, variant = 'gaps' }: AssetGroupProps) => {
   const { getFullPath } = useGetFullPath()
 
   const filteredAssets = useMemo(() => {
-    return (assets ?? []).map((asset) => asset?.asset?.data).filter(isDefined)
+    return (assets ?? []).map((asset) => asset?.asset).filter(isDefined)
   }, [assets])
 
   return (
@@ -26,17 +26,15 @@ const AssetGroup = ({ assets, variant = 'gaps' }: AssetGroupProps) => {
       })}
     >
       {filteredAssets?.map((doc, index) => {
-        const { title, slug, file } = doc.attributes ?? {}
-
-        if (!file?.data) return null
+        const { title, slug, file } = doc
 
         return (
           <AssetRow
             key={slug}
-            title={title ?? ''}
+            title={title}
             titleId={getAriaLabelId(id, index)}
             linkHref={getFullPath(doc) ?? undefined}
-            file={file?.data}
+            file={file}
             variant={variant}
           />
         )

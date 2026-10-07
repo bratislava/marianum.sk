@@ -17,15 +17,15 @@ type PageWrapperProps = {
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 const NextPublicEnvsHtmlComment = () => {
   const headerHtmlComment = `
-  <!-- 
+  <!--
   === public env vars ===
   NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: ${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
   NEXT_PUBLIC_MAPBOX_DARK_STYLE: ${process.env.NEXT_PUBLIC_MAPBOX_DARK_STYLE}
   NEXT_PUBLIC_MAPBOX_LIGHT_STYLE: ${process.env.NEXT_PUBLIC_MAPBOX_LIGHT_STYLE}
-  
+
   NEXT_PUBLIC_MEILISEARCH_HOST: ${process.env.NEXT_PUBLIC_MEILISEARCH_HOST}
   NEXT_PUBLIC_MEILISEARCH_SEARCH_API_KEY: ${process.env.NEXT_PUBLIC_MEILISEARCH_SEARCH_API_KEY}
-  
+
   NEXT_PUBLIC_PLAUSIBLE_DOMAIN: ${process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}  
   =======================
   -->
@@ -49,16 +49,16 @@ const PageWrapper = ({ navigation, header, children, general }: PageWrapperProps
       <div className="h-full">
         <header>
           <NextPublicEnvsHtmlComment />
-          <Navigation contact={general?.attributes?.header?.contact?.data} />
+          <Navigation contact={general?.header?.contact} />
           {header}
         </header>
 
         <main className="bg-background-beige">{children}</main>
 
         <Footer
-          contact={general?.attributes?.address}
-          footer={general?.attributes?.footer}
-          socials={general?.attributes?.socials?.filter(isDefined)}
+          contact={general?.address}
+          footer={general?.footer}
+          socials={general?.socials?.filter(isDefined)}
         />
 
         <ScrollToTopButton />

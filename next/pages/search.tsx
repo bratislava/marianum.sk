@@ -81,10 +81,10 @@ const SearchSection = () => {
       <div className="flex flex-col gap-3 md:gap-6">
         <h1 ref={h1Ref}>{t('SearchPage.searchResults')}</h1>
         <div className="hidden md:block">
-          <Search isLarge value={searchQuery ?? ''} onSearchQueryChange={setSearchQuery} />
+          <Search isLarge value={searchQuery} onSearchQueryChange={setSearchQuery} />
         </div>
         <div className="md:hidden">
-          <Search value={searchQuery ?? ''} onSearchQueryChange={setSearchQuery} />
+          <Search value={searchQuery} onSearchQueryChange={setSearchQuery} />
         </div>
         <div className="flex flex-col-reverse justify-between gap-3 md:flex-row md:items-center">
           <div className="-m-2 flex w-full items-center gap-3 overflow-auto p-2 pb-3 sm:pb-2 md:overflow-visible">
@@ -143,7 +143,7 @@ const SearchSection = () => {
                 </div>
               )}
             </AnimateHeight>
-            {data && data?.estimatedTotalHits !== 0 ? (
+            {data && data.estimatedTotalHits !== 0 ? (
               <div className="flex justify-center">
                 <PaginationMeili
                   data={data}
@@ -196,7 +196,7 @@ export const getStaticProps: GetStaticProps = async ({
   return {
     props: {
       navigation: filteredNavigation,
-      general: general?.data ?? null,
+      general: general ?? null,
       ...translations,
     },
     revalidate: 10,

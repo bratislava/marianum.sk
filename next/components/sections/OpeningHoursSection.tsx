@@ -12,23 +12,22 @@ type OpeningHoursSectionProps = Pick<SectionProps, 'background' | 'title'> & {
 const OpeningHoursSection = ({ section, ...rest }: OpeningHoursSectionProps) => {
   const { getFullPath } = useGetFullPath()
 
-  const filteredOffices =
-    section.offices?.map((office) => office?.office?.data).filter(isDefined) ?? []
+  const filteredOffices = section.offices?.map((office) => office?.office).filter(isDefined) ?? []
 
   return (
     <Section title={section.title} {...rest}>
       <div className="flex flex-col gap-4">
         {filteredOffices.map((office) => {
-          const { branch, openingHours } = office.attributes ?? {}
-          const { title: cemeteryTitle, address: branchAddress } = branch?.data?.attributes ?? {}
+          const { branch, openingHours } = office
+          const { title: cemeteryTitle, address: branchAddress } = branch ?? {}
 
           return (
             <Row
               title={cemeteryTitle}
               address={branchAddress}
-              linkHref={getFullPath(branch?.data) ?? undefined}
+              linkHref={getFullPath(branch) ?? undefined}
               moreContent={openingHours && <OpeningHours openingHours={openingHours} />}
-              key={office.id}
+              key={office.documentId}
             />
           )
         })}

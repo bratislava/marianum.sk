@@ -38,10 +38,9 @@ const ReviewListingSection = () => {
     return <div className="whitespace-pre">Error: {JSON.stringify(error, null, 2)}</div>
   }
 
-  const filteredReviews =
-    data.reviews?.data.filter(isDefined).filter((review) => review.attributes) ?? []
+  const filteredReviews = data.reviews.filter(isDefined)
 
-  const pageCount = Math.ceil((filteredReviews.length ?? 0) / REVIEWS_PER_PAGE)
+  const pageCount = Math.ceil(filteredReviews.length / REVIEWS_PER_PAGE)
 
   // Currently visible reviews based on current page
   const visibleReviews = filteredReviews.slice(
@@ -55,8 +54,8 @@ const ReviewListingSection = () => {
         <AnimateHeight isVisible>
           <div className="flex flex-col justify-start gap-6">
             <LayoutGroup id="reviews">
-              {visibleReviews?.map((review, index) => (
-                <AnimatePresence key={review.id}>
+              {visibleReviews.map((review, index) => (
+                <AnimatePresence key={review.documentId}>
                   <motion.div
                     layout="position"
                     initial={{ opacity: 0 }}
@@ -65,10 +64,10 @@ const ReviewListingSection = () => {
                     className={cn({ 'border-t border-border pt-6': index !== 0 })}
                   >
                     <Review
-                      author={review.attributes?.author ?? ''}
-                      description={review.attributes?.description ?? ''}
-                      rating={review.attributes?.rating ?? 5}
-                      date={new Date(review.attributes?.date)}
+                      author={review.author}
+                      description={review.description}
+                      rating={review.rating}
+                      date={new Date(review.date)}
                     />
                   </motion.div>
                 </AnimatePresence>

@@ -120,7 +120,7 @@ const Table = ({
                       className="pointer-events-auto m-auto"
                       target="_blank"
                       href={file?.url ?? ''}
-                      aria-label={getDownloadAriaLabel({ attributes: file }, file.name)}
+                      aria-label={getDownloadAriaLabel(file, file.name)}
                     >
                       <DownloadIcon />
                     </IconButton>
@@ -134,7 +134,7 @@ const Table = ({
               )}
             </tr>
           ))}
-          {data.hits?.length === 0 && (
+          {data.hits.length === 0 && (
             <tr>
               <td colSpan={8}>{t('DisclosuresSection.noRecords')}</td>
             </tr>

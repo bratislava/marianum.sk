@@ -8,7 +8,7 @@ import { isDefined } from '@/utils/isDefined'
 export type AssetsFilters = {
   pageSize: number
   search: string
-  categoryId: string | null
+  categoryDocumentId: string | null
   page: number
   sort: Sort
   filetype: string | null
@@ -18,7 +18,7 @@ export const assetsDefaultFilters: AssetsFilters = {
   pageSize: 24,
   search: '',
   page: 1,
-  categoryId: null,
+  categoryDocumentId: null,
   sort: 'newest',
   filetype: null,
 }
@@ -32,7 +32,9 @@ export const meiliAssetsFetcher = async (filters: AssetsFilters) => {
       ...getMeilisearchPageOptions({ page: filters.page, pageSize: filters.pageSize }),
       filter: [
         'type = "asset"',
-        isDefined(filters.categoryId) ? `asset.assetCategory.id = ${filters.categoryId}` : null,
+        isDefined(filters.categoryDocumentId)
+          ? `asset.assetCategory.documentId = ${filters.categoryDocumentId}`
+          : null,
         isDefined(filters.filetype) ? `asset.file.ext = ${filters.filetype}` : null,
       ].filter(Boolean) as string[],
       sort: [
