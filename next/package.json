@@ -86,7 +86,7 @@
     "prettier-plugin-tailwindcss": "0.8.0",
     "sass": "1.57.1",
     "tailwindcss": "4.3.0",
-    "typescript": "5.8.2"
+    "typescript": "6.0.3"
   },
   "engines": {
     "node": ">=24.16.x",
