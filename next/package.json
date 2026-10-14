@@ -57,7 +57,7 @@
     "react-turnstile": "1.1.5",
     "rehype-raw": "7.0.0",
     "remark-gfm": "4.0.1",
-    "sharp": "0.35.0",
+    "sharp": "0.35.1",
     "smooth-scroll-into-view-if-needed": "2.0.2",
     "swiper": "12.2.0",
     "tailwind-merge": "3.6.0",
