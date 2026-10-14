@@ -4,18 +4,19 @@ This readme should get you up & running.
 
 ## First-time setup
 
-To install dependencies run:
+Install dependencies and create `.env.local` file which is .gitignored and used for local dev:
 
 ```
-yarn
+npm install
+cp .env.example .env.local
 ```
 
-For CMS setup see `strapi` directory. You can also run the project against staging or production strapi (useful when developing and debugging) - provided that you're not working on Strapi model changes or tth
+For CMS setup see `strapi` directory. `.env.example` points to a local Strapi - you can also run the project against the deployed Strapi (useful when developing and debugging, provided that you're not working on Strapi model changes) by uncommenting the alternative `NEXT_PUBLIC_STRAPI_URL` and `NEXT_PUBLIC_MEILISEARCH_*` values in your `.env.local`.
 
 ## Run project locally
 
 ```
-yarn dev
+npm run dev
 ```
 
 ## Generate GraphQL
@@ -27,7 +28,7 @@ When you change something in Strapi Content type builder, and/or if you change G
 To generate new types run:
 
 ```bash
-yarn gen
+npm run gen
 ```
 
 For more information, refer to [the documentation](/docs/libs/Strapi-SDK.md).
@@ -36,4 +37,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Static Site Generation
 
-If you want to test static site generation locally, you need to run `yarn build` and `yarn start`. This commands run by default with the prod env variable, so in order to have the local env variable for strapi, you need to create `.env.local` with `NEXT_PUBLIC_STRAPI_URL=localhost:1337` to override the prod values. This file is ignored by git, because it often contains sensitive secrets
+If you want to test static site generation locally, you need to run `npm run build` and `npm run start`. Both commands read your `.env.local`, so the local `NEXT_PUBLIC_STRAPI_URL=http://localhost:1337` from `.env.example` applies here as well.
