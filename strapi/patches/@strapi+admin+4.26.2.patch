@@ -1,0 +1,26 @@
+diff --git a/node_modules/@strapi/admin/dist/_chunks/index-BiELGgSr.js b/node_modules/@strapi/admin/dist/_chunks/index-BiELGgSr.js
+index 4d2163f..9ea64ba 100644
+--- a/node_modules/@strapi/admin/dist/_chunks/index-BiELGgSr.js
++++ b/node_modules/@strapi/admin/dist/_chunks/index-BiELGgSr.js
+@@ -12560,7 +12560,7 @@ const Wysiwyg = React__namespace.forwardRef(
+     };
+     const handleSelectAssets = (files) => {
+       const formattedFiles = files.map((f) => ({
+-        alt: f.alternativeText || f.name,
++        alt: `${f.alternativeText || ''}||${f.caption || ''}`,
+         url: helperPlugin.prefixFileUrlWithBackendUrl(f.url),
+         mime: f.mime
+       }));
+diff --git a/node_modules/@strapi/admin/dist/_chunks/index-Cwr9u7_W.mjs b/node_modules/@strapi/admin/dist/_chunks/index-Cwr9u7_W.mjs
+index 0676c06..804f95e 100644
+--- a/node_modules/@strapi/admin/dist/_chunks/index-Cwr9u7_W.mjs
++++ b/node_modules/@strapi/admin/dist/_chunks/index-Cwr9u7_W.mjs
+@@ -12501,7 +12501,7 @@ const Wysiwyg = React.forwardRef(
+     };
+     const handleSelectAssets = (files) => {
+       const formattedFiles = files.map((f) => ({
+-        alt: f.alternativeText || f.name,
++        alt: `${f.alternativeText || ''}||${f.caption || ''}`,
+         url: prefixFileUrlWithBackendUrl(f.url),
+         mime: f.mime
+       }));
