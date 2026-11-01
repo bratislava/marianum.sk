@@ -43,11 +43,11 @@
     "styled-components": "^5.2.1"
   },
   "engines": {
-    "node": ">=20.19.x",
-    "npm": ">=9.8.1"
+    "node": ">=22.23.x",
+    "npm": ">=10.9.9"
   },
   "volta": {
-    "node": "20.19.0"
+    "node": "22.23.4"
   },
   "strapi": {
     "name": "ceremonies-debtor-list",
