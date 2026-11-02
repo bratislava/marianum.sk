@@ -39,7 +39,7 @@
     "lodash": "4.18.1",
     "mapbox-gl": "3.24.0",
     "meilisearch": "0.30.0",
-    "next": "16.2.7",
+    "next": "16.4.3",
     "next-i18next": "16.0.7",
     "nuqs": "2.8.9",
     "popmotion": "11.0.5",
@@ -57,7 +57,7 @@
     "react-turnstile": "1.1.5",
     "rehype-raw": "7.0.0",
     "remark-gfm": "4.0.1",
-    "sharp": "0.35.0",
+    "sharp": "0.35.5",
     "smooth-scroll-into-view-if-needed": "2.0.2",
     "swiper": "12.2.0",
     "tailwind-merge": "3.6.0",
@@ -75,13 +75,13 @@
     "@svgr/webpack": "8.1.0",
     "@tailwindcss/postcss": "4.3.0",
     "@types/lodash": "4.17.24",
-    "@types/node": "24.13.0",
+    "@types/node": "24.19.2",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "eslint": "9.39.2",
     "i18next-cli": "1.61.0",
     "lint-staged": "17.0.7",
-    "postcss": "8.5.15",
+    "postcss": "8.5.23",
     "prettier": "3.8.3",
     "prettier-plugin-tailwindcss": "0.8.0",
     "sass": "1.57.1",
@@ -89,12 +89,12 @@
     "typescript": "5.8.2"
   },
   "engines": {
-    "node": ">=24.16.x",
-    "npm": ">=11.13.x"
+    "node": ">=24.22.x",
+    "npm": ">=11.19.x"
   },
   "volta": {
-    "node": "24.16.0",
-    "npm": "11.13.0"
+    "node": "24.22.2",
+    "npm": "11.19.1"
   },
   "overrides": {
     "@types/react": "19.2.17",
