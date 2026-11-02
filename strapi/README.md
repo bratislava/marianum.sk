@@ -5,7 +5,7 @@
 Before you start, install all dependencies and create `.env.local` file which is .gitignored and used for local dev.
 
 ```
-yarn
+npm install
 cp .env.example .env.local
 ```
 
@@ -16,7 +16,7 @@ You need postgres running locally (with correct credentials & database available
 Build your admin panel. [Learn more](https://docs.strapi.io/developer-docs/latest/developer-resources/cli/CLI.html#strapi-build)
 
 ```
-yarn build
+npm run build
 ```
 
 ## Start development server
@@ -24,7 +24,7 @@ yarn build
 Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/developer-docs/latest/developer-resources/cli/CLI.html#strapi-develop)
 
 ```
-yarn dev
+npm run dev
 ```
 
 ## Start server
@@ -32,7 +32,7 @@ yarn dev
 Start your Strapi application with autoReload disabled (not needed for development). [Learn more](https://docs.strapi.io/developer-docs/latest/developer-resources/cli/CLI.html#strapi-start)
 
 ```
-yarn start
+npm run start
 ```
 
 ## Set permissions
@@ -72,7 +72,7 @@ Find the proper chunk by searching for `alt: f.alternativeText || f.name`, chang
 and then run the command to create a patch file:
 
 ```bash
-yarn patch-package @strapi/admin
+npx patch-package @strapi/admin
 ```
 
 > Note that we use custom syntax, because at that time, we didn't know the proper syntax for caption (=title) in markdown that is `![alt](src "title")`.
