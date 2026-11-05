@@ -1,0 +1,428 @@
+{
+  "key": "plugin_content_manager_configuration_content_types::api::cemetery.cemetery",
+  "value": {
+    "uid": "api::cemetery.cemetery",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "title",
+      "defaultSortBy": "title",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "title": {
+        "edit": {
+          "label": "Nadpis",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "title",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "slug": {
+        "edit": {
+          "label": "Slug",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "slug",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "medias": {
+        "edit": {
+          "label": "Galéria obrázkov v hlavičke",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "medias",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "contact": {
+        "edit": {
+          "label": "Kontakt",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "contact",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "address": {
+        "edit": {
+          "label": "Adresa",
+          "description": "Ideálny formát: Ulica číslo, PSČ Mestská časť",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "address",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "navigateToLink": {
+        "edit": {
+          "label": "Odkaz na navigáciu",
+          "description": "Napríklad google mapy",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "navigateToLink",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "latitude": {
+        "edit": {
+          "label": "Zemepisná šírka",
+          "description": "Zadať vo formáte desatinného čísla (napr 47,123456)",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "latitude",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "longitude": {
+        "edit": {
+          "label": "Zemepisná dĺžka",
+          "description": "Zadať vo formáte desatinného čísla (napr 17,123456)",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "longitude",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "allowInCeremonies": {
+        "edit": {
+          "label": "allowInCeremonies",
+          "description": "Toto pole ponechať na TRUE, ak daný cintorín má byť povolený v zozname obradov.",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "allowInCeremonies",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "allowInDebtors": {
+        "edit": {
+          "label": "allowInDebtors",
+          "description": "Toto pole ponechať na TRUE, ak daný cintorín má byť povolený v zozname dlžníkov.",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "allowInDebtors",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "description": {
+        "edit": {
+          "label": "Popis",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "description",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "seo": {
+        "edit": {
+          "label": "Seo",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "seo",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "overrideOpeningHours": {
+        "edit": {
+          "label": "Override otváracích hodín - vyplniť ak má cintorín iné otváracie hodiny ako zvyčajné",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "overrideOpeningHours",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "assets": {
+        "edit": {
+          "label": "assets",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "assets",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "gallery": {
+        "edit": {
+          "label": "Galéria obrázkov",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "gallery",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "video": {
+        "edit": {
+          "label": "Video",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "video",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "cemeteryCategory": {
+        "edit": {
+          "label": "cemeteryCategory",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "cemeteryCategory",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdAt": {
+        "edit": {
+          "label": "createdAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "createdAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedAt": {
+        "edit": {
+          "label": "updatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "updatedAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdBy": {
+        "edit": {
+          "label": "createdBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "createdBy",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedBy": {
+        "edit": {
+          "label": "updatedBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "updatedBy",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "title",
+        "slug",
+        "assets"
+      ],
+      "edit": [
+        [
+          {
+            "name": "title",
+            "size": 6
+          },
+          {
+            "name": "slug",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "cemeteryCategory",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "address",
+            "size": 6
+          },
+          {
+            "name": "navigateToLink",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "latitude",
+            "size": 6
+          },
+          {
+            "name": "longitude",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "allowInCeremonies",
+            "size": 6
+          },
+          {
+            "name": "allowInDebtors",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "medias",
+            "size": 6
+          },
+          {
+            "name": "contact",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "description",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "seo",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "overrideOpeningHours",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "gallery",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "video",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "assets",
+            "size": 12
+          }
+        ]
+      ]
+    }
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

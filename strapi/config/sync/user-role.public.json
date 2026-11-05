@@ -1,0 +1,163 @@
+{
+  "name": "Public",
+  "description": "Default role given to unauthenticated user.",
+  "type": "public",
+  "permissions": [
+    {
+      "action": "api::article-jobs-category.article-jobs-category.find"
+    },
+    {
+      "action": "api::article-jobs-category.article-jobs-category.findOne"
+    },
+    {
+      "action": "api::article-news-category.article-news-category.find"
+    },
+    {
+      "action": "api::article-news-category.article-news-category.findOne"
+    },
+    {
+      "action": "api::article-press-category.article-press-category.find"
+    },
+    {
+      "action": "api::article-press-category.article-press-category.findOne"
+    },
+    {
+      "action": "api::article.article.find"
+    },
+    {
+      "action": "api::article.article.findOne"
+    },
+    {
+      "action": "api::asset-category.asset-category.find"
+    },
+    {
+      "action": "api::asset-category.asset-category.findOne"
+    },
+    {
+      "action": "api::asset.asset.find"
+    },
+    {
+      "action": "api::asset.asset.findOne"
+    },
+    {
+      "action": "api::branch.branch.find"
+    },
+    {
+      "action": "api::branch.branch.findOne"
+    },
+    {
+      "action": "api::bundle.bundle.find"
+    },
+    {
+      "action": "api::bundle.bundle.findOne"
+    },
+    {
+      "action": "api::cemetery-category.cemetery-category.find"
+    },
+    {
+      "action": "api::cemetery-category.cemetery-category.findOne"
+    },
+    {
+      "action": "api::cemetery.cemetery.find"
+    },
+    {
+      "action": "api::cemetery.cemetery.findOne"
+    },
+    {
+      "action": "api::ceremony.ceremony.find"
+    },
+    {
+      "action": "api::ceremony.ceremony.findOne"
+    },
+    {
+      "action": "api::contact.contact.find"
+    },
+    {
+      "action": "api::contact.contact.findOne"
+    },
+    {
+      "action": "api::debtor.debtor.find"
+    },
+    {
+      "action": "api::debtor.debtor.findOne"
+    },
+    {
+      "action": "api::disclosure.disclosure.find"
+    },
+    {
+      "action": "api::disclosure.disclosure.findOne"
+    },
+    {
+      "action": "api::general.general.find"
+    },
+    {
+      "action": "api::home-page.home-page.find"
+    },
+    {
+      "action": "api::managed-object-category.managed-object-category.find"
+    },
+    {
+      "action": "api::managed-object-category.managed-object-category.findOne"
+    },
+    {
+      "action": "api::managed-object.managed-object.find"
+    },
+    {
+      "action": "api::managed-object.managed-object.findOne"
+    },
+    {
+      "action": "api::office.office.find"
+    },
+    {
+      "action": "api::office.office.findOne"
+    },
+    {
+      "action": "api::page.page.find"
+    },
+    {
+      "action": "api::page.page.findOne"
+    },
+    {
+      "action": "api::partner.partner.find"
+    },
+    {
+      "action": "api::partner.partner.findOne"
+    },
+    {
+      "action": "api::procedure.procedure.find"
+    },
+    {
+      "action": "api::review.review.find"
+    },
+    {
+      "action": "api::review.review.findOne"
+    },
+    {
+      "action": "plugin::content-type-builder.components.getComponent"
+    },
+    {
+      "action": "plugin::content-type-builder.components.getComponents"
+    },
+    {
+      "action": "plugin::content-type-builder.content-types.getContentType"
+    },
+    {
+      "action": "plugin::content-type-builder.content-types.getContentTypes"
+    },
+    {
+      "action": "plugin::i18n.locales.listLocales"
+    },
+    {
+      "action": "plugin::navigation.client.render"
+    },
+    {
+      "action": "plugin::navigation.client.renderChild"
+    },
+    {
+      "action": "plugin::upload.content-api.find"
+    },
+    {
+      "action": "plugin::upload.content-api.findOne"
+    }
+  ]
+}

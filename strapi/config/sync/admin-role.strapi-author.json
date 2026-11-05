@@ -1,0 +1,463 @@
+{
+  "name": "Author",
+  "code": "strapi-author",
+  "description": "Authors can manage the content they have created.",
+  "permissions": [
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::branch.branch",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "contact",
+          "address",
+          "description"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::branch.branch",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "contact",
+          "address",
+          "description"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::branch.branch",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "contact",
+          "address",
+          "description"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::contact.contact",
+      "properties": {
+        "fields": [
+          "title",
+          "phone1",
+          "phone2",
+          "email"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::contact.contact",
+      "properties": {
+        "fields": [
+          "title",
+          "phone1",
+          "phone2",
+          "email"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::contact.contact",
+      "properties": {
+        "fields": [
+          "title",
+          "phone1",
+          "phone2",
+          "email"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::general.general",
+      "properties": {
+        "fields": [
+          "footer.title1",
+          "footer.links1.label",
+          "footer.links1.url",
+          "footer.links1.targetBlank",
+          "footer.title2",
+          "footer.links2.label",
+          "footer.links2.url",
+          "footer.links2.targetBlank",
+          "footer.title3",
+          "footer.links3.label",
+          "footer.links3.url",
+          "footer.links3.targetBlank",
+          "footer.title4",
+          "footer.links4.label",
+          "footer.links4.url",
+          "footer.links4.targetBlank"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::general.general",
+      "properties": {
+        "fields": [
+          "footer.title1",
+          "footer.links1.label",
+          "footer.links1.url",
+          "footer.links1.targetBlank",
+          "footer.title2",
+          "footer.links2.label",
+          "footer.links2.url",
+          "footer.links2.targetBlank",
+          "footer.title3",
+          "footer.links3.label",
+          "footer.links3.url",
+          "footer.links3.targetBlank",
+          "footer.title4",
+          "footer.links4.label",
+          "footer.links4.url",
+          "footer.links4.targetBlank"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::general.general",
+      "properties": {
+        "fields": [
+          "footer.title1",
+          "footer.links1.label",
+          "footer.links1.url",
+          "footer.links1.targetBlank",
+          "footer.title2",
+          "footer.links2.label",
+          "footer.links2.url",
+          "footer.links2.targetBlank",
+          "footer.title3",
+          "footer.links3.label",
+          "footer.links3.url",
+          "footer.links3.targetBlank",
+          "footer.title4",
+          "footer.links4.label",
+          "footer.links4.url",
+          "footer.links4.targetBlank"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::home-page.home-page",
+      "properties": {
+        "fields": [
+          "featured.title",
+          "featured.description",
+          "featured.button.label",
+          "featured.image",
+          "sections"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::home-page.home-page",
+      "properties": {
+        "fields": [
+          "featured.title",
+          "featured.description",
+          "featured.button.label",
+          "featured.image",
+          "sections"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::home-page.home-page",
+      "properties": {
+        "fields": [
+          "featured.title",
+          "featured.description",
+          "featured.button.label",
+          "featured.image",
+          "sections"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::page.page",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "layout",
+          "perex",
+          "ctaButton.label",
+          "sections",
+          "sidebar.title",
+          "sidebar.text",
+          "sidebar.ctaButton.label",
+          "sidebar.contact",
+          "coverMedia"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::page.page",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "layout",
+          "perex",
+          "ctaButton.label",
+          "sections",
+          "sidebar.title",
+          "sidebar.text",
+          "sidebar.ctaButton.label",
+          "sidebar.contact",
+          "coverMedia"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::page.page",
+      "properties": {
+        "fields": [
+          "title",
+          "slug",
+          "layout",
+          "perex",
+          "ctaButton.label",
+          "sections",
+          "sidebar.title",
+          "sidebar.text",
+          "sidebar.ctaButton.label",
+          "sidebar.contact",
+          "coverMedia"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::partner.partner",
+      "properties": {
+        "fields": [
+          "title",
+          "link",
+          "logo",
+          "featured",
+          "priority"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::partner.partner",
+      "properties": {},
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::partner.partner",
+      "properties": {
+        "fields": [
+          "title",
+          "link",
+          "logo",
+          "featured",
+          "priority"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::partner.partner",
+      "properties": {
+        "fields": [
+          "title",
+          "link",
+          "logo",
+          "featured",
+          "priority"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::procedure.procedure",
+      "properties": {
+        "fields": [
+          "outsideMedicalFacility.title",
+          "outsideMedicalFacility.steps.title",
+          "outsideMedicalFacility.steps.description",
+          "atMedicalFacility.title",
+          "atMedicalFacility.steps.title",
+          "atMedicalFacility.steps.description"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::procedure.procedure",
+      "properties": {
+        "fields": [
+          "outsideMedicalFacility.title",
+          "outsideMedicalFacility.steps.title",
+          "outsideMedicalFacility.steps.description",
+          "atMedicalFacility.title",
+          "atMedicalFacility.steps.title",
+          "atMedicalFacility.steps.description"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::procedure.procedure",
+      "properties": {
+        "fields": [
+          "outsideMedicalFacility.title",
+          "outsideMedicalFacility.steps.title",
+          "outsideMedicalFacility.steps.description",
+          "atMedicalFacility.title",
+          "atMedicalFacility.steps.title",
+          "atMedicalFacility.steps.description"
+        ]
+      },
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::upload.assets.copy-link",
+      "subject": null,
+      "properties": {},
+      "conditions": [],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::upload.assets.create",
+      "subject": null,
+      "properties": {},
+      "conditions": [],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::upload.assets.download",
+      "subject": null,
+      "properties": {},
+      "conditions": [],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::upload.assets.update",
+      "subject": null,
+      "properties": {},
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    },
+    {
+      "action": "plugin::upload.read",
+      "subject": null,
+      "properties": {},
+      "conditions": [
+        "admin::is-creator"
+      ],
+      "actionParameters": null
+    }
+  ]
+}
