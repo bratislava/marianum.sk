@@ -1,5 +1,6 @@
 import meilisearchConfig from "./plugins.meilisearch.config";
 import graphqlConfig from "./plugins.graphql.config";
+import configSyncConfig from "./plugins.config-sync.config";
 
 export default ({ env }) => ({
   // It's important to enable Navigation plugin first, before GraphQL
@@ -21,6 +22,10 @@ export default ({ env }) => ({
   },
   meilisearch: {
     config: meilisearchConfig,
+  },
+  "config-sync": {
+    enabled: true,
+    config: configSyncConfig,
   },
   email: {
     config: {

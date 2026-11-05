@@ -1,0 +1,442 @@
+{
+  "key": "plugin_content_manager_configuration_content_types::api::disclosure.disclosure",
+  "value": {
+    "uid": "api::disclosure.disclosure",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "internalInvoiceNumber",
+      "defaultSortBy": "internalInvoiceNumber",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "publishedAtOverride": {
+        "edit": {
+          "label": "publishedAtOverride",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "publishedAtOverride",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "type": {
+        "edit": {
+          "label": "type",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "type",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "internalInvoiceNumber": {
+        "edit": {
+          "label": "internalInvoiceNumber",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "internalInvoiceNumber",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "invoiceNumberOrVariableSymbol": {
+        "edit": {
+          "label": "invoiceNumberOrVariableSymbol",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "invoiceNumberOrVariableSymbol",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "orderNumber": {
+        "edit": {
+          "label": "orderNumber",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "orderNumber",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "contractNumber": {
+        "edit": {
+          "label": "contractNumber",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "contractNumber",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "description": {
+        "edit": {
+          "label": "description",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "description",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "supplierName": {
+        "edit": {
+          "label": "supplierName",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "supplierName",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "supplierAddress": {
+        "edit": {
+          "label": "supplierAddress",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "supplierAddress",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "supplierRegistrationNumber": {
+        "edit": {
+          "label": "supplierRegistrationNumber",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "supplierRegistrationNumber",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "dateOfOrder": {
+        "edit": {
+          "label": "dateOfOrder",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "dateOfOrder",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "totalValue": {
+        "edit": {
+          "label": "totalValue",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "totalValue",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "invoicedAmount": {
+        "edit": {
+          "label": "invoicedAmount",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "invoicedAmount",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "dateOfDelivery": {
+        "edit": {
+          "label": "dateOfDelivery",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "dateOfDelivery",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "signedBy": {
+        "edit": {
+          "label": "signedBy",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "signedBy",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "files": {
+        "edit": {
+          "label": "files",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "files",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "additionalData": {
+        "edit": {
+          "label": "additionalData",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "additionalData",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "importId": {
+        "edit": {
+          "label": "importId",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "importId",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdAt": {
+        "edit": {
+          "label": "createdAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "createdAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedAt": {
+        "edit": {
+          "label": "updatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "updatedAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdBy": {
+        "edit": {
+          "label": "createdBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "createdBy",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedBy": {
+        "edit": {
+          "label": "updatedBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "updatedBy",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "type",
+        "internalInvoiceNumber",
+        "invoiceNumberOrVariableSymbol",
+        "importId",
+        "orderNumber"
+      ],
+      "edit": [
+        [
+          {
+            "name": "type",
+            "size": 6
+          },
+          {
+            "name": "internalInvoiceNumber",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "invoiceNumberOrVariableSymbol",
+            "size": 6
+          },
+          {
+            "name": "orderNumber",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "contractNumber",
+            "size": 6
+          },
+          {
+            "name": "description",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "supplierName",
+            "size": 6
+          },
+          {
+            "name": "supplierAddress",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "supplierRegistrationNumber",
+            "size": 6
+          },
+          {
+            "name": "dateOfOrder",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "totalValue",
+            "size": 6
+          },
+          {
+            "name": "invoicedAmount",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "dateOfDelivery",
+            "size": 6
+          },
+          {
+            "name": "signedBy",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "files",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "additionalData",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "importId",
+            "size": 6
+          },
+          {
+            "name": "publishedAtOverride",
+            "size": 6
+          }
+        ]
+      ]
+    }
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}
