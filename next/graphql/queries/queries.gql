@@ -1,12 +1,29 @@
-query General($locale: I18NLocaleCode!) {
-  navigation: renderNavigation(
-    navigationIdOrSlug: "main-navigation"
-    type: TREE
-    menuOnly: false
+# Top-level pages with their subtree, and the pages of the header menu. Strapi returns only published pages, so
+# unpublished pages drop out together with their subtree.
+query Navigation($locale: I18NLocaleCode!) {
+  topLevelPages: pages(
+    filters: { parentPage: { id: { null: true } } }
     locale: $locale
+    pagination: { limit: -1 }
   ) {
-    ...NavigationItem
+    data {
+      ...PageEntityChildPages
+    }
   }
+  menu(locale: $locale) {
+    data {
+      attributes {
+        pages(pagination: { limit: -1 }) {
+          data {
+            ...PageSlugEntity
+          }
+        }
+      }
+    }
+  }
+}
+
+query General($locale: I18NLocaleCode!) {
   general(locale: $locale) {
     data {
       ...GeneralEntity
@@ -132,14 +149,6 @@ query ArticlesStaticPaths($locale: I18NLocaleCode) {
   articles(locale: $locale, pagination: { limit: -1 }) {
     data {
       ...ArticleSlugEntity
-    }
-  }
-}
-
-query PagesStaticPaths($locale: I18NLocaleCode) {
-  pages(locale: $locale, pagination: { limit: -1 }) {
-    data {
-      ...PageSlugEntity
     }
   }
 }

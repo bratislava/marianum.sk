@@ -1,11 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { getFullPathMeiliFn } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { Branch, Bundle, Page } from '@/graphql'
-import { client } from '@/services/graphql/gqlClient'
 import { ArticleMeili, AssetMeili, CemeteryMeili } from '@/services/meili/meiliTypes'
+import { fetchNonCachedNavigation } from '@/services/navigation/fetchNavigation'
+import {
+  getEntityForMeiliEntity,
+  getPathForEntity,
+  MeiliEntityArgs,
+} from '@/services/navigation/getPathForEntity'
 import { isDefined } from '@/utils/isDefined'
-import { parseNavigation } from '@/utils/parseNavigation'
 
 // https://docs.strapi.io/developer-docs/latest/development/backend-customization/webhooks.html#payloads
 type Response = { revalidated: boolean } | { message: string } | string
@@ -61,14 +64,14 @@ const revalidate = async (req: NextApiRequest, res: NextApiResponse<Response>) =
       model === 'cemetery' ||
       model === 'asset'
     ) {
-      const { navigation } = await client.General({ locale: 'sk' })
-      const { navMap } = parseNavigation(navigation.filter(isDefined))
-      const getFullPathMeili = getFullPathMeiliFn(navMap)
+      // Not cached, the webhook comes right after the change, e.g. a page moved to another parent.
+      const navigation = await fetchNonCachedNavigation()
+      // `model` and `entry` always match, but typescript doesn't know that
+      const entity = getEntityForMeiliEntity(...([model, entry] as MeiliEntityArgs))
 
-      /* TODO fix types: `model` and `entry` always match, but typescript doesn't know that */
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      pathsToRevalidate.push(getFullPathMeili(model, entry))
+      pathsToRevalidate.push(
+        entity ? getPathForEntity(navigation, { ...entity, locale: 'sk' }) : null,
+      )
     }
 
     if (model === 'procedure') {

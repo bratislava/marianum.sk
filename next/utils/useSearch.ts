@@ -5,10 +5,10 @@ import { parseAsString, useQueryState } from 'nuqs'
 import { useState } from 'react'
 import { useDebounceValue } from 'usehooks-ts'
 
-import { useGetFullPathMeili } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { meiliClient } from '@/services/meili/meiliClient'
 import { ArticleMeili, AssetMeili, CemeteryMeili } from '@/services/meili/meiliTypes'
 import { SearchIndexWrapped } from '@/services/meili/searchIndexWrapped'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { getMeilisearchPageOptions } from '@/utils/getMeilisearchPageOptions'
 
 export const allSearchTypes = [
@@ -59,7 +59,7 @@ export const useSearch = ({ filters, isSyncedWithUrlQuery = false }: UseSearchOp
   const { i18n } = useTranslation()
   const locale = i18n.language
 
-  const { getFullPathMeili } = useGetFullPathMeili()
+  const { getPathForMeiliEntity } = useNavigation()
 
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [routerSearchQuery, setRouterSearchQuery] = useQueryState(
@@ -93,7 +93,7 @@ export const useSearch = ({ filters, isSyncedWithUrlQuery = false }: UseSearchOp
             // TODO: Fix types, but not worth it.
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const dataInner = (hit as any)[type]
-            const link = getFullPathMeili(type, dataInner)
+            const link = getPathForMeiliEntity(type, dataInner)
 
             return { type, title: dataInner.title, link, data: dataInner } as SearchResult
           })

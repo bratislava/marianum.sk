@@ -7,33 +7,30 @@ import RichText from '@/components/atoms/RichText'
 import Seo from '@/components/atoms/Seo'
 import ArticleLayout from '@/components/layouts/ArticleLayout'
 import ImageGallery from '@/components/molecules/ImageGallery'
+import { ArticleEntityFragment, GeneralEntityFragment } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
 import {
   generateStaticPaths,
   generateStaticProps,
-} from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
-import { client } from '@/services/graphql/gqlClient'
+} from '@/services/navigation/generateStaticPathsAndProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import { isDefined } from '@/utils/isDefined'
 
 type ArticlePageProps = {
-  navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   entity: ArticleEntityFragment
-} & SSRConfig
+} & SSRConfig &
+  NavigationPageProps
 
-const ArticlePage = ({ navigation, entity, general }: ArticlePageProps) => {
+const ArticlePage = ({ entity, general }: ArticlePageProps) => {
   const medias = entity.attributes?.mediaGallery?.data.filter(isDefined)
   const { seo, title, perex, coverMedia } = entity.attributes ?? {}
 
   return (
     <>
-      {/* TODO: Extract NavigationProvider from PageWrapper */}
-      <NavigationProvider navigation={navigation} general={general}>
-        <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
-      </NavigationProvider>
+      <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
 
-      <ArticleLayout article={entity} navigation={navigation} general={general}>
+      <ArticleLayout article={entity} general={general}>
         <RichText content={entity.attributes?.content} />
         {medias?.length ? (
           <div className="mt-4 md:mt-6">

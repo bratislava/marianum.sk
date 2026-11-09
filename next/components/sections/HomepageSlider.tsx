@@ -3,10 +3,10 @@ import { useTranslation } from 'next-i18next/pages'
 import { useId } from 'react'
 
 import Button from '@/components/atoms/Button'
-import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import Slider from '@/components/molecules/Slider'
 import { CtaFragment } from '@/graphql'
 import cn from '@/utils/cn'
+import { useGetLinkProps } from '@/utils/useGetLinkProps'
 
 type HomepageSliderProps = {
   slides: CtaFragment[] | null | undefined

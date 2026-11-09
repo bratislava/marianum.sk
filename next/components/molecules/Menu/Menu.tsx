@@ -8,10 +8,10 @@ import { ChevronDownIcon } from '@/assets/icons'
 import MLink from '@/components/atoms/MLink'
 import MenuLeaf from '@/components/molecules/Menu/MenuLeaf'
 import SubMenu from '@/components/molecules/Menu/SubMenu'
-import { NavigationItemFragment } from '@/graphql'
+import { NavigationNode } from '@/services/navigation/NavigationProvider'
 import cn from '@/utils/cn'
 
-export type MenuProps = Pick<NavigationItemFragment, 'title' | 'path' | 'items'>
+export type MenuProps = Pick<NavigationNode, 'title' | 'path'> & { items: NavigationNode[] }
 
 const Menu = ({ items, title, path }: MenuProps) => {
   const router = useRouter()
@@ -37,7 +37,7 @@ const Menu = ({ items, title, path }: MenuProps) => {
       <MLink
         onKeyDown={handleKeyDown}
         noStyles
-        href={path ?? ''}
+        href={path}
         className={cn(
           'flex h-full w-full items-center justify-center font-semibold ring-inset ring-offset-0 transition-all',
           { 'bg-primary/10': isOpen },
@@ -54,14 +54,12 @@ const Menu = ({ items, title, path }: MenuProps) => {
         {/* For some reason `offsetY` doesn't work on the element above. */}
         <div className="mt-3">
           <div className="bg-white py-3 text-foreground shadow-card">
-            {items?.map(
-              (item) =>
-                item &&
-                (item.items?.length ? (
-                  <SubMenu path={item.path} key={item.id} title={item.title} items={item.items} />
-                ) : (
-                  <MenuLeaf path={item.path ?? ''} title={item.title} key={item.id} />
-                )),
+            {items.map((item) =>
+              item.children.length > 0 ? (
+                <SubMenu path={item.path} key={item.slug} title={item.title} items={item.children} />
+              ) : (
+                <MenuLeaf path={item.path} title={item.title} key={item.slug} />
+              ),
             )}
           </div>
         </div>

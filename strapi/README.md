@@ -41,15 +41,11 @@ To allow graphql queries, you need to give access to Public role:
 
 Open Strapi admin panel, go to Settings > USERS & PERMISSIONS PLUGIN > Roles > Public. Check `find` and `findOne` for all content types.
 
-## Load Navigation plugin config
+## Navigation
 
-You also need to load configuration for Navigation plugin:
+Page URLs are built from the page tree: a page's URL is its parent page's (`parentPage`) URL followed by its own `slug`. The order of a page's subpages (`childPages`) is their order in the menu. The header menu shows the pages of the `Menu` single type with their subpages. Detail pages (articles, bundles, ...) are served under hardcoded paths, see `next/services/navigation/contentTypePathPrefixesMap.ts`.
 
-In admin panel, go to Settings > NAVIGATION PLUGIN > Configuration, scroll down and press 'Restore configuration'. Then scroll up and press 'Restart Strapi'.
-
-## Change Navigation plugin config
-
-To add more content types to choose from in navigation, update config for navigation plugin in `/src/config/plugin.ts`. Don't forget to update graphql fragments and queries and generate types (see readme in `next` folder).
+The Navigation plugin is not used by the frontend anymore and will be removed. The migration from it is described in [scripts/navigation-migration](scripts/navigation-migration/README.md).
 
 ## Custom queries
 

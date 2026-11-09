@@ -1,18 +1,18 @@
-version: '3.8'
+version: "3.8"
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:18
     environment:
-      POSTGRES_USER: strapi
+      POSTGRES_USER: marianum
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: strapi
+      POSTGRES_DB: marianum
       PGPORT: 5432
     expose:
-      - '5432'
+      - "5432"
     ports:
-      - '127.0.0.1:5432:5432'
+      - "127.0.0.1:5432:5432"
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - ./postgres:/var/lib/postgresql
   meilisearch:
     image: getmeili/meilisearch:v0.30.5
     environment:
@@ -26,7 +26,7 @@ services:
     ports:
       - 7700:7700
     expose:
-      - '7700'
+      - "7700"
     volumes:
       - ./meilisearch/data.ms:/data.ms
     restart: unless-stopped

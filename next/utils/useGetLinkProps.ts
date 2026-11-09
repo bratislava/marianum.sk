@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { CtaButtonFragment } from '@/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 
 /**
  * Based on olo.sk: https://github.com/bratislava/olo.sk/blob/master/next/src/utils/useGetLinkProps.ts
@@ -15,7 +15,7 @@ export type LinkProps = {
 }
 
 export const useGetLinkProps = () => {
-  const { getFullPath } = useGetFullPath()
+  const { getPathForStrapiEntity } = useNavigation()
 
   //  label from different link types is left here for consistency, to have same useGetLinkProps as in other projects, mainly olo.sk
   //  but in this case content admins are used to use label from button itself
@@ -32,26 +32,26 @@ export const useGetLinkProps = () => {
     }
 
     if ('page' in link && link.page?.data?.attributes) {
-      href = getFullPath(link.page.data) ?? '#'
+      href = getPathForStrapiEntity(link.page.data) ?? '#'
       // label = link.label ?? link.page.data.attributes.title
     } else if ('article' in link && link.article?.data?.attributes) {
-      href = getFullPath(link.article.data) ?? '#'
+      href = getPathForStrapiEntity(link.article.data) ?? '#'
       // label = link.label ?? link.article.data.attributes.title
     } else if ('branch' in link && link.branch?.data?.attributes) {
-      href = getFullPath(link.branch.data) ?? '#'
+      href = getPathForStrapiEntity(link.branch.data) ?? '#'
       // label = link.label ?? link.branch.data.attributes.title
     } else if ('asset' in link && link.asset?.data?.attributes) {
-      href = getFullPath(link.asset.data) ?? '#'
+      href = getPathForStrapiEntity(link.asset.data) ?? '#'
       // label = link.label ?? link.asset.data.attributes.title
     } else if ('bundle' in link && link.bundle?.data?.attributes) {
-      href = getFullPath(link.bundle.data) ?? '#'
+      href = getPathForStrapiEntity(link.bundle.data) ?? '#'
       // label = link.label ?? link.bundle.data.attributes.title
     } else if ('cemetery' in link && link.cemetery?.data?.attributes) {
-      href = getFullPath(link.cemetery.data) ?? '#'
+      href = getPathForStrapiEntity(link.cemetery.data) ?? '#'
       // label = link.label ?? link.cemetery.data.attributes.title
     } else if ('managedObject' in link && link.managedObject?.data?.attributes) {
       // label = link.label ?? link.managedObject.data.attributes.title
-      href = getFullPath(link.managedObject.data) ?? '#'
+      href = getPathForStrapiEntity(link.managedObject.data) ?? '#'
     } else if (link?.url) {
       label = link.label ?? link.url
       href = link.url

@@ -1372,6 +1372,33 @@ export interface ApiManagedObjectManagedObject extends Schema.CollectionType {
   }
 }
 
+export interface ApiMenuMenu extends Schema.SingleType {
+  collectionName: 'menus'
+  info: {
+    description: 'Str\u00E1nky v hlavnom menu v tomto porad\u00ED. Ich podstr\u00E1nky sa do menu doplnia pod\u013Ea stromu str\u00E1nok (nadraden\u00E1 str\u00E1nka).'
+    displayName: 'Menu'
+    pluralName: 'menus'
+    singularName: 'menu'
+  }
+  options: {
+    draftAndPublish: false
+  }
+  pluginOptions: {
+    i18n: {
+      localized: true
+    }
+  }
+  attributes: {
+    createdAt: Attribute.DateTime
+    createdBy: Attribute.Relation<'api::menu.menu', 'oneToOne', 'admin::user'> & Attribute.Private
+    locale: Attribute.String
+    localizations: Attribute.Relation<'api::menu.menu', 'oneToMany', 'api::menu.menu'>
+    pages: Attribute.Relation<'api::menu.menu', 'oneToMany', 'api::page.page'>
+    updatedAt: Attribute.DateTime
+    updatedBy: Attribute.Relation<'api::menu.menu', 'oneToOne', 'admin::user'> & Attribute.Private
+  }
+}
+
 export interface ApiOfficeOffice extends Schema.CollectionType {
   collectionName: 'offices'
   info: {
@@ -2245,6 +2272,7 @@ declare module '@strapi/types' {
       'api::home-page.home-page': ApiHomePageHomePage
       'api::managed-object-category.managed-object-category': ApiManagedObjectCategoryManagedObjectCategory
       'api::managed-object.managed-object': ApiManagedObjectManagedObject
+      'api::menu.menu': ApiMenuMenu
       'api::office.office': ApiOfficeOffice
       'api::page.page': ApiPagePage
       'api::partner.partner': ApiPartnerPartner

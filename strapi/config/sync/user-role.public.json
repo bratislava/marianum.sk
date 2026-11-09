@@ -106,6 +106,9 @@
       "action": "api::managed-object.managed-object.findOne"
     },
     {
+      "action": "api::menu.menu.find"
+    },
+    {
       "action": "api::office.office.find"
     },
     {

@@ -11,11 +11,6 @@ import SectionsWrapper from '@/components/layouts/SectionsWrapper'
 import AssetGroup from '@/components/molecules/AssetGroup'
 import BranchGroup from '@/components/molecules/BranchGroup'
 import ImageGallery from '@/components/molecules/ImageGallery'
-import {
-  generateStaticPaths,
-  generateStaticProps,
-} from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
 import ProcedureTabs from '@/components/molecules/ProcedureTabs'
 import Section from '@/components/molecules/Section'
 import AccordionGroupSection from '@/components/sections/AccordionGroupSection'
@@ -38,36 +33,33 @@ import NewsListing from '@/components/sections/NewsSection'
 import OpeningHoursSection from '@/components/sections/OpeningHoursSection'
 import ReviewListingSection from '@/components/sections/ReviewListingSection'
 import RichTextSection from '@/components/sections/RichTextSection'
-import {
-  Enum_Page_Layout,
-  GeneralEntityFragment,
-  NavigationItemFragment,
-  PageEntityFragment,
-} from '@/graphql'
+import { Enum_Page_Layout, GeneralEntityFragment, PageEntityFragment } from '@/graphql'
 import { ArticleType } from '@/services/fetchers/articles/articlesFetcher'
 import { client } from '@/services/graphql/gqlClient'
+import {
+  generatePagesStaticPaths,
+  generateStaticProps,
+} from '@/services/navigation/generateStaticPathsAndProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import { prefetchPageSections } from '@/utils/prefetchPageSections'
 
 type PageProps = {
-  navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   entity: PageEntityFragment
   dehydratedState: DehydratedState
-} & SSRConfig
+} & SSRConfig &
+  NavigationPageProps
 
-const Slug = ({ navigation, entity, general, dehydratedState }: PageProps) => {
+const Slug = ({ entity, general, dehydratedState }: PageProps) => {
   const { seo, title, perex, layout, sections, coverMedia } = entity.attributes ?? {}
 
   const isContainer = layout === Enum_Page_Layout.Fullwidth
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      {/* TODO: Extract NavigationProvider from PageWrapper */}
-      <NavigationProvider navigation={navigation} general={general}>
-        <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
-      </NavigationProvider>
+      <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
 
-      <PageLayout page={entity} navigation={navigation} general={general}>
+      <PageLayout page={entity} general={general}>
         <SectionsWrapper
           alternateBackground={isContainer}
           startBackground="light"
@@ -255,10 +247,7 @@ interface StaticParams extends ParsedUrlQuery {
 }
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
-  // TODO: Locales
-  const paths = await generateStaticPaths('sk', async (locale) =>
-    client.PagesStaticPaths({ locale }).then((response) => response.pages?.data),
-  )
+  const paths = await generatePagesStaticPaths()
 
   // eslint-disable-next-line no-console
   console.log(`Pages: Generated static paths for ${paths.length} slugs.`)
@@ -274,7 +263,6 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
   console.log(`Revalidating page ${params?.fullPath.join('/') ?? ''}`)
 
   return generateStaticProps({
-    // TODO: Locales
     locale,
     params,
     entityPromiseGetter: async ({ slug, locale: localeInner }) =>

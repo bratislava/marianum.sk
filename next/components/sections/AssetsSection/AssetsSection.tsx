@@ -10,7 +10,6 @@ import Loading from '@/components/atoms/Loading'
 import LoadingOverlay from '@/components/atoms/LoadingOverlay'
 import FilteringSearchInput from '@/components/molecules/FilteringSearchInput'
 import FiltersBackgroundWrapper from '@/components/molecules/FiltersBackgroundWrapper'
-import { useGetFullPathMeili } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import PaginationMeili from '@/components/molecules/PaginationMeili'
 import Row from '@/components/molecules/Row/Row'
 import Section from '@/components/molecules/Section'
@@ -24,6 +23,7 @@ import {
   meiliAssetsFetcher,
 } from '@/services/fetchers/assetsFetcher'
 import { AssetMeili } from '@/services/meili/meiliTypes'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { useDownloadAriaLabel } from '@/utils/useDownloadAriaLabel'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
@@ -40,7 +40,7 @@ const Assets = ({
   const assetsRef = useRef<HTMLDivElement>(null)
   useScrollToViewIfDataChange(data, filters, assetsRef)
 
-  const { getFullPathMeili } = useGetFullPathMeili()
+  const { getPathForMeiliEntity } = useNavigation()
 
   if (data.hits.length > 0) {
     return (
@@ -63,7 +63,7 @@ const Assets = ({
                   }
                 : null
             }
-            linkHref={getFullPathMeili('asset', asset) ?? ''}
+            linkHref={getPathForMeiliEntity('asset', asset) ?? ''}
             button={
               <Button
                 variant="tertiary"

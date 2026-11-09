@@ -4,9 +4,9 @@ import { MouseEvent } from 'react'
 
 import MenuItem from '@/components/molecules/Menu/MenuItem'
 import MenuLeaf from '@/components/molecules/Menu/MenuLeaf'
-import { NavigationItemFragment } from '@/graphql'
+import { NavigationNode } from '@/services/navigation/NavigationProvider'
 
-export type SubMenuProps = Pick<NavigationItemFragment, 'title' | 'path' | 'items'>
+export type SubMenuProps = Pick<NavigationNode, 'title' | 'path'> & { items: NavigationNode[] }
 
 const SubMenu = ({ title, items, path }: SubMenuProps) => {
   const router = useRouter()
@@ -15,7 +15,7 @@ const SubMenu = ({ title, items, path }: SubMenuProps) => {
     e.stopPropagation()
     e.preventDefault()
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    router.push(path ?? '#')
+    router.push(path)
   }
 
   return (
@@ -31,9 +31,9 @@ const SubMenu = ({ title, items, path }: SubMenuProps) => {
       offsetX={12}
     >
       <div className="bg-white py-3 shadow-card">
-        {items?.map(
-          (item) => item && <MenuLeaf path={item.path ?? ''} title={item.title} key={item.id} />,
-        )}
+        {items.map((item) => (
+          <MenuLeaf path={item.path} title={item.title} key={item.slug} />
+        ))}
       </div>
     </ReactSubMenu>
   )

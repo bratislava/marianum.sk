@@ -14,9 +14,10 @@ import Row from '@/components/molecules/Row/Row'
 import RowSkeleton from '@/components/molecules/Row/RowSkeleton'
 import Search from '@/components/molecules/Search'
 import Section from '@/components/molecules/Section'
-import { GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { GeneralEntityFragment } from '@/graphql'
 import { client } from '@/services/graphql/gqlClient'
-import { isDefined } from '@/utils/isDefined'
+import { getNavigationStaticProps } from '@/services/navigation/getNavigationStaticProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 import { allSearchTypes, SearchFilters, SearchType, useSearch } from '@/utils/useSearch'
 
@@ -161,11 +162,10 @@ const SearchSection = () => {
 }
 
 type SearchPageProps = {
-  navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
-}
+} & NavigationPageProps
 
-const SearchPage = ({ navigation, general }: SearchPageProps) => {
+const SearchPage = ({ general }: SearchPageProps) => {
   const { t } = useTranslation()
 
   return (
@@ -174,7 +174,7 @@ const SearchPage = ({ navigation, general }: SearchPageProps) => {
         <title>{`${t('SearchPage.pageTitle')} – Marianum`}</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <PageWrapper navigation={navigation} general={general}>
+      <PageWrapper general={general}>
         <SectionsWrapper alternateBackground className="pb-14">
           <SearchSection />
         </SectionsWrapper>
@@ -186,16 +186,15 @@ const SearchPage = ({ navigation, general }: SearchPageProps) => {
 export const getStaticProps: GetStaticProps = async ({
   locale = 'sk',
 }): Promise<GetStaticPropsResult<SearchPageProps>> => {
-  const [{ navigation, general }, translations] = await Promise.all([
+  const [{ general }, translations, navigationStaticProps] = await Promise.all([
     client.General({ locale }),
     serverSideTranslations(locale),
+    getNavigationStaticProps({ locale, currentEntity: { type: 'search' } }),
   ])
-
-  const filteredNavigation = navigation.filter(isDefined)
 
   return {
     props: {
-      navigation: filteredNavigation,
+      navigationStaticProps,
       general: general?.data ?? null,
       ...translations,
     },

@@ -1,6 +1,32 @@
 import i18nextConfig from './next-i18next.config'
 import type { NextConfig } from 'next'
-import { generateRedirects } from './components/molecules/Navigation/NavigationProvider/generateRedirects'
+
+import {
+  contentTypePathPrefixesMap,
+  contentTypeRoutesMap,
+  pagesRoute,
+} from './services/navigation/contentTypePathPrefixesMap'
+
+/**
+ * Detail pages are served under the path of their parent page (e.g. `/aktuality/novinky/:slug`) and pages under the
+ * path built from the page tree. Both are rewritten to their route with the whole path as the `fullPath` param, the
+ * route renders the entity only if it's the entity's correct path (see `generateStaticProps`).
+ *
+ * E.g.
+ * Full path: /aktuality/novinky/:slug
+ * Rewrite:   /articles/aktuality/novinky/:slug
+ *            [       ][                      ]
+ *             Next.js        :fullPath
+ *              route
+ *
+ * The links are built from the same prefixes (see `getPathForEntity`).
+ */
+const detailPageRewrites = Object.entries(contentTypePathPrefixesMap).map(
+  ([contentType, pathPrefix]) => ({
+    source: `${pathPrefix}/:slug`,
+    destination: `${contentTypeRoutesMap[contentType as keyof typeof contentTypeRoutesMap]}${pathPrefix}/:slug`,
+  }),
+)
 
 const nextConfig: NextConfig = {
   i18n: i18nextConfig.i18n,
@@ -107,51 +133,9 @@ const nextConfig: NextConfig = {
           source: '/ziadost/suhlasy',
           destination: '/application/consents',
         },
-        // IMPORTANT: Keep this in sync with `localPaths` const in getFullPath.ts
-        ...generateRedirects([
-          { fullPath: '/aktuality/novinky/:slug', nextRoute: '/articles' },
-          { fullPath: '/aktuality/kariera/:slug', nextRoute: '/articles' },
-          {
-            fullPath: '/o-nas/pre-media/:slug',
-            nextRoute: '/articles',
-          },
-          {
-            fullPath: '/sluzby/balicky-pohrebov/rozlucka-na-cintorine/:slug',
-            nextRoute: '/bundles',
-          },
-          {
-            fullPath: '/sluzby/balicky-pohrebov/kremacia/:slug',
-            nextRoute: '/bundles',
-          },
-          {
-            fullPath: '/sluzby/balicky-pohrebov/prirodne-obrady/:slug',
-            nextRoute: '/bundles',
-          },
-          {
-            fullPath: '/o-nas/kontakty/:slug',
-            nextRoute: '/branches',
-          },
-          {
-            fullPath: '/o-nas/cintoriny-v-sprave/:slug',
-            nextRoute: '/cemeteries',
-          },
-          {
-            fullPath: '/o-nas/starostlivost-o-mestske-fontany/:slug',
-            nextRoute: '/managed-objects',
-          },
-          {
-            fullPath: '/o-nas/dokumenty/:slug',
-            nextRoute: '/documents',
-          },
-          {
-            fullPath: '/o-nas/dokumenty/legislativa/:slug',
-            nextRoute: '/documents',
-          },
-          {
-            fullPath: '/:fullPath*',
-            nextRoute: '/pages',
-          },
-        ]),
+        ...detailPageRewrites,
+        // Everything else is a page.
+        { source: '/:fullPath*', destination: `${pagesRoute}/:fullPath*` },
       ],
     }
   },

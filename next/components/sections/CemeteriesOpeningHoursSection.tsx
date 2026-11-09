@@ -2,12 +2,12 @@ import { useContext } from 'react'
 
 import Button from '@/components/atoms/Button'
 import { sectionContext } from '@/components/layouts/SectionsWrapper'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
-import { useNavigationContext } from '@/components/molecules/Navigation/NavigationProvider/useNavigationContext'
 import OpeningHours from '@/components/molecules/OpeningHours'
 import Section, { SectionProps } from '@/components/molecules/Section'
 import { CemeteriesOpeningHoursFragment } from '@/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import cn from '@/utils/cn'
+import { useGeneralContext } from '@/utils/generalContext'
 
 type CemeteriesOpeningHoursSectionProps = Pick<SectionProps, 'background' | 'title'> & {
   section: CemeteriesOpeningHoursFragment
@@ -17,11 +17,11 @@ const CemeteriesOpeningHoursSection = ({
   section,
   ...rest
 }: CemeteriesOpeningHoursSectionProps) => {
-  const { general } = useNavigationContext()
+  const { general } = useGeneralContext()
   const { border } = useContext(sectionContext)
-  const { getFullPath } = useGetFullPath()
+  const { getPathForStrapiEntity } = useNavigation()
 
-  const showMorePath = getFullPath(section.showMoreButton?.page?.data)
+  const showMorePath = getPathForStrapiEntity(section.showMoreButton?.page?.data)
 
   return (
     <Section

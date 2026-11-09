@@ -3,12 +3,11 @@ import { ReactNode } from 'react'
 import ScrollToTopButton from '@/components/atoms/ScrollToTopButton'
 import Footer from '@/components/molecules/Footer/Footer'
 import Navigation from '@/components/molecules/Navigation/Navigation'
-import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import { GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { GeneralEntityFragment } from '@/graphql'
+import { GeneralContextProvider } from '@/utils/generalContext'
 import { isDefined } from '@/utils/isDefined'
 
 type PageWrapperProps = {
-  navigation: NavigationItemFragment[]
   header?: ReactNode
   children?: ReactNode
   general: GeneralEntityFragment | null
@@ -43,9 +42,9 @@ const NextPublicEnvsHtmlComment = () => {
 }
 /* eslint-enable @typescript-eslint/restrict-template-expressions */
 
-const PageWrapper = ({ navigation, header, children, general }: PageWrapperProps) => {
+const PageWrapper = ({ header, children, general }: PageWrapperProps) => {
   return (
-    <NavigationProvider navigation={navigation} general={general}>
+    <GeneralContextProvider general={general}>
       <div className="h-full">
         <header>
           <NextPublicEnvsHtmlComment />
@@ -63,7 +62,7 @@ const PageWrapper = ({ navigation, header, children, general }: PageWrapperProps
 
         <ScrollToTopButton />
       </div>
-    </NavigationProvider>
+    </GeneralContextProvider>
   )
 }
 
