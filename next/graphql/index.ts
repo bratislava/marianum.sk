@@ -4017,12 +4017,14 @@ export type OfficeRelationResponseCollection = {
 
 export type Page = {
   __typename?: 'Page';
+  childPages?: Maybe<PageRelationResponseCollection>;
   coverMedia?: Maybe<UploadFileEntityResponse>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   ctaButton?: Maybe<ComponentBlocksButtonLink>;
   layout: Enum_Page_Layout;
   locale?: Maybe<Scalars['String']['output']>;
   localizations?: Maybe<PageRelationResponseCollection>;
+  parentPage?: Maybe<PageEntityResponse>;
   perex?: Maybe<Scalars['String']['output']>;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   sections?: Maybe<Array<Maybe<PageSectionsDynamicZone>>>;
@@ -4031,6 +4033,14 @@ export type Page = {
   slug: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type PageChildPagesArgs = {
+  filters?: InputMaybe<PageFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  publicationState?: InputMaybe<PublicationState>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -4060,6 +4070,7 @@ export type PageEntityResponseCollection = {
 
 export type PageFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<PageFiltersInput>>>;
+  childPages?: InputMaybe<PageFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   ctaButton?: InputMaybe<ComponentBlocksButtonLinkFiltersInput>;
   id?: InputMaybe<IdFilterInput>;
@@ -4068,6 +4079,7 @@ export type PageFiltersInput = {
   localizations?: InputMaybe<PageFiltersInput>;
   not?: InputMaybe<PageFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<PageFiltersInput>>>;
+  parentPage?: InputMaybe<PageFiltersInput>;
   perex?: InputMaybe<StringFilterInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   seo?: InputMaybe<ComponentGeneralSeoFiltersInput>;
@@ -4078,9 +4090,11 @@ export type PageFiltersInput = {
 };
 
 export type PageInput = {
+  childPages?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   coverMedia?: InputMaybe<Scalars['ID']['input']>;
   ctaButton?: InputMaybe<ComponentBlocksButtonLinkInput>;
   layout?: InputMaybe<Enum_Page_Layout>;
+  parentPage?: InputMaybe<Scalars['ID']['input']>;
   perex?: InputMaybe<Scalars['String']['input']>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   sections?: InputMaybe<Array<Scalars['PageSectionsDynamicZoneInput']['input']>>;
