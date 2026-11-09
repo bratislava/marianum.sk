@@ -37,7 +37,7 @@
       "slug": {
         "edit": {
           "label": "Slug",
-          "description": "Pri zmene slugu treba zmeniť slug aj v Navigácii.",
+          "description": "Posledná časť URL adresy stránky. Pri zmene sa zmení URL tejto stránky aj všetkých jej podstránok.",
           "placeholder": "",
           "visible": true,
           "editable": true
@@ -146,6 +146,36 @@
           "sortable": false
         }
       },
+      "parentPage": {
+        "edit": {
+          "label": "Otcovská stránka (nepoužívať)",
+          "description": "URL adresa stránky je URL nadradenej stránky + slug. Stránka bez nadradenej stránky má URL /slug.",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "Otcovská stránka (nepoužívať)",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "childPages": {
+        "edit": {
+          "label": "Podstránka (nepoužívať)",
+          "description": "Poradie podstránok je aj ich poradie v menu.",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "Podstránky",
+          "searchable": false,
+          "sortable": false
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -206,12 +236,7 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "title",
-        "slug",
-        "layout"
-      ],
+      "list": ["id", "title", "slug", "layout", "parentPage"],
       "edit": [
         [
           {
@@ -220,6 +245,16 @@
           },
           {
             "name": "slug",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "parentPage",
+            "size": 6
+          },
+          {
+            "name": "childPages",
             "size": 6
           }
         ],

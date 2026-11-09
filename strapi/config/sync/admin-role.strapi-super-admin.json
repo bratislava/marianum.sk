@@ -1570,7 +1570,9 @@
           "sidebar.contact",
           "seo.metaTitle",
           "seo.keywords",
-          "seo.metaDescription"
+          "seo.metaDescription",
+          "parentPage",
+          "childPages"
         ],
         "locales": [
           "sk"
@@ -1635,7 +1637,9 @@
           "sidebar.contact",
           "seo.metaTitle",
           "seo.keywords",
-          "seo.metaDescription"
+          "seo.metaDescription",
+          "parentPage",
+          "childPages"
         ],
         "locales": [
           "sk"
@@ -1678,7 +1682,9 @@
           "sidebar.contact",
           "seo.metaTitle",
           "seo.keywords",
-          "seo.metaDescription"
+          "seo.metaDescription",
+          "parentPage",
+          "childPages"
         ],
         "locales": [
           "sk"
