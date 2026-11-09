@@ -163,8 +163,8 @@
       },
       "childPages": {
         "edit": {
-          "label": "Podstránka (nepoužívať)",
-          "description": "Poradie podstránok je aj ich poradie v menu.",
+          "label": "Podstránky (nepoužívať)",
+          "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true,
@@ -236,7 +236,6 @@
       }
     },
     "layouts": {
-      "list": ["id", "title", "slug", "layout", "parentPage"],
       "edit": [
         [
           {
@@ -245,16 +244,6 @@
           },
           {
             "name": "slug",
-            "size": 6
-          }
-        ],
-        [
-          {
-            "name": "parentPage",
-            "size": 6
-          },
-          {
-            "name": "childPages",
             "size": 6
           }
         ],
@@ -297,7 +286,24 @@
             "name": "seo",
             "size": 12
           }
+        ],
+        [
+          {
+            "name": "parentPage",
+            "size": 6
+          },
+          {
+            "name": "childPages",
+            "size": 6
+          }
         ]
+      ],
+      "list": [
+        "id",
+        "title",
+        "slug",
+        "layout",
+        "parentPage"
       ]
     }
   },
