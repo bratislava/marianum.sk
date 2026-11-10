@@ -161,7 +161,7 @@
       },
       "childPages": {
         "edit": {
-          "label": "Podstránky (nepoužívať)",
+          "label": "Dcérske stránky (nepoužívať)",
           "description": "",
           "placeholder": "",
           "visible": true,
@@ -169,7 +169,7 @@
           "mainField": "title"
         },
         "list": {
-          "label": "Podstránky",
+          "label": "Dcérske stránky (nepoužívať)",
           "searchable": false,
           "sortable": false
         }
