@@ -37,7 +37,6 @@
       "slug": {
         "edit": {
           "label": "Slug",
-          "description": "Posledná časť URL adresy stránky. Pri zmene sa zmení URL tejto stránky aj všetkých jej podstránok.",
           "placeholder": "",
           "visible": true,
           "editable": true
@@ -148,15 +147,14 @@
       },
       "parentPage": {
         "edit": {
-          "label": "Otcovská stránka (nepoužívať)",
-          "description": "URL adresa stránky je URL nadradenej stránky + slug. Stránka bez nadradenej stránky má URL /slug.",
+          "label": "Rodičovská stránka (nepoužívať)",
           "placeholder": "",
           "visible": true,
           "editable": true,
           "mainField": "title"
         },
         "list": {
-          "label": "Otcovská stránka (nepoužívať)",
+          "label": "Rodičovská stránka (nepoužívať)",
           "searchable": true,
           "sortable": true
         }
@@ -298,13 +296,7 @@
           }
         ]
       ],
-      "list": [
-        "id",
-        "title",
-        "slug",
-        "layout",
-        "parentPage"
-      ]
+      "list": ["id", "title", "slug", "layout", "parentPage"]
     }
   },
   "type": "object",
