@@ -2934,12 +2934,14 @@ type OfficeRelationResponseCollection {
 }
 
 type Page {
+  childPages(filters: PageFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PageRelationResponseCollection
   coverMedia: UploadFileEntityResponse
   createdAt: DateTime
   ctaButton: ComponentBlocksButtonLink
   layout: ENUM_PAGE_LAYOUT!
   locale: String
   localizations(filters: PageFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PageRelationResponseCollection
+  parentPage: PageEntityResponse
   perex: String
   publishedAt: DateTime
   sections: [PageSectionsDynamicZone]
@@ -2966,6 +2968,7 @@ type PageEntityResponseCollection {
 
 input PageFiltersInput {
   and: [PageFiltersInput]
+  childPages: PageFiltersInput
   createdAt: DateTimeFilterInput
   ctaButton: ComponentBlocksButtonLinkFiltersInput
   id: IDFilterInput
@@ -2974,6 +2977,7 @@ input PageFiltersInput {
   localizations: PageFiltersInput
   not: PageFiltersInput
   or: [PageFiltersInput]
+  parentPage: PageFiltersInput
   perex: StringFilterInput
   publishedAt: DateTimeFilterInput
   seo: ComponentGeneralSeoFiltersInput
@@ -2984,9 +2988,11 @@ input PageFiltersInput {
 }
 
 input PageInput {
+  childPages: [ID]
   coverMedia: ID
   ctaButton: ComponentBlocksButtonLinkInput
   layout: ENUM_PAGE_LAYOUT
+  parentPage: ID
   perex: String
   publishedAt: DateTime
   sections: [PageSectionsDynamicZoneInput!]
