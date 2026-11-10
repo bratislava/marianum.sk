@@ -37,7 +37,6 @@
       "slug": {
         "edit": {
           "label": "Slug",
-          "description": "Pri zmene slugu treba zmeniť slug aj v Navigácii.",
           "placeholder": "",
           "visible": true,
           "editable": true
@@ -146,6 +145,35 @@
           "sortable": false
         }
       },
+      "parentPage": {
+        "edit": {
+          "label": "Rodičovská stránka (nepoužívať)",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "Rodičovská stránka (nepoužívať)",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "childPages": {
+        "edit": {
+          "label": "Dcérske stránky (nepoužívať)",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "Dcérske stránky (nepoužívať)",
+          "searchable": false,
+          "sortable": false
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -206,12 +234,6 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "title",
-        "slug",
-        "layout"
-      ],
       "edit": [
         [
           {
@@ -262,8 +284,19 @@
             "name": "seo",
             "size": 12
           }
+        ],
+        [
+          {
+            "name": "parentPage",
+            "size": 6
+          },
+          {
+            "name": "childPages",
+            "size": 6
+          }
         ]
-      ]
+      ],
+      "list": ["id", "title", "slug", "layout", "parentPage"]
     }
   },
   "type": "object",

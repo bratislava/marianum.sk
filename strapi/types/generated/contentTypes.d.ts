@@ -1466,6 +1466,7 @@ export interface ApiPagePage extends Schema.CollectionType {
     }
   }
   attributes: {
+    childPages: Attribute.Relation<'api::page.page', 'oneToMany', 'api::page.page'>
     coverMedia: Attribute.Media<'images'> &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1490,6 +1491,7 @@ export interface ApiPagePage extends Schema.CollectionType {
       Attribute.DefaultTo<'fullwidth'>
     locale: Attribute.String
     localizations: Attribute.Relation<'api::page.page', 'oneToMany', 'api::page.page'>
+    parentPage: Attribute.Relation<'api::page.page', 'manyToOne', 'api::page.page'>
     perex: Attribute.Text &
       Attribute.SetPluginOptions<{
         i18n: {
