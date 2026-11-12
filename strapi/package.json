@@ -22,7 +22,7 @@
     "@strapi/plugin-upload": "4.26.2",
     "@strapi/plugin-users-permissions": "4.26.2",
     "@strapi/provider-email-mailgun": "4.26.2",
-    "@strapi/provider-upload-aws-s3": "4.26.2",
+    "@strapi/provider-upload-aws-s3": "5.61.1",
     "@strapi/strapi": "4.26.2",
     "moment": "2.30.1",
     "moment-timezone": "0.6.2",
