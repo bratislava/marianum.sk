@@ -1375,7 +1375,7 @@ export interface ApiManagedObjectManagedObject extends Schema.CollectionType {
 export interface ApiMenuMenu extends Schema.SingleType {
   collectionName: 'menus'
   info: {
-    description: 'Str\u00E1nky v hlavnom menu v tomto porad\u00ED. Ich podstr\u00E1nky sa do menu doplnia pod\u013Ea stromu str\u00E1nok (otcovsk\u00E1 str\u00E1nka).'
+    description: 'Najviac 4 str\u00E1nky v hlavnom menu v tomto porad\u00ED. Ich podstr\u00E1nky sa do menu doplnia pod\u013Ea naviga\u010Dn\u00E9ho stromu (otcovsk\u00E1 str\u00E1nka).'
     displayName: 'Menu'
     pluralName: 'menus'
     singularName: 'menu'

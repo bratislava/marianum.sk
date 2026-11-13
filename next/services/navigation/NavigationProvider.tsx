@@ -23,6 +23,9 @@ export type NavigationNode = {
 
 export type NavigationBreadcrumb = { label: string; path: string }
 
+// Number of columns of the desktop menu grid in NavigationMenuDesktop.tsx, keep them in sync.
+const MAX_MENU_PAGES = 4
+
 const NavigationContext = createContext<NavigationStaticProps | null>(null)
 
 export const NavigationProvider = ({
@@ -73,8 +76,11 @@ const getNavigationObject = ({ navigation, locale, currentEntity }: NavigationSt
     return (slug && getNode(slug)?.children) || []
   }
 
-  /** Header menu: pages from the Menu single type with their subpages. */
-  const menu = menuSlugs.map(getNode).filter(isDefined)
+  /**
+   * Header menu: pages from the Menu single type with their subpages. Only the first MAX_MENU_PAGES are shown, the
+   * desktop menu has that many columns.
+   */
+  const menu = menuSlugs.map(getNode).filter(isDefined).slice(0, MAX_MENU_PAGES)
 
   const currentPage =
     currentEntity?.type === 'page' && currentEntity.slug

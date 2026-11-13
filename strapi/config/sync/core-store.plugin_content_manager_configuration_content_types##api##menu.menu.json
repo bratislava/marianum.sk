@@ -94,12 +94,7 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "pages",
-        "createdAt",
-        "updatedAt"
-      ],
+      "list": ["id", "pages", "createdAt", "updatedAt"],
       "edit": [
         [
           {

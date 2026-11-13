@@ -151,6 +151,9 @@
       "action": "plugin::i18n.locales.listLocales"
     },
     {
+      "action": "plugin::navigation.client.readAll"
+    },
+    {
       "action": "plugin::navigation.client.render"
     },
     {
