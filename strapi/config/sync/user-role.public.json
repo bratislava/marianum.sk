@@ -106,6 +106,9 @@
       "action": "api::managed-object.managed-object.findOne"
     },
     {
+      "action": "api::menu.menu.find"
+    },
+    {
       "action": "api::office.office.find"
     },
     {
@@ -146,6 +149,9 @@
     },
     {
       "action": "plugin::i18n.locales.listLocales"
+    },
+    {
+      "action": "plugin::navigation.client.readAll"
     },
     {
       "action": "plugin::navigation.client.render"

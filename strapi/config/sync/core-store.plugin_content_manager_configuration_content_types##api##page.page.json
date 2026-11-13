@@ -147,21 +147,22 @@
       },
       "parentPage": {
         "edit": {
-          "label": "Rodičovská stránka (nepoužívať)",
+          "label": "Otcovská stránka",
+          "description": "Výsledná URL stránky je spojenie slugov z reťaze otcovských stránok. (napr. marianum.sk/otcovska-stranka-slug/moj-slug)",
           "placeholder": "",
           "visible": true,
           "editable": true,
           "mainField": "title"
         },
         "list": {
-          "label": "Rodičovská stránka (nepoužívať)",
+          "label": "Otcovská stránka",
           "searchable": true,
           "sortable": true
         }
       },
       "childPages": {
         "edit": {
-          "label": "Dcérske stránky (nepoužívať)",
+          "label": "Potomkovia",
           "description": "",
           "placeholder": "",
           "visible": true,
@@ -169,7 +170,7 @@
           "mainField": "title"
         },
         "list": {
-          "label": "Dcérske stránky (nepoužívať)",
+          "label": "Potomkovia",
           "searchable": false,
           "sortable": false
         }

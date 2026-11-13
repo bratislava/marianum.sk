@@ -7,7 +7,6 @@ import FormatDate from '@/components/atoms/FormatDate'
 import Loading from '@/components/atoms/Loading'
 import MLink from '@/components/atoms/MLink'
 import CemeteryLink from '@/components/molecules/CemeteryLink'
-import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import Section from '@/components/molecules/Section'
 import { UpcomingCeremoniesSectionFragment } from '@/graphql'
 import {
@@ -16,6 +15,7 @@ import {
 } from '@/services/fetchers/ceremonies/upcomingCeremoniesFetcher'
 import { bratislavaTimezone } from '@/utils/consts'
 import { getCemeteryInfoFromCeremony } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
+import { useGetLinkProps } from '@/utils/useGetLinkProps'
 
 const Table = () => {
   const { t, i18n } = useTranslation()

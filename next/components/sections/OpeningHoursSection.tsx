@@ -1,8 +1,8 @@
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import OpeningHours from '@/components/molecules/OpeningHours'
 import Row from '@/components/molecules/Row/Row'
 import Section, { SectionProps } from '@/components/molecules/Section'
 import { OpeningHoursSectionFragment } from '@/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { isDefined } from '@/utils/isDefined'
 
 type OpeningHoursSectionProps = Pick<SectionProps, 'background' | 'title'> & {
@@ -10,7 +10,7 @@ type OpeningHoursSectionProps = Pick<SectionProps, 'background' | 'title'> & {
 }
 
 const OpeningHoursSection = ({ section, ...rest }: OpeningHoursSectionProps) => {
-  const { getFullPath } = useGetFullPath()
+  const { getPathForStrapiEntity } = useNavigation()
 
   const filteredOffices =
     section.offices?.map((office) => office?.office?.data).filter(isDefined) ?? []
@@ -26,7 +26,7 @@ const OpeningHoursSection = ({ section, ...rest }: OpeningHoursSectionProps) => 
             <Row
               title={cemeteryTitle}
               address={branchAddress}
-              linkHref={getFullPath(branch?.data) ?? undefined}
+              linkHref={getPathForStrapiEntity(branch?.data) ?? undefined}
               moreContent={openingHours && <OpeningHours openingHours={openingHours} />}
               key={office.id}
             />

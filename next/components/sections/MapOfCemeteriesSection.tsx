@@ -4,7 +4,6 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
 import Loading from '@/components/atoms/Loading'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section from '@/components/molecules/Section'
 import MapWithSearch from '@/components/sections/MapWithSearch'
 import { MapSectionFragment } from '@/graphql'
@@ -13,6 +12,7 @@ import {
   getMeiliCemeteriesQueryKey,
   meiliCemeteriesFetcher,
 } from '@/services/fetchers/cemeteries/cemeteriesFetcher'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { isDefined } from '@/utils/isDefined'
 
 type MapOfCemeteriesSectionProps = {
@@ -26,7 +26,7 @@ export const mapOfCemeteriesSectionDefaultFilters = {
 
 // Note that this section is called just "Map section" in Strapi
 const MapOfCemeteriesSection = ({ section }: MapOfCemeteriesSectionProps) => {
-  const { getFullPath } = useGetFullPath()
+  const { getPathForStrapiEntity } = useNavigation()
 
   const categories = section.categories?.data.filter(isDefined) ?? []
 
@@ -81,7 +81,7 @@ const MapOfCemeteriesSection = ({ section }: MapOfCemeteriesSectionProps) => {
         landmarks={data.hits
           .map((hit) => {
             const { title, latitude, longitude, address } = hit ?? {}
-            const linkHref = getFullPath({
+            const linkHref = getPathForStrapiEntity({
               id: hit.id,
               __typename: 'CemeteryEntity',
               attributes: hit,

@@ -3,9 +3,9 @@ import { useMemo } from 'react'
 import TabItem from '@/components/atoms/Tabs/TabItem'
 import Tabs from '@/components/atoms/Tabs/Tabs'
 import BundleCard from '@/components/molecules/Cards/BundleCard'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section, { SectionProps } from '@/components/molecules/Section'
 import { BundleListingFragment } from '@/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { isDefined } from '@/utils/isDefined'
 
 type BundleListingSectionProps = Pick<SectionProps, 'background'> & {
@@ -13,7 +13,7 @@ type BundleListingSectionProps = Pick<SectionProps, 'background'> & {
 }
 
 const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) => {
-  const { getFullPath } = useGetFullPath()
+  const { getPathForStrapiEntity } = useNavigation()
 
   const { title, description, outsideMedicalFacility, atMedicalFacility } = section
 
@@ -63,7 +63,7 @@ const BundleListingSection = ({ section, ...rest }: BundleListingSectionProps) =
                           ?.map((bundleItem) => bundleItem?.description)
                           .filter(isDefined) ?? []
                       }
-                      linkHref={getFullPath(bundle) ?? ''}
+                      linkHref={getPathForStrapiEntity(bundle) ?? ''}
                     />
                   )
                 })}

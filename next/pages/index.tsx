@@ -8,7 +8,6 @@ import Seo from '@/components/atoms/Seo'
 import PageWrapper from '@/components/layouts/PageWrapper'
 import SectionsWrapper from '@/components/layouts/SectionsWrapper'
 import CtaGroup from '@/components/molecules/CtaGroup'
-import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
 import Section from '@/components/molecules/Section'
 import ArticlesManualListingSection from '@/components/sections/ArticlesManualListingSection'
 import CardSection from '@/components/sections/CardSection'
@@ -17,34 +16,32 @@ import HomepageReviewsSection from '@/components/sections/HomepageReviewsSection
 import HomepageSlider from '@/components/sections/HomepageSlider'
 import NewsSection from '@/components/sections/NewsSection'
 import UpcomingCeremoniesSection from '@/components/sections/UpcomingCeremoniesSection'
-import { GeneralEntityFragment, HomePageQuery, NavigationItemFragment } from '@/graphql'
+import { GeneralEntityFragment, HomePageQuery } from '@/graphql'
 import { getGraphqlNewsListingQuery } from '@/services/fetchers/articles/newsListingFetcher'
 import { getUpcomingCeremoniesQuery } from '@/services/fetchers/ceremonies/upcomingCeremoniesFetcher'
 import { client } from '@/services/graphql/gqlClient'
+import { getNavigationStaticProps } from '@/services/navigation/getNavigationStaticProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import { NOT_FOUND } from '@/utils/consts'
 import { isDefined } from '@/utils/isDefined'
 
 type HomeProps = {
-  navigation: NavigationItemFragment[]
   page: NonNullable<NonNullable<HomePageQuery['homePage']>['data']>
   procedures: NonNullable<HomePageQuery['procedures']>['data']
   general: GeneralEntityFragment | null
   dehydratedState: DehydratedState
-}
+} & NavigationPageProps
 
-const Home = ({ navigation, page, procedures, general, dehydratedState }: HomeProps) => {
+const Home = ({ page, procedures, general, dehydratedState }: HomeProps) => {
   const { t } = useTranslation()
 
   const { seo } = page.attributes ?? {}
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      {/* TODO: Extract NavigationProvider from PageWrapper */}
-      <NavigationProvider navigation={navigation} general={general}>
-        <Seo seo={seo} title={t('HomePage.home')} homepage />
-      </NavigationProvider>
+      <Seo seo={seo} title={t('HomePage.home')} homepage />
 
-      <PageWrapper navigation={navigation} general={general}>
+      <PageWrapper general={general}>
         {/* TODO translation */}
         <h1 className="sr-only">Marianum - Pohrebníctvo mesta Bratislavy</h1>
 
@@ -120,12 +117,11 @@ export const getStaticProps: GetStaticProps = async ({
     return NOT_FOUND
   }
 
-  const [{ navigation, general }, translations] = await Promise.all([
+  const [{ general }, translations, navigationStaticProps] = await Promise.all([
     client.General({ locale }),
     serverSideTranslations(locale),
+    getNavigationStaticProps({ locale }),
   ])
-
-  const filteredNavigation = navigation.filter(isDefined)
 
   // Prefetch data
   const queryClient = new QueryClient()
@@ -137,7 +133,7 @@ export const getStaticProps: GetStaticProps = async ({
 
   return {
     props: {
-      navigation: filteredNavigation,
+      navigationStaticProps,
       general: general?.data ?? null,
       page: homePage?.data ?? null,
       procedures: procedures?.data ?? null,

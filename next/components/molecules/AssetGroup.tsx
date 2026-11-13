@@ -1,8 +1,8 @@
 import { useId, useMemo } from 'react'
 
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import AssetRow from '@/components/molecules/Row/AssetRow'
 import { AssetGroupFragment } from '@/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
 
@@ -12,7 +12,7 @@ const getAriaLabelId = (id: string, index: number) => `asset-group-title-${id}-$
 
 const AssetGroup = ({ assets, variant = 'gaps' }: AssetGroupProps) => {
   const id = useId()
-  const { getFullPath } = useGetFullPath()
+  const { getPathForStrapiEntity } = useNavigation()
 
   const filteredAssets = useMemo(() => {
     return (assets ?? []).map((asset) => asset?.asset?.data).filter(isDefined)
@@ -35,7 +35,7 @@ const AssetGroup = ({ assets, variant = 'gaps' }: AssetGroupProps) => {
             key={slug}
             title={title ?? ''}
             titleId={getAriaLabelId(id, index)}
-            linkHref={getFullPath(doc) ?? undefined}
+            linkHref={getPathForStrapiEntity(doc) ?? undefined}
             file={file?.data}
             variant={variant}
           />

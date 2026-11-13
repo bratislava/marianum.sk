@@ -1,8 +1,8 @@
 import Button from '@/components/atoms/Button'
 import RichText from '@/components/atoms/RichText'
-import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import Section from '@/components/molecules/Section'
 import { RichtextSectionFragment } from '@/graphql'
+import { useGetLinkProps } from '@/utils/useGetLinkProps'
 
 type RichTextSectionProps = {
   section: RichtextSectionFragment
