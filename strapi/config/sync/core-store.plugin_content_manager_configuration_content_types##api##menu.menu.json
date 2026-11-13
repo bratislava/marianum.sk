@@ -22,7 +22,7 @@
       "pages": {
         "edit": {
           "label": "Stránky",
-          "description": "Stránky v hlavnom menu v tomto poradí. Ich podstránky sa do menu doplnia podľa nadradených stránok.",
+          "description": "Stránky v hlavnom menu v tomto poradí. Ich podstránky sa do menu doplnia podľa otcovských stránok.",
           "placeholder": "",
           "visible": true,
           "editable": true,

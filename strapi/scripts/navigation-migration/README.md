@@ -64,5 +64,5 @@ baseline. A rebuilt inventory makes `--sample` pick other detail pages, which th
 node scripts/navigation-migration/check-urls.mjs --base <new build> --name after --sample 30 --compare prod-before
 ```
 
-From now on, the page tree is edited in the page's "Nadradená stránka" field and the menu in the `Menu` single type.
+From now on, the page tree is edited in the page's "Otcovská stránka" field and the menu in the `Menu` single type.
 The Navigation plugin is not used anymore and can be removed in the next step.

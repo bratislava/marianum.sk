@@ -5,7 +5,7 @@
     "singularName": "menu",
     "pluralName": "menus",
     "displayName": "Menu",
-    "description": "Stránky v hlavnom menu v tomto poradí. Ich podstránky sa do menu doplnia podľa stromu stránok (nadradená stránka)."
+    "description": "Stránky v hlavnom menu v tomto poradí. Ich podstránky sa do menu doplnia podľa stromu stránok (otcovská stránka)."
   },
   "options": {
     "draftAndPublish": false

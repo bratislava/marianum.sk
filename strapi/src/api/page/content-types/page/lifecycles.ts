@@ -117,7 +117,7 @@ const validateParent = async (child: { id?: Id; locale: string }, parentId: Id) 
 
   if (parent.locale !== child.locale) {
     throw new ApplicationError(
-      `Nadradená stránka "${parent.title}" musí byť v rovnakom jazyku ako podstránka.`
+      `Otcovská stránka "${parent.title}" musí byť v rovnakom jazyku ako podstránka.`
     )
   }
 
@@ -128,7 +128,7 @@ const validateParent = async (child: { id?: Id; locale: string }, parentId: Id) 
   while (current && parentLevel < MAX_DEPTH) {
     if (current.id === child.id) {
       throw new ApplicationError(
-        `Stránka "${parent.title}" nemôže byť nadradenou stránkou, pretože je to táto stránka alebo jej podstránka.`
+        `Stránka "${parent.title}" nemôže byť otcovskou stránkou, pretože je to táto stránka alebo jej podstránka.`
       )
     }
     parentLevel += 1
@@ -140,7 +140,7 @@ const validateParent = async (child: { id?: Id; locale: string }, parentId: Id) 
   const deepestLevel = parentLevel + subtreeLevels
   if (deepestLevel > MAX_LEVELS) {
     throw new ApplicationError(
-      `Stránka "${parent.title}" nemôže byť nadradenou stránkou, pretože stránky môžu byť vnorené najviac do ${MAX_LEVELS}. úrovne a ${subtreeLevels > 1 ? 'najhlbšia podstránka' : 'podstránka'} by bola na ${deepestLevel}. úrovni.`
+      `Stránka "${parent.title}" nemôže byť otcovskou stránkou, pretože stránky môžu byť vnorené najviac do ${MAX_LEVELS}. úrovne a ${subtreeLevels > 1 ? 'najhlbšia podstránka' : 'podstránka'} by bola na ${deepestLevel}. úrovni.`
     )
   }
 }
