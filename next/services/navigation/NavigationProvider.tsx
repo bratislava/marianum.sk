@@ -99,6 +99,7 @@ const getNavigationObject = ({ navigation, locale, currentEntity }: NavigationSt
   const parents: NavigationBreadcrumb[] = []
   const visitedSlugs = new Set<string>()
   let ancestorSlug = parentSlug
+  // `visitedSlugs` guards against a loop caused by two pages with the same slug.
   while (ancestorSlug && !visitedSlugs.has(ancestorSlug)) {
     visitedSlugs.add(ancestorSlug)
     const ancestor = pagePathsMap[ancestorSlug]

@@ -6894,7 +6894,7 @@ ${ManagedObjectCategoryEntityFragmentDoc}`;
 export const NavigationDocument = gql`
     query Navigation($locale: I18NLocaleCode!) {
   topLevelPages: pages(
-    filters: {parentPage: {id: {null: true}}}
+    filters: {parentPage: {id: {eq: null}}}
     locale: $locale
     pagination: {limit: -1}
   ) {

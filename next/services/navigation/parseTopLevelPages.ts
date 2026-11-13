@@ -7,14 +7,12 @@ import { PagePathsMap } from '@/services/navigation/typesNavigation'
 type PageWithChildPages = {
   attributes?: {
     title: string
-    slug: string
+    slug?: string | null
     childPages?: { data: PageWithChildPages[] } | null
   } | null
 }
 
 /**
- * Builds the paths of all pages from the page tree: every page's path is its parent's path followed by its own slug.
- *
  * Strapi returns only published child pages, so unpublished pages drop out together with their subtree.
  */
 export const parseTopLevelPages = (pages: PageWithChildPages[]) => {
@@ -27,21 +25,17 @@ export const parseTopLevelPages = (pages: PageWithChildPages[]) => {
     childPages.flatMap((page) => {
       const { title, slug, childPages: grandChildPages } = page.attributes ?? {}
 
-      // Slugs are unique within a locale (Strapi page lifecycle), a duplicate would overwrite the first page.
-      if (!slug || !title || pagePathsMap[slug]) {
+      if (!slug || !title) {
         return []
       }
 
       const path = `${parent?.path ?? ''}/${slug}`
-      const node: NonNullable<PagePathsMap[string]> = {
-        title: title.trim(),
+      pagePathsMap[slug] = {
+        title,
         path,
         parentSlug: parent?.slug ?? null,
-        childSlugs: [],
+        childSlugs: parsePages(grandChildPages?.data ?? [], { slug, path }),
       }
-      // Added before its children are parsed, so a child with the same slug can't overwrite it.
-      pagePathsMap[slug] = node
-      node.childSlugs = parsePages(grandChildPages?.data ?? [], { slug, path })
 
       return [slug]
     })

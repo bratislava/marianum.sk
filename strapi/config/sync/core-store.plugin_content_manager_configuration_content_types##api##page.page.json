@@ -148,7 +148,7 @@
       "parentPage": {
         "edit": {
           "label": "Otcovská stránka",
-          "description": "Výsledná URL stránky je spojenie slugov z reťaze otcovských stránok. (napr. mestskakniznica.sk/otcovska-stranka-slug/moj-slug)",
+          "description": "Výsledná URL stránky je spojenie slugov z reťaze otcovských stránok. (napr. marianum.sk/otcovska-stranka-slug/moj-slug)",
           "placeholder": "",
           "visible": true,
           "editable": true,
@@ -162,7 +162,7 @@
       },
       "childPages": {
         "edit": {
-          "label": "Dcérske stránky",
+          "label": "Potomkovia",
           "description": "",
           "placeholder": "",
           "visible": true,
@@ -170,7 +170,7 @@
           "mainField": "title"
         },
         "list": {
-          "label": "Dcérske stránky",
+          "label": "Potomkovia",
           "searchable": false,
           "sortable": false
         }

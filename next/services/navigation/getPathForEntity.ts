@@ -148,13 +148,16 @@ export const getPathForEntity = (navigation: NavigationObject, entity: RouteEnti
     return navigationConfig.searchPaths[entity.locale] ?? null
   }
 
-  if (!entity.slug) {
+  const localeNavigation = navigation[entity.locale]
+  if (!entity.slug || !localeNavigation) {
     return null
   }
 
   if (entity.type === 'page') {
-    return navigation[entity.locale]?.pagePathsMap[entity.slug]?.path ?? null
+    return localeNavigation.pagePathsMap[entity.slug]?.path ?? null
   }
 
-  return `${contentTypePathPrefixesMap[entity.type]}/${entity.slug}`
+  const pathPrefix = contentTypePathPrefixesMap[entity.type]
+
+  return `${pathPrefix}/${entity.slug}`
 }

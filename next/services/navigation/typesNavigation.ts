@@ -20,16 +20,16 @@ export type ContentType = (typeof contentTypes)[number]
 /**
  * Pages are keyed by their `slug`, which is unique within a locale. Paths don't contain the locale prefix.
  */
-export type PagePathsMap = Record<
-  string,
-  | {
-      title: string
-      path: string
-      parentSlug: string | null
-      childSlugs: string[]
-    }
-  | undefined
->
+export type PagePathsMap = {
+  [slug: string]:
+    | {
+        title: string
+        path: string
+        parentSlug: string | null
+        childSlugs: string[]
+      }
+    | undefined
+}
 
 export type LocaleNavigation = {
   pagePathsMap: PagePathsMap
@@ -39,9 +39,6 @@ export type LocaleNavigation = {
 
 export type NavigationObject = Record<string, LocaleNavigation | undefined>
 
-/**
- * Pages and detail pages are identified by their `slug`.
- */
 export type RouteEntity =
   | { type: 'page' | ContentType; slug: string | null | undefined }
   | { type: 'search' }
