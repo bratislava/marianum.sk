@@ -1,8 +1,8 @@
 import i18nextConfig from '@/next-i18next.config'
 import { client } from '@/services/graphql/gqlClient'
+import { parseMenu } from '@/services/navigation/parseMenu'
 import { parseTopLevelPages } from '@/services/navigation/parseTopLevelPages'
 import { NavigationConfig, NavigationObject } from '@/services/navigation/typesNavigation'
-import { isDefined } from '@/utils/isDefined'
 
 // Ported from City Library:
 // https://github.com/bratislava/mestskakniznica.sk/blob/master/next/services/navigation/fetchNavigation.ts
@@ -22,15 +22,12 @@ const { locales } = (i18nextConfig as { i18n: { locales: string[] } }).i18n
 export const fetchNonCachedNavigation = async (): Promise<NavigationObject> => {
   const localeNavigations = await Promise.all(
     locales.map(async (locale) => {
-      const { topLevelPages, menu } = await client.Navigation({ locale })
+      const { topLevelPages, menu: menuEntity } = await client.Navigation({ locale })
 
       const { pagePathsMap } = parseTopLevelPages(topLevelPages?.data ?? [])
-      const menuSlugs =
-        menu?.data?.attributes?.pages?.data
-          .map((page) => page.attributes?.slug)
-          .filter(isDefined) ?? []
+      const { menu } = parseMenu(menuEntity?.data)
 
-      return [locale, { pagePathsMap, menuSlugs }] as const
+      return [locale, { pagePathsMap, menu }] as const
     }),
   )
 

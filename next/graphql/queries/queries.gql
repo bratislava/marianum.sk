@@ -1,5 +1,5 @@
-# Top-level pages with their subtree, and the pages of the header menu. Strapi returns only published pages, so
-# unpublished pages drop out together with their subtree.
+# Top-level pages with their subtree, and the header menu. Strapi returns only published pages, so unpublished pages
+# drop out of the tree together with their subtree, and menu links to them come back empty.
 query Navigation($locale: I18NLocaleCode!) {
   topLevelPages: pages(
     filters: { parentPage: { id: { eq: null } } }
@@ -12,13 +12,7 @@ query Navigation($locale: I18NLocaleCode!) {
   }
   menu(locale: $locale) {
     data {
-      attributes {
-        pages(pagination: { limit: -1 }) {
-          data {
-            ...PageSlugEntity
-          }
-        }
-      }
+      ...MenuEntity
     }
   }
 }

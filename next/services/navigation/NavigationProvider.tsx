@@ -8,7 +8,11 @@ import {
   MeiliEntityArgs,
   StrapiEntity,
 } from '@/services/navigation/getPathForEntity'
-import { NavigationStaticProps, RouteEntity } from '@/services/navigation/typesNavigation'
+import {
+  MenuNodeData,
+  NavigationStaticProps,
+  RouteEntity,
+} from '@/services/navigation/typesNavigation'
 import { isDefined } from '@/utils/isDefined'
 
 // Ported from City Library:
@@ -21,10 +25,22 @@ export type NavigationNode = {
   children: NavigationNode[]
 }
 
+/**
+ * An entry of the header menu on any of its three levels: menu item > section > link. `path` is null for a menu item
+ * or a section that only groups its children.
+ */
+export type MenuNode = {
+  id: string
+  title: string
+  path: string | null
+  children: MenuNode[]
+}
+
 export type NavigationBreadcrumb = { label: string; path: string }
 
-// Number of columns of the desktop menu grid in NavigationMenuDesktop.tsx, keep them in sync.
-const MAX_MENU_PAGES = 4
+// Number of columns of the desktop menu grid in NavigationMenuDesktop.tsx and `max` of menuItems in the Menu single
+// type in Strapi, keep them in sync.
+const MAX_MENU_ITEMS = 4
 
 const NavigationContext = createContext<NavigationStaticProps | null>(null)
 
@@ -38,7 +54,7 @@ export const NavigationProvider = ({
 }
 
 const getNavigationObject = ({ navigation, locale, currentEntity }: NavigationStaticProps) => {
-  const { pagePathsMap = {}, menuSlugs = [] } = navigation[locale] ?? {}
+  const { pagePathsMap = {}, menu: menuData = [] } = navigation[locale] ?? {}
 
   const getPath = (entity: RouteEntity & { locale?: string }) =>
     getPathForEntity(navigation, { ...entity, locale: entity.locale ?? locale })
@@ -76,11 +92,24 @@ const getNavigationObject = ({ navigation, locale, currentEntity }: NavigationSt
     return (slug && getNode(slug)?.children) || []
   }
 
+  /** `id` is the position in the menu, e.g. `1-0-3`. Entries that lead nowhere and have no children are left out. */
+  const getMenuNode = (data: MenuNodeData, id: string): MenuNode | null => {
+    const path = (data.entity ? getPath(data.entity) : data.url) ?? null
+    const children = data.children
+      .map((child, index) => getMenuNode(child, `${id}-${index}`))
+      .filter(isDefined)
+
+    return path || children.length > 0 ? { id, title: data.label, path, children } : null
+  }
+
   /**
-   * Header menu: pages from the Menu single type with their subpages. Only the first MAX_MENU_PAGES are shown, the
-   * desktop menu has that many columns.
+   * Header menu from the Menu single type: menu items > sections > links. Only the first MAX_MENU_ITEMS are shown,
+   * the desktop menu has that many columns.
    */
-  const menu = menuSlugs.map(getNode).filter(isDefined).slice(0, MAX_MENU_PAGES)
+  const menu = menuData
+    .slice(0, MAX_MENU_ITEMS)
+    .map((menuItem, index) => getMenuNode(menuItem, String(index)))
+    .filter(isDefined)
 
   const currentPage =
     currentEntity?.type === 'page' && currentEntity.slug

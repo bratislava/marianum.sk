@@ -1315,6 +1315,93 @@ input ComponentGeneralSocialInput {
   youtube: String
 }
 
+type ComponentMenuMenuItem {
+  id: ID!
+  label: String!
+  sections(filters: ComponentMenuMenuSectionFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentMenuMenuSection]
+  seeAllLink: ComponentMenuMenuLink
+}
+
+input ComponentMenuMenuItemFiltersInput {
+  and: [ComponentMenuMenuItemFiltersInput]
+  label: StringFilterInput
+  not: ComponentMenuMenuItemFiltersInput
+  or: [ComponentMenuMenuItemFiltersInput]
+  sections: ComponentMenuMenuSectionFiltersInput
+  seeAllLink: ComponentMenuMenuLinkFiltersInput
+}
+
+input ComponentMenuMenuItemInput {
+  id: ID
+  label: String
+  sections: [ComponentMenuMenuSectionInput]
+  seeAllLink: ComponentMenuMenuLinkInput
+}
+
+type ComponentMenuMenuLink {
+  article: ArticleEntityResponse
+  asset: AssetEntityResponse
+  branch: BranchEntityResponse
+  bundle: BundleEntityResponse
+  cemetery: CemeteryEntityResponse
+  id: ID!
+  label: String
+  managedObject: ManagedObjectEntityResponse
+  page: PageEntityResponse
+  url: String
+}
+
+input ComponentMenuMenuLinkFiltersInput {
+  and: [ComponentMenuMenuLinkFiltersInput]
+  article: ArticleFiltersInput
+  asset: AssetFiltersInput
+  branch: BranchFiltersInput
+  bundle: BundleFiltersInput
+  cemetery: CemeteryFiltersInput
+  label: StringFilterInput
+  managedObject: ManagedObjectFiltersInput
+  not: ComponentMenuMenuLinkFiltersInput
+  or: [ComponentMenuMenuLinkFiltersInput]
+  page: PageFiltersInput
+  url: StringFilterInput
+}
+
+input ComponentMenuMenuLinkInput {
+  article: ID
+  asset: ID
+  branch: ID
+  bundle: ID
+  cemetery: ID
+  id: ID
+  label: String
+  managedObject: ID
+  page: ID
+  url: String
+}
+
+type ComponentMenuMenuSection {
+  id: ID!
+  label: String!
+  link: ComponentMenuMenuLink
+  links(filters: ComponentMenuMenuLinkFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentMenuMenuLink]
+}
+
+input ComponentMenuMenuSectionFiltersInput {
+  and: [ComponentMenuMenuSectionFiltersInput]
+  label: StringFilterInput
+  link: ComponentMenuMenuLinkFiltersInput
+  links: ComponentMenuMenuLinkFiltersInput
+  not: ComponentMenuMenuSectionFiltersInput
+  or: [ComponentMenuMenuSectionFiltersInput]
+}
+
+input ComponentMenuMenuSectionInput {
+  id: ID
+  label: String
+  link: ComponentMenuMenuLinkInput
+  links: [ComponentMenuMenuLinkInput]
+}
+
 type ComponentSectionsAccordionGroup {
   accordions(filters: ComponentBlocksAccordionItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentBlocksAccordionItem]
   id: ID!
@@ -2374,7 +2461,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Asset | AssetCategory | Branch | Bundle | Cemetery | CemeteryCategory | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksAssetItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsAssetGroup | ComponentSectionsAssetsSection | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Menu | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Asset | AssetCategory | Branch | Bundle | Cemetery | CemeteryCategory | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksAssetItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentMenuMenuItem | ComponentMenuMenuLink | ComponentMenuMenuSection | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsAssetGroup | ComponentSectionsAssetsSection | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Menu | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2699,7 +2786,7 @@ type Menu {
   createdAt: DateTime
   locale: String
   localizations: MenuRelationResponseCollection
-  pages(filters: PageFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PageRelationResponseCollection
+  menuItems(filters: ComponentMenuMenuItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentMenuMenuItem]
   updatedAt: DateTime
 }
 
@@ -2722,14 +2809,14 @@ input MenuFiltersInput {
   createdAt: DateTimeFilterInput
   locale: StringFilterInput
   localizations: MenuFiltersInput
+  menuItems: ComponentMenuMenuItemFiltersInput
   not: MenuFiltersInput
   or: [MenuFiltersInput]
-  pages: PageFiltersInput
   updatedAt: DateTimeFilterInput
 }
 
 input MenuInput {
-  pages: [ID]
+  menuItems: [ComponentMenuMenuItemInput]
 }
 
 type MenuRelationResponseCollection {

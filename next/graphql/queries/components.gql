@@ -38,6 +38,83 @@ fragment CtaButton on ComponentBlocksButtonLink {
   }
 }
 
+# Header menu, the same structure as in olo.sk: menu items > sections > links.
+# https://github.com/bratislava/olo.sk/blob/master/next/src/services/graphql/queries/menu.gql
+fragment MenuLink on ComponentMenuMenuLink {
+  id
+  label
+  url
+  page {
+    data {
+      ...PageSlugEntity
+    }
+  }
+  article {
+    data {
+      ...ArticleSlugEntity
+    }
+  }
+  bundle {
+    data {
+      ...BundleSlugEntity
+    }
+  }
+  branch {
+    data {
+      ...BranchSlugEntity
+    }
+  }
+  asset {
+    data {
+      ...AssetSlugEntity
+    }
+  }
+  cemetery {
+    data {
+      ...CemeterySlugEntity
+    }
+  }
+  managedObject {
+    data {
+      ...ManagedObjectSlugEntity
+    }
+  }
+}
+
+fragment MenuSection on ComponentMenuMenuSection {
+  id
+  label
+  link {
+    ...MenuLink
+  }
+  links(pagination: { limit: -1 }) {
+    ...MenuLink
+  }
+}
+
+fragment MenuItem on ComponentMenuMenuItem {
+  id
+  label
+  sections(pagination: { limit: -1 }) {
+    ...MenuSection
+  }
+  seeAllLink {
+    ...MenuLink
+  }
+}
+
+fragment Menu on Menu {
+  menuItems(pagination: { limit: -1 }) {
+    ...MenuItem
+  }
+}
+
+fragment MenuEntity on MenuEntity {
+  attributes {
+    ...Menu
+  }
+}
+
 fragment Sidebar on ComponentBlocksSidebar {
   title
   text

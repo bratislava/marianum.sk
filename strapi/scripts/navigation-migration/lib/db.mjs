@@ -70,22 +70,67 @@ export const loadParentLinks = async (client) =>
     'SELECT page_id AS "pageId", inv_page_id AS "parentId", page_order AS "order" FROM pages_parent_page_links'
   )
 
-/** Pages of the Menu single type by locale, in order. */
-export const loadMenuPages = async (client) => {
-  const rows = await query(
+/**
+ * The Menu single type by locale `{ [locale]: MenuItem[] }`, in order: menu items > sections > links.
+ * A menu item is `{ label, pageId, sections }`, a section `{ label, pageId, links }` and a link `{ label, pageId }`.
+ * `pageId` is the page the entry links to, null when it links elsewhere or nowhere.
+ */
+export const loadMenu = async (client) => {
+  const menuItems = await query(
     client,
-    `SELECT menus.locale, link.page_id AS "pageId"
+    `SELECT menus.locale, item.id, item.label
      FROM menus
-     JOIN menus_pages_links link ON link.menu_id = menus.id
-     ORDER BY link.page_order, link.id`
+     JOIN menus_components component ON component.entity_id = menus.id AND component.field = 'menuItems'
+     JOIN components_menu_menu_items item ON item.id = component.component_id
+     ORDER BY component."order", component.id`
+  )
+  const itemComponents = await query(
+    client,
+    `SELECT entity_id AS "entityId", component_id AS "componentId", field
+     FROM components_menu_menu_items_components
+     ORDER BY "order", id`
+  )
+  const sections = await query(client, 'SELECT id, label FROM components_menu_menu_sections')
+  const sectionComponents = await query(
+    client,
+    `SELECT entity_id AS "entityId", component_id AS "componentId", field
+     FROM components_menu_menu_sections_components
+     ORDER BY "order", id`
+  )
+  const links = await query(
+    client,
+    `SELECT link.id, link.label, page.page_id AS "pageId"
+     FROM components_menu_menu_links link
+     LEFT JOIN components_menu_menu_links_page_links page ON page.menu_link_id = link.id`
   )
 
-  return Object.fromEntries(
-    Object.entries(Object.groupBy(rows, (row) => row.locale)).map(([locale, list]) => [
-      locale,
-      list.map((row) => row.pageId),
-    ])
-  )
+  const sectionById = new Map(sections.map((section) => [section.id, section]))
+  const linkById = new Map(links.map((link) => [link.id, link]))
+  const getComponents = (components, entityId, field) =>
+    components
+      .filter((component) => component.entityId === entityId && component.field === field)
+      .map((component) => component.componentId)
+  const getLinks = (components, entityId, field) =>
+    getComponents(components, entityId, field)
+      .map((id) => linkById.get(id))
+      .filter(Boolean)
+      .map((link) => ({ label: link.label, pageId: link.pageId ?? null }))
+
+  const menu = menuItems.map((menuItem) => ({
+    locale: menuItem.locale,
+    label: menuItem.label,
+    pageId: getLinks(itemComponents, menuItem.id, 'seeAllLink')[0]?.pageId ?? null,
+    sections: getComponents(itemComponents, menuItem.id, 'sections')
+      .map((id) => sectionById.get(id))
+      .filter(Boolean)
+      .map((section) => ({
+        label: section.label,
+        pageId: getLinks(sectionComponents, section.id, 'link')[0]?.pageId ?? null,
+        links: getLinks(sectionComponents, section.id, 'links'),
+      })),
+  }))
+
+  return Object.groupBy(menu, (menuItem) => menuItem.locale)
 }
 
 /**

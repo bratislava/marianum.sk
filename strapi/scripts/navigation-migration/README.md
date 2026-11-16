@@ -18,16 +18,19 @@ Output is written to `out/` (gitignored, it contains data from the database).
 | `audit.mjs`                                                             | 0     | Reports what the migration or the content team has to deal with: items that are not pages, draft pages in the tree, URL segments that differ from the page slug, item titles that differ from the page title, pages outside the tree, slugs. |
 | `build-inventory.mjs`                                                   | 0     | Writes every public URL (`out/urls-inventory.tsv`) and every redirect from `next/next.config.ts` (`out/redirects.tsv`), and lists redirects that already end at a non-existing URL.                                                          |
 | `check-urls.mjs`                                                        | 0, 2  | Requests the inventory and records status codes and redirect locations. `--compare` compares two runs.                                                                                                                                       |
-| `../../database/manual-migrations/navigation-plugin-to-parent-page.sql` | 1     | Copies the plugin tree into `pages_parent_page_links` and its top-level items into the `Menu` single type. A full re-sync, safe to run repeatedly.                                                                                           |
-| `verify-parent-pages.mjs`                                               | 1     | Checks that `parentPage` + `slug` give every page the same parent, sibling order and path as the plugin, and that `Menu` has the plugin's top-level pages. Exit code 1 on any difference.                                                    |
+| `../../database/manual-migrations/navigation-plugin-to-parent-page.sql` | 1     | Copies the plugin tree into `pages_parent_page_links` and its first three levels into the `Menu` single type (menu items > sections > links). A full re-sync, safe to run repeatedly.                                                        |
+| `verify-parent-pages.mjs`                                               | 1     | Checks that `parentPage` + `slug` give every page the same parent, sibling order and path as the plugin, and that `Menu` has the first three levels of the plugin's live tree. Exit code 1 on any difference.                                |
 
 ## How the new navigation works
 
 - A page's URL is its parent page's URL followed by its own `slug`, a page without a parent is at `/<slug>`. Slugs are
   unique within a locale, the page lifecycle (`src/api/page/content-types/page/lifecycles.ts`) validates them and the
   parent.
-- The order of a page's `childPages` is the order of its subpages in the header menu and in the "menu listing" section.
-- The header menu shows the pages of the `Menu` single type with their subpages.
+- The order of a page's `childPages` is the order of its subpages in the "menu listing" section.
+- The header menu is the `Menu` single type, with the same structure as in olo.sk: at most 4 menu items, each with a
+  link and sections, each section with a link and links. It is edited by hand and is independent of the page tree: a
+  new subpage appears in the menu only after it is added there. The migration fills it with the first three levels of
+  the plugin tree, deeper pages are not in the menu.
 - Detail pages (articles, bundles, branches, cemeteries, managed objects, assets) are served under hardcoded path
   prefixes, see `next/services/navigation/contentTypePathPrefixesMap.ts`.
 
@@ -36,7 +39,7 @@ Output is written to `out/` (gitignored, it contains data from the database).
 1. Restore a production dump locally and take a snapshot, so rehearsals can be reset:
    `docker exec <postgres container> pg_dump -U <user> -Fc <database> > before.dump`
 2. `audit.mjs`. Agree with the content team on anything it reports. Item titles that differ from the page title are
-   fine, the menu and the breadcrumbs will show the page title.
+   fine, the breadcrumbs will show the page title and the migration labels the menu with page titles too.
 3. `build-inventory.mjs` on a fresh dump.
 4. Baseline on production. Keep it light, detail pages are rendered on request:
    ```sh
@@ -65,4 +68,5 @@ node scripts/navigation-migration/check-urls.mjs --base <new build> --name after
 ```
 
 From now on, the page tree is edited in the page's "Otcovská stránka" field and the menu in the `Menu` single type.
+A page moved or added in the tree has to be moved or added in the menu as well.
 The Navigation plugin is not used anymore and can be removed in the next step.

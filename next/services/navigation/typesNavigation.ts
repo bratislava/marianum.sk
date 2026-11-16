@@ -31,10 +31,21 @@ export type PagePathsMap = {
     | undefined
 }
 
+/**
+ * An entry of the header menu on any of its three levels: menu item > section > link (Menu single type in Strapi).
+ * It leads to `entity` or to `url`. Menu items and sections don't have to lead anywhere, links always do.
+ */
+export type MenuNodeData = {
+  label: string
+  entity: RouteEntity | null
+  url: string | null
+  children: MenuNodeData[]
+}
+
 export type LocaleNavigation = {
   pagePathsMap: PagePathsMap
-  /** Slugs of the pages in the header menu (Menu single type in Strapi), in order. */
-  menuSlugs: string[]
+  /** Header menu, see `parseMenu`. */
+  menu: MenuNodeData[]
 }
 
 export type NavigationObject = Record<string, LocaleNavigation | undefined>

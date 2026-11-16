@@ -8,10 +8,10 @@ import { ChevronDownIcon } from '@/assets/icons'
 import MLink from '@/components/atoms/MLink'
 import MenuLeaf from '@/components/molecules/Menu/MenuLeaf'
 import SubMenu from '@/components/molecules/Menu/SubMenu'
-import { NavigationNode } from '@/services/navigation/NavigationProvider'
+import { MenuNode } from '@/services/navigation/NavigationProvider'
 import cn from '@/utils/cn'
 
-export type MenuProps = Pick<NavigationNode, 'title' | 'path'> & { items: NavigationNode[] }
+export type MenuProps = Pick<MenuNode, 'title' | 'path'> & { items: MenuNode[] }
 
 const Menu = ({ items, title, path }: MenuProps) => {
   const router = useRouter()
@@ -32,23 +32,40 @@ const Menu = ({ items, title, path }: MenuProps) => {
     }
   }
 
+  const triggerClassName = cn(
+    'flex h-full w-full items-center justify-center font-semibold ring-inset ring-offset-0 transition-all',
+    { 'bg-primary/10': isOpen },
+  )
+  const triggerContent = (
+    <div className="flex h-full flex-1 items-center justify-center gap-1 px-4">
+      <span>{title}</span>
+      <ChevronDownIcon />
+    </div>
+  )
+
   return (
     <div className="relative size-full" onPointerLeave={() => toggleMenu(false)}>
-      <MLink
-        onKeyDown={handleKeyDown}
-        noStyles
-        href={path}
-        className={cn(
-          'flex h-full w-full items-center justify-center font-semibold ring-inset ring-offset-0 transition-all',
-          { 'bg-primary/10': isOpen },
-        )}
-        onPointerEnter={() => toggleMenu(true)}
-      >
-        <div className="flex h-full flex-1 items-center justify-center gap-1 px-4">
-          <span>{title}</span>
-          <ChevronDownIcon />
-        </div>
-      </MLink>
+      {path ? (
+        <MLink
+          onKeyDown={handleKeyDown}
+          noStyles
+          href={path}
+          className={triggerClassName}
+          onPointerEnter={() => toggleMenu(true)}
+        >
+          {triggerContent}
+        </MLink>
+      ) : (
+        // A menu item without its own link only opens the menu.
+        <button
+          type="button"
+          onClick={() => toggleMenu(true)}
+          className={cn('base-focus-ring', triggerClassName)}
+          onPointerEnter={() => toggleMenu(true)}
+        >
+          {triggerContent}
+        </button>
+      )}
 
       <ReactControlledMenu className="py-3" onClose={() => toggleMenu(false)} {...menuProps}>
         {/* For some reason `offsetY` doesn't work on the element above. */}
@@ -56,10 +73,10 @@ const Menu = ({ items, title, path }: MenuProps) => {
           <div className="bg-white py-3 text-foreground shadow-card">
             {items.map((item) =>
               item.children.length > 0 ? (
-                <SubMenu path={item.path} key={item.slug} title={item.title} items={item.children} />
-              ) : (
-                <MenuLeaf path={item.path} title={item.title} key={item.slug} />
-              ),
+                <SubMenu path={item.path} key={item.id} title={item.title} items={item.children} />
+              ) : item.path ? (
+                <MenuLeaf path={item.path} title={item.title} key={item.id} />
+              ) : null,
             )}
           </div>
         </div>

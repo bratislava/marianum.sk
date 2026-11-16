@@ -1,0 +1,52 @@
+{
+  "collectionName": "components_menu_menu_links",
+  "info": {
+    "displayName": "menu link",
+    "icon": "link",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    },
+    "article": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::article.article"
+    },
+    "branch": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::branch.branch"
+    },
+    "bundle": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::bundle.bundle"
+    },
+    "asset": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::asset.asset"
+    },
+    "cemetery": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cemetery.cemetery"
+    },
+    "managedObject": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::managed-object.managed-object"
+    }
+  }
+}

@@ -1375,7 +1375,7 @@ export interface ApiManagedObjectManagedObject extends Schema.CollectionType {
 export interface ApiMenuMenu extends Schema.SingleType {
   collectionName: 'menus'
   info: {
-    description: 'Najviac 4 str\u00E1nky v hlavnom menu v tomto porad\u00ED. Ich podstr\u00E1nky sa do menu doplnia pod\u013Ea naviga\u010Dn\u00E9ho stromu (otcovsk\u00E1 str\u00E1nka).'
+    description: 'Hlavn\u00E9 menu: najviac 4 polo\u017Eky, ka\u017Ed\u00E1 so sekciami a odkazmi.'
     displayName: 'Menu'
     pluralName: 'menus'
     singularName: 'menu'
@@ -1393,7 +1393,18 @@ export interface ApiMenuMenu extends Schema.SingleType {
     createdBy: Attribute.Relation<'api::menu.menu', 'oneToOne', 'admin::user'> & Attribute.Private
     locale: Attribute.String
     localizations: Attribute.Relation<'api::menu.menu', 'oneToMany', 'api::menu.menu'>
-    pages: Attribute.Relation<'api::menu.menu', 'oneToMany', 'api::page.page'>
+    menuItems: Attribute.Component<'menu.menu-item', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true
+        }
+      }> &
+      Attribute.SetMinMax<
+        {
+          max: 4
+        },
+        number
+      >
     updatedAt: Attribute.DateTime
     updatedBy: Attribute.Relation<'api::menu.menu', 'oneToOne', 'admin::user'> & Attribute.Private
   }

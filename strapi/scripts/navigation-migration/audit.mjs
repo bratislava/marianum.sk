@@ -32,7 +32,7 @@ await withDb(async (client) => {
     console.log(
       `\n========== ${locale}: ${nodes.length} items, ${
         nodes.filter((node) => !node.parent).length
-      } top-level (become the Menu pages), max depth ${Math.max(0, ...nodes.map((node) => node.level))}`
+      } top-level (become the menu items), max depth ${Math.max(0, ...nodes.map((node) => node.level))}`
     )
 
     section(

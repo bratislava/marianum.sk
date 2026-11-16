@@ -1,27 +1,36 @@
 /**
  * Phase 1 of the Navigation plugin -> parentPage migration: checks that page.parentPage + slug describe exactly the
  * same tree as the Navigation plugin - same parent, same position among siblings, same full path - and that the Menu
- * single type holds the plugin's top-level pages in the same order. Run it after
- * database/manual-migrations/navigation-plugin-to-parent-page.sql. Read-only. Exit code 1 when anything differs.
+ * single type holds the first three levels of the plugin's live tree (menu items > sections > links) in the same
+ * order. Run it after database/manual-migrations/navigation-plugin-to-parent-page.sql. Read-only. Exit code 1 when
+ * anything differs.
  *
  * Usage (from strapi/): node --env-file=.env.local scripts/navigation-migration/verify-parent-pages.mjs
  */
-import {
-  loadMenuPages,
-  loadNavigationPlugin,
-  loadPages,
-  loadParentLinks,
-  withDb,
-} from './lib/db.mjs'
+import { loadMenu, loadNavigationPlugin, loadPages, loadParentLinks, withDb } from './lib/db.mjs'
 import { flattenNavigationPlugin } from './lib/navigation-plugin.mjs'
 
 const problems = []
+
+/** One line per menu entry, e.g. `2.1.3 #55` for the third link of the first section of the second menu item. */
+const getMenuLines = (menuItems) => {
+  const getLine = (position, { label, pageId }) =>
+    `${position.join('.')} #${pageId}${label ? ` "${label}"` : ''}`
+
+  return menuItems.flatMap((menuItem, i) => [
+    getLine([i + 1], menuItem),
+    ...menuItem.sections.flatMap((section, j) => [
+      getLine([i + 1, j + 1], section),
+      ...section.links.map((link, k) => getLine([i + 1, j + 1, k + 1], link)),
+    ]),
+  ])
+}
 
 await withDb(async (client) => {
   const navigation = await loadNavigationPlugin(client)
   const pages = await loadPages(client)
   const links = await loadParentLinks(client)
-  const menuPages = await loadMenuPages(client)
+  const menu = await loadMenu(client)
 
   Object.entries(Object.groupBy(links, (link) => link.pageId))
     .filter(([, list]) => list.length > 1)
@@ -85,15 +94,33 @@ await withDb(async (client) => {
       }
     })
 
-    const expectedMenu = nodes.filter((node) => !node.parent).map((node) => node.item.pageId)
-    const actualMenu = menuPages[locale] ?? []
-    if (expectedMenu.join() !== actualMenu.join()) {
-      problems.push(
-        `[${locale}] Menu pages are [${actualMenu}], the plugin's top-level pages are [${expectedMenu}]`
-      )
-    }
+    // The menu has the first three levels of the live tree: menu items > sections > links. Menu items and sections
+    // are labelled with the page title, links have no label and show the title of their page.
+    const getLiveChildren = (parent) => nodes.filter((node) => node.parent === parent && node.live)
+    const expectedMenu = getLiveChildren(null).map((menuItem) => ({
+      label: menuItem.page?.title.trim(),
+      pageId: menuItem.item.pageId,
+      sections: getLiveChildren(menuItem).map((section) => ({
+        label: section.page?.title.trim(),
+        pageId: section.item.pageId,
+        links: getLiveChildren(section).map((link) => ({ label: null, pageId: link.item.pageId })),
+      })),
+    }))
+    const expectedLines = getMenuLines(expectedMenu)
+    const actualLines = getMenuLines(menu[locale] ?? [])
 
-    console.log(`${locale}: checked ${nodes.length} pages, ${expectedMenu.length} menu pages`)
+    expectedLines
+      .filter((line) => !actualLines.includes(line))
+      .forEach((line) => problems.push(`[${locale}] Menu is missing ${line}`))
+    actualLines
+      .filter((line) => !expectedLines.includes(line))
+      .forEach((line) => problems.push(`[${locale}] Menu has ${line}, the plugin doesn't`))
+
+    console.log(
+      `${locale}: checked ${nodes.length} pages, ${expectedMenu.length} menu items with ${
+        expectedLines.length - expectedMenu.length
+      } sections and links`
+    )
   }
 
   links

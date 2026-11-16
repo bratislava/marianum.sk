@@ -19,17 +19,16 @@
           "sortable": true
         }
       },
-      "pages": {
+      "menuItems": {
         "edit": {
-          "label": "Stránky",
-          "description": "Stránky v hlavnom menu v tomto poradí. Ich podstránky sa do menu doplnia podľa otcovských stránok.",
+          "label": "Položky menu",
+          "description": "Najviac 4 položky hlavného menu v tomto poradí.",
           "placeholder": "",
           "visible": true,
-          "editable": true,
-          "mainField": "title"
+          "editable": true
         },
         "list": {
-          "label": "Stránky",
+          "label": "Položky menu",
           "searchable": false,
           "sortable": false
         }
@@ -94,12 +93,12 @@
       }
     },
     "layouts": {
-      "list": ["id", "pages", "createdAt", "updatedAt"],
+      "list": ["id", "createdAt", "updatedAt", "menuItems"],
       "edit": [
         [
           {
-            "name": "pages",
-            "size": 6
+            "name": "menuItems",
+            "size": 12
           }
         ]
       ]

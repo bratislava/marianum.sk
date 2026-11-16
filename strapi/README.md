@@ -43,7 +43,7 @@ Open Strapi admin panel, go to Settings > USERS & PERMISSIONS PLUGIN > Roles > P
 
 ## Navigation
 
-Page URLs are built from the page tree: a page's URL is its parent page's (`parentPage`) URL followed by its own `slug`. The order of a page's subpages (`childPages`) is their order in the menu. The header menu shows the pages of the `Menu` single type with their subpages. Detail pages (articles, bundles, ...) are served under hardcoded paths, see `next/services/navigation/contentTypePathPrefixesMap.ts`.
+Page URLs are built from the page tree: a page's URL is its parent page's (`parentPage`) URL followed by its own `slug`. The order of a page's subpages (`childPages`) is their order in the "menu listing" section. The header menu is edited separately in the `Menu` single type (menu items > sections > links, the same structure as in olo.sk), it is not built from the page tree. Detail pages (articles, bundles, ...) are served under hardcoded paths, see `next/services/navigation/contentTypePathPrefixesMap.ts`.
 
 The Navigation plugin is not used by the frontend anymore and will be removed. The migration from it is described in [scripts/navigation-migration](scripts/navigation-migration/README.md).
 

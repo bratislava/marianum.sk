@@ -381,6 +381,58 @@ export interface GeneralSocial extends Schema.Component {
   }
 }
 
+export interface MenuMenuItem extends Schema.Component {
+  collectionName: 'components_menu_menu_items'
+  info: {
+    description: ''
+    displayName: 'menu item'
+    icon: 'menu'
+  }
+  attributes: {
+    label: Attribute.String & Attribute.Required
+    sections: Attribute.Component<'menu.menu-section', true>
+    seeAllLink: Attribute.Component<'menu.menu-link'>
+  }
+}
+
+export interface MenuMenuLink extends Schema.Component {
+  collectionName: 'components_menu_menu_links'
+  info: {
+    description: ''
+    displayName: 'menu link'
+    icon: 'link'
+  }
+  attributes: {
+    article: Attribute.Relation<'menu.menu-link', 'oneToOne', 'api::article.article'>
+    asset: Attribute.Relation<'menu.menu-link', 'oneToOne', 'api::asset.asset'>
+    branch: Attribute.Relation<'menu.menu-link', 'oneToOne', 'api::branch.branch'>
+    bundle: Attribute.Relation<'menu.menu-link', 'oneToOne', 'api::bundle.bundle'>
+    cemetery: Attribute.Relation<'menu.menu-link', 'oneToOne', 'api::cemetery.cemetery'>
+    label: Attribute.String
+    managedObject: Attribute.Relation<
+      'menu.menu-link',
+      'oneToOne',
+      'api::managed-object.managed-object'
+    >
+    page: Attribute.Relation<'menu.menu-link', 'oneToOne', 'api::page.page'>
+    url: Attribute.String
+  }
+}
+
+export interface MenuMenuSection extends Schema.Component {
+  collectionName: 'components_menu_menu_sections'
+  info: {
+    description: ''
+    displayName: 'menu section'
+    icon: 'bulletList'
+  }
+  attributes: {
+    label: Attribute.String & Attribute.Required
+    link: Attribute.Component<'menu.menu-link'>
+    links: Attribute.Component<'menu.menu-link', true>
+  }
+}
+
 export interface SectionsAccordionGroup extends Schema.Component {
   collectionName: 'components_sections_accordion_groups'
   info: {
@@ -834,6 +886,9 @@ declare module '@strapi/types' {
       'general.procedure-item': GeneralProcedureItem
       'general.seo': GeneralSeo
       'general.social': GeneralSocial
+      'menu.menu-item': MenuMenuItem
+      'menu.menu-link': MenuMenuLink
+      'menu.menu-section': MenuMenuSection
       'sections.accordion-group': SectionsAccordionGroup
       'sections.article-jobs-listing': SectionsArticleJobsListing
       'sections.article-news-listing': SectionsArticleNewsListing

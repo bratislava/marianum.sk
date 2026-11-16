@@ -5,7 +5,7 @@
     "singularName": "menu",
     "pluralName": "menus",
     "displayName": "Menu",
-    "description": "Najviac 4 stránky v hlavnom menu v tomto poradí. Ich podstránky sa do menu doplnia podľa navigačného stromu (otcovská stránka)."
+    "description": "Hlavné menu: najviac 4 položky, každá so sekciami a odkazmi."
   },
   "options": {
     "draftAndPublish": false
@@ -16,10 +16,16 @@
     }
   },
   "attributes": {
-    "pages": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::page.page"
+    "menuItems": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "max": 4,
+      "component": "menu.menu-item"
     }
   }
 }

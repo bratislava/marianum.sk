@@ -4,9 +4,9 @@ import { MouseEvent } from 'react'
 
 import MenuItem from '@/components/molecules/Menu/MenuItem'
 import MenuLeaf from '@/components/molecules/Menu/MenuLeaf'
-import { NavigationNode } from '@/services/navigation/NavigationProvider'
+import { MenuNode } from '@/services/navigation/NavigationProvider'
 
-export type SubMenuProps = Pick<NavigationNode, 'title' | 'path'> & { items: NavigationNode[] }
+export type SubMenuProps = Pick<MenuNode, 'title' | 'path'> & { items: MenuNode[] }
 
 const SubMenu = ({ title, items, path }: SubMenuProps) => {
   const router = useRouter()
@@ -14,8 +14,11 @@ const SubMenu = ({ title, items, path }: SubMenuProps) => {
   const handleClick = (e: MouseEvent) => {
     e.stopPropagation()
     e.preventDefault()
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    router.push(path)
+    // A section without its own link only opens its links.
+    if (path) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      router.push(path)
+    }
   }
 
   return (
@@ -31,9 +34,9 @@ const SubMenu = ({ title, items, path }: SubMenuProps) => {
       offsetX={12}
     >
       <div className="bg-white py-3 shadow-card">
-        {items.map((item) => (
-          <MenuLeaf path={item.path} title={item.title} key={item.slug} />
-        ))}
+        {items.map((item) =>
+          item.path ? <MenuLeaf path={item.path} title={item.title} key={item.id} /> : null,
+        )}
       </div>
     </ReactSubMenu>
   )
