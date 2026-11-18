@@ -36,7 +36,7 @@ jobs:
     secrets: inherit
     with:
       directory: next/
-      image: harbor.bratislava.sk/standalone/marianum-next
+      image: harbor.bratislava.sk/marianum.sk/marianum-next
 
   build-strapi:
     name: Build Strapi
@@ -45,4 +45,4 @@ jobs:
     secrets: inherit
     with:
       directory: strapi/
-      image: harbor.bratislava.sk/standalone/marianum-strapi
+      image: harbor.bratislava.sk/marianum.sk/marianum-strapi
