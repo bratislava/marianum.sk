@@ -114,6 +114,13 @@ const nextConfig: NextConfig = {
           source: '/uploads/:file',
           destination: `${process.env.NEXT_PUBLIC_STRAPI_URL}/uploads/:file`,
         },
+        // Internal routes of the rewrites below, they can't be opened directly.
+        // The routes are catch-all (`[...fullPath]`), so every depth is blocked, not just one segment.
+        {
+          source: '/(articles|branches|bundles|cemeteries|documents|managed-objects|pages)/:path*',
+          destination: '/404',
+        },
+        { source: '/search', destination: '/404' },
       ],
       afterFiles: [
         /**
