@@ -5,7 +5,7 @@
     "singularName": "menu",
     "pluralName": "menus",
     "displayName": "Menu",
-    "description": "Najviac 4 stránky v hlavnom menu v tomto poradí. Ich podstránky sa do menu doplnia podľa navigačného stromu (otcovská stránka)."
+    "description": "Najviac 4 stránky v hlavnom menu v tomto poradí. Ich dcérske stránky sa do menu doplnia podľa navigačného stromu (rodičovská stránka)."
   },
   "options": {
     "draftAndPublish": false
