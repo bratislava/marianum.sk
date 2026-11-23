@@ -2,12 +2,13 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { Branch, Bundle, Page } from '@/graphql'
 import { ArticleMeili, AssetMeili, CemeteryMeili } from '@/services/meili/meiliTypes'
-import { fetchNonCachedNavigation } from '@/services/navigation/fetchNavigation'
+import { fetchNavigation } from '@/services/navigation/fetchNavigation'
 import {
   getEntityForMeiliEntity,
   getPathForEntity,
   MeiliEntityArgs,
 } from '@/services/navigation/getPathForEntity'
+import { navigationConfig } from '@/services/navigation/navigationConfig'
 import { isDefined } from '@/utils/isDefined'
 
 // https://docs.strapi.io/developer-docs/latest/development/backend-customization/webhooks.html#payloads
@@ -64,8 +65,7 @@ const revalidate = async (req: NextApiRequest, res: NextApiResponse<Response>) =
       model === 'cemetery' ||
       model === 'asset'
     ) {
-      // Not cached, the webhook comes right after the change, e.g. a page moved to another parent.
-      const navigation = await fetchNonCachedNavigation()
+      const navigation = await fetchNavigation(navigationConfig, { force: true })
       // `model` and `entry` always match, but typescript doesn't know that
       const entity = getEntityForMeiliEntity(...([model, entry] as MeiliEntityArgs))
 

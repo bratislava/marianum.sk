@@ -43,8 +43,11 @@ export const fetchNonCachedNavigation = async (): Promise<NavigationObject> => {
  *
  * @param config
  */
-export const fetchNavigation = async (config: NavigationConfig) => {
-  if (cache?.timestamp && cache.timestamp + config.cacheTtl > Date.now()) {
+export const fetchNavigation = async (
+  config: NavigationConfig,
+  { force = false }: { force?: boolean } = {},
+) => {
+  if (!force && cache?.timestamp && cache.timestamp + config.cacheTtl > Date.now()) {
     return cache.value
   }
 
