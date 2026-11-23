@@ -1,12 +1,12 @@
 import { useMemo } from 'react'
 
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Row from '@/components/molecules/Row/Row'
 import { BranchGroupFragment } from '@/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { isDefined } from '@/utils/isDefined'
 
 const BranchGroup = ({ branches }: BranchGroupFragment) => {
-  const { getFullPath } = useGetFullPath()
+  const { getPathForStrapiEntity } = useNavigation()
 
   const filteredBranches = useMemo(() => {
     return (branches ?? []).map((branch) => branch?.branch?.data).filter(isDefined)
@@ -22,7 +22,7 @@ const BranchGroup = ({ branches }: BranchGroupFragment) => {
             key={slug}
             title={title ?? ''}
             address={address}
-            linkHref={getFullPath(branch) ?? ''}
+            linkHref={getPathForStrapiEntity(branch) ?? ''}
             tags={offices?.data.map((office) => office?.attributes?.title).filter(isDefined)}
             tagsPosition="under"
           />

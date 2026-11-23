@@ -9,20 +9,17 @@ import {
   CemeteryEntityFragment,
   GeneralEntityFragment,
   ManagedObjectEntityFragment,
-  NavigationItemFragment,
 } from '@/graphql'
 import cn from '@/utils/cn'
 
 type BranchCemeteryLayoutProps = {
   entity: BranchEntityFragment | CemeteryEntityFragment | ManagedObjectEntityFragment
-  navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   children?: ReactNode
 }
 
 const BranchCemeteryLayout = ({
   entity,
-  navigation,
   children,
   general,
 }: BranchCemeteryLayoutProps) => {
@@ -33,7 +30,6 @@ const BranchCemeteryLayout = ({
 
   return (
     <PageWrapper
-      navigation={navigation}
       general={general}
       header={
         <HeroSection

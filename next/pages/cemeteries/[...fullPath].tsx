@@ -10,24 +10,24 @@ import Seo from '@/components/atoms/Seo'
 import BranchCemeteryLayout from '@/components/layouts/BranchCemeteryLayout'
 import AssetGroup from '@/components/molecules/AssetGroup'
 import ImageGallery from '@/components/molecules/ImageGallery'
-import {
-  generateStaticPaths,
-  generateStaticProps,
-} from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
 import OpeningHours from '@/components/molecules/OpeningHours'
 import SectionBoxed from '@/components/molecules/SectionBoxed'
 import IframeSection from '@/components/sections/IframeSection'
-import { CemeteryEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { CemeteryEntityFragment, GeneralEntityFragment } from '@/graphql'
 import { client } from '@/services/graphql/gqlClient'
+import {
+  generateStaticPaths,
+  generateStaticProps,
+} from '@/services/navigation/generateStaticPathsAndProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 
 type CemeteryPageProps = {
-  navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   entity: CemeteryEntityFragment
-} & SSRConfig
+} & SSRConfig &
+  NavigationPageProps
 
-const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
+const CemeteryPage = ({ entity, general }: CemeteryPageProps) => {
   const { t } = useTranslation()
 
   const {
@@ -44,12 +44,9 @@ const CemeteryPage = ({ navigation, entity, general }: CemeteryPageProps) => {
 
   return (
     <>
-      {/* TODO: Extract NavigationProvider from PageWrapper */}
-      <NavigationProvider navigation={navigation} general={general}>
-        <Seo seo={seo} title={title} entity={entity} />
-      </NavigationProvider>
+      <Seo seo={seo} title={title} entity={entity} />
 
-      <BranchCemeteryLayout entity={entity} navigation={navigation} general={general}>
+      <BranchCemeteryLayout entity={entity} general={general}>
         <div className="flex flex-col gap-3 md:gap-4">
           <SectionBoxed>
             <h1 className="pb-1 md:pb-3">{title}</h1>

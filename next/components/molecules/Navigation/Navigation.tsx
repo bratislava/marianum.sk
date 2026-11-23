@@ -9,9 +9,9 @@ import MLink from '@/components/atoms/MLink'
 import SkipToContentButton from '@/components/atoms/SkipToContentButton'
 import NavigationMenuDesktop from '@/components/molecules/Navigation/NavigationMenuDesktop'
 import NavigationMenuMobile from '@/components/molecules/Navigation/NavigationMenuMobile'
-import { useNavigationContext } from '@/components/molecules/Navigation/NavigationProvider/useNavigationContext'
 import NavigationSearch from '@/components/molecules/Navigation/NavigationSearch/NavigationSearch'
 import { ContactEntityFragment } from '@/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import cn from '@/utils/cn'
 import { getPhoneNumberLink } from '@/utils/getPhoneNumberLink'
 
@@ -25,7 +25,7 @@ const Navigation = ({ contact }: NavigationProps) => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
   const [isDesktopSearchOpen, setDesktopSearchOpen] = useState(false)
 
-  const { navigation } = useNavigationContext()
+  const { menu } = useNavigation()
 
   const { title, phone1, phone2 } = contact?.attributes ?? {}
 
@@ -97,12 +97,12 @@ const Navigation = ({ contact }: NavigationProps) => {
           </div>
         </div>
         {/* desktop navigation menu */}
-        <NavigationMenuDesktop navigationItems={navigation} />
+        <NavigationMenuDesktop menu={menu} />
         {/* mobile navigation menu */}
         <NavigationMenuMobile
           isOpen={isMobileNavOpen}
           onClose={() => setMobileNavOpen(false)}
-          items={navigation}
+          menu={menu}
         />
       </div>
     </div>

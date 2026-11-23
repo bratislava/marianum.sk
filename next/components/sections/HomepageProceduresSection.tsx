@@ -4,11 +4,11 @@ import MLink from '@/components/atoms/MLink'
 import TabItem from '@/components/atoms/Tabs/TabItem'
 import Tabs from '@/components/atoms/Tabs/Tabs'
 import { sectionContext } from '@/components/layouts/SectionsWrapper'
-import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import Section, { SectionProps } from '@/components/molecules/Section'
 import { ProcedureFragment, ProceduresShortSectionFragment } from '@/graphql'
 import cn from '@/utils/cn'
 import { isDefined } from '@/utils/isDefined'
+import { useGetLinkProps } from '@/utils/useGetLinkProps'
 import { useTailwindBreakpoint } from '@/utils/useTailwindBreakpoint'
 
 type HomepageProceduresProps = Pick<SectionProps, 'background'> & {

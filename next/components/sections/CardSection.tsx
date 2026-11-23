@@ -1,8 +1,8 @@
 import { CategoryCard } from '@/components/molecules/Cards/CategoryFaqThemeCard'
 import ServiceCard from '@/components/molecules/Cards/ServiceCard'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section, { SectionProps } from '@/components/molecules/Section'
 import { Enum_Componentsectionsmanuallisting_Style, ManualListingFragment } from '@/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { isDefined } from '@/utils/isDefined'
 
 type CardSectionProps = Pick<SectionProps, 'background'> & {
@@ -10,7 +10,7 @@ type CardSectionProps = Pick<SectionProps, 'background'> & {
 }
 
 const CardSection = ({ section, ...rest }: CardSectionProps) => {
-  const { getFullPath } = useGetFullPath()
+  const { getPathForStrapiEntity } = useNavigation()
 
   const { pages, title, style, showMoreButton } = section
 
@@ -31,7 +31,7 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
       {filteredPages?.map((page, index) => {
         const { id, attributes } = page ?? {}
         const { title: cardTitle, coverMedia } = attributes ?? {}
-        const fullPath = getFullPath(page) ?? ''
+        const fullPath = getPathForStrapiEntity(page) ?? ''
 
         if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
           return (

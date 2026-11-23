@@ -35,6 +35,8 @@ import Row from '@/components/molecules/Row/Row'
 import Search from '@/components/molecules/Search'
 import Section from '@/components/molecules/Section'
 import { UploadFile } from '@/graphql'
+import { getNavigationStaticProps } from '@/services/navigation/getNavigationStaticProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import cn from '@/utils/cn'
 
 const image: UploadFile = {
@@ -1118,11 +1120,16 @@ const Showcase = () => {
 
 export const getStaticProps: GetStaticProps = async ({
   locale = 'sk',
-}): Promise<GetStaticPropsResult<SSRConfig>> => {
-  const translations = await serverSideTranslations(locale)
+}): Promise<GetStaticPropsResult<SSRConfig & NavigationPageProps>> => {
+  const [translations, navigationStaticProps] = await Promise.all([
+    serverSideTranslations(locale),
+    // Components like `Section` build links with `useNavigation`.
+    getNavigationStaticProps({ locale }),
+  ])
 
   return {
     props: {
+      navigationStaticProps,
       ...translations,
     },
   }

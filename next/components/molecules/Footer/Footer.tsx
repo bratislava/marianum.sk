@@ -7,8 +7,8 @@ import AccordionItem from '@/components/molecules/Accordion/AccordionItem'
 import FooterCredentials from '@/components/molecules/Footer/FooterCredentials'
 import FooterMapStatic from '@/components/molecules/Footer/FooterMapStatic'
 import FooterSocials from '@/components/molecules/Footer/FooterSocials'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { ContactFragment, FooterFragment, SocialItemFragment } from '@/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { getPhoneNumberLink } from '@/utils/getPhoneNumberLink'
 import { isDefined } from '@/utils/isDefined'
 
@@ -20,11 +20,11 @@ export type FooterProps = {
 
 const Footer = ({ contact, footer, socials }: FooterProps) => {
   const { t } = useTranslation()
-  const { getFullPath } = useGetFullPath()
+  const { getPathForStrapiEntity } = useNavigation()
 
   const { phone1, email } = contact?.contact?.data?.attributes ?? {}
-  const openingHoursPath = getFullPath(contact?.openingHoursPage?.data)
-  const contactsPath = getFullPath(contact?.contactsPage?.data)
+  const openingHoursPath = getPathForStrapiEntity(contact?.openingHoursPage?.data)
+  const contactsPath = getPathForStrapiEntity(contact?.contactsPage?.data)
 
   const footerColumns = useMemo(() => {
     return [
@@ -137,7 +137,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
               <AccordionItem key={colIndex} noBoxStyles title={title}>
                 <div className="flex flex-col gap-4">
                   {links?.map((link, linkIndex) => {
-                    const fullPath = getFullPath(link?.page?.data) || link?.url || ''
+                    const fullPath = getPathForStrapiEntity(link?.page?.data) || link?.url || ''
 
                     return (
                       <MLink
@@ -166,7 +166,7 @@ const Footer = ({ contact, footer, socials }: FooterProps) => {
               <h4>{title}</h4>
               <div className="flex flex-col gap-3">
                 {links?.map((link, linkIndex) => {
-                  const fullPath = getFullPath(link?.page?.data) || link?.url || ''
+                  const fullPath = getPathForStrapiEntity(link?.page?.data) || link?.url || ''
 
                   return (
                     <MLink

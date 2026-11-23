@@ -2,10 +2,10 @@ import { ReactNode, useContext, useMemo } from 'react'
 
 import MLink from '@/components/atoms/MLink'
 import { BackgroundColor, sectionContext } from '@/components/layouts/SectionsWrapper'
-import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import { CtaButtonFragment } from '@/graphql'
 import cn from '@/utils/cn'
 import { useActivateHeroSectionContentOverlay } from '@/utils/heroSectionContentOverlay'
+import { useGetLinkProps } from '@/utils/useGetLinkProps'
 
 export type SectionProps = {
   children: ReactNode

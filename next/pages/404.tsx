@@ -5,20 +5,20 @@ import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslation
 import PageWrapper from '@/components/layouts/PageWrapper'
 import SectionsWrapper from '@/components/layouts/SectionsWrapper'
 import ErrorSection from '@/components/sections/ErrorSection'
-import { GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { GeneralEntityFragment } from '@/graphql'
 import { client } from '@/services/graphql/gqlClient'
-import { isDefined } from '@/utils/isDefined'
+import { getNavigationStaticProps } from '@/services/navigation/getNavigationStaticProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 
-interface Error404PageProps {
-  navigation: NavigationItemFragment[]
+type Error404PageProps = {
   general: GeneralEntityFragment | null
-}
+} & NavigationPageProps
 
-const Error404Page = ({ navigation, general }: Error404PageProps) => {
+const Error404Page = ({ general }: Error404PageProps) => {
   const { t } = useTranslation()
 
   return (
-    <PageWrapper navigation={navigation} general={general}>
+    <PageWrapper general={general}>
       <SectionsWrapper alternateBackground className="pb-14">
         <ErrorSection
           code={404}
@@ -35,14 +35,15 @@ export const getStaticProps: GetStaticProps = async (
 ): Promise<GetStaticPropsResult<Error404PageProps>> => {
   const { locale = 'sk' } = ctx
 
-  const [{ navigation, general }, translations] = await Promise.all([
+  const [{ general }, translations, navigationStaticProps] = await Promise.all([
     client.General({ locale }),
     serverSideTranslations(locale),
+    getNavigationStaticProps({ locale }),
   ])
 
   return {
     props: {
-      navigation: navigation.filter(isDefined),
+      navigationStaticProps,
       general: general?.data ?? null,
       ...translations,
     },

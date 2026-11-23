@@ -7,23 +7,21 @@ import PageWrapper from '@/components/layouts/PageWrapper'
 import SectionsWrapper from '@/components/layouts/SectionsWrapper'
 import HeroSection from '@/components/sections/HeroSection'
 import NewsSection from '@/components/sections/NewsSection'
-import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { ArticleEntityFragment, GeneralEntityFragment } from '@/graphql'
 import cn from '@/utils/cn'
 
 type ArticleLayoutProps = {
-  navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   article: ArticleEntityFragment
   children?: ReactNode
 }
 
-const ArticleLayout = ({ article, navigation, children, general }: ArticleLayoutProps) => {
+const ArticleLayout = ({ article, children, general }: ArticleLayoutProps) => {
   const { title, perex, coverMedia, publishedAt, slug } = article.attributes ?? {}
   const coverImage = coverMedia?.data?.attributes
 
   return (
     <PageWrapper
-      navigation={navigation}
       general={general}
       header={
         <HeroSection

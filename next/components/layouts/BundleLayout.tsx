@@ -3,21 +3,19 @@ import { ReactNode } from 'react'
 import PageWrapper from '@/components/layouts/PageWrapper'
 import SideBar from '@/components/molecules/SideBar'
 import HeroSection from '@/components/sections/HeroSection'
-import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { BundleEntityFragment, GeneralEntityFragment } from '@/graphql'
 
 type BundleLayoutProps = {
   bundle: BundleEntityFragment
-  navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   children?: ReactNode
 }
 
-const BundleLayout = ({ bundle, navigation, children, general }: BundleLayoutProps) => {
+const BundleLayout = ({ bundle, children, general }: BundleLayoutProps) => {
   const { title, perex, price, slug } = bundle.attributes ?? {}
 
   return (
     <PageWrapper
-      navigation={navigation}
       general={general}
       header={
         <HeroSection

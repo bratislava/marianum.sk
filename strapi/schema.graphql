@@ -2374,7 +2374,7 @@ type GeneralRelationResponseCollection {
   data: [GeneralEntity!]!
 }
 
-union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Asset | AssetCategory | Branch | Bundle | Cemetery | CemeteryCategory | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksAssetItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsAssetGroup | ComponentSectionsAssetsSection | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Asset | AssetCategory | Branch | Bundle | Cemetery | CemeteryCategory | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksAssetItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsAssetGroup | ComponentSectionsAssetsSection | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Menu | Office | Page | Partner | Procedure | Review | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2695,6 +2695,47 @@ type ManagedObjectRelationResponseCollection {
   data: [ManagedObjectEntity!]!
 }
 
+type Menu {
+  createdAt: DateTime
+  locale: String
+  localizations: MenuRelationResponseCollection
+  pages(filters: PageFiltersInput, pagination: PaginationArg = {}, publicationState: PublicationState = LIVE, sort: [String] = []): PageRelationResponseCollection
+  updatedAt: DateTime
+}
+
+type MenuEntity {
+  attributes: Menu
+  id: ID
+}
+
+type MenuEntityResponse {
+  data: MenuEntity
+}
+
+type MenuEntityResponseCollection {
+  data: [MenuEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input MenuFiltersInput {
+  and: [MenuFiltersInput]
+  createdAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: MenuFiltersInput
+  not: MenuFiltersInput
+  or: [MenuFiltersInput]
+  pages: PageFiltersInput
+  updatedAt: DateTimeFilterInput
+}
+
+input MenuInput {
+  pages: [ID]
+}
+
+type MenuRelationResponseCollection {
+  data: [MenuEntity!]!
+}
+
 type Mutation {
   """Change user password. Confirm with the current password."""
   changePassword(currentPassword: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
@@ -2722,6 +2763,7 @@ type Mutation {
   createManagedObject(data: ManagedObjectInput!, locale: I18NLocaleCode): ManagedObjectEntityResponse
   createManagedObjectCategory(data: ManagedObjectCategoryInput!): ManagedObjectCategoryEntityResponse
   createManagedObjectLocalization(data: ManagedObjectInput, id: ID, locale: I18NLocaleCode): ManagedObjectEntityResponse
+  createMenuLocalization(data: MenuInput, id: ID, locale: I18NLocaleCode): MenuEntityResponse
   createOffice(data: OfficeInput!, locale: I18NLocaleCode): OfficeEntityResponse
   createOfficeLocalization(data: OfficeInput, id: ID, locale: I18NLocaleCode): OfficeEntityResponse
   createPage(data: PageInput!, locale: I18NLocaleCode): PageEntityResponse
@@ -2756,6 +2798,7 @@ type Mutation {
   deleteHomePage(locale: I18NLocaleCode): HomePageEntityResponse
   deleteManagedObject(id: ID!, locale: I18NLocaleCode): ManagedObjectEntityResponse
   deleteManagedObjectCategory(id: ID!): ManagedObjectCategoryEntityResponse
+  deleteMenu(locale: I18NLocaleCode): MenuEntityResponse
   deleteOffice(id: ID!, locale: I18NLocaleCode): OfficeEntityResponse
   deletePage(id: ID!, locale: I18NLocaleCode): PageEntityResponse
   deletePartner(id: ID!): PartnerEntityResponse
@@ -2805,6 +2848,7 @@ type Mutation {
   updateHomePage(data: HomePageInput!, locale: I18NLocaleCode): HomePageEntityResponse
   updateManagedObject(data: ManagedObjectInput!, id: ID!, locale: I18NLocaleCode): ManagedObjectEntityResponse
   updateManagedObjectCategory(data: ManagedObjectCategoryInput!, id: ID!): ManagedObjectCategoryEntityResponse
+  updateMenu(data: MenuInput!, locale: I18NLocaleCode): MenuEntityResponse
   updateOffice(data: OfficeInput!, id: ID!, locale: I18NLocaleCode): OfficeEntityResponse
   updatePage(data: PageInput!, id: ID!, locale: I18NLocaleCode): PageEntityResponse
   updatePartner(data: PartnerInput!, id: ID!): PartnerEntityResponse
@@ -3161,6 +3205,7 @@ type Query {
   managedObjectCategory(id: ID): ManagedObjectCategoryEntityResponse
   managedObjects(filters: ManagedObjectFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, sort: [String] = []): ManagedObjectEntityResponseCollection
   me: UsersPermissionsMe
+  menu(locale: I18NLocaleCode): MenuEntityResponse
   office(id: ID, locale: I18NLocaleCode): OfficeEntityResponse
   offices(filters: OfficeFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, sort: [String] = []): OfficeEntityResponseCollection
   page(id: ID, locale: I18NLocaleCode): PageEntityResponse

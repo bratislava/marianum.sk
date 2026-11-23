@@ -5,31 +5,28 @@ import { SSRConfig } from 'next-i18next/pages'
 
 import Seo from '@/components/atoms/Seo'
 import AssetLayout from '@/components/layouts/AssetLayout'
+import { AssetEntityFragment, GeneralEntityFragment } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
 import {
   generateStaticPaths,
   generateStaticProps,
-} from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import { AssetEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
-import { client } from '@/services/graphql/gqlClient'
+} from '@/services/navigation/generateStaticPathsAndProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 
 type AssetPageProps = {
-  navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   entity: AssetEntityFragment
-} & SSRConfig
+} & SSRConfig &
+  NavigationPageProps
 
-const AssetPage = ({ navigation, entity, general }: AssetPageProps) => {
+const AssetPage = ({ entity, general }: AssetPageProps) => {
   const { seo, title, description } = entity.attributes ?? {}
 
   return (
     <>
-      {/* TODO: Extract NavigationProvider from PageWrapper */}
-      <NavigationProvider navigation={navigation} general={general}>
-        <Seo seo={seo} title={title} description={description} entity={entity} />
-      </NavigationProvider>
+      <Seo seo={seo} title={title} description={description} entity={entity} />
 
-      <AssetLayout asset={entity} navigation={navigation} general={general} />
+      <AssetLayout asset={entity} general={general} />
     </>
   )
 }
