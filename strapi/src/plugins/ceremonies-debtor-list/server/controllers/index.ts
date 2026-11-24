@@ -33,7 +33,7 @@ export default {
           // also having Meilisearch on while adding debtors triggers the update content hook after
           // every query, therefore the best solution is to turn the Meilisearch off while adding new debtors
           // and turn it back on afterwards.
-          // See `strapi/patches/strapi-plugin-meilisearch+0.7.1.patch`.
+          // See `strapi/patches/strapi-plugin-meilisearch+0.16.5.patch`.
           await meilisearch.emptyOrDeleteIndex({
             contentType: 'api::debtor.debtor',
           })
@@ -120,7 +120,7 @@ export default {
           // also having Meilisearch on while adding ceremonies triggers the update content hook after
           // every query, therefore the best solution is to turn the Meilisearch off while adding new ceremonies
           // and turn it back on afterwards.
-          // See `strapi/patches/strapi-plugin-meilisearch+0.7.1.patch`.
+          // See `strapi/patches/strapi-plugin-meilisearch+0.16.5.patch`.
           await meilisearch.emptyOrDeleteIndex({
             contentType: 'api::ceremony.ceremony',
           })
@@ -192,14 +192,27 @@ export default {
       try {
         const importId = uuid()
         const parsedDisclosures = parseDisclosuresXlsx(file.filepath, importId)
-        const data = parsedDisclosures.map((disclosure) => ({
-          ...disclosure,
-          publishedAt: new Date(),
-        }))
 
-        await strapi.db.query('api::disclosure.disclosure').createMany({ data })
+        // Disclosures are appended, not replaced, so on failure only the ones created by this import are removed.
+        const createdDocumentIds: string[] = []
+        try {
+          for (const data of parsedDisclosures) {
+            const { documentId } = await strapi
+              .documents('api::disclosure.disclosure')
+              .create({ data })
+            createdDocumentIds.push(documentId)
+          }
+        } catch (createDisclosuresError) {
+          // Meilisearch doesn't listen to disclosures (see `strapi/patches/strapi-plugin-meilisearch+0.16.5.patch`) and
+          // the index is rebuilt only after a successful import, so the removed entries never reach the index.
+          for (const documentId of createdDocumentIds) {
+            await strapi.documents('api::disclosure.disclosure').delete({ documentId })
+          }
 
-        // `createMany` doesn't work with Meilisearch, so the update must be triggered manually.
+          throw createDisclosuresError
+        }
+
+        // Meilisearch doesn't listen to disclosures, so the index is rebuilt from the database (old disclosures included).
         await meilisearch.updateContentTypeInMeiliSearch({
           contentType: 'api::disclosure.disclosure',
         })
