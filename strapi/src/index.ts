@@ -1,3 +1,4 @@
+import { registerPageTreeValidation } from './api/page/page-tree-validation'
 import { Core } from '@strapi/strapi'
 
 export default {
@@ -8,6 +9,8 @@ export default {
    * This gives you an opportunity to extend code.
    */
   register({ strapi }: { strapi: Core.Strapi }) {
+    registerPageTreeValidation(strapi)
+
     const extensionService = strapi.service('plugin::graphql.extension')
     extensionService.use(({ strapi }) => ({
       typeDefs: `
