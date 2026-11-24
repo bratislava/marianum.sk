@@ -1,0 +1,196 @@
+{
+  "key": "plugin_content_manager_configuration_components::general.contacts",
+  "value": {
+    "uid": "general.contacts",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "latitude",
+      "defaultSortBy": "latitude",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "addressFirstLine": {
+        "edit": {
+          "label": "Adresa - názov organizácie",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "addressFirstLine",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "address": {
+        "edit": {
+          "label": "Adresa - ulica, PSČ, mesto",
+          "description": "Bude sa správať ako link.",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "address",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "openingHoursPage": {
+        "edit": {
+          "label": "Link na stránku Otváracie hodiny",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "openingHoursPage",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "contact": {
+        "edit": {
+          "label": "Kontakt",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "contact",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "contactsPage": {
+        "edit": {
+          "label": "Link na stránku Kontakty",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "contactsPage",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "latitude": {
+        "edit": {
+          "label": "Zemepisná šírka",
+          "description": "Napr 48.14389",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "latitude",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "longitude": {
+        "edit": {
+          "label": "Zemepisná dĺžka",
+          "description": "Napr 17.10972",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "longitude",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "navigateToLink": {
+        "edit": {
+          "label": "Link na navigáciu",
+          "description": "Napríklad google mapy",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "navigateToLink",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "address",
+        "openingHoursPage",
+        "contactsPage"
+      ],
+      "edit": [
+        [
+          {
+            "name": "addressFirstLine",
+            "size": 8
+          }
+        ],
+        [
+          {
+            "name": "address",
+            "size": 8
+          }
+        ],
+        [
+          {
+            "name": "latitude",
+            "size": 6
+          },
+          {
+            "name": "longitude",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "navigateToLink",
+            "size": 6
+          },
+          {
+            "name": "contact",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "openingHoursPage",
+            "size": 6
+          },
+          {
+            "name": "contactsPage",
+            "size": 6
+          }
+        ]
+      ]
+    },
+    "isComponent": true
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

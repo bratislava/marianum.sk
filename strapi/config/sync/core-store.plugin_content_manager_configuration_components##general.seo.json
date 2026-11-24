@@ -1,0 +1,97 @@
+{
+  "key": "plugin_content_manager_configuration_components::general.seo",
+  "value": {
+    "uid": "general.seo",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "metaTitle",
+      "defaultSortBy": "metaTitle",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "metaTitle": {
+        "edit": {
+          "label": "metaTitle",
+          "description": "Ak je prázdny, použije sa pole Nadpis.",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "metaTitle",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "keywords": {
+        "edit": {
+          "label": "keywords",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "keywords",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "metaDescription": {
+        "edit": {
+          "label": "metaDescription",
+          "description": "Ak je prázdny, použije sa Perex.",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "metaDescription",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "metaTitle",
+        "keywords",
+        "metaDescription"
+      ],
+      "edit": [
+        [
+          {
+            "name": "metaTitle",
+            "size": 6
+          },
+          {
+            "name": "keywords",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "metaDescription",
+            "size": 6
+          }
+        ]
+      ]
+    },
+    "isComponent": true
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

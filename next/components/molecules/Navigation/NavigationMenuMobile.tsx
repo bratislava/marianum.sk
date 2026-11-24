@@ -5,20 +5,19 @@ import { ArrowLeftIcon, ChevronDownIcon, CloseIcon } from '@/assets/icons'
 import IconButton from '@/components/atoms/IconButton'
 import MLink from '@/components/atoms/MLink'
 import Modal from '@/components/atoms/Modal'
-import { NavigationItemFragment } from '@/graphql'
+import { NavigationNode } from '@/services/navigation/NavigationProvider'
 import cn from '@/utils/cn'
-import { isDefined } from '@/utils/isDefined'
 import { usePrevious } from '@/utils/usePrevious'
 
 export type NavigationMenuMobileProps = {
-  items: NavigationItemFragment[]
+  menu: NavigationNode[]
   isOpen: boolean
   onClose: () => void
 }
 
 type RenderItemsProps = {
-  items: NavigationItemFragment[]
-  onOpenItem?: (key: number) => void
+  items: NavigationNode[]
+  onOpenItem?: (slug: string) => void
   onClose?: () => void
   disableFocusAndScreenReader?: boolean
 }
@@ -34,12 +33,12 @@ const RenderItems = ({
 
   return (
     <div aria-hidden={disableFocusAndScreenReader} className="flex flex-col py-3">
-      {items.map(({ id, title, path, items: subItems }) =>
-        subItems && subItems.length > 0 ? (
+      {items.map(({ slug, title, path, children }) =>
+        children.length > 0 ? (
           <ButtonComponent
             tabIndex={disableFocusAndScreenReader ? -1 : 0}
-            key={id}
-            onMouseUp={() => onOpenItem && onOpenItem(id)}
+            key={slug}
+            onMouseUp={() => onOpenItem && onOpenItem(slug)}
             type="button"
             className={cn('flex w-full justify-between px-4 py-3 active:bg-primary/10', {
               'base-focus-ring': !disableFocusAndScreenReader,
@@ -54,9 +53,9 @@ const RenderItems = ({
           <LinkComponent
             tabIndex={disableFocusAndScreenReader ? -1 : 0}
             onClick={onClose}
-            key={id}
+            key={slug}
             noStyles={LinkComponent === 'div' ? undefined : true}
-            href={path ?? ''}
+            href={path}
             className={cn('flex w-full justify-between px-4 py-3 active:bg-primary/10', {
               'base-focus-ring': !disableFocusAndScreenReader,
             })}
@@ -69,27 +68,27 @@ const RenderItems = ({
   )
 }
 
-const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobileProps) => {
-  const rootItem = useMemo<NavigationItemFragment>(
-    () => ({ id: 0, title: '', path: '', items }) as NavigationItemFragment,
-    [items],
+const NavigationMenuMobile = ({ menu, isOpen, onClose }: NavigationMenuMobileProps) => {
+  const rootItem = useMemo<NavigationNode>(
+    () => ({ slug: '', title: '', path: '', children: menu }),
+    [menu],
   )
 
-  const [currentItem, setCurrentItem] = useState<NavigationItemFragment>(rootItem)
-  const [treePreviousItem, setTreePreviousItem] = useState<NavigationItemFragment>(rootItem)
-  const [previousItem, setPreviousItem] = useState<NavigationItemFragment>(rootItem)
+  const [currentItem, setCurrentItem] = useState<NavigationNode>(rootItem)
+  const [treePreviousItem, setTreePreviousItem] = useState<NavigationNode>(rootItem)
+  const [previousItem, setPreviousItem] = useState<NavigationNode>(rootItem)
 
   const [isAnimating, setAnimating] = useState<'forward' | 'back' | 'none'>('none')
   const previousAnimation = usePrevious(isAnimating)
 
-  const openItemHandler = useCallback((itemId: number) => {
+  const openItemHandler = useCallback((slug: string) => {
     setCurrentItem((current) => {
       setAnimating('forward')
       setTimeout(() => {
         setAnimating('none')
       }, 100)
-      const foundItem = current.items?.find((item) => item?.id === itemId)
-      if (foundItem && foundItem.items) {
+      const foundItem = current.children.find((item) => item.slug === slug)
+      if (foundItem && foundItem.children.length > 0) {
         setTreePreviousItem(current)
         setPreviousItem(current)
 
@@ -127,7 +126,7 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
       <div className="fixed top-0 size-full bg-white">
         {/* header */}
         <div className="flex h-16 items-center justify-between border-b border-border px-4">
-          {currentItem.id === rootItem.id ? (
+          {currentItem.slug === rootItem.slug ? (
             <div>{/* todo: add lang selector */}</div>
           ) : (
             <IconButton aria-label="späť" variant="tertiary" onPress={goBack}>
@@ -157,10 +156,7 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
                     : 0,
             }}
           >
-            <RenderItems
-              disableFocusAndScreenReader
-              items={previousItem.items?.filter(isDefined) ?? []}
-            />
+            <RenderItems disableFocusAndScreenReader items={previousItem.children} />
           </motion.div>
 
           {/* current menu list */}
@@ -174,7 +170,7 @@ const NavigationMenuMobile = ({ items, isOpen, onClose }: NavigationMenuMobilePr
             }}
           >
             <RenderItems
-              items={currentItem.items?.filter(isDefined) ?? []}
+              items={currentItem.children}
               onClose={closeHandler}
               onOpenItem={openItemHandler}
             />

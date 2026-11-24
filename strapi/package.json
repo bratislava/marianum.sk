@@ -9,9 +9,10 @@
   },
   "scripts": {
     "build": "npm run --prefix ./src/plugins/ceremonies-debtor-list/ build && strapi build",
+    "cs": "cross-env ENV_PATH='./.env.local' config-sync",
     "dev": "npm run develop",
     "develop": "cross-env ENV_PATH='./.env.local' strapi develop",
-    "postinstall": "patch-package && cd ./src/plugins/ceremonies-debtor-list/ && npm install --omit=peer && cd ../../../",
+    "postinstall": "patch-package && cd ./src/plugins/ceremonies-debtor-list/ && npm install && cd ../../../",
     "start": "strapi start",
     "strapi": "strapi"
   },
@@ -28,17 +29,27 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-router-dom": "6.30.4",
+    "strapi-plugin-config-sync": "3.2.0",
     "strapi-plugin-meilisearch": "0.16.5",
     "strapi-plugin-navigation": "3.3.7",
-    "styled-components": "6.4.3",
+    "styled-components": "6.5.3",
     "xlsx": "0.18.5"
   },
   "engines": {
-    "node": ">=20.19.x",
-    "npm": ">=9.8.1"
+    "node": ">=22.23.0",
+    "npm": ">=10.9.9"
   },
   "volta": {
-    "node": "20.19.0"
+    "node": "22.23.4"
+  },
+  "overrides": {
+    "@casl/ability": "6.7.5",
+    "axios": "1.20.0",
+    "fast-xml-parser": "4.5.7",
+    "form-data": "4.0.6",
+    "tar": "7.5.22",
+    "@strapi/admin": "5.48.1",
+    "@types/react": "18.3.23"
   },
   "strapi": {
     "uuid": "02276e74-d45b-4f22-8469-68326d1ddda3"

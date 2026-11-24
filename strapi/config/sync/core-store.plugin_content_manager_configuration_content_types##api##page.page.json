@@ -1,0 +1,306 @@
+{
+  "key": "plugin_content_manager_configuration_content_types::api::page.page",
+  "value": {
+    "uid": "api::page.page",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "title",
+      "defaultSortBy": "updatedAt",
+      "defaultSortOrder": "DESC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "title": {
+        "edit": {
+          "label": "Nadpis",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "title",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "slug": {
+        "edit": {
+          "label": "Slug",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "slug",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "layout": {
+        "edit": {
+          "label": "Rozloženie",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "layout",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "perex": {
+        "edit": {
+          "label": "perex",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "perex",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "coverMedia": {
+        "edit": {
+          "label": "Ilustračný obrázok",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "coverMedia",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "ctaButton": {
+        "edit": {
+          "label": "CTA tlačidlo v hlavičke",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "ctaButton",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "sections": {
+        "edit": {
+          "label": "Sekcie",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "sections",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "sidebar": {
+        "edit": {
+          "label": "Sidebar",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "sidebar",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "seo": {
+        "edit": {
+          "label": "Seo",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "seo",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "parentPage": {
+        "edit": {
+          "label": "Rodičovská stránka",
+          "description": "Výsledná URL stránky je spojenie slugov z reťaze rodičovských stránok. (napr. marianum.sk/rodicovska-stranka-slug/moj-slug)",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "Rodičovská stránka",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "childPages": {
+        "edit": {
+          "label": "Potomkovia",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "Potomkovia",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "createdAt": {
+        "edit": {
+          "label": "createdAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "createdAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedAt": {
+        "edit": {
+          "label": "updatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "updatedAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdBy": {
+        "edit": {
+          "label": "createdBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "createdBy",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedBy": {
+        "edit": {
+          "label": "updatedBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "updatedBy",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "edit": [
+        [
+          {
+            "name": "title",
+            "size": 6
+          },
+          {
+            "name": "slug",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "layout",
+            "size": 6
+          },
+          {
+            "name": "perex",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "ctaButton",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "sections",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "sidebar",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "coverMedia",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "seo",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "parentPage",
+            "size": 6
+          },
+          {
+            "name": "childPages",
+            "size": 6
+          }
+        ]
+      ],
+      "list": ["id", "title", "slug", "layout", "parentPage"]
+    }
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

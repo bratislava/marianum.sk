@@ -2444,7 +2444,7 @@ type GeneralRelationResponseCollection {
   nodes: [General!]!
 }
 
-union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Asset | AssetCategory | Branch | Bundle | Cemetery | CemeteryCategory | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksAssetItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsAssetGroup | ComponentSectionsAssetsSection | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Office | Page | Partner | Procedure | Review | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph = Article | ArticleJobsCategory | ArticleNewsCategory | ArticlePressCategory | Asset | AssetCategory | Branch | Bundle | Cemetery | CemeteryCategory | Ceremony | ComponentBlocksAccordionItem | ComponentBlocksAccordionItemWithPrice | ComponentBlocksArticleItem | ComponentBlocksAssetItem | ComponentBlocksBlocksCeremonyArchiveBlock | ComponentBlocksBranchItem | ComponentBlocksBundleContentItem | ComponentBlocksBundleGroup | ComponentBlocksBundleItem | ComponentBlocksButtonLink | ComponentBlocksContactItem | ComponentBlocksCta | ComponentBlocksOfficeItem | ComponentBlocksOpeningHoursItem | ComponentBlocksOpeningHoursUniversal | ComponentBlocksPageItem | ComponentBlocksPriceListItem | ComponentBlocksSidebar | ComponentBlocksSimpleCtaItem | ComponentBlocksSocialItem | ComponentGeneralContacts | ComponentGeneralFooter | ComponentGeneralHeader | ComponentGeneralLinkItem | ComponentGeneralProcedure | ComponentGeneralProcedureItem | ComponentGeneralSeo | ComponentGeneralSocial | ComponentSectionsAccordionGroup | ComponentSectionsArticleJobsListing | ComponentSectionsArticleNewsListing | ComponentSectionsArticlePressListing | ComponentSectionsArticlesManualListing | ComponentSectionsAssetGroup | ComponentSectionsAssetsSection | ComponentSectionsBranchGroup | ComponentSectionsBundleListing | ComponentSectionsBundleListingSimple | ComponentSectionsCemeteriesOpeningHours | ComponentSectionsCeremoniesArchiveSection | ComponentSectionsCeremoniesSection | ComponentSectionsContactGroup | ComponentSectionsCtaSection | ComponentSectionsDebtorsSection | ComponentSectionsDisclosuresSection | ComponentSectionsDivider | ComponentSectionsGallery | ComponentSectionsHomepageReviewsSection | ComponentSectionsIframeSection | ComponentSectionsManualListing | ComponentSectionsMapOfManagedObjects | ComponentSectionsMapSection | ComponentSectionsMenuListing | ComponentSectionsNewsListing | ComponentSectionsOpeningHoursSection | ComponentSectionsProceduresSection | ComponentSectionsProceduresShortSection | ComponentSectionsReviewListing | ComponentSectionsRichtext | ComponentSectionsUpcomingCeremoniesSection | Contact | Debtor | Disclosure | General | HomePage | I18NLocale | ManagedObject | ManagedObjectCategory | Menu | Office | Page | Partner | Procedure | Review | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type HomePage {
   createdAt: DateTime
@@ -2785,6 +2785,53 @@ type ManagedObjectRelationResponseCollection {
   nodes: [ManagedObject!]!
 }
 
+type Menu {
+  createdAt: DateTime
+  documentId: ID!
+  locale: String
+  localizations: [Menu]!
+  localizations_connection: MenuRelationResponseCollection
+  pages(filters: PageFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Page]!
+  pages_connection(filters: PageFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): PageRelationResponseCollection
+  publishedAt: DateTime
+  updatedAt: DateTime
+}
+
+type MenuEntity {
+  attributes: Menu
+  id: ID
+}
+
+type MenuEntityResponse {
+  data: Menu
+}
+
+type MenuEntityResponseCollection {
+  nodes: [Menu!]!
+  pageInfo: Pagination!
+}
+
+input MenuFiltersInput {
+  and: [MenuFiltersInput]
+  createdAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: MenuFiltersInput
+  not: MenuFiltersInput
+  or: [MenuFiltersInput]
+  pages: PageFiltersInput
+  publishedAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input MenuInput {
+  pages: [ID]
+  publishedAt: DateTime
+}
+
+type MenuRelationResponseCollection {
+  nodes: [Menu!]!
+}
+
 type Mutation {
   """Change user password. Confirm with the current password."""
   changePassword(currentPassword: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
@@ -2924,6 +2971,10 @@ type Mutation {
     locale: I18NLocaleCode
   ): DeleteMutationResponse
   deleteManagedObjectCategory(documentId: ID!): DeleteMutationResponse
+  deleteMenu(
+    """The locale to use for the query"""
+    locale: I18NLocaleCode
+  ): DeleteMutationResponse
   deleteOffice(
     documentId: ID!
 
@@ -3043,6 +3094,13 @@ type Mutation {
     status: PublicationStatus = PUBLISHED
   ): ManagedObject
   updateManagedObjectCategory(data: ManagedObjectCategoryInput!, documentId: ID!, status: PublicationStatus = PUBLISHED): ManagedObjectCategory
+  updateMenu(
+    data: MenuInput!
+
+    """The locale to use for the query"""
+    locale: I18NLocaleCode
+    status: PublicationStatus = PUBLISHED
+  ): Menu
   updateOffice(
     data: OfficeInput!
     documentId: ID!
@@ -3211,6 +3269,8 @@ type OfficeRelationResponseCollection {
 }
 
 type Page {
+  childPages(filters: PageFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Page]!
+  childPages_connection(filters: PageFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): PageRelationResponseCollection
   coverMedia: UploadFile
   createdAt: DateTime
   ctaButton: ComponentBlocksButtonLink
@@ -3219,6 +3279,7 @@ type Page {
   locale: String
   localizations(filters: PageFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Page]!
   localizations_connection(filters: PageFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): PageRelationResponseCollection
+  parentPage: Page
   perex: String
   publishedAt: DateTime
   sections: [PageSectionsDynamicZone]
@@ -3245,6 +3306,7 @@ type PageEntityResponseCollection {
 
 input PageFiltersInput {
   and: [PageFiltersInput]
+  childPages: PageFiltersInput
   createdAt: DateTimeFilterInput
   ctaButton: ComponentBlocksButtonLinkFiltersInput
   documentId: IDFilterInput
@@ -3253,6 +3315,7 @@ input PageFiltersInput {
   localizations: PageFiltersInput
   not: PageFiltersInput
   or: [PageFiltersInput]
+  parentPage: PageFiltersInput
   perex: StringFilterInput
   publishedAt: DateTimeFilterInput
   seo: ComponentGeneralSeoFiltersInput
@@ -3263,9 +3326,11 @@ input PageFiltersInput {
 }
 
 input PageInput {
+  childPages: [ID]
   coverMedia: ID
   ctaButton: ComponentBlocksButtonLinkInput
   layout: ENUM_PAGE_LAYOUT
+  parentPage: ID
   perex: String
   publishedAt: DateTime
   sections: [PageSectionsDynamicZoneInput!]
@@ -3653,6 +3718,14 @@ type Query {
     status: PublicationStatus = PUBLISHED
   ): ManagedObjectEntityResponseCollection
   me: UsersPermissionsMe
+  menu(
+    hasPublishedVersion: Boolean
+
+    """The locale to use for the query"""
+    locale: I18NLocaleCode
+    publicationFilter: PublicationFilter
+    status: PublicationStatus = PUBLISHED
+  ): Menu
   office(
     documentId: ID!
     hasPublishedVersion: Boolean

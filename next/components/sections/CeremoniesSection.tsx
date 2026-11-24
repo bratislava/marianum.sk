@@ -12,7 +12,6 @@ import MLink from '@/components/atoms/MLink'
 import RowBox from '@/components/atoms/Row/RowBox'
 import CemeteryLink from '@/components/molecules/CemeteryLink'
 import CeremoniesDebtorsCemeterySelect from '@/components/molecules/CeremoniesDebtors/CemeterySelect'
-import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import Section from '@/components/molecules/Section'
 import { CeremoniesQuery, CeremoniesSectionFragment } from '@/graphql'
 import {
@@ -24,6 +23,7 @@ import {
 import cn from '@/utils/cn'
 import { bratislavaTimezone } from '@/utils/consts'
 import { getCemeteryInfoFromCeremony } from '@/utils/getCemeteryInfoInCeremoniesDebtors'
+import { useGetLinkProps } from '@/utils/useGetLinkProps'
 import { useHorizontalScrollFade } from '@/utils/useHorizontalScrollFade'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 

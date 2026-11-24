@@ -7,33 +7,30 @@ import RichText from '@/components/atoms/RichText'
 import Seo from '@/components/atoms/Seo'
 import ArticleLayout from '@/components/layouts/ArticleLayout'
 import ImageGallery from '@/components/molecules/ImageGallery'
+import { ArticleEntityFragment, GeneralEntityFragment } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
 import {
   generateStaticPaths,
   generateStaticProps,
-} from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import { ArticleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
-import { client } from '@/services/graphql/gqlClient'
+} from '@/services/navigation/generateStaticPathsAndProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import { isDefined } from '@/utils/isDefined'
 
 type ArticlePageProps = {
-  navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   entity: ArticleEntityFragment
-} & SSRConfig
+} & SSRConfig &
+  NavigationPageProps
 
-const ArticlePage = ({ navigation, entity, general }: ArticlePageProps) => {
+const ArticlePage = ({ entity, general }: ArticlePageProps) => {
   const medias = entity.mediaGallery.filter(isDefined)
   const { seo, title, perex, coverMedia } = entity
 
   return (
     <>
-      {/* TODO: Extract NavigationProvider from PageWrapper */}
-      <NavigationProvider navigation={navigation} general={general}>
-        <Seo seo={seo} title={title} description={perex} image={coverMedia} entity={entity} />
-      </NavigationProvider>
+      <Seo seo={seo} title={title} description={perex} image={coverMedia} entity={entity} />
 
-      <ArticleLayout article={entity} navigation={navigation} general={general}>
+      <ArticleLayout article={entity} general={general}>
         <RichText content={entity.content} />
         {medias.length ? (
           <div className="mt-4 md:mt-6">
@@ -51,7 +48,7 @@ interface StaticParams extends ParsedUrlQuery {
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   // TODO: Locales
-  const paths = await generateStaticPaths('sk', (locale) =>
+  const paths = await generateStaticPaths('sk', async (locale) =>
     client.ArticlesStaticPaths({ locale }).then((response) => response.articles),
   )
 
@@ -73,7 +70,7 @@ export const getStaticProps: GetStaticProps<ArticlePageProps, StaticParams> = as
     generateStaticProps({
       locale,
       params,
-      entityPromiseGetter: ({ locale: localeInner, slug }) =>
+      entityPromiseGetter: async ({ locale: localeInner, slug }) =>
         client
           .ArticleBySlug({ locale: localeInner, slug })
           .then((response) => response.articles[0]),

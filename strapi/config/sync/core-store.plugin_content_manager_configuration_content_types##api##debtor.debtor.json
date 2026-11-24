@@ -1,0 +1,271 @@
+{
+  "key": "plugin_content_manager_configuration_content_types::api::debtor.debtor",
+  "value": {
+    "uid": "api::debtor.debtor",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "graveSector",
+      "defaultSortBy": "createdAt",
+      "defaultSortOrder": "DESC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "graveSector": {
+        "edit": {
+          "label": "graveSector",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "graveSector",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "graveNumber": {
+        "edit": {
+          "label": "graveNumber",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "graveNumber",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "gravePreviousNumber": {
+        "edit": {
+          "label": "gravePreviousNumber",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "gravePreviousNumber",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "firstName": {
+        "edit": {
+          "label": "firstName",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "firstName",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "lastName": {
+        "edit": {
+          "label": "lastName",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "lastName",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "birthDate": {
+        "edit": {
+          "label": "birthDate",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "birthDate",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "deathDate": {
+        "edit": {
+          "label": "deathDate",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "deathDate",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "cemetery": {
+        "edit": {
+          "label": "cemetery",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "cemetery",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "importId": {
+        "edit": {
+          "label": "importId",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "importId",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdAt": {
+        "edit": {
+          "label": "createdAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "createdAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedAt": {
+        "edit": {
+          "label": "updatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "updatedAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdBy": {
+        "edit": {
+          "label": "createdBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "createdBy",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedBy": {
+        "edit": {
+          "label": "updatedBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "updatedBy",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "cemetery",
+        "graveSector",
+        "graveNumber",
+        "firstName",
+        "lastName"
+      ],
+      "edit": [
+        [
+          {
+            "name": "graveNumber",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "firstName",
+            "size": 6
+          },
+          {
+            "name": "lastName",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "birthDate",
+            "size": 6
+          },
+          {
+            "name": "deathDate",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "graveSector",
+            "size": 6
+          },
+          {
+            "name": "gravePreviousNumber",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "cemetery",
+            "size": 6
+          },
+          {
+            "name": "importId",
+            "size": 6
+          }
+        ]
+      ]
+    }
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

@@ -1396,6 +1396,34 @@ export interface ApiManagedObjectManagedObject extends Struct.CollectionTypeSche
   }
 }
 
+export interface ApiMenuMenu extends Struct.SingleTypeSchema {
+  collectionName: 'menus'
+  info: {
+    description: 'Najviac 4 str\u00E1nky v hlavnom menu v tomto porad\u00ED. Ich dc\u00E9rske str\u00E1nky sa do menu doplnia pod\u013Ea naviga\u010Dn\u00E9ho stromu (rodi\u010Dovsk\u00E1 str\u00E1nka).'
+    displayName: 'Menu'
+    pluralName: 'menus'
+    singularName: 'menu'
+  }
+  options: {
+    draftAndPublish: false
+  }
+  pluginOptions: {
+    i18n: {
+      localized: true
+    }
+  }
+  attributes: {
+    createdAt: Schema.Attribute.DateTime
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private
+    locale: Schema.Attribute.String
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::menu.menu'>
+    pages: Schema.Attribute.Relation<'oneToMany', 'api::page.page'>
+    publishedAt: Schema.Attribute.DateTime
+    updatedAt: Schema.Attribute.DateTime
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private
+  }
+}
+
 export interface ApiOfficeOffice extends Struct.CollectionTypeSchema {
   collectionName: 'offices'
   info: {
@@ -1462,6 +1490,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     }
   }
   attributes: {
+    childPages: Schema.Attribute.Relation<'oneToMany', 'api::page.page'>
     coverMedia: Schema.Attribute.Media<'images'> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -1486,6 +1515,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<'fullwidth'>
     locale: Schema.Attribute.String
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::page.page'>
+    parentPage: Schema.Attribute.Relation<'manyToOne', 'api::page.page'>
     perex: Schema.Attribute.Text &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -2266,6 +2296,7 @@ declare module '@strapi/strapi' {
       'api::home-page.home-page': ApiHomePageHomePage
       'api::managed-object-category.managed-object-category': ApiManagedObjectCategoryManagedObjectCategory
       'api::managed-object.managed-object': ApiManagedObjectManagedObject
+      'api::menu.menu': ApiMenuMenu
       'api::office.office': ApiOfficeOffice
       'api::page.page': ApiPagePage
       'api::partner.partner': ApiPartnerPartner

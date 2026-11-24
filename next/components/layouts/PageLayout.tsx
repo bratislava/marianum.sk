@@ -7,22 +7,19 @@ import HeroSection from '@/components/sections/HeroSection'
 import {
   Enum_Page_Layout,
   GeneralEntityFragment,
-  NavigationItemFragment,
   PageEntityFragment,
 } from '@/graphql'
 import cn from '@/utils/cn'
 
 type PageLayoutProps = {
   page: PageEntityFragment
-  navigation: NavigationItemFragment[]
   children?: ReactNode
   general: GeneralEntityFragment | null
 }
 
-const PageLayout = ({ page, navigation, children, general }: PageLayoutProps) => {
+const PageLayout = ({ page, children, general }: PageLayoutProps) => {
   return (
     <PageWrapper
-      navigation={navigation}
       header={
         page.layout === Enum_Page_Layout.Fullwidth || page.layout === Enum_Page_Layout.Sidebar ? (
           <HeroSection title={page.title} perex={page.perex} ctaButton={page.ctaButton} />

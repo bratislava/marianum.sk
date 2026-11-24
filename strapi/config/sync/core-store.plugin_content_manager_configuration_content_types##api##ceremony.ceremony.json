@@ -1,0 +1,287 @@
+{
+  "key": "plugin_content_manager_configuration_content_types::api::ceremony.ceremony",
+  "value": {
+    "uid": "api::ceremony.ceremony",
+    "settings": {
+      "bulkable": true,
+      "filterable": true,
+      "searchable": true,
+      "pageSize": 10,
+      "mainField": "name",
+      "defaultSortBy": "name",
+      "defaultSortOrder": "ASC"
+    },
+    "metadatas": {
+      "id": {
+        "edit": {},
+        "list": {
+          "label": "id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "dateTime": {
+        "edit": {
+          "label": "dateTime",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "dateTime",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "name": {
+        "edit": {
+          "label": "name",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "name",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "birthYear": {
+        "edit": {
+          "label": "birthYear",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "birthYear",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "type": {
+        "edit": {
+          "label": "type",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "type",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "company": {
+        "edit": {
+          "label": "company",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "company",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "officiantProvidedBy": {
+        "edit": {
+          "label": "officiantProvidedBy",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "officiantProvidedBy",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "cemetery": {
+        "edit": {
+          "label": "cemetery",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "title"
+        },
+        "list": {
+          "label": "cemetery",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "cemeteryNameIfOutsideMarianum": {
+        "edit": {
+          "label": "cemeteryNameIfOutsideMarianum",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "cemeteryNameIfOutsideMarianum",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "consentForPrivateFields": {
+        "edit": {
+          "label": "consentForPrivateFields",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "consentForPrivateFields",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "importId": {
+        "edit": {
+          "label": "importId",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "importId",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdAt": {
+        "edit": {
+          "label": "createdAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "createdAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedAt": {
+        "edit": {
+          "label": "updatedAt",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true
+        },
+        "list": {
+          "label": "updatedAt",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "createdBy": {
+        "edit": {
+          "label": "createdBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "createdBy",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "updatedBy": {
+        "edit": {
+          "label": "updatedBy",
+          "description": "",
+          "placeholder": "",
+          "visible": false,
+          "editable": true,
+          "mainField": "firstname"
+        },
+        "list": {
+          "label": "updatedBy",
+          "searchable": true,
+          "sortable": true
+        }
+      }
+    },
+    "layouts": {
+      "list": [
+        "id",
+        "dateTime",
+        "name",
+        "birthYear"
+      ],
+      "edit": [
+        [
+          {
+            "name": "dateTime",
+            "size": 6
+          },
+          {
+            "name": "name",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "birthYear",
+            "size": 6
+          },
+          {
+            "name": "type",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "company",
+            "size": 6
+          },
+          {
+            "name": "officiantProvidedBy",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "consentForPrivateFields",
+            "size": 4
+          },
+          {
+            "name": "cemetery",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "importId",
+            "size": 6
+          },
+          {
+            "name": "cemeteryNameIfOutsideMarianum",
+            "size": 6
+          }
+        ]
+      ]
+    }
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

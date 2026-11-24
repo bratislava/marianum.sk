@@ -1,0 +1,43 @@
+{
+  "key": "plugin_navigation_config",
+  "value": {
+    "additionalFields": [],
+    "contentTypes": [
+      "api::page.page"
+    ],
+    "contentTypesNameFields": {
+      "default": [
+        "title",
+        "subject",
+        "name"
+      ],
+      "api::page.page": [
+        "title"
+      ],
+      "api::branch.branch": [
+        "title"
+      ]
+    },
+    "contentTypesPopulate": {},
+    "allowedLevels": 2,
+    "gql": {
+      "navigationItemRelated": [
+        "Page"
+      ]
+    },
+    "i18nEnabled": true,
+    "pruneObsoleteI18nNavigations": false,
+    "pathDefaultFields": {
+      "api::page.page": [
+        "slug"
+      ],
+      "api::branch.branch": [
+        "slug"
+      ]
+    },
+    "cascadeMenuAttached": true
+  },
+  "type": "object",
+  "environment": null,
+  "tag": null
+}

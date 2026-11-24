@@ -9,7 +9,6 @@ import LoadingOverlay from '@/components/atoms/LoadingOverlay'
 import ArticleCard from '@/components/molecules/Cards/ArticleCard'
 import FilteringSearchInput from '@/components/molecules/FilteringSearchInput'
 import FiltersBackgroundWrapper from '@/components/molecules/FiltersBackgroundWrapper'
-import { useGetFullPathMeili } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import PaginationMeili from '@/components/molecules/PaginationMeili'
 import Section from '@/components/molecules/Section'
 import ArticleJobsCategoriesSelect from '@/components/sections/ArticleListing/ArticleJobsCategoriesSelect'
@@ -23,6 +22,7 @@ import {
   meiliArticlesFetcher,
 } from '@/services/fetchers/articles/articlesFetcher'
 import { ArticleMeili } from '@/services/meili/meiliTypes'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { useScrollToViewIfDataChange } from '@/utils/useScrollToViewIfDataChange'
 
 const Articles = ({
@@ -36,7 +36,7 @@ const Articles = ({
 }) => {
   const { t } = useTranslation()
 
-  const { getFullPathMeili } = useGetFullPathMeili()
+  const { getPathForMeiliEntity } = useNavigation()
   const cardsRef = useRef<HTMLDivElement>(null)
   useScrollToViewIfDataChange(data, filters, cardsRef)
 
@@ -76,7 +76,7 @@ const Articles = ({
               title={title}
               image={coverMedia}
               date={publishedAt}
-              linkHref={getFullPathMeili('article', article) ?? ''}
+              linkHref={getPathForMeiliEntity('article', article) ?? ''}
               category={category}
             />
           )

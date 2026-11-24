@@ -1,11 +1,9 @@
 import Head from 'next/head'
 import { useTranslation } from 'next-i18next/pages'
 
-import {
-  UnionSlugEntityType,
-  useGetFullPath,
-} from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { SeoFragment, UploadImageEntityFragment } from '@/graphql'
+import { StrapiEntity } from '@/services/navigation/getPathForEntity'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 
 interface SeoProps {
   title: string | undefined | null
@@ -13,7 +11,7 @@ interface SeoProps {
   ogType?: string
   description?: string | null
   image?: UploadImageEntityFragment | null
-  entity?: UnionSlugEntityType
+  entity?: StrapiEntity | null
   homepage?: boolean
 }
 
@@ -28,9 +26,9 @@ const Seo = ({
 }: SeoProps) => {
   const { t } = useTranslation()
 
-  const { getFullPath } = useGetFullPath()
+  const { getPathForStrapiEntity } = useNavigation()
 
-  const fullPath = getFullPath(entity)
+  const fullPath = getPathForStrapiEntity(entity)
   const fullPathWithDomain = homepage
     ? `https://marianum.sk/`
     : fullPath

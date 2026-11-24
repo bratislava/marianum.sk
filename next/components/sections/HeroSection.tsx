@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next/pages'
 import { ReactNode } from 'react'
 
@@ -7,12 +6,11 @@ import Breadcrumbs, { BreadcrumbItem } from '@/components/atoms/Breadcrumbs'
 import Button from '@/components/atoms/Button'
 import FormatCurrency from '@/components/atoms/FormatCurrency'
 import NormalizeText from '@/components/atoms/NormalizeText/NormalizeText'
-import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
-import { useNavigationContext } from '@/components/molecules/Navigation/NavigationProvider/useNavigationContext'
 import { CtaButtonFragment } from '@/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import cn from '@/utils/cn'
-import { getBreadcrumbs } from '@/utils/getBreadcrumbs'
 import { useIsHeroSectionOverlaid } from '@/utils/heroSectionContentOverlay'
+import { useGetLinkProps } from '@/utils/useGetLinkProps'
 
 type HeroSectionProps = {
   breadcrumbsMoreItems?: BreadcrumbItem[]
@@ -32,16 +30,15 @@ const HeroSection = ({
   moreContent,
 }: HeroSectionProps) => {
   const { t } = useTranslation()
-  const router = useRouter()
   const { getLinkProps } = useGetLinkProps()
 
-  const { navMap } = useNavigationContext()
+  const { breadcrumbs: navigationBreadcrumbs } = useNavigation()
 
   const linkProps = getLinkProps(ctaButton)
 
   const breadcrumbs = [
     { label: <HomeIcon />, path: '/' },
-    ...getBreadcrumbs(router.asPath, navMap),
+    ...navigationBreadcrumbs,
     ...(breadcrumbsMoreItems ?? []),
   ]
 

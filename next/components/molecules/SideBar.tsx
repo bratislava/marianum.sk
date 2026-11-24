@@ -2,9 +2,9 @@ import { useTranslation } from 'next-i18next/pages'
 
 import { MailIcon, PhoneIcon } from '@/assets/icons'
 import Button from '@/components/atoms/Button'
-import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import { SidebarFragment } from '@/graphql'
 import { getPhoneNumberLink } from '@/utils/getPhoneNumberLink'
+import { useGetLinkProps } from '@/utils/useGetLinkProps'
 
 type SideBarProps = {
   sidebar: SidebarFragment | null | undefined

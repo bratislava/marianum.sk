@@ -2,7 +2,6 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
 import Loading from '@/components/atoms/Loading'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import Section from '@/components/molecules/Section'
 import MapWithSearch from '@/components/sections/MapWithSearch'
 import { MapOfManagedObjectsSectionFragment } from '@/graphql'
@@ -11,6 +10,7 @@ import {
   managedObjectsDefaultFilters,
   meiliManagedObjectsFetcher,
 } from '@/services/fetchers/managedObjectsFetcher'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import { isDefined } from '@/utils/isDefined'
 
 type MapOfManagedObjectsSectionProps = {
@@ -23,7 +23,7 @@ export const mapOfManagedObjectsSectionDefaultFilters = {
 }
 
 const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps) => {
-  const { getFullPath } = useGetFullPath()
+  const { getPathForStrapiEntity } = useNavigation()
 
   const categories = section.categories.filter(isDefined)
 
@@ -82,7 +82,7 @@ const MapOfManagedObjectsSection = ({ section }: MapOfManagedObjectsSectionProps
         landmarks={data.hits
           .map((hit) => {
             const { title, latitude, longitude, address } = hit
-            const linkHref = getFullPath({
+            const linkHref = getPathForStrapiEntity({
               __typename: 'ManagedObject',
               ...hit,
             })
