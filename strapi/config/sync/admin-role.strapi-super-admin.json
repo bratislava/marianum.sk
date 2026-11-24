@@ -2350,6 +2350,59 @@
       "properties": {},
       "conditions": [],
       "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "subject": "api::menu.menu",
+      "properties": {
+        "fields": [
+          "pages"
+        ],
+        "locales": [
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "subject": "api::menu.menu",
+      "properties": {
+        "locales": [
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "subject": "api::menu.menu",
+      "properties": {
+        "fields": [
+          "pages"
+        ],
+        "locales": [
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "subject": "api::menu.menu",
+      "properties": {
+        "fields": [
+          "pages"
+        ],
+        "locales": [
+          "sk"
+        ]
+      },
+      "conditions": [],
+      "actionParameters": {}
     }
   ]
 }

@@ -2,8 +2,8 @@ import { useTranslation } from 'next-i18next/pages'
 import { useMemo } from 'react'
 
 import MLink from '@/components/atoms/MLink'
-import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import { CtaButtonFragment } from '@/graphql'
+import { useGetLinkProps } from '@/utils/useGetLinkProps'
 
 type FooterCredentialsProps = {
   links: CtaButtonFragment[] | null | undefined

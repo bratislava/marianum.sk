@@ -10,27 +10,23 @@ import BundleLayout from '@/components/layouts/BundleLayout'
 import AccordionGroup from '@/components/molecules/Accordion/AccordionGroup'
 import AccordionItem from '@/components/molecules/Accordion/AccordionItem'
 import AssetGroup from '@/components/molecules/AssetGroup'
+import Section from '@/components/molecules/Section'
+import { BundleEntityFragment, GeneralEntityFragment } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
 import {
   generateStaticPaths,
   generateStaticProps,
-} from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import Section from '@/components/molecules/Section'
-import { BundleEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
-import { client } from '@/services/graphql/gqlClient'
+} from '@/services/navigation/generateStaticPathsAndProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 import { isDefined } from '@/utils/isDefined'
 
 type BundlePageProps = {
-  navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   entity: BundleEntityFragment
-} & SSRConfig
+} & SSRConfig &
+  NavigationPageProps
 
-const BundlePage: NextPage<BundlePageProps> = ({
-  navigation,
-  entity,
-  general,
-}: BundlePageProps) => {
+const BundlePage: NextPage<BundlePageProps> = ({ entity, general }: BundlePageProps) => {
   const { t } = useTranslation()
   const {
     seo,
@@ -49,12 +45,9 @@ const BundlePage: NextPage<BundlePageProps> = ({
 
   return (
     <>
-      {/* TODO: Extract NavigationProvider from PageWrapper */}
-      <NavigationProvider navigation={navigation} general={general}>
-        <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
-      </NavigationProvider>
+      <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
 
-      <BundleLayout navigation={navigation} general={general} bundle={entity}>
+      <BundleLayout general={general} bundle={entity}>
         <div className="flex flex-col">
           {/* TODO display bundle data */}
           {claims?.length ? (

@@ -1,6 +1,6 @@
 import ArticleCard from '@/components/molecules/Cards/ArticleCard'
-import { useGetFullPath } from '@/components/molecules/Navigation/NavigationProvider/useGetFullPath'
 import { ArticleCardEntityFragment } from '@/graphql'
+import { useNavigation } from '@/services/navigation/NavigationProvider'
 import cn from '@/utils/cn'
 
 type ArticleGroupProps = {
@@ -8,7 +8,7 @@ type ArticleGroupProps = {
 }
 
 const ArticleGroup = ({ articles }: ArticleGroupProps) => {
-  const { getFullPath } = useGetFullPath()
+  const { getPathForStrapiEntity } = useNavigation()
 
   return (
     <div
@@ -28,7 +28,7 @@ const ArticleGroup = ({ articles }: ArticleGroupProps) => {
             title={title ?? ''}
             image={coverMedia?.data?.attributes}
             date={publishedAt}
-            linkHref={getFullPath(article) ?? ''}
+            linkHref={getPathForStrapiEntity(article) ?? ''}
             category={newsCategory?.data}
           />
         )

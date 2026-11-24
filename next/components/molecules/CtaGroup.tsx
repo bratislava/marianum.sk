@@ -1,9 +1,9 @@
 import { useId } from 'react'
 
 import Button from '@/components/atoms/Button'
-import { useGetLinkProps } from '@/components/molecules/Navigation/NavigationProvider/useGetLinkProps'
 import { CtaSectionFragment } from '@/graphql'
 import { isDefined } from '@/utils/isDefined'
+import { useGetLinkProps } from '@/utils/useGetLinkProps'
 
 const getAriaLabelId = (id: string, index: number) => `ctagroup-${id}-${index}`
 

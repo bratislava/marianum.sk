@@ -9,15 +9,14 @@ import PageWrapper from '@/components/layouts/PageWrapper'
 import SectionsWrapper from '@/components/layouts/SectionsWrapper'
 import Section from '@/components/molecules/Section'
 import HeroSection from '@/components/sections/HeroSection'
-import { AssetEntityFragment, GeneralEntityFragment, NavigationItemFragment } from '@/graphql'
+import { AssetEntityFragment, GeneralEntityFragment } from '@/graphql'
 
 type AssetLayoutProps = {
-  navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   asset: AssetEntityFragment
 }
 
-const AssetLayout = ({ asset, navigation, general }: AssetLayoutProps) => {
+const AssetLayout = ({ asset, general }: AssetLayoutProps) => {
   const { t, i18n } = useTranslation()
 
   const { title, description, file, publishedAt, assetCategory, slug } = asset.attributes ?? {}
@@ -53,7 +52,6 @@ const AssetLayout = ({ asset, navigation, general }: AssetLayoutProps) => {
 
   return (
     <PageWrapper
-      navigation={navigation}
       general={general}
       header={<HeroSection breadcrumbsMoreItems={[{ label: title, path: slug ?? '' }]} />}
     >

@@ -8,38 +8,31 @@ import Button from '@/components/atoms/Button'
 import RichText from '@/components/atoms/RichText'
 import Seo from '@/components/atoms/Seo'
 import BranchCemeteryLayout from '@/components/layouts/BranchCemeteryLayout'
+import SectionBoxed from '@/components/molecules/SectionBoxed'
+import { GeneralEntityFragment, ManagedObjectEntityFragment } from '@/graphql'
+import { client } from '@/services/graphql/gqlClient'
 import {
   generateStaticPaths,
   generateStaticProps,
-} from '@/components/molecules/Navigation/NavigationProvider/generateStaticPathsAndProps'
-import NavigationProvider from '@/components/molecules/Navigation/NavigationProvider/NavigationProvider'
-import SectionBoxed from '@/components/molecules/SectionBoxed'
-import {
-  GeneralEntityFragment,
-  ManagedObjectEntityFragment,
-  NavigationItemFragment,
-} from '@/graphql'
-import { client } from '@/services/graphql/gqlClient'
+} from '@/services/navigation/generateStaticPathsAndProps'
+import { NavigationPageProps } from '@/services/navigation/typesNavigation'
 
 type ManagedObjectPageProps = {
-  navigation: NavigationItemFragment[]
   general: GeneralEntityFragment | null
   entity: ManagedObjectEntityFragment
-} & SSRConfig
+} & SSRConfig &
+  NavigationPageProps
 
-const ManagedObjectPage = ({ navigation, entity, general }: ManagedObjectPageProps) => {
+const ManagedObjectPage = ({ entity, general }: ManagedObjectPageProps) => {
   const { t } = useTranslation()
 
   const { seo, title, address, navigateToLink, description } = entity.attributes ?? {}
 
   return (
     <>
-      {/* TODO: Extract NavigationProvider from PageWrapper */}
-      <NavigationProvider navigation={navigation} general={general}>
-        <Seo seo={seo} title={title} entity={entity} />
-      </NavigationProvider>
+      <Seo seo={seo} title={title} entity={entity} />
 
-      <BranchCemeteryLayout entity={entity} navigation={navigation} general={general}>
+      <BranchCemeteryLayout entity={entity} general={general}>
         <div className="flex flex-col gap-3 md:gap-4">
           <SectionBoxed>
             <h1 className="pb-1 md:pb-3">{title}</h1>
