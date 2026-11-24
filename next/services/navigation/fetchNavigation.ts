@@ -24,11 +24,8 @@ export const fetchNonCachedNavigation = async (): Promise<NavigationObject> => {
     locales.map(async (locale) => {
       const { topLevelPages, menu } = await client.Navigation({ locale })
 
-      const { pagePathsMap } = parseTopLevelPages(topLevelPages?.data ?? [])
-      const menuSlugs =
-        menu?.data?.attributes?.pages?.data
-          .map((page) => page.attributes?.slug)
-          .filter(isDefined) ?? []
+      const { pagePathsMap } = parseTopLevelPages(topLevelPages ?? [])
+      const menuSlugs = menu?.pages.map((page) => page?.slug).filter(isDefined) ?? []
 
       return [locale, { pagePathsMap, menuSlugs }] as const
     }),

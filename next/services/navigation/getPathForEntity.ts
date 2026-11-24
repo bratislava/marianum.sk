@@ -67,30 +67,30 @@ const getBundleContentType = (bundleType: string | null | undefined): ContentTyp
 export const getEntityForStrapiEntity = (
   strapiEntity: StrapiEntity | null | undefined,
 ): RouteEntity | null => {
-  if (!strapiEntity?.attributes) {
+  if (!strapiEntity) {
     return null
   }
 
-  const { slug } = strapiEntity.attributes
+  const { slug } = strapiEntity
   const type = (() => {
     switch (strapiEntity.__typename) {
-      case 'PageEntity':
+      case 'Page':
         return 'page'
-      case 'ArticleEntity':
+      case 'Article':
         return getArticleContentType({
-          pressCategory: strapiEntity.attributes.pressCategory?.data,
-          newsCategory: strapiEntity.attributes.newsCategory?.data,
-          jobsCategory: strapiEntity.attributes.jobsCategory?.data,
+          pressCategory: strapiEntity.pressCategory,
+          newsCategory: strapiEntity.newsCategory,
+          jobsCategory: strapiEntity.jobsCategory,
         })
-      case 'BranchEntity':
+      case 'Branch':
         return 'branch'
-      case 'BundleEntity':
-        return getBundleContentType(strapiEntity.attributes.type)
-      case 'CemeteryEntity':
+      case 'Bundle':
+        return getBundleContentType(strapiEntity.type)
+      case 'Cemetery':
         return 'cemetery'
-      case 'ManagedObjectEntity':
+      case 'ManagedObject':
         return 'managed-object'
-      case 'AssetEntity':
+      case 'Asset':
         return 'asset'
       default:
         return null
