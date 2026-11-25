@@ -227,7 +227,7 @@ type Asset {
   createdAt: DateTime
   description: String
   documentId: ID!
-  file: UploadFile!
+  file: UploadFile
   publishedAt: DateTime
   seo: ComponentGeneralSeo
   slug: String!

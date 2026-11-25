@@ -25,8 +25,10 @@ const AssetGroup = ({ assets, variant = 'gaps' }: AssetGroupProps) => {
         'gap-4': variant === 'gaps',
       })}
     >
-      {filteredAssets?.map((doc, index) => {
+      {filteredAssets.map((doc, index) => {
         const { title, slug, file } = doc
+
+        if (!file) return null
 
         return (
           <AssetRow

@@ -43,11 +43,11 @@ const AssetLayout = ({ asset, general }: AssetLayoutProps) => {
   }, [assetCategory, publishedAt, t])
 
   const extension = useMemo(() => {
-    return file.ext?.slice(1)
+    return file?.ext?.slice(1)
   }, [file])
 
   const size = useMemo(() => {
-    return filesize(file.size * 1000, { round: 1, locale: i18n.language })
+    return file ? filesize(file.size * 1000, { round: 1, locale: i18n.language }) : null
   }, [file, i18n.language])
 
   return (
@@ -67,14 +67,18 @@ const AssetLayout = ({ asset, general }: AssetLayoutProps) => {
                 <FormatDate value={publishedAt as string} valueType="ISO" format="articlePage" />
               </div>
               <h1>{title}</h1>
-              <div className="flex items-center gap-2 text-size-p-small">
-                <span>{size}</span>
-                <span>•</span>
-                <span className="uppercase">{extension}</span>
-              </div>
-              <Button target="_blank" href={file.url} className="mt-4 md:w-fit">
-                {t('AssetLayout.downloadFile')}
-              </Button>
+              {file ? (
+                <>
+                  <div className="flex items-center gap-2 text-size-p-small">
+                    <span>{size}</span>
+                    <span>•</span>
+                    <span className="uppercase">{extension}</span>
+                  </div>
+                  <Button target="_blank" href={file.url} className="mt-4 md:w-fit">
+                    {t('AssetLayout.downloadFile')}
+                  </Button>
+                </>
+              ) : null}
             </div>
           </div>
         </Section>
