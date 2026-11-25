@@ -56,15 +56,17 @@ const Assets = ({
             category={asset.assetCategory}
             linkHref={getPathForMeiliEntity('asset', asset) ?? ''}
             button={
-              <Button
-                variant="tertiary"
-                startIcon={<DownloadIcon />}
-                target="_blank"
-                href={asset.file.url}
-                aria-label={getDownloadAriaLabel(asset.file, asset.title)}
-              >
-                {t('AssetsSection.download')}
-              </Button>
+              asset.file ? (
+                <Button
+                  variant="tertiary"
+                  startIcon={<DownloadIcon />}
+                  target="_blank"
+                  href={asset.file.url}
+                  aria-label={getDownloadAriaLabel(asset.file, asset.title)}
+                >
+                  {t('AssetsSection.download')}
+                </Button>
+              ) : null
             }
             border={false}
           />

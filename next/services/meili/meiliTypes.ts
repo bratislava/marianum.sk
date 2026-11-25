@@ -32,22 +32,27 @@ export type CemeteryMeili = Omit<Cemetery, '__typename' | 'localizations'> & {
   localizations: CemeteryMeili[]
 }
 
+// Relations in Meilisearch documents can be null: the related entry may be missing or deleted (e.g. a file removed from
+// the media library), and Meilisearch keeps whatever was indexed.
+
 export type CeremonyMeili = Omit<Ceremony, '__typename' | 'cemetery'> & {
   id: string
-  cemetery: CemeteryMeili
+  cemetery: CemeteryMeili | null
 }
 
 export type DebtorMeili = Omit<Debtor, '__typename' | 'cemetery'> & {
   id: string
-  cemetery: CemeteryMeili & {
-    localizations: CemeteryMeili[]
-  }
+  cemetery:
+    | (CemeteryMeili & {
+        localizations: CemeteryMeili[]
+      })
+    | null
 }
 
 export type AssetMeili = Omit<Asset, '__typename' | 'assetCategory' | 'file'> & {
   id: string
-  assetCategory: Omit<AssetCategory, '__typename' | 'assets'>
-  file: Omit<UploadFile, '__typename'>
+  assetCategory: Omit<AssetCategory, '__typename' | 'assets'> | null
+  file: Omit<UploadFile, '__typename'> | null
 }
 
 export type ManagedObjectMeili = Omit<ManagedObject, '__typename' | 'localizations'> & {

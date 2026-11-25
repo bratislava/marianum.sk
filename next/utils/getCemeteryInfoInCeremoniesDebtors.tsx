@@ -45,13 +45,13 @@ export const getCemeteryInfoInCeremoniesDebtors = (
  * Differs from the Strapi version as the structure is flatter.
  */
 export const getCemeteryInfoInCeremoniesDebtorsMeili = (
-  cemetery: CemeteryMeili,
+  cemetery: CemeteryMeili | null,
   locale: string,
 ) => {
-  const skCemeteryTitle = cemetery.title
-  const skCemeterySlug = cemetery.slug
+  const skCemeteryTitle = cemetery?.title
+  const skCemeterySlug = cemetery?.slug
 
-  const localeCemetery = cemetery.localizations.find(
+  const localeCemetery = cemetery?.localizations.find(
     (cemeteryInner) => cemeteryInner.locale === locale,
   )
   const localeCemeteryTitle = localeCemetery?.title
@@ -83,7 +83,7 @@ export const getCemeteryInfoFromCeremonyMeili = (ceremony: CeremonyMeili, locale
     return { title: ceremony.cemeteryNameIfOutsideMarianum, slug: undefined }
   }
 
-  return ceremony?.cemetery
+  return ceremony.cemetery
     ? getCemeteryInfoInCeremoniesDebtorsMeili(ceremony.cemetery, locale)
     : null
 }
