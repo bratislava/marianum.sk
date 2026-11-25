@@ -16,6 +16,7 @@ export type ImageLightBoxProps = {
 
 const ImageLightBox = (props: ImageLightBoxProps) => {
   const { images, initialImageIndex, ...rest } = props
+  const filteredImages = images.filter(isDefined)
 
   const { isOpen } = rest
 
@@ -34,9 +35,9 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
       <Slider
         ref={sliderRef}
         description={t('ImageLightBox.aria.description')}
-        allowKeyboardNavigation={images.length > 1}
+        allowKeyboardNavigation={filteredImages.length > 1}
         initialPage={initialImageIndex}
-        pages={images.filter(isDefined).map((image) => (
+        pages={filteredImages.map((image) => (
           <div
             key={image.documentId}
             className="pointer-events-none container flex size-full max-w-6xl flex-col items-center justify-center md:px-[88px]"
@@ -54,7 +55,7 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
         ))}
         pagination={({ goToPrevious, goToNext }) => (
           <div className="pointer-events-none absolute bottom-0 z-20 container flex w-full max-w-6xl justify-between p-6 md:bottom-auto">
-            {images.length > 1 && (
+            {filteredImages.length > 1 && (
               <>
                 <IconButton variant="white" className="pointer-events-auto" onPress={goToPrevious}>
                   <ArrowLeftIcon />

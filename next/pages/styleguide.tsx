@@ -2,7 +2,7 @@ import { GetStaticProps, GetStaticPropsResult } from 'next'
 import Head from 'next/head'
 import { SSRConfig } from 'next-i18next/pages'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
-import React, { ReactNode, useMemo, useState } from 'react'
+import { ReactNode, useMemo, useState } from 'react'
 
 import { AddIcon, ArrowRightIcon, CloseCircleIcon, DownloadIcon, SearchIcon } from '@/assets/icons'
 import Avatar from '@/components/atoms/Avatar'
@@ -102,7 +102,7 @@ type StackProps = {
   bg?: 'white' | 'dark'
   width?: 'desktop' | 'mobile' | 'full' | null
   direction?: 'column' | 'row'
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export const Stack = ({ bg, width = null, direction = 'row', children }: StackProps) => {

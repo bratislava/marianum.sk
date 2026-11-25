@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { MailIcon, PhoneIcon } from '@/assets/icons'
 import MLink from '@/components/atoms/MLink'
 import { ContactEntityFragment } from '@/graphql'

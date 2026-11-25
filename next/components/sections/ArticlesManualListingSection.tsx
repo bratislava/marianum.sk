@@ -1,5 +1,3 @@
-import React from 'react'
-
 import Section, { SectionProps } from '@/components/molecules/Section'
 import ArticleGroup from '@/components/sections/ArticleGroup'
 import { ArticlesManualListingFragment } from '@/graphql'

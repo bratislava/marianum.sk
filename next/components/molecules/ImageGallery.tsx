@@ -28,7 +28,7 @@ const ImageGallery = ({ images = [], variant = 'below' }: ImageGalleryProps) => 
   }, [filteredImages])
 
   const firstImage = useMemo(() => {
-    return filteredImages[0] ?? undefined
+    return filteredImages.at(0)
   }, [filteredImages])
 
   const { ref: containerRef, width: containerWidth } = useResizeDetector()

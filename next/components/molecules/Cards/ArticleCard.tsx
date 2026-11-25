@@ -1,4 +1,4 @@
-import React, { RefObject, useMemo, useRef } from 'react'
+import { MouseEvent, RefObject, useMemo, useRef } from 'react'
 import { useHover } from 'usehooks-ts'
 
 import CardBox, { CardBoxProps } from '@/components/atoms/Card/CardBox'
@@ -34,7 +34,7 @@ const ArticleCard = ({ image, title, date, category, linkHref, ...rest }: Articl
 
   const formattedDate = useMemo(() => new Date(date), [date])
 
-  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleLinkClick = (event: MouseEvent<HTMLAnchorElement>) => {
     // Don't trigger the `handleCardClick` function when link clicked.
     event.stopPropagation()
   }
