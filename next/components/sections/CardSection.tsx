@@ -17,8 +17,8 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
   const filteredPages = pages
     ?.filter(isDefined)
     .map((page) => page.page)
-    .filter((page) => page)
-
+    .filter(isDefined)
+  
   return (
     <Section
       title={title}
@@ -29,7 +29,7 @@ const CardSection = ({ section, ...rest }: CardSectionProps) => {
       button={showMoreButton}
     >
       {filteredPages?.map((page, index) => {
-        const { documentId, title: cardTitle, coverMedia } = page ?? {}
+        const { documentId, title: cardTitle, coverMedia } = page
         const fullPath = getPathForStrapiEntity(page) ?? ''
 
         if (style === Enum_Componentsectionsmanuallisting_Style.Simple) {
