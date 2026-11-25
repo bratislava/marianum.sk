@@ -75,7 +75,7 @@ interface StaticParams extends ParsedUrlQuery {
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   // TODO: Locales
-  const paths = await generateStaticPaths('sk', (locale) =>
+  const paths = await generateStaticPaths('sk', async (locale) =>
     client.ManagedObjectsStaticPaths({ locale }).then((response) => response.managedObjects),
   )
 
@@ -98,7 +98,7 @@ export const getStaticProps: GetStaticProps<ManagedObjectPageProps, StaticParams
   return generateStaticProps({
     locale,
     params,
-    entityPromiseGetter: ({ locale: localeInner, slug }) =>
+    entityPromiseGetter: async ({ locale: localeInner, slug }) =>
       client
         .ManagedObjectBySlug({ locale: localeInner, slug })
         .then((response) => response.managedObjects[0]),

@@ -82,7 +82,7 @@ interface StaticParams extends ParsedUrlQuery {
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   // TODO: Locales
-  const paths = await generateStaticPaths('sk', (locale) =>
+  const paths = await generateStaticPaths('sk', async (locale) =>
     client.BranchesStaticPaths({ locale }).then((response) => response.branches),
   )
 
@@ -104,7 +104,7 @@ export const getStaticProps: GetStaticProps<BranchPageProps, StaticParams> = asy
     generateStaticProps({
       locale,
       params,
-      entityPromiseGetter: ({ locale: localeInner, slug }) =>
+      entityPromiseGetter: async ({ locale: localeInner, slug }) =>
         client.BranchBySlug({ locale: localeInner, slug }).then((response) => response.branches[0]),
     })
   )
