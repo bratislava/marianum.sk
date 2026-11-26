@@ -2212,27 +2212,6 @@
       "actionParameters": {}
     },
     {
-      "action": "plugin::navigation.read",
-      "subject": null,
-      "properties": {},
-      "conditions": [],
-      "actionParameters": {}
-    },
-    {
-      "action": "plugin::navigation.settings",
-      "subject": null,
-      "properties": {},
-      "conditions": [],
-      "actionParameters": {}
-    },
-    {
-      "action": "plugin::navigation.update",
-      "subject": null,
-      "properties": {},
-      "conditions": [],
-      "actionParameters": {}
-    },
-    {
       "action": "plugin::upload.assets.copy-link",
       "subject": null,
       "properties": {},

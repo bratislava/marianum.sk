@@ -2411,52 +2411,6 @@ export type ContactRelationResponseCollection = {
   data: Array<ContactEntity>;
 };
 
-export type ContentTypes = {
-  __typename?: 'ContentTypes';
-  available: Scalars['Boolean']['output'];
-  collectionName: Scalars['String']['output'];
-  contentTypeName: Scalars['String']['output'];
-  endpoint: Scalars['String']['output'];
-  isSingle: Scalars['Boolean']['output'];
-  label: Scalars['String']['output'];
-  labelSingular: Scalars['String']['output'];
-  name: Scalars['String']['output'];
-  relatedField: Scalars['String']['output'];
-  uid: Scalars['String']['output'];
-  visible: Scalars['Boolean']['output'];
-};
-
-export type ContentTypesNameFields = {
-  __typename?: 'ContentTypesNameFields';
-  default: Array<Scalars['String']['output']>;
-};
-
-export type CreateNavigation = {
-  items: Array<InputMaybe<CreateNavigationItem>>;
-  name: Scalars['String']['input'];
-};
-
-export type CreateNavigationItem = {
-  audience?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  externalPath?: InputMaybe<Scalars['String']['input']>;
-  items?: InputMaybe<Array<InputMaybe<CreateNavigationItem>>>;
-  master?: InputMaybe<Scalars['Int']['input']>;
-  menuAttached: Scalars['Boolean']['input'];
-  order: Scalars['Int']['input'];
-  parent?: InputMaybe<Scalars['Int']['input']>;
-  path?: InputMaybe<Scalars['String']['input']>;
-  related?: InputMaybe<CreateNavigationRelated>;
-  title: Scalars['String']['input'];
-  type: Scalars['String']['input'];
-  uiRouterKey: Scalars['String']['input'];
-};
-
-export type CreateNavigationRelated = {
-  field: Scalars['String']['input'];
-  ref: Scalars['String']['input'];
-  refId: Scalars['String']['input'];
-};
-
 export type DateFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['Date']['input']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['Date']['input']>>>;
@@ -3954,69 +3908,6 @@ export type MutationUploadArgs = {
   refId?: InputMaybe<Scalars['ID']['input']>;
 };
 
-export type Navigation = {
-  __typename?: 'Navigation';
-  id: Scalars['String']['output'];
-  name: Scalars['String']['output'];
-  slug: Scalars['String']['output'];
-  visible: Scalars['Boolean']['output'];
-};
-
-export type NavigationConfig = {
-  __typename?: 'NavigationConfig';
-  additionalFields: Array<Maybe<Scalars['String']['output']>>;
-  allowedLevels?: Maybe<Scalars['Int']['output']>;
-  contentTypes?: Maybe<Array<Maybe<ContentTypes>>>;
-  contentTypesNameFields?: Maybe<ContentTypesNameFields>;
-};
-
-export type NavigationDetails = {
-  __typename?: 'NavigationDetails';
-  id: Scalars['String']['output'];
-  items: Array<Maybe<NavigationItem>>;
-  name: Scalars['String']['output'];
-  slug: Scalars['String']['output'];
-  visible: Scalars['Boolean']['output'];
-};
-
-export type NavigationItem = {
-  __typename?: 'NavigationItem';
-  createdAt?: Maybe<Scalars['String']['output']>;
-  createdBy?: Maybe<Scalars['String']['output']>;
-  created_at?: Maybe<Scalars['String']['output']>;
-  created_by?: Maybe<Scalars['String']['output']>;
-  externalPath?: Maybe<Scalars['String']['output']>;
-  id: Scalars['Int']['output'];
-  items?: Maybe<Array<Maybe<NavigationItem>>>;
-  master?: Maybe<Scalars['Int']['output']>;
-  menuAttached: Scalars['Boolean']['output'];
-  order: Scalars['Int']['output'];
-  parent?: Maybe<NavigationItem>;
-  path?: Maybe<Scalars['String']['output']>;
-  related?: Maybe<NavigationItemRelatedData>;
-  title: Scalars['String']['output'];
-  type: Scalars['String']['output'];
-  uiRouterKey: Scalars['String']['output'];
-  updatedAt?: Maybe<Scalars['String']['output']>;
-  updatedBy?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['String']['output']>;
-  updated_by?: Maybe<Scalars['String']['output']>;
-};
-
-export type NavigationItemRelated = Page;
-
-export type NavigationItemRelatedData = {
-  __typename?: 'NavigationItemRelatedData';
-  attributes?: Maybe<NavigationItemRelated>;
-  id: Scalars['Int']['output'];
-};
-
-export enum NavigationRenderType {
-  Flat = 'FLAT',
-  Rfr = 'RFR',
-  Tree = 'TREE'
-}
-
 export type Office = {
   __typename?: 'Office';
   branch?: Maybe<BranchEntityResponse>;
@@ -4357,8 +4248,6 @@ export type Query = {
   partner?: Maybe<PartnerEntityResponse>;
   partners?: Maybe<PartnerEntityResponseCollection>;
   procedure?: Maybe<ProcedureEntityResponse>;
-  renderNavigation: Array<Maybe<NavigationItem>>;
-  renderNavigationChild: Array<Maybe<NavigationItem>>;
   review?: Maybe<ReviewEntityResponse>;
   reviews?: Maybe<ReviewEntityResponseCollection>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
@@ -4649,23 +4538,6 @@ export type QueryPartnersArgs = {
 
 export type QueryProcedureArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-};
-
-
-export type QueryRenderNavigationArgs = {
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-  menuOnly?: InputMaybe<Scalars['Boolean']['input']>;
-  navigationIdOrSlug: Scalars['String']['input'];
-  path?: InputMaybe<Scalars['String']['input']>;
-  type?: InputMaybe<NavigationRenderType>;
-};
-
-
-export type QueryRenderNavigationChildArgs = {
-  childUiKey: Scalars['String']['input'];
-  id: Scalars['String']['input'];
-  menuOnly?: InputMaybe<Scalars['Boolean']['input']>;
-  type?: InputMaybe<NavigationRenderType>;
 };
 
 
