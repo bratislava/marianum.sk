@@ -19,7 +19,7 @@ type AssetLayoutProps = {
 const AssetLayout = ({ asset, general }: AssetLayoutProps) => {
   const { t, i18n } = useTranslation()
 
-  const { title, description, file, publishedAt, assetCategory, slug } = asset
+  const { title, description, file, createdAt, assetCategory, slug } = asset
 
   const dlData = useMemo(() => {
     return [
@@ -36,11 +36,11 @@ const AssetLayout = ({ asset, general }: AssetLayoutProps) => {
         key: 'createdAt',
         title: t('AssetLayout.createdAt'),
         description: (
-          <FormatDate value={publishedAt as string} valueType="ISO" format="articlePage" />
+          <FormatDate value={createdAt as string} valueType="ISO" format="articlePage" />
         ),
       },
     ] as { key: string; title: string; description: ReactNode }[]
-  }, [assetCategory, publishedAt, t])
+  }, [assetCategory, createdAt, t])
 
   const extension = useMemo(() => {
     return file?.ext?.slice(1)
@@ -64,7 +64,7 @@ const AssetLayout = ({ asset, general }: AssetLayoutProps) => {
             <div className="flex flex-col items-center gap-2 text-size-p-small md:items-start">
               <div>
                 {t('AssetLayout.createdAt')}{' '}
-                <FormatDate value={publishedAt as string} valueType="ISO" format="articlePage" />
+                <FormatDate value={createdAt as string} valueType="ISO" format="articlePage" />
               </div>
               <h1>{title}</h1>
               {file ? (

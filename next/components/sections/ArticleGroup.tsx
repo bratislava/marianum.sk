@@ -19,7 +19,7 @@ const ArticleGroup = ({ articles }: ArticleGroupProps) => {
       )}
     >
       {articles.map((article) => {
-        const { title, publishedAt, coverMedia, newsCategory } = article
+        const { title, createdAt, coverMedia, newsCategory } = article
 
         return (
           <ArticleCard
@@ -27,7 +27,7 @@ const ArticleGroup = ({ articles }: ArticleGroupProps) => {
             key={article.documentId}
             title={title}
             image={coverMedia}
-            date={publishedAt}
+            date={createdAt}
             linkHref={getPathForStrapiEntity(article) ?? ''}
             category={newsCategory}
           />

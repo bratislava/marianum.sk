@@ -50,7 +50,7 @@ query Reviews($locale: I18NLocaleCode!) {
 }
 
 query News($locale: I18NLocaleCode!) {
-  articles(locale: $locale, sort: ["publishedAt:desc"], pagination: { limit: 4 }) {
+  articles(locale: $locale, sort: ["createdAt:desc"], pagination: { limit: 4 }) {
     ...ArticleCardEntity
   }
 }

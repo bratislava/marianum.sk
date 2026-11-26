@@ -54,7 +54,7 @@ fragment ArticleSlugEntity on Article {
 fragment ArticleCardEntity on Article {
   ...ArticleSlugEntity
   perex
-  publishedAt
+  createdAt
   coverMedia {
     ...UploadImageEntity
   }
@@ -246,7 +246,7 @@ fragment AssetSlugEntity on Asset {
 
 fragment AssetCardEntity on Asset {
   ...AssetSlugEntity
-  publishedAt
+  createdAt
   file {
     ...UploadFileEntity
   }
@@ -348,7 +348,7 @@ fragment PageEntityChildPages on Page {
 
 fragment PageCardEntity on Page {
   ...PageSlugEntity
-  publishedAt
+  createdAt
   perex
   coverMedia {
     ...UploadImageEntity

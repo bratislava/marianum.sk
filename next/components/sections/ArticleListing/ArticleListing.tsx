@@ -47,7 +47,7 @@ const Articles = ({
         {data.hits.map((article) => {
           const {
             title,
-            publishedAt,
+            createdAt,
             coverMedia,
             slug,
             newsCategory,
@@ -75,7 +75,7 @@ const Articles = ({
               key={slug}
               title={title}
               image={coverMedia}
-              date={publishedAt}
+              date={createdAt}
               linkHref={getPathForMeiliEntity('article', article) ?? ''}
               category={category}
             />
