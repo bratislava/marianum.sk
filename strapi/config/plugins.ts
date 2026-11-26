@@ -3,19 +3,6 @@ import graphqlConfig from "./plugins.graphql.config";
 import configSyncConfig from "./plugins.config-sync.config";
 
 export default ({ env }) => ({
-  // It's important to enable Navigation plugin first, before GraphQL
-  navigation: {
-    enabled: true,
-    config: {
-      additionalFields: [],
-      contentTypes: ["api::page.page"],
-      contentTypesNameFields: {
-        "api::page.page": ["title"],
-      },
-      allowedLevels: 2,
-      gql: { navigationItemRelated: ["Page"] },
-    },
-  },
   graphql: {
     enabled: true,
     config: graphqlConfig,

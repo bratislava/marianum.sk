@@ -1987,50 +1987,6 @@ type ContactRelationResponseCollection {
   data: [ContactEntity!]!
 }
 
-type ContentTypes {
-  available: Boolean!
-  collectionName: String!
-  contentTypeName: String!
-  endpoint: String!
-  isSingle: Boolean!
-  label: String!
-  labelSingular: String!
-  name: String!
-  relatedField: String!
-  uid: String!
-  visible: Boolean!
-}
-
-type ContentTypesNameFields {
-  default: [String!]!
-}
-
-input CreateNavigation {
-  items: [CreateNavigationItem]!
-  name: String!
-}
-
-input CreateNavigationItem {
-  audience: [String]
-  externalPath: String
-  items: [CreateNavigationItem]
-  master: Int
-  menuAttached: Boolean!
-  order: Int!
-  parent: Int
-  path: String
-  related: CreateNavigationRelated
-  title: String!
-  type: String!
-  uiRouterKey: String!
-}
-
-input CreateNavigationRelated {
-  field: String!
-  ref: String!
-  refId: String!
-}
-
 """
 A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
@@ -2865,64 +2821,6 @@ type Mutation {
   upload(field: String, file: Upload!, info: FileInfoInput, ref: String, refId: ID): UploadFileEntityResponse!
 }
 
-type Navigation {
-  id: String!
-  name: String!
-  slug: String!
-  visible: Boolean!
-}
-
-type NavigationConfig {
-  additionalFields: [String]!
-  allowedLevels: Int
-  contentTypes: [ContentTypes]
-  contentTypesNameFields: ContentTypesNameFields
-}
-
-type NavigationDetails {
-  id: String!
-  items: [NavigationItem]!
-  name: String!
-  slug: String!
-  visible: Boolean!
-}
-
-type NavigationItem {
-  createdAt: String
-  createdBy: String
-  created_at: String
-  created_by: String
-  externalPath: String
-  id: Int!
-  items: [NavigationItem]
-  master: Int
-  menuAttached: Boolean!
-  order: Int!
-  parent: NavigationItem
-  path: String
-  related: NavigationItemRelatedData
-  title: String!
-  type: String!
-  uiRouterKey: String!
-  updatedAt: String
-  updatedBy: String
-  updated_at: String
-  updated_by: String
-}
-
-union NavigationItemRelated = Page
-
-type NavigationItemRelatedData {
-  attributes: NavigationItemRelated
-  id: Int!
-}
-
-enum NavigationRenderType {
-  FLAT
-  RFR
-  TREE
-}
-
 type Office {
   branch: BranchEntityResponse
   contacts(filters: ContactFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ContactRelationResponseCollection
@@ -3213,8 +3111,6 @@ type Query {
   partner(id: ID): PartnerEntityResponse
   partners(filters: PartnerFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): PartnerEntityResponseCollection
   procedure(locale: I18NLocaleCode): ProcedureEntityResponse
-  renderNavigation(locale: I18NLocaleCode, menuOnly: Boolean, navigationIdOrSlug: String!, path: String, type: NavigationRenderType): [NavigationItem]!
-  renderNavigationChild(childUiKey: String!, id: String!, menuOnly: Boolean, type: NavigationRenderType): [NavigationItem]!
   review(id: ID, locale: I18NLocaleCode): ReviewEntityResponse
   reviews(filters: ReviewFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg = {}, sort: [String] = []): ReviewEntityResponseCollection
   uploadFile(id: ID): UploadFileEntityResponse

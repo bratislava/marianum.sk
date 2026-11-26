@@ -45,8 +45,6 @@ Open Strapi admin panel, go to Settings > USERS & PERMISSIONS PLUGIN > Roles > P
 
 Page URLs are built from the page tree: a page's URL is its parent page's (`parentPage`) URL followed by its own `slug`. The order of a page's subpages (`childPages`) is their order in the menu. The header menu shows the pages of the `Menu` single type with their subpages. Detail pages (articles, bundles, ...) are served under hardcoded paths, see `next/services/navigation/contentTypePathPrefixesMap.ts`.
 
-The Navigation plugin is not used by the frontend anymore and will be removed. The migration from it is described in [scripts/navigation-migration](scripts/navigation-migration/README.md).
-
 ## Custom queries
 
 We add `assetFileTypes` custom graphql query that is used in the frontend to filter documents by filetype.
