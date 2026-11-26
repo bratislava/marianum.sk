@@ -9,11 +9,7 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::article-jobs-category.article-jobs-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "articles"
-        ]
+        "fields": ["title", "slug", "articles"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -33,11 +29,7 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::article-jobs-category.article-jobs-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "articles"
-        ]
+        "fields": ["title", "slug", "articles"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -48,11 +40,7 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::article-jobs-category.article-jobs-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "articles"
-        ]
+        "fields": ["title", "slug", "articles"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -63,11 +51,7 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::article-news-category.article-news-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "articles"
-        ]
+        "fields": ["title", "slug", "articles"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -87,11 +71,7 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::article-news-category.article-news-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "articles"
-        ]
+        "fields": ["title", "slug", "articles"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -102,11 +82,7 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::article-news-category.article-news-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "articles"
-        ]
+        "fields": ["title", "slug", "articles"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -117,11 +93,7 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::article-press-category.article-press-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "articles"
-        ]
+        "fields": ["title", "slug", "articles"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -141,11 +113,7 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::article-press-category.article-press-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "articles"
-        ]
+        "fields": ["title", "slug", "articles"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -156,11 +124,7 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::article-press-category.article-press-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "articles"
-        ]
+        "fields": ["title", "slug", "articles"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -185,9 +149,7 @@
           "seo.keywords",
           "seo.metaDescription"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -198,9 +160,7 @@
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::article.article",
       "properties": {
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -211,9 +171,7 @@
       "action": "plugin::content-manager.explorer.publish",
       "subject": "api::article.article",
       "properties": {
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -238,9 +196,7 @@
           "seo.keywords",
           "seo.metaDescription"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -265,9 +221,7 @@
           "seo.keywords",
           "seo.metaDescription"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -278,11 +232,7 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::asset-category.asset-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "assets"
-        ]
+        "fields": ["title", "slug", "assets"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -302,11 +252,7 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::asset-category.asset-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "assets"
-        ]
+        "fields": ["title", "slug", "assets"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -317,11 +263,7 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::asset-category.asset-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "assets"
-        ]
+        "fields": ["title", "slug", "assets"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -425,9 +367,7 @@
           "seo.metaDescription",
           "offices"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -438,9 +378,7 @@
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::branch.branch",
       "properties": {
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -466,9 +404,7 @@
           "seo.metaDescription",
           "offices"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -494,9 +430,7 @@
           "seo.metaDescription",
           "offices"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -540,9 +474,7 @@
           "seo.keywords",
           "seo.metaDescription"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -553,9 +485,7 @@
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::bundle.bundle",
       "properties": {
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -566,9 +496,7 @@
       "action": "plugin::content-manager.explorer.publish",
       "subject": "api::bundle.bundle",
       "properties": {
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -612,9 +540,7 @@
           "seo.keywords",
           "seo.metaDescription"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -658,9 +584,7 @@
           "seo.keywords",
           "seo.metaDescription"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -671,11 +595,7 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::cemetery-category.cemetery-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "cemeteries"
-        ]
+        "fields": ["title", "slug", "cemeteries"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -695,11 +615,7 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::cemetery-category.cemetery-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "cemeteries"
-        ]
+        "fields": ["title", "slug", "cemeteries"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -710,11 +626,7 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::cemetery-category.cemetery-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "cemeteries"
-        ]
+        "fields": ["title", "slug", "cemeteries"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -752,9 +664,7 @@
           "video.body",
           "cemeteryCategory"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -765,9 +675,7 @@
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::cemetery.cemetery",
       "properties": {
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -805,9 +713,7 @@
           "video.body",
           "cemeteryCategory"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -845,9 +751,7 @@
           "video.body",
           "cemeteryCategory"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -933,16 +837,8 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::contact.contact",
       "properties": {
-        "fields": [
-          "title",
-          "position",
-          "phone1",
-          "phone2",
-          "email"
-        ],
-        "locales": [
-          "sk"
-        ]
+        "fields": ["title", "position", "phone1", "phone2", "email"],
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -953,9 +849,7 @@
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::contact.contact",
       "properties": {
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -966,16 +860,8 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::contact.contact",
       "properties": {
-        "fields": [
-          "title",
-          "position",
-          "phone1",
-          "phone2",
-          "email"
-        ],
-        "locales": [
-          "sk"
-        ]
+        "fields": ["title", "position", "phone1", "phone2", "email"],
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -986,16 +872,8 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::contact.contact",
       "properties": {
-        "fields": [
-          "title",
-          "position",
-          "phone1",
-          "phone2",
-          "email"
-        ],
-        "locales": [
-          "sk"
-        ]
+        "fields": ["title", "position", "phone1", "phone2", "email"],
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1223,9 +1101,7 @@
           "cemeteryOpeningHours.days.label",
           "cemeteryOpeningHours.days.time"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1236,9 +1112,7 @@
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::general.general",
       "properties": {
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1295,9 +1169,7 @@
           "cemeteryOpeningHours.days.label",
           "cemeteryOpeningHours.days.time"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1354,9 +1226,7 @@
           "cemeteryOpeningHours.days.label",
           "cemeteryOpeningHours.days.time"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1385,9 +1255,7 @@
           "seo.keywords",
           "seo.metaDescription"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1398,9 +1266,7 @@
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::home-page.home-page",
       "properties": {
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1429,9 +1295,7 @@
           "seo.keywords",
           "seo.metaDescription"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1460,9 +1324,7 @@
           "seo.keywords",
           "seo.metaDescription"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1473,11 +1335,7 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::managed-object-category.managed-object-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "managedObjects"
-        ]
+        "fields": ["title", "slug", "managedObjects"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1497,11 +1355,7 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::managed-object-category.managed-object-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "managedObjects"
-        ]
+        "fields": ["title", "slug", "managedObjects"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1512,11 +1366,7 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::managed-object-category.managed-object-category",
       "properties": {
-        "fields": [
-          "title",
-          "slug",
-          "managedObjects"
-        ]
+        "fields": ["title", "slug", "managedObjects"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1542,9 +1392,7 @@
           "seo.metaDescription",
           "managedObjectCategory"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1555,9 +1403,7 @@
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::managed-object.managed-object",
       "properties": {
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1583,9 +1429,7 @@
           "seo.metaDescription",
           "managedObjectCategory"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1611,9 +1455,7 @@
           "seo.metaDescription",
           "managedObjectCategory"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1624,12 +1466,8 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::menu.menu",
       "properties": {
-        "fields": [
-          "pages"
-        ],
-        "locales": [
-          "sk"
-        ]
+        "fields": ["pages"],
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1640,9 +1478,7 @@
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::menu.menu",
       "properties": {
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1653,12 +1489,8 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::menu.menu",
       "properties": {
-        "fields": [
-          "pages"
-        ],
-        "locales": [
-          "sk"
-        ]
+        "fields": ["pages"],
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1669,12 +1501,8 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::menu.menu",
       "properties": {
-        "fields": [
-          "pages"
-        ],
-        "locales": [
-          "sk"
-        ]
+        "fields": ["pages"],
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1693,9 +1521,7 @@
           "openingHours.days.time",
           "contacts"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1706,9 +1532,7 @@
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::office.office",
       "properties": {
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1727,9 +1551,7 @@
           "openingHours.days.time",
           "contacts"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1748,9 +1570,7 @@
           "openingHours.days.time",
           "contacts"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1795,9 +1615,7 @@
           "parentPage",
           "childPages"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1808,9 +1626,7 @@
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::page.page",
       "properties": {
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1821,9 +1637,7 @@
       "action": "plugin::content-manager.explorer.publish",
       "subject": "api::page.page",
       "properties": {
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1868,9 +1682,7 @@
           "parentPage",
           "childPages"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1915,9 +1727,7 @@
           "parentPage",
           "childPages"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1928,13 +1738,7 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::partner.partner",
       "properties": {
-        "fields": [
-          "title",
-          "link",
-          "logo",
-          "featured",
-          "priority"
-        ]
+        "fields": ["title", "link", "logo", "featured", "priority"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1954,13 +1758,7 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::partner.partner",
       "properties": {
-        "fields": [
-          "title",
-          "link",
-          "logo",
-          "featured",
-          "priority"
-        ]
+        "fields": ["title", "link", "logo", "featured", "priority"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1971,13 +1769,7 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::partner.partner",
       "properties": {
-        "fields": [
-          "title",
-          "link",
-          "logo",
-          "featured",
-          "priority"
-        ]
+        "fields": ["title", "link", "logo", "featured", "priority"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -1998,9 +1790,7 @@
           "atMedicalFacility.steps.description",
           "atMedicalFacility.downloadFile"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -2011,9 +1801,7 @@
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::procedure.procedure",
       "properties": {
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -2034,9 +1822,7 @@
           "atMedicalFacility.steps.description",
           "atMedicalFacility.downloadFile"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -2057,9 +1843,7 @@
           "atMedicalFacility.steps.description",
           "atMedicalFacility.downloadFile"
         ],
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -2070,15 +1854,8 @@
       "action": "plugin::content-manager.explorer.create",
       "subject": "api::review.review",
       "properties": {
-        "fields": [
-          "author",
-          "description",
-          "rating",
-          "date"
-        ],
-        "locales": [
-          "sk"
-        ]
+        "fields": ["author", "description", "rating", "date"],
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -2089,9 +1866,7 @@
       "action": "plugin::content-manager.explorer.delete",
       "subject": "api::review.review",
       "properties": {
-        "locales": [
-          "sk"
-        ]
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -2102,15 +1877,8 @@
       "action": "plugin::content-manager.explorer.read",
       "subject": "api::review.review",
       "properties": {
-        "fields": [
-          "author",
-          "description",
-          "rating",
-          "date"
-        ],
-        "locales": [
-          "sk"
-        ]
+        "fields": ["author", "description", "rating", "date"],
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -2121,15 +1889,8 @@
       "action": "plugin::content-manager.explorer.update",
       "subject": "api::review.review",
       "properties": {
-        "fields": [
-          "author",
-          "description",
-          "rating",
-          "date"
-        ],
-        "locales": [
-          "sk"
-        ]
+        "fields": ["author", "description", "rating", "date"],
+        "locales": ["sk"]
       },
       "conditions": [],
       "actionParameters": {},
@@ -2215,15 +1976,6 @@
       "conditions": [],
       "actionParameters": {},
       "documentId": "jz7qjp16lfyoa912kz1xz0a8",
-      "locale": null
-    },
-    {
-      "action": "plugin::navigation.read",
-      "subject": null,
-      "properties": {},
-      "conditions": [],
-      "actionParameters": {},
-      "documentId": "vx3sf75gyh9o01z9up58nb0t",
       "locale": null
     },
     {

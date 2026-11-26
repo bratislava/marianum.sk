@@ -251,21 +251,6 @@
       "locale": null
     },
     {
-      "action": "plugin::navigation.client.readAll",
-      "documentId": "z1jbd2cgop922n33hufee1pw",
-      "locale": null
-    },
-    {
-      "action": "plugin::navigation.client.render",
-      "documentId": "olsi92wpokxhelc2u14k2rf6",
-      "locale": null
-    },
-    {
-      "action": "plugin::navigation.client.renderChild",
-      "documentId": "yuppe4ath91aw50rxm131q0t",
-      "locale": null
-    },
-    {
       "action": "plugin::upload.content-api.find",
       "documentId": "atxjs9q96nb43ik4nb0vjxrc",
       "locale": null

@@ -31,7 +31,6 @@
     "react-router-dom": "6.30.4",
     "strapi-plugin-config-sync": "3.2.0",
     "strapi-plugin-meilisearch": "0.16.5",
-    "strapi-plugin-navigation": "3.3.7",
     "styled-components": "6.5.3",
     "xlsx": "0.18.5"
   },
