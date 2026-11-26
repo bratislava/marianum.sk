@@ -21,7 +21,7 @@
     "@strapi/icons": "1.19.0",
     "assert": "2.1.0",
     "prop-types": "15.7.2",
-    "uuid": "10.0.0",
+    "uuid": "14.0.0",
     "xlsx": "0.18.5"
   },
   "devDependencies": {
