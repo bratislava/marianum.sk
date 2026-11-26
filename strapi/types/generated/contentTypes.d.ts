@@ -1260,7 +1260,7 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
         'sections.procedures-short-section',
         'sections.homepage-reviews-section',
         'sections.cta-section',
-        'sections.articles-manual-listing'
+        'sections.articles-manual-listing',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
@@ -1551,7 +1551,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.disclosures-section',
         'sections.iframe-section',
         'sections.cemeteries-opening-hours',
-        'sections.map-of-managed-objects'
+        'sections.map-of-managed-objects',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
@@ -1837,6 +1837,87 @@ export interface PluginI18NLocale extends Struct.CollectionTypeSchema {
   }
 }
 
+export interface PluginReviewWorkflowsWorkflow extends Struct.CollectionTypeSchema {
+  collectionName: 'strapi_workflows'
+  info: {
+    description: ''
+    displayName: 'Workflow'
+    name: 'Workflow'
+    pluralName: 'workflows'
+    singularName: 'workflow'
+  }
+  options: {
+    draftAndPublish: false
+  }
+  pluginOptions: {
+    'content-manager': {
+      visible: false
+    }
+    'content-type-builder': {
+      visible: false
+    }
+  }
+  attributes: {
+    contentTypes: Schema.Attribute.JSON &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'[]'>
+    createdAt: Schema.Attribute.DateTime
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private
+    locale: Schema.Attribute.String & Schema.Attribute.Private
+    localizations: Schema.Attribute.Relation<'oneToMany', 'plugin::review-workflows.workflow'> &
+      Schema.Attribute.Private
+    name: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.Unique
+    publishedAt: Schema.Attribute.DateTime
+    stageRequiredToPublish: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::review-workflows.workflow-stage'
+    >
+    stages: Schema.Attribute.Relation<'oneToMany', 'plugin::review-workflows.workflow-stage'>
+    updatedAt: Schema.Attribute.DateTime
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private
+  }
+}
+
+export interface PluginReviewWorkflowsWorkflowStage extends Struct.CollectionTypeSchema {
+  collectionName: 'strapi_workflows_stages'
+  info: {
+    description: ''
+    displayName: 'Stages'
+    name: 'Workflow Stage'
+    pluralName: 'workflow-stages'
+    singularName: 'workflow-stage'
+  }
+  options: {
+    draftAndPublish: false
+    version: '1.1.0'
+  }
+  pluginOptions: {
+    'content-manager': {
+      visible: false
+    }
+    'content-type-builder': {
+      visible: false
+    }
+  }
+  attributes: {
+    color: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#4945FF'>
+    createdAt: Schema.Attribute.DateTime
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private
+    locale: Schema.Attribute.String & Schema.Attribute.Private
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::review-workflows.workflow-stage'
+    > &
+      Schema.Attribute.Private
+    name: Schema.Attribute.String
+    permissions: Schema.Attribute.Relation<'manyToMany', 'admin::permission'>
+    publishedAt: Schema.Attribute.DateTime
+    updatedAt: Schema.Attribute.DateTime
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private
+    workflow: Schema.Attribute.Relation<'manyToOne', 'plugin::review-workflows.workflow'>
+  }
+}
+
 export interface PluginUploadFile extends Struct.CollectionTypeSchema {
   collectionName: 'files'
   info: {
@@ -2096,6 +2177,8 @@ declare module '@strapi/strapi' {
       'plugin::content-releases.release': PluginContentReleasesRelease
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction
       'plugin::i18n.locale': PluginI18NLocale
+      'plugin::review-workflows.workflow': PluginReviewWorkflowsWorkflow
+      'plugin::review-workflows.workflow-stage': PluginReviewWorkflowsWorkflowStage
       'plugin::upload.file': PluginUploadFile
       'plugin::upload.folder': PluginUploadFolder
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission
