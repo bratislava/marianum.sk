@@ -6,9 +6,9 @@ index 3f6890d..5593c62 100644
    const store2 = strapi2.plugin("meilisearch").service("store");
    return {
      async subscribeContentType({ contentType: contentType2 }) {
-+      // Each time debtor, ceremony or disclosure is imported it causes to refresh the meilisearch which is
++      // Each time debtor or ceremony is imported it causes to refresh the meilisearch which is
 +      // extremely slow.
-+      if (contentType2 === 'api::debtor.debtor' || contentType2 === 'api::ceremony.ceremony' || contentType2 === 'api::disclosure.disclosure') {
++      if (contentType2 === 'api::debtor.debtor' || contentType2 === 'api::ceremony.ceremony') {
 +        return Promise.resolve({})
 +      }
        const contentTypeUid = contentTypeService2.getContentTypeUid({

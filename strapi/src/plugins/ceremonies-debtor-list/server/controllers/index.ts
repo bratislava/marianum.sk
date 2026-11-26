@@ -193,26 +193,18 @@ export default {
         const importId = uuid()
         const parsedDisclosures = parseDisclosuresXlsx(file.filepath, importId)
 
-        // Disclosures are appended, not replaced, so on failure only the ones created by this import are removed.
-        const createdDocumentIds: string[] = []
-        try {
-          for (const data of parsedDisclosures) {
-            const { documentId } = await strapi
-              .documents('api::disclosure.disclosure')
-              .create({ data })
-            createdDocumentIds.push(documentId)
-          }
-        } catch (createDisclosuresError) {
-          // Meilisearch doesn't listen to disclosures (see `strapi/patches/strapi-plugin-meilisearch+0.16.5.patch`) and
-          // the index is rebuilt only after a successful import, so the removed entries never reach the index.
-          for (const documentId of createdDocumentIds) {
-            await strapi.documents('api::disclosure.disclosure').delete({ documentId })
-          }
-
-          throw createDisclosuresError
+        // Disclosures have no relations, so they are inserted at once by the Query Engine instead of one by one through
+        // the Document Service. It fills in `documentId` and the timestamps, runs in a single transaction (nothing is
+        // saved if any row fails), and doesn't emit `entry.create`, which would send a revalidate webhook per row.
+        // Disclosures don't use draft & publish, so they are created as published, as the Document Service would do.
+        if (parsedDisclosures.length > 0) {
+          await strapi.db.query('api::disclosure.disclosure').createMany({
+            data: parsedDisclosures.map((disclosure) => ({ ...disclosure, publishedAt: new Date() })),
+          })
         }
 
-        // Meilisearch doesn't listen to disclosures, so the index is rebuilt from the database (old disclosures included).
+        // `createMany` bypasses the Document Service, so Meilisearch doesn't see the new disclosures and the index is
+        // rebuilt from the database (old disclosures included).
         await meilisearch.updateContentTypeInMeiliSearch({
           contentType: 'api::disclosure.disclosure',
         })

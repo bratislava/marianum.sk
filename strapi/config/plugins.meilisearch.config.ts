@@ -104,7 +104,7 @@ const config = {
         ...entry,
         // Meilisearch doesn't support filtering dates as ISO strings, therefore we convert it to UNIX timestamp to
         // use (number) filters.
-        // `createdAt`, as in Strapi 5 `publishedAt` changes on every publish.
+        // `createdAt`, as in Strapi 5 `publishedAt` changes on every publish. In future we can
         publishedAtTimestamp: entry.createdAt ? new Date(entry.createdAt).getTime() : undefined,
       }),
   },
