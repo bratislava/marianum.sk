@@ -8,6 +8,16 @@ query Navigation($locale: I18NLocaleCode!) {
   ) {
     ...PageEntityChildPages
   }
+  # Unpublishing a page removes the link from its published child pages, so they come back above as top-level pages.
+  # Their drafts keep the link, so the pages with a parent in the draft are filtered out of `topLevelPages`.
+  pagesWithDraftParent: pages(
+    status: DRAFT
+    filters: { parentPage: { documentId: { notNull: true } } }
+    locale: $locale
+    pagination: { limit: -1 }
+  ) {
+    documentId
+  }
   menu(locale: $locale) {
     pages(pagination: { limit: -1 }) {
       ...PageSlugEntity

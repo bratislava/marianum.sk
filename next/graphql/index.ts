@@ -6202,7 +6202,7 @@ export type NavigationQueryVariables = Exact<{
 }>;
 
 
-export type NavigationQuery = { __typename?: 'Query', topLevelPages: Array<{ __typename: 'Page', documentId: string, title: string, slug: string, childPages: Array<{ __typename: 'Page', documentId: string, title: string, slug: string, childPages: Array<{ __typename: 'Page', documentId: string, title: string, slug: string, childPages: Array<{ __typename: 'Page', documentId: string, title: string, slug: string, childPages: Array<{ __typename: 'Page', documentId: string, title: string, slug: string } | null> } | null> } | null> } | null> } | null>, menu?: { __typename?: 'Menu', pages: Array<{ __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null> } | null };
+export type NavigationQuery = { __typename?: 'Query', topLevelPages: Array<{ __typename: 'Page', documentId: string, title: string, slug: string, childPages: Array<{ __typename: 'Page', documentId: string, title: string, slug: string, childPages: Array<{ __typename: 'Page', documentId: string, title: string, slug: string, childPages: Array<{ __typename: 'Page', documentId: string, title: string, slug: string, childPages: Array<{ __typename: 'Page', documentId: string, title: string, slug: string } | null> } | null> } | null> } | null> } | null>, pagesWithDraftParent: Array<{ __typename?: 'Page', documentId: string } | null>, menu?: { __typename?: 'Menu', pages: Array<{ __typename: 'Page', documentId: string, title: string, slug: string, locale?: string | null } | null> } | null };
 
 export type GeneralQueryVariables = Exact<{
   locale: Scalars['I18NLocaleCode']['input'];
@@ -7493,6 +7493,14 @@ export const NavigationDocument = gql`
     pagination: {limit: -1}
   ) {
     ...PageEntityChildPages
+  }
+  pagesWithDraftParent: pages(
+    status: DRAFT
+    filters: {parentPage: {documentId: {notNull: true}}}
+    locale: $locale
+    pagination: {limit: -1}
+  ) {
+    documentId
   }
   menu(locale: $locale) {
     pages(pagination: {limit: -1}) {

@@ -22,9 +22,15 @@ const { locales } = (i18nextConfig as { i18n: { locales: string[] } }).i18n
 export const fetchNonCachedNavigation = async (): Promise<NavigationObject> => {
   const localeNavigations = await Promise.all(
     locales.map(async (locale) => {
-      const { topLevelPages, menu } = await client.Navigation({ locale })
+      const { topLevelPages, pagesWithDraftParent, menu } = await client.Navigation({ locale })
 
-      const { pagePathsMap } = parseTopLevelPages(topLevelPages ?? [])
+      // Published pages whose parent is unpublished, see the `Navigation` query.
+      const pageIdsWithDraftParent = new Set(
+        pagesWithDraftParent.filter(isDefined).map((page) => page.documentId),
+      )
+      const { pagePathsMap } = parseTopLevelPages(
+        topLevelPages.filter((page) => page && !pageIdsWithDraftParent.has(page.documentId)),
+      )
       const menuSlugs = menu?.pages.map((page) => page?.slug).filter(isDefined) ?? []
 
       return [locale, { pagePathsMap, menuSlugs }] as const
