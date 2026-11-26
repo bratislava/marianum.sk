@@ -8,7 +8,8 @@
       "pageSize": 10,
       "mainField": "title",
       "defaultSortBy": "title",
-      "defaultSortOrder": "ASC"
+      "defaultSortOrder": "ASC",
+      "relationOpenMode": "modal"
     },
     "metadatas": {
       "id": {
@@ -50,7 +51,7 @@
       "file": {
         "edit": {
           "label": "file",
-          "description": "",
+          "description": "(Povinné)",
           "placeholder": "",
           "visible": true,
           "editable": true
@@ -96,7 +97,8 @@
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true
+          "editable": true,
+          "mainField": "metaTitle"
         },
         "list": {
           "label": "seo",
@@ -161,15 +163,17 @@
           "searchable": true,
           "sortable": true
         }
+      },
+      "documentId": {
+        "edit": {},
+        "list": {
+          "label": "documentId",
+          "searchable": true,
+          "sortable": true
+        }
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "title",
-        "slug",
-        "file"
-      ],
       "edit": [
         [
           {
@@ -203,6 +207,12 @@
             "size": 12
           }
         ]
+      ],
+      "list": [
+        "id",
+        "title",
+        "slug",
+        "file"
       ]
     },
     "uid": "api::asset.asset"
