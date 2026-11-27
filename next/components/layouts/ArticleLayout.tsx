@@ -17,8 +17,8 @@ type ArticleLayoutProps = {
 }
 
 const ArticleLayout = ({ article, children, general }: ArticleLayoutProps) => {
-  const { title, perex, coverMedia, publishedAt, slug } = article.attributes ?? {}
-  const coverImage = coverMedia?.data?.attributes
+  const { title, perex, coverMedia, createdAt, slug } = article
+  const coverImage = coverMedia
 
   return (
     <PageWrapper
@@ -43,9 +43,9 @@ const ArticleLayout = ({ article, children, general }: ArticleLayoutProps) => {
             'pt-18': coverImage,
           })}
         >
-          <div className="container relative h-auto py-6 sm:px-20 sm:pt-10 md:px-28 md:pb-20 lg:px-40">
+          <div className="relative container h-auto py-6 sm:px-20 sm:pt-10 md:px-28 md:pb-20 lg:px-40">
             <div className="pb-1 text-center text-size-p-small">
-              <FormatDate value={publishedAt as string} valueType="ISO" format="articlePage" />
+              <FormatDate value={createdAt as string} valueType="ISO" format="articlePage" />
             </div>
 
             <div className="pb-6 sm:pb-10">

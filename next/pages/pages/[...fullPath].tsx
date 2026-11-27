@@ -51,13 +51,13 @@ type PageProps = {
   NavigationPageProps
 
 const Slug = ({ entity, general, dehydratedState }: PageProps) => {
-  const { seo, title, perex, layout, sections, coverMedia } = entity.attributes ?? {}
+  const { seo, title, perex, layout, sections, coverMedia } = entity
 
   const isContainer = layout === Enum_Page_Layout.Fullwidth
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
+      <Seo seo={seo} title={title} description={perex} image={coverMedia} entity={entity} />
 
       <PageLayout page={entity} general={general}>
         <SectionsWrapper
@@ -150,7 +150,7 @@ const Slug = ({ entity, general, dehydratedState }: PageProps) => {
             if (section?.__typename === 'ComponentSectionsGallery') {
               return (
                 <Section key={`${section.__typename}-${section.id}`} title={section.title}>
-                  <ImageGallery images={section.medias?.data} variant="below" />
+                  <ImageGallery images={section.medias} variant="below" />
                 </Section>
               )
             }
@@ -266,7 +266,7 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({
     locale,
     params,
     entityPromiseGetter: async ({ slug, locale: localeInner }) =>
-      client.PageBySlug({ slug, locale: localeInner }).then((response) => response.pages?.data[0]),
+      client.PageBySlug({ slug, locale: localeInner }).then((response) => response.pages[0]),
     getAdditionalProps: async (page) => {
       const dehydratedState = await prefetchPageSections(page, locale)
 

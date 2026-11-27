@@ -53,7 +53,7 @@ export const generatePagesStaticPaths = async (): Promise<
  */
 export const generateStaticPaths = async (
   locale: string,
-  entitiesPromiseGetter: (locale: string) => Promise<StrapiEntity[] | undefined>,
+  entitiesPromiseGetter: (locale: string) => Promise<(StrapiEntity | null)[] | undefined>,
 ): Promise<GetStaticPathsResult<FullPathParams>['paths']> => {
   const [navigation, entities] = await Promise.all([
     fetchNavigation(navigationConfig),
@@ -61,6 +61,7 @@ export const generateStaticPaths = async (
   ])
 
   return (entities ?? [])
+    .filter(isDefined)
     .map((entity) => {
       const routeEntity = getEntityForStrapiEntity(entity)
 
@@ -94,7 +95,10 @@ export const generateStaticProps = async <T extends StrapiEntity, AdditionalProp
 }: {
   locale: string
   params: { fullPath?: string[] } | undefined
-  entityPromiseGetter: (getterParams: { locale: string; slug: string }) => Promise<T | undefined>
+  entityPromiseGetter: (getterParams: {
+    locale: string
+    slug: string
+  }) => Promise<T | null | undefined>
   getAdditionalProps?: (entity: T) => Promise<AdditionalProps>
 }) => {
   if (!params?.fullPath) {
@@ -139,7 +143,7 @@ export const generateStaticProps = async <T extends StrapiEntity, AdditionalProp
   return {
     props: {
       navigationStaticProps,
-      general: general?.data ?? null,
+      general: general ?? null,
       entity,
       ...translations,
       ...additionalProps,

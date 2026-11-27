@@ -21,7 +21,7 @@ const CemeteriesOpeningHoursSection = ({
   const { border } = useContext(sectionContext)
   const { getPathForStrapiEntity } = useNavigation()
 
-  const showMorePath = getPathForStrapiEntity(section.showMoreButton?.page?.data)
+  const showMorePath = getPathForStrapiEntity(section.showMoreButton?.page)
 
   return (
     <Section
@@ -35,7 +35,7 @@ const CemeteriesOpeningHoursSection = ({
         })}
       >
         {general?.cemeteryOpeningHours && (
-          <OpeningHours openingHours={general?.cemeteryOpeningHours} />
+          <OpeningHours openingHours={general.cemeteryOpeningHours} />
         )}
       </div>
       {showMorePath && section.buttonPosition === 'below' && (

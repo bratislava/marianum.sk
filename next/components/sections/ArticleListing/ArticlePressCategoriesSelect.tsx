@@ -1,5 +1,5 @@
 import { useTranslation } from 'next-i18next/pages'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 
 import { SelectItem } from '@/components/atoms/SelectField'
 import SelectWithFetcher from '@/components/molecules/SelectWithFetcher'
@@ -9,12 +9,10 @@ import {
 } from '@/services/fetchers/articles/articleCategoriesSelectFetcher'
 
 type ArticlePressCategoriesSelectProps = {
-  onCategoryChange: (id: string | null) => void
+  onCategoryChange: (documentId: string | null) => void
 }
 
-const ArticlePressCategoriesSelect = ({
-  onCategoryChange = () => {},
-}: ArticlePressCategoriesSelectProps) => {
+const ArticlePressCategoriesSelect = ({ onCategoryChange }: ArticlePressCategoriesSelectProps) => {
   const { t } = useTranslation()
 
   const defaultOption = useMemo(() => ({ label: t('ArticleListing.allCategories'), key: '' }), [t])

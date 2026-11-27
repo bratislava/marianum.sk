@@ -20,7 +20,7 @@ const SideBar = ({ sidebar }: SideBarProps) => {
 
   const { title, text, ctaButton, contact } = sidebar
   const linkProps = getLinkProps(ctaButton)
-  const { phone1, phone2, email } = contact?.data?.attributes ?? {}
+  const { phone1, phone2, email } = contact ?? {}
 
   return (
     <aside className="flex h-fit flex-col bg-white p-6 lg:w-[360px]">
@@ -31,7 +31,7 @@ const SideBar = ({ sidebar }: SideBarProps) => {
           <Button {...linkProps} variant="primary" className="mt-6">
             {linkProps.label}
           </Button>
-          {contact?.data?.attributes && (
+          {contact && (
             <div className="flex flex-col items-center">
               <div className="mt-4">{t('SideBar.or')}</div>
               {phone1 && (
@@ -58,7 +58,7 @@ const SideBar = ({ sidebar }: SideBarProps) => {
           )}
         </>
       ) : (
-        contact?.data?.attributes && (
+        contact && (
           <>
             {phone1 && (
               <Button

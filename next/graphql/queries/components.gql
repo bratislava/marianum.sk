@@ -2,39 +2,25 @@ fragment CtaButton on ComponentBlocksButtonLink {
   label
   url
   page {
-    data {
-      ...PageSlugEntity
-    }
+    ...PageSlugEntity
   }
   article {
-    data {
-      ...ArticleSlugEntity
-    }
+    ...ArticleSlugEntity
   }
   bundle {
-    data {
-      ...BundleSlugEntity
-    }
+    ...BundleSlugEntity
   }
   branch {
-    data {
-      ...BranchSlugEntity
-    }
+    ...BranchSlugEntity
   }
   asset {
-    data {
-      ...AssetSlugEntity
-    }
+    ...AssetSlugEntity
   }
   cemetery {
-    data {
-      ...CemeterySlugEntity
-    }
+    ...CemeterySlugEntity
   }
   managedObject {
-    data {
-      ...ManagedObjectSlugEntity
-    }
+    ...ManagedObjectSlugEntity
   }
 }
 
@@ -45,9 +31,7 @@ fragment Sidebar on ComponentBlocksSidebar {
     ...CtaButton
   }
   contact {
-    data {
-      ...ContactEntity
-    }
+    ...ContactEntity
   }
 }
 
@@ -64,22 +48,16 @@ fragment Cta on ComponentBlocksCta {
     ...CtaButton
   }
   image {
-    data {
-      ...UploadImageEntity
-    }
+    ...UploadImageEntity
   }
 }
 
 fragment Header on ComponentGeneralHeader {
   faqPage {
-    data {
-      ...PageSlugEntity
-    }
+    ...PageSlugEntity
   }
   contact {
-    data {
-      ...ContactEntity
-    }
+    ...ContactEntity
   }
 }
 
@@ -100,19 +78,13 @@ fragment Contact on ComponentGeneralContacts {
   addressFirstLine
   address
   openingHoursPage {
-    data {
-      ...PageSlugEntity
-    }
+    ...PageSlugEntity
   }
   contact {
-    data {
-      ...ContactEntity
-    }
+    ...ContactEntity
   }
   contactsPage {
-    data {
-      ...PageSlugEntity
-    }
+    ...PageSlugEntity
   }
   latitude
   longitude
@@ -123,9 +95,7 @@ fragment FooterLinkItem on ComponentGeneralLinkItem {
   id
   label
   page {
-    data {
-      ...PageSlugEntity
-    }
+    ...PageSlugEntity
   }
   url
   targetBlank
@@ -161,9 +131,7 @@ fragment Procedure on ComponentGeneralProcedure {
     description
   }
   downloadFile {
-    data {
-      ...UploadFileEntity
-    }
+    ...UploadFileEntity
   }
 }
 
@@ -175,9 +143,7 @@ fragment ArticlesManualListing on ComponentSectionsArticlesManualListing {
   }
   articles {
     article {
-      data {
-        ...ArticleCardEntity
-      }
+      ...ArticleCardEntity
     }
   }
 }
@@ -197,9 +163,7 @@ fragment BranchGroup on ComponentSectionsBranchGroup {
   title
   branches {
     branch {
-      data {
-        ...BranchCardEntity
-      }
+      ...BranchCardEntity
     }
   }
 }
@@ -214,9 +178,7 @@ fragment MapSection on ComponentSectionsMapSection {
   id
   title
   categories {
-    data {
-      ...CemeteryCategoryEntity
-    }
+    ...CemeteryCategoryEntity
   }
 }
 
@@ -224,9 +186,7 @@ fragment MapOfManagedObjectsSection on ComponentSectionsMapOfManagedObjects {
   id
   title
   categories {
-    data {
-      ...ManagedObjectCategoryEntity
-    }
+    ...ManagedObjectCategoryEntity
   }
 }
 
@@ -238,9 +198,7 @@ fragment BundleListing on ComponentSectionsBundleListing {
     title
     bundles {
       bundle {
-        data {
-          ...BundleCardEntity
-        }
+        ...BundleCardEntity
       }
     }
   }
@@ -248,9 +206,7 @@ fragment BundleListing on ComponentSectionsBundleListing {
     title
     bundles {
       bundle {
-        data {
-          ...BundleCardEntity
-        }
+        ...BundleCardEntity
       }
     }
   }
@@ -261,9 +217,7 @@ fragment BundleListingSimple on ComponentSectionsBundleListingSimple {
   title
   description
   bundles {
-    data {
-      ...BundleCardEntity
-    }
+    ...BundleCardEntity
   }
 }
 
@@ -273,9 +227,7 @@ fragment ContactGroup on ComponentSectionsContactGroup {
   layout
   contacts {
     contact {
-      data {
-        ...ContactEntity
-      }
+      ...ContactEntity
     }
   }
 }
@@ -285,9 +237,7 @@ fragment AssetGroup on ComponentSectionsAssetGroup {
   title
   assets {
     asset {
-      data {
-        ...AssetCardEntity
-      }
+      ...AssetCardEntity
     }
   }
 }
@@ -296,9 +246,7 @@ fragment GallerySection on ComponentSectionsGallery {
   id
   title
   medias(pagination: { limit: -1 }) {
-    data {
-      ...UploadImageEntity
-    }
+    ...UploadImageEntity
   }
 }
 
@@ -324,9 +272,7 @@ fragment ManualListing on ComponentSectionsManualListing {
   }
   pages {
     page {
-      data {
-        ...PageCardEntity
-      }
+      ...PageCardEntity
     }
   }
 }
@@ -384,9 +330,7 @@ fragment HomepageReviewsSection on ComponentSectionsHomepageReviewsSection {
     ...CtaButton
   }
   reviews {
-    data {
-      ...ReviewEntity
-    }
+    ...ReviewEntity
   }
 }
 
@@ -395,9 +339,7 @@ fragment OpeningHoursSection on ComponentSectionsOpeningHoursSection {
   title
   offices {
     office {
-      data {
-        ...OfficeEntity
-      }
+      ...OfficeEntity
     }
   }
 }

@@ -31,28 +31,28 @@ export const useGetLinkProps = () => {
       return { label, href } // TODO
     }
 
-    if ('page' in link && link.page?.data?.attributes) {
-      href = getPathForStrapiEntity(link.page.data) ?? '#'
-      // label = link.label ?? link.page.data.attributes.title
-    } else if ('article' in link && link.article?.data?.attributes) {
-      href = getPathForStrapiEntity(link.article.data) ?? '#'
-      // label = link.label ?? link.article.data.attributes.title
-    } else if ('branch' in link && link.branch?.data?.attributes) {
-      href = getPathForStrapiEntity(link.branch.data) ?? '#'
-      // label = link.label ?? link.branch.data.attributes.title
-    } else if ('asset' in link && link.asset?.data?.attributes) {
-      href = getPathForStrapiEntity(link.asset.data) ?? '#'
-      // label = link.label ?? link.asset.data.attributes.title
-    } else if ('bundle' in link && link.bundle?.data?.attributes) {
-      href = getPathForStrapiEntity(link.bundle.data) ?? '#'
-      // label = link.label ?? link.bundle.data.attributes.title
-    } else if ('cemetery' in link && link.cemetery?.data?.attributes) {
-      href = getPathForStrapiEntity(link.cemetery.data) ?? '#'
-      // label = link.label ?? link.cemetery.data.attributes.title
-    } else if ('managedObject' in link && link.managedObject?.data?.attributes) {
-      // label = link.label ?? link.managedObject.data.attributes.title
-      href = getPathForStrapiEntity(link.managedObject.data) ?? '#'
-    } else if (link?.url) {
+    if ('page' in link && link.page) {
+      href = getPathForStrapiEntity(link.page) ?? '#'
+      // label = link.label ?? link.page.title
+    } else if ('article' in link && link.article) {
+      href = getPathForStrapiEntity(link.article) ?? '#'
+      // label = link.label ?? link.article.title
+    } else if ('branch' in link && link.branch) {
+      href = getPathForStrapiEntity(link.branch) ?? '#'
+      // label = link.label ?? link.branch.title
+    } else if ('asset' in link && link.asset) {
+      href = getPathForStrapiEntity(link.asset) ?? '#'
+      // label = link.label ?? link.asset.title
+    } else if ('bundle' in link && link.bundle) {
+      href = getPathForStrapiEntity(link.bundle) ?? '#'
+      // label = link.label ?? link.bundle.title
+    } else if ('cemetery' in link && link.cemetery) {
+      href = getPathForStrapiEntity(link.cemetery) ?? '#'
+      // label = link.label ?? link.cemetery.title
+    } else if ('managedObject' in link && link.managedObject) {
+      // label = link.label ?? link.managedObject.title
+      href = getPathForStrapiEntity(link.managedObject) ?? '#'
+    } else if (link.url) {
       label = link.label ?? link.url
       href = link.url
       target = href.startsWith('http') ? '_blank' : '_self'

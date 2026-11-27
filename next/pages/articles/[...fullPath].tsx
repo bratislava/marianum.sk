@@ -23,16 +23,16 @@ type ArticlePageProps = {
   NavigationPageProps
 
 const ArticlePage = ({ entity, general }: ArticlePageProps) => {
-  const medias = entity.attributes?.mediaGallery?.data.filter(isDefined)
-  const { seo, title, perex, coverMedia } = entity.attributes ?? {}
+  const medias = entity.mediaGallery.filter(isDefined)
+  const { seo, title, perex, coverMedia } = entity
 
   return (
     <>
-      <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
+      <Seo seo={seo} title={title} description={perex} image={coverMedia} entity={entity} />
 
       <ArticleLayout article={entity} general={general}>
-        <RichText content={entity.attributes?.content} />
-        {medias?.length ? (
+        <RichText content={entity.content} />
+        {medias.length ? (
           <div className="mt-4 md:mt-6">
             <ImageGallery images={medias} />
           </div>
@@ -48,11 +48,11 @@ interface StaticParams extends ParsedUrlQuery {
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   // TODO: Locales
-  const paths = await generateStaticPaths('sk', (locale) =>
-    client.ArticlesStaticPaths({ locale }).then((response) => response.articles?.data),
+  const paths = await generateStaticPaths('sk', async (locale) =>
+    client.ArticlesStaticPaths({ locale }).then((response) => response.articles),
   )
 
-  // eslint-disable-next-line no-console, @typescript-eslint/restrict-template-expressions
+  // eslint-disable-next-line no-console
   console.log(`Articles: Generated static paths for ${paths.length} slugs.`)
 
   return { paths, fallback: 'blocking' }
@@ -70,10 +70,10 @@ export const getStaticProps: GetStaticProps<ArticlePageProps, StaticParams> = as
     generateStaticProps({
       locale,
       params,
-      entityPromiseGetter: ({ locale: localeInner, slug }) =>
+      entityPromiseGetter: async ({ locale: localeInner, slug }) =>
         client
           .ArticleBySlug({ locale: localeInner, slug })
-          .then((response) => response.articles?.data[0]),
+          .then((response) => response.articles[0]),
     })
   )
 }

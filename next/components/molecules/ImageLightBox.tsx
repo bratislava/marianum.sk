@@ -7,14 +7,16 @@ import MImage from '@/components/atoms/MImage'
 import Modal, { ModalProps } from '@/components/atoms/Modal'
 import Slider from '@/components/molecules/Slider'
 import { UploadImageEntityFragment } from '@/graphql'
+import { isDefined } from '@/utils/isDefined'
 
 export type ImageLightBoxProps = {
-  images: UploadImageEntityFragment[]
+  images: (UploadImageEntityFragment | null)[]
   initialImageIndex: number
 } & Omit<ModalProps, 'children'>
 
 const ImageLightBox = (props: ImageLightBoxProps) => {
   const { images, initialImageIndex, ...rest } = props
+  const filteredImages = images.filter(isDefined)
 
   const { isOpen } = rest
 
@@ -33,30 +35,27 @@ const ImageLightBox = (props: ImageLightBoxProps) => {
       <Slider
         ref={sliderRef}
         description={t('ImageLightBox.aria.description')}
-        allowKeyboardNavigation={images.length > 1}
+        allowKeyboardNavigation={filteredImages.length > 1}
         initialPage={initialImageIndex}
-        pages={images
-          .filter((image) => image.attributes)
-          .map(({ id, attributes }) => (
-            <div
-              key={id}
-              className="container pointer-events-none flex size-full max-w-6xl flex-col items-center justify-center md:px-[88px]"
-            >
-              <MImage
-                draggable="false"
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion,@typescript-eslint/no-unnecessary-type-assertion
-                image={attributes!}
-                className="pointer-events-auto h-auto max-h-[86vh] w-full select-none object-contain"
-                sizes="100vw"
-              />
-              {attributes?.caption !== attributes?.name && (
-                <div className="mt-4 rounded-2xl bg-white px-2.5 py-0.5">{attributes?.caption}</div>
-              )}
-            </div>
-          ))}
+        pages={filteredImages.map((image) => (
+          <div
+            key={image.documentId}
+            className="pointer-events-none container flex size-full max-w-6xl flex-col items-center justify-center md:px-[88px]"
+          >
+            <MImage
+              draggable="false"
+              image={image}
+              className="pointer-events-auto h-auto max-h-[86vh] w-full object-contain select-none"
+              sizes="100vw"
+            />
+            {image.caption !== image.name && (
+              <div className="mt-4 rounded-2xl bg-white px-2.5 py-0.5">{image.caption}</div>
+            )}
+          </div>
+        ))}
         pagination={({ goToPrevious, goToNext }) => (
-          <div className="container pointer-events-none absolute bottom-0 z-20 flex w-full max-w-6xl justify-between p-6 md:bottom-auto">
-            {images.length > 1 && (
+          <div className="pointer-events-none absolute bottom-0 z-20 container flex w-full max-w-6xl justify-between p-6 md:bottom-auto">
+            {filteredImages.length > 1 && (
               <>
                 <IconButton variant="white" className="pointer-events-auto" onPress={goToPrevious}>
                   <ArrowLeftIcon />

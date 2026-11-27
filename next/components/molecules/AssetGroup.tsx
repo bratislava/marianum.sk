@@ -15,7 +15,7 @@ const AssetGroup = ({ assets, variant = 'gaps' }: AssetGroupProps) => {
   const { getPathForStrapiEntity } = useNavigation()
 
   const filteredAssets = useMemo(() => {
-    return (assets ?? []).map((asset) => asset?.asset?.data).filter(isDefined)
+    return (assets ?? []).map((asset) => asset?.asset).filter(isDefined)
   }, [assets])
 
   return (
@@ -25,18 +25,18 @@ const AssetGroup = ({ assets, variant = 'gaps' }: AssetGroupProps) => {
         'gap-4': variant === 'gaps',
       })}
     >
-      {filteredAssets?.map((doc, index) => {
-        const { title, slug, file } = doc.attributes ?? {}
+      {filteredAssets.map((doc, index) => {
+        const { title, slug, file } = doc
 
-        if (!file?.data) return null
+        if (!file) return null
 
         return (
           <AssetRow
             key={slug}
-            title={title ?? ''}
+            title={title}
             titleId={getAriaLabelId(id, index)}
             linkHref={getPathForStrapiEntity(doc) ?? undefined}
-            file={file?.data}
+            file={file}
             variant={variant}
           />
         )

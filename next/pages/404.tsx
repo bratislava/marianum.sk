@@ -44,7 +44,7 @@ export const getStaticProps: GetStaticProps = async (
   return {
     props: {
       navigationStaticProps,
-      general: general?.data ?? null,
+      general: general ?? null,
       ...translations,
     },
     revalidate: 10,

@@ -39,18 +39,18 @@ const BundlePage: NextPage<BundlePageProps> = ({ entity, general }: BundlePagePr
     description,
     assets,
     coverMedia,
-  } = entity.attributes ?? {}
+  } = entity
 
   const claims = [...(bundleItems ?? []), ...(additionalItems ?? [])].filter(isDefined)
 
   return (
     <>
-      <Seo seo={seo} title={title} description={perex} image={coverMedia?.data} entity={entity} />
+      <Seo seo={seo} title={title} description={perex} image={coverMedia} entity={entity} />
 
       <BundleLayout general={general} bundle={entity}>
         <div className="flex flex-col">
           {/* TODO display bundle data */}
-          {claims?.length ? (
+          {claims.length ? (
             <Section>
               <h2 className="pb-6 text-size-h3-r lg:text-size-h3">
                 {t('BundlePage.bundleContent')}
@@ -62,13 +62,13 @@ const BundlePage: NextPage<BundlePageProps> = ({ entity, general }: BundlePagePr
                     <span className="mt-1.5 text-primary">
                       <CheckNoPaddingIcon className="scale-125" />
                     </span>
-                    {item?.description}
+                    {item.description}
                   </li>
                 ))}
               </ul>
 
               {discountText && (
-                <div className="mt-8 w-fit rounded-2xl bg-primary/12 px-3 py-1.5 text-size-p-small leading-4 font-semibold text-primary">
+                <div className="mt-8 w-fit rounded-2xl bg-primary/12 px-3 py-1.5 text-p-small/4 font-semibold text-primary">
                   {discountText}
                 </div>
               )}
@@ -113,7 +113,7 @@ interface StaticParams extends ParsedUrlQuery {
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   const paths = await generateStaticPaths('sk', async (locale) =>
-    client.BundlesStaticPaths({ locale }).then((response) => response.bundles?.data),
+    client.BundlesStaticPaths({ locale }).then((response) => response.bundles),
   )
 
   // eslint-disable-next-line no-console
@@ -133,9 +133,7 @@ export const getStaticProps: GetStaticProps<BundlePageProps, StaticParams> = asy
     locale,
     params,
     entityPromiseGetter: async ({ locale: localeInner, slug }) =>
-      client
-        .BundleBySlug({ locale: localeInner, slug })
-        .then((response) => response.bundles?.data[0]),
+      client.BundleBySlug({ locale: localeInner, slug }).then((response) => response.bundles[0]),
   })
 }
 

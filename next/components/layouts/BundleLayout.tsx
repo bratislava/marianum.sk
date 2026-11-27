@@ -12,7 +12,7 @@ type BundleLayoutProps = {
 }
 
 const BundleLayout = ({ bundle, children, general }: BundleLayoutProps) => {
-  const { title, perex, price, slug } = bundle.attributes ?? {}
+  const { title, perex, price, slug } = bundle
 
   return (
     <PageWrapper
@@ -27,10 +27,10 @@ const BundleLayout = ({ bundle, children, general }: BundleLayoutProps) => {
       }
     >
       <div className="h-full pb-14">
-        <div className="container relative grid h-auto grid-cols-1 gap-6 pb-6 pt-10 md:pt-16 lg:grid-flow-col lg:grid-cols-[minmax(0,1fr)_auto] lg:pb-20">
+        <div className="relative container grid h-auto grid-cols-1 gap-6 pt-10 pb-6 md:pt-16 lg:grid-flow-col lg:grid-cols-[minmax(0,1fr)_auto] lg:pb-20">
           {children}
 
-          <SideBar sidebar={bundle.attributes?.sidebar} />
+          <SideBar sidebar={bundle.sidebar} />
         </div>
       </div>
     </PageWrapper>

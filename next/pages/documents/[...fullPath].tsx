@@ -20,7 +20,7 @@ type AssetPageProps = {
   NavigationPageProps
 
 const AssetPage = ({ entity, general }: AssetPageProps) => {
-  const { seo, title, description } = entity.attributes ?? {}
+  const { seo, title, description } = entity
 
   return (
     <>
@@ -38,7 +38,7 @@ interface StaticParams extends ParsedUrlQuery {
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   // TODO: Locales
   const paths = await generateStaticPaths('sk', async () =>
-    client.AssetsStaticPaths().then((response) => response.assets?.data),
+    client.AssetsStaticPaths().then((response) => response.assets),
   )
 
   // eslint-disable-next-line no-console
@@ -60,7 +60,7 @@ export const getStaticProps: GetStaticProps<AssetPageProps, StaticParams> = asyn
       locale,
       params,
       entityPromiseGetter: async ({ slug }) =>
-        client.AssetBySlug({ slug }).then((response) => response.assets?.data[0]),
+        client.AssetBySlug({ slug }).then((response) => response.assets[0]),
     })
   )
 }

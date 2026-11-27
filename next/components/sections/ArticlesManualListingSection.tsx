@@ -1,5 +1,3 @@
-import React from 'react'
-
 import Section, { SectionProps } from '@/components/molecules/Section'
 import ArticleGroup from '@/components/sections/ArticleGroup'
 import { ArticlesManualListingFragment } from '@/graphql'
@@ -10,9 +8,7 @@ type ArticlesManualListingSectionProps = Pick<SectionProps, 'background'> & {
 }
 
 const ArticlesManualListingSection = ({ section, ...rest }: ArticlesManualListingSectionProps) => {
-  const filteredArticles = section?.articles
-    ?.map((article) => article?.article?.data)
-    .filter(isDefined)
+  const filteredArticles = section?.articles?.map((article) => article?.article).filter(isDefined)
 
   return (
     <Section {...rest} title={section?.title} button={section?.showMoreButton}>
