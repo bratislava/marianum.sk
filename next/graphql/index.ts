@@ -4088,11 +4088,6 @@ export type MutationUpdateUsersPermissionsUserArgs = {
   id: Scalars['ID']['input'];
 };
 
-export type NavigationItemAdditionalFields = {
-  __typename?: 'NavigationItemAdditionalFields';
-  _unused?: Maybe<Scalars['Boolean']['output']>;
-};
-
 export type Office = {
   __typename?: 'Office';
   branch?: Maybe<Branch>;
